@@ -1,0 +1,100 @@
+# CHAT - owner ne bot ko kya kaha (30 din; secret/phone/email chhupe). AI: naye feature/training yahin se.
+Bot ke jawab aur commenter ka data yahan kabhi nahi (privacy policy).
+
+- 2026-10-31 23:13 | 🩺 Sab theek?
+- 2026-10-31 23:13 | Bot bhai
+- 2026-10-31 17:40 | 📊 Aaj ka haal
+- 2026-10-31 17:16 | 📖 Poora menu
+- 2026-10-31 16:32 | New reels banao ye already chale gyi hai pahle
+- 2026-10-31 15:15 | 📖 Poora menu
+- 2026-10-31 15:15 | ⏳ Pending
+- 2026-10-31 14:56 | Gemini
+- 2026-10-31 14:53 | Bot bhai thik ho kya chl rha hai
+- 2026-10-31 14:53 | 🩺 Sab theek?
+- 2026-10-31 14:42 | 🩺 Sab theek?
+- 2026-10-31 14:03 | 🩺 Sab theek?
+- 2026-10-31 14:03 | Bot bhai aaj video subah se kitni baje gyi uska time batao
+- 2026-10-31 12:53 | Bot bhai sab thik hai
+- 2026-10-31 12:42 | 📖 Poora menu
+- 2026-10-31 12:41 | 📖 Poora menu
+- 2026-10-31 12:33 | Bot bhai koi khabar hai
+- 2026-10-31 11:51 | Oracle per bill kitna aaya
+- 2026-10-31 11:47 | "nifty chart chal raha hai kya
+- 2026-10-31 11:47 | disk kitna bhara hai
+- 2026-10-31 11:47 | "VM ka status batao
+- 2026-10-31 10:59 | Dayari bhena apni kya kya dikha hai
+- 2026-10-31 10:55 | Aaj kitni video gyi hai
+- 2026-10-31 10:53 | Mera kaam
+- 2026-10-31 10:07 | Ye batao hamare video link se koi website per aaya ya nhi aaj
+- 2026-10-31 09:51 | 🩺 Sab theek?
+- 2026-10-31 09:50 | /traffic
+- 2026-10-31 09:47 | Batao bot bhai
+- 2026-10-31 09:44 | Reels video dekhkar link per kitne logo ne click Kara ye batao
+- 2026-10-31 09:43 | Bot bhai hamare video link se aaj website per kitne log aaye check karke batao
+- 2026-10-31 09:28 | 🩺 Sab theek?
+- 2026-10-31 09:27 | Kya task kar rhe ho esa batao
+- 2026-10-31 09:26 | Waiting per kya chal rha hai batao
+- 2026-10-31 09:26 | Sare channel status active hai ya kuch dikkat hai, aur ye batao dairy per note per kar rhe ho ya nhi
+- 2026-10-31 09:25 | Koi dikkat pressani to nhi hai sab thik chal rha hai pakka
+- 2026-10-31 09:25 | Bot bhai aaj kitni video gyi hai abhi tak batao
+- 2026-10-31 08:35 | 🩺 Sab theek?
+- 2026-10-31 07:06 | 📖 Poora menu
+- 2026-10-31 07:04 | Pahadi hisab se k liye dusra topic lo usper banao
+- 2026-10-31 07:03 | 🩺 Sab theek?
+- 2026-10-31 05:54 | 🎬 Abhi video
+- 2026-10-31 05:53 | Kisi ne video link per click nhi kiya kya koi nhi aaya website per
+- 2026-10-31 05:52 | Aap check karke batao hamara view kitne aaye the
+- 2026-10-31 05:52 | Aaj hamare video k link se kitne log website per aaye
+- 2026-10-31 05:44 | Aaj kon kon se video jayegi
+- 2026-10-31 05:44 | Aaj ka shedule kya hai bot bhai
+- 2026-10-31 05:41 | 🩺 Sab theek?
+- 2026-10-31 05:24 | 🩺 Sab theek?
+- 2026-10-31 05:15 | 🩺 Sab theek?
+- 2026-10-31 04:58 | 🩺 Sab theek?
+- 2026-10-31 04:55 | 📖 Poora menu
+- 2026-10-31 04:37 | 🩺 Sab theek?
+- 2026-10-31 04:34 | /health
+- 2026-10-31 04:34 | /gemini
+- 2026-10-30 22:06 | 🩺 Sab theek?
+- 2026-10-30 22:02 | 🩺 Sab theek?
+- 2026-10-30 21:50 | 🩺 Sab theek?
+- 2026-10-30 21:49 | Claudflare se baat ho rhi hai telegram per
+- 2026-10-30 21:49 | Cron band huwa kya
+- 2026-10-30 21:48 | 🩺 Sab theek?
+- 2026-10-30 21:42 | Link do kaise karo
+- 2026-10-30 21:33 | 🩺 Sab theek?
+- 2026-10-30 21:30 | 🩺 Sab theek?
+- 2026-10-30 21:27 | /analytics
+- 2026-10-30 21:17 | 🩺 Sab theek?
+- 2026-10-30 20:49 | 🩺 Sab theek?
+- 2026-10-30 20:48 | sabhisaab-bot
+ID:
+61595973208265
+- 2026-10-30 20:45 | 🩺 Sab theek?
+- 2026-10-30 20:44 | meta  ki
+- 2026-10-30 20:44 | 1818304339486733
+- 2026-10-30 20:27 | threads token
+- 2026-10-30 20:22 | 🩺 Sab theek?
+- 2026-10-30 20:20 | pinterest secret ***
+- 2026-10-30 20:20 | pinterest secret naya ***
+- 2026-10-30 20:16 | Account ID
+- 2026-10-30 20:16 | aee95281281330ebd7a89ad6304ca4d
+- 2026-10-30 20:08 | ab kya login nhi huwa detail batao
+- 2026-10-30 20:04 | gsc bot key
+- 2026-10-30 20:00 | /meta
+- 2026-10-30 19:58 | 🩺 Sab theek?
+- 2026-10-30 19:58 | Ab kya rah gya hai bot bhai sab thik ho gya hai ab kya
+- 2026-10-30 19:55 | 🩺 Sab theek?
+- 2026-10-30 19:38 | /meta
+- 2026-10-30 19:38 | 🩺 Sab theek?
+- 2026-10-30 19:30 | /login
+- 2026-10-30 19:27 | /login
+- 2026-10-30 19:27 | /login
+- 2026-10-30 19:26 | 🩺 Sab theek?
+- 2026-10-30 19:23 | /analytics
+- 2026-10-30 19:22 | /analytics
+- 2026-10-30 19:13 | /login
+- 2026-10-30 19:11 | /login
+- 2026-10-30 19:11 | 📖 Poora menu
+- 2026-10-30 19:10 | ⏳ Pending
+- 2026-10-30 19:10 | 🩺 Sab theek?
