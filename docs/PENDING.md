@@ -1,0 +1,180 @@
+# PENDING - saare khule kaam (bot roz khud likhta hai)
+Updated: 2026-11-07 18:25 IST
+
+Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata deta hai. Baaki owner
+'ho gaya <shabd>' likhta hai. Naya kaam: 'list mein daalo <kaam>'. AI/developer: pehle docs/AI_START.md.
+
+## Abhi khule (owner ke haath ke) - 54
+- Har brand ki 1 'hub' lambi video (clickable website links wali)
+  - Kaise: Lambi video banne ke baad bot ko: 'hub video <brand> <youtube link>' (Shorts ka Related video isi par)
+- 📌 Website W6 ZIP (W6-video-link-29oct.zip) bot ko → '🌐 Haan' (har page par usi vishay ki YouTube video ka link) (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya w6'
+- 📌 Instagram @labhlodeals: 'You can't use direct messaging for 30 days' par tap → Request review / Disagree (wahi English text). DM bot ki taraf se bhi band (28 Nov tak) (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya labhlodeals review'
+- 📌 Facebook (charon page): Professional dashboard → Monetization → 'Stars' → Set up (payout + PAN/tax details). Content monetization 'invite only' hai - wahan sirf 'Notify me' dabayein (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya fb stars'
+- 📌 Facebook Labh Lo Deals: Monetization → 'Affiliate partnerships' → Set up (sirf deals page; har affiliate post par #ad) (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya fb affiliate'
+- 📌 Google Search Console → Indexing → Pages → neeche 'Why pages aren't indexed' (6 wajah, 192 page) ka screenshot Claude ko. Ghabrana nahi: inmein zyada purane .html/redirect/utm wale URL hote hain. Kuch delete/remove mat karna (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya gsc wajah'
+- 📌 Website W4 ZIP (W4-site-fix-29oct.zip) bot ko → '🌐 Haan' (report 8 baje, Users sahi, Home screen button, nav jaanch) (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya w4'
+- 📌 Instagram @sunonatak: 27 Nov tak koi DM nahi (bot ka DM bhi band). 'Established presence' (monetization) wala review abhi MAT dabana - 90 din mein ek hi baar milta hai (2026-10-30) 🤖 bot khud jaanchta hai
+  - Kaise: 27 Nov ke baad apne aap list se hatega: 'ho gaya dm rok'
+- 📌 4 Facebook page: Professional dashboard → Page status / Monetization dekho - koi narangi/laal nishaan ho to screenshot (Instagram ki rok sirf Instagram par hai, FB ka alag hota hai) (2026-10-30)
+  - Kaise: ho jaye to likhein: 'ho gaya fb status'
+- 📌 Bing: support ka jawab aaye to text bot ko ya Claude ko bhejein (bulk submit kabhi nahi; bot sirf badle URL bhejta hai) (2026-10-30)
+  - Kaise: ho jaye to: 'ho gaya bing support'
+- 📌 Meta app Data Deletion URL: developers.facebook.com → Sabhisaab Publisher → App settings → Basic → Data deletion instructions URL = https://sabhisaab.com/privacy#data-deletion → Save (2026-10-30)
+  - Kaise: ho jaye to: 'ho gaya data deletion'
+- 📌 YouTube channel links (4 channel): Studio → Customization → Basic info → Links → https://sabhisaab.com/ + WhatsApp channel (Shorts description mein link clickable nahi, channel link hota hai) (2026-10-30)
+  - Kaise: ho jaye to: 'ho gaya yt links'
+- 📌 Instagram/Facebook/Threads bio mein WhatsApp channel link bhi (link-in-bio: https://sabhisaab.com/links) (2026-10-30)
+  - Kaise: ho jaye to: 'ho gaya bio'
+- 📌 Telegram + WhatsApp channel par welcome post (sab channel ke link) Pin karein (2026-10-30)
+  - Kaise: ho jaye to: 'ho gaya welcome pin'
+- 📌 Instagram @sunonatak warning: Account Status → Request review (2026-10-30)
+  - Kaise: Ye WARNING wala review hai (monetization 'Established presence' wala nahi). Ho jaye to: 'ho gaya sunonatak warning'
+- 📌 Labh Lo Deals FB: Content Monetization 'Policy issues' ka kaaran padh kar bot ko bhejein (2026-10-30)
+  - Kaise: ho jaye to: 'ho gaya deals policy'
+- 📌 Chowkidar mein '/get master_guard.py', '/get vm_health.py', '/get ntfy_monitor.py', '/get maintenance.sh' → aayi 4 file Claude ko (purane script - dohri restart/alert ka shak) (2026-11-03)
+  - Kaise: ho jaye to: 'ho gaya purane script'
+- 📌 (Marzi) Google Cloud mein 'Google Analytics Data API' chalu karein - website par log kitni der ruke (GA4 dwell) ke liye (2026-11-03)
+  - Kaise: console.cloud.google.com → APIs → 'Google Analytics Data API' → Enable. Ho jaye to: 'ho gaya ga4'
+- 📌 (Marzi) WhatsApp channel: Meta ne iska API nahi diya - bot roz 1 taiyaar post (photo + sawal + link) bhejta hai, bas forward karein (2026-11-04)
+  - Kaise: Jab WhatsApp channel ka API aayega, bot khud post shuru karega. Ho jaye to: 'ho gaya whatsapp'
+- 📌 (Marzi) Facebook GROUP post: Meta ne 2024 se group API band kar di - group mein reel khud share karein (Business Dashboard ka 'group post' kaam) (2026-11-04)
+  - Kaise: Page ke photo-post, reel, story bot khud karta hai. Ho jaye to: 'ho gaya fb group'
+- 📌 (Marzi) Second admin: abhi koi nahi - kabhi chahiye ho to us vyakti ka Telegram ID bot ko dein (sirf dekhne/manzoori ke haq) (2026-11-04)
+  - Kaise: Owner ne 4 Nov ko kaha: abhi nahi. Ho jaye to: 'ho gaya admin'
+- 📌 Facebook comment padhne ki ijaazat: Meta app mein 'pages_read_user_content' + 'pages_manage_engagement' jodein, phir page token dobara (2026-11-05)
+  - Kaise: developers.facebook.com → aapki app → Use cases / Permissions → dono jodein → Graph API Explorer se naya page token (chaaron page chunkar) → bot ko waise hi bhejein jaise pehle bheja tha. Ho jaye to: 'ho gaya fb comment'
+- 📌 Google Search Console: 4 'URL is unknown to Google' page ke liye 'Request indexing' (ye sirf aap kar sakte hain) (2026-11-05)
+  - Kaise: search.google.com/search-console → upar 'Inspect any URL' mein page daalein → 'Request indexing'. Page: delivery-date-calculator, fire-number-calculator, random-number-generator, notice-period-buyout-calculator. Roz 10 tak. Ho jaye to: 'ho gaya gsc request'
+- 📌 Bot mein 'canary' likhein - website ka haal (/, /jawab, privacy, soft-404, sitemap). Koi ❌ ho to screenshot Claude ko (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya canary'
+- 📌 Bot mein 'adsense haal' likhein - AdSense taiyari ki live jaanch. Jawab ka screenshot Claude ko (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya adsense haal'
+- 📌 Privacy page: Instagram 'LINK likhne par private reply' wali line asli niyam se milwayein (bot 'comment LINK / DM' kabhi nahi karta). Developer ko batayein - site repo ka privacy.html (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya privacy ig'
+- 📌 [Bot agli] Platform policy-change watcher: YouTube/Meta/AdSense/Pinterest policy page ka hash roz; badle to Telegram par 'kya badla + kya karna' (diff chhota) (2026-11-05)
+  - Kaise: Claude ko bolein: 'policy watcher banao'
+- 📌 [Bot agli] Quality governor: reel/post ka hook, caption, thumbnail rang platform ke hisaab se alag; ek hi video 5 platform par bina badlav nahi (script-similarity jaanch) (2026-11-05)
+  - Kaise: Claude ko bolein: 'governor banao'
+- 📌 [Bot agli] Telegram opt-in bot ('roz ka sawal', score/reminder, 'data hatao'; phone number nahi) - privacy page ka text pehle (2026-11-05)
+  - Kaise: Claude ko bolein: 'telegram optin banao'
+- 📌 [Bot agli] Weekly quiz generator (apne qbank se naye sawal, dohraav nahi) + hub video script/chapters/description links (owner approve) (2026-11-05)
+  - Kaise: Claude ko bolein: 'hub video aur quiz banao'
+- 📌 [Bot agli] Schema injector (BreadcrumbList/Article/WebApplication; QAPage kabhi nahi), share-card + embed generator, Hindi/English page draft (owner review ke bina publish nahi) (2026-11-05)
+  - Kaise: Claude ko bolein: 'schema aur share card banao' (site repo ZIP mein chahiye)
+- 📌 [Bot agli] PageSpeed/Core Web Vitals watcher (PageSpeed API key chahiye) + GA4 hafta-wari earnings/traffic report (2026-11-05)
+  - Kaise: pehle PageSpeed API key (Google Cloud) banayein, phir Claude ko bolein
+- 📌 [Bot agli] YPP watch-hours/Shorts-views ka asli ginti: YouTube Analytics ki ijaazat (OAuth scope) chahiye - abhi TV-login se nahi milta (2026-11-05)
+  - Kaise: owner: YouTube login dobara 'analytics' ijaazat ke saath; phir Claude ko bolein
+- 📌 [Owner] Bot ne 'chalu karein?' prastav bheja ho (Telegram digest) to ✅✅ dabayein; 'features' likhkar dekhein kya chalu/band hai (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya features'
+- 📌 [Owner] GitHub se kabhi bhi update: GitHub par naya ZIP (code) rakhein -> Telegram par wahi ZIP bot ko bhejein -> ✅ install. Naya feature chalu karne ke command: docs/FEATURES.md (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya github update'
+- 📌 [P0 Developer W1] SIP page 'Aage ye padhein': link ka naam aur link alag (Gold vs SIP -> sovereign-gold-bond, Expense Ratio -> real-return, Exit Load -> swp). Template bug poori site par: slug se naam banao. Bot 'site scan' list dega (docs/SITESCAN.md) (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya w1 links'
+- 📌 [P0 Developer W2] Privacy sec. 8: Instagram 'LINK likhne par private reply' wali line hatao/narm karo (bot DM/'comment LINK' nahi karta; @sunonatak/@labhlodeals DM 27/28 Nov tak band). 'Aakhri update' tareekh badlo. Text docs/PRIVACY_PATCH.md mein (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya w2 privacy'
+- 📌 [Owner T4] Har hafte 1 lambi hub video (8-12 min, 'is hafte ke 10 sawal'): description mein links + chapters; Shorts mein 'Related video' se jodo. YouTube Channel Links mein site + Telegram (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya t4 hub'
+- 📌 [Owner T7/B21] Roz 21:00 par bot Story link-sticker yaad dilata hai - Instagram Story mein sticker aap lagayein (API nahi deta) (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya t7 story'
+- 📌 [Owner] Bot mein 'jawab digest chalu' (dohri pushti) - roz 20:30 par ek digest; 'site scan' (Ravivaar apne aap); 'ypp haal' (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya digest'
+- 📌 [Owner YPP] 31 Jan 2027 tak purani seema (1,000 subs + 4,000 hours / 10M Shorts) mein jo channel pahunche wo apply kare; 1 Feb se 8,000 hours / 20M. YouTube Studio -> Earn dekhein. Sabse paas wale 1-2 channel par dhyan (bot 'ypp haal') (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya ypp plan'
+- 📌 [Owner] Google Search Console + GA4: UTM (utm_content=c<code>) se 'kaunsi video se traffic' hafte mein dekhein; GSC query -> page sudhaar (bot Ravivaar idea deta hai) (2026-11-05)
+  - Kaise: ho jaye to likhein: 'ho gaya ga4 utm'
+- 📌 [Bot agli release] Policy-change watcher (YouTube/Meta/AdSense/Pinterest policy hash), quality governor (templated content), weekly quiz, schema/share-card generator, Hindi/English draft - pehle owner ki pushti (2026-11-05)
+  - Kaise: ye Claude/developer ka kaam hai; ho jaye to likhein: 'ho gaya bot agli'
+- 📌 [P0 Owner] YouTube par bot ke comment/jawab ke liye: bot mein 'yt comment login' likhein -> har channel ka link -> us channel ka account -> Allow -> address bot ko. (Pehle Google Cloud -> OAuth consent screen -> 'In production'; '/analytics' wala Desktop client wahi chalta hai). Upload wala login nahi badlega (2026-11-06)
+  - Kaise: ho jaye to likhein: 'ho gaya yt comment login'
+- 📌 [P0 Owner] Bot mein 'privacy ig theek' likhein -> purani/nayi line dekhkar ✅✅ (bot privacy.html mein SIRF Instagram 'LINK' wali line + ek chhota UTM vaada badlega; audit paas hone par). Phir 'Aakhri update' tareekh developer se (2026-11-06)
+  - Kaise: ho jaye to likhein: 'ho gaya privacy assist'
+- 📌 [Owner] Bot ne Telegram quiz poll ka prastav bheja ho (roz max 2) to ✅✅; 'jawab poll chalu/band' bhi chalta hai (2026-11-06)
+  - Kaise: ho jaye to likhein: 'ho gaya poll'
+- 📌 [Owner] Har brand ka '/analytics' login (agar nahi kiya): 'ypp haal' mein asli watch hours/Shorts views tabhi aate hain (2026-11-06)
+  - Kaise: ho jaye to likhein: 'ho gaya analytics login'
+- 📌 [P0 Bot agli - video] V1 option ek-ek karke+pop, V2 neon timer bar+tick, V3 50-50 (sahi option kabhi nahi katta - unit test), V6 micro-motion, V7 honest level tag, V8 blur-reveal CTA, V10 ant ka CTA. Render VM par test chahiye + A7 flash-safety scan (1 sec mein 3 se zyada flash nahi) (2026-11-06)
+  - Kaise: Claude ko bolein: 'video V1-V10 banao' (VM par render time naap kar)
+- 📌 [P1 Bot agli] A1 asli % engine (Cloudflare Worker anonymous counter, 30+ vote ke baad hi %), A2 difficulty label, V4 karaoke subtitles, V5 moving background, V9 hook variety + Expert Fact, A9 anti-templated guard (2026-11-06)
+  - Kaise: Claude ko bolein: 'asli percent engine banao'
+- 📌 [P1 Bot agli] Web Stories + Pinterest pins har sawal ke slides se (A8 quality score; pehle hafte owner approve), A10 exam/tyohaar calendar queue, A12 weekly Telegram report (2026-11-06)
+  - Kaise: Claude ko bolein: 'web stories aur weekly report banao'
+- 📌 [Owner] YouTube pinned comment: (agar chahein) apne video ka pehla comment khud ek click se pin karein - API se pin nahi hota. Text: 'Aap kya chunenge? Sahi jawab code #N par.' (2026-11-06)
+  - Kaise: ho jaye to likhein: 'ho gaya pin'
+- 📌 [Bot agli] Purani 3-ank code wali reels (v2.5.0 se pehle) ke jawab website par: bot ke reel_codes se import. DHYAN: purane code takraav (B-04) se kuch code galat sawal par ho sakte hain - pehle owner ek-do namoone dekhe, galat wale na jayein (2026-11-06)
+  - Kaise: Claude ko bolein: 'purane jawab import karo' (pehle pakka karenge)
+- 📌 [Bot agli] /jawab ke channel-wise aur mahine-wise alag page (zyada page = zyada der). DHYAN: wahi jawab do page par duplicate na ho (AdSense 'low value' / SEO takraav) - har page par alag samagri (jawab + wajah + related tool) ho tabhi (2026-11-06)
+  - Kaise: Claude ko bolein: 'jawab channel pages banao' (site repo ZIP chahiye)
+- 📌 [Owner] Purani reels: bot 'jawab haal' / 'code <ank>' se jaanch (last 800 code); naye (v2.5.6 ke baad) jawab website par 1,200 tak anchor ke saath rehte hain (2026-11-06)
+  - Kaise: ho jaye to likhein: 'ho gaya purani reel jaanch'
+
+## Aage ki tareekh wale (us din apne aap list mein aayenge)
+- 2027-01-22: AdSense agar 'site 6 mahine purani nahi' bol kar mana kare to dobara apply (site 21 Jul 2026 se)
+- 2027-01-27: Instagram @sunonatak: monetization 'Established presence' ka Request review ab bhej sakte hain (agar followers badhe hon aur koi nayi rok na ho)
+- 2026-11-16: AdSense apply: adsense.google.com → site sabhisaab.com → Privacy & messaging mein Google-certified CMP chalu (Europe/UK) → approval ke baad ads.txt bot ko
+- 2026-11-26: Pinterest: 29 Oct ko Standard form bhara tha - ab tak jawab nahi aaya to community.pinterest.biz par post (English text Claude chat mein, 29 Oct)
+- 2026-11-19: Bing jaanch (19 Nov): bing.com par 'site:sabhisaab.com' search karein. 10 se kam page dikhein to Bing Webmaster → Support → purane ticket par reply (Claude se English text lein)
+- 2026-11-12: AdSense: 20-30 sabse accha page chun kar padhein (har tool page par misaal + FAQ + 'aakhri jaanch' tareekh). 10 kamzor tool page par text badhwayein ya noindex karwayein (apply se pehle)
+- 2026-11-16: AdSense → Privacy & messaging → Certified CMP chalu karein (EU/UK visitors). Phir adsense.google.com par sabhisaab.com apply
+- 2026-11-17: AdSense approve hone par: bot ko 'adsense id pub-XXXXXXXXXXXXXXXX' (ads.txt) → ✅✅. Phir privacy page ka 'abhi koi vigyapan nahi' hatwayein (Claude/developer ko batayein)
+- 2026-11-10: [P0 Developer W5] Patle tool page (<300 shabd): 'site scan' ki list se 30 sabse accha pakke karo (formula + 3 misaal + FAQ + 'Reviewed on'); baaki par content ya noindex
+- 2026-11-10: [P0 Developer W4] Homepage + har tool/guide ke neeche 'Aaj ke sawal' (/jawab) block + 'Hamare channel' strip (Telegram/WhatsApp pehle). Bot sirf /jawab, links, about, articles mein line jodta hai
+- 2026-11-12: [P0 Developer D5] Certified CMP + ad-slot code (flag ke peeche, default OFF): 3 slot, min-height, 'Advertisement' label, button se 200px door, ek screen par 2 se zyada nahi, zaroori pages par nahi, Auto Ads nahi. Bot 'canary' check karega
+- 2026-11-10: [P0 Developer D6] Verify aur screenshot/HTTP status bhejein: robots.txt, sitemap.xml (/jawab shamil), ads.txt jagah, /jawab live, galat URL par 404 status
+- 2026-11-20: [P1 Developer W6] Google Fonts self-host (Baloo2 file bot assets mein hai); homepage ki line 'Calculation aapke browser mein hoti hai' (GA4 + Fonts ka mismatch hatao)
+- 2027-01-25: [P1 Developer W8/B8] Har finance page par 'Reviewed on' + official source. Budget 1 Feb 2027 ke 7 din ke andar income tax/TDS/NPS/PPF pages; 1 Apr FY badlav
+- 2026-11-25: [P1 Developer W7/D8] Top 5 tools ka reviewed English + Devanagari (hreflang), phir GSC dekh kar badhao. Machine-translate nahi
+- 2026-11-25: [P1 Developer W10/D9] Schema: BreadcrumbList, Article, WebApplication, Organization/Person. QAPage kabhi nahi; Rich Results Test ka jawab
+- 2026-11-30: [P1 Developer W11/D10] /editorial-policy (data kahan se, kab update, galti kaise batayein; asli qualification) + result share-card + embed widget
+- 2026-11-25: [P1 Developer D15/T2] /jawab par code search + auto-suggest + thumbnail grid + smart 404 (galat code par 'aaj ke top 5 jawab'). JSON index; koi data server par nahi
+- 2026-12-05: [P1 Developer D14/T12-T15] Honest 'Tap to guess' (vote % sirf asli count se), accordion, 'Suno' audio, Surprise-me, related slider (4), category tags. Nakli % kabhi nahi
+- 2026-12-05: [P1 Developer D11/B9] Telegram opt-in bot ('roz ka sawal', score/reminder, 'data hatao'; phone number nahi; 30 din). Digest ke baad ka agla kadam
+- 2026-12-15: [P1 Developer D12/T18-T19] Web push (OneSignal, sirf opt-in, roz 1 se zyada nahi) + weekly digest + privacy page mein likhna
+- 2026-11-25: [P1 Developer D13/W12] /services page: 3-4 asli namoone, WhatsApp button, form (budget + kaam ka type); test submit email par aaye
+- 2027-01-15: [P2] Backup ad network (traffic kuch hazaar daily hone par), calculator embed outreach, Tier-1 English channel, B18 invalid-click shield (AdSense chalne ke baad), PageSpeed API key (B7), hafte mein 2-3 naye lekh (10/din ke andar)
+- 2026-11-25: [P0 Developer B1/P0-1] /jawab ka naya UI: har sawal ka ek dabba (code+channel+tarikh beech mein), tap-to-guess + 'Seedha jawab dekhein' (jawab kabhi lock nahi), aaj ka score/streak (browser mein), code/shabd khoj, channel chips, WhatsApp challenge, Telegram patti 60% scroll par, GA4 events (pick/peek/search/share/engaged 30-90-180s). Bot ne har jawab ka anchor (#cCODE) aur 1,200 tak archive rakha hai
+- 2026-11-25: [P0 Developer P0-2] Privacy page: 'Jawab page par score/streak sirf aapke browser mein' + (A1 chalu hone par) anonymous vote counter ka zikr + Telegram opt-in/poll ka zikr
+- 2026-12-15: [P2 Bot agli] A3 retention learner (YouTube Analytics se hook A/B), A5 purani reel revival, A6 comment->FAQ/idea (naam kabhi nahi, 30 din)
+- 2026-11-28: [P2 Bot agli] A11 Instagram private reply (ek comment par ek DM, 7 din ke andar, app review ke baad) - SIRF 28 Nov 2026 ke baad, pehle hafte owner approve; DM-band account par nahi
+- 2026-12-10: [Developer B3] Jawab ke neeche mini-tool embed (Discount/EMI/Percentage), finance/kanoon jawab par 'Source' link (RBI/SEBI/India Code) + 'Reviewed on', topic hub pages (50 sawal), weekly mock test
+- 2026-11-25: [Developer D15] /jawab par code search box (7-8 ank tak sahi code mil jaye; galat code par 'aaj ke top 5 jawab') - bot ne har purane jawab ka anchor (#cCODE) rakh diya hai, sirf search chahiye
+
+## Bot/AI ke kaam (jo bot khud theek nahi kar paya - docs/ESCALATE.md)
+- (koi nahi)
+
+## Ho chuke (aakhri 30)
+- 2026-11-05 (bot-safai): Sample Studio se chaaron channel ka look pakka karein: Menu → 🧪 Sample studio → channel → video+thumbnail dekhein → pasand na aaye to '➡️ Ag
+- 2026-11-03 (bot-safai): Cloudflare token mein 'Workers AI: Read' jodein (Gemini band ho to bot ka doosra dimaag)
+- 2026-11-03 (bot-safai): Bot mein 'vm audit' likhein → aayi file Claude ko bhejein (poore VM ka postmortem, sirf padhta hai)
+- 2026-11-03 (bot-safai): AdSense apply (mid-Nov 2026 ke baad)
+- 2026-11-03 (bot-safai): Facebook/Threads bio mein WhatsApp channel link (Instagram bio mein sirf https://sabhisaab.com - naye finance account par extra link Meta sh
+- 2026-11-03 (bot-safai): WhatsApp channel 'Sab Hisaab' par welcome post Pin karein
+- 2026-11-03 (bot): Cloudflare token mein 3 permission jodein (trading dashboard ka HTTPS raasta, phir Chowkidar khud seedha port band karega): Account | Cloudf
+- 2026-11-03 (owner): (Marzi) Chowkidar mein '/kachra' → KACHRA-2nov (~38 GB, purana VM backup) chahiye na ho to '1) mitao'. Baaki safai v5.2 khud kar chuka. .cac
+- 2026-11-03 (bot): Chowkidar v5.2 ZIP (chowkidar_v5_2_safe.zip) @manoj_vm_chowkidar_bot ko bhejein → '👮 Chowkidar Upgrade' → 1️⃣ → 2️⃣ (15:35 ke baad). Ye ZIP 
+- 2026-11-03 (bot): Chowkidar: 'chowkidar fix' EK BAAR AUR (2 Nov wale badlaav ne sabhinet ko hi list se hata diya tha - ab sahi sudhaar) → ✅ → ✅✅ (15:35 ke baa
+- 2026-11-03 (bot): Chowkidar status mein ytlistener ki jagah sabhinet: bot ko likhein 'chowkidar fix' → ✅ Haan → ✅✅ Haan pakka (bazaar band ke samay, 15:35 ke 
+- 2026-11-02 (owner): Chowkidar mein ytlistener ki jagah sabhinet status (TradingBot repo - developer)
+- 2026-11-02 (owner): Bing Webmaster (bing.com/webmasters → sabhisaab.com): 1) Sitemaps → https://sabhisaab.com/sitemap.xml dikh raha ho to bas 'Resubmit' EK baar
+- 2026-11-02 (owner): GSC → Indexing → Pages → 'Redirect error' (26) par tap → neeche Examples ki list ka screenshot Claude ko (baaki wajah theek hain: redirect/c
+- 2026-11-02 (owner): Instagram @sunonatak: Account Status → 'You can't send messages' → Request review (rok 28 Oct se 27 Nov 2026; review 29 din ke andar; Englis
+- 2026-11-02 (owner): Chowkidar (@manoj_vm_chowkidar_bot) ko ye message bhejein: 'status list mein ytlistener hata do, uski jagah sabhinet service dikhao (systemc
+- 2026-11-02 (owner): GSC Request Indexing (roz 1-2, isi kram mein): buy-vs-rent-guide (W3 deploy ke baad), random-number-generator, number-system-converter, stop
+- 2026-11-02 (owner): Pinterest App secret badlein (29 Oct ko Telegram chat aur screenshot mein khula reh gaya tha)
+- 2026-11-02 (bot): PageSpeed key (website ki speed report ke liye): console.cloud.google.com/apis/library/pagespeedonline.googleapis.com?project=yt-auto-512210
+- 2026-11-02 (owner): Instagram @labhlodeals: Account Status → 'Features you can't use' kholo → screenshot Claude/bot ko bhejo (wahan narangi nishaan hai)
+- 2026-11-02 (owner): GSC 'Redirect error' (26 purane .html link): bot ko likhein 'redirect jaanch'. Jawab 'sab sahi' aaye to GSC → Indexing → Pages → Redirect er
+- 2026-11-02 (bot): Threads token naya (restore ke baad purane token 30 Oct ko khatam): Sab Hisaab Money, Labh Lo Deals, Pahadi Hisaab
+- 2026-11-02 (bot): Pinterest login dobara (App ID ab sahi 1630338): bot mein /pinterest → link Chrome mein → Allow → address bot ko
+- 2026-11-02 (bot): Cloudflare Account ID sahi bhejein (30 Oct ko 31 akshar gaya - pehla '1' chhoot gaya): 'cf account <32 akshar>'
+- 2026-10-30 (bot): 🔴 Meta App Secret dobara (Instagram + story isi se ruke hain): developers.facebook.com → My Apps → Sabhisaab Publisher → App settings → Basi
+- 2026-10-30 (bot): Telegram channel @sabhisaab par welcome post Pin karein (sab channel ke link)
+- 2026-10-30 (owner): Bing support: sabhisaab.com ka mudda hal (29 Oct 2026). 2-3 hafte mein wapas dikhega; sirf badle URL IndexNow se
+- 2026-10-30 (owner): 4 Facebook page monetization dekha: Content monetization invite-only, Stars + Affiliate 'Available'
+- 2026-10-30 (owner): Instagram @labhlodeals 'Features you can't use' dekha: DM 30 din band (screenshot mila)

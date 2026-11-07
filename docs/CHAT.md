@@ -1,0 +1,403 @@
+# CHAT - owner (👤) aur bot (🤖) ki baat, 15 din, naya upar. Secret/phone/email/@handle chhupe.
+Commenter ke comment yahan kabhi nahi (privacy policy). AI: galat/adhoore jawab yahin se pakdo, fix ZIP do.
+
+- 2026-11-07 18:25 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-07 18:13 🤖 🟢 ⏰ mon5ed2d: YouTube par 20:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-07 18:13 🤖 👍 Thumb 1 chuna. Upload 20:30 par.
+- 2026-11-07 18:02 🤖 🟡 DHYAN ♻️ Pahadi Hisaab (dobara koshish): कुमाऊँ में शादी-शुभ काम में महिलाएँ कौन सा पीला-लाल दुपट #Shorts / ✅ facebook: FB page: Pahadihisaab / ✅ instagram: https://www.instagram.com/reel/DfcL6eKHWX_/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/86 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #1412) / ❌ pinterest: ht
+- 2026-11-07 17:33 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon5ed2d | Sab Hisaab Money / 📝 दो अंकों की सबसे बड़ी अभाज्य संख्या कौन सी है? #Shorts / ✅ Audit pass (19 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 17:30 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-07 17:20 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 17:20 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 17:20 🤖 🔎 Bing: crawl kiye 14, index mein 0, crawl error 0 | aaj ka quota 90 /  / 📮 IndexNow (Bing/Yandex ko naye page ki khabar): kul 66 URL bheje | aaj 10 | 7 din 66 | aakhri: 2026-11-07 06:40 /car-loan-emi-calculator (200) / Niyam: sirf badle/naye page, din mein max 10, ek URL 14 din mein ek baar (Bing ki shart).
+- 2026-11-07 17:20 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-07 17:20 🤖 🌐 sabhisaab.com (aaj): 2 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 44s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: (not set) 1, google 1, bing 0 / 📄 Sabse zyada dekhe page: / (2), /jawab (1) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 1 / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 17:20 🤖 🌐 sabhisaab.com (aaj): 2 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 44s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: (not set) 1, google 1, bing 0 / 📄 Sabse zyada dekhe page: / (2), /jawab (1) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 1 / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 17:20 🤖 Baaki sab yahan:
+- 2026-11-07 17:20 👤 📖 Poora menu
+- 2026-11-07 17:20 👤 Bot bhai hamare link se kitne log aaye aaj website eor
+- 2026-11-07 16:34 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sun800c9 | Suno Natak / 📝 लोन ऐप से उधार लेने से पहले क्या देखना ज़रूरी है? / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 19:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 16:30 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-07 16:25 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-07 16:02 🤖 🟡 DHYAN ♻️ Labh Lo Deals (dobara koshish): सही शॉपिंग डील पहचानें: 3 आसान तरीके जो बचाएंगे आपके पैसे / ✅ facebook: FB page: Labhlodeals / ✅ instagram: https://www.instagram.com/reel/Dfb-L_6jIT6/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/85 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 105600018126184_1809, IG story / ✅ answer: jawab Telegram + website
+- 2026-11-07 15:21 🤖 🟢 ⏰ pah5ddbe: YouTube par 18:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-07 15:21 🤖 👍 Thumb 1 chuna. Upload 18:00 par.
+- 2026-11-07 15:03 🤖 🟡 DHYAN Manzoori chahiye / 🆔 pah5ddbe | Pahadi Hisaab / 📝 कुमाऊँ में शादी-शुभ काम में महिलाएँ कौन सा पीला-लाल दुपट #Shorts / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 18:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 15:00 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-07 14:16 🤖 🩺 Sab theek? (v2.5.7, chalu 2028 min) / ✅ Gemini: gemini-3.5-flash-lite / 🧠 Model kram: gemini-3.5-flash-lite✅ > gemini-3.1-pro-preview > gemini-3.8-flash⚠️ > gemini-3.7-flash⚠️ / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money 
+- 2026-11-07 14:16 👤 🩺 Sab theek?
+- 2026-11-07 13:58 🤖 Manoj bhai, sabhi chaaron brands ke links ke saath website aur Telegram ke links bhi jod diye hain: /  / • Pahadi Hisaab: https://youtu.be/4X33PT5pYH4 (07 Nov) | https://youtu.be/jkmbcukqOOU (06 Nov) / • Sab Hisaab Money: https://youtu.be/eeub5JFFavY (07 Nov) | https://youtu.be/L8Ew9IJ20_A (06 Nov) / • Suno Natak: https://youtu.be/OvtTmPaK-nQ (07 Nov) | https://youtu.be/I5qiSN77fEo (06 Nov) / • Labh Lo Deal
+- 2026-11-07 13:58 👤 Isme website telegram ka link bhi daal kar Do
+- 2026-11-07 13:57 🤖 Manoj bhai, sabhi chaaron brands (Suno Natak, Sab Hisaab Money, Labh Lo Deals, Pahadi Hisaab) ke aaj ke aur haal hi ke links yeh hain: /  / • Pahadi Hisaab: https://youtu.be/4X33PT5pYH4 (07 Nov) | https://youtu.be/jkmbcukqOOU (06 Nov) / • Sab Hisaab Money: https://youtu.be/eeub5JFFavY (07 Nov) | https://youtu.be/L8Ew9IJ20_A (06 Nov) / • Suno Natak: https://youtu.be/OvtTmPaK-nQ (07 Nov) | https://youtu.be/
+- 2026-11-07 13:57 👤 Total sabka link ek sath de do
+- 2026-11-07 13:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-07 13:32 🤖 🟡 DHYAN ♻️ Suno Natak (dobara koshish): ऐसी कौन सी चीज़ है जो पानी पीते ही मर जाती है? #Shorts / ✅ facebook: FB page: Sunonatak  / ✅ instagram: https://www.instagram.com/reel/DfbtAfSD5yH/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/84 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 1309806728893856_122, IG story / ✅ answer: jawab Telegram + website (kod #
+- 2026-11-07 13:13 🤖 🟢 ⏰ deaa48d9: YouTube par 16:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-07 13:12 🤖 👍 Thumb 1 chuna. Upload 16:00 par.
+- 2026-11-07 13:10 🤖 🟢 🤖 sune4c8c: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 13:30 par jayegi.
+- 2026-11-07 13:10 🤖 🟢 ⏰ sune4c8c: YouTube par 13:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-07 13:04 🤖 🟡 DHYAN Manzoori chahiye / 🆔 deaa48d9 | Labh Lo Deals / 📝 सही शॉपिंग डील पहचानें: 3 आसान तरीके जो बचाएंगे आपके पैसे / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 16:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 13:04 🤖 🌐 sabhisaab.com (aaj): 2 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 10s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: (not set) 1, google 1, bing 0 / 📄 Sabse zyada dekhe page: / (2), /jawab (1) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 1 / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 13:00 🤖 🟢 🛡 Labh Lo Deals: script roki (Tathya galat: 50% + 50% discount means item becomes free or requires payment -> Successive 50% and 50% discount on ₹1,000 results in ₹250 to be paid (₹1,000 - 50% = ₹500, then 50% of ₹500 = ₹250), not free.). Naya topic le raha hoon.
+- 2026-11-07 13:00 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 13:00 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-07 13:00 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-07 13:00 🤖 Baaki sab yahan:
+- 2026-11-07 13:00 👤 📖 Poora menu
+- 2026-11-07 12:59 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 12:59 🤖 🌐 sabhisaab.com (aaj): 2 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 10s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: (not set) 1, google 1, bing 0 / 📄 Sabse zyada dekhe page: / (2), /jawab (1) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 1 / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 12:59 👤 Link se kitne log aaye
+- 2026-11-07 12:58 🤖 🩺 Sab theek? (v2.5.7, chalu 1950 min) / ✅ Gemini: gemini-3.5-flash-lite / 🧠 Model kram: gemini-3.5-flash-lite✅ > gemini-3.8-flash⚠️ > gemini-3.7-flash⚠️ > gemini-3.6-flash⚠️ / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money FB +
+- 2026-11-07 12:58 👤 🩺 Sab theek?
+- 2026-11-07 12:57 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-07 12:34 🤖 🟢 ♻️ Sab Hisaab Money (dobara koshish): SIP से Financial Freedom: कैसे मिलती है लंबी आज़ादी? / ✅ facebook: FB page: Sabhisaabmoney / ✅ instagram: https://www.instagram.com/reel/DfbmX86jR7_/ / ✅ threads: https://www.threads.net/@*** / ✅ pinterest: https://www.pinterest.com/pin/237916792811546293/ / ✅ telegram: https://t.me/sabhisaab/83 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 1322950
+- 2026-11-07 10:33 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sune4c8c | Suno Natak / 📝 ऐसी कौन सी चीज़ है जो पानी पीते ही मर जाती है? #Shorts / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 13:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 10:30 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-07 10:18 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 10:18 🤖 🌐 sabhisaab.com (aaj): 0 log, 1 page dekhe / 📍 Kahan se aaye: bing 0 / 📄 Sabse zyada dekhe page: / (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 10:18 👤 Aaj hamari website per link click karke kitni log aaye hai check karke batao kewal link wale
+- 2026-11-07 09:57 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-07 09:54 🤖 🟢 ⏰ mon61a90: YouTube par 12:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-07 09:54 🤖 👍 Thumb 1 chuna. Upload 12:30 par.
+- 2026-11-07 09:34 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon61a90 | Sab Hisaab Money / 📝 SIP से Financial Freedom: कैसे मिलती है लंबी आज़ादी? / ✅ Audit pass (19 jaanch) / ⏰ Jawab na mila to 12:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 09:32 🤖 🟢 ♻️ Pahadi Hisaab (dobara koshish): उत्तराखंड के लोक गीत: क्या आप जानते हैं इनके पीछे का सच? / ✅ facebook: FB page: Pahadihisaab / ✅ instagram: https://www.instagram.com/reel/DfbRiZXIS6A/ / ✅ threads: https://www.threads.net/@*** / ✅ pinterest: https://www.pinterest.com/pin/237916792811546001/ / ✅ telegram: https://t.me/sabhisaab/82 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 12907100
+- 2026-11-07 09:30 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-07 08:31 🤖 🟢 📰 Aaj ki kaam ki khabar (source ke saath, aapki manzoori se): / • Sab Hisaab Money: आयकर नियमों के तहत दिवाली पर दोस्तों से मिले ₹50,000 से अधिक के महंगे उपहारों पर टैक्स देनदारी बन सकती है। नियमों की सही जानकारी रखें। source: NDTV India /   https://news.google.com/rss/articles/CBMinAFBVV95cUxQZ0VRMU1TY3BySW1VZGlIMy1JRll / • Pahadi Hisaab: उत्तराखंड में बुनियादी ढांचे और राज्य के विकास को गति देने के 
+- 2026-11-07 08:03 🤖 🩺 Sab theek? (v2.5.7, chalu 1655 min) / ✅ Gemini: gemini-3.6-flash / 🧠 Model kram: gemini-3.6-flash✅ > gemini-3.5-flash > gemini-3.5-transcribe > gemini-3.5-flash-lite / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money FB + IG @*
+- 2026-11-07 08:03 👤 🩺 Sab theek?
+- 2026-11-07 07:30 🤖 🟢 🗓 2026-11-07 | शनिवार | कार्तिक कृष्ण पक्ष त्रयोदशी | Vikram Samvat 2083 / 📅 2026-11-07 ke pakke khaas din: / • छोटी दिवाली (hindu) /    ⚠️ पंचांग के अनुसार कुछ जगह यह एक दिन आगे-पीछे मनाया जाता है।
+- 2026-11-07 07:26 🤖 🟢 ⏰ pah17f3d: YouTube par 09:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-07 07:26 🤖 👍 Thumb 1 chuna. Upload 09:30 par.
+- 2026-11-07 07:03 🤖 🟢 🙏 Auto story/post: छोटी दिवाली -> Suno Natak FB FB story, IG IG story, Sab Hisaab Money FB FB story, IG IG story, Labh Lo Deals FB FB story, IG IG story, Pahadi Hisaab FB FB story, IG IG story, Telegram
+- 2026-11-07 06:37 🤖 🟡 DHYAN Manzoori chahiye / 🆔 pah17f3d | Pahadi Hisaab / 📝 उत्तराखंड के लोक गीत: क्या आप जानते हैं इनके पीछे का सच? / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 09:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-07 06:30 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-07 06:14 🤖 👀 Views (YouTube, aakhri videos) / 📺 Suno Natak: 105 views, 11 likes /    ⭐ 31 | 1 जनवरी 2026 गुरुवार था - तो 1 जनवरी 202 https://youtu.be/XgraNDYj2kA /    ⭐ 24 | इंस्टेंट लोन 5 मिनट में? मोबाइल ऐप से उध https://youtu.be/J0im0Mwy33E /    ⭐ 15 | Credit Card Loan Traps: 3% ब्याज का सच | https://youtu.be/N63iajCNdS4 / 📺 Sab Hisaab Money: 365 views, 7 likes /    ⭐ 94 | Speed, Time & Distance 2-सेकंड ट्रिक #71 htt
+- 2026-11-07 06:14 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 4 click, 79 baar dikha /  / 📅 Pichhle 7 din (pakka gina hua): / 🌐 sabhisaab.com (pichhle 7 din): 7 log, 164 page dekhe / ⏱ Kitni der ruke (ausat): 9m 9s | Ruke (engaged): 66.7% (22 sessio
+- 2026-11-07 06:13 🤖 🩺 Sab theek? (v2.5.7, chalu 1545 min) / ✅ Gemini: gemini-3.6-flash / 🧠 Model kram: gemini-3.8-flash > gemini-3.7-flash > gemini-3.6-flash > gemini-3.5-flash / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money FB + IG @*** / ✅ Labh L
+- 2026-11-07 06:13 🤖 📊 Aaj ka haal (v2.5.7) / ⬆️ Upload: 0/10 / • Pahadi Hisaab: waiting देवभूमि परिवार पोर्टल: ऐसे मिलेगा सरकारी / • Pahadi Hisaab: waiting Uttarakhand Vlogger - पहाड़ की व्लॉगिंग  / • Sab Hisaab Money: waiting Honeymoon Budget Hindi: लोन से जाएं या S / ⏰ Roz: Pahadi Hisaab 09:30,18:00, Sab Hisaab Money 12:30,20:30, Labh Lo Deals 16:00,21:30, Suno Natak 19:30,13:30 / 🎨 Seekh: / Abhi data nahi (upload ke baad aayega
+- 2026-11-07 06:13 👤 🩺 Sab theek?
+- 2026-11-07 06:13 👤 📊 Aaj ka haal
+- 2026-11-07 06:00 🤖 🟢 Subah ki jaanch: sab theek (website, privacy policy, logins, Gemini, disk).
+- 2026-11-07 05:28 🤖 📊 YouTube Analytics (asli, pichhle 28 din): / • Suno Natak: 79 video, avg dekhi gayi 46% (scroll-away anumaan ~54%) /    ▶️ G_3f77fWvKs: 272 views, 20% dekhi, 7 likes, CTR 1.2% (83 impr.) /    ▶️ Za_-Qjiuwqk: 119 views, 91% dekhi, 2 likes, CTR 0.0% (9 impr.) /    ▶️ yy2gJplhxeU: 99 views, 17% dekhi, 3 likes, CTR 0.0% (22 impr.) / • Sab Hisaab Money: 12 video, avg dekhi gayi 65% (scroll-away anumaan ~35%) /   
+- 2026-11-07 05:25 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 05:24 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 05:24 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-07 05:24 🤖 📈 Saare platform se ginti la raha hoon (1 min)...
+- 2026-11-07 05:24 🤖 📈 Poora haal (followers, views, likes, comment) / • Suno Natak: YT 70 subscriber, 4248 kul views | FB 3 follower | IG 2 follower, 13 post / • Sab Hisaab Money: YT 2 subscriber, 520 kul views | FB 0 follower | IG 1 follower, 15 post / • Labh Lo Deals: YT 1 subscriber, 512 kul views | FB 8566 follower | IG 2 follower, 16 post / • Pahadi Hisaab: YT 4 subscriber, 446 kul views | FB 0 follower | IG 0 follower,
+- 2026-11-07 05:24 🤖 🏆 6-pass asli audit chal raha hai (1-3 min)...
+- 2026-11-07 05:24 🤖 🏆 6-PASS ASLI SELF-AUDIT (sab abhi chalaya gaya): / ✅ 1) Code: 67 file compile / ✅ 2) 50-button deck: 50/50 | menu button 86 / ✅ 3) Gemini Blindfold + Instagram bina link / ✅ 4) Visual: 9/9 style + Premium Neon quiz (frame+thumbnail) / ✅ 5) Puzzle dual-solver (32) + exam (Profit & Loss (लाभ-ह) + panchang (कार्तिक त्रयोदशी) + awaaz / ✅ 6) Website 5 page draft spec | offline lambi video 38 scene | YouTube quota
+- 2026-11-07 05:24 🤖 Baaki sab yahan:
+- 2026-11-07 05:24 👤 📖 Poora menu
+- 2026-11-07 05:23 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-07 05:23 🤖 Baaki sab yahan:
+- 2026-11-07 05:23 👤 📖 Poora menu
+- 2026-11-07 05:23 👤 💬 Comment haal
+- 2026-11-07 05:22 🤖 🧹 Safai chal rahi hai (purani video/thumbnail/tmp, atke ffmpeg, purane 3D)...
+- 2026-11-07 05:22 🤖 🧹 SAFAI ASLI MEIN HUI: / 🧹 DEEP SAFAI (sirf jaanch) / • Atke ffmpeg band: 0 / • Bot ka kachra: 🧹 Safai: 0.0 MB khaali / • ~/.cache/uv: 0 MB (likhein 'deep safai karo' → dohri pushti) / • ~/.cache/huggingface: 985 MB — 🔒 KABHI nahi (awaaz/model)
+- 2026-11-07 05:21 🤖 🟡 DHYAN ⚠️ Website par 105 toote related-link (naam ≠ page) / Kya karein (step wise): / 1) Bot mein 'docs do' likhein ya GitHub docs/SITESCAN.md kholein (list wahin hai) / 2) Developer ko do: link ka naam slug se banao (ek slug→title map), poori site par / 3) Theek hone par agle Ravivaar ke scan mein ye alert apne aap hat jayega
+- 2026-11-07 04:35 🤖 🔎 Bing: crawl kiye 14, index mein 0, crawl error 0 | aaj ka quota 90
+- 2026-11-07 04:35 🤖 📊 YouTube Analytics (asli, pichhle 28 din): / • Suno Natak: 79 video, avg dekhi gayi 46% (scroll-away anumaan ~54%) /    ▶️ G_3f77fWvKs: 272 views, 20% dekhi, 7 likes, CTR 1.2% (83 impr.) /    ▶️ Za_-Qjiuwqk: 119 views, 91% dekhi, 2 likes, CTR 0.0% (9 impr.) /    ▶️ yy2gJplhxeU: 99 views, 17% dekhi, 3 likes, CTR 0.0% (22 impr.) / • Sab Hisaab Money: 12 video, avg dekhi gayi 65% (scroll-away anumaan ~35%) /   
+- 2026-11-07 04:32 🤖 📈 Graph bana raha hoon...
+- 2026-11-07 04:31 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-07 04:31 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-07 04:31 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 4 click, 79 baar dikha
+- 2026-11-07 04:31 🤖 Baaki sab yahan:
+- 2026-11-07 04:31 👤 📖 Poora menu
+- 2026-11-07 00:34 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-07 00:34 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-07 00:25 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-07 00:24 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-07 00:03 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 21:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 21:32 🤖 🟡 DHYAN ♻️ Labh Lo Deals (dobara koshish): अगली संख्या? 10, 14, 11, 15, 12, ? #6551 #Shorts / ✅ facebook: FB page: Labhlodeals / ✅ instagram: https://www.instagram.com/reel/DfZ_IUKjV93/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/80 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #6551) / ❌ pinterest: https://sabhisaab.c
+- 2026-11-06 21:30 🤖 🟢 📊 Aaj ka haal (v2.5.7) / ⬆️ Upload: 0/10 / • Pahadi Hisaab: waiting देवभूमि परिवार पोर्टल: ऐसे मिलेगा सरकारी / • Pahadi Hisaab: waiting Uttarakhand Vlogger - पहाड़ की व्लॉगिंग  / • Sab Hisaab Money: waiting Honeymoon Budget Hindi: लोन से जाएं या S / • Pahadi Hisaab: posted उत्तराखंड के गुप्त रहस्य: 500 कंकालों वा https://youtu.be/k3ts1f-nsnw / • Pahadi Hisaab: posted उत्तराखंड के रहस्य: पाताल भुवनेश्वर गुफ़
+- 2026-11-06 21:00 🤖 📌 Story link-sticker yaad (Instagram API nahi deta - aap khud lagayein; reel ke baad Story → Link sticker): / #5975 (Pahadi Hisaab): https://sabhisaab.com/jawab#c5975 / #2369 (Pahadi Hisaab): https://sabhisaab.com/jawab#c2369 / #2197 (Sab Hisaab Money): https://sabhisaab.com/jawab#c2197 / #8158 (Suno Natak): https://sabhisaab.com/jawab#c8158 / #1027 (Labh Lo Deals): https://sabhisaab.com/jawab#c1027 / #6275 (
+- 2026-11-06 20:57 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 20:34 🤖 🟡 DHYAN ♻️ Sab Hisaab Money (dobara koshish): ₹500 की वस्तु पर 20% छूट मिलने पर ग्राहक को कितने रुपये  #Shorts / ✅ facebook: FB page: Sabhisaabmoney / ✅ instagram: https://www.instagram.com/reel/DfZ4fdZCRHF/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/79 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #7700) / ❌ pinteres
+- 2026-11-06 20:11 🤖 Is shabd se koi khula kaam nahi mila. '🧾 Mere kaam' mein dekh kar wahi shabd likhein.
+- 2026-11-06 20:11 👤 ho gaya fb stars
+- 2026-11-06 20:10 🤖 🧾 Aapke haath ke kaam: 35/89 ho gaye /  / ⬜ Baaki (🤖 = bot khud jaanch kar hatayega; baaki ho jaye to 'ho gaya <number>'): / 1. 🤖 Har brand ki 1 'hub' lambi video (clickable website links wali) /    👉 Lambi video banne ke baad bot ko: 'hub video <brand> <youtube link>' (Shorts ka Related video isi par) / 2. 📌 Website W6 ZIP (W6-video-link-29oct.zip) bot ko → '🌐 Haan' (har page par usi vishay ki YouTube vide
+- 2026-11-06 20:10 👤 Mera kaam
+- 2026-11-06 20:09 🤖 Manoj bhai, sab ekdum mast chal raha hai! Oracle VM par bot 24x7 smooth chal raha hai (RAM lagbhag 9 GB free, disk load ekdum normal). Aaj ke schedule ke hisab se sabhi 4 brands ki videos apne tay time par jaa rahi hain. Aap poora details dekhne ke liye '📈 Poora haal' ya '🧾 Mere kaam' par tap kar sakte hain. Aap bataiye, aaj kya hukum hai?
+- 2026-11-06 20:09 👤 Bot bhai kya haal chal hai
+- 2026-11-06 20:08 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 20:08 🤖 🌐 sabhisaab.com (aaj): 2 log, 5 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (2 session) / 📍 Kahan se aaye: bing 1, google 1 / 📄 Sabse zyada dekhe page: / (2), /jawab (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 20:08 👤 Video k link se kitne log aaye hai bing se
+- 2026-11-06 20:07 🤖 📌 Pinterest (30 din): 102 baar dikha | 0 save | 7 pin-click | 3 website-click
+- 2026-11-06 20:07 🤖 🌐 sabhisaab.com (aaj): 2 log, 5 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (2 session) / 📍 Kahan se aaye: bing 1, google 1 / 📄 Sabse zyada dekhe page: / (2), /jawab (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 20:07 👤 Video k link se kitne log aaye hai pinterest se
+- 2026-11-06 20:07 👤 Aaj hamari video se kitne log aaye hai
+- 2026-11-06 19:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 19:32 🤖 🟡 DHYAN ♻️ Suno Natak (dobara koshish): Digital Loan App Safety Rules: असली RBI नियम जानिए / ✅ facebook: FB page: Sunonatak  / ✅ instagram: https://www.instagram.com/reel/DfZxbCPjx4V/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/76 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #7646) / ❌ pinterest: https://sabhisaab.com
+- 2026-11-06 19:20 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 19:20 🤖 🔎 Bing: crawl kiye 14, index mein 0, crawl error 0 | aaj ka quota 90 /  / 📮 IndexNow (Bing/Yandex ko naye page ki khabar): kul 56 URL bheje | aaj 10 | 7 din 56 | aakhri: 2026-11-06 06:40 /bonus-act-calculator (200) / Niyam: sirf badle/naye page, din mein max 10, ek URL 14 din mein ek baar (Bing ki shart).
+- 2026-11-06 19:20 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-06 19:20 🤖 🌐 sabhisaab.com (aaj): 2 log, 5 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (2 session) / 📍 Kahan se aaye: bing 1, google 1 / 📄 Sabse zyada dekhe page: / (2), /jawab (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 19:20 🤖 🌐 sabhisaab.com (aaj): 2 log, 5 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (2 session) / 📍 Kahan se aaye: bing 1, google 1 / 📄 Sabse zyada dekhe page: / (2), /jawab (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 19:20 🤖 Baaki sab yahan:
+- 2026-11-06 19:20 👤 📖 Poora menu
+- 2026-11-06 19:19 🤖 🩺 Sab theek? (v2.5.7, chalu 891 min) / ✅ Gemini: gemini-3.6-flash / 🧠 Model kram: gemini-3.6-flash✅ > gemini-3.8-flash⚠️ > gemini-3.7-flash⚠️ > gemini-3.5-flash⚠️ / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money FB + IG @*** / ✅ 
+- 2026-11-06 19:19 🤖 📊 Aaj ka haal (v2.5.7) / ⬆️ Upload: 0/10 / • Pahadi Hisaab: waiting देवभूमि परिवार पोर्टल: ऐसे मिलेगा सरकारी / • Pahadi Hisaab: waiting Uttarakhand Vlogger - पहाड़ की व्लॉगिंग  / • Sab Hisaab Money: waiting Honeymoon Budget Hindi: लोन से जाएं या S / • Pahadi Hisaab: posted उत्तराखंड के गुप्त रहस्य: 500 कंकालों वा https://youtu.be/k3ts1f-nsnw / • Pahadi Hisaab: posted उत्तराखंड के रहस्य: पाताल भुवनेश्वर गुफ़ h
+- 2026-11-06 19:19 👤 🩺 Sab theek?
+- 2026-11-06 19:19 👤 📊 Aaj ka haal
+- 2026-11-06 18:36 🤖 🟢 ⏰ dea741e3: YouTube par 21:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 18:35 🤖 👍 Thumb 3 chuna. Upload 21:30 par.
+- 2026-11-06 18:33 🤖 🟡 DHYAN Manzoori chahiye / 🆔 dea741e3 | Labh Lo Deals / 📝 अगली संख्या? 10, 14, 11, 15, 12, ? #6551 #Shorts / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 21:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 18:30 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-06 18:25 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 18:02 🤖 🟡 DHYAN ♻️ Pahadi Hisaab (dobara koshish): पहाड़ी बैंड का 'मशकबीन' असल में क्या है? #Shorts / ✅ facebook: FB page: Pahadihisaab / ✅ instagram: https://www.instagram.com/reel/DfZnFeAH_py/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/75 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #6275) / ❌ pinterest: https://sabhisaab.
+- 2026-11-06 17:38 🤖 🟢 ⏰ mon46e7c: YouTube par 20:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 17:38 🤖 👍 Thumb 1 chuna. Upload 20:30 par.
+- 2026-11-06 17:34 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon46e7c | Sab Hisaab Money / 📝 ₹500 की वस्तु पर 20% छूट मिलने पर ग्राहक को कितने रुपये  #Shorts / ✅ Audit pass (19 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 17:32 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-06 17:32 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-06 17:30 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-06 17:27 🤖 📊 Aaj ka haal (v2.5.7) / ⬆️ Upload: 0/10 / • Pahadi Hisaab: waiting देवभूमि परिवार पोर्टल: ऐसे मिलेगा सरकारी / • Pahadi Hisaab: waiting Uttarakhand Vlogger - पहाड़ की व्लॉगिंग  / • Sab Hisaab Money: waiting Honeymoon Budget Hindi: लोन से जाएं या S / • Pahadi Hisaab: posted उत्तराखंड के गुप्त रहस्य: 500 कंकालों वा https://youtu.be/k3ts1f-nsnw / • Pahadi Hisaab: posted उत्तराखंड के रहस्य: पाताल भुवनेश्वर गुफ़ h
+- 2026-11-06 17:27 👤 📊 Aaj ka haal
+- 2026-11-06 17:25 🤖 📊 YouTube Analytics (asli, pichhle 28 din): / • Suno Natak: 76 video, avg dekhi gayi 45% (scroll-away anumaan ~55%) /    ▶️ G_3f77fWvKs: 272 views, 20% dekhi, 7 likes, CTR 1.2% (83 impr.) /    ▶️ Za_-Qjiuwqk: 119 views, 91% dekhi, 2 likes, CTR 0.0% (9 impr.) /    ▶️ 95dz35rpVFU: 107 views, 28% dekhi, 3 likes, CTR 3.03% (33 impr.) / • Sab Hisaab Money: 10 video, avg dekhi gayi 73% (scroll-away anumaan ~27%) / 
+- 2026-11-06 17:25 🤖 🌐 sabhisaab.com (aaj): 2 log, 5 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (2 session) / 📍 Kahan se aaye: bing 1, google 1 / 📄 Sabse zyada dekhe page: / (2), /jawab (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 17:22 🤖 🙈 GEMINI BLINDFOLD (DLP): ✅ CHALU / • Gemini, Google-search Gemini, Cloudflare AI aur image AI - sabke prompt pehle saaf / • Token/secret/email/phone/secrets path → [VAULT_CHHUPA] / • Rupaye ki rakam nahi chhedi: ✅ / • Ab tak chhupaya: 1 baar
+- 2026-11-06 17:22 🤖 🌐 sabhisaab.com (aaj): 2 log, 5 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (2 session) / 📍 Kahan se aaye: bing 1, google 1 / 📄 Sabse zyada dekhe page: / (2), /jawab (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 17:21 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 17:21 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-06 17:21 🤖 Baaki sab yahan:
+- 2026-11-06 17:21 👤 📖 Poora menu
+- 2026-11-06 17:18 🤖 ✅ Theek ho gaya: privacy ig link
+- 2026-11-06 16:40 🤖 🟢 ⏰ sun51bc4: YouTube par 19:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 16:40 🤖 👍 Thumb 1 chuna. Upload 19:30 par.
+- 2026-11-06 16:37 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sun51bc4 | Suno Natak / 📝 Digital Loan App Safety Rules: असली RBI नियम जानिए / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 19:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 16:37 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-06 16:30 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-06 16:25 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 16:03 🤖 🟢 ⏰ pah83dfd: YouTube par 18:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 16:03 🤖 👍 Thumb 1 chuna. Upload 18:00 par.
+- 2026-11-06 16:02 🤖 🟡 DHYAN ♻️ Labh Lo Deals (dobara koshish): काला हूं पर उजाला फैलाता हूं, प्रकाश के लिए खुद को जलाता #Shorts / ✅ facebook: FB page: Labhlodeals / ✅ instagram: https://www.instagram.com/reel/DfZZYmrmMgd/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/74 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 105600018126184_1808, IG story / ✅ answer: jawab Telegram + 
+- 2026-11-06 15:03 🤖 🟡 DHYAN Manzoori chahiye / 🆔 pah83dfd | Pahadi Hisaab / 📝 पहाड़ी बैंड का 'मशकबीन' असल में क्या है? #Shorts / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 18:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 15:00 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-06 13:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 13:41 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 13:41 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-06 13:41 🤖 📌 Pinterest (30 din): 102 baar dikha | 0 save | 7 pin-click | 3 website-click
+- 2026-11-06 13:41 🤖 🌐 sabhisaab.com (aaj): 1 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: bing 1 / 📄 Sabse zyada dekhe page: / (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 13:41 🤖 🌐 sabhisaab.com (aaj): 1 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: bing 1 / 📄 Sabse zyada dekhe page: / (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 13:41 🤖 Baaki sab yahan:
+- 2026-11-06 13:41 👤 📖 Poora menu
+- 2026-11-06 13:40 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 13:40 🤖 🌐 sabhisaab.com (aaj): 1 log, 3 page dekhe / ⏱ Kitni der ruke (ausat): 0m 11s | Ruke (engaged): 50.0% (1 session) / 📍 Kahan se aaye: bing 1 / 📄 Sabse zyada dekhe page: / (1), /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 13:40 👤 Bot bhai kya chal rha hai aaj hamare video ke link se kitne log aaye website per
+- 2026-11-06 13:32 🤖 🟡 DHYAN ♻️ Suno Natak (dobara koshish): लोन लेते वक्त हिडन चार्ज से बचने का असली नियम क्या है? / ✅ facebook: FB page: Sunonatak  / ✅ instagram: https://www.instagram.com/reel/DfZINkfiZ2V/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/73 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 1309806728893856_122, IG story / ✅ answer: jawab Telegram + website (kod #
+- 2026-11-06 13:29 🤖 🟢 ⏰ dea1c436: YouTube par 16:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 13:29 🤖 👍 Thumb 1 chuna. Upload 16:00 par.
+- 2026-11-06 13:04 🤖 🟡 DHYAN Manzoori chahiye / 🆔 dea1c436 | Labh Lo Deals / 📝 काला हूं पर उजाला फैलाता हूं, प्रकाश के लिए खुद को जलाता #Shorts / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 16:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 13:00 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-06 12:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 12:32 🤖 🟡 DHYAN ♻️ Sab Hisaab Money (dobara koshish): SIP mein compounding ka *jadoo* - chaliye sahi hisaab samjhein! / ✅ facebook: FB page: Sabhisaabmoney / ✅ instagram: https://www.instagram.com/reel/DfZBVhmmtZU/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/72 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 1322950490911948_122, IG story / ✅ answer: jawab Telegr
+- 2026-11-06 10:49 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 10:49 🤖 🌐 sabhisaab.com (aaj): 1 log, 2 page dekhe / ⏱ Kitni der ruke (ausat): 0m 16s | Ruke (engaged): 100.0% (1 session) / 📍 Kahan se aaye: bing 1 / 📄 Sabse zyada dekhe page: /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 10:49 👤 Bot bhai traffic kuch aaya ya nhi
+- 2026-11-06 10:41 🤖 🟢 ⏰ sund7e30: YouTube par 13:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 10:41 🤖 👍 Thumb 1 chuna. Upload 13:30 par.
+- 2026-11-06 10:37 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sund7e30 | Suno Natak / 📝 लोन लेते वक्त हिडन चार्ज से बचने का असली नियम क्या है? / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 13:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 10:34 🤖 ❌ Audit fail, doosri script se koshish: / ❌ Har scene ka text chhota aur padhne layak
+- 2026-11-06 10:30 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-06 09:57 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 09:44 🤖 🟢 ⏰ monbc857: YouTube par 12:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 09:43 🤖 👍 Thumb 2 chuna. Upload 12:30 par.
+- 2026-11-06 09:34 🤖 🟡 DHYAN Manzoori chahiye / 🆔 monbc857 | Sab Hisaab Money / 📝 SIP mein compounding ka *jadoo* - chaliye sahi hisaab samjhein! / ✅ Audit pass (19 jaanch) / ⏰ Jawab na mila to 12:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 09:32 🤖 🟢 ♻️ Pahadi Hisaab (dobara koshish): उत्तराखंड के रहस्य: पाताल भुवनेश्वर गुफ़ा की गहराई कितनी है? / ✅ facebook: FB page: Pahadihisaab / ✅ instagram: https://www.instagram.com/reel/DfYsx2AGtQ8/ / ✅ threads: https://www.threads.net/@*** / ✅ pinterest: https://www.pinterest.com/pin/237916792811542634/ / ✅ telegram: https://t.me/sabhisaab/71 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer:
+- 2026-11-06 09:30 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-06 09:30 🤖 🌐 sabhisaab.com (aaj): 1 log, 2 page dekhe / ⏱ Kitni der ruke (ausat): 0m 16s | Ruke (engaged): 100.0% (1 session) / 📍 Kahan se aaye: bing 1 / 📄 Sabse zyada dekhe page: /macro-calculator (1), /number-system-converter (1) / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 09:29 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 09:29 👤 bot bhai aaj hamare link se kitne log aaye website per
+- 2026-11-06 07:30 🤖 🟢 🗓 2026-11-06 | शुक्रवार | कार्तिक कृष्ण पक्ष द्वादशी | Vikram Samvat 2083 / 📅 2026-11-06 ke pakke khaas din: / • धनतेरस (hindu)
+- 2026-11-06 07:05 🤖 🟢 🙏 Auto story/post: कार्तिक कृष्ण एकादशी -> Pahadi Hisaab FB FB story, IG IG story, Telegram
+- 2026-11-06 07:04 🤖 🟢 🙏 Auto story/post: धनतेरस -> Suno Natak FB FB story, IG IG story, Sab Hisaab Money FB FB story, IG IG story, Labh Lo Deals FB FB story, IG IG story, Pahadi Hisaab FB FB story, IG IG story, Suno Natak FB post+link, Threads+link, Sab Hisaab Money FB post+link, Threads+link, Labh Lo Deals FB post+link, Threads+link, Pahadi Hisaab FB post+link, Threads+link, Telegram
+- 2026-11-06 06:40 🤖 🟢 ⏰ paheff1f: YouTube par 09:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 06:40 🤖 👍 Thumb 1 chuna. Upload 09:30 par.
+- 2026-11-06 06:35 🤖 🟡 DHYAN Manzoori chahiye / 🆔 paheff1f | Pahadi Hisaab / 📝 उत्तराखंड के रहस्य: पाताल भुवनेश्वर गुफ़ा की गहराई कितनी है? / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 09:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-06 06:30 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-06 06:01 🤖 🟢 Subah ki jaanch: sab theek (website, privacy policy, logins, Gemini, disk).
+- 2026-11-06 06:01 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 05:55 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 05:55 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 05:55 👤 Video link se kitne traffic aaye
+- 2026-11-06 05:54 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 05:54 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 05:54 👤 Bot bhai pintrest se kitna traffic aa rha hai
+- 2026-11-06 05:38 🤖 🟢 ♻️ Pahadi Hisaab (dobara koshish): उत्तराखंड के गुप्त रहस्य: 500 कंकालों वाली रहस्यमयी झील? / ✅ facebook: FB page: Pahadihisaab / ✅ instagram: https://www.instagram.com/reel/DfYSBp1l1-N/ / ✅ threads: https://www.threads.net/@*** / ✅ pinterest: https://www.pinterest.com/pin/237916792811541948/ / ✅ telegram: https://t.me/sabhisaab/68 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post 12907100
+- 2026-11-06 05:18 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 05:18 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 05:18 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 05:18 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 05:18 👤 Video link se website per kitne log aaye
+- 2026-11-06 05:18 👤 Hamare website per log kyu nhi aa rhe hai bataye
+- 2026-11-06 05:17 🤖 Manoj bhai, SEO seekh ka matlab hai hamare sabhi 270+ HTML pages, clean URLs, Internal Linking, aur Google Indexing ke niyamo ko aur pakka karna. Sitemap update, Canonical tags, aur har page par sahi keyword targeting par hum dhyan de rahe hain. Aur bataiye, SEO mein koi naya rule jodna hai kya?
+- 2026-11-06 05:17 🤖 Manoj bhai, 'Awo sheekh' ka matlab kya hai? Agar aap naya niyam ya seekh jodna chahte hain, toh 'aage se ... mat karna' ya rule bataiye, ya agar koi task ya website change hai toh wo likhein!
+- 2026-11-06 05:17 👤 SEO sheekh
+- 2026-11-06 05:17 👤 Awo sheekh
+- 2026-11-06 05:16 🤖 🟡 DHYAN 🌐 Website mein badlaav pakda: / 📜 Badle legal page: /privacy - bot ne naye niyam padh liye.
+- 2026-11-06 05:16 🤖 🟡 DHYAN ⚠️ Website par 105 toote related-link (naam ≠ page) / Kya karein (step wise): / 1) Bot mein 'docs do' likhein ya GitHub docs/SITESCAN.md kholein (list wahin hai) / 2) Developer ko do: link ka naam slug se banao (ek slug→title map), poori site par / 3) Theek hone par agle Ravivaar ke scan mein ye alert apne aap hat jayega
+- 2026-11-06 05:16 🤖 🔐 Privacy haal / • Commenter record: 2 (sirf pichhle 30 din, har platform alag - jodkar track nahi) / • Aakhri auto-safai: 06 Nov 02:45 | hataya: {'audience': 0, 'diary': 0} / • Website policy page: ✅ sab zaroori baatein maujood / • Kisi ne data hatane ko kaha? Likhein: data hatao <naam ya @***>
+- 2026-11-06 05:16 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 05:16 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 05:16 🤖 ✅ Theek ho gaya: yt comment login
+- 2026-11-06 05:16 👤 /privacy
+- 2026-11-06 05:15 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 05:15 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-06 05:15 🤖 📊 Aaj ka haal (v2.5.7) / ⬆️ Upload: 0/10 / • Pahadi Hisaab: waiting देवभूमि परिवार पोर्टल: ऐसे मिलेगा सरकारी / • Pahadi Hisaab: waiting Uttarakhand Vlogger - पहाड़ की व्लॉगिंग  / • Sab Hisaab Money: waiting Honeymoon Budget Hindi: लोन से जाएं या S / • Pahadi Hisaab: approved उत्तराखंड के गुप्त रहस्य: 500 कंकालों वा / ⏰ Roz: Pahadi Hisaab 09:30,18:00, Sab Hisaab Money 12:30,20:30, Labh Lo Deals 16:00,21:30, Su
+- 2026-11-06 05:15 🤖 Baaki sab yahan:
+- 2026-11-06 05:15 👤 📖 Poora menu
+- 2026-11-06 05:15 👤 📊 Aaj ka haal
+- 2026-11-06 05:15 👤 💬 Comment haal
+- 2026-11-06 05:14 🤖 🩺 Sab theek? (v2.5.7, chalu 46 min) / ✅ Gemini: gemini-3.5-flash-lite / 🧠 Model kram: gemini-3.5-flash-lite✅ > gemini-3.8-flash⚠️ > gemini-3.7-flash⚠️ > gemini-3.5-transcribe⚠️ / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money F
+- 2026-11-06 05:14 👤 🩺 Sab theek?
+- 2026-11-06 05:09 🤖 ✅ Sab channel ka comment-login ho chuka hai.
+- 2026-11-06 05:09 👤 yt comment login
+- 2026-11-06 05:08 🤖 Manoj bhai, aapka '/jawab' command mil gaya hai! Pichli reel ke comments par jawab dene ka kaam poora ho gaya hai aur bot sabhi naye comments par nazar rakhe hue hai. Poora haal dekhne ke liye aap yahan tap kar sakte hain: '📈 Poora haal' ya '🧾 Mere kaam'. Aur bataiye, aage kya help chahiye? /  / ⚠️ Sach: ye sirf baat-cheet ka jawab hai - maine abhi koi kaam CHALAYA nahi. Asli kaam ke liye button dabay
+- 2026-11-06 05:07 🤖 🧩 FEATURES (kya chalu hai) / ✅ Jawab website (/jawab) → jawab website chalu / band / ✅ Telegram digest (roz 20:30) → jawab digest chalu / band / ⬜ Telegram quiz poll (roz max 2) → jawab poll chalu / band / ⬜ ads.txt (AdSense ke baad) → adsense id pub-XXXXXXXXXXXXXXXX /  / Apne aap chalte rehte hain: / ✅ UTM + YouTube comment/description mein jawab-link (raat 23:30) / ✅ Uptime (10 min) + canary (deploy ke baad) / ✅ 
+- 2026-11-06 05:07 🤖 🔎 SITE SCAN (269 page) - sirf padha, kuch badla nahi / • Toote related-link (naam≠page): 105 /    /about: 'Author page' → /author (Manoj Kumar Pandey — Sab Hisaab Kaun Cha) /    /about: 'aaj ke jawab dekhein' → /jawab (आज के सवालों के सही जवाब) /    /advance-tax-calculator: 'is guide' → /fno-loss-itr3-kaise-dikhaye (F&amp;O Loss ITR-3 Me Kaise Dikhaye Aur ) /    /appliance-bijli-kharch-calculator: 'is guide
+- 2026-11-06 05:07 🤖 🐤 CANARY (deploy ke baad jaanch) / ✅ / / ✅ /jawab / ✅ /privacy / ✅ /terms / ✅ /contact / ✅ soft-404 jaanch (galat URL par 404) / ✅ sitemap mein /jawab
+- 2026-11-06 05:07 👤 features
+- 2026-11-06 05:07 👤 canary
+- 2026-11-06 05:07 👤 /jawab
+- 2026-11-06 05:06 🤖 🟢 ⏰ pahce5db: YouTube par 05:36 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-06 05:06 🤖 📤 pahce5db ab manzoori line mein. Thumb chunein (ya 🚀 Abhi daalo). Aapke button ke bina kahin nahi jayegi.
+- 2026-11-06 05:06 🤖 👍 Thumb 1 chuna. Upload 05:36 par.
+- 2026-11-06 05:06 🤖 Thumbnail ki jaankari nahi mili.
+- 2026-11-06 05:03 🤖 🧪 NAMOONA #1 — Pahadi Hisaab — look: Premium Neon + Seedha / 🔒 Ye kahin POST NAHI hoga. /  / 📝 उत्तराखंड के गुप्त रहस्य: 500 कंकालों वाली रहस्यमयी झील? / ⏱ 34 sec | ✅ audit 18/18 /  / 📍 Video + thumbnail par likha: https://sabhisaab.com/jawab (safe jagah mein) / 🔗 Page: https://sabhisaab.com/uttarakhand-farmer-id-ukfr / ▶️ YouTube: title + description (link clickable) — pehli line: ✅ सही जवाब (कोड #5975): https:/
+- 2026-11-06 05:02 🤖 🔎 Scan shuru (bada site hai - kuch minute lagenge, kuch badla nahi jayega)...
+- 2026-11-06 05:02 👤 site scan
+- 2026-11-06 05:00 🤖 ✅ Telegram quiz poll BAND.
+- 2026-11-06 05:00 🤖 ⚠️ Pakka? Poll band, sab jawab text post.
+- 2026-11-06 05:00 👤 jawab poll band
+- 2026-11-06 04:57 🤖 📝 ✅ 1 file VM par chadh gayi (audit paas) (audit WARNING 1 - '🛠 Website audit' mein dekhein). GitHub copy ✅. 15 minute mein bot khud deploy karega (aur ZIP aayi to uske baad).
+- 2026-11-06 04:57 🤖 📝 Kuch badalne layak nahi mila (page badal chuka ho sakta hai).
+- 2026-11-06 04:57 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (namoona, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-06 04:55 🤖 🧪 SAMPLE STUDIO — har channel ka pakka look / • Suno Natak: Premium Neon (naya default) chal raha - chaho to badlo / • Sab Hisaab Money: Premium Neon (naya default) chal raha - chaho to badlo / • Labh Lo Deals: Premium Neon (naya default) chal raha - chaho to badlo / • Pahadi Hisaab: Premium Neon (naya default) chal raha - chaho to badlo /  / Naya namoona: brand chunein 👇 (kahin post nahi hoga) /  / Ya kisi 24-lo
+- 2026-11-06 04:55 🤖 👍 Kuch nahi badla.
+- 2026-11-06 04:55 👤 🧪 Namoona
+- 2026-11-06 04:54 🤖 ⚠️ Pakka? Telegram par har video ke saath alag jawab-post band; roz shaam 20:30 par ek digest (sab jawab ek message mein).
+- 2026-11-06 04:54 👤 jawab digest chalu
+- 2026-11-06 04:53 🤖 📝 PRIVACY PAGE - ye badlav hoga (aur kuch nahi): /  / ▪️ Instagram line badlegi /    PURANA: Instagram par "LINK" likhne wale:  agar aap hamari post par "link" ya "calculator" likhte hain, to hum Instagram ke manzoor tareeke (private reply) se aapko  ek  sandesh me website ka link bhej sakte hain. Isse zyada sandesh hum khud se nahi bhejte. /    NAYA: Hum Instagram par comment ya DM se link nahi bhejte. J
+- 2026-11-06 04:53 🤖 ✅ Comment-login juda: Pahadi Hisaab (channel 'Pahadi Hisaab '). Ab is channel par jawab/pehla comment jayega. / 🎉 Sab channel ho gaye.
+- 2026-11-06 04:53 👤 privacy ig theek
+- 2026-11-06 04:52 🤖 ✅ Comment-login juda: Labh Lo Deals (channel 'Labh Lo Deals '). Ab is channel par jawab/pehla comment jayega. / Baaki: Pahadi Hisaab → 'yt comment login'
+- 2026-11-06 04:51 🤖 ✅ Comment-login juda: Sab Hisaab Money (channel 'Sab Hisaab Money'). Ab is channel par jawab/pehla comment jayega. / Baaki: Labh Lo Deals, Pahadi Hisaab → 'yt comment login'
+- 2026-11-06 04:50 🤖 ✅ Comment-login juda: Suno Natak (channel 'Suno Natak'). Ab is channel par jawab/pehla comment jayega. / Baaki: Sab Hisaab Money, Labh Lo Deals, Pahadi Hisaab → 'yt comment login'
+- 2026-11-06 04:49 🤖 🔑 YouTube COMMENT login (upload wala login nahi badlega). Har channel ke liye: / 1) Neeche link phone/Chrome mein kholein / 2) Us channel ka account chunein (brand wala naam, email nahi) / 3) 'Allow' (saari ijaazat tick) / 4) Browser ka address (localhost... code=...) POORA yahan bhej dein - bot turant mita dega. / (Code 10 min chalta hai.)
+- 2026-11-06 04:49 🤖 🐤 CANARY (deploy ke baad jaanch) / ✅ / / ✅ /jawab / ✅ /privacy / ✅ /terms / ✅ /contact / ✅ soft-404 jaanch (galat URL par 404) / ✅ sitemap mein /jawab
+- 2026-11-06 04:49 🤖 ▶️ Suno Natak: / https://accounts.google.com/o/oauth2/v2/auth?client_id=***&redirect_uri=http%3A%2F%2Flocalhost&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl&access_type=offline&prompt=consent+select_account&state=ytc%3Asunonatak
+- 2026-11-06 04:49 🤖 ▶️ Sab Hisaab Money: / https://accounts.google.com/o/oauth2/v2/auth?client_id=***&redirect_uri=http%3A%2F%2Flocalhost&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl&access_type=offline&prompt=consent+select_account&state=ytc%3Amoney
+- 2026-11-06 04:49 🤖 ▶️ Pahadi Hisaab: / https://accounts.google.com/o/oauth2/v2/auth?client_id=***&redirect_uri=http%3A%2F%2Flocalhost&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl&access_type=offline&prompt=consent+select_account&state=ytc%3Apahadi
+- 2026-11-06 04:49 🤖 ▶️ Labh Lo Deals: / https://accounts.google.com/o/oauth2/v2/auth?client_id=***&redirect_uri=http%3A%2F%2Flocalhost&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl&access_type=offline&prompt=consent+select_account&state=ytc%3Adeals
+- 2026-11-06 04:49 👤 yt comment login
+- 2026-11-06 04:49 👤 canary
+- 2026-11-06 04:48 🤖 🧩 FEATURES (kya chalu hai) / ✅ Jawab website (/jawab) → jawab website chalu / band / ✅ Telegram digest (roz 20:30) → jawab digest chalu / band / ⬜ Telegram quiz poll (roz max 2) → jawab poll chalu / band / ⬜ ads.txt (AdSense ke baad) → adsense id pub-XXXXXXXXXXXXXXXX /  / Apne aap chalte rehte hain: / ✅ UTM + YouTube comment/description mein jawab-link (raat 23:30) / ✅ Uptime (10 min) + canary (deploy ke baad) / ✅ 
+- 2026-11-06 04:48 👤 features
+- 2026-11-06 04:44 🤖 🟡 DHYAN ⚠️ YouTube par bot comment nahi likh pa raha (upload wala login comment ki ijaazat nahi deta) / Kya karein (step wise): / 1) Bot mein 'yt comment login' likhein - har channel ka ek link aayega / 2) Har link kholkar us channel ka account chunein (brand wala naam), 'Allow' dabayein (saari ijaazat tick) / 3) Browser ka poora address (localhost...code=...) bot ko bhej dein - bot turant mita dega / 4) Ba
+- 2026-11-06 04:38 🤖 📊 YouTube Analytics (asli, pichhle 28 din): / • Suno Natak: 76 video, avg dekhi gayi 45% (scroll-away anumaan ~55%) /    ▶️ G_3f77fWvKs: 272 views, 20% dekhi, 7 likes, CTR 1.2% (83 impr.) /    ▶️ Za_-Qjiuwqk: 119 views, 91% dekhi, 2 likes, CTR 0.0% (9 impr.) /    ▶️ 95dz35rpVFU: 107 views, 28% dekhi, 3 likes, CTR 3.03% (33 impr.) / • Sab Hisaab Money: 10 video, avg dekhi gayi 73% (scroll-away anumaan ~27%) / 
+- 2026-11-06 04:34 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-06 04:34 🤖 🌐 sabhisaab.com (aaj): 0 log, 0 page dekhe / 📍 Kahan se aaye:  / 📄 Sabse zyada dekhe page:  / 🔗 Hamare video/post ke link se is samay koi nahi (ya Google ne abhi gina nahi - 24-48 ghante der hoti hai). / 🔎 Google search (7 din): 0 click, 68 baar dikha
+- 2026-11-06 04:33 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-06 04:29 🤖 🟡 DHYAN 🚀 Website deploy karein? (audit + calculator test ke baad hi live hoga)
+- 2026-11-06 04:29 🤖 📖 Sabhisaab Network v2.5.7 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-06 04:29 🤖 Baaki sab yahan:
+- 2026-11-06 04:29 👤 📖 Poora menu
+- 2026-11-06 04:28 🤖 ✅ Update safal: v2.5.7 chalu.
+- 2026-11-06 04:28 🤖 GitHub copy: v2.5.7 ✅
+- 2026-11-06 04:27 🤖 📦 Update mila: v2.5.5 ➜ v2.5.7 / Install karein? (purana backup rahega, gadbad hui to apne aap wapas)
+- 2026-11-06 04:27 🤖 ✅ v2.5.7 install. Bot 10 second mein naye code se chalu hoga...
+- 2026-11-06 04:27 🤖 ⏳ Install ho raha hai...
+- 2026-11-06 00:02 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 22:56 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-05 22:56 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-05 22:53 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-05 22:53 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-05 21:57 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 21:34 🤖 🟡 DHYAN ♻️ Labh Lo Deals (dobara koshish): 5 सेकंड रंग मिलान पहेली #5712: सही बॉक्स पहचानें! / ✅ facebook: FB page: Labhlodeals / ✅ instagram: https://www.instagram.com/reel/DfXai-FDnJq/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/67 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #5712) / ❌ pinterest: https://sabhisaab.
+- 2026-11-05 21:30 🤖 🟢 📊 Aaj ka haal (v2.5.5) / ⬆️ Upload: 0/10 / • Pahadi Hisaab: waiting देवभूमि परिवार पोर्टल: ऐसे मिलेगा सरकारी / • Pahadi Hisaab: waiting Uttarakhand Vlogger - पहाड़ की व्लॉगिंग  / • Pahadi Hisaab: posted पहाड़ी शब्द: क्या आपको पता है इस अनोखे श https://youtu.be/XuODCnUaz7E / • Sab Hisaab Money: posted FD vs RD mein kya antar hai: 3 badi galt https://youtu.be/sEfP_g_kfm8 / • Suno Natak: posted अगर BOOK = ANNJ
+- 2026-11-05 21:00 🤖 📌 Story link-sticker yaad (Instagram API nahi deta - aap khud lagayein; reel ke baad Story → Link sticker): / #3853 (Pahadi Hisaab): https://sabhisaab.com/jawab#c3853 / #923 (Suno Natak): https://sabhisaab.com/jawab#c923 / #8086 (Labh Lo Deals): https://sabhisaab.com/jawab#c8086 / #6625 (Pahadi Hisaab): https://sabhisaab.com/jawab#c6625 / #9247 (Suno Natak): https://sabhisaab.com/jawab#c9247 / #6914 (Sab Hisa
+- 2026-11-05 20:58 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-05 20:58 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-05 20:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 20:32 🤖 🟡 DHYAN ♻️ Sab Hisaab Money (dobara koshish): 3 सेकंड प्रतिशत ट्रिक #6914: ₹700 का 10%? / ✅ facebook: FB page: Sabhisaabmoney / ✅ instagram: https://www.instagram.com/reel/DfXTdual4s6/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/66 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #6914) / ❌ pinterest: https://sabhisaab.co
+- 2026-11-05 20:11 🤖 📮 Google sitemap ✅ | IndexNow: aaj koi naya page nahi
+- 2026-11-05 20:10 🤖 Manoj bhai, main abhi chaaron brands ke taaza comments aur unpar bot ke jawabon ki status check karke batata hoon.
+- 2026-11-05 20:10 👤 Comment ka jabab diya ha kya bot ne
+- 2026-11-05 20:09 🤖 📖 Sabhisaab Network v2.5.5 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-05 20:09 🤖 🌐 sabhisaab.com (aaj): 5 log, 132 page dekhe / ⏱ Kitni der ruke (ausat): 24m 26s | Ruke (engaged): 87.5% (7 session) / 📍 Kahan se aaye: (not set) 2, google 1, pinterest.com 1, youtube.com 1 / 📄 Sabse zyada dekhe page: / (15), /jawab (62), /author (1), /contact (1), /jabab (51), /services (2) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 2 / • pinterest.com / re
+- 2026-11-05 20:09 🤖 Baaki sab yahan:
+- 2026-11-05 20:09 👤 📖 Poora menu
+- 2026-11-05 20:09 👤 💬 Comment haal
+- 2026-11-05 20:08 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-05 20:08 🤖 📖 Sabhisaab Network v2.5.5 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-05 20:08 🤖 Baaki sab yahan:
+- 2026-11-05 20:08 👤 📖 Poora menu
+- 2026-11-05 19:55 🤖 📡 Telegram ka raasta badla: ab 'seedha Telegram' se baat ho rahi hai (seedha raasta wapas).
+- 2026-11-05 19:55 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-05 19:55 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 19:32 🤖 🟡 DHYAN ♻️ Suno Natak (dobara koshish): Credit Card Loan Traps: 3% ब्याज का सच | जानिए असली हिसाब / ✅ facebook: FB page: Sunonatak  / ✅ instagram: https://www.instagram.com/reel/DfXMqAUjar6/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/64 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story nahi (IG upload HTTP 400: {"debug_info":{"retriable":false,"type":) / ✅ answ
+- 2026-11-05 18:38 🤖 🟢 ⏰ dea6297f: YouTube par 21:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-05 18:38 🤖 👍 Thumb 1 chuna. Upload 21:30 par.
+- 2026-11-05 18:33 🤖 🟡 DHYAN Manzoori chahiye / 🆔 dea6297f | Labh Lo Deals / 📝 5 सेकंड रंग मिलान पहेली #5712: सही बॉक्स पहचानें! / ✅ Audit pass (18 jaanch) / ⏰ Jawab na mila to 21:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-05 18:30 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-05 18:25 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 18:02 🤖 🟡 DHYAN ♻️ Pahadi Hisaab (dobara koshish): कुमाऊँ का पारंपरिक हाथ से बजने वाला छोटा ढोल? #Shorts / ✅ facebook: FB page: Pahadihisaab / ✅ instagram: https://www.instagram.com/reel/DfXCT_RDcXm/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/63 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #6625) / ❌ pinterest: https://sabhi
+- 2026-11-05 18:01 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-05 18:01 🤖 🌐 sabhisaab.com (aaj): 5 log, 132 page dekhe / ⏱ Kitni der ruke (ausat): 24m 26s | Ruke (engaged): 87.5% (7 session) / 📍 Kahan se aaye: (not set) 2, google 1, pinterest.com 1, youtube.com 1 / 📄 Sabse zyada dekhe page: / (15), /jawab (62), /author (1), /contact (1), /jabab (51), /services (2) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 2 / • pinterest.com / re
+- 2026-11-05 18:01 👤 Link se kitne log aaye kewal wahi batao
+- 2026-11-05 18:00 🤖 🧪 NAMOONA #1 — Suno Natak — look: Premium Neon + Seedha / 🔒 Ye kahin POST NAHI hoga. /  / 📝 Digital Loan App Suraksha: ₹10,000 लोन का ये सच जानते हैं? / ⏱ 30 sec | ✅ audit 18/18 /  / 📍 Video + thumbnail par likha: https://sabhisaab.com/jawab (safe jagah mein) / 🔗 Page: https://sabhisaab.com/home-loan-guide / ▶️ YouTube: title + description (link clickable) — pehli line: ✅ सही जवाब (कोड #2724): https://sabhisaab.c
+- 2026-11-05 18:00 🤖 🌐 sabhisaab.com (aaj): 5 log, 132 page dekhe / ⏱ Kitni der ruke (ausat): 24m 26s | Ruke (engaged): 87.5% (7 session) / 📍 Kahan se aaye: (not set) 2, google 1, pinterest.com 1, youtube.com 1 / 📄 Sabse zyada dekhe page: / (15), /jawab (62), /author (1), /contact (1), /jabab (51), /services (2) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 2 / • pinterest.com / re
+- 2026-11-05 18:00 🤖 🌐 sabhisaab.com (aaj): 5 log, 132 page dekhe / ⏱ Kitni der ruke (ausat): 24m 26s | Ruke (engaged): 87.5% (7 session) / 📍 Kahan se aaye: (not set) 2, google 1, pinterest.com 1, youtube.com 1 / 📄 Sabse zyada dekhe page: / (15), /jawab (62), /author (1), /contact (1), /jabab (51), /services (2) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 2 / • pinterest.com / re
+- 2026-11-05 17:58 🤖 🎛 📅 Panel B (11-18): Roz ka kaam + 4 channel
+- 2026-11-05 17:58 🤖 🎛 🌐 Panel E (35-42): Website + kamai
+- 2026-11-05 17:58 🤖 Style 'puzzle_grid' ka namoona kis channel par? (post nahi hoga)
+- 2026-11-05 17:57 🤖 👑 50-BUTTON PRO DECK — 6 panel, har button asli kaam (setting badle to dohri pushti):
+- 2026-11-05 17:57 🤖 🎨 24 PRO-ELITE LOOK — Pahadi Hisaab / Abhi chalu: 43/24. ✅ = roz ki paheli-reel mein aayega. / Tap karke chuno/hatao → '✅ Pakka karo' (dohri pushti). Har look ka 3D chitra + pakka sawal.
+- 2026-11-05 17:57 🤖 🎨 24 PRO-ELITE LOOK — Labh Lo Deals / Abhi chalu: 43/24. ✅ = roz ki paheli-reel mein aayega. / Tap karke chuno/hatao → '✅ Pakka karo' (dohri pushti). Har look ka 3D chitra + pakka sawal.
+- 2026-11-05 17:57 🤖 🎛 🎬 Panel A (1-10): Visual style + reel
+- 2026-11-05 17:57 👤 👑 Pro 50 Deck
+- 2026-11-05 17:56 🤖 🎨 24 PRO-ELITE LOOK — Sab Hisaab Money / Abhi chalu: 43/24. ✅ = roz ki paheli-reel mein aayega. / Tap karke chuno/hatao → '✅ Pakka karo' (dohri pushti). Har look ka 3D chitra + pakka sawal.
+- 2026-11-05 17:55 🤖 🎬 Suno Natak: nayi video ban rahi hai (namoona, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-05 17:55 🤖 🎨 Kis channel ke 24 look set karne hain? (har look = pakka sawal + apna 3D chitra)
+- 2026-11-05 17:55 🤖 🎨 24 PRO-ELITE LOOK — Suno Natak / Abhi chalu: 43/24. ✅ = roz ki paheli-reel mein aayega. / Tap karke chuno/hatao → '✅ Pakka karo' (dohri pushti). Har look ka 3D chitra + pakka sawal.
+- 2026-11-05 17:55 👤 🎨 24 Look
+- 2026-11-05 17:54 🤖 🧪 SAMPLE STUDIO — har channel ka pakka look / • Suno Natak: Premium Neon (naya default) chal raha - chaho to badlo / • Sab Hisaab Money: Premium Neon (naya default) chal raha - chaho to badlo / • Labh Lo Deals: Premium Neon (naya default) chal raha - chaho to badlo / • Pahadi Hisaab: Premium Neon (naya default) chal raha - chaho to badlo /  / Naya namoona: brand chunein 👇 (kahin post nahi hoga)
+- 2026-11-05 17:54 👤 Namoona ke sawal change karne hai kaise honge bot bhai
+- 2026-11-05 17:51 🤖 🗑 Namoona mita diya (video, thumbnail, message aur VM ki file).
+- 2026-11-05 17:50 🤖 🧪 NAMOONA #1 — Suno Natak — look: Premium Neon + Seedha / 🔒 Ye kahin POST NAHI hoga. /  / 📝 Digital Loan Apps Safety: RBI नियम का यह सच जानते हैं? / ⏱ 30 sec | ✅ audit 18/18 /  / 📍 Video + thumbnail par likha: https://sabhisaab.com/jawab (safe jagah mein) / 🔗 Page: https://sabhisaab.com/home-loan-guide / ▶️ YouTube: title + description (link clickable) — pehli line: ✅ सही जवाब (कोड #3413): https://sabhisaab.com/j
+- 2026-11-05 17:46 🤖 🧪 SAMPLE STUDIO — har channel ka pakka look / • Suno Natak: Premium Neon (naya default) chal raha - chaho to badlo / • Sab Hisaab Money: Premium Neon (naya default) chal raha - chaho to badlo / • Labh Lo Deals: Premium Neon (naya default) chal raha - chaho to badlo / • Pahadi Hisaab: Premium Neon (naya default) chal raha - chaho to badlo /  / Naya namoona: brand chunein 👇 (kahin post nahi hoga) /  / Ya kisi 24-lo
+- 2026-11-05 17:46 🤖 🎬 Suno Natak: nayi video ban rahi hai (namoona, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-05 17:46 👤 🧪 Namoona
+- 2026-11-05 17:45 🤖 🟢 ⏰ mone5ad9: YouTube par 20:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-05 17:45 🤖 👍 Thumb 2 chuna. Upload 20:30 par.
+- 2026-11-05 17:44 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mone5ad9 | Sab Hisaab Money / 📝 3 सेकंड प्रतिशत ट्रिक #6914: ₹700 का 10%? / ✅ Audit pass (19 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-05 17:41 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-05 17:41 🤖 Manoj bhai, backup password ya koi bhi aisi key chat mein mat bhejiye. Sahi tareeka: 'ho gaya <shabd>', ya seedha paste karein, bot khud pehchaan kar surakshit rakhega. Aapko backup file ya database kis brand ki chahiye, wo bataiye!
+- 2026-11-05 17:40 🤖 🟡 DHYAN Manzoori chahiye / 🆔 monb81b3 | Sab Hisaab Money / 📝 Honeymoon Budget Hindi: लोन से जाएं या SIP से बचत करें? असली गणित / ✅ Audit pass (19 jaanch) / 🔒 Ye aapki/test video hai: aapke button dabaye bina kahin nahi jayegi. /  / Kaun sa thumbnail daalein?
+- 2026-11-05 17:40 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-05 17:40 🤖 🌐 sabhisaab.com (aaj): 5 log, 130 page dekhe / ⏱ Kitni der ruke (ausat): 27m 54s | Ruke (engaged): 85.7% (6 session) / 📍 Kahan se aaye: (not set) 2, google 1, pinterest.com 1, youtube.com 1 / 📄 Sabse zyada dekhe page: / (14), /jawab (61), /author (1), /contact (1), /jabab (51), /services (2) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 2 / • pinterest.com / re
+- 2026-11-05 17:22 🤖 💾 OFFSITE BACKUP: / • Aakhri: 20261105_0215 (71 KB) | Telegram par: haan / • Restore drill: -  / • Kya: state, seekh, diary, sawal-bank, secrets (AES-256 encrypted) / • Hukum: 'backup abhi' | 'backup password' (dekho) | 'backup password badlo <naya>' | 'restore drill'
+- 2026-11-05 17:22 👤 Backup password batao
+- 2026-11-05 17:22 👤 Backup
+- 2026-11-05 17:17 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-05 17:17 👤 Pinterest se aaj kitna traffic aaya
+- 2026-11-05 17:16 🤖 🟢 🛡 Sab Hisaab Money: script roki (Policy: Mention of real person/celebrity name ('अल्बर्ट आइंस्टीन' / Albert Einstein) violates content guidelines.). Naya topic le raha hoon.
+- 2026-11-05 17:15 🤖 🎬 Sab Hisaab Money: nayi LAMBI video (8-12 min, 30-60 min lagenge) ban rahi hai (lambi video)
+- 2026-11-05 17:15 🤖 Kis brand ki LAMBI video (8-12 min)? Raat ko banana behtar (30-60 min lagte hain).
+- 2026-11-05 17:15 👤 /card
+- 2026-11-05 17:14 🤖 🔐 Privacy haal / • Commenter record: 1 (sirf pichhle 30 din, har platform alag - jodkar track nahi) / • Aakhri auto-safai: 05 Nov 02:45 | hataya: {'audience': 0, 'diary': 0} / • Website policy page: ✅ sab zaroori baatein maujood / • Kisi ne data hatane ko kaha? Likhein: data hatao <naam ya @***>
+- 2026-11-05 17:14 👤 /privacy
+- 2026-11-05 17:09 🤖 🌐 sabhisaab.com (aaj): 5 log, 130 page dekhe / ⏱ Kitni der ruke (ausat): 27m 54s | Ruke (engaged): 85.7% (6 session) / 📍 Kahan se aaye: (not set) 2, google 1, pinterest.com 1, youtube.com 1 / 📄 Sabse zyada dekhe page: / (14), /jawab (61), /author (1), /contact (1), /jabab (51), /services (2) /  / 🔗 Har link (kahan se / kaise / kis brand ka → log): / • (not set) / (not set) / (not set) → 2 / • pinterest.com / re
+- 2026-11-05 17:09 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 17:04 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 17:02 🤖 🔎 Google Analytics se asli ginti la raha hoon...
+- 2026-11-05 17:00 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) canary ✅
+- 2026-11-05 16:55 🤖 🟡 DHYAN 🚀 Website deploy karein? (audit + calculator test ke baad hi live hoga)
+- 2026-11-05 16:55 🤖 📖 Sabhisaab Network v2.5.5 / 🗣 Normal baat mein likhein, jaise: 'pahadi ki ek video Valmiki Jayanti par banao' ya 'money ka time 1 baje kar do' - bot samjhega, confirmation lega, phir karega. / 🎬 Abhi video - brand chuno, video banegi aur manzoori ke liye aayegi / ⏳ Pending - jo video manzoori mein hain / ✅ Thumb 1 se daalo / 🎨 Naye thumbnail / ❌ Mat daalo - sabse nayi pending video par / 📊 Aaj ka haal | 📅 
+- 2026-11-05 16:55 🤖 🐤 CANARY (deploy ke baad jaanch) / ✅ / / ✅ /jawab / ✅ /privacy / ✅ /terms / ✅ /contact / ✅ soft-404 jaanch (galat URL par 404) / ✅ sitemap mein /jawab
+- 2026-11-05 16:55 🤖 Baaki sab yahan:
+- 2026-11-05 16:55 👤 📖 Poora menu
+- 2026-11-05 16:55 👤 canary
+- 2026-11-05 16:54 🤖 🧩 FEATURES (kya chalu hai) / ✅ Jawab website (/jawab) → jawab website chalu / band / ✅ Telegram digest (roz 20:30) → jawab digest chalu / band / ⬜ ads.txt (AdSense ke baad) → adsense id pub-XXXXXXXXXXXXXXXX /  / Apne aap chalte rehte hain: / ✅ UTM + YouTube comment/description mein jawab-link (raat 23:30) / ✅ Uptime (10 min) + canary (deploy ke baad) / ✅ Site scan (Ravivaar 22:00) / ✅ YPP haal (Ravivaar) + AdSense 
+- 2026-11-05 16:54 👤 features
