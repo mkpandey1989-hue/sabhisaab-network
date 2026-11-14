@@ -1,0 +1,297 @@
+# SITE SCAN (apne aap likha - kuch mat badlo, developer ko do)
+
+Pages: 269. Source: live sitemap. Niyam: MIN_WORDS=300.
+
+## Toote related-link (W1/B1)
+
+- /about: 'Author page' → /author (asli naam: Manoj Kumar Pandey — Sab Hisaab Kaun Chalata Hai)
+- /about: 'aaj ke jawab dekhein' → /jawab (asli naam: आज के सवालों के सही जवाब)
+- /advance-tax-calculator: 'is guide' → /fno-loss-itr3-kaise-dikhaye (asli naam: F&amp;O Loss ITR-3 Me Kaise Dikhaye Aur Aage Le Jaayein)
+- /appliance-bijli-kharch-calculator: 'is guide' → /bijli-bill-kaise-banta-hai (asli naam: Bijli Ka Bill Kaise Banta Hai Aur Kaise Kam Karein)
+- /appliance-bijli-kharch-calculator: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /area-guide: '➤ Free Area Converter kholein' → /bigha-converter (asli naam: Bigha to Square Feet Converter — Bigha, Gaj, Acre)
+- /area-guide: 'Area Converter' → /bigha-converter (asli naam: Bigha to Square Feet Converter — Bigha, Gaj, Acre)
+- /articles: 'aaj ke jawab dekhein' → /jawab (asli naam: आज के सवालों के सही जवाब)
+- /author: 'Services page' → /services (asli naam: Custom Tools aur Website — Kaam Karwayein)
+- /author: 'Services page' → /services (asli naam: Custom Tools aur Website — Kaam Karwayein)
+- /bigha-converter: 'is lekh' → /nali-mutthi-square-feet (asli naam: Nali, Mutthi Aur Bisi — Uttarakhand Ki Zameen Ka Naap)
+- /bigha-converter: 'Buy vs Rent' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /bigha-kitna-hota-hai: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /bijli-bill-calculator: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /bijli-bill-kaise-banta-hai: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /brokerage-calculator: 'Brokerage Guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /brokerage-calculator: 'Brokerage Guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /buy-vs-rent-guide: '➤ Buy vs Rent Calculator kholein' → /ghar-kharidein-ya-kiraya-calculator (asli naam: Ghar Kharidein Ya Kiraye Par Rahein — Hisaab)
+- /buy-vs-rent-guide: 'Buy vs Rent Tool' → /ghar-kharidein-ya-kiraya-calculator (asli naam: Ghar Kharidein Ya Kiraye Par Rahein — Hisaab)
+- /capital-gain-tax-calculator: 'Brokerage Guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /cement-sand-bajri-calculator: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /contact: 'Author page' → /author (asli naam: Manoj Kumar Pandey — Sab Hisaab Kaun Chalata Hai)
+- /converter-tools: 'is page' → /bigha-kitna-hota-hai (asli naam: Bigha Kitna Hota Hai — Har Rajya Ka Alag Hisaab)
+- /converter-tools: 'yahan' → /zameen-kharidne-se-pehle-kagaz (asli naam: Zameen Kharidne Se Pehle Kaun Se Kaagaz Zaroor Dekhein)
+- /converter-tools: 'Sq ft aur Sq m' → /sqft-to-sqm-converter (asli naam: Square Feet ↔ Square Meter)
+- /converter-tools: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /credit-score-guide: '➤ Debt-to-Income Calculator kholein' → /debt-to-income-calculator (asli naam: DTI Calculator — Aay Ka Kitna Hissa EMI Me)
+- /crorepati-calculator: 'ye lekh' → /sip-band-karun-ya-nahi-market-girne-par (asli naam: Market Girne Par SIP Band Karun Ya Nahi?)
+- /currency-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /data-storage-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /data-storage-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /date-difference-calculator: 'Working Days' → /date-difference-calculator (asli naam: Date Difference Calculator)
+- /debt-to-income-calculator: 'Buy vs Rent Guide' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /down-payment-calculator: 'Buy vs Rent Guide' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /education-loan-calculator: 'yahan' → /old-vs-new-tax-regime-calculator (asli naam: Old vs New Tax Regime Calculator)
+- /eent-brick-calculator: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /emergency-fund-kahan-rakhein: 'yahan' → /term-vs-endowment-insurance (asli naam: Term Vs Endowment Insurance — Kaunsa Lena Chahiye?)
+- /emi-calculator: 'Debt-to-Income Ratio' → /debt-to-income-calculator (asli naam: DTI Calculator — Aay Ka Kitna Hissa EMI Me)
+- /emi-calculator: 'Buy vs Rent' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /emi-guide: 'Buy vs Rent' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /fire-guide: 'real return' → /compound-interest-guide (asli naam: Compound Interest Kya Hai? Paisa Tezi Se Kaise Badhta Hai)
+- /fno-loss-itr3-kaise-dikhaye: 'brokerage guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /fuel-cost-calculator: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /ghar-kharidein-ya-kiraya-calculator: 'Buy vs Rent Guide' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /ghar-kharidein-ya-kiraya-calculator: 'Buy vs Rent Guide' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /gold-loan-calculator: 'yahan' → /gold-loan-vs-personal-loan (asli naam: Gold Loan Vs Personal Loan — Kaunsa Lena Chahiye?)
+- /gold-loan-vs-personal-loan: 'yahan dekhein' → /credit-card-minimum-due-trap (asli naam: Credit Card Ka &ldquo;Minimum Due&rdquo; — Sabse Mehnga Jaal)
+- /gold-loan-vs-personal-loan: 'yahan' → /kisan-credit-card-kaise-banwaye (asli naam: Kisan Credit Card (KCC) Kaise Banwayein Aur Kya Fayde)
+- /guides: 'lekh' → /articles (asli naam: Articles)
+- /hectare-bigha-acre-converter: 'yahan' → /zameen-kharidne-se-pehle-kagaz (asli naam: Zameen Kharidne Se Pehle Kaun Se Kaagaz Zaroor Dekhein)
+- /hectare-bigha-acre-converter: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /hectare-bigha-acre-converter: 'Saare Converters' → /converter-tools (asli naam: Converter Tools — Bigha, Nali, Length, Weight, Temperature)
+- /hra-calculator: 'Buy vs Rent' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /inflation-impact-calculator: 'yahan' → /mutual-fund-vs-fd-guide (asli naam: Mutual Fund vs FD — Kahan Paisa Lagayein?)
+- /intraday-calculator: 'Brokerage Guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /ipo-allotment-chance-calculator: 'Brokerage Guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /loan-tax-calculators: 'HRA vs Home Loan' → /old-vs-new-tax-regime-calculator (asli naam: Old vs New Tax Regime Calculator)
+- /loan-tax-calculators: 'Tulna yahan hai' → /tax-regime-guide (asli naam: Old vs New Tax Regime — Kaunsa Chunein?)
+- /nali-mutthi-converter: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /nali-mutthi-converter: 'Saare Converters' → /converter-tools (asli naam: Converter Tools — Bigha, Nali, Length, Weight, Temperature)
+- /nali-mutthi-square-feet: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /nali-mutthi-square-feet: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /neet-marks-calculator: 'Final Grade' → /exam-target-marks-calculator (asli naam: Exam Target Marks Calculator — Kitne Marks Chahiye)
+- /nps-se-pension-kitni-milegi: 'yahan' → /tax-regime-guide (asli naam: Old vs New Tax Regime — Kaunsa Chunein?)
+- /options-breakeven-calculator: 'yahan' → /fno-loss-itr3-kaise-dikhaye (asli naam: F&amp;O Loss ITR-3 Me Kaise Dikhaye Aur Aage Le Jaayein)
+- /paint-calculator: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /password-generator: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /position-size-calculator: 'Brokerage Guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /post-office-mis-calculator: 'POMIS ka hisaab' → /post-office-mis-ka-hisaab (asli naam: Post Office MIS — Har Mahine Kitni Aay Aur Kaise Kaam Karta Hai)
+- /post-office-mis-calculator: 'POMIS Guide' → /post-office-mis-ka-hisaab (asli naam: Post Office MIS — Har Mahine Kitni Aay Aur Kaise Kaam Karta Hai)
+- /property-bechne-par-capital-gain-tax: 'yahan' → /stamp-duty-calculator (asli naam: Stamp Duty Calculator)
+- /recipe-scaler-calculator: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /rent-receipt-hra-claim-kaise-karein: 'yahan' → /old-vs-new-tax-regime-calculator (asli naam: Old vs New Tax Regime Calculator)
+- /rental-yield-calculator: 'Buy vs Rent Guide' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /rental-yield-calculator: 'is guide' → /rent-receipt-hra-claim-kaise-karein (asli naam: Rent Receipt Se HRA Claim Kaise Karein — Poora Tarika)
+- /rental-yield-calculator: 'Buy vs Rent Guide' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /roman-numerals-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /roman-numerals-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /rozana-calculators: 'yahan' → /percentage-kaise-nikale (asli naam: Percentage Kaise Nikale — 7 Tarike, Aasaan Bhasha Me)
+- /scss-calculator: 'POMIS guide' → /post-office-mis-ka-hisaab (asli naam: Post Office MIS — Har Mahine Kitni Aay Aur Kaise Kaam Karta Hai)
+- /scss-calculator: 'POMIS Ka Hisaab' → /post-office-mis-ka-hisaab (asli naam: Post Office MIS — Har Mahine Kitni Aay Aur Kaise Kaam Karta Hai)
+- /services: 'guide' → /agristack-guide (asli naam: AgriStack Farmer ID Kaise Banayein — Maine Khud Ghar Baithe Kiya)
+- /sip-band-karun-ya-nahi-market-girne-par: 'yahan' → /mutual-fund-vs-fd-guide (asli naam: Mutual Fund vs FD — Kahan Paisa Lagayein?)
+- /sip-calculator: 'Expense Ratio Impact' → /real-return-calculator (asli naam: Real Return Calculator — Mehngai Ke Baad Asli Return)
+- /sip-calculator: 'Exit Load Calculator' → /swp-calculator (asli naam: SWP Calculator)
+- /sip-goal-calculator: 'is guide' → /bachche-ki-padhai-ka-fund-kaise-banayein (asli naam: Bachche Ki Padhai Ka Fund Kaise Banayein?)
+- /speed-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /speed-converter: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /speed-converter: 'Unit Converter' → /unit-converter (asli naam: Length / Weight Converter)
+- /stamp-duty-calculator: 'Buy vs Rent' → /buy-vs-rent-guide (asli naam: Kiraya ya Apna Ghar — Faisla Kaise Lein (Checklist))
+- /step-up-sip-calculator: 'Expense Ratio Impact' → /real-return-calculator (asli naam: Real Return Calculator — Mehngai Ke Baad Asli Return)
+- /temperature-converter: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /term-insurance-cover-calculator: 'is lekh' → /bachche-ki-padhai-ka-fund-kaise-banayein (asli naam: Bachche Ki Padhai Ka Fund Kaise Banayein?)
+- /term-vs-endowment-insurance: 'Bima Guide' → /term-vs-endowment-insurance (asli naam: Term Vs Endowment Insurance — Kaunsa Lena Chahiye?)
+- /terms: 'Services page' → /services (asli naam: Custom Tools aur Website — Kaam Karwayein)
+- /terms: 'humein batayein' → /contact (asli naam: Contact Us)
+- /terms: 'Author' → /author (asli naam: Manoj Kumar Pandey — Sab Hisaab Kaun Chalata Hai)
+- /terms: 'Services' → /services (asli naam: Custom Tools aur Website — Kaam Karwayein)
+- /trading-calculators: 'brokerage guide' → /brokerage-guide (asli naam: Share Trading Ke Charges — Poori Samajh (Intraday vs Delivery))
+- /unit-converter: 'Area Guide' → /area-guide (asli naam: Zameen Ki Naap — Bigha, Gaj, Acre Samjhein)
+- /utility-tools: 'Weather' → /mausam-weather (asli naam: Mausam — Aaj, Kal Aur Parso Ka Haal)
+- /uttarakhand-farmer-id-ukfr: 'Form Bharne Me Madad' → /services (asli naam: Custom Tools aur Website — Kaam Karwayein)
+- /xirr-calculator: 'Expense Ratio Impact Calculator' → /real-return-calculator (asli naam: Real Return Calculator — Mehngai Ke Baad Asli Return)
+- /xirr-calculator: 'Exit Load Calculator' → /swp-calculator (asli naam: SWP Calculator)
+- /xirr-calculator: 'Expense Ratio Impact' → /real-return-calculator (asli naam: Real Return Calculator — Mehngai Ke Baad Asli Return)
+
+## Patle page (W5/B2) - content badhao ya noindex
+
+
+## 'Aakhri update / Reviewed on' nahi (W8)
+
+- /50-30-20-budget-calculator
+- /8th-pay-commission-calculator
+- /advance-tax-calculator
+- /appliance-bijli-kharch-calculator
+- /apy-atal-pension-calculator
+- /attendance-percentage-calculator
+- /average-calculator
+- /balance-transfer-savings-calculator
+- /bijli-bill-calculator
+- /bike-loan-emi-calculator
+- /bill-split-calculator
+- /bmr-calculator
+- /body-fat-calculator
+- /bonus-act-calculator
+- /brokerage-calculator
+- /business-breakeven-calculator
+- /cagr-calculator
+- /calorie-calculator
+- /capital-gain-tax-calculator
+- /car-insurance-idv-calculator
+- /car-loan-emi-calculator
+- /case-converter
+- /cbse-best-of-five-calculator
+- /cement-sand-bajri-calculator
+- /cgpa-to-percentage-calculator
+- /credit-card-emi-vs-loan-calculator
+- /credit-card-payoff-calculator
+- /crorepati-calculator
+- /crypto-tax-calculator
+- /currency-converter
+- /da-arrear-calculator
+- /data-storage-converter
+- /date-add-subtract-calculator
+- /date-difference-calculator
+- /debt-to-income-calculator
+- /delivery-date-calculator
+- /depreciation-calculator
+- /din-bache-calculator
+- /discount-calculator
+- /dividend-tax-calculator
+- /dividend-yield-calculator
+- /doodh-rate-fat-snf-calculator
+- /down-payment-calculator
+- /education-loan-calculator
+- /eent-brick-calculator
+- /emergency-fund-calculator
+- /emi-se-byaj-dar-calculator
+- /english-word-meaning
+- /epf-withdrawal-tax-calculator
+- /esic-calculator
+- /exam-target-marks-calculator
+- /exit-load-calculator
+- /expense-ratio-impact-calculator
+- /fasal-munafa-calculator
+- /fd-ladder-calculator
+- /fire-number-calculator
+- /flat-vs-reducing-rate-calculator
+- /fraction-simplify-calculator
+- /fuel-cost-calculator
+- /ghar-kharidein-ya-kiraya-calculator
+- /goal-lumpsum-calculator
+- /gold-jewellery-guide
+- /gold-jewellery-price-calculator
+- /gold-loan-calculator
+- /gold-vs-sip-calculator
+- /gst-late-fee-calculator
+- /hectare-bigha-acre-converter
+- /home-loan-eligibility-calculator
+- /ideal-weight-calculator
+- /inflation-impact-calculator
+- /intraday-calculator
+- /inverter-battery-backup-calculator
+- /invoice-total-calculator
+- /ipo-allotment-chance-calculator
+- /itr-late-fee-calculator
+- /kvp-calculator
+- /lcm-hcf-calculator
+- /leave-encashment-calculator
+- /loan-amortization-calculator
+- /loan-foreclosure-calculator
+- /loan-prepayment-calculator
+- /love-calculator
+- /lumpsum-calculator
+- /macro-calculator
+- /mahila-samman-calculator
+- /marks-percentage-calculator
+- /mausam-weather
+- /mileage-calculator
+- /nali-mutthi-converter
+- /neet-marks-calculator
+- /net-worth-calculator
+- /notice-period-buyout-calculator
+- /nps-calculator
+- /nps-tax-benefit-calculator
+- /nps-vatsalya-calculator
+- /nsc-calculator
+- /number-system-converter
+- /number-to-words
+- /old-vs-new-tax-regime-calculator
+- /on-road-price-calculator
+- /options-breakeven-calculator
+- /overtime-pay-calculator
+- /paint-calculator
+- /password-generator
+- /pension-commutation-calculator
+- /percentage-change-calculator
+- /personal-loan-emi-calculator
+- /petrol-cng-ev-compare-calculator
+- /pivot-points-calculator
+- /pm-kisan-calculator
+- /pm-surya-ghar-solar-subsidy-calculator
+- /position-size-calculator
+- /post-office-mis-calculator
+- /ppf-extension-calculator
+- /presumptive-tax-44ada-calculator
+- /price-compare-calculator
+- /professional-tax-calculator
+- /profit-margin-calculator
+- /property-price-calculator
+- /qr-code-generator
+- /random-number-generator
+- /ratio-calculator
+- /rd-calculator
+- /reading-time-calculator
+- /real-return-calculator
+- /recipe-scaler-calculator
+- /rent-receipt-calculator
+- /rental-yield-calculator
+- /retirement-calculator
+- /risk-reward-ratio-calculator
+- /roi-calculator
+- /roman-numerals-converter
+- /rule-of-72-calculator
+- /running-pace-calculator
+- /salary-hike-calculator
+- /salary-per-hour-calculator
+- /sariya-weight-calculator
+- /savings-rate-calculator
+- /scientific-calculator
+- /scss-calculator
+- /section-80c-calculator
+- /simple-interest-calculator
+- /sip-delay-calculator
+- /sip-goal-calculator
+- /sleep-time-calculator
+- /sovereign-gold-bond-calculator
+- /speed-converter
+- /sqft-to-sqm-converter
+- /stamp-duty-calculator
+- /step-up-sip-calculator
+- /stock-averaging-calculator
+- /stop-loss-target-calculator
+- /stopwatch-online
+- /sukanya-samriddhi-calculator
+- /swp-calculator
+- /swp-tax-calculator
+- /tax-regime-compare-calculator
+- /tcs-foreign-remittance-calculator
+- /tdee-calculator
+- /tds-calculator
+- /tds-on-rent-calculator
+- /temperature-converter
+- /term-insurance-cover-calculator
+- /tile-calculator
+- /time-duration-calculator
+- /typing-speed-calculator
+- /unit-converter
+- /ups-pension-calculator
+- /vpf-calculator
+- /waist-to-height-calculator
+- /water-intake-calculator
+- /word-counter
+- /xirr-calculator
+- /zakat-calculator
+
+## h1 nahi
+
+
+## Zaroori page par ad code
+
