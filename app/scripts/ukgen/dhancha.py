@@ -88,3 +88,54 @@ def neg_headings(p, log=None):
                 n += 1
                 break
     return n
+
+
+# ---------------------------------------------------------------- v3.3.4: zila main page par hisson ka kram (sabse kaam ka pehle)
+# Pathak (aur Google) ko pehle pehchan/saar, phir zile ki khaas cheez, phir doori-data, phir emergency; tulna, galatfehmi,
+# sawal-jawab aur srot aakhir mein. Sirf kram badalta hai - koi shabd nahi badalta, har hissa apne heading ke saath poora jaata hai.
+_RANK = [
+    (0, r"ek nazar|Ek Baat, Seedhe Aapse|30 Second|Saransh|Executive Summary"),
+    (8, r"[\u0900-\u097F]|Devanagari"),
+    (7, r"Sawal|FAQ"),
+    (1, r"\bGhat\b|Ganga Aarti|Kumbh|Snan aur Parv|Mansa Devi|Data Pack"),
+    (2, r"Unchai|Trains|Rukne|Safari"),
+    (3, r"Emergency|Phone"),
+    (4, r"Zaroori Tathya|Gateway Table|Prasiddh Tal"),
+    (5, r"vs Himachal"),
+    (6, r"Galatfehmiyan"),
+    (9, r"Srot|Sources|Sandarbh"),
+]
+_SUB = {"haridwar": [r"\bGhat\b", r"Ganga Aarti", r"Kumbh", r"Snan aur Parv", r"Mansa Devi"]}
+
+
+def _rank(title, d):
+    for r, rx in _RANK:
+        if re.search(rx, title):
+            if r == 1 and d in _SUB:
+                for i, s in enumerate(_SUB[d]):
+                    if re.search(s, title):
+                        return (r, i)
+                return (r, 99)
+            return (r, 0)
+    return (4, 50)
+
+
+def order_main(p):
+    if p.get("kind") != "main" or not p.get("district"):
+        return 0
+    items = p["items"]
+    first = next((i for i, it in enumerate(items) if it[0] == "h2"), None)
+    if first is None:
+        return 0
+    pre, blocks, cur = items[:first], [], None
+    for it in items[first:]:
+        if it[0] == "h2":
+            cur = [it]
+            blocks.append(cur)
+        else:
+            cur.append(it)
+    keyed = sorted(enumerate(blocks), key=lambda kb: (_rank(kb[1][0][1], p["district"]), kb[0]))
+    new = pre + [x for _, b in keyed for x in b]
+    moved = sum(1 for (i, _), j in zip(keyed, range(len(blocks))) if i != j)
+    p["items"] = new
+    return moved

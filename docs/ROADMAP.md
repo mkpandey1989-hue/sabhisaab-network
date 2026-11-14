@@ -1525,6 +1525,31 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.4 (15 Nov 2026 raat) - [OPUS 5.5] Chhatha daur: dhancha jo na toote, lekhak-nirdesh/keyword-suchi saaf, UK Web Story
+Owner (7wi baar): "linking/dhancha ek baar tootega hi, par aisa fix karo ki baar baar na toote, fully automatic; koi bhi kisi bhi
+bhasha mein search kare to site dikhe (policy ke andar); sab pending poora, zero galti".
+- Dhancha (ukgen render): heading ke aage ka number (201. / 81.1) pathak ko ab nahi dikhta; anchor id heading ke NAAM se
+  (#haridwar-ke-pramukh-ghat), number se nahi. 'Heading 88-89' range, table ka 'Heading' column (1, 2 / 62, 71) -> naam wale link.
+  Zila main page par kram: saar > zile ki khaas cheez > data > emergency > tulna > galatfehmi > sawal > Hindi > srot.
+- Dhancha ka taala (bot pagequeue.fix_anchors): har jaane wale page ka '#naam' aur '/page#naam' link jaancha jaata hai; nishaana
+  na mile to isi page ka link -> text, doosre page ka -> page ka link (soya data-h bhi). Toota link kabhi live nahi jaata. Smoke.
+- Naya roop apne aap (pagequeue): ukgen har page mein <!--ukc:nishaan--> daalta hai; queue ZIP mein kisi live page ka naya roop
+  aaya to bot use source se dobara banata hai aur dateModified = us din (asli badlav; sitemap lastmod sync_lastmod se). Badlav na ho
+  to tareekh nahi badalti (nakli lastmod nahi). '@@MOD@@' placeholder.
+- clean6.py (ukgen): ~70 'page banane wale ke liye' vaakya hate ('Page par ... likhein', 'Last updated tithi dein', button/PDF/
+  Search Console/quiz share), 27 keyword-suchi hati (USN har theme page + Pithoragarh 'Part H/I' - Google spam niti: keyword
+  stuffing), 'module/heading' bhasha -> 'hissa/vishay', [local survey needed] -> (sthaniya pushti baaki), 'Voice Search' heading ->
+  Sawal-Jawab, 4 main page ka source title-patta ('200 Headings'). Beetne wali tareekh ki bhasha neutral (Badrinath, Somvati,
+  Banbasa rally, Agniveer) - tathya wahi, web se mila ke (Badrinath 16 Nov 2026, Kartik Purnima 24 Nov 2026).
+- Taazgi (fresh_scan): Hindi mahine + Hindi bhavishya kriya (होगा/होंगे/खुलेगा) bhi; srot ki tareekh '(PTI, 31 July 2025;' par
+  galat aarop nahi.
+- Bhasha: 13 zila page par pehle se 30-40 Devanagari sawal-jawab; hub par 7 Hindi sawal-jawab jode (haath se, machine anuvaad nahi;
+  alag Hindi/English nakal page NAHI - scaled content niti).
+- UK Web Story (webstory.build_uk/publish_uk): Budhwar 12:15, hafte mein EK - live zila page ke 5 Hindi sawal (saal wale nahi) +
+  page ki apni photo (portrait poster) + aakhri page se zila page. Owner ko URL milta hai (GSC Request indexing).
+- Video link: Pahadi video ke title/topic mein EK zile ka naam ho aur page live ho to description/channel link us zile ka page.
+- Smoke 282.
+
 ## v3.3.3 (14 Nov 2026 shaam) - [OPUS 5.5] Paanchva daur: sarkari srot milan, Drive ki photo, taazgi-chowkidari, Pinterest asli photo
 Owner: "sarkari srot aur jo pending hai sab clear, Google Discover par naam aaye, bot sab page par nazar rakhe taaki purane data se
 index se na hate, Drive ke 'Claudi Ai' folder ki photo (duplicate bhi hain) dekh lena".

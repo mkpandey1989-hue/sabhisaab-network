@@ -580,6 +580,13 @@ def scheduler():
                     from . import webstory as _WS
                     log(_WS.publish(br))
                 run(_ws)
+            if nowt.weekday() == 2 and "12:15" <= nowt.strftime("%H:%M") < "13:30" and state.get("ukstory_day") != day \
+                    and state.get("stories_on", True):                  # v3.3.4: Budhwar - UK zila Web Story (apni photo)
+                state.put("ukstory_day", day)
+                def _uks():
+                    from . import webstory as _WS
+                    tg.say(_WS.publish_uk())
+                run(_uks)
             HUB_DAYS = {0: "pahadi", 2: "money", 4: "deals", 6: "sunonatak"}   # v2.7.0: har brand ki har hafte apni hub video
             if nowt.weekday() in HUB_DAYS and "01:30" <= nowt.strftime("%H:%M") < "02:30" and state.get("long_day") != str(nowt.date()) \
                     and not state.get("paused"):

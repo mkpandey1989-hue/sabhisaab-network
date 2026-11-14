@@ -14,8 +14,9 @@ def _tpl_only(body):
     if body.startswith("FAQ: "):
         return "Sawal-Jawab: " + body[5:]
     return _tpl_h(body, None)
-from dhancha import neg_headings
+from dhancha import neg_headings, order_main
 from fix5 import apply as fix5_apply
+from clean6 import apply as clean6_apply
 
 TPL = "/home/claude/sabhisaab_site/site/uttarakhand-farmer-id-ukfr.html"
 LIVE = os.environ.get("UK_LIVE_SITE", "/home/claude/sabhisaab_site/site")
@@ -67,7 +68,9 @@ def text_of(s):
 
 def slugify(t):
     t = re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
-    return t[:48] or "s"
+    if len(t) > 48:
+        t = t[:48].rsplit("-", 1)[0] if "-" in t[:48] else t[:48]
+    return t.strip("-") or "s"
 
 # ---------------------------------------------------------------- kram (priority)
 def priority(pages):
@@ -138,8 +141,11 @@ def district_headings(p):
 
 def tidy_page(p, log):
     fix5_apply(p, log)          # v3.3.2 audit-5: Census 2011 sudhaar + bachi lekhak/SEO line
+    clean6_apply(p, log)        # v3.3.4 audit-6: lekhak-nirdesh, keyword-suchi, 'module/heading' bhasha
     district_headings(p)
     neg_headings(p)
+    order_main(p)               # v3.3.4: main page par sabse kaam ke hisse pehle
+    clean6_apply(p, None)       # v3.3.4: heading Hinglish hone ke baad dobara (jo pehle pakad mein na aaye)
     items = p["items"]
     # 1) FAQ: milte-julte sawal ek (jawab jod kar - kuch nahi khota)
     faqs = [i for i, it in enumerate(items) if it[0] == "faq"]
@@ -242,13 +248,21 @@ def tidy_page(p, log):
     p["items"] = out
 
 # ---------------------------------------------------------------- headings ke id + cross-ref map
+NUMPFX = re.compile(r"^\s*\d{1,3}(?:(?:\.(?:\d{1,2}|[A-Z]))+[.:)]?|[.:)])\s+")
+def head_show(t):
+    """Pathak ko dikhne wali heading: aage ka '201.' / '81.1' hata kar (file ke andar ka kram number pathak ke kaam ka nahi)."""
+    u = NUMPFX.sub("", t, count=1).strip()
+    return u or t
+
 def assign_ids(p):
     used = set()
     res = []
     for it in p["items"]:
         if it[0] in ("h2", "h3", "h4"):
-            m = re.match(r"^(\d{1,3})(?:\.(\d{1,2}))?[.:)]?\s", it[1])
-            base = ("h%s" % m.group(1) + ("-%s" % m.group(2) if m.group(2) else "")) if m else slugify(it[1])
+            # v3.3.4 dhancha: id ab heading ke naam se (number se nahi) - number dikhna band, link naam par tikta hai
+            base = slugify(head_show(it[1]))
+            if base == "s":
+                base = "hissa"
             hid, n = base, 2
             while hid in used:
                 hid = "%s-%d" % (base, n); n += 1
@@ -304,6 +318,9 @@ def linkify(text_html, p, hmap, mmap, titles):
     t0 = re.sub(r"^\s*Sections?\s+(\d{1,3}(?:\.\d{1,2})?)\s*$", r"Heading \1", t0)
     if key == "nainital":                         # Nainital ki file mein 'Section N' = hamesha apni Heading N (kanoon ka '10(1)' nahi)
         t0 = re.sub(r"(?<!Bill ke )\bSections?\s+(?!143\b|154\b|118\b)(\d{1,3}(?:\.\d{1,2})?)(?!\s*\(\d)(?!\d)", r"Heading \1", t0)
+    # v3.3.4: 'Heading 88-89' / 'Heading 136 se 142' (range) -> pehli heading ka link (pehle '-89' bacha reh jaata tha)
+    t0 = re.sub(r"(\bHeadings?\s+\d{1,3}(?:\.\d{1,2})?\s*(?:,|aur|and)\s*)(\d{1,3})\s*(?:-|–)\s*\d{1,3}\b(?!\.\d)", r"\1\2", t0)
+    t0 = re.sub(r"\b(Headings?)\s+(\d{1,3})\s*(?:-|–|se|to)\s*(\d{1,3})\b(?!\.\d)", r"Heading \2", t0)
     t0 = re.sub(r"\b(Headings?)\s+(\d{1,3}(?:\.\d{1,2})?)\s*(,|aur|and)\s*(\d{1,3}(?:\.\d{1,2})?)\b", r"\1 \2 \3 Heading \4", t0)
     out = REF.sub(rep, t0)
     out = re.sub(r"\(\s*\x01[^\x02]*\x02\s*(?:aur|,)\s*", "(", out)          # '(na-mila aur mila)' -> '(mila)'
@@ -338,7 +355,7 @@ def render_items(p, hmap, mmap, titles):
     for it in p["items"]:
         k = it[0]
         if k in ("h2", "h3", "h4"):
-            out.append(("h", '<%s id="%s"%s>%s</%s>' % (k, it[2], lang_attr(it[1]), esc(it[1]), k), it))
+            out.append(("h", '<%s id="%s"%s>%s</%s>' % (k, it[2], lang_attr(it[1]), esc(head_show(it[1])), k), it))
         elif k in ("p", "pb"):
             inner = tx(it[1], p, hmap, mmap, titles)
             if k == "pb":
@@ -355,8 +372,20 @@ def render_items(p, hmap, mmap, titles):
             out.append(("x", "<ul>%s</ul>" % "".join("<li%s>%s</li>" % (lang_attr(x), tx(x, p, hmap, mmap, titles)) for x in it[1]), None))
         elif k == "table":
             rows = it[1]
-            head = "".join("<th>%s</th>" % tx(c, p, hmap, mmap, titles) for c in rows[0])
-            body = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % tx(c, p, hmap, mmap, titles) for c in r) for r in rows[1:])
+            # v3.3.4 dhancha: 'Heading' / 'Detail Heading' column mein khaali number (1, 2 / 62, 71) - number ab dikhte nahi,
+            # isliye har number ko us heading ke naam wale link mein badlo; jo na mile wo hatao
+            hcol = {i for i, c in enumerate(rows[0]) if isinstance(c, str) and re.fullmatch(r"\s*(Detail\s+)?Headings?\s*", c, re.I)}
+            def cell(c, i):
+                if i in hcol and isinstance(c, str) and re.fullmatch(r"[\d.,\sH-]+", c or ""):
+                    links = []
+                    for num in re.findall(r"\d{1,3}(?:\.\d{1,2})?", c):
+                        h = tx("Heading " + num, p, hmap, mmap, titles)
+                        if "<a " in h and h not in links:
+                            links.append(h)
+                    return ", ".join(links) or "—"
+                return tx(c, p, hmap, mmap, titles)
+            head = "".join("<th>%s</th>" % ("Vistaar" if i in hcol else tx(c, p, hmap, mmap, titles)) for i, c in enumerate(rows[0]))
+            body = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % cell(c, i) for i, c in enumerate(r)) for r in rows[1:])
             out.append(("x", '<div class="tw"><table class="tb"><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (head, body), None))
         elif k == "faq":
             q, a = esc(it[1]), tx(it[2], p, hmap, mmap, titles)
@@ -498,7 +527,7 @@ def assemble(p, body_parts, faqs, by, img, extra_head=""):
     bl = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(crumbs)]}
     art = {"@context": "https://schema.org", "@type": "Article", "headline": p["h1"][:110], "description": desc,
-           "inLanguage": lang, "datePublished": "@@PUB@@", "dateModified": "@@PUB@@",
+           "inLanguage": lang, "datePublished": "@@PUB@@", "dateModified": "@@MOD@@",
            "image": [SITE + "/" + img[0]] + [SITE + "/" + f for f in p.get("_photos", []) if f != img[0]],
            "author": {"@type": "Person", "name": "Manoj Kumar Pandey", "url": SITE + "/author"},
            "publisher": {"@type": "Organization", "name": "Sab Hisaab", "url": SITE + "/",
@@ -535,13 +564,18 @@ def assemble(p, body_parts, faqs, by, img, extra_head=""):
             '<div class="crumb">%s</div>\n' % " &rsaquo; ".join(vis),
             "<h1%s>%s</h1>\n" % (' lang="hi"' if is_deva(p["h1"]) else "", esc(p["h1"])),
             '<div class="meta">Lekhak: <a href="/author" style="color:inherit">Manoj Kumar Pandey</a> &middot; Aakhri update: '
-            '<time datetime="@@PUB@@">@@PUBH@@</time> &middot; Padhne me ~%d minute</div>\n' % max(3, round(words / 200)),
+            '<time datetime="@@MOD@@">@@MODH@@</time> &middot; Padhne me ~%d minute</div>\n' % max(3, round(words / 200)),
             '<div class="gshare" id="gShare"><a class="wa" target="_blank" rel="noopener">🟢 WhatsApp par share</a>'
             '<button type="button" class="cp">🔗 Link copy karein</button></div>\n']
     body += body_parts
     body.append(UK_JS)
     body.append(FOOT)
-    return "".join(head) + "".join(body)
+    page = "".join(head) + "".join(body)
+    # v3.3.4: content ka nishaan - bot isse pehchanta hai ki queue mein page ka naya (sudhra) roop aaya hai; tab hi live page
+    # source se dobara banta hai aur dateModified/lastmod asli badlav ki tareekh leta hai (bina badlav ke tareekh nahi badalti)
+    import hashlib
+    ukc = hashlib.sha1(page.encode("utf-8")).hexdigest()[:12]
+    return page.replace("</head>", "<!--ukc:%s-->\n</head>" % ukc, 1)
 
 def toc(rendered):
     hs = [(m.group(1), text_of(m.group(2))) for k, h, it in rendered if k == "h"

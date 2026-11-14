@@ -14,6 +14,7 @@ def gate(html, live, pubdate, tools_count=None):
     html = re.sub(r'<a href="/([a-z0-9-]+(?:#[a-z0-9-]+)?)" data-uk="([a-z0-9-]+)">(.*?)</a>', a, html, flags=re.S)
     d = datetime.date.fromisoformat(pubdate)
     html = html.replace("@@PUB@@", pubdate).replace("@@PUBH@@", "%d %s %d" % (d.day, MONTHS[d.month - 1], d.year))
+    html = html.replace("@@MOD@@", pubdate).replace("@@MODH@@", "%d %s %d" % (d.day, MONTHS[d.month - 1], d.year))
     if tools_count:
         html = re.sub(r"Saare \d{2,4} Tools", "Saare %d Tools" % tools_count, html)
     return html

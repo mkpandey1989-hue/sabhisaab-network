@@ -163,3 +163,11 @@ bina jawab ke keyword-sawal ki suchi (page par sawal bina jawab = patla content)
 - Taazgi: bot har Somvaar 'Taazgi jaanch' bhejega - wo sandesh Claude ko. 'taazgi' likh kar kabhi bhi.
 - Sarkari srot: fix5.py mein har sudhaar ke saath srot likha hai. Naya aankda jodna ho to pehle Census/NIC/Lok Sabha uttar se.
 - Photo niyam waise hi (section 10.1). Drive par nayi photo daalein to Claude ko batayein - photos2.py jaisa naya daur.
+
+## 12. Chhatha daur (15 Nov) - v3.3.4
+- Heading number nahi dikhte; id naam se. Bot ka anchor-taala har din toote '#' link theek karta hai (kabhi toota live nahi).
+- Queue ZIP v5 lagate hi jo page pehle se live hain (14-15 Nov ke) wo apne aap naye roop mein badlenge (ukc nishaan), dateModified =
+  us din. Aage bhi naya queue ZIP = live page apne aap update, bina owner ke kuch kiye.
+- Lekhak-nirdesh / keyword-suchi / 'module' bhasha saaf (clean6.py). Budhwar ko UK Web Story (apni photo).
+- Bacha (imaandari): hazaron chhote tathya (unchai, doori, phone) sab ek-ek sarkari srot se nahi mile - pehle live hone wale page ke
+  mukhya tathya (zila-gathan tithi, Census, kapat tithi) mile; baaki ke liye taazgi-chowkidar + owner ki report.

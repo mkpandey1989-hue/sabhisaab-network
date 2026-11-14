@@ -111,6 +111,18 @@ SUBS = [
 
 # poora item hatao: (slug, regex jo item ke text mein ho)
 DROP = [
+    # v3.3.4: source file ka title-patta (pathak ke kaam ka nahi, '200 Headings' jaisa lekhak ka ishara)
+    ("chamoli-uttarakhand", r"^Chamoli District \(.*\): Poori Jaankari, 200 Headings$"),
+    ("chamoli-uttarakhand", r"^sabhisaab\.com$"),
+    ("chamoli-uttarakhand", r"^\d{1,2} November 2026 tak ki jaankari$"),
+    ("almora-uttarakhand", r"^Almora: Poori District Guide \(200 Headings, 18 Modules\)$"),
+    ("almora-uttarakhand", r"^sabhisaab\.com$"),
+    ("bageshwar-uttarakhand", r"\(200 Headings, 18 Modules\)$"),
+    ("bageshwar-uttarakhand", r"^Final Master Document: Bageshwar"),
+    ("bageshwar-uttarakhand", r"^Sab Hisaab ke Uttarakhand Hub ke liye ek zila-star ka poora, shodh-aadharit page\.$"),
+    ("tehri-garhwal-uttarakhand", r"^Tehri Garhwal Page$"),
+    ("tehri-garhwal-uttarakhand", r"\(200 Headings\)$"),
+    ("tehri-garhwal-uttarakhand", r"^sabhisaab\.com ke liye taiyar$"),
     ("bageshwar-pariyojana-aapda-itihas", r"interactive quiz padhne wale ko page par rukne"),
     ("almora-basna-workation", r"^Budget table \(aap Almora me survey karke bharein\):$"),
     ("almora-basna-workation", r"^Table \(aap jaakar bharein\):$"),

@@ -193,5 +193,13 @@ FAQ_EXTRA = {
   ("Uttarakhand ka naam pehle kya tha?", "Uttaranchal; 1 January 2007 se naam Uttarakhand kiya gaya."),
   ("Uttarakhand ke rajya pratik kaun se hain?", "Kasturi mrig (rajya pashu), Himalayan Monal (rajya pakshi), Brahma Kamal (rajya phool) aur Buransh (rajya vriksh)."),
   ("Uttarakhand ka High Court kahan hai?", "Nainital mein, Dehradun mein nahi."),
+  # v3.3.4: Hindi (Devanagari) mein search karne walon ke liye - wahi tathya, haath se likhe (machine anuvaad nahi)
+  ("उत्तराखंड राज्य कब बना?", "9 नवंबर 2000 को, उत्तर प्रदेश से अलग होकर। यह भारत का 27वां राज्य है।"),
+  ("उत्तराखंड में कितने जिले हैं?", "13 जिले, जो दो मंडलों में बंटे हैं: गढ़वाल (7 जिले) और कुमाऊं (6 जिले)।"),
+  ("उत्तराखंड की राजधानी क्या है?", "देहरादून अस्थायी (शीतकालीन) राजधानी है; चमोली जिले का गैरसैंण (भराड़ीसैंण) ग्रीष्मकालीन राजधानी घोषित है।"),
+  ("उत्तराखंड का क्षेत्रफल और जनसंख्या कितनी है?", "क्षेत्रफल लगभग 53,483 वर्ग किमी है और जनगणना 2011 के अनुसार जनसंख्या 1,00,86,292 है।"),
+  ("उत्तराखंड में विधानसभा की कितनी सीटें हैं?", "70 विधानसभा सीटें हैं; लोकसभा की 5 और राज्यसभा की 3 सीटें हैं।"),
+  ("उत्तराखंड का हाई कोर्ट कहां है?", "नैनीताल में।"),
+  ("उत्तराखंड के राज्य प्रतीक क्या हैं?", "राज्य पशु कस्तूरी मृग, राज्य पक्षी हिमालयी मोनाल, राज्य पुष्प ब्रह्मकमल और राज्य वृक्ष बुरांश।"),
  ],
 }

@@ -62,6 +62,9 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-16: [Owner] AdSense mein site jodte samay: AdSense → Sites → sabhisaab.com → 'Meta tag' chunein → apna pub-ID copy → bot mein 'adsense id pub-XXXXXXXXXXXXXXXX' → ✅✅ (ads.txt + homepage meta, koi ad nahi dikhta) → 15 min baad AdSense mein Verify → Request review
 - 2026-11-26: [P0 Developer T1] W12 ka nateeja naapo (docs/TRAFFIC_PLAN.md hissa 4-5): nali page par Devanagari shabd/impression aaye? Aaye to wahi saancha /bigha-converter se shuru karke ek-ek page par; na aaye to 10 Dec tak ruko, title wapas mat badlo
 - 2026-11-19: [P0 Developer T2] /bigha-kitna-hota-hai (har rajya) ka har number us rajya ke rajasv/bhulekh srot se milao + srot ka link + W12 wala Hindi saancha (naya page nahi). Phir T3: pahadi/zameen ke gehre panne, hafte mein max 2
+- 2026-11-15: [Owner, 2 min] Pehle bot ZIP v3.3.4 bot ko bhejein -> '✅ Haan, install karo'. Uske baad uk_pages_queue_v5.zip bhejein (purana v4 apne aap badal jayega; live page bhi naye roop mein). Roz bot jo page bataye unka GSC 'Request indexing'
+- 2026-11-18: [Owner] Budhwar dopahar bot pehli Uttarakhand Web Story ka URL bhejega -> GSC mein us URL ka 'Request indexing'
+- 2026-11-25: [Developer] UK page ke chhote tathya (unchai, doori, phone, fees) ek-ek sarkari srot se milana - pehle jo page live ho chuke (taazgi-report dekho)
 - 2026-12-15: [Developer] Uttarakhand pages: 'Gaon ki chaupal' (logon ki yaadein) aur 1-click poll - sirf moderation + asli ginti (sabhisaab-votes, 30+ vote ke baad hi %) + privacy page mein pehle likhne ke baad. Nakli % kabhi nahi
 - 2027-01-05: [Developer] Uttarakhand pages ke GSC nateeje (impression/query) dekh kar title/description sudhaar - sirf jahan 1000+ impression aur CTR kam ho; har badlaav ek baar, 28 din ruk kar naapo (auto-rewrite nahi)
 

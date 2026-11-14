@@ -209,3 +209,155 @@ def live_check(url):
     return False, ("❌ Web Story mein Cloudflare ki bahari script ghus rahi hai: " + ", ".join(dict.fromkeys(bad)) + "\n"
                    "Theek karne ka tareeka (ek baar): dash.cloudflare.com → sabhisaab.com → baayein 'Zaraz' → Zaraz band (Disable) "
                    "- ye khaali hai, koi tool nahi chala raha. Phir bot mein 'amp jaanch'; ✅ aaye to GSC mein story URL → 'Request indexing'.")
+
+
+# ------------------------------------------------------------------ v3.3.4: Uttarakhand zila Web Story (apni photo ke saath)
+# Hafte mein EK (Budhwar): jo zila main page live hai aur jiski story abhi tak nahi bani. Sawal-jawab usi page ke Hindi FAQ se
+# (page par pehle se jaanche, koi naya tathya nahi), tareekh/saal wale sawal chhode (story purani na pade). Photo sirf apni
+# (page ki og:image, bina chehre/number plate wali). Aakhri page se zila page ka link. Discover/Images ke liye.
+UK_DIST = ["almora", "bageshwar", "chamoli", "champawat", "dehradun", "haridwar", "nainital", "pauri-garhwal", "pithoragarh",
+           "rudraprayag", "tehri-garhwal", "udham-singh-nagar", "uttarkashi"]
+
+
+def uk_faqs(page_html, n=5):
+    out = []
+    for q, a in re.findall(r'<details class="faq" lang="hi"><summary>(.*?)</summary><div class="fa">(.*?)</div></details>',
+                           page_html, re.S):
+        q = re.sub(r"<[^>]+>", "", H.unescape(q)).strip()
+        a = re.sub(r"<[^>]+>", "", H.unescape(a)).strip()
+        if re.search(r"20\d\d", q + a) or len(a) > 170 or len(q) > 90:
+            continue
+        out.append((q, a))
+        if len(out) >= n:
+            break
+    return out
+
+
+def uk_poster(img_bytes):
+    """Apni photo se 640x853 portrait JPEG (beech se crop)."""
+    from PIL import Image
+    im = Image.open(io.BytesIO(img_bytes)).convert("RGB")
+    w, h = im.size
+    tw = min(w, int(h * 640 / 853))
+    th = int(tw * 853 / 640)
+    x = (w - tw) // 2
+    y = max(0, (h - th) // 2)
+    im = im.crop((x, y, x + tw, y + th)).resize((640, 853))
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=85)
+    return buf.getvalue()
+
+
+def build_uk(slug_, page_html, img_name):
+    """-> (html, slug) ya None. img_name = site par apni photo (jaise 'pahadi-dhalaan.webp')."""
+    fq = uk_faqs(page_html)
+    if len(fq) < 4:
+        return None
+    m = re.search(r"<h1[^>]*>[^<(]*\(([^)]+)\)", page_html)
+    hn = m.group(1).strip() if m else ""
+    if not hn:
+        return None
+    sl = f"uk-{slug_.replace('-uttarakhand', '')}-zila-kahani"
+    t = f"{hn} जिला: {len(fq)} ज़रूरी सवाल-जवाब"
+    url = f"{SITE}/stories/{sl}"
+    page_url = f"{SITE}/{slug_}"
+    img = f"{SITE}/{img_name}"
+    bg = (f'<amp-story-grid-layer template="fill"><amp-img src="{img}" width="720" height="1280" layout="responsive" '
+          f'alt="{_e(hn)} ka pahadi drishya"></amp-img></amp-story-grid-layer><amp-story-grid-layer template="fill">'
+          '<div class="sh"></div></amp-story-grid-layer>')
+    pages = [f'<amp-story-page id="cover">{bg}<amp-story-grid-layer template="vertical" class="c"><h1>{_e(t)}</h1>'
+             f'<p class="sub">Pahadi Hisaab · sabhisaab.com</p></amp-story-grid-layer></amp-story-page>']
+    for i, (q, a) in enumerate(fq, 1):
+        pages.append(f'<amp-story-page id="q{i}">{bg}<amp-story-grid-layer template="vertical" class="c"><p class="n">सवाल {i}</p>'
+                     f'<h2>{_e(q)}</h2><p class="a">{_e(a)}</p></amp-story-grid-layer></amp-story-page>')
+    pages.append(f'<amp-story-page id="end">{bg}<amp-story-grid-layer template="vertical" class="c"><h2>{_e(hn)} की पूरी जानकारी</h2>'
+                 '<p>घूमने की जगह, दूरी, सरकारी सेवा, इतिहास और 100 से ज़्यादा सवाल-जवाब - एक पेज पर</p></amp-story-grid-layer>'
+                 f'<amp-story-page-outlink layout="nodisplay"><a href="{page_url}">पूरा पेज पढ़ें</a></amp-story-page-outlink>'
+                 '</amp-story-page>')
+    css = ("amp-story{font-family:'Noto Sans Devanagari','Mukta',sans-serif;color:#fff}"
+           ".sh{width:100%;height:100%;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.72))}"
+           ".c{padding:28px;align-content:end;text-align:left}h1{font-size:34px;line-height:1.3}h2{font-size:27px;line-height:1.35}"
+           "p{font-size:18px;line-height:1.5}.a{font-size:21px;background:rgba(0,0,0,.35);border-radius:12px;padding:12px 14px}"
+           ".n{font-size:16px;opacity:.9;letter-spacing:.5px}.sub{font-size:15px;opacity:.9}")
+    html = ("<!doctype html>\n<html ⚡ lang=\"hi\">\n<head>\n<meta charset=\"utf-8\">\n<title>" + _e(t) + " | Sab Hisaab</title>\n"
+            f'<link rel="canonical" href="{url}">\n<meta name="viewport" content="width=device-width">\n'
+            f'<meta name="description" content="{_e(t)} - {_e(hn)} जिले की पक्की जानकारी, sabhisaab.com">\n'
+            '<script async src="https://cdn.ampproject.org/v0.js"></script>\n'
+            '<script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>\n'
+            '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s '
+            'steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) '
+            '0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from'
+            '{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes '
+            '-amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}'
+            '</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}'
+            '</style></noscript>\n'
+            f"<style amp-custom>{css}</style>\n</head>\n<body>\n"
+            f'<amp-story standalone title="{_e(t)}" publisher="Sab Hisaab" publisher-logo-src="{SITE}/icon-192.png" '
+            f'poster-portrait-src="{SITE}/stories/{sl}.jpg">\n' + "\n".join(pages) + "\n</amp-story>\n</body>\n</html>\n")
+    return html, sl
+
+
+def uk_pick(site_dir, done):
+    """Pehla live zila main page jiski story nahi bani aur jiske paas apni photo hai. -> (slug, html, img) ya None"""
+    import pathlib
+    site_dir = pathlib.Path(site_dir)
+    for d in UK_DIST:
+        s = f"{d}-uttarakhand"
+        f = site_dir / f"{s}.html"
+        if s in done or not f.exists():
+            continue
+        h = f.read_text(encoding="utf-8", errors="ignore")
+        m = re.search(r'og:image" content="' + re.escape(SITE) + r'/([a-z0-9-]+\.webp)"', h)
+        if not m or not (site_dir / m.group(1)).exists():
+            continue
+        return s, h, m.group(1)
+    return None
+
+
+def publish_uk():
+    """Hafte mein ek (Budhwar). -> owner ke liye ek line"""
+    import zipfile
+    from . import website
+    from .config import DATA
+    try:
+        website.sync()
+    except Exception as e:
+        log(f"ukstory sync: {e}")
+    site = website.DIR / "site"
+    done = state.get("uk_stories", {}) or {}
+    pk = uk_pick(site, done)
+    if not pk:
+        return "📖 UK Web Story: is hafte koi naya live zila page (apni photo ke saath) nahi - story nahi bani"
+    s, h, img = pk
+    b = build_uk(s, h, img)
+    if not b:
+        state.update("uk_stories", lambda d: {**(d or {}), s: "skip"}, {})
+        return f"📖 UK Web Story: {s} mein 4 se kam saaf Hindi sawal - chhoda"
+    html, sl = b
+    files = {f"site/stories/{sl}.html": html.encode("utf-8"), f"site/stories/{sl}.jpg": uk_poster((site / img).read_bytes())}
+    hdr = site / "_headers"
+    if hdr.exists():
+        nh = headers_with_block(hdr.read_text(encoding="utf-8"))
+        if nh:
+            files["site/_headers"] = nh.encode("utf-8")
+    smf = site / "sitemap.xml"
+    if smf.exists():
+        sm = sitemap_add(smf.read_text(encoding="utf-8"), f"{SITE}/stories/{sl}", str(datetime.date.today()))
+        if sm:
+            files["site/sitemap.xml"] = sm.encode("utf-8")
+    z = DATA / "ukstory.zip"
+    with zipfile.ZipFile(z, "w") as zz:
+        for p, body in files.items():
+            zz.writestr(p, body)
+    r = website.apply_zip(z, force=False)
+    z.unlink(missing_ok=True)
+    if str(r).startswith("✅"):
+        state.update("uk_stories", lambda d: {**(d or {}), s: str(datetime.date.today())}, {})
+        try:
+            website.indexnow([f"{SITE}/stories/{sl}"], "uk web story")
+        except Exception as e:
+            log(f"ukstory indexnow: {e}")
+        ok_, msg_ = live_check(f"{SITE}/stories/{sl}")
+        return (f"📖 Uttarakhand Web Story live: {SITE}/stories/{sl}\nGSC mein is URL par 'Request indexing' karein.\n"
+                + (msg_ if ok_ is not None else ""))
+    return f"📖 UK Web Story audit mein ruki (kuch live nahi): {str(r)[:200]}"

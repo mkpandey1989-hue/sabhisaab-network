@@ -226,6 +226,34 @@ with _tf.TemporaryDirectory() as _d:
 check(set(_fr) == {"a-kaise-pahunche"} and any("beeti tareekh" in w for w in _fr["a-kaise-pahunche"])
       and any("purana saal 2025" in w for w in _fr["a-kaise-pahunche"]) and any("din se update" in w for w in _fr["a-kaise-pahunche"]),
       f"taazgi jaanch: beeti tareekh + purana saal + purana update pakda, aane wali tareekh par galat aarop nahi ({_fr})")
+# v3.3.4: dhancha ka taala (toote '#naam' link theek), Hindi tareekh taazgi, content-nishaan, MOD tareekh
+_h = ('<h2 id="ghat">Ghat</h2><a href="#ghat">G</a><a href="#nahi">N</a><a href="/b-page#x" data-uk="b-page">B</a>'
+      '<a href="/b-page#y" data-uk="b-page">B2</a><span data-ukg="c" data-h="/c#z">C</span><a href="/anjaan#q">Q</a>')
+_fx, _n = PQ.fix_anchors(_h, lambda s: {"b-page": {"x"}, "c": set()}.get(s))
+check(_n == 3 and '<a href="#ghat">' in _fx and '<a href="#nahi">' not in _fx and ">N<" in _fx and 'href="/b-page#x"' in _fx
+      and 'href="/b-page" data-uk' in _fx and 'data-h="/c"' in _fx and 'href="/anjaan#q"' in _fx,
+      f"anchor taala: isi page ka toota -> text, doosre page ka -> page link, anjaan page waisa ({_n})")
+check(PQ.ukc("<head><!--ukc:abc123def456-->\n</head>") == "abc123def456" and PQ.ukc("<head></head>") is None,
+      "content-nishaan (ukc) padha jaata hai")
+_g = PQ.gate('<main><time datetime="@@MOD@@">@@MODH@@</time>"datePublished": "@@PUB@@", "dateModified": "@@MOD@@"</main>',
+             set(), "2026-11-14", None, moddate="2026-11-20")
+_g2 = PQ.gate('<main>"dateModified": "@@MOD@@"</main>', set(), "2026-11-14")
+check('"dateModified": "2026-11-20"' in _g and "20 November 2026" in _g and '"datePublished": "2026-11-14"' in _g
+      and '"dateModified": "2026-11-14"' in _g2, "MOD tareekh: naya roop = aaj, warna pehli tareekh")
+with _tf.TemporaryDirectory() as _d:
+    open(_d + "/h-page.html", "w").write('<p>बद्रीनाथ के कपाट 16 नवंबर 2026 को बंद होंगे।</p><p>(PTI, 31 July 2025; rail line hogi)</p>')
+    _fr2 = dict(PQ.fresh_scan(_d, _dt.date(2026, 11, 20), ["h-page"]))
+check("h-page" in _fr2 and len(_fr2["h-page"]) == 1 and "नवंबर" in _fr2["h-page"][0],
+      f"taazgi: Hindi tareekh pakdi, srot ki tareekh (PTI ...;) par galat aarop nahi ({_fr2})")
+from app import webstory as _WSU  # noqa: E402
+_uh = ('<h1>Chamoli (चमोली) Zila</h1>' + ''.join('<details class="faq" lang="hi"><summary>सवाल %d?</summary><div class="fa">जवाब %d।</div></details>' % (i, i) for i in range(6))
+       + '<details class="faq" lang="hi"><summary>2026 में क्या?</summary><div class="fa">x</div></details>')
+_ub = _WSU.build_uk("chamoli-uttarakhand", _uh, "a.webp")
+check(_ub and _ub[1] == "uk-chamoli-zila-kahani" and "चमोली जिला: 5" in _ub[0] and "/chamoli-uttarakhand" in _ub[0]
+      and "2026" not in _ub[0].split("<body>")[1] and "a.webp" in _ub[0], "UK web story: page ke Hindi FAQ + apni photo + page link, saal wale sawal nahi")
+from app import pipeline as _PLU  # noqa: E402
+check(_PLU.uk_district_page("Almora aur Chamoli ki baat") is None and _PLU.uk_district_page("bina zile ki video") is None,
+      "video link: do zile ya koi zila nahi = zila page nahi (galat link nahi)")
 from app import pinterest as _PIN  # noqa: E402
 with _tf.TemporaryDirectory() as _d:
     _pl.Path(_d, "almora-uttarakhand.html").write_text('<figure class="shot"><img src="/ghati.webp" width="1"></figure>')

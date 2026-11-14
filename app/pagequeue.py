@@ -52,7 +52,7 @@ INJ_MARK = "<!--uk-hub-link-->"
 GATE_MARK = "<!--ukg2-->"
 
 
-def gate(html, live, pubdate, tools_count=None):
+def gate(html, live, pubdate, tools_count=None, moddate=None):
     """Jo page live nahi, uska link 'so' jaata hai (span/hidden - Google ko koi link nahi dikhta, text rehta hai); tareekh bharo.
     v3.3.1: ulta ho sakne wala markup - baad mein activate() sirf ye nishaan jagata hai, page ka baaki kuch nahi chhedta
     (taaki website ke doosre sudhaar - footer, privacy, owner mode - kabhi wapas na palte)."""
@@ -70,9 +70,54 @@ def gate(html, live, pubdate, tools_count=None):
         html = html.replace("</main>", GATE_MARK + "</main>", 1)
     d = datetime.date.fromisoformat(pubdate)
     html = html.replace("@@PUB@@", pubdate).replace("@@PUBH@@", "%d %s %d" % (d.day, MONTHS[d.month - 1], d.year))
+    md = moddate or pubdate                          # v3.3.4: asli badlav ki tareekh (page ka naya roop aaya to), warna pehli tareekh
+    e = datetime.date.fromisoformat(md)
+    html = html.replace("@@MOD@@", md).replace("@@MODH@@", "%d %s %d" % (e.day, MONTHS[e.month - 1], e.year))
     if tools_count:
         html = re.sub(r"Saare \d{2,4} Tools", "Saare %d Tools" % tools_count, html)
     return vu_fill(html)
+
+
+UKC_RX = re.compile(r"<!--ukc:([0-9a-f]{6,40})-->")
+ID_RX = re.compile(r'\bid="([^"]+)"')
+
+
+def ukc(html):
+    """Page ke content ka nishaan (ukgen render daalta hai) - None agar purana page."""
+    m = UKC_RX.search(html or "")
+    return m.group(1) if m else None
+
+
+def fix_anchors(html, ids_of):
+    """v3.3.4 dhancha ka taala: '#naam' / '/page#naam' wala link jiska nishaana (id) nahi mila use theek karo -
+    isi page ka -> sirf text (link hatao), doosre page ka -> page ke upar tak link (#naam hatao). ids_of(slug) -> set ya None
+    (None = us page ka pata nahi, link waisa hi). -> (html, kitne theek kiye). Kabhi toota link live nahi jaata."""
+    own = set(ID_RX.findall(html))
+    n = [0]
+
+    def same(m):
+        if m.group(1) in own:
+            return m.group(0)
+        n[0] += 1
+        return m.group(2)
+    html = re.sub(r'<a href="#([^"]+)">(.*?)</a>', same, html, flags=re.S)
+
+    def cross(m):
+        ids = ids_of(m.group(1))
+        if ids is None or m.group(2) in ids:
+            return m.group(0)
+        n[0] += 1
+        return m.group(0).replace('href="/%s#%s"' % (m.group(1), m.group(2)), 'href="/%s"' % m.group(1), 1)
+    html = re.sub(r'<a href="/([a-z0-9-]+)#([^"]+)"[^>]*>', cross, html)
+
+    def span(m):                                    # soya hua link (data-h) bhi - jagne par toota na nikle
+        ids = ids_of(m.group(1))
+        if ids is None or m.group(2) in ids:
+            return m.group(0)
+        n[0] += 1
+        return 'data-h="/%s"' % m.group(1)
+    html = re.sub(r'data-h="/([a-z0-9-]+)#([^"]+)"', span, html)
+    return html, n[0]
 
 
 def vu_fill(html, vu=None):
@@ -343,6 +388,7 @@ def _run_day(force):
         m = re.search(r'og:image" content="https://sabhisaab\.com/([^"]+)"', html)
         imgs[s] = m.group(1) if m else "sab-hisaab-og.png"
     regated = 0
+    refreshed = []
     for m in man:                            # pehle ke live queue-page: naye live page ke link jodo (tareekh wahi)
         s = m["slug"]
         if s in chosen or s not in live or s not in pub:
@@ -351,10 +397,16 @@ def _run_day(force):
         if not cur.exists():
             continue
         old = cur.read_text(encoding="utf-8")
-        if GATE_MARK in old:
+        srcf = QDIR / "pages" / f"{s}.html"
+        src = srcf.read_text(encoding="utf-8") if srcf.exists() else ""
+        if GATE_MARK in old and (not src or ukc(src) is None or ukc(src) == ukc(old)):
             new = activate(old, after)              # v3.3.1: live file mein sirf link jagao (doosre sudhaar surakshit)
-        else:                                        # v3.3.0 ka purana markup (sirf 14 Nov ke 8 page): ek baar source se
-            new = gate((QDIR / "pages" / f"{s}.html").read_text(encoding="utf-8"), after, pub[s], tc)
+        elif src:                                    # v3.3.4: queue mein page ka naya (sudhra) roop - source se dobara, aaj ki
+            md = today if ukc(src) != ukc(old) else pub[s]   # dateModified (asli badlav); v3.3.0 ke purane markup wale bhi
+            refreshed.append((s, md))
+            new = gate(src, after, pub[s], tc, moddate=md)
+        else:
+            continue
         if new != old:
             (out / "site" / f"{s}.html").write_text(new, encoding="utf-8")
             files.append(f"site/{s}.html")
@@ -378,13 +430,34 @@ def _run_day(force):
                 (out / "site" / "index.html").write_text(h2, encoding="utf-8")
                 files.append("site/index.html")
                 injected.append("index")
+    # v3.3.4: har jaane wale page ke '#naam' link jaancho - nishaana na mile to link theek (dhancha kabhi na toote)
+    out_ids = {f[5:-5]: set(ID_RX.findall((out / f).read_text(encoding="utf-8"))) for f in files if f.endswith(".html")}
+    cache = {}
+
+    def ids_of(slug):
+        if slug in out_ids:
+            return out_ids[slug]
+        if slug not in cache:
+            fp = _site_dir() / f"{slug}.html"
+            cache[slug] = set(ID_RX.findall(fp.read_text(encoding="utf-8", errors="ignore"))) if fp.exists() else None
+        return cache[slug]
+    anchor_fixed = 0
+    for f in files:
+        if f.endswith(".html"):
+            h = (out / f).read_text(encoding="utf-8")
+            h2, k = fix_anchors(h, ids_of)
+            if k:
+                (out / f).write_text(h2, encoding="utf-8")
+                anchor_fixed += k
+    state.put("pq_anchor_fixed", {"t": today, "n": anchor_fixed})
     for nm in page_images([(out / f).read_text(encoding="utf-8") for f in files if f.endswith(".html")],
                           {f.name for f in _site_dir().glob("*.webp")}, {f.name for f in (QDIR / "img").glob("*.webp")}
                           if (QDIR / "img").exists() else set()):
         shutil.copy2(QDIR / "img" / nm, out / "site" / nm)
         files.append(f"site/{nm}")
     sm = (_site_dir() / "sitemap.xml").read_text(encoding="utf-8")
-    (out / "site" / "sitemap.xml").write_text(sitemap_add(sm, [(s, today, imgs[s]) for s in chosen]), encoding="utf-8")
+    (out / "site" / "sitemap.xml").write_text(sitemap_add(sm, [(s, today, imgs[s]) for s in chosen]
+                                                          + [(s, md, "") for s, md in refreshed]), encoding="utf-8")
     files.append("site/sitemap.xml")
     zp = QDIR / f"today-{today}.zip"
     with zipfile.ZipFile(zp, "w", zipfile.ZIP_DEFLATED) as z:
@@ -410,8 +483,11 @@ def _run_day(force):
     hist = state.get("pq_hist") or []
     hist.append({"d": today, "n": len(chosen), "slugs": chosen})
     state.put("pq_hist", hist[-60:])
-    diary.add("upload", f"page queue: {len(chosen)} naye page ({regated} purane page mein link jude)")
-    return f"✅ Queue: {len(chosen)} naye page chadhe, {regated} purane page mein naye link, inject {len(injected)}. {res}"
+    diary.add("upload", f"page queue: {len(chosen)} naye page ({regated} purane page mein link jude, {len(refreshed)} naye roop se,"
+                        f" {anchor_fixed} link theek)")
+    extra = (f" {len(refreshed)} live page queue ke naye (sudhre) roop se badle." if refreshed else "") + \
+            (f" {anchor_fixed} adhoore #link apne aap theek." if anchor_fixed else "")
+    return f"✅ Queue: {len(chosen)} naye page chadhe, {regated} purane page mein naye link, inject {len(injected)}.{extra} {res}"
 
 
 def _is_live(u):
@@ -702,9 +778,13 @@ def request_list(today_new, k=10, st=None):
 FRESH_DAY = 0          # Somvaar
 FRESH_HHMM = "12:15"
 _MON = {m.lower(): i + 1 for i, m in enumerate(MONTHS)}
-_DATE_RX = re.compile(r"\b(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (20\d\d)\b")
+_HI_MON = {"जनवरी": 1, "फरवरी": 2, "मार्च": 3, "अप्रैल": 4, "मई": 5, "जून": 6, "जुलाई": 7, "अगस्त": 8, "सितंबर": 9,
+           "अक्टूबर": 10, "नवंबर": 11, "दिसंबर": 12}
+_MON.update(_HI_MON)
+_DATE_RX = re.compile(r"(?<!\d)(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December|"
+                      + "|".join(_HI_MON) + r") (20\d\d)(?!\d)")
 _FUT_RX = re.compile(r"\b(hoga|hogi|honge|khulenge|khulega|band honge|shuru hoga|shuru hogi|ghoshit hogi|aayojit hoga|lagega|"
-                     r"ki ummeed|prastavit|aane wal[aie])\b", re.I)
+                     r"ki ummeed|prastavit|aane wal[aie])\b|होगा|होगी|होंगे|खुलेगा|खुलेंगे|बंद होंगे|शुरू होगा|शुरू होगी", re.I)
 _TS_RX = re.compile(r"-(ghumne-ki-jagah|kaise-pahunche|sarkari-seva|pariyojana-aapda-itihas|uttarakhand|basna-workation)$|"
                     r"^uttarakhand(-|$)|char-dham|kapat")
 
@@ -723,7 +803,9 @@ def fresh_scan(site_dir, today, slugs):
         for mm in _DATE_RX.finditer(txt):               # tareekh ke theek baad (60 akshar) bhavishya-kriya ho tabhi
             d, mo, y = mm.groups()
             after = txt[mm.end():mm.end() + 60]
-            if not _FUT_RX.search(after) or re.search(r"[.|?!]", after[:after.find(_FUT_RX.search(after).group(0))]):
+            if re.match(r"\s*[);]", after):           # v3.3.4: '(PTI, 31 July 2025; ...)' = srot ki tareekh, khabar nahi
+                continue
+            if not _FUT_RX.search(after) or re.search(r"[.|?!।]", after[:after.find(_FUT_RX.search(after).group(0))]):
                 continue
             try:
                 dt = datetime.date(int(y), _MON[mo.lower()], int(d))

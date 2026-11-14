@@ -108,6 +108,9 @@ Auto Ads/ad refresh/khud click/ad ke paas answer button; kisi aur ki photo se pu
 - v3.2.0: Bing = sirf index-nahi page (bing_shown = Bing search mein dikha), roz 08:00 Bing report; reel mein jawab-tareeka
   har video alag (answers.apply_mech, 5 tareeke). Sahi/jaal vikalp kabhi nahi katta. ROADMAP 'v3.2.0'.
 - v3.0.2: docs/WORKPLAN.md ke upar "ABHI KA HAAL" - kya ho chuka / kya baaki - wahin se shuru karo, dobara mat banao.
+- v3.3.4: UK page ka dhancha ab heading ke NAAM wale id par (number nahi dikhte); bot pagequeue.fix_anchors toote '#' link theek
+  karta hai; <!--ukc:..--> nishaan badla = live page source se naya roop (dateModified asli). ukgen/clean6.py = lekhak-nirdesh/keyword
+  suchi hatane ke niyam - naya data aaye to pehle isi se guzaro. UTTARAKHAND_QUEUE section 12.
 - v3.3.2: UTTARAKHAND_QUEUE.md section 9 (Gemini daavon ki jaanch) + 9.4 (Google-index-nahi purane page ka ilaaj). Google index
   ka haal = website repo state/daily.json (daily.py) - bot Google se dobara URL Inspection na kare (quota dohra).
   Section 10: photo ke niyam (chehra/aawaaz/number plate/pakki jagah NAHI; photo page ke saath hi site par), heading Hinglish

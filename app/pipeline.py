@@ -572,7 +572,7 @@ def uploads_today():
 
 
 BRAND_PAGE_WORDS = {      # v2.1.6: brand ki video ka link usi mizaaj ka page ho (Pahadi shabd → bike loan EMI nahi)
-    "pahadi": ("bigha", "nali", "zameen", "land", "uttarakhand", "pahadi", "acre", "area", "khasra", "farmer", "kheti",
+    "pahadi": ("bigha", "nali", "zameen", "land", "uttarakhand", "-uttarakhand", "pahadi", "acre", "area", "khasra", "farmer", "kheti",
                "yojana", "muthi", "jamin", "hectare", "biswa", "plot"),
     "money": ("sip", "fd", "emi", "loan", "tax", "salary", "pf", "ppf", "mutual", "interest", "rd", "gold", "gratuity",
               "retire", "invest", "nps", "hra", "income", "inflation", "fund", "bachat", "savings", "compound", "da-"),
@@ -581,10 +581,37 @@ BRAND_PAGE_WORDS = {      # v2.1.6: brand ki video ka link usi mizaaj ka page ho
 }
 
 
+UK_DIST_NAMES = {"almora": ("almora", "अल्मोड़ा"), "bageshwar": ("bageshwar", "बागेश्वर"), "chamoli": ("chamoli", "चमोली"),
+                 "champawat": ("champawat", "चंपावत", "चम्पावत"), "dehradun": ("dehradun", "देहरादून"),
+                 "haridwar": ("haridwar", "हरिद्वार"), "nainital": ("nainital", "नैनीताल"),
+                 "pauri-garhwal": ("pauri", "पौड़ी"), "pithoragarh": ("pithoragarh", "पिथौरागढ़"),
+                 "rudraprayag": ("rudraprayag", "रुद्रप्रयाग"), "tehri-garhwal": ("tehri", "टिहरी"),
+                 "udham-singh-nagar": ("udham singh nagar", "ऊधम सिंह नगर", "उधम सिंह नगर"), "uttarkashi": ("uttarkashi", "उत्तरकाशी")}
+
+
+def uk_district_page(text):
+    """Text mein jis ek zile ka naam ho uska live page ('/chamoli-uttarakhand'), warna None (do zile = None, galat link nahi)."""
+    t = (text or "").lower()
+    hit = [d for d, ns in UK_DIST_NAMES.items() if any(n in t for n in ns)]
+    if len(hit) != 1:
+        return None
+    try:
+        from . import website
+        if not (website.DIR / "site" / f"{hit[0]}-uttarakhand.html").exists():
+            return None
+    except Exception:
+        return None
+    return f"/{hit[0]}-uttarakhand"
+
+
 def check_link(meta):
     """Website ka page khulta hai? Na khule to homepage. Brand se mel na khaye to bhi homepage."""
     import requests
     pg_ = meta.get("page", "/") or "/"
+    if meta.get("brand") == "pahadi" and pg_ in ("/", ""):      # v3.3.4: video kisi zile ki baat kare to us zile ka page
+        z = uk_district_page(" ".join(str(meta.get(k) or "") for k in ("title", "topic", "desc")))
+        if z:
+            meta["page"] = pg_ = z
     words = BRAND_PAGE_WORDS.get(meta.get("brand", ""))
     if words and pg_ != "/" and not any(w in pg_.lower() for w in words):
         log(f"page mel nahi khata ({meta.get('brand')}: {pg_}) - homepage")
