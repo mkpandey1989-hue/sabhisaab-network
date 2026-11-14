@@ -1,0 +1,1039 @@
+[
+{
+"file": "pahadi-dhalaan-cheed-ka-jungle.webp",
+"w": 1200,
+"h": 462,
+"alt": "Pahadi dhalaan par cheed (chir) ka ghana jungle aur neeche seedhi-daar khet",
+"region": "mid",
+"topics": [
+"climate",
+"geo",
+"land",
+"main"
+],
+"src": "08e4d76e"
+},
+{
+"file": "pahadon-se-ghiri-ghati-ke-khet.webp",
+"w": 1200,
+"h": 544,
+"alt": "Pahadon se ghiri ghati mein base gaon aur khet, subah ki dhoop mein",
+"region": "mid",
+"topics": [
+"main",
+"hyperlocal",
+"geo",
+"sarkari"
+],
+"src": "af084a5e"
+},
+{
+"file": "ghati-mein-basa-pahadi-kasba.webp",
+"w": 1200,
+"h": 544,
+"alt": "Ghati mein basa pahadi kasba, aage khet aur kele ke ped",
+"region": "mid",
+"topics": [
+"main",
+"aadhunik",
+"hyperlocal",
+"transport"
+],
+"src": "1e7b4d76"
+},
+{
+"file": "pahadi-ghati-ke-khule-khet.webp",
+"w": 1200,
+"h": 828,
+"alt": "Pahadi ghati ke khule khet aur peeche cheed ke jungle wale pahad",
+"region": "mid",
+"topics": [
+"land",
+"economy",
+"bhavishya"
+],
+"src": "4ef76ce4"
+},
+{
+"file": "pahad-par-seedhi-daar-khet.webp",
+"w": 1200,
+"h": 543,
+"alt": "Pahad ki dhalaan par bane seedhi-daar khet (terrace farming)",
+"region": "mid",
+"topics": [
+"land",
+"buzurg",
+"food",
+"career"
+],
+"src": "ed0160cb"
+},
+{
+"file": "seedhi-daar-khet-aur-lakdi-ka-dher.webp",
+"w": 1047,
+"h": 1200,
+"alt": "Ghar ke paas kele ke ped, jalane ki lakdi ka dher aur neeche seedhi-daar khet",
+"region": "mid",
+"topics": [
+"buzurg",
+"aadhunik",
+"land"
+],
+"src": "14962710"
+},
+{
+"file": "pahadi-aangan-kele-gende-ke-phool.webp",
+"w": 900,
+"h": 1200,
+"alt": "Pahadi aangan: kele ke ped, lakdi ka dher, gende ke phool aur saamne pahad",
+"region": "mid",
+"topics": [
+"culture",
+"buzurg",
+"food",
+"shabd"
+],
+"src": "162710e0"
+},
+{
+"file": "gaon-ka-mandir-aur-barf-ki-chotiyan.webp",
+"w": 1200,
+"h": 543,
+"alt": "Gaon ka chhota mandir, paas mein ek pakka ghar aur door barf se dhaki chotiyan",
+"region": "mid",
+"topics": [
+"history",
+"culture",
+"vaidya",
+"prasiddh"
+],
+"src": "9dea16ff"
+},
+{
+"file": "jhaadi-par-peele-jungli-phal.webp",
+"w": 971,
+"h": 1200,
+"alt": "Pahad ki ghaas mein jhaadi par lage chhote peele jungli phal",
+"region": "mid",
+"topics": [
+"climate",
+"food",
+"vaidya"
+],
+"src": "e8a61b95"
+},
+{
+"file": "pooja-mein-phoolon-ka-shringar.webp",
+"w": 1200,
+"h": 900,
+"alt": "Pooja mein gende aur gulab ke phoolon se saji chunri aur shringar",
+"region": "any",
+"topics": [
+"culture",
+"history",
+"vaidya",
+"shabd"
+],
+"src": "0ed12763"
+},
+{
+"file": "gende-ki-mala-se-saje-ganesh.webp",
+"w": 720,
+"h": 1200,
+"alt": "Pooja mein gende ki mala se saje Ganesh ji",
+"region": "any",
+"topics": [
+"culture",
+"vaidya",
+"prasiddh"
+],
+"src": "c017cd09"
+},
+{
+"file": "terai-mein-suryast-aur-ghar.webp",
+"w": 900,
+"h": 1200,
+"alt": "Maidani (Terai) ilake mein shaam ka suryast, kachchi sadak aur naye ghar",
+"region": "plain",
+"topics": [
+"main",
+"aadhunik",
+"hyperlocal",
+"transport"
+],
+"src": "2c6132fa"
+},
+{
+"file": "terai-ka-aasman-aur-ganna.webp",
+"w": 1200,
+"h": 675,
+"alt": "Terai ke aasman mein shaam ke baadal aur ganne ke ped",
+"region": "plain",
+"topics": [
+"climate",
+"geo",
+"prasiddh",
+"career"
+],
+"src": "d29c3146"
+},
+{
+"file": "barsaat-mein-hara-aangan.webp",
+"w": 617,
+"h": 1200,
+"alt": "Barsaat mein bheega aangan aur hare ped",
+"region": "plain",
+"topics": [
+"climate",
+"buzurg",
+"vaidya",
+"shabd",
+"sarkari"
+],
+"src": "3ca1620b"
+},
+{
+"file": "nadi-ghaat-pul-aur-kasba.webp",
+"w": 724,
+"h": 640,
+"alt": "Pahadi nadi ka ghaat, paidal pul aur kinare basa kasba",
+"region": "mid",
+"topics": [
+"history",
+"tourism",
+"geo",
+"bhavishya"
+],
+"src": "7b759b90"
+},
+{
+"file": "nadi-ghaat-par-shiv-moorti.webp",
+"w": 333,
+"h": 425,
+"alt": "Nadi ghaat par Shiv ji ki moorti aur peeche pahad",
+"region": "any",
+"topics": [
+"history",
+"culture",
+"tourism"
+],
+"src": "9bd8e9b8"
+},
+{
+"file": "cheed-ke-jungle-mein-mandir.webp",
+"w": 1176,
+"h": 768,
+"alt": "Cheed ke jungle ke neeche naarangi shikhar wala mandir",
+"region": "mid",
+"topics": [
+"tourism",
+"history",
+"prasiddh"
+],
+"src": "944e4ef5"
+},
+{
+"file": "khet-mein-saanp-saavdhani.webp",
+"w": 580,
+"h": 537,
+"alt": "Gili mitti wale khet mein saanp: khet mein kaam karte samay saavdhani",
+"region": "plain",
+"topics": [
+"climate",
+"land"
+],
+"src": "681d6dac"
+},
+{
+"file": "gehri-ghati-mein-behti-nadi.webp",
+"w": 478,
+"h": 850,
+"alt": "Gehri pahadi ghati mein behti nadi aur hare pahad",
+"region": "high",
+"topics": [
+"geo",
+"transport",
+"bhavishya"
+],
+"src": "13216298_02"
+},
+{
+"file": "pahad-ki-dhalaan-par-ghar.webp",
+"w": 478,
+"h": 850,
+"alt": "Pahad ki dhalaan par bana ghar aur ghana jungle",
+"region": "mid",
+"topics": [
+"hyperlocal",
+"aadhunik",
+"sarkari"
+],
+"src": "13216298_12"
+},
+{
+"file": "barf-ki-choti-aur-nadi-ghati.webp",
+"w": 478,
+"h": 850,
+"alt": "Barf wali choti ke neeche nadi ki ghati aur door basa kasba",
+"region": "high",
+"topics": [
+"tourism",
+"geo",
+"main"
+],
+"src": "37935006_12"
+},
+{
+"file": "pathron-mein-tez-pahadi-nadi.webp",
+"w": 478,
+"h": 850,
+"alt": "Pathron ke beech behti tez pahadi nadi aur kinare paidal rasta",
+"region": "high",
+"topics": [
+"geo",
+"bhavishya",
+"climate"
+],
+"src": "37935006_19"
+},
+{
+"file": "oonche-pahad-ke-neeche-tirth-kasba.webp",
+"w": 478,
+"h": 646,
+"alt": "Oonche bhure pahad ke neeche basa tirth kasba",
+"region": "high",
+"topics": [
+"tourism",
+"transport",
+"history",
+"main"
+],
+"src": "6733259e_08"
+},
+{
+"file": "baadalon-mein-barf-ki-chotiyan.webp",
+"w": 478,
+"h": 492,
+"alt": "Baadalon ke beech barf se dhaki nukili chotiyan",
+"region": "high",
+"topics": [
+"climate",
+"geo",
+"main"
+],
+"src": "6733259e_01"
+},
+{
+"file": "dhalaan-par-rang-birange-ghar.webp",
+"w": 478,
+"h": 731,
+"alt": "Pahad ki dhalaan par bane rang-birange pahadi ghar",
+"region": "mid",
+"topics": [
+"hyperlocal",
+"aadhunik",
+"main",
+"sarkari"
+],
+"src": "383cb950_19"
+},
+{
+"file": "ek-ke-peeche-ek-pahad.webp",
+"w": 478,
+"h": 850,
+"alt": "Ek ke peeche ek pahadon ki paraten aur seedhi-daar khet",
+"region": "mid",
+"topics": [
+"geo",
+"career",
+"shabd"
+],
+"src": "383cb950_02"
+},
+{
+"file": "oonchai-par-banj-ke-ped.webp",
+"w": 478,
+"h": 612,
+"alt": "Oonchai par banj (oak) jaise ghane ped",
+"region": "high",
+"topics": [
+"climate",
+"vaidya"
+],
+"src": "34407c52_04"
+},
+{
+"file": "shaam-ko-door-himalaya.webp",
+"w": 478,
+"h": 442,
+"alt": "Oonchai se shaam ke samay door dikhti Himalaya ki chotiyan",
+"region": "high",
+"topics": [
+"tourism",
+"prasiddh",
+"career"
+],
+"src": "34407c52_12"
+},
+{
+"file": "jungle-mein-yatri-tent-camp.webp",
+"w": 478,
+"h": 850,
+"alt": "Jungle ke beech yatriyon ke liye tent camp",
+"region": "high",
+"topics": [
+"aadhunik",
+"tourism"
+],
+"src": "9180732c_14"
+},
+{
+"file": "pathron-ke-beech-jungli-jeev.webp",
+"w": 478,
+"h": 850,
+"alt": "Pathron aur jhaadiyon ke beech chhota jungli jeev",
+"region": "high",
+"topics": [
+"climate"
+],
+"src": "ad1a15bf_21"
+},
+{
+"file": "barf-wale-pahadon-mein-bus.webp",
+"w": 478,
+"h": 629,
+"alt": "Barf wale pahadon ke beech sarkari bus",
+"region": "high",
+"topics": [
+"transport"
+],
+"src": "e505f75e_20"
+},
+{
+"file": "pahadi-gaon-ki-dhalaan.webp",
+"w": 478,
+"h": 612,
+"alt": "Pahadi gaon ki dhalaan, ped aur chhote khet",
+"region": "high",
+"topics": [
+"buzurg",
+"hyperlocal",
+"land",
+"shabd"
+],
+"src": "e9542575_17"
+},
+{
+"file": "nadi-kinare-mandir-aur-shahar.webp",
+"w": 478,
+"h": 850,
+"alt": "Nadi ke kinare bane mandir aur upar basa shahar",
+"region": "mid",
+"topics": [
+"history",
+"tourism",
+"culture"
+],
+"src": "fdf0c431_16"
+},
+{
+"file": "terai-ke-khet-ganna-poplar.webp",
+"w": 480,
+"h": 487,
+"alt": "Terai ke khet: ganna aur poplar ke ped",
+"region": "plain",
+"topics": [
+"land",
+"economy",
+"food"
+],
+"src": "2fcef40e_02"
+},
+{
+"file": "pahad-se-dikhta-ghati-ka-gaon.webp",
+"w": 854,
+"h": 480,
+"alt": "Pahad se dikhta ghati ka gaon aur door ki pahadiyan",
+"region": "mid",
+"topics": [
+"main",
+"prasiddh",
+"buzurg",
+"economy"
+],
+"src": "71828000_04"
+},
+{
+"file": "cheed-ke-chhote-ped-ghaas-ki-dhalaan.webp",
+"w": 675,
+"h": 1200,
+"alt": "Ghaas wali seedhi-daar dhalaan par cheed ke chhote ped",
+"region": "mid",
+"topics": [
+"climate",
+"land"
+],
+"src": "162007"
+},
+{
+"file": "subah-ki-dhoop-mein-ghati-ke-khet.webp",
+"w": 1200,
+"h": 657,
+"alt": "Subah ki dhoop mein pahadi ghati ke seedhi-daar khet",
+"region": "mid",
+"topics": [
+"main",
+"land",
+"buzurg"
+],
+"src": "160959"
+},
+{
+"file": "cheed-ki-dhalaan-se-nadi-ghati.webp",
+"w": 1200,
+"h": 900,
+"alt": "Cheed wali dhalaan se dikhti nadi ghati",
+"region": "mid",
+"topics": [
+"geo",
+"tourism"
+],
+"src": "161100"
+},
+{
+"file": "nadi-kinare-seedhi-daar-khet.webp",
+"w": 1200,
+"h": 900,
+"alt": "Nadi kinare seedhi-daar khet aur pahadon ki kataar",
+"region": "mid",
+"topics": [
+"geo",
+"land",
+"main"
+],
+"src": "161105"
+},
+{
+"file": "ghati-ke-khet-aur-ghaas-ke-loote.webp",
+"w": 1200,
+"h": 900,
+"alt": "Pahadon se ghiri ghati mein khet aur sookhi ghaas ke loote",
+"region": "mid",
+"topics": [
+"land",
+"buzurg",
+"economy"
+],
+"src": "161110"
+},
+{
+"file": "pathal-chhat-wala-pahadi-ghar.webp",
+"w": 1200,
+"h": 900,
+"alt": "Pathal ki chhat wala pahadi ghar, kele ke ped aur ghaas ke loote",
+"region": "mid",
+"topics": [
+"buzurg",
+"culture",
+"hyperlocal",
+"shabd"
+],
+"src": "161118"
+},
+{
+"file": "cheed-wali-pahadi-aur-gaon.webp",
+"w": 1200,
+"h": 900,
+"alt": "Cheed wali pahadi ke neeche basa gaon",
+"region": "mid",
+"topics": [
+"hyperlocal",
+"main"
+],
+"src": "161125"
+},
+{
+"file": "cheed-ka-ghana-jungle-pahadi.webp",
+"w": 1200,
+"h": 900,
+"alt": "Cheed ke ghane jungle wali pahadi aur ghaas ki seedhiyan",
+"region": "mid",
+"topics": [
+"climate",
+"geo"
+],
+"src": "161134"
+},
+{
+"file": "nadi-ghati-ke-kinare-khet.webp",
+"w": 900,
+"h": 1200,
+"alt": "Nadi ghati ke kinare seedhi-daar khet aur gaon",
+"region": "mid",
+"topics": [
+"geo",
+"land"
+],
+"src": "161154"
+},
+{
+"file": "khet-mein-ghaas-ke-loote.webp",
+"w": 900,
+"h": 1200,
+"alt": "Ghati ke khet mein ghaas ke loote aur peeche cheed ke jungle",
+"region": "mid",
+"topics": [
+"land",
+"buzurg",
+"food"
+],
+"src": "161156"
+},
+{
+"file": "dhundh-mein-ghati-ke-khet.webp",
+"w": 1200,
+"h": 1120,
+"alt": "Subah ki dhundh mein ghati ke khet aur pagdandi",
+"region": "mid",
+"topics": [
+"climate",
+"land"
+],
+"src": "161203"
+},
+{
+"file": "dhalaan-par-cheed-ka-jungle.webp",
+"w": 900,
+"h": 1200,
+"alt": "Dhalaan par cheed ka ghana jungle",
+"region": "mid",
+"topics": [
+"climate",
+"bhavishya"
+],
+"src": "161219"
+},
+{
+"file": "neele-aasman-mein-cheed-pahadi.webp",
+"w": 1200,
+"h": 900,
+"alt": "Neele aasman ke neeche cheed se dhaki pahadi",
+"region": "mid",
+"topics": [
+"climate",
+"geo",
+"tourism"
+],
+"src": "161228"
+},
+{
+"file": "ghati-ke-khet-aur-bijli-line.webp",
+"w": 900,
+"h": 1200,
+"alt": "Pahadi ghati ke khet, pagdandi aur bijli ki line",
+"region": "mid",
+"topics": [
+"sarkari",
+"aadhunik",
+"land"
+],
+"src": "161339"
+},
+{
+"file": "dhalaan-par-cheed-ka-jawan-ped.webp",
+"w": 648,
+"h": 1200,
+"alt": "Ghaas wali dhalaan par cheed ka jawan ped",
+"region": "mid",
+"topics": [
+"climate"
+],
+"src": "161353"
+},
+{
+"file": "dhaar-par-cheed-aur-rambans.webp",
+"w": 900,
+"h": 1200,
+"alt": "Dhaar par cheed ke ped aur ghaas mein rambans ke paudhe",
+"region": "mid",
+"topics": [
+"climate",
+"vaidya"
+],
+"src": "161416"
+},
+{
+"file": "narangi-phalon-wali-jungli-jhaadi.webp",
+"w": 900,
+"h": 1200,
+"alt": "Seedhi-daar khet ke kinare narangi phalon wali jungli jhaadi",
+"region": "mid",
+"topics": [
+"food",
+"climate"
+],
+"src": "161426"
+},
+{
+"file": "dhalaan-par-basa-pahadi-gaon.webp",
+"w": 1200,
+"h": 900,
+"alt": "Dhalaan par basa pahadi gaon aur peeche jungle wale pahad",
+"region": "mid",
+"topics": [
+"hyperlocal",
+"main",
+"aadhunik"
+],
+"src": "161429"
+},
+{
+"file": "ghar-ke-paas-ghaas-ke-loote.webp",
+"w": 968,
+"h": 1200,
+"alt": "Gaon ke ghar ke paas ghaas ke loote aur neeche seedhi-daar khet",
+"region": "mid",
+"topics": [
+"buzurg",
+"land",
+"shabd"
+],
+"src": "161445"
+},
+{
+"file": "cheed-ke-do-lambe-ped.webp",
+"w": 900,
+"h": 1200,
+"alt": "Neele aasman ke neeche cheed ke do lambe ped",
+"region": "mid",
+"topics": [
+"climate",
+"geo"
+],
+"src": "161626"
+},
+{
+"file": "rambans-ka-paudha.webp",
+"w": 900,
+"h": 1200,
+"alt": "Pahadi dhalaan par rambans (agave) ka paudha",
+"region": "mid",
+"topics": [
+"vaidya",
+"climate",
+"economy"
+],
+"src": "161700"
+},
+{
+"file": "rambans-aur-ghati-ke-khet.webp",
+"w": 1200,
+"h": 900,
+"alt": "Rambans ke paudhe ke peeche ghati ke seedhi-daar khet aur pahad",
+"region": "mid",
+"topics": [
+"main",
+"land",
+"tourism"
+],
+"src": "161709"
+},
+{
+"file": "dhaar-par-cheed-ki-kataar.webp",
+"w": 1200,
+"h": 900,
+"alt": "Ghaas wali dhaar par cheed ke pedon ki kataar",
+"region": "mid",
+"topics": [
+"geo",
+"climate",
+"tourism"
+],
+"src": "161716"
+},
+{
+"file": "purane-khet-ke-paas-cheed.webp",
+"w": 900,
+"h": 1200,
+"alt": "Purane khet ki seedhiyon ke paas cheed ka jawan ped",
+"region": "mid",
+"topics": [
+"land",
+"buzurg"
+],
+"src": "161728"
+},
+{
+"file": "kaante-wali-jhaadi-aur-ghati.webp",
+"w": 900,
+"h": 1200,
+"alt": "Kaante wali jungli jhaadi ke peeche ghati ke khet aur gaon",
+"region": "mid",
+"topics": [
+"food",
+"hyperlocal"
+],
+"src": "161753"
+},
+{
+"file": "chhode-hue-purane-khet.webp",
+"w": 900,
+"h": 1200,
+"alt": "Pahadi dhalaan par chhode hue purane khet ki seedhiyan",
+"region": "mid",
+"topics": [
+"buzurg",
+"land",
+"aadhunik",
+"bhavishya"
+],
+"src": "161821"
+},
+{
+"file": "dhoop-mein-cheed-ka-ghana-ped.webp",
+"w": 900,
+"h": 1200,
+"alt": "Dhoop mein chamakta cheed ka ghana ped",
+"region": "mid",
+"topics": [
+"climate"
+],
+"src": "161831"
+},
+{
+"file": "jungli-jhaadi-ki-pattiyan.webp",
+"w": 1200,
+"h": 900,
+"alt": "Dhoop mein chamakti jungli jhaadi ki pattiyan aur peeche cheed ki dhalaan",
+"region": "mid",
+"topics": [
+"vaidya",
+"climate"
+],
+"src": "161911"
+},
+{
+"file": "subah-ki-dhoop-mein-pahadi-gaon.webp",
+"w": 1200,
+"h": 900,
+"alt": "Subah ki dhoop mein pahadi gaon, seedhi-daar khet aur door pahadon ki kataar",
+"region": "mid",
+"topics": [
+"main",
+"hyperlocal",
+"tourism",
+"prasiddh"
+],
+"src": "161934"
+},
+{
+"file": "badalon-ke-neeche-pahadi-ghati.webp",
+"w": 1200,
+"h": 900,
+"alt": "Badalon wale aasman ke neeche pahadi ghati aur dhalaan par gaon",
+"region": "mid",
+"topics": [
+"main",
+"geo",
+"climate",
+"tourism"
+],
+"src": "161936"
+},
+{
+"file": "cheed-ki-dhalaan-aur-pahadi-ghar.webp",
+"w": 1200,
+"h": 900,
+"alt": "Cheed ke ped wali dhalaan aur kinare bane pahadi ghar",
+"region": "mid",
+"topics": [
+"aadhunik",
+"hyperlocal",
+"sarkari"
+],
+"src": "161939"
+},
+{
+"file": "seedhi-daar-dhalaan-par-cheed.webp",
+"w": 900,
+"h": 1200,
+"alt": "Seedhi-daar dhalaan par cheed ke jawan aur purane ped",
+"region": "mid",
+"topics": [
+"climate",
+"land"
+],
+"src": "161944"
+},
+{
+"file": "ghana-jawan-cheed.webp",
+"w": 675,
+"h": 1200,
+"alt": "Dhalaan par ghana jawan cheed ka ped",
+"region": "mid",
+"topics": [
+"climate"
+],
+"src": "162003"
+},
+{
+"file": "khet-ki-seedhiyon-par-do-ped.webp",
+"w": 675,
+"h": 1200,
+"alt": "Khet ki purani seedhiyon par khade do lambe ped",
+"region": "mid",
+"topics": [
+"land",
+"buzurg"
+],
+"src": "162010"
+},
+{
+"file": "jhaadi-par-peele-jungli-ber.webp",
+"w": 1200,
+"h": 675,
+"alt": "Jhaadi par lage peele jungli phal aur peeche khet ki seedhiyan",
+"region": "mid",
+"topics": [
+"food",
+"vaidya"
+],
+"src": "162025"
+},
+{
+"file": "seedhi-daar-dhalaan-cheed-ke-paudhe.webp",
+"w": 675,
+"h": 1200,
+"alt": "Seedhi-daar ghaas wali dhalaan par cheed ke jawan ped",
+"region": "mid",
+"topics": [
+"climate",
+"bhavishya"
+],
+"src": "162035"
+},
+{
+"file": "shaam-ki-dhundh-mein-pahadon-ki-parten.webp",
+"w": 675,
+"h": 1200,
+"alt": "Shaam ki dhundh mein pahadon ki parten aur neeche nadi ghati",
+"region": "mid",
+"topics": [
+"geo",
+"tourism",
+"career"
+],
+"src": "162211"
+},
+{
+"file": "lantana-ke-narangi-phool.webp",
+"w": 675,
+"h": 1200,
+"alt": "Pahadi jhaadi mein lantana (kuri) ke narangi-peele phool",
+"region": "mid",
+"topics": [
+"climate",
+"bhavishya"
+],
+"src": "162240"
+},
+{
+"file": "kaner-ke-laal-phool-aur-cheed.webp",
+"w": 675,
+"h": 1200,
+"alt": "Kaner ke laal phool aur peeche cheed se dhaki pahadi",
+"region": "mid",
+"topics": [
+"culture",
+"climate"
+],
+"src": "162301"
+},
+{
+"file": "phoolon-se-dhaka-purana-naula.webp",
+"w": 675,
+"h": 1200,
+"alt": "Phoolon ki bel se dhaka gaon ka purana naula (paani ka srot)",
+"region": "mid",
+"topics": [
+"buzurg",
+"culture",
+"history",
+"sarkari"
+],
+"src": "162324"
+},
+{
+"file": "kaner-ke-gulabi-phool.webp",
+"w": 675,
+"h": 1200,
+"alt": "Neele aasman ke neeche kaner ke gulabi phool",
+"region": "mid",
+"topics": [
+"culture",
+"vaidya"
+],
+"src": "162328"
+},
+{
+"file": "naule-ki-jaali-aur-hansraj.webp",
+"w": 900,
+"h": 1200,
+"alt": "Purane naule ki jaali ke peeche hansraj (fern) aur upar lantana ke phool",
+"region": "mid",
+"topics": [
+"buzurg",
+"vaidya",
+"history"
+],
+"src": "162400"
+},
+{
+"file": "badalon-ke-neeche-jheel-aur-shahar.webp",
+"w": 724,
+"h": 752,
+"alt": "Badalon ke neeche jheel aur kinare basa shahar",
+"region": "mid",
+"topics": [
+"tourism",
+"geo"
+],
+"src": "d2bd5f89"
+},
+{
+"file": "himalayi-kala-bhaalu.webp",
+"w": 1200,
+"h": 505,
+"alt": "Ghaas ke beech Himalayi kala bhaalu",
+"region": "mid",
+"topics": [
+"climate"
+],
+"src": "9902311e"
+},
+{
+"file": "cheed-wali-dhalaan-par-gaon.webp",
+"w": 1200,
+"h": 467,
+"alt": "Cheed wali dhalaan par basa pahadi gaon aur sookhe khet",
+"region": "mid",
+"topics": [
+"hyperlocal",
+"buzurg",
+"main"
+],
+"src": "12569c9b"
+},
+{
+"file": "seedhi-daar-khet-aur-gulabi-phool.webp",
+"w": 724,
+"h": 656,
+"alt": "Seedhi-daar khet aur jhaadi par gulabi phool",
+"region": "mid",
+"topics": [
+"land",
+"food"
+],
+"src": "0253ec8d"
+}
+]
