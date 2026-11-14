@@ -185,7 +185,10 @@ def strip_reveal(script):
     except Exception as e:
         log(f"think hold: {e}")
     keep.append({"show": f"अपना जवाब कमेंट कीजिए! सही जवाब (कोड #{code}): {where}",      # v3.1.1: poori video mein ek hi lehja (aap)
-                 "say": "अपना जवाब कमेंट में लिखिए। सही जवाब बायो के लिंक पर।",      # v2.7.3: chhota (pehle ~10 sec khaali end)
+                 # v3.3.5 (owner 15 Nov): 'bio ke link' saaf nahi tha (YouTube par bio hota hi nahi) - ab seedha: comment karo,
+                 # sahi jawab website par. 'sabhisaab.com' TTS mein 'सब हिसाब डॉट कॉम' (sahi uchcharan).
+                 "say": ("अपना जवाब कमेंट में लिखिए, और सही जवाब देखने के लिए हमारी वेबसाइट सब हिसाब डॉट कॉम पर जाइए।" if live()
+                         else "अपना जवाब कमेंट में लिखिए, और सही जवाब देखने के लिए हमारा टेलीग्राम चैनल देखिए।"),
                  "answer_cta": True})
     script["scenes"] = keep
     script["answer_offsite"] = True

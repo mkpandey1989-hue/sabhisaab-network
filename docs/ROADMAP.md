@@ -1525,6 +1525,15 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.6 (15 Nov 2026 subah) - [OPUS 5.5] Video ke ant ki awaaz saaf
+Owner (video #4955 dekh kar): "ant mein bolna chahiye - apna jawab comment mein likhein aur sahi jawab dekhne ke liye hamari
+website dekhein". Pehle bolta tha "सही जवाब बायो के लिंक पर" (YouTube par bio hota hi nahi, aur 'website' shabd nahi tha).
+- answers.py: ant ki awaaz ab "अपना जवाब कमेंट में लिखिए, और सही जवाब देखने के लिए हमारी वेबसाइट सब हिसाब डॉट कॉम पर जाइए।"
+  (website /jawab band ho to: "...हमारा टेलीग्राम चैनल देखिए।"). 'sabhisaab.com' TTS ke liye 'सब हिसाब डॉट कॉम'.
+- design.py: thumbnail par "सही जवाब कमेंट में!" galat tha (jawab website par hai) -> "जवाब कमेंट में लिखिए!".
+- Privacy: video/comment mein koi naya data nahi; privacy page pehle se comment, Gemini (sirf text, naam nahi), Telegram,
+  channel cover karta hai. v3.3.5 ke UK share/link/srot chowkidar koi user data nahi lete.
+
 ## v3.3.5 (15 Nov 2026 subah) - [OPUS 5.5] Audience + chowkidar: UK page roz social par, bahari link, sarkari srot
 Owner: "audience tezi se badhe; future mein link badle ya janganana/aankde badle to bot khud update kare; website fully updated".
 - app/ukwatch.py (naya):
