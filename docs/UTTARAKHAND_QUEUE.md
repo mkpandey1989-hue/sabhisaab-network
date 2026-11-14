@@ -171,3 +171,8 @@ bina jawab ke keyword-sawal ki suchi (page par sawal bina jawab = patla content)
 - Lekhak-nirdesh / keyword-suchi / 'module' bhasha saaf (clean6.py). Budhwar ko UK Web Story (apni photo).
 - Bacha (imaandari): hazaron chhote tathya (unchai, doori, phone) sab ek-ek sarkari srot se nahi mile - pehle live hone wale page ke
   mukhya tathya (zila-gathan tithi, Census, kapat tithi) mile; baaki ke liye taazgi-chowkidar + owner ki report.
+
+## 13. v3.3.5 (15 Nov subah) - audience + chowkidar
+- Roz 18:45 ek naya UK page Pahadi FB/Threads/Telegram par (apne shabd, apni photo). Ravivaar: bahari link (redirect = naya
+  pata, 404 do hafte = link hata) + sarkari srot ka nishaan (badla = owner ko). Tathya khud nahi badalta - Claude se naya queue ZIP.
+- Queue v6/v7: 13 ghumne page par Hindi sawal-jawab; FAQ jodne ki galti theek; quiz ke sahi jawab.

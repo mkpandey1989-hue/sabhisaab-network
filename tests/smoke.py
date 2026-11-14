@@ -254,6 +254,27 @@ check(_ub and _ub[1] == "uk-chamoli-zila-kahani" and "चमोली जिल�
 from app import pipeline as _PLU  # noqa: E402
 check(_PLU.uk_district_page("Almora aur Chamoli ki baat") is None and _PLU.uk_district_page("bina zile ki video") is None,
       "video link: do zile ya koi zila nahi = zila page nahi (galat link nahi)")
+from app import ukwatch as _UW  # noqa: E402
+_pc = _UW.page_card('<title>Almora Ghumne | Sab Hisaab</title><meta name="description" content="Binsar &amp; Kasar">'
+                    '<meta property="og:image" content="https://sabhisaab.com/a.webp">')
+check(_pc == ("Almora Ghumne", "Binsar & Kasar", "https://sabhisaab.com/a.webp"), f"UK share: page ke apne shabd + apni photo ({_pc})")
+_d0 = _dt.date(2026, 11, 20)
+check(_UW.share_pick(_d0, {"a": "2026-11-19", "b": "2026-11-15", "c": "2026-11-01", "d": "2026-11-18"}, {"b": "x"}, lambda s: s != "d") == "a",
+      "UK share: 7 din ke andar, share na hua, live - sabse purana pehle")
+class _R:
+    def __init__(s, c, loc=""): s.status_code, s.headers = c, {"Location": loc}
+_fake = {"https://x.gov.in/a": _R(301, "https://x.gov.in/b"), "https://x.gov.in/b": _R(200), "https://y.in/z": _R(404),
+         "https://w.in/q": _R(403), "https://v.in/m": _R(301, "https://v.in/dead"), "https://v.in/dead": _R(404)}
+check(_UW.check_url("https://x.gov.in/a", lambda u: _fake[u]) == ("moved", "https://x.gov.in/b")
+      and _UW.check_url("https://y.in/z", lambda u: _fake[u])[0] == "gone" and _UW.check_url("https://w.in/q", lambda u: _fake[u])[0] == "unknown"
+      and _UW.check_url("https://v.in/m", lambda u: _fake[u])[0] == "unknown", "link chowkidar: redirect=naya pata (khulta ho to), 404=gone, 403=chhodo")
+_rl, _rn = _UW.relink('<p><a href="https://x.gov.in/a" rel="noopener">Portal</a> aur <a href="https://y.in/z">Srot</a></p>',
+                      {"https://x.gov.in/a": "https://x.gov.in/b"}, {"https://y.in/z"})
+check(_rn == 2 and 'href="https://x.gov.in/b" rel="noopener">Portal' in _rl and "y.in" not in _rl and "Srot" in _rl,
+      "link chowkidar: naya pata lagta, band link hata par shabd bache")
+check(_UW._textsig("<p>Aaj 10:42 baje</p>") == _UW._textsig("<p>Aaj 11:05 baje</p>") and _UW._textsig("<p>a</p>") != _UW._textsig("<p>b</p>")
+      and _UW.season_note(_dt.date(2027, 1, 25)) and not _UW.season_note(_dt.date(2027, 6, 5)),
+      "srot chowkidar: ghadi ka samay badalna = badlaav nahi; mausami yaad (Basant Panchami)")
 from app import pinterest as _PIN  # noqa: E402
 with _tf.TemporaryDirectory() as _d:
     _pl.Path(_d, "almora-uttarakhand.html").write_text('<figure class="shot"><img src="/ghati.webp" width="1"></figure>')

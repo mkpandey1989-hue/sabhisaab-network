@@ -370,6 +370,10 @@ def quiz_fix(p):
             items[i] = ("faq", q2, ans)
             n += 1
             continue
+        if q2 in ANSWERS:
+            items[i] = ("faq", q2, ANSWERS[q2])
+            n += 1
+            continue
         op = _opts(a)
         idx = plain.index(i)
         if op and key and len(key) == len(plain):
@@ -416,3 +420,84 @@ def faq_fix(p):
         out.append(it)
     p["items"] = out
     return n + quiz_fix(p)
+
+
+# Jin quiz ki uttar-kunji page par nahi (ya ginti nahi milti), unke jawab - haath se jaanche (sthir tathya: Census 2011, rajya
+# pratik, nadi-sangam, sthapana). Jo pakka nahi (KV Lansdowne?, Kot block ka phool) wo 'Abhyas sawal' hi rahe.
+ANSWERS = {
+    # Rudraprayag (page ki kunji 1-b,2-b... se milaye)
+    "Rudraprayag zila kab bana?": "16 September 1997 ko.",
+    "Rudraprayag me kaun si do nadiyan milti hain?": "Alaknanda aur Mandakini.",
+    "Panch Kedar me se kitne Rudraprayag zile me hain?": "Teen: Kedarnath, Tungnath aur Madhmaheshwar.",
+    "Tungnath ki sheetkaleen gaddi kahan hoti hai?": "Makkumath.",
+    "Kedarnath ke kapat kholne ki taareekh kahan ghoshit hoti hai?": "Ukhimath mein (Mahashivratri par).",
+    "Rudraprayag ke adamkhor tendue ko kisne maara?": "Jim Corbett ne (1926).",
+    "Census 2011 me Rudraprayag ki aabadi lagbhag kitni thi?": "Lagbhag 2.4 lakh.",
+    "Rudraprayag me kitne vikas khand hain?": "3 (Ukhimath, Agastyamuni aur Jakholi).",
+    "Kedarnath aapda kab hui?": "15 se 17 June 2013 ke beech.",
+    "Chorabari Tal kis dham ke upar sthit tha?": "Kedarnath.",
+    "Sonprayag-Kedarnath ropeway ki lambai kitni hai?": "Lagbhag 12.9 km.",
+    "Chopta ko kya kaha jata hai?": "Mini Switzerland.",
+    "Deoria Tal kis gaon se pahuncha jata hai?": "Sari gaon se.",
+    "Zile ka vahan code kya hai?": "UK 13.",
+    "Triyuginarayan kis vivah se juda hai?": "Shiv-Parvati ke vivah se.",
+    "Rudraprayag ka ling anupat lagbhag kitna hai (Census 2011)?": "1,114.",
+    "Kedarnath Wildlife Sanctuary ki sthapana kab hui?": "1972.",
+    "Gaurikund se Kedarnath ka paidal marg lagbhag kitna hai?": "Lagbhag 16 km.",
+    "Uttarakhand me CM Helpline ka number kya hai?": "1905.",
+    "UCC me nayi shaadi ka registration kitne din me zaroori hai?": "60 din.",
+    "Madhmaheshwar aur Kedarnath ki sheetkaleen gaddi kahan hai?": "Omkareshwar Mandir, Ukhimath.",
+    "1998 me kis gaon ke paas Ukhimath ka bada landslide hua?": "Pondar (Bhenti-Pondar kshetra).",
+    "Chorabari glacier ke piche hatne ki lagbhag dar kya hai?": "Lagbhag 6.8 meter prati varsh.",
+    "Rudraprayag zila kin zilon ke hisson se bana?": "Chamoli, Tehri aur Pauri ke hisson se.",
+    # Chamoli
+    "Chamoli zile ka mukhyalaya kahan hai?": "Gopeshwar.",
+    "Chamoli zila kab banaya gaya?": "1960 (24 February 1960).",
+    "1997 me Chamoli se alag hokar kaun sa zila bana?": "Rudraprayag (Chamoli, Tehri aur Pauri ke hisson se).",
+    "Badrinath dham kis nadi ke kinare hai?": "Alaknanda.",
+    "Inme se kaun sa Prayag Chamoli zile me nahi hai?": "Devprayag (Tehri Garhwal mein).",
+    "Vishnuprayag par Alaknanda se kaun si nadi milti hai?": "Dhauliganga.",
+    "Nandprayag par Alaknanda se kaun si nadi milti hai?": "Nandakini.",
+    "Karnaprayag par Alaknanda se kaun si nadi milti hai?": "Pindar.",
+    "Nanda Devi chotti lagbhag kitni unchi hai (poori tarah Bharat me sabse unchi)?": "7,816 m.",
+    "Valley of Flowers kis ke saath UNESCO Vishwa Dharohar sthal ka hissa hai?": "Nanda Devi National Park.",
+    "Chipko andolan se Gaura Devi kis gaon se judi hain?": "Reni.",
+    "Chipko andolan ke pramukh netaon me se kaun Gopeshwar ke Dasholi Gram Swarajya Sangh se jude the?": "Chandi Prasad Bhatt.",
+    "Hemkund Sahib ke yatri aam taur par kis padav se paidal chadhai shuru karte hain?": "Govindghat (Ghangaria hote hue).",
+    "Roopkund ko aam taur par kis naam se jana jata hai?": "Kankal (skeleton) jheel.",
+    "Jyotirmath (Joshimath) kiske dwara sthapit char mathon me se ek hai?": "Adi Shankaracharya.",
+    "Uttarakhand ki grishmkalin rajdhani kise ghoshit kiya gaya?": "Gairsain (Bhararisain).",
+    "Badrinath ke paas Bharat-Tibet seema ka aakhri (ya pehla) gaon kaun sa hai?": "Mana.",
+    "Inme se kaun sa Panch Badri me shamil nahi hai?": "Kedarnath.",
+    "Panch Kedar me se kaun se do Chamoli zile me hain?": "Rudranath aur Kalpeshwar.",
+    "Raini aur Tapovan ke aaspaas Rishiganga baadh kis saal aayi?": "2021 (7 February).",
+    "“Chamoli bhukamp” kis saal aaya?": "1999 (29 March).",
+    "Nanda Devi Raj Jat yatra lagbhag kitne saal me ek baar hoti hai?": "Lagbhag 12 saal mein.",
+    "Uttarakhand ka rajya pushp kaun sa hai?": "Brahma Kamal.",
+    "Alaknanda nadi kin glacier se nikalti hai?": "Satopanth aur Bhagirath Kharak.",
+    "Auli kis khel ke liye prasiddh hai?": "Skiing.",
+    # Pauri Garhwal
+    "Pauri Garhwal ka zila mukhyalay kahan hai?": "Pauri.",
+    "Census 2011 ke anusar Pauri Garhwal ka lingaanupaat kitna tha?": "1,103.",
+    "Pauri Garhwal me vikas khandon (blocks) ki sankhya kitni hai?": "15.",
+    "Lansdowne ki sthapna kis varsh hui?": "1887.",
+    "Garhwal Rifles Regimental Centre kahan sthit hai?": "Lansdowne.",
+    "Veer Chandra Singh Garhwali ka naam kis ghatna se juda hai?": "Peshawar kand (1930).",
+    "Srinagar HEP kis nadi par bana hai?": "Alaknanda.",
+    "Srinagar HEP ki kshamata kitni hai?": "330 MW.",
+    "Pauri ka najdiki railhead (pauri.nic.in ke anusar) kaun sa hai?": "Kotdwar.",
+    "Uttarakhand ka rajya ped kaun sa hai?": "Burans.",
+    "Uttarakhand ka rajya pakshi kaun sa hai?": "Monal.",
+    "Uttarakhand ka gathan kab hua?": "9 November 2000.",
+    "1 Nali lagbhag kitne varg feet hoti hai?": "2,160.",
+    "Mandua ko Angrezi me kya kehte hain?": "Finger millet.",
+    "Gahat dal ka Angrezi naam kya hai?": "Horse gram.",
+    "Kafuli kis prakar ka vyanjan hai?": "Hare patton (palak/saag) ka gadha vyanjan.",
+    "“Mait” shabd ka kya arth hai?": "Beti ka maayka.",
+    "Phool Sankranti (Phooldei) kis mahine ki pehli tithi par manayi jati hai?": "Chait.",
+    "Baithaki aur Khadi Holi mukhya roop se kis kshetra ki parampara hain?": "Kumaon.",
+    "Doodhatoli bugyal Pauri ke kis block ke kshetra me hai?": "Thalisain.",
+    "Uttarakhand sarkar ki shikayat helpline ka number kya hai?": "1905.",
+    "Garhwal Lok Sabha seat par 1952 ke vijeta kaun the?": "Bhakt Darshan.",
+    "Aapatkaleen sewa ke liye ek hi number kaun sa hai (Police/Emergency)?": "112.",
+}

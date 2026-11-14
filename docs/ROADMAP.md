@@ -1525,6 +1525,21 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.5 (15 Nov 2026 subah) - [OPUS 5.5] Audience + chowkidar: UK page roz social par, bahari link, sarkari srot
+Owner: "audience tezi se badhe; future mein link badle ya janganana/aankde badle to bot khud update kare; website fully updated".
+- app/ukwatch.py (naya):
+  - share_run (roz 18:45): pichhle 7 din mein live hua EK UK page Pahadi Hisaab FB page (link post) + Threads (link card) +
+    Telegram channel (page ki apni photo). Shabd = page ka apna title + meta description (AI nahi). Din mein ek. 'uk share band/chalu'.
+  - link_run (Ravivaar 11:45): live UK pages ke bahari link. 301/308 + naya pata khulta ho = href apne aap naya; 404/410 do hafte
+    lagaatar = link hata, shabd wahi; 403/timeout = kuch nahi. website.apply_zip (audit) se.
+  - src_run (Ravivaar 12:05): Census / BKTC / uk.gov.in / CEO / transport portal ka text-nishaan; badla = owner ko alert + PENDING.
+    Mausami yaad: Basant Panchami (Badrinath tithi), Mahashivratri (Kedarnath), Vijayadashami (band tithi).
+    Tathya bot khud nahi likhta (Google auto-content niti + owner niyam) - naya queue ZIP aate hi live page apne aap naye roop mein.
+  - 'uk chowkidar' = haal.
+- ukgen: FAQ jodne ki galti jad se (alag asli shabd wale sawal - acre/hectare, Dehradun/Delhi - ab kabhi nahi jude); MCQ quiz
+  FAQ: '— Jawab' / page ki kunji / haath se jaanche jawab (Rudraprayag 24, Chamoli 25, Pauri 23); 2 pakke nahi = 'Abhyas sawal'.
+  13 ghumne page par 5-5 Hindi sawal-jawab (page ke hi tathya). Smoke 287.
+
 ## v3.3.4 (15 Nov 2026 raat) - [OPUS 5.5] Chhatha daur: dhancha jo na toote, lekhak-nirdesh/keyword-suchi saaf, UK Web Story
 Owner (7wi baar): "linking/dhancha ek baar tootega hi, par aisa fix karo ki baar baar na toote, fully automatic; koi bhi kisi bhi
 bhasha mein search kare to site dikhe (policy ke andar); sab pending poora, zero galti".

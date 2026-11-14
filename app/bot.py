@@ -255,6 +255,16 @@ def scheduler():
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
+                from . import ukwatch as _UW           # v3.3.5: UK page roz social par, bahari link + sarkari srot chowkidar
+                if _UW.share_due(nowt):
+                    state.put("uk_share_day", day)
+                    run(lambda: (lambda r: r and tg.say(r))(_UW.share_run()))
+                if _UW.link_due(nowt):
+                    state.put("uk_link_wk", nowt.strftime("%G-W%V"))
+                    run(lambda: tg.say(_UW.link_run()))
+                if _UW.src_due(nowt):
+                    state.put("uk_src_wk", nowt.strftime("%G-W%V"))
+                    run(lambda: (lambda r: r and tg.say(r))(_UW.src_run()))
             except Exception as _e:
                 log(f"pagequeue loop: {_e}")
             if nowt.strftime("%H:%M") >= "10:30" and state.get("tasks_day") != day:
@@ -1639,6 +1649,12 @@ def on_text(text):
         return tg.say("📌 Telegram channel @sabhisaab mein welcome post (saare official channel ke link) daal kar PIN kar doon?\n"
                       "(Galti se pin hua 'ho gaya welcome pin' wala message aap channel mein khud delete kar dein.)",
                       tg.inline([[("✅✅ Haan, daalo + pin", "wp:y"), ("❌ Nahi", "wp:n")]]))
+    if tl in ("uk share band", "uk share chalu"):                                                      # v3.3.5
+        state.put("uk_share_on", tl.endswith("chalu"))
+        return tg.say("📣 Uttarakhand page roz share: " + ("CHALU (roz 18:45 ek page)" if tl.endswith("chalu") else "BAND"))
+    if tl in ("uk chowkidar", "uk watch", "uk status"):
+        from . import ukwatch as _UW
+        return tg.say(_UW.status_text())
     if tl in ("web story jaanch", "amp jaanch", "webstory jaanch", "amp check"):                          # v3.0.2: 'story jaanch' purana (FB/IG story)
         from . import webstory as _WS
         sl_ = sorted((state.get("stories") or {}).items(), key=lambda x: x[1])
