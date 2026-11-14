@@ -161,6 +161,14 @@ def tidy_page(p, log):
             qj = items[j][1].lower()
             r_ = difflib.SequenceMatcher(None, qi, qj).ratio()
             wd = set(re.findall(r"\w+", qi)) ^ set(re.findall(r"\w+", qj))
+            # v3.3.4: '1 acre me kitni nali' / '1 hectare me kitni nali' ya 'Dehradun' / 'Delhi' - ek bhi asli shabd alag = alag
+            # sawal; pehle jawab jod diye jaate the ('Lagbhag 20. Lagbhag 49.83.' - galat). Sirf chhote/bolchaal shabd alag ho tabhi jodo.
+            _soft = {"me", "mein", "main", "ka", "ki", "ke", "hai", "hain", "kya", "kitna", "kitni", "kitne", "hota", "hoti", "hote",
+                     "se", "par", "ko", "aur", "door", "doori", "sabse", "kaun", "kaunsa", "kaunsi", "kon", "si", "sa", "ek", "the", "tha"}
+            if r_ >= 0.85 and any(w not in _soft for w in wd):
+                items[j] = ("p", items[j][1].rstrip() + " " + items[j][2])
+                conv.add(j)
+                continue
             if r_ >= 0.85 and not (r_ >= 0.93 or len(wd) <= 2):
                 # sawal milta-julta dikhta hai par matlab alag ('purane pargana' / 'purane vyapar marg'): jawab jodna galat,
                 # do FAQ rakhna audit ki 'milta-julta FAQ' galti - isliye doosra sawal-jawab saadhe para mein (kuch nahi khota)

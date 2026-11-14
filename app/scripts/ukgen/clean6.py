@@ -317,6 +317,102 @@ def apply(p, log=None):
         out.append(new)
         i += 1
     p["items"] = out
+    n += faq_fix(p)
     if log is not None and n:
         log.append({"page": p.get("slug", ""), "action": "clean6", "n": n})
     return n
+
+
+# ---------------------------------------------------------------- v3.3.4: MCQ (quiz) jo FAQ ban gaye the
+# 'Rudraprayag zila kab bana? (a) 1990 (b) 1997 ...' - FAQ schema mein jawab ki jagah sirf vikalp the (Google ko galat/adhoora
+# jawab). Ab: '— Jawab: X' ho to X; page par uttar-kunji ('Jawab: 1-b, 2-b' / 'Uttar-kunji: 1-B') ho aur ginti mile to kunji wala
+# vikalp; warna sawal + vikalp saadhe para mein (quiz dikhta rahe, galat schema nahi).
+_OPT = re.compile(r"\(([a-d])\)\s*|(?:(?<=\s)|^)([A-D])\)\s*")
+
+
+def _opts(a):
+    a = a.strip()
+    if re.match(r"^\(a\)", a):
+        parts = re.split(r"\s*\([a-d]\)\s*", a)[1:]
+    elif re.search(r"\sB\)\s.*\sC\)\s", a):
+        parts = re.split(r"\s+[B-D]\)\s+", re.sub(r"^A\)\s*", "", a))
+    else:
+        return None
+    return [x.strip() for x in parts] if len(parts) == 4 else None
+
+
+def _key(items):
+    for it in items:
+        if it[0] in ("p", "pb", "ans") and isinstance(it[1], str):
+            m = re.search(r"(?:Jawab|Uttar-kunji|Uttar kunji|Answer key)\s*:\s*((?:\d{1,2}\s*-\s*[a-dA-D]\s*,?\s*){5,})", it[1])
+            if m:
+                return [x.lower() for _, x in re.findall(r"(\d{1,2})\s*-\s*([a-dA-D])", m.group(1))]
+    return None
+
+
+def quiz_fix(p):
+    items = p["items"]
+    n = 0
+    mcq = [i for i, it in enumerate(items) if it[0] == "faq" and len(it) > 2 and isinstance(it[2], str)
+           and (_opts(it[2]) or re.search(r"—\s*Jawab:", it[2]))]
+    if not mcq:
+        return 0
+    key = _key(items)
+    plain = [i for i in mcq if not re.search(r"—\s*Jawab:", items[i][2])]
+    for k, i in enumerate(mcq):
+        q, a = items[i][1], items[i][2]
+        q2 = re.sub(r"^Sawal \d{1,2}\.\s*", "", q)
+        m = re.search(r"—\s*Jawab:\s*(.+)$", a)
+        if m:
+            ans = re.sub(r"^\([a-d]\)\s*", "", m.group(1).strip())
+            ans = re.sub(r"^UK-03 262523\.?$", "UK-03", ans)
+            ans = re.sub(r"^Kali Kumaon Tejpata aur Masale\.?$", "Kali Kumaon", ans)
+            items[i] = ("faq", q2, ans)
+            n += 1
+            continue
+        op = _opts(a)
+        idx = plain.index(i)
+        if op and key and len(key) == len(plain):
+            ans = op["abcd".index(key[idx])]
+            ans = re.split(r"\s+(?=\d{1,2} [A-Z][a-z]+ \d{4}|[A-Z][a-z]+:)", ans)[0] if key[idx] == "d" else ans
+            items[i] = ("faq", q2, ans.rstrip(".") + ".")
+        else:
+            a_ = a.strip() if a.strip().startswith(("(a)", "A)")) else "A) " + a.strip()
+            items[i] = ("p", "Abhyas sawal: %s %s" % (q2, a_))
+        n += 1
+    return n
+
+
+FAQ_FIX = [
+    (r"^Aam sawal: [“\"](.+?)[”\"]?$", r"\1"),
+    (r"^Sabse zaroori sawal jo log poochte hain: [“\"](.+?)[”\"]?$", r"\1"),
+]
+FAQ_A_FIX = [(r"^[”\"]\s*(?:Jawab:\s*)?", "")]
+FAQ_DROP = [r"^Aap kya chahte hain: barf", r"^Nainital par kis tarah ke sawal aate hain\?$", r"^Aaj ki sthiti\?$"]
+FAQ_TO_P = [r"^Ek zaroori spashtikaran \(Verse number kyon nahi diye\?$"]
+
+
+def faq_fix(p):
+    out, n = [], 0
+    for it in p["items"]:
+        if it[0] == "faq" and len(it) > 2:
+            q, a = it[1], it[2]
+            if any(re.search(r, q) for r in FAQ_DROP):
+                n += 1
+                continue
+            if any(re.search(r, q) for r in FAQ_TO_P):
+                out.append(("p", (q + a).replace("?):", "?):", 1)))
+                n += 1
+                continue
+            q2 = q
+            for r, rep in FAQ_FIX:
+                q2 = re.sub(r, rep, q2)
+            a2 = a
+            for r, rep in FAQ_A_FIX:
+                a2 = re.sub(r, rep, a2)
+            if (q2, a2) != (q, a):
+                n += 1
+                it = ("faq", q2, a2) + tuple(it[3:])
+        out.append(it)
+    p["items"] = out
+    return n + quiz_fix(p)
