@@ -275,6 +275,20 @@ check(_rn == 2 and 'href="https://x.gov.in/b" rel="noopener">Portal' in _rl and 
 check(_UW._textsig("<p>Aaj 10:42 baje</p>") == _UW._textsig("<p>Aaj 11:05 baje</p>") and _UW._textsig("<p>a</p>") != _UW._textsig("<p>b</p>")
       and _UW.season_note(_dt.date(2027, 1, 25)) and not _UW.season_note(_dt.date(2027, 6, 5)),
       "srot chowkidar: ghadi ka samay badalna = badlaav nahi; mausami yaad (Basant Panchami)")
+# v3.3.7: video - 'comment' sirf 2 baar, chuppi = 5 sec, asli ghatta timer
+from app import answers as _ANSV, render as _RNV, design as _DSV  # noqa: E402
+_kc = _ANSV.limit_comment([{"show": "a", "say": "हल करके दिखाइए! कमेंट में सिर्फ़ जवाब नहीं, तरीका भी लिखिए।"},
+                          {"show": "5 सेकंड... सोचिए! जवाब कमेंट में लिखिए",
+                           "say": "पाँच सेकंड, सोचिए, और अपना जवाब कमेंट में लिखिए। दो गलत विकल्प हटा दिए। अब बताइए!"}])
+check("कमेंट" in _kc[0]["say"] and "कमेंट" not in _kc[1]["say"] + _kc[1]["show"]
+      and _kc[1]["say"] == "पाँच सेकंड, सोचिए। दो गलत विकल्प हटा दिए। अब बताइए!" and _kc[1]["show"] == "5 सेकंड... सोचिए!",
+      f"video: beech mein 'comment' sirf pehli baar ({_kc[1]})")
+check(_ANSV.think_hold({"hud": {"think": 5}}) == 5.0 and _ANSV.think_hold({}) == 5.0, "video: '5 सेकंड' bole to chuppi bhi 5 sec")
+_tl = _RNV.countdown_timeline([{"say": "a"}, {"say": "b", "hold": 5.0}, {"say": "c"}], [4.0, 8.3, 6.0], 0.3)
+check(_tl == [(1, 4.0, 7.0, 12.0, 5.0)], f"video: timer ka samay = chuppi ke 5 sec ({_tl})")
+_s1, _y1 = _DSV.countdown_strip({"kind": "bar", "y": 800, "acc": (0, 255, 150)}, 0.5, 3)
+_s2, _y2 = _DSV.countdown_strip({"kind": "ring", "cx": 930, "cy": 300, "r": 80, "acc": (0, 255, 150)}, 0.2, 1)
+check(_s1.size[0] == 1080 and _y1 == 786 and _s2.size == (1080, 208) and _y2 == 196, "video: ghatta timer (patti + ghadi) banta hai")
 from app import pinterest as _PIN  # noqa: E402
 with _tf.TemporaryDirectory() as _d:
     _pl.Path(_d, "almora-uttarakhand.html").write_text('<figure class="shot"><img src="/ghati.webp" width="1"></figure>')

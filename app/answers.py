@@ -132,9 +132,51 @@ def _is_filler(say):
     return bool(ws) and len(left) <= 1
 
 
+_CMT_RX = [re.compile(p) for p in (
+    r",?\s*(?:और\s+)?(?:अपना\s+)?(?:जवाब|उत्तर)\s+कमेंट\s+में\s+(?:लिखिए|लिखें|लिखो|बताइए|बताओ|दीजिए)\s*[।!]?",
+    r"\s*कमेंट\s+में\s+(?:अपना\s+)?(?:जवाब|उत्तर)\s+(?:लिखिए|लिखें|लिखो|दीजिए|बताइए)\s*[।!]?",
+)]
+_CMT_ANY = re.compile(r"कमेंट")
+
+
+def limit_comment(keep):
+    """v3.3.7 (owner 15 Nov: 'comment 4 baar bolta hai'): video ke beech 'comment mein likhiye' sirf PEHLI baar rahe; baad ke
+    scene se wo tukda hatao (baaki baat wahi). Ant ka CTA scene alag se judta hai - kul 2 baar."""
+    seen = False
+    for i, s in enumerate(keep):
+        if s.get("answer_cta"):
+            continue
+        hit = any(_CMT_ANY.search(str(s.get(k) or "")) for k in ("say", "show"))
+        if not hit:
+            continue
+        if not seen:
+            seen = True
+            continue
+        s2 = dict(s)
+        for k in ("say", "show"):
+            t = str(s2.get(k) or "")
+            for rx in _CMT_RX:
+                t = rx.sub(lambda m: "। " if re.search(r"[।!]\s*$", m.group(0)) else "", t)
+            t = re.sub(r"\s+", " ", t).replace(" ।", "।")
+            t = re.sub(r"[,،]\s*([।!])", r"\1", t).strip(" ,")
+            if k == "say" and t and not re.search(r"[।!?]$", t):
+                t += "।"
+            s2[k] = t
+        if not str(s2.get("say") or "").strip():
+            s2["say"] = "सोचिए।"
+        keep[i] = s2
+    return keep
+
+
 def think_hold(script):
     """Sochne ki chuppi (second) SAWAL ke hisaab se: yaad wala GK/shabd 1.0 | ganit/code/tark 2.5 | chitra wali paheli 3.0;
     lamba sawal +0.5. Seema 1.0-3.5. Video ki awaaz is dauran chup - dekhne wala sach mein soch sake."""
+    # v3.3.7 (owner 15 Nov: 'bolta 5 second hai, chup 2.8 second'): video har jagah "5 सेकंड" kehti/dikhati hai (timer '5s',
+    # '5 सेकंड... सोचिए', '5 SEC TEST') - isliye chuppi bhi utni hi, aur render us dauran asli ghatta timer + tick-tock chalata hai.
+    try:
+        return float(max(3, min(5, int((script.get("hud") or {}).get("think", 5)))))
+    except Exception:
+        return 5.0
     q = str(script.get("puzzle_q") or "")
     if script.get("diagram"):
         h = 3.0
@@ -184,10 +226,14 @@ def strip_reveal(script):
             keep[-1] = dict(keep[-1], hold=think_hold(script))
     except Exception as e:
         log(f"think hold: {e}")
-    keep.append({"show": f"अपना जवाब कमेंट कीजिए! सही जवाब (कोड #{code}): {where}",      # v3.1.1: poori video mein ek hi lehja (aap)
+    limit_comment(keep)                           # v3.3.7: 'comment' beech mein sirf ek baar (ant wala alag)
+    # v3.3.7 (owner 15 Nov): ant ki screen mein link EK baar (neeche ki patti mein pehle se) - card mein utsukta: 'aap sahi the ya nahi?'
+    end_show = (f"अपना जवाब कमेंट कीजिए! आप सही थे या नहीं? कोड #{code} का सही जवाब नीचे वाले लिंक पर।" if live()
+                else f"अपना जवाब कमेंट कीजिए! सही जवाब (कोड #{code}): {where}")
+    keep.append({"show": end_show,      # v3.1.1: poori video mein ek hi lehja (aap)
                  # v3.3.5 (owner 15 Nov): 'bio ke link' saaf nahi tha (YouTube par bio hota hi nahi) - ab seedha: comment karo,
                  # sahi jawab website par. 'sabhisaab.com' TTS mein 'सब हिसाब डॉट कॉम' (sahi uchcharan).
-                 "say": ("अपना जवाब कमेंट में लिखिए, और सही जवाब देखने के लिए हमारी वेबसाइट सब हिसाब डॉट कॉम पर जाइए।" if live()
+                 "say": ("अपना जवाब कमेंट में लिखिए, फिर सब हिसाब डॉट कॉम पर देखिए कि आप सही थे या नहीं।" if live()
                          else "अपना जवाब कमेंट में लिखिए, और सही जवाब देखने के लिए हमारा टेलीग्राम चैनल देखिए।"),
                  "answer_cta": True})
     script["scenes"] = keep

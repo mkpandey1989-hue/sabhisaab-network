@@ -339,9 +339,56 @@ def _options_neon4(img, y, opts, ans, acc, reveal):
     return y + 2 * (bh + gap)
 
 
+# v3.3.7 (owner 15 Nov: 'timer chalta hi nahi'): sochne wale scene (hold) par timer PNG mein nahi banta - uski jagah yaad
+# rakhi jaati hai aur render us scene ke dauran asli ghatta hua timer (5s -> 0) upar chadhata hai. Baaki scene par bhari patti.
+TIMERS = {}
+_HOLD = {"idx": None, "sec": 5}
+
+
+def countdown_strip(geom, frac, secs, W_=1080):
+    """Ek frame: ghatti patti / ghadi. -> (RGBA image, y)"""
+    frac = max(0.0, min(1.0, frac))
+    if geom["kind"] == "bar":
+        y0 = geom["y"] - 14
+        img = Image.new("RGBA", (W_, 34 + 60), (0, 0, 0, 0))
+        g = dict(geom)
+        g["y"] = 14
+        x0, x1, h = 150, W_ - 210, 34
+        d = ImageDraw.Draw(img)
+        d.rounded_rectangle([x0, 14, x1, 14 + h], radius=17, outline=(255, 255, 255, 120), width=3, fill=(10, 12, 28, 200))
+        if frac > 0.01:
+            fx = x0 + 6 + max(12, int((x1 - x0 - 12) * frac))
+            col = geom["acc"] if secs > 2 else (255, 80, 80)
+            _glow(img, lambda dd, c: dd.rounded_rectangle([x0 + 6, 20, fx, 14 + h - 6], radius=11, fill=c), col + (255,), radius=10, strength=1)
+        d = ImageDraw.Draw(img)
+        T.draw(d, (x1 + 18, 8), f"{secs}s", 40, geom["acc"] if secs > 2 else (255, 80, 80))
+        return img, y0
+    cx, cy, r = geom["cx"], geom["cy"], geom["r"]
+    y0 = cy - r - 24
+    img = Image.new("RGBA", (W_, 2 * r + 48), (0, 0, 0, 0))
+    ly = r + 24
+    col = geom["acc"] if secs > 2 else (255, 80, 80)
+
+    def ring(d, c):
+        d.ellipse([cx - r, ly - r, cx + r, ly + r], outline=(255, 255, 255, 60), width=10)
+        if frac > 0.01:
+            d.arc([cx - r, ly - r, cx + r, ly + r], start=-90, end=-90 + int(360 * frac), fill=c, width=12)
+    _glow(img, ring, col + (255,), radius=14, strength=2)
+    d = ImageDraw.Draw(img)
+    d.ellipse([cx - r + 16, ly - r + 16, cx + r - 16, ly + r - 16], fill=(8, 10, 26, 230))
+    fz, lz = 96, 30
+    T.draw(d, (cx - T.width(str(secs), fz) / 2, ly - fz * 0.82), str(secs), fz, (255, 255, 255))
+    T.draw(d, (cx - T.width("सेकंड", lz) / 2, ly + fz * 0.3), "सेकंड", lz, col)
+    return img, y0
+
+
 def _options(img, y, opts, ans, acc, reveal):
     if _LAY["l"] in ("neon4", "bar") and not reveal:
-        y = _timer_bar(img, y, 5, acc)
+        if _HOLD["idx"] is not None:
+            TIMERS[_HOLD["idx"]] = {"kind": "bar", "y": y, "acc": acc}
+            y = y + 34 + 26
+        else:
+            y = _timer_bar(img, y, _HOLD["sec"], acc, frac=1.0)
     if _LAY["l"] == "neon4" and len(opts) == 4:
         return _options_neon4(img, y, opts, ans, acc, reveal)
     if _LAY["l"] == "grid" and len(opts) == 4:
@@ -566,6 +613,9 @@ def body_frame(script, idx, total, out_path):
     use_layout(script.get("layout"))                 # v2.7.6 BUG FIX: pehle render scene-frame banane ke BAAD layout/rang
     use_palette(script.get("palette"))               # lagata tha -> har video pichhli video ka layout/rang le leti thi
     _sc0 = (script.get("scenes") or [{}])[idx] if idx < len(script.get("scenes") or []) else {}
+    _HOLD["idx"] = idx if float(_sc0.get("hold") or 0) > 0 else None
+    _HOLD["sec"] = int(round(float(_sc0.get("hold") or 0))) or int((script.get("hud") or {}).get("think", 5))
+    TIMERS.pop(idx, None)
     _ELIM["s"] = (set(map(str, _sc0.get("elim") if _sc0.get("elim") is not None else (script.get("fifty_out") or [])))
                   if _sc0.get("fifty") else set())      # v3.2.0: har scene apni kati-list (dheere-dheere kaatna)
     if str(script.get("puzzle_answer", "")).strip() in _ELIM["s"]:      # pakka: sahi kabhi nahi kat-ta
@@ -606,8 +656,11 @@ def body_frame(script, idx, total, out_path):
         if kind == "options":
             _options(img, ct0 + (270 if big3d else 330), opts, ans, a1, reveal=False)
             if idx > 0 and _LAY["l"] not in ("neon4", "bar"):   # pehle scene par timer nahi; neon4/bar mein seedhi patti
-                _timer(img, W - 150, y + 90, 80, think, a2)
-            cta = line or "कमेंट में जवाब दीजिए!"
+                if _HOLD["idx"] is not None:                  # v3.3.7: sochne wale scene par asli ghatti ghadi (render)
+                    TIMERS[_HOLD["idx"]] = {"kind": "ring", "cx": W - 150, "cy": y + 90, "r": 80, "acc": a2}
+                else:
+                    _timer(img, W - 150, y + 90, 80, think, a2)
+            cta = line or "पहले खुद सोचिए, फिर जवाब मिलाइए!"     # v3.3.7: 'comment' video mein sirf 2 baar
         else:                                     # v2.4.1: pehle scene par timer nahi (sawal abhi poora nahi hua)
             cta = "ध्यान से पढ़ो - विकल्प आ रहे हैं!"
     elif kind == "reveal" and opts:
@@ -633,7 +686,7 @@ def body_frame(script, idx, total, out_path):
         cta = {"question": "पूरा देखिए, फिर बताइए!", "trick": "2 सेकंड की ट्रिक", "cta": "फ्री टूल: sabhisaab.com",
                "info": "ध्यान से देखो"}.get(kind, "")
         if sc.get("answer_cta"):
-            cta = "लिंक: डिस्क्रिप्शन / बायो में"
+            cta = "लिंक डिस्क्रिप्शन में भी"          # v3.3.7: YouTube par 'bio' nahi hota
     if cta:
         cz = 66
         while cz > 40 and T.width(cta, cz) > W - 140:      # v2.7.3: lambi line chhoti (bahar na jaaye)

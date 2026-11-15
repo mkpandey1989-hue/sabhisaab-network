@@ -252,6 +252,9 @@ def render(script: dict, notify=None) -> dict:
         phs, clips = script.get("photos") or [], script.get("clips") or []
         if script.get("design") == "neon_quiz" and script.get("layout") in ("light3", "versus", "exam"):
             phs, clips = [], []                   # v2.9.4: safed/comic/exam card par AI photo nahi - apna saaf parat (pehle kaala dikhta tha)
+        if script.get("design") == "neon_quiz":
+            from . import design as _DS0
+            _DS0.TIMERS.clear()                    # v3.3.7: pichhli video ka timer na aaye
         for i, sc in enumerate(scenes):
             wait_until_ok(notify)
             wav = job / f"s{i}.wav"
@@ -378,6 +381,11 @@ def render(script: dict, notify=None) -> dict:
                 _ff(ins + ["-filter_complex", ";".join(fc), "-map", f"[{last}]", "-t", f"{total:.3f}",
                            "-r", str(FPS), "-an"] + enc + [str(step_out)], wait_until_ok(notify), timeout=1800)
                 cur_vid = step_out
+        if script.get("design") == "neon_quiz" and (W, H) == (1080, 1920):
+            try:                                   # v3.3.7: sochne wale scene par asli ghatta timer (fail = purani jaisi video)
+                joined = countdown_overlay(joined, scenes, durs, total, job, enc, wait_until_ok(notify))
+            except Exception as e:
+                log(f"countdown chhoda: {str(e)[:200]}")
         if (script.get("design") == "neon_quiz" and (W, H) == (1080, 1920) and script.get("karaoke", True)
                 and _karaoke_on()):
             try:                                   # v2.9.0: karaoke subtitle (fail = bina subtitle, video nahi rukti)
@@ -416,6 +424,46 @@ def render(script: dict, notify=None) -> dict:
         return meta
     finally:
         shutil.rmtree(job, ignore_errors=True)
+
+
+def countdown_timeline(scenes, durs, pad=0.30):
+    """-> [(scene_idx, scene_start, hold_start, scene_end, hold)] jin scene par sochne ki chuppi hai."""
+    out, st = [], 0.0
+    for i, (sc, d) in enumerate(zip(scenes, durs)):
+        h = float(sc.get("hold") or 0)
+        if h > 0:
+            end = st + d
+            out.append((i, st, max(st, end - pad - h), end - pad, h))
+        st += d
+    return out
+
+
+def countdown_overlay(joined, scenes, durs, total, job, enc, threads):
+    from . import design as _DS
+    from .tts import PAD_SEC
+    tl = [x for x in countdown_timeline(scenes, durs, PAD_SEC) if x[0] in _DS.TIMERS]
+    if not tl:
+        return joined
+    import math as _m
+    fps = 10
+    cdir = job / "cd"
+    cdir.mkdir(exist_ok=True)
+    out = joined
+    for n_, (i, s0, hs, he, h) in enumerate(tl):
+        g = _DS.TIMERS[i]
+        nfr = max(1, int(round((he + 0.3 - s0) * fps)))
+        y0 = None
+        for k in range(nfr):
+            t = s0 + k / fps
+            rem = h if t < hs else max(0.0, h - (t - hs))
+            im, y0 = _DS.countdown_strip(g, rem / h if h else 0, int(_m.ceil(rem - 1e-6)))
+            im.save(cdir / f"c{n_}_{k:05d}.png")
+        o2 = job / f"joined_cd{n_}.mp4"
+        _ff(["-i", str(out), "-framerate", str(fps), "-i", str(cdir / f"c{n_}_%05d.png"), "-filter_complex",
+             f"[1:v]format=rgba,setpts=PTS+{s0:.3f}/TB[k];[0:v][k]overlay=0:{y0}:eof_action=pass:shortest=0[v]",
+             "-map", "[v]", "-map", "0:a", "-t", f"{total:.3f}", "-r", str(FPS)] + enc + ["-c:a", "copy", str(o2)], threads)
+        out = o2
+    return out
 
 
 def _karaoke_on():

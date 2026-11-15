@@ -1525,6 +1525,23 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.7 (15 Nov 2026 subah) - [OPUS 5.5] Reel: asli ghatta timer, poore 5 sec, 'comment' 2 baar, saaf ant-screen
+Owner (2 reel #4955, #9879 dekh kar): "timer, 5 sec, comment, ant ki screen - sab channel ki reel jahan banti hai sab jagah theek
+karo; setting nahi bigadni; log website par jaane ko utawale hon". Sab channel ek hi raaste (pipeline -> hooks -> answers.
+strip_reveal -> render/design) se bante hain, isliye ek jagah ka sudhaar chaaron brand + saare neon layout par.
+- Timer: pehle '5s' patti PNG mein 70% par jami rehti thi (dono reel mein 1-20 sec naapa). Ab sochne wale scene (hold) par
+  design timer nahi banata, jagah yaad rakhta hai (design.TIMERS) - render.countdown_overlay us scene ke dauran 10 fps par asli
+  ghatta timer chadhata hai: patti (neon4/bar) ya gol ghadi (baaki neon layout), 5->4->3, aakhri 2 sec laal. Pehle scene mein
+  bhari patti '5s'. Fail = purani jaisi video (koi rok nahi). Light/exam layout mein timer tha hi nahi - waise hi.
+- 5 sec: video '5 सेकंड' kehti/dikhati hai par chuppi 2.8 sec thi (silencedetect). think_hold ab hud 'think' (5) - tts seema 5.5;
+  chuppi mein dheema tick-tock (sfx chalu ho to).
+- Comment: 4 baar tha (hook, 'कमेंट में जवाब दीजिए!', '5 सेकंड... जवाब कमेंट में लिखिए', ant). answers.limit_comment: beech mein
+  sirf PEHLI baar, phir ant - kul 2. Options-scene ki peeli line ab "पहले खुद सोचिए, फिर जवाब मिलाइए!".
+- Ant-screen (utsukta + ek link): card "अपना जवाब कमेंट कीजिए! आप सही थे या नहीं? कोड #N का सही जवाब नीचे वाले लिंक पर।"
+  (link neeche ki patti mein ek baar; pehle 3 baar + '• टेलीग्राम:' adhoori line). Peeli line "लिंक डिस्क्रिप्शन में भी" (YouTube
+  par 'bio' nahi). Awaaz: "अपना जवाब कमेंट में लिखिए, फिर सब हिसाब डॉट कॉम पर देखिए कि आप सही थे या नहीं।"
+- Nahi chheda (setting): brand-sawal ka bantwara, qbank ka 'Trending GK' label, rang/layout, hook, 50-50 tareeka. Smoke 291.
+
 ## v3.3.6 (15 Nov 2026 subah) - [OPUS 5.5] Video ke ant ki awaaz saaf
 Owner (video #4955 dekh kar): "ant mein bolna chahiye - apna jawab comment mein likhein aur sahi jawab dekhne ke liye hamari
 website dekhein". Pehle bolta tha "सही जवाब बायो के लिंक पर" (YouTube par bio hota hi nahi, aur 'website' shabd nahi tha).

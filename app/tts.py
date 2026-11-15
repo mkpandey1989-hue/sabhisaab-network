@@ -19,7 +19,7 @@ def synth(text: str, out_wav: str, scene_idx: int = 0, total_scenes: int = 5, ho
     except Exception:
         pass
     dyn_speed = sfx.scene_voice_speed(scene_idx, total_scenes, text, base_speed)
-    hold = max(0.0, min(4.0, float(hold or 0)))      # v3.1.1: sochne ki chuppi (answers.think_hold) - awaaz ke baad itni der shaant
+    hold = max(0.0, min(5.5, float(hold or 0)))      # v3.3.7: 5 second tak (video '5 सेकंड' kehti hai)      # v3.1.1: sochne ki chuppi (answers.think_hold) - awaaz ke baad itni der shaant
     if TTS_ENGINE == "silent":
         return _silent(clean_text, out_wav, hold)
     import numpy as np
@@ -36,7 +36,15 @@ def synth(text: str, out_wav: str, scene_idx: int = 0, total_scenes: int = 5, ho
     except Exception as e:                          # sound effect fail -> saadi awaaz (video kabhi na ruke)
         from .log import log
         log(f"sfx: {e}")
-    audio = np.concatenate([audio, np.zeros(int(SR * (PAD_SEC + hold)), dtype="float32")])
+    tail = np.zeros(int(SR * (PAD_SEC + hold)), dtype="float32")
+    if hold > 0:                                    # v3.3.7: sochne ki chuppi mein dheema tick-tock (ghatte timer ke saath)
+        try:
+            if sfx._on("sfx"):
+                tk = sfx.tick_tock_loop(hold, SR)
+                tail[int(SR * PAD_SEC):int(SR * PAD_SEC) + len(tk)] += tk[:len(tail) - int(SR * PAD_SEC)]
+        except Exception:
+            pass
+    audio = np.concatenate([audio, tail])
     sf.write(out_wav, audio, SR)
     return len(audio) / SR
 
