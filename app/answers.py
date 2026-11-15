@@ -228,7 +228,7 @@ def strip_reveal(script):
         log(f"think hold: {e}")
     limit_comment(keep)                           # v3.3.7: 'comment' beech mein sirf ek baar (ant wala alag)
     # v3.3.7 (owner 15 Nov): ant ki screen mein link EK baar (neeche ki patti mein pehle se) - card mein utsukta: 'aap sahi the ya nahi?'
-    end_show = (f"अपना जवाब कमेंट कीजिए! आप सही थे या नहीं? कोड #{code} का सही जवाब नीचे वाले लिंक पर।" if live()
+    end_show = (f"अपना जवाब कमेंट कीजिए! आप सही थे या नहीं? कोड #{code} का सही जवाब हमारी वेबसाइट sabhisaab.com/jawab पर।" if live()
                 else f"अपना जवाब कमेंट कीजिए! सही जवाब (कोड #{code}): {where}")
     keep.append({"show": end_show,      # v3.1.1: poori video mein ek hi lehja (aap)
                  # v3.3.5 (owner 15 Nov): 'bio ke link' saaf nahi tha (YouTube par bio hota hi nahi) - ab seedha: comment karo,
@@ -375,7 +375,10 @@ JW_CSS = ("<style>.jw-tools{position:sticky;top:0;z-index:5;background:var(--bg,
           "table.jw th,table.jw td{display:table-cell}table.jw td.n{color:#8A979C;font-weight:400;width:1%}table.jw th,table.jw td{text-align:left;"
           "vertical-align:top;padding:8px 10px;border-bottom:1px solid #EDF1F2}table.jw th{position:sticky;top:0;background:#EDF1F2;"
           "white-space:nowrap}table.jw td:nth-child(2){white-space:nowrap;font-weight:600}table.jw td:nth-child(3){white-space:nowrap;"
-          "color:#4F5D64}table.jw tr:target,section:target{background:#FFF7D6!important}@media(max-width:600px){table.jw "
+          "color:#4F5D64}table.jw tr:target,section:target{background:#FFF7D6!important}"
+          "section[id^=c]{scroll-margin-top:150px}.jw-ans{margin:10px 0;border:1px dashed #0F766E;border-radius:10px;padding:8px 12px;background:#F0FDFA}"
+          ".jw-ans summary{cursor:pointer;font-weight:700;color:#0F766E}.jw-next a{display:inline-block;margin-top:8px;"
+          "padding:8px 14px;border-radius:999px;background:#0F766E;color:#fff;text-decoration:none;font-weight:700}@media(max-width:600px){table.jw "
           "td:nth-child(3),table.jw th:nth-child(3){display:none!important}}</style>")
 
 JW_JS = ("<script>(function(){var q=document.getElementById('jq'),n=document.getElementById('jn'),z=document.getElementById('j0'),"
@@ -417,7 +420,7 @@ def tap_block(e):
     aid = _esc(e.get("aid") or e.get("code"))
     btns = "".join(f'<button type="button" data-o="{i}">{"ABCD"[i]}) {_esc(x)}</button>' for i, x in enumerate(o))
     return (f'<div class="jw-tap" data-id="{aid}" data-c="{_esc(e.get("code"))}" data-a="{o.index(str(e["ans"]))}">'
-            f'<p class="upd">🤔 Pehle socho, phir tap karo (sahi jawab neeche likha hai):</p>{btns}<p class="upd jw-pct"></p><p class="upd jw-pcts"></p></div>')
+            f'<p class="upd">🤔 Pehle aap chuniye - tap karte hi pata chalega aap sahi the ya nahi:</p>{btns}<p class="upd jw-pct"></p><p class="upd jw-pcts"></p></div>')
 
 
 def tap_js():
@@ -435,13 +438,14 @@ def tap_js():
             "function mark(b,o){var a=+b.getAttribute('data-a');[].slice.call(b.querySelectorAll('button')).forEach(function(x){"
             "var i=+x.getAttribute('data-o');x.disabled=true;if(i===a)x.className='ok';else if(i===o)x.className='bad'})}"
             "var blocks=[].slice.call(document.querySelectorAll('.jw-tap'));blocks.forEach(function(b){var id=b.getAttribute('data-id');"
-            "if(d.pick[id]!==undefined){mark(b,d.pick[id]);return}[].slice.call(b.querySelectorAll('button')).forEach(function(x){"
+            "if(d.pick[id]!==undefined){mark(b,d.pick[id]);var s0=b.closest('section'),d0=s0&&s0.querySelector('details.jw-ans');if(d0)d0.open=true;return}[].slice.call(b.querySelectorAll('button')).forEach(function(x){"
             "x.addEventListener('click',function(){var o=+x.getAttribute('data-o'),a=+b.getAttribute('data-a'),t=td(new Date());"
             "try{d=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){d={}}d.ok=d.ok||0;d.n=d.n||0;d.days=d.days||0;d.last=d.last||'';"
             "d.ids=d.ids||[];d.pick=d.pick||{};"
             "if(d.last!==t){var y=new Date();y.setDate(y.getDate()-1);d.days=(d.last===td(y))?d.days+1:1;d.last=t}d.n++;if(o===a)d.ok++;"
             "d.pick[id]=o;d.ids=d.ids.concat([id]).slice(-300);var ks=Object.keys(d.pick);if(ks.length>300)delete d.pick[ks[0]];sv();mark(b,o);"
             "var p=b.querySelector('.jw-pct');if(p)p.textContent=o===a?'🎉 Sahi! Streak badhi.':'👍 Koi baat nahi - sahi jawab hara dikh raha hai.';"
+            "var sec=b.closest('section');var dt=sec&&sec.querySelector('details.jw-ans');if(dt)dt.open=true;"
             "var s=document.getElementById('jwStreak');if(s)s.textContent='🔥 Aapka hisaab: '+d.ok+'/'+d.n+' sahi · '+d.days+' din lagatar';"
             "if(VU&&window.fetch){fetch(VU+'/v?c='+encodeURIComponent(b.getAttribute('data-c'))+'&o='+o,{method:'POST',mode:'cors'}).catch(function(){})}"
             "})})});"
@@ -629,12 +633,15 @@ def build_page():
             (f'<span id="b-{_esc(e.get("brand"))}"></span>' if e.get("brand") and e.get("brand") not in seen_brand and not seen_brand.add(e.get("brand")) else "")
             + f'<section id="c{_esc(e.get("aid") or e["code"])}" style="background:#fff;border:1px solid #E1E7E8;border-radius:14px;padding:16px;'
             f'margin:14px 0"><p class="upd">{_esc(e["date"])} | {_esc(e["bname"])} | कोड #{_esc(e["code"])}</p>'
-            f'<h3>{_esc(e["q"])}</h3>' + tap_block(e) + f'<p><b>सही जवाब: {_esc(e["ans"])}</b></p>'
-            + (f'<p>{_esc(e["exp"])}</p>' if e.get("exp") else "") + tool + share_link(e)
+            f'<h3>{_esc(e["q"])}</h3>' + tap_block(e)
+            # v3.3.8 (owner 15 Nov: 'seedha jawab dekh kar chala jayega - ruke'): jawab + tareeka ek tap ke peeche (<details>,
+            # bina JS bhi khulta hai, Google ko HTML mein dikhta hai). Koi timer/taala nahi (AdSense niti).
+            + f'<details class="jw-ans"><summary>👀 Sahi jawab aur tareeka dekhein</summary><p><b>सही जवाब: {_esc(e["ans"])}</b></p>'
+            + (f'<p>{_esc(e["exp"])}</p>' if e.get("exp") else "") + "</details>" + tool + share_link(e)
             + ("" if tap_ok(e) else
                f'<p class="upd jw-me" data-id="{_esc(e.get("aid") or e["code"])}">Aapne pehle socha tha? '
                f'<button type="button" data-r="1">✅ Mera jawab sahi tha</button> <button type="button" data-r="0">❌ Galat tha</button></p>')
-            + (f'<p class="upd"><a href="#c{_esc((lst[i_ + 1].get("aid") or lst[i_ + 1]["code"]))}">Agla jawab ↓</a></p>' if i_ + 1 < len(lst) else "")
+            + (f'<p class="jw-next"><a href="#c{_esc((lst[i_ + 1].get("aid") or lst[i_ + 1]["code"]))}">➡ Agla sawal: kya ye bhi sahi karoge?</a></p>' if i_ + 1 < len(lst) else "")
             + "</section>")
     from .config import LINKS, WHATSAPP, TELEGRAM, PINTEREST
     chan = ("<h2>Hamare channel</h2><p>" + " · ".join(

@@ -1525,6 +1525,20 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.8 (15 Nov 2026 subah) - [OPUS 5.5] Website par rukna (bina taale ke) + har platform ka link usi sawal par
+Owner: "seedha jawab dekh kar chala jayega - page par ruke (aage ads), policy bhi, aasan bhi; video par 'neeche wala link' saaf
+nahi - website likha ho; sab platform (FB, YouTube, IG, Threads, Pinterest, story) ke link jaancho".
+- /jawab dabba: pehle sawal + 4 vikalp ("Pehle aap chuniye"); jawab + tareeka <details> ke andar (ek tap; vikalp dabate hi apne aap
+  khulta hai; bina JS bhi; Google ko HTML mein). Neeche "➡ Agla sawal: kya ye bhi sahi karoge?" (sawal-dar-sawal = asli ruk-na,
+  zyada page-view). Score/streak/% pehle se. Koi timer/taala/'ad dabao' NAHI (AdSense niti). Anchor par sawal sticky khoj ke neeche
+  na chhupe (scroll-margin). Playwright se jaancha: tap -> sahi hara, galat laal, jawab khula, JS galti 0.
+- Video ant-card: "...कोड #N का सही जवाब हमारी वेबसाइट sabhisaab.com/jawab पर।" (pehle 'नीचे वाले लिंक पर').
+- Link usi sawal ke dabbe par (UTM ke saath): Threads paheli post (pehle doosra page), Telegram channel ka pehla button
+  "✅ Sahi jawab dekhein (कोड #N)" (pehle sirf 'Free calculator'), FB roz ki photo-post (pehle galat 'jawab reel mein'),
+  WhatsApp taiyaar sandesh (pehle home page). YouTube/FB reel/Pinterest pehle se sahi; Instagram caption = 'bio mein' (Meta niti).
+- Owner ka ek-baar kaam: IG/FB/Threads/YouTube bio-link = https://sabhisaab.com/jawab (bot API se bio nahi badal sakta).
+- Ad ki jagah (AdSense milne ke baad, docs/ADSENSE_REVENUE_PLAN.md): jawab ki samajh ke baad + do sawal ke beech; vikalp ke paas kabhi nahi.
+
 ## v3.3.7 (15 Nov 2026 subah) - [OPUS 5.5] Reel: asli ghatta timer, poore 5 sec, 'comment' 2 baar, saaf ant-screen
 Owner (2 reel #4955, #9879 dekh kar): "timer, 5 sec, comment, ant ki screen - sab channel ki reel jahan banti hai sab jagah theek
 karo; setting nahi bigadni; log website par jaane ko utawale hon". Sab channel ek hi raaste (pipeline -> hooks -> answers.

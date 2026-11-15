@@ -35,3 +35,11 @@ GSC ke query se page sudharo -> sirf badla URL IndexNow (max 10/din); har video/
 
 ## Andaza (guarantee nahi - maan li gayi sankhyaen)
 2,000 visitors/mahina: ~₹70-400. 60,000/mahina: ~₹2,000-12,000. 3 lakh/mahina: ~₹10,000-60,000. Asli rate AdSense/country/topic par; pehla payment $100 (wire) par.
+
+
+## /jawab page par ad (v3.3.8, owner 15 Nov) - AdSense milne ke BAAD hi
+- Jagah: (1) har sawal-dabbe mein "Sahi jawab aur tareeka" ke neeche, (2) har 2-3 dabbe ke beech. Auto ads chalu karein to
+  'anchor' aur 'vignette' band (page par sawal ke vikalp ke upar na aaye).
+- Kabhi nahi: A/B/C/D vikalp ke paas ya beech mein (galti se click = niti todna), jawab ko ad ke peeche chhupana, "X second ruko"
+  timer, "ad dabao tab jawab", ad ko button jaisa dikhana.
+- Rukne ka asli tareeka (pehle se): pehle khud chunein -> jawab + tareeka -> "Agla sawal" -> score/streak -> juda free calculator.

@@ -632,6 +632,13 @@ def _channel_post(meta, links):
     from .config import TG_CHANNEL
     b = BRANDS[meta["brand"]]
     rows = [[{"text": "🌐 Free calculator", "url": f"{SITE}{meta.get('page', '/')}?utm_source=telegram&utm_medium=channel&utm_campaign={meta['brand']}"}]]
+    try:                                          # v3.3.8: sawal wali reel = pehla button usi sawal ke dabbe par (jawab + agla sawal)
+        from . import answers as _A8
+        if meta.get("answer_offsite") and _A8.live():
+            _c8 = meta.get("reel_code") or _A8.code_for(meta)
+            rows.insert(0, [{"text": f"✅ Sahi jawab dekhein (कोड #{_c8})", "url": _A8.answer_url(_c8, "telegram", meta["brand"])}])
+    except Exception as e:
+        log(f"tg answer btn: {e}")
     if links.get("youtube"):
         rows.append([{"text": "▶️ YouTube par dekhein", "url": links["youtube"]}])
     from .config import WHATSAPP
@@ -680,6 +687,14 @@ def _fb_photo_daily(brand, meta):
     q = meta.get("puzzle_q") or meta.get("title", "")
     cap = (f"🧠 {q}\n\nAapka jawab kya hai? Comment karein 👇\nSahi jawab hamari nayi reel mein (page par).\n\n"
            f"Aise hi free calculator aur paheliyan: https://sabhisaab.com/")
+    try:                                          # v3.3.8: jawab reel mein nahi hota - seedha usi sawal ka dabba (website)
+        from . import answers as _A8f
+        if meta.get("answer_offsite") and _A8f.live():
+            _c = meta.get("reel_code") or _A8f.code_for(meta)
+            cap = (f"🧠 {q}\n\nAapka jawab kya hai? Comment karein 👇\n"
+                   f"Sahi jawab (कोड #{_c}) aur agla sawal: {_A8f.answer_url(_c, 'facebook', brand)}")
+    except Exception:
+        pass
     try:
         pid = M.post_fb_photo(brand, th, cap)
         state.update("fb_photo_day", lambda d_: {**(d_ or {}), brand: day}, {})
@@ -709,7 +724,9 @@ def _stories(brand, meta, vpath):
             state.put("wa_ready_day", day)
             q = meta.get("puzzle_q") or meta.get("title", "")
             tg.photos([str(meta["thumbs"][0])], f"📲 WhatsApp channel ke liye taiyaar (bas forward/copy karein):\n\n🧠 {q}\n"
-                                                 "Jawab socho aur reply karo! Sahi jawab + free calculator 👉 https://sabhisaab.com/")
+                                                 "Jawab socho aur reply karo! Sahi jawab yahan 👉 "
+                                                 + (f"{SITE}/jawab#c{meta.get('reel_code')}" if meta.get("answer_offsite") and meta.get("reel_code")
+                                                    else "https://sabhisaab.com/"))
     except Exception as e:
         log(f"wa ready: {e}")
     try:
@@ -952,6 +969,10 @@ def upload(jid, pre=False):
             if not TH.info(brand):
                 raise RuntimeError("Threads token nahi (bot ko token bhejein)")
             link = f"{SITE}{meta.get('page', '/')}?utm_source=threads&utm_medium=social&utm_campaign={brand}"
+            if meta.get("answer_offsite"):           # v3.3.8: paheli post ka link usi sawal ke jawab-dabbe par
+                from . import answers as _A8t
+                if _A8t.live():
+                    link = _A8t.answer_url(meta.get("reel_code") or _A8t.code_for(meta), "threads", brand)
             yt = done.get("youtube", "")
             txt = f"{meta['title']}\n\n{meta.get('description', '').strip()}\n\n👉 {link}" + (f"\n▶️ {yt}" if yt else "")
             def _th():
