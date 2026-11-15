@@ -1525,6 +1525,11 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.9 (15 Nov 2026 subah) - [OPUS 5.5] Ant-card ke shabd = awaaz ke shabd
+Owner (reel #8841): awaaz "अपना जवाब कमेंट में लिखिए", screen "अपना जवाब कमेंट कीजिए!" - ab screen bhi "अपना जवाब कमेंट में लिखिए!".
+Usi reel mein jaancha: ghatti ghadi 5->0 chal rahi, beech ki chuppi mein tick-tock (silencedetect: koi lambi khamoshi nahi),
+'comment' screen par 2 baar (sochne wala scene + ant), awaaz mein 1 baar.
+
 ## v3.3.8 (15 Nov 2026 subah) - [OPUS 5.5] Website par rukna (bina taale ke) + har platform ka link usi sawal par
 Owner: "seedha jawab dekh kar chala jayega - page par ruke (aage ads), policy bhi, aasan bhi; video par 'neeche wala link' saaf
 nahi - website likha ho; sab platform (FB, YouTube, IG, Threads, Pinterest, story) ke link jaancho".

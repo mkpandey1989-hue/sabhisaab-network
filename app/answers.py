@@ -228,8 +228,9 @@ def strip_reveal(script):
         log(f"think hold: {e}")
     limit_comment(keep)                           # v3.3.7: 'comment' beech mein sirf ek baar (ant wala alag)
     # v3.3.7 (owner 15 Nov): ant ki screen mein link EK baar (neeche ki patti mein pehle se) - card mein utsukta: 'aap sahi the ya nahi?'
-    end_show = (f"अपना जवाब कमेंट कीजिए! आप सही थे या नहीं? कोड #{code} का सही जवाब हमारी वेबसाइट sabhisaab.com/jawab पर।" if live()
-                else f"अपना जवाब कमेंट कीजिए! सही जवाब (कोड #{code}): {where}")
+    # v3.3.9 (owner 15 Nov: 'bolta "कमेंट में लिखिए", likha "कमेंट कीजिए"'): screen aur awaaz ke shabd ek jaise
+    end_show = (f"अपना जवाब कमेंट में लिखिए! आप सही थे या नहीं? कोड #{code} का सही जवाब हमारी वेबसाइट sabhisaab.com/jawab पर।" if live()
+                else f"अपना जवाब कमेंट में लिखिए! सही जवाब (कोड #{code}): {where}")
     keep.append({"show": end_show,      # v3.1.1: poori video mein ek hi lehja (aap)
                  # v3.3.5 (owner 15 Nov): 'bio ke link' saaf nahi tha (YouTube par bio hota hi nahi) - ab seedha: comment karo,
                  # sahi jawab website par. 'sabhisaab.com' TTS mein 'सब हिसाब डॉट कॉम' (sahi uchcharan).
