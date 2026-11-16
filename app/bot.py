@@ -2077,6 +2077,8 @@ def on_text(text):
         d = 30 if any(w in tl for w in ("mahin", "month", "30 din")) else (
             7 if any(w in tl for w in ("hafte", "hafta", "week", "7 din", "saptah")) else (2 if "kal" in tl else 1))
         tg.say("🔎 Google Analytics se asli ginti la raha hoon...")
+        if d == 1 and any(w in tl for w in ("brand", "video", "hamare", "humare", "reel", "alag", "kahan se", "kaha se")):
+            return run(lambda: tg.say(website.traffic_smart()))   # v3.3.10 (16 Nov 'video link se brand wise' par sirf aaj ka 0 aaya)
         return run(lambda: tg.say(website.traffic(d)))
     if "pinterest" in tl and any(w in tl for w in ("kya hua", "kya huwa", "haal", "status", "manzoori", "approve")):
         from . import pinterest as PI
@@ -3364,6 +3366,8 @@ def on_callback(cb):
         if op == "F":
             return tg.say(studio.finalize(jid))
         if op == "p":
+            return studio.promote_ask(jid)
+        if op == "P":
             return studio.promote(jid)
         return tg.say("👍 Theek hai, kuch pakka nahi kiya.")
     if kind == "mk":

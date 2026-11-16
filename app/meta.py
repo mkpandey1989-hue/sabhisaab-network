@@ -425,7 +425,7 @@ def ig_safe_text(text, add_line=True):
             keep = [x.strip(" :-👉🌐🔗|") for x in parts
                     if not any(w in x.lower() for w in ("calculator", "hisaab yahan", "poora hisaab", "link", "कैलकुलेटर", "yahan:"))]
             line = " ".join(k for k in keep if k)
-            if not line:
+            if not line or not __import__("re").search(r"[\w\u0900-\u097f]", line):   # v3.3.10: sirf '📢' jaisi khaali line nahi
                 continue
         if "link bio mein" in line.lower() or "comment mein link" in line.lower() or "link likh" in line.lower():
             had = True

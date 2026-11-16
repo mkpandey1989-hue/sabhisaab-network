@@ -299,5 +299,26 @@ with _tf.TemporaryDirectory() as _d:
     check(str(_PIN._own_photo("almora-uttarakhand")).endswith("ghati.webp") and _PIN._own_photo("tool") is None,
           "Pinterest: UK page ki apni photo se pin, tool screenshot se nahi")
     _SK._site_dir = _sv2
+# v3.3.10: /jawab par <details> nahi (site audit FAQ samajh kar rokta tha), table mein jawab seedha nahi; namoona 'Mat daalo' race;
+# Bing ko sirf live sitemap wale URL; taazgi 'X se arrear' galat chetavni nahi; IG caption mein '@'/khaali line nahi
+from app import pipeline as _PPX, website as _WSX, pagequeue as _PQX, meta as _MTX  # noqa: E402
+_tb = _ANSV.jawab_table([{"code": 11, "aid": "11", "q": "Q?", "ans": "SECRET", "bname": "B", "brand": "b", "date": "d"}], [])
+check("SECRET" not in _tb and "Pehle khud hal karein" in _tb and "<details" not in _tb, "/jawab: table mein jawab seedha nahi, <details> nahi")
+import inspect as _insp  # noqa: E402
+import re as _rex  # noqa: E402
+check(not _rex.search(r"""["']<details""", _insp.getsource(_ANSV.build_page) + _insp.getsource(_ANSV.tap_block)),
+      "/jawab: build_page mein <details> nahi")
+_jb = {"brand": "money", "status": "rejected", "ids": {}, "done": {}, "meta": ""}
+_sv_jobs = _PPX.jobs
+_PPX.jobs = lambda: {"x1": _jb}
+check(_PPX._was_rejected("x1") and _PPX._undo_youtube("x1", _jb) == "", "namoona/video: 'Mat daalo' ke baad upload aage nahi")
+_PPX.jobs = _sv_jobs
+check(_MTX.ig_safe_text("A\n📢 https://t.me/sabhisaab\nB").splitlines()[-2:] == ["A", "B"] or "📢" not in _MTX.ig_safe_text("A\n📢 https://t.me/sabhisaab\nB"),
+      "Instagram: link hatne par khaali '📢' line nahi")
+check("@" not in _ANSV.desc_line({"answer_offsite": True, "reel_code": 5}, "instagram"), "Instagram: caption mein @handle nahi")
+with _tf.TemporaryDirectory() as _d:
+    _pl.Path(_d, "p8.html").write_text("<p>Salary 2027 tak, aur 1 January 2026 se arrear milne ki ummeed hai.</p>")
+    check(_PQX.fresh_scan(_d, _dt.date(2026, 11, 16), ["p8"]) == [], "taazgi: '1 January 2026 se arrear' = shuru ki tareekh, chetavni nahi")
+check(_WSX._feed_count({"UrlCount": 278}) == 278 and _WSX._feed_count({}) is None, "Bing sitemap: ginti padhna")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

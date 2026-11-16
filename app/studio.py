@@ -252,6 +252,13 @@ def finalize(jid):
             f"({rec['layout'].replace('L_', '')}, {rec['palette']}). Agli roz wali video se laagu. Namoona mita diya.")
 
 
+def promote_ask(jid):
+    """v3.3.10: 'Isi ko daalo' par dohri pushti - galti se dabne par namoona asli upload line mein na jaye."""
+    tg.say(f"⚠️ Pakka? Ye NAMOONA ({jid}) asli video ban kar upload line mein jayega (Thumb chunne par channel par chali jayegi).",
+           tg.inline([[("✅ Haan, isi ko daalo", f"sm:P:{jid}"), ("❌ Nahi", f"sm:z:{jid}")]]))
+    return ""
+
+
 def promote(jid):
     """Namoona -> normal manzoori line (aapke button ke bina upload nahi)."""
     from . import pipeline
@@ -260,6 +267,7 @@ def promote(jid):
         return "Ye namoona ab nahi hai."
     j["status"] = "waiting"
     j["reason"] = "aapne maanga (namoona se)"
+    j["from_sample"] = True
     j["slot"] = (pipeline.now() + datetime.timedelta(minutes=30)).isoformat()
     pipeline.save_job(jid, j)
     tg.say(f"📤 {jid} ab manzoori line mein. Thumb chunein (ya 🚀 Abhi daalo). Aapke button ke bina kahin nahi jayegi.",

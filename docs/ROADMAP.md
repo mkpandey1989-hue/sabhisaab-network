@@ -1525,6 +1525,28 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.10 (16 Nov 2026) - [OPUS 5.5] /jawab dobara chalu, namoona-race, Bing sitemap khud, Google index data bachao
+Owner (16 Nov): "IG link ajnabi profile kholta hai; link se aaye to pehle sawal dikhe; bot chat ki galtiyan; Bing sitemap
+manual karne par 269->278, agle din phir 269; namoona video chali gayi; index ho chuke page kyu de rahe; AdSense taiyari".
+- /jawab ATKA tha (15 Nov se): v3.3.8 ka <details> site audit ko FAQ lagta tha (FAQPage schema maangta) -> har nayi /jawab ZIP
+  audit-fail ("/jawab par naya jawab 15 min mein nahi dikha"). Ab button + div (hidden), 1 tap / vikalp dabate hi khulta.
+  Table mein (jis sawal ka dabba neeche hai) jawab seedha nahi - "👉 Pehle khud hal karein" link. 296-page site audit 0/0.
+- Google index report "jaanche 0": ZIP audit-fail par `git checkout -- .` poora repo palat deta tha - state/daily.json (roz ki
+  URL Inspection) bhi 13 Nov wali commit par. Ab sirf ZIP ke raaste (site/scripts/worker/.github/docs) wapas. daily.json aaj ka na
+  ho to owner ko saaf chetavni.
+- Bing: (1) LIVE sitemap mein jo URL nahi, wo Bing API ko nahi (pehle sitemap, phir URL). (2) SubmitFeed (wahi jo owner haath se
+  Resubmit karte the) - deploy ke baad aur 08:00 report par, jab live ginti != Bing ki ginti ya live ginti badli; din mein max 2.
+  Report mein "🗺 Bing sitemap: live N | Bing ki ginti M". 06:40 se pehle "nahi chala?" wali galat line nahi.
+- Namoona: 15 Nov mone6440 - 'Isi ko daalo' -> Thumb 1 -> 'Mat daalo' x2 dabaya, phir bhi 06:51 par YouTube par gayi (upload
+  chal raha tha, khatam hote hi status wapas 'approved' likh diya). Ab: upload ke baad dobara jaanch - 'Mat daalo' mila to YouTube
+  copy mitao + ginti ghatao; 'Mat daalo' bhi schedule copy mitata hai. 'Isi ko daalo' par dohri pushti.
+- Instagram caption: '@' kabhi nahi; jawab line "बायो के पहले लिंक पर - सब हिसाब वेबसाइट के 'जवाब' पेज पर कोड डालें"; link hatne
+  par bachi khaali '📢' line nahi.
+- 'GSC Request indexing dobara' kaam: sirf jo abhi index NAHI wahi dikhte; sab index ho jayein to kaam khud band.
+- 'video link se brand wise' par ab 7 din ka brand/platform/code hisaab (pehle sirf aaj ka 0).
+- Taazgi: "1 January 2026 se arrear" (shuru ki tareekh) ab purani-baat chetavni nahi (8th pay page sahi tha).
+- SMOKE 298 PASS.
+
 ## v3.3.9 (15 Nov 2026 subah) - [OPUS 5.5] Ant-card ke shabd = awaaz ke shabd
 Owner (reel #8841): awaaz "अपना जवाब कमेंट में लिखिए", screen "अपना जवाब कमेंट कीजिए!" - ab screen bhi "अपना जवाब कमेंट में लिखिए!".
 Usi reel mein jaancha: ghatti ghadi 5->0 chal rahi, beech ki chuppi mein tick-tock (silencedetect: koi lambi khamoshi nahi),

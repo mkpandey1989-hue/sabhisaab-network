@@ -150,6 +150,13 @@ def daily(hold_until=None):
                          extra_env={"TG_HOLD_UNTIL": str(int(hold_until))} if hold_until else None)
     if rc != 0:
         tg.alert("yellow", f"Website ki roz ki report mein dikkat:\n{out[-400:]}")
+    try:                                          # v3.3.10: Google URL Inspection ka nateeja sach mein aaj ka hai? (13-16 Nov purana atka tha)
+        _dd = json.loads((DIR / "state" / "daily.json").read_text()).get("day")
+        if _dd != str(datetime.date.today()):
+            tg.alert("yellow", f"🔎 Google index jaanch (URL Inspection) ka nateeja aaj ka nahi - aakhri {_dd}. Report purane data par hai; "
+                               "bot kal phir chalayega. (rc {rc})")
+    except Exception as e:
+        log(f"daily day check: {e}")
     try:                                          # v3.2.0 (owner): Bing ki report bhi GSC ke saath, usi samay
         if hold_until and time.time() < hold_until:
             time.sleep(max(0, hold_until - time.time()))
@@ -335,6 +342,18 @@ def _new_pages_today(extra):
     return (c.get(d, 0) if isinstance(c, dict) else 0) + extra
 
 
+def _revert_zip():
+    """v3.3.10: ZIP fail par sirf ZIP wale raaste wapas. Pehle 'git checkout -- .' poora repo palat deta tha - state/daily.json
+    (Google URL Inspection ka roz ka nateeja) bhi purani commit par chala jaata tha. 15-16 Nov: /jawab audit-fail ke har baar
+    Google index report 'jaanche 0' par aa jaati thi."""
+    dirs = [x for x in ("site", "scripts", "worker", ".github", "docs") if (DIR / x).exists()]
+    files = [x for x in ROOT_OK if (DIR / x).exists()]
+    if dirs or files:
+        _git("checkout", "-q", "--", *dirs, *files)
+    if dirs:
+        _git("clean", "-qfd", *dirs)
+
+
 def apply_zip(path, force=False, deploy_in=15):
     with ZIP_LOCK:                       # ek waqt mein ek ZIP (git takraav nahi)
         return _apply_zip(path, force, deploy_in)
@@ -365,8 +384,7 @@ def _apply_zip(path, force=False, deploy_in=15):
             tgt.write_bytes(z.read(n))
             moved.append(d)
     if new_pages and _new_pages_today(new_pages) > NEW_PAGES_PER_DAY and not force:
-        _git("checkout", "-q", "--", ".")
-        _git("clean", "-qfd", "site", "scripts", "worker", ".github", "docs")
+        _revert_zip()
         return (f"⛔ Aaj {_new_pages_today(new_pages)} NAYE page ho jaate - Google scaled-content niyam (din mein max "
                 f"{NEW_PAGES_PER_DAY}). Kal bhejein, ya sach mein zaroori ho to ZIP ke naam mein -force jodein.")
     if "site/tools.js" in moved and (DIR / "scripts" / "ginti_sync.py").exists():
@@ -395,8 +413,7 @@ def _apply_zip(path, force=False, deploy_in=15):
         out = (r.stdout or "") + (("\n⚠️ " + r.stderr.strip()[-600:]) if r.stderr.strip() else "")
         if not out.strip():
             out = "audit.py ne kuch nahi likha (rc %d)" % rc
-        _git("checkout", "-q", "--", ".")
-        _git("clean", "-qfd", "site", "scripts", "worker", ".github", "docs")
+        _revert_zip()
         return "❌ Audit fail - kuch nahi chadhaya:\n" + out[-1200:]
     _git("add", *moved)
     _git("-c", "user.name=Sab Hisaab bot", "-c", "user.email=contact@sabhisaab.com", "commit", "-q", "-m",
@@ -559,6 +576,10 @@ def deploy_direct():
     msg = ["✅ Website LIVE (VM se seedha Cloudflare)."]
     msg.append(submit_sitemap())
     msg.append(_after_live())
+    try:                                       # v3.3.10: Bing ko bhi sitemap (sirf jab ginti badli; din mein max 2)
+        msg.append(bing_feed(why="deploy ke baad"))
+    except Exception as e:
+        log(f"bing feed deploy: {e}")
     try:
         from . import canary
         msg.append(canary.after_deploy())          # v2.5.2: soft-404 / asli text / sitemap jaanch (deploy ko nahi rokta)
@@ -1345,6 +1366,13 @@ def bing_submit_daily(force=False):
     _uk = [s_ for s_, d_ in (state.get("pq_pub") or {}).items() if d_ >= _cut]
     fresh, why = bing_plan(quota, today, siteknow.pages() or {}, siteknow.not_indexed() or [],
                            state.get("bing_urlinfo") or {}, sent, imp, shown=list(state.get("bing_shown") or {}), new_uk=_uk)
+    live = live_sitemap_urls()                 # v3.3.10: jo URL LIVE sitemap mein nahi, wo Bing ko nahi (pehle sitemap, phir URL)
+    if live:
+        held = [u for u in fresh if u not in live and u.rstrip("/") + "/" not in live]
+        if held:
+            fresh = [u for u in fresh if u not in held]
+            state.put("bing_held", {"day": today, "urls": held[:50]})
+            log(f"bing: {len(held)} URL live sitemap mein nahi - roke")
     if not fresh:
         state.put("bing_api_day", today)
         return "Bing API: aaj koi zaroori URL nahi (sab haal hi mein bheje ja chuke)"
@@ -1404,6 +1432,76 @@ def _bing_traffic(key, days=7):
     return im, cl
 
 
+BING_FEED_MAX_DAY = 2          # v3.3.10: sitemap dobara-submit din mein max 2 (deploy ke baad + roz) - spam nahi
+
+
+def live_sitemap_urls():
+    """LIVE sitemap ke URL (set) - fetch na ho to None (tab koi filter nahi lagta)."""
+    try:
+        sm = requests.get(SITE + "/sitemap.xml", timeout=30, headers={"Cache-Control": "no-cache"}).text
+        locs = re.findall(r"<url>\s*<loc>([^<]+)</loc>", sm)
+        return {u.strip() for u in locs} or None
+    except Exception as e:
+        log(f"live sitemap: {e}")
+        return None
+
+
+def _feed_count(f):
+    for k in ("UrlCount", "urlCount", "Urls", "UrlsCount"):
+        try:
+            if f.get(k) is not None:
+                return int(f.get(k))
+        except Exception:
+            pass
+    return None
+
+
+def bing_feed(force=False, why="roz"):
+    """v3.3.10 (owner 16 Nov: 'manual sitemap submit par 269 -> 278, agle din phir 269'): Bing ko sitemap khud bhejo
+    (Bing Webmaster API SubmitFeed = wahi jo aap haath se 'Resubmit' karte ho) - jab LIVE sitemap ki ginti Bing ki ginti se
+    alag ho ya sitemap Bing ki list mein hi na ho. Din mein max 2 baar. -> ek line report."""
+    key = _env().get("BING_API_KEY")
+    if not key:
+        return ""
+    base = "https://ssl.bing.com/webmaster/api.svc/json"
+    feed_url = SITE + "/sitemap.xml"
+    live = live_sitemap_urls()
+    n_live = len(live) if live else None
+    bing_n, info = None, {}
+    try:
+        j = requests.get(f"{base}/GetFeeds", params={"apikey": key, "siteUrl": SITE + "/"}, timeout=30).json()
+        for f in (j.get("d") or []):
+            if str(f.get("Url", "")).rstrip("/") == feed_url:
+                info, bing_n = f, _feed_count(f)
+    except Exception as e:
+        log(f"bing getfeeds: {e}")
+    today = str(datetime.date.today())
+    rec = state.get("bing_feed") or {}
+    tries = rec.get("tries", 0) if rec.get("day") == today else 0
+    need = force or not info or (n_live and bing_n is not None and bing_n != n_live) or \
+        (n_live and rec.get("n_live") != n_live)
+    sent = ""
+    if need and tries < BING_FEED_MAX_DAY:
+        try:
+            r = requests.post(f"{base}/SubmitFeed", params={"apikey": key}, timeout=30,
+                              json={"siteUrl": SITE + "/", "feedUrl": feed_url})
+            ok = r.status_code == 200
+            sent = "✅ Bing ko sitemap dobara bheja" if ok else f"⚠️ Bing sitemap HTTP {r.status_code}"
+            tries += 1
+            if ok:
+                rec.update(n_live=n_live, at=datetime.datetime.now().isoformat(timespec="minutes"), why=why)
+        except Exception as e:
+            sent = f"⚠️ Bing sitemap bhej nahi paya ({str(e)[:60]})"
+    rec.update(day=today, tries=tries, bing_n=bing_n, live_n=n_live, status=str(info.get("Status", "")) if info else "list mein nahi")
+    state.put("bing_feed", rec)
+    line = f"🗺 Bing sitemap: live {n_live if n_live is not None else '?'} URL | Bing ki ginti {bing_n if bing_n is not None else '?'}"
+    if sent:
+        line += f" | {sent} ({why})"
+    elif bing_n is not None and n_live and bing_n == n_live:
+        line += " | ✅ barabar"
+    return line
+
+
 def bing_report():
     """v3.2.0 (owner 13 Nov): Bing ki roz ki report - GSC report ke saath, usi samay (08:00). Sirf padhta hai."""
     key = _env().get("BING_API_KEY")
@@ -1427,6 +1525,15 @@ def bing_report():
         L.append(f"• Kal Bing ne crawl kiye: {st.get('CrawledPages', '-')} | crawl error: {st.get('CrawlErrors', '-')}")
     except Exception as e:
         L.append(f"• Crawl/index ginti nahi mili ({str(e)[:60]})")
+    try:                                       # v3.3.10: sitemap ka Bing haal + zaroorat ho to khud dobara submit
+        _fl = bing_feed(why="roz ki jaanch")
+        if _fl:
+            L.append("• " + _fl)
+        _hd = state.get("bing_held") or {}
+        if _hd.get("day") == today and _hd.get("urls"):
+            L.append(f"• Live sitemap mein nahi the, isliye Bing ko nahi bheje: {len(_hd['urls'])} (sitemap mein aate hi jayenge)")
+    except Exception as e:
+        log(f"bing feed report: {e}")
     try:
         bing_page_stats()
     except Exception as e:
@@ -1456,7 +1563,10 @@ def bing_report():
                  f"hamari seema {bing_cap(lp.get('quota'))})"
                  + ("" if not cc else " - " + ", ".join(f"{k}: {v}" for k, v in cc.items())))
     else:
-        L.append("• Aaj Bing ko abhi kuch nahi gaya (06:40 ka kaam nahi chala?) - 'bing bhejo' se haath se")
+        if datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).strftime("%H:%M") < "06:40":   # v3.3.10: 06:40 se pehle 'nahi chala?' galat lagta tha
+            L.append("• Aaj ka Bing bhejna 06:40 par hoga (abhi samay nahi hua)")
+        else:
+            L.append("• Aaj Bing ko abhi kuch nahi gaya (06:40 ka kaam nahi chala?) - 'bing bhejo' se haath se")
     L.append(f"• Kul Bing API se bheje: {len({r['url'] for r in rows})} alag page (ek page 14/30 din mein ek baar)")
     lr = state.get("bing_last_resp") or {}
     if lr:

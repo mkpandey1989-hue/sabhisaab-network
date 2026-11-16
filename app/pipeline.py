@@ -558,12 +558,44 @@ def approve(jid, thumb, now_flag=False):
 
 
 def reject(jid):
+    """v3.3.10: 'Mat daalo' = pakka band. YouTube par pehle se schedule ho chuki ho to wahan se bhi hatao
+    (15 Nov: namoona mone6440 'Mat daalo' ke baad bhi 06:51 par chali gayi - upload chal raha tha, status wapas likh diya)."""
     job = jobs().get(jid)
+    extra = ""
     if job:
+        if job.get("status") == "rejected":
+            return "🗑 Ye video pehle hi hata di gayi hai."
+        job["status"] = "rejected"
+        job["rejected_at"] = now().isoformat(timespec="seconds")
+        save_job(jid, job)
+        extra = _undo_youtube(jid, job)
+        if job.get("status") != "queued":
+            shutil.rmtree(job.get("meta", ""), ignore_errors=True)
+    return "🗑 Video hata di. Is slot ke liye nayi video chahiye to 🎬 Abhi video dabayein." + extra
+
+
+def _undo_youtube(jid, job):
+    """Rejected job ki YouTube copy (schedule/private) mitao + aaj ki ginti se ghatao."""
+    vid = (job.get("ids") or {}).get("youtube") or ""
+    if not vid:
+        return ""
+    try:
+        youtube.delete_video(job["brand"], vid)
+        job.setdefault("ids", {}).pop("youtube", None)
+        job.setdefault("done", {}).pop("youtube", None)
         job["status"] = "rejected"
         save_job(jid, job)
-        shutil.rmtree(job.get("meta", ""), ignore_errors=True)
-    return "🗑 Video hata di. Is slot ke liye nayi video chahiye to 🎬 Abhi video dabayein."
+        d = str(now().date())
+        state.update("uploads", lambda x: {**(x or {}), d: max(0, (x or {}).get(d, 0) - 1)}, {})
+        state.update("history", lambda h: [r for r in (h or []) if r.get("vid") != vid], [])
+        return "\n✅ YouTube par schedule copy bhi mita di (public nahi hogi)."
+    except Exception as e:
+        log(f"reject yt delete: {e}")
+        return f"\n⚠️ YouTube copy ({vid}) khud nahi mit payi - YouTube Studio mein haath se hata dein."
+
+
+def _was_rejected(jid):
+    return (jobs().get(jid) or {}).get("status") == "rejected"
 
 
 def uploads_today():
@@ -925,6 +957,11 @@ def upload(jid, pre=False):
         if errs.get("youtube", "").startswith("post-taala: shayad"):      # v2.3.0: dobara nahi, aage badho
             done["youtube"] = "⚠ shayad pehle ja chuki (post-taala) - dobara nahi daali"
             errs.pop("youtube", None)
+    if _was_rejected(jid):        # v3.3.10: upload ke beech 'Mat daalo' daba -> YouTube copy hatao, aage kuch nahi
+        job = jobs()[jid]
+        job["ids"], job["done"] = {**job.get("ids", {}), **ids}, {**job.get("done", {}), **done}
+        tg.alert("yellow", f"🗑 {jid}: aapne 'Mat daalo' dabaya tha - upload rok diya." + _undo_youtube(jid, job))
+        return
     if pre:          # baaki platform slot par; abhi bas YouTube schedule sambhal ke rakho
         job = jobs()[jid]
         job["done"], job["ids"] = {**job.get("done", {}), **done}, {**job.get("ids", {}), **ids}
@@ -1048,6 +1085,10 @@ def upload(jid, pre=False):
                 log(f"jawab turant: {e}")
         except Exception as e:
             log(f"answer record: {e}")
+    if _was_rejected(jid):        # v3.3.10: beech mein 'Mat daalo' -> status wapas 'posted/approved' mat likho
+        tg.alert("yellow", f"🗑 {jid}: 'Mat daalo' upload ke beech mila. Jo platform ho chuke: {', '.join(done) or 'koi nahi'} - "
+                           "zarurat ho to wahan se haath se hatayein.")
+        return
     newly_yt = "youtube" in done and "youtube" not in job.get("done", {}) and not job.get("yt_pre")
     job["done"], job["ids"] = done, ids
     state.update("posted_log", lambda l: ([x for x in (l or []) if x["jid"] != jid] +

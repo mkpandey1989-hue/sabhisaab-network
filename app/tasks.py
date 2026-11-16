@@ -212,6 +212,24 @@ def _gsc_all_indexed():
         return False
 
 
+GSC_AGAIN = ("fire-number-calculator", "notice-period-buyout-calculator", "delivery-date-calculator", "number-system-converter",
+             "random-number-generator", "stopwatch-online", "buy-vs-rent-guide")
+
+
+def gsc_again_left():
+    """v3.3.10 (owner 16 Nov: 'jab index ho rakhe hai to kyu de rhe ho'): suchi mein se jo Google index mein NAHI (roz ki jaanch)."""
+    try:
+        from . import siteknow
+        st = siteknow._index_status() or {}
+    except Exception:
+        st = {}
+    return [s for s in GSC_AGAIN if not (st.get(s) or {}).get("ok")]
+
+
+def _gsc_again_done():
+    return not gsc_again_left()
+
+
 def _psi_key():
     try:
         from . import website
@@ -376,7 +394,8 @@ def _pq_loaded():
 AUTO = {"pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
         "threads_ok": _threads_all_ok, "pin_oauth": _pin_oauth, "cf_acc": _cf_acc_ok, "cw_done": _cw_done,
         "meta_secret": _meta_secret_ok, "tg_pin": _tg_pinned, "gsc_all": _gsc_all_indexed, "psi": _psi_key, "cf": _cf_ok, "dm_over": _dm_over,
-        "w7": _w7_live, "fb_perm": _fb_perm_fixed, "w8": _w8_live, "ga4": _ga_ok, "w9": _w9_live, "ytc": _ytc_ok, "bkpass": _bk_saved, "anall": _analytics_all, "push": _push_ok, "quizb": _quiz_ok}
+        "w7": _w7_live, "fb_perm": _fb_perm_fixed, "w8": _w8_live, "ga4": _ga_ok, "w9": _w9_live, "ytc": _ytc_ok, "bkpass": _bk_saved, "anall": _analytics_all, "push": _push_ok, "quizb": _quiz_ok,
+        "gsc_again": _gsc_again_done}
 
 
 def add(text, how="", after=None, auto=None):
@@ -498,6 +517,15 @@ def is_claude(text):
     return t.startswith(CLAUDE_TAGS)
 
 
+def _live_text(t):
+    """v3.3.10: GSC 'dobara' kaam mein sirf wahi page dikhao jo abhi Google index mein NAHI."""
+    if str(t).startswith("[Owner] GSC Request indexing dobara"):
+        left = gsc_again_left()
+        return (f"[Owner] GSC Request indexing - abhi index NAHI ({len(left)}/{len(GSC_AGAIN)}): " + ", ".join(left)
+                + " (baaki index ho chuke, unhe mat dabaiye)")
+    return t
+
+
 def report(auto=False):
     items = check()
     prev = state.get("tasks_done") or {}
@@ -515,7 +543,7 @@ def report(auto=False):
     lines = [f"🧾 Aapke haath ke kaam: {done_n}/{len(items)} ho gaye"]
     if pend:
         lines.append("\n⬜ Baaki (🤖 = bot khud jaanch kar hatayega; baaki ho jaye to 'ho gaya <number>'):")
-        lines += [f"{n}. {'🤖 ' if not str(k).startswith('todo') else ''}{t}\n   👉 {h}" for n, (k, t, h) in enumerate(pend, 1)]
+        lines += [f"{n}. {'🤖 ' if not str(k).startswith('todo') else ''}{_live_text(t)}\n   👉 {h}" for n, (k, t, h) in enumerate(pend, 1)]
     else:
         lines.append("🎉 Aapke haath ka sab kaam ho gaya!")
     if dev:
@@ -879,7 +907,7 @@ SEED_V260 = [            # v2.6.0 (9 Nov 2026): Claude ka poora audit (bot + web
     ("[Owner, marzi] Phone par Private DNS (VPN ki zaroorat nahi, banking/UPI par asar nahi): Settings → Connections → More connection settings → "
      "Private DNS → 'Private DNS provider hostname' → dns.google → Save", None, None, "ho jaye to: 'ho gaya private dns'"),
     ("[Owner] GSC Request indexing dobara (pichhli 2 Nov - 14 din baad, roz 1-2): fire-number-calculator, notice-period-buyout-calculator, "
-     "delivery-date-calculator, number-system-converter, random-number-generator, stopwatch-online, buy-vs-rent-guide", "2026-11-16", None,
+     "delivery-date-calculator, number-system-converter, random-number-generator, stopwatch-online, buy-vs-rent-guide", "2026-11-16", "gsc_again",
      "search.google.com/search-console → Inspect any URL → Request indexing. Ho jaye to: 'ho gaya gsc dobara'"),
     ("[Developer] Do calculator ek hi kaam ke: /tax-regime-compare-calculator aur /old-vs-new-tax-regime-calculator (Google mein aapas mein takraav). "
      "Ek ko mazboot karo, doosre ka content alag (jaise salary-wise table) ya canonical - bina URL hataye", "2026-11-20", None,
@@ -1326,7 +1354,23 @@ def seed_v312():
     _dirty()
 
 
+def _mig_3310():
+    """v3.3.10: purane 'GSC Request indexing dobara' kaam ko auto-jaanch do (index ho chuke page suchi se hatte hain)."""
+    if state.get("mig_3310"):
+        return
+    state.put("mig_3310", True)
+    lst = state.get("todo") or []
+    for o in lst:
+        if str(o.get("x", "")).startswith("[Owner] GSC Request indexing dobara"):
+            o["auto"] = "gsc_again"
+    state.put("todo", lst)
+
+
 def seed_todo():
+    try:
+        _mig_3310()
+    except Exception:
+        pass
     if not state.get("seed_v330"):
         state.put("seed_v330", True)
         try:

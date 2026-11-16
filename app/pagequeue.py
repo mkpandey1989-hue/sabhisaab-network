@@ -805,6 +805,8 @@ def fresh_scan(site_dir, today, slugs):
             after = txt[mm.end():mm.end() + 60]
             if re.match(r"\s*[);]", after):           # v3.3.4: '(PTI, 31 July 2025; ...)' = srot ki tareekh, khabar nahi
                 continue
+            if re.match(r"\s*(se|से)\s", after):      # v3.3.10: '1 January 2026 se arrear milne ki ummeed' = shuru ki tareekh
+                continue                              # (pichhli tareekh se laagu), beeti ghatna nahi - galat chetavni thi
             if not _FUT_RX.search(after) or re.search(r"[.|?!।]", after[:after.find(_FUT_RX.search(after).group(0))]):
                 continue
             try:
