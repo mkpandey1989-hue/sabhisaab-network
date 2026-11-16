@@ -1,0 +1,301 @@
+"""v3.3.2 (owner 14 Nov: 'FAQ aur ho sakte hain policy ke hisaab se'): jin 29 page par source mein 4 se kam sawal-jawab the,
+unke liye usi page ke likhe tathyon se bane sawal-jawab (naya tathya nahi joda, sirf page ki baat sawal-jawab roop mein).
+Har jawab page ke content se mel khata hai (FAQ schema = dikhne wala content). Jo baat badalti hai wahan official source ka zikr."""
+
+FAQ_EXTRA = {
+ "udham-singh-nagar-zila-prashasan": [
+  ("Kya Udham Singh Nagar mein Cantonment (chhavni) hai?", "Nahi. Uttarakhand ki 9 chhavniyan Almora, Chakrata, Clement Town, Dehradun, Landour, Lansdowne, Nainital, Ranikhet aur Roorkee hain; inmein Udham Singh Nagar ka koi shahar nahi hai."),
+ ],
+ "tehri-garhwal-bhugol-nadiyan": [
+  ("Tehri Garhwal zile ka kshetrafal kitna hai?", "Census 2011 ke anusar 3,642 varg km. 2001 ki Census mein ye 4,085 varg km tha, isliye purane sroton mein bada aankda milta hai."),
+  ("Tehri Garhwal ki seema kin zilon se milti hai?", "Uttar mein Uttarkashi, dakshin mein Pauri Garhwal, purv mein Rudraprayag aur pashchim mein Dehradun. Koi antarrashtriya ya doosre rajya ki seema nahi hai."),
+  ("Kya Tehri Garhwal jaane ke liye Inner Line Permit chahiye?", "Nahi. Zile ki koi antarrashtriya seema nahi hai, isliye Tehri mein ILP ki zaroorat nahi padti."),
+  ("Tehri Garhwal ki sabse neechi jagah kaun si hai?", "Ganga ke kinare Shivpuri, Kaudiyala aur Muni Ki Reti ke aas-paas ka ilaka, lagbhag 400 se 450 meter."),
+  ("Muni Ki Reti kis zile mein hai?", "Tehri Garhwal mein. Rishikesh ka bada hissa teen zilon mein bata hai: Muni Ki Reti aur Tapovan Tehri mein, Lakshman Jhula ka purvi kinara Pauri mein aur Rishikesh shahar Dehradun mein."),
+ ],
+ "nainital-mausam-jungle": [
+  ("Garmi mein Nainital ka taapmaan kitna rehta hai?", "April se June mein pahadi kshetra mein din mein lagbhag 20-28°C aur raat mein 10-15°C. Haldwani-Ramnagar jaise maidani ilakon mein 35-42°C tak."),
+  ("Nainital mein mansoon kab hota hai?", "July se September. Bhaari barish, bhuskhalan aur sadak band hone ka jokhim rehta hai, isliye IMD ka taaza forecast dekh kar niklein."),
+  ("Jim Corbett National Park kab bana?", "1936 mein Hailey National Park ke naam se. Ye Bharat ka sabse purana rashtriya udyan hai aur 1973 mein Project Tiger isi se shuru hua."),
+  ("Corbett mein safari ki booking kaise hoti hai?", "Corbett Tiger Reserve ke official portal se. November se June ke peak season mein jaldi booking zaroori hai; gate aur zone ke niyam har saal badal sakte hain."),
+  ("Nainital ghumne ka saaf mausam kab milta hai?", "October-November mein aasman saaf rehta hai aur Himalaya dikhta hai. April-June mein mausam sukhad hota hai par sabse zyada bheed rehti hai."),
+ ],
+ "nainital-bhugol-nadiyan": [
+  ("Nainital zile ki seema kin zilon se milti hai?", "Almora aur Champawat (uttar-purv), Udham Singh Nagar (dakshin-purv) aur Pauri Garhwal (pashchim) se. Dakshin-pashchim mein yeh Uttar Pradesh ke Bijnor zile se juda hai."),
+  ("Kya Nainital zile ki koi antarrashtriya seema hai?", "Nahi. Nainital ki seema na Nepal se lagti hai na Tibet (China) se; antar-rajyiya seema sirf Uttar Pradesh se hai."),
+  ("Nainital ko Lake District kyon kehte hain?", "Kyonki zile mein lagbhag ek darjan prasiddh taal hain, jaise Naini Tal, Bhimtal, Sattal, Naukuchiatal, Khurpatal aur Sariyatal."),
+  ("Nainital zile ki mukhya nadiyan kaun si hain?", "Kosi, Gaula, Dabka, Nandhaur aur Baur. Ye barf se nahi, jharno aur barish ke paani se chalne wali nadiyan hain."),
+  ("Kya Nainital zile mein koi glacier hai?", "Nahi, zile mein koi glacier nahi hai. Kathgodam railhead hone se Pindari jaise glacier treks ke yatri aksar Nainital zile se guzarte hain."),
+ ],
+ "nainital-pahadi-khana": [
+  ("Kumaoni thali mein mukhya roop se kya hota hai?", "Dal aur saag: Bhatt ki Churkani, Gahat ki Dal, Dubuk, Kapa/Kafuli, Jhoi aur Ras-Bhaat, jo bhaat ya mandua ki roti ke saath khaye jaate hain."),
+  ("Pisyun Loon kya hai?", "Silbatta par rock namak, lehsun ke patte, hari mirch, dhaniya, jeera aur timur ko ek saath pees kar bana masaledar namak, jo phal, kheere ya roti ke saath khaya jata hai."),
+  ("Kumaon ki mashhoor mithaiyan kaun si hain?", "Bal Mithai, Singori, Chocolate (khoya wali) aur Singal. Inka ghar Almora kshetra maana jata hai, par Nainital mein bhi milti hain."),
+  ("Jungle ki sabziyan todte samay kya dhyan rakhein?", "Bicchu ghas, Linguda, Kankoda, Kaphal jaisi cheezein jaankari ke bina na todein, kyonki kuch paudhe zehrile ya galat pehchane ja sakte hain."),
+ ],
+ "nainital-sanskriti-tyohar": [
+  ("Census 2011 ke anusar Nainital zile ki aabadi kitni thi?", "9,54,605; sex ratio 934 mahilayein prati 1,000 purush aur saksharta lagbhag 83.9%."),
+  ("Nainital zile mein kaun si bhasha sabse zyada boli jaati hai?", "Kumaoni (lagbhag 48.5%), uske baad Hindi (lagbhag 38.7%). Haldwani-Lalkuan jaise Terai shehron mein Urdu aur Punjabi bhi boli jaati hain."),
+  ("Rangwali Pichhora kya hai?", "Kumaoni mahilaon ka shubh vastra: peele-narangi rang ka dupatta jis par laal bindiyan aur swastik jaise shubh chinh bane hote hain; shaadi, naamkaran aur pooja par pehna jata hai."),
+  ("Aipan kaise banaya jata hai?", "Geru mitti ki lal-bhuri parat par chaawal ke ghole (biswar) se ungliyon se safed aakritiyan banai jaati hain; pooja aur tyohar par zameen, deewar ya chowki par."),
+ ],
+ "nainital-purana-pahadi-jeevan": [
+  ("Purane pahadi gaon mein din kab shuru hota tha?", "Bahut jaldi, murge ki baang ke saath, aksar subah 4 baje ke aas-paas; mahilayein okhal mein dhaan kootti ya jandra mein anaj peesti thi."),
+  ("Bina ghadi ke log samay kaise jaante the?", "Suraj ki kiran, pahad ki choti par dhoop ya chhaon, deewar ki parchhai aur murge ya chidiya ki boli se. 'Danda me gham aa gaya' ka matlab tha choti par dhoop pahunch gayi."),
+  ("Kothar aur Bhakar kya hote the?", "Anaj surakshit rakhne ke lakdi ke bade sandook; ringal ke tokre (doka) par gobar aur laal mitti ka lep lagakar anaj ko namee aur keede se bachaya jata tha."),
+  ("Padyal ya Huda pratha kya thi?", "Gaon ki samuhik madad: poora gaon bina paise kisi ke khet ki ropai, gudai ya chhat daalne mein haath bantata tha, aur badle mein sabko dopahar ka bhoj milta tha."),
+ ],
+ "nainital-vaidya-parampara-aastha": [
+  ("Kya pahadi gharelu nuskhe ilaaj ka vikalp hain?", "Nahi. Inme se kai nuskhon ke fayde ka vaigyanik pramaan seemit ya nahi hai aur kuch nuksan bhi kar sakte hain; ye jaankari sirf parampara samjhane ke liye hai."),
+  ("Tooti haddi ka sahi ilaaj kya hai?", "Paramparik haddi-vaidya khapachiyan baandhte the, par aaj tooti haddi ka sahi ilaaj X-ray ke baad orthopedic doctor se hi hona chahiye."),
+  ("Golu Devta ko nyay ka devta kyon kaha jata hai?", "Kumaon mein log apni arzi mandir mein tangte hain aur manokamna poori hone par ghanti ya prasad chadhate hain. Ye aastha ki parampara hai, kanooni nyay ka vikalp nahi."),
+  ("Pitra thaan kya hota hai?", "Khet ke kone ya ghar ke paas purvajon ka chhota patthar ka sthaan, jahan nayi fasal ya tyohar par sabse pehle pitron aur kul-devta ko bhog lagaya jata hai."),
+ ],
+ "nainital-patti-gaon-bazaar": [
+  ("Nainital zile mein kitne vikas khand aur gram panchayat hain?", "8 vikas khand (Haldwani, Ramnagar, Kotabag, Okhalkanda, Dhari, Ramgarh, Betalghat, Bhimtal), kul 475 gram panchayat aur 1,080 gaon."),
+  ("Nainital zile ki mukhya nadi-ghatiyan kaun si hain?", "Kosi ghati (Kainchi, Khairna, Ramnagar-Garjiya), Gaula ghati (Bhimtal se Kathgodam, Haldwani, Lalkuan) aur Dabka ghati (Nainital se Kaladhungi)."),
+  ("Kya Nainital zile mein Cantonment hai?", "Haan, Nainital shahar mein Nainital Cantonment Board hai. Saath hi angrezi kaal ki kai imaratein hain, jaise St. John in the Wilderness church, Raj Bhawan, Sherwood College aur Bhowali ka TB Sanatorium."),
+  ("Delhi se Nainital kitni door hai?", "Lagbhag 310 km (7 se 8 ghante). Haldwani se lagbhag 34 km aur Kathgodam se lagbhag 35 km."),
+ ],
+ "nainital-sarkari-seva": [
+  ("Uttarakhand mein khatauni online kahan dekhein?", "bhulekh.uk.gov.in (Devbhoomi Bhulekh) par, bina login; zila, tehsil aur gaon chunkar khasra number, khata number ya khatadhar ke naam se."),
+  ("Niwas ya jaati praman patra online kaise banta hai?", "Apuni Sarkar (eservices.uk.gov.in) aur e-District (edistrict.uk.gov.in) portal ya CSC ke zariye; zyadatar sevaon ka nirdharit samay 10 se 15 din bataya jata hai."),
+  ("UCC mein shaadi ka panjikaran kab tak karana hai?", "Uttarakhand mein UCC 27 January 2025 se lagu hai; shaadi ka panjikaran 60 din ke andar ucc.uk.gov.in par karana zaroori hai."),
+  ("Sarkari kaam ki shikayat kahan karein?", "CM Helpline 1905 par; zile mein DM, tehsil aur block star par bhi shikayat sunne ki vyavastha hai."),
+ ],
+ "nainital-basna-workation": [
+  ("Nainital zile mein workation ke liye kaun se ilake lokpriya hain?", "Bhimtal, Sattal, Naukuchiatal, Mukteshwar, Ramgarh aur Pangot jaise kam bheed wale ilake; par booking se pehle internet, bijli aur network ki jaanch zaroori hai."),
+  ("Retire hokar pahad mein basne se pehle kya karein?", "3 se 6 mahine kiraye par rehkar dekhein, jisme ek sardi aur ek barish ka mausam aaye; aspatal ki doori, sadak, thand aur sthaniya madad sabse zaroori hain."),
+  ("Pahad mein ghar banana mehnga kyon padta hai?", "Cement, sariya aur ret-bajri ka parivahan mehnga hota hai, aur sadak ghar tak na ho to saman sir par ya khachchar se pahunchana padta hai."),
+  ("Pet ke saath Nainital jaate samay kya dhyan rakhein?", "Homestay ya hotel se pehle likhit mein pooch lein; guldar kutton ka shikar kar sakta hai, isliye shaam ke baad kutte ko akela na chhodein aur leash mein rakhein."),
+  ("Akeli mahila yatri ke liye emergency number kya hai?", "Har aapatkaal mein 112; rashtriya mahila helpline 181."),
+ ],
+ "tehri-garhwal-mausam-jungle": [
+  ("Tehri Garhwal ka mausam kaisa rehta hai?", "Oonchai ke hisaab se badalta hai: Ganga kinare ke neeche ilake garmi mein tapte hain, jabki Dhanaulti, Surkanda aur Nag Tibba garmi mein thande aur sardi mein barf se dhake rehte hain. Barsat June ke ant se September tak."),
+  ("Kya Tehri Garhwal mein koi National Park hai?", "Zile ki seema ke andar nahi. Paas ke sanrakshit kshetra Rajaji National Park, Mussoorie Wildlife Sanctuary aur Gangotri National Park hain."),
+  ("Tehri Garhwal ka sabse mashhoor bugyal kaun sa hai?", "Bhilangana kshetra ka Panwali Kantha, jo Ghuttu se Kedarnath tak ke trek ka hissa hai."),
+  ("Tehri ke jungle mein kaun se janwar milte hain?", "Guldar, Himalayan kala bhalu, goral, serow, kakar, jungli suar, langur aur bandar; oonchai par kasturi mrig aur bharal ki upasthiti ki baat hoti hai."),
+ ],
+ "tehri-garhwal-pahadi-khana": [
+  ("Garhwal ke mashhoor main-course vyanjan kaun se hain?", "Kafuli, phaanu, chainsoo, baadi, thechwani, gahat ki dal aur jholi (kadhi), jo zyadatar loha ki kadhai mein kam masale se bante hain."),
+  ("Garhwal ki mukhya roti-chawal kaun si hain?", "Mandua ki roti aur jhangore ka bhaat; tyoharon par gahat ke parathe aur swale bhi bante hain."),
+  ("Garhwali meethe pakwan kaun se hain?", "Arsa, rot, jhangora ki kheer, puwa aur gulgule, jo tyohar, shaadi aur devta ki puja mein bante hain."),
+  ("Kya Chhyang Tehri ka paramparik peya hai?", "Nahi. Chhyang mukhya roop se oonchai ke Bhotia ilakon (Uttarkashi, Chamoli, Pithoragarh) mein banta hai; Tehri mein buransh ka sharbat, malta juice aur gud-adrak ki chai prasiddh hain."),
+ ],
+ "tehri-garhwal-sanskriti-tyohar": [
+  ("Census 2011 ke anusar Tehri Garhwal ki aabadi kitni hai?", "6,18,931; sex ratio 1,077 mahilayein prati 1,000 purush, jiska bada karan purushon ka rozgaar ke liye bahar jaana hai."),
+  ("Tehri Garhwal ki mukhya bhasha kaun si hai?", "Garhwali (lagbhag 90% logon ki matri bhasha); Jaunpur kshetra mein Jaunpuri boli jaati hai aur Hindi sampark bhasha hai."),
+  ("Tehri Nath kya hai?", "Tehri Garhwal ka sabse mashhoor gehna: bahut badi sone ki nath jo shaadi mein dulhan pehenti hai."),
+  ("Tehri Garhwal ke mashhoor mele kaun se hain?", "Kunjapuri mela, Chandrabadni mela, Surkanda Devi mela aur Sem Mukhem ka Nagraja mela."),
+ ],
+ "tehri-garhwal-itihas-mandir": [
+  ("Tehri Garhwal ke teen prasiddh Shaktipeeth kaun se hain?", "Surkanda Devi, Kunjapuri Devi aur Chandrabadni Devi."),
+  ("Tehri Riyasat kab tak rahi?", "1815 se 1949 tak, Panwar (Shah) vansh ke raja ke adhin; 1815 ke baad Garhwal ka pashchimi hissa riyasat bana."),
+  ("Sridev Suman kaun the?", "Tehri riyasat ke virudh nagrik adhikaron ke andolan ke neta, jinka 1944 mein 84 din ke anshan ke baad nidhan hua."),
+  ("Madho Singh Bhandari ki katha kahan se judi hai?", "Tehri Garhwal ke Malethha gaon se, jahan ki kul (nahar) aaj bhi unki yaad dilati hai."),
+ ],
+ "tehri-garhwal-purana-pahadi-jeevan": [
+  ("Purane Tehri gaon mein din kaise beetta tha?", "Bhor se pehle (lagbhag 4 baje) okhal aur chakki ki awaaz se shuru; dopahar jungle se ghaas-lakdi aur naule se paani laane mein; shaam pashu baandhne aur chulhe ke paas kahani sunne mein."),
+  ("Mana kitna hota tha?", "Purane naap mein Mana lagbhag 500 gram ke aas-paas maana jata hai, par ye maap jagah ke hisaab se badalta tha."),
+  ("Bina maachis aag kaise jalti thi?", "Chakmak patthar aur lohe ki kadi se chingari nikaal kar sukhi ghaas ya kapasi par pakadte the; raat ki roshni chir ki leesa-bhari lakdi (chhyula) se hoti thi."),
+  ("Bagh-Bakri kya khel hai?", "Patthar ya zameen par bane jaal par 16 bakri aur 2 bagh ki mohron se khela jane wala rananeeti ka khel."),
+ ],
+ "tehri-garhwal-patti-gaon-bazaar": [
+  ("Tehri Garhwal mein kitne vikas khand hain?", "9 vikas khand; sabse bada block Bhilangana (Ghansali) hai."),
+  ("Dobra-Chanti pul kitna lamba hai?", "Main span lagbhag 440 m aur kul lambai lagbhag 725 m; ye Tehri Lake par Pratapnagar ko jodta hai aur 8 November 2020 ko khula."),
+  ("Kya Tehri Garhwal mein Cantonment hai?", "Nahi. Tehri ek swatantra riyasat thi; British-style imaraton ke liye Mussoorie, Dehradun aur Landour zyada prasiddh hain."),
+  ("New Tehri se Rishikesh kitni door hai?", "Lagbhag 72 km; pahadi raaste par safar mein lagbhag 2.5 se 3 ghante lagte hain."),
+ ],
+ "tehri-garhwal-pahadi-shabd-boli": [
+  ("Garhwali mein maa aur pita ko kya kehte hain?", "Maa ko Bwe/Boi ya Aama aur pita ko Buba ya Bubaji; naam ilake ke hisaab se badalte hain."),
+  ("Bhula aur Bhuli ka matlab kya hai?", "Bhula yani chhota bhai aur Bhuli yani chhoti behen."),
+  ("Pahadi panchang mein Igas kab manai jaati hai?", "Katik mahine mein Igas (Budhi Diwali) manai jaati hai; Chait ki Phool Sankranti aur Magh ki Makar Sankranti bhi Tehri ke pramukh tyohar hain."),
+ ],
+ "tehri-garhwal-vaidya-parampara-aastha": [
+  ("Tooti haddi mein paramparik haddi-bithane par kyon nahi rukna chahiye?", "Bina X-ray haddi ki asli sthiti pata nahi chalti, aur zyada kas kar bandhne se khoon ka bahaav ruk sakta hai; orthopedic doctor ki jaanch zaroori hai."),
+  ("Daam pratha kya hai?", "Garm lohe se daagne ki purani pratha, jo aaj khatarnaak maani jaati hai aur isse bachna chahiye."),
+  ("Tehri Garhwal ke nyay-raksha ke devta kaun hain?", "Nagraja (Sem Mukhem), Bhairav, Narsingh, aur Jaunpur-Rawain mein Mahasu aur Parashuram jaise sthaniya devta."),
+ ],
+ "pithoragarh-mausam-jungle": [
+  ("Pithoragarh ka sabse mashhoor sanrakshit kshetra kaun sa hai?", "Askot Wildlife Sanctuary (Askot Musk Deer Sanctuary), jahan kasturi mrig aur Himalayi janwar milte hain."),
+  ("Keeda Jadi kahan milti hai?", "Johar, Darma, Vyans aur Chaudans ke unche bugyalon mein, aam taur par 3,000 meter se upar; keemti hone se ise 'Himalayan Gold' bhi kaha jata hai."),
+  ("Pithoragarh mein kaun se janwar paye jaate hain?", "Snow leopard, kasturi mrig, bharal, Himalayan tahr, kala bhalu, tendua, goral aur serow."),
+ ],
+ "pithoragarh-pahadi-khana": [
+  ("Pithoragarh ki sabse prasiddh dishes kaun si hain?", "Kafuli, Phaanu, Chainsoo, Thechwani, Bhatt ki Churkani, Dubuk aur Aloo ke Gutke, jo zyadatar loha ki kadhai mein bante hain."),
+  ("Pahad ki sabse mashhoor roti kaun si hai?", "Mandua (ragi) ki roti, jo ghee, gur ya Bhatt ki churkani ke saath khayi jaati hai."),
+  ("Bhang ke beej ki chutney mein nasha hota hai?", "Nahi, ye bhune hue beej se banti hai, nashe wale paudhe ke hisse se nahi."),
+ ],
+ "pithoragarh-itihas-mandir": [
+  ("Pithoragarh ke prasiddh dharmik sthal kaun se hain?", "Hat Kalika (Gangolihat), Patal Bhuvaneshwar, Thal Kedar, Mostamanu, Chhipla Kedar, Narayan Ashram aur Adi Kailash-Om Parvat kshetra."),
+  ("Kailash Mansarovar Yatra ka Lipulekh marg kahan se jata hai?", "Pithoragarh se hokar; Kumaon Mandal Vikas Nigam (KMVN) is marg ki nodal agency hai aur Dharchula mein uska base camp hai."),
+  ("Kumaon par Gorkha shasan kab tak raha?", "Lagbhag 1790 se 1815 tak, jab Angrez-Nepal yuddh ke baad Sugauli sandhi hui."),
+  ("Puranon mein Kumaon ko kya kaha gaya hai?", "Manaskhand, jabki Garhwal ko Kedarkhand; Pithoragarh Manaskhand kshetra ka hissa maana jata hai."),
+ ],
+ "pithoragarh-kaise-pahunche": [
+  ("Pithoragarh ka hawai adda kaun sa hai?", "Naini-Saini Airport, jo shehar se lagbhag 4.5 km door hai; flight ke din aur samay airline se pakka karein."),
+  ("Pithoragarh ka nazdeeki railway station kaun sa hai?", "Zile mein seedha rail station nahi; nazdeeki railhead Tanakpur (lagbhag 150 km) aur Kathgodam hain."),
+  ("Pithoragarh ke seemant ilakon mein jaane ke liye permit lagta hai?", "Haan, Gunji-Kuti-Nabhidhang (Adi Kailash-Om Parvat), Milam, Martoli aur Darma ghati ke kuch hisson ke liye Inner Line Permit ya sambandhit anumati lagti hai."),
+ ],
+ "pithoragarh-purana-pahadi-jeevan": [
+  ("Bhinsar kise kehte hain?", "Subah 4 baje ke aas-paas ka andhera, jab okhal mein dhaan kootne aur jandra se atta peesne ki aawaz gaon mein goonjti thi."),
+  ("Shauka vyapari kya laate the?", "Bhed-bakriyon ki peeth par karboja mein Tibbati namak, suhaga, hing aur oon, aur badle mein gehun, mandua ya gud le jaate the."),
+ ],
+ "pithoragarh-pahadi-shabd-boli": [
+  ("Kumaoni mein maa ko kya kehte hain?", "Ija; pita ko Bajyu/Babu, chhote bhai ko Bhula aur chhoti behen ko Bhuli."),
+ ],
+ "pithoragarh-vaidya-parampara-aastha": [
+  ("Daam pratha khatarnak kyon hai?", "Garam loha ya aag se sharir daagne se jalne ke zakhm, sankraman aur sthayi nishaan ho sakte hain; bachon ya bimar logon par ise karna kanooni apradh bhi ban sakta hai."),
+ ],
+ "pithoragarh-patti-gaon-bazaar": [
+  ("Pithoragarh ke purane pargana kaun se the?", "Sor, Sira, Askot aur Gangoli; Johar, Darma, Vyans aur Chaudans ko 'Bhot Mahal' kaha jata tha."),
+  ("Pithoragarh ke purane vyapar marg kaun se the?", "Johar se Unta Dhura, Darma se Mangshang Dhura aur Vyans se Lipulekh hokar Taklakot (Tibet) tak."),
+  ("Delhi se Pithoragarh kitni door hai?", "Sadak se lagbhag 480 se 500 km (12 se 14 ghante); Haldwani se lagbhag 200 km."),
+  ("Pithoragarh mein kaun se vikas khand (block) hain?", "Pithoragarh, Berinag, Gangolihat, Didihat, Munsiari, Dharchula, Kanalichhina aur Bin."),
+  ("Vyans ghati ke gaon kaun se hain?", "Budhi, Garbyang, Gunji, Napalchu, Nabhi aur Kuti; ye Kailash Mansarovar aur Adi Kailash yatra marg par aate hain."),
+  ("Johar ghati kis nadi ki ghati hai?", "Gori Ganga ki. Munsiari, Lilam, Bogdiyar, Martoli aur Milam isi ghati mein hain."),
+  ("Bhot Mahal kise kehte the?", "Johar, Darma, Vyans aur Chaudans ke ilake ko, jahan Shauka log rehte the."),
+  ("Shauka vyapari Tibet se kya laate the?", "Namak, suhaga aur oon. Johar se Unta Dhura, Darma se Mangshang Dhura aur Vyans se Lipulekh hokar Taklakot tak jaate the."),
+ ],
+ "pithoragarh-sarkari-seva": [
+  ("Pithoragarh mein khatauni kaise dekhein?", "Uttarakhand ke Bhulekh portal (bhulekh.uk.gov.in) par ghar baithe khatauni aur khasra dekh sakte hain."),
+  ("Uttarakhand mein CM Helpline ka number kya hai?", "1905; kisi bhi sarkari vibhag se jude kaam ya shikayat ke liye."),
+  ("Pithoragarh mein bijli kaun deta hai?", "UPCL (Uttarakhand Power Corporation Limited); naya connection, bill aur load badhwana online ya upa-khand karyalay se."),
+ ],
+ "pithoragarh-basna-workation": [
+  ("Pithoragarh mein workation ke liye sabse bada sawal kya hai?", "Internet, bijli aur sadak ki reliability; shehar aur bade kasbon mein internet behtar, jabki Johar, Darma aur Vyans ghati mein network bahut kam ya nahi."),
+  ("Pithoragarh shehar kitni unchai par hai?", "Lagbhag 1,500 meter."),
+  ("Pahad mein ghar banana maidan se mehnga kyon hai?", "Cement, sariya, reta-bajri sadak se door le jaane mein gaadi, khachchar ya mazdoor ka extra kharcha lagta hai."),
+ ],
+ "pithoragarh-pariyojana-aapda-itihas": [
+  ("Pithoragarh ke liye kaun si badi pariyojanayein charcha mein hain?", "Tanakpur-Bageshwar rail line, Parvatmala ropeway, Tanakpur-Lipulekh seemant sadak aur Naini Saini airport ka vistar."),
+  ("Pithoragarh zila kab bana?", "24 February 1960, Almora zile se alag hokar."),
+  ("100-150 saal pehle ka Pithoragarh jaanne ka mukhya strot kya hai?", "E.T. Atkinson ka Himalayan Gazetteer (1880 ka dashak), jisme Kumaon ke zilon ka vivaran hai."),
+  ("Pithoragarh ka kshetrafal aur aabadi kitni hai?", "Lagbhag 7,090 varg km aur Census 2011 ke anusar 4,83,439."),
+ ],
+ "champawat-uttarakhand": [
+  ("Champawat ko aur kis naam se jaana jata hai?", "Kali Kumaon."),
+  ("Purnagiri Mandir kis zile mein hai?", "Champawat zile mein, Tanakpur ke paas (lagbhag 20-24 km); ise aksar galti se Udham Singh Nagar ka maana jata hai."),
+  ("Tanakpur se Champawat kitni door hai?", "Lagbhag 72-75 km; Champawat se Lohaghat lagbhag 14 km."),
+  ("Champawat mein emergency number kya hain?", "Har emergency mein 112, ambulance 108, zila aapda control room 1077 aur CM Helpline 1905."),
+ ],
+ "bageshwar-basna-workation": [
+  ("Bageshwar mein retirement ke fayde aur kamiyan kya hain?", "Fayde: shanti, saaf hawa aur pahadi jeevan. Kamiyan: swasthya suvidha ki doori, barsat mein bhooskhalan ka khatra aur leopard-bhaalu jaise janwaron ki samasya; zila aspatal Bageshwar mein hai, medical college nahi."),
+  ("Bageshwar nagar kitni unchai par hai?", "Lagbhag 1,004 m; Baijnath lagbhag 1,125 m aur Kausani lagbhag 1,890 m par hain."),
+  ("Uttarakhand mein film shooting ki anumati kaise milti hai?", "Uttarakhand Film Policy 2024 ke tahat single-window online pranali se (investuttarakhand.uk.gov.in/filmshooting)."),
+  ("Hilans kya hai?", "Uttarakhand Gramya Vikas Samiti (UGVS) ka brand, jiske zariye mahila SHG ke utpad 'House of Himalayas' ke saath bechhe jaate hain."),
+  ("Akeli mahila yatri ke liye Uttarakhand Police ki kya suvidha hai?", "Gaura Shakti yojana: har thane mein Mahila Desk, 24x7 emergency 112 aur Uttarakhand Police App mein SOS; rashtriya women helpline 181."),
+ ],
+ "uttarakhand": [
+  ("Uttarakhand kab bana?", "9 November 2000 ko Uttar Pradesh se alag hokar; ye Bharat ka 27va rajya hai."),
+  ("Uttarakhand mein kitne zile aur mandal hain?", "13 zile aur 2 mandal: Garhwal (7 zile) aur Kumaon (6 zile)."),
+  ("Uttarakhand ki rajdhani kya hai?", "Dehradun antarim (sheetkalin) rajdhani hai; Gairsain (Bhararisain), zila Chamoli grishmakalin rajdhani ghoshit hai."),
+  ("Uttarakhand ka naam pehle kya tha?", "Uttaranchal; 1 January 2007 se naam Uttarakhand kiya gaya."),
+  ("Uttarakhand ke rajya pratik kaun se hain?", "Kasturi mrig (rajya pashu), Himalayan Monal (rajya pakshi), Brahma Kamal (rajya phool) aur Buransh (rajya vriksh)."),
+  ("Uttarakhand ka High Court kahan hai?", "Nainital mein, Dehradun mein nahi."),
+  # v3.3.4: Hindi (Devanagari) mein search karne walon ke liye - wahi tathya, haath se likhe (machine anuvaad nahi)
+  ("उत्तराखंड राज्य कब बना?", "9 नवंबर 2000 को, उत्तर प्रदेश से अलग होकर। यह भारत का 27वां राज्य है।"),
+  ("उत्तराखंड में कितने जिले हैं?", "13 जिले, जो दो मंडलों में बंटे हैं: गढ़वाल (7 जिले) और कुमाऊं (6 जिले)।"),
+  ("उत्तराखंड की राजधानी क्या है?", "देहरादून अस्थायी (शीतकालीन) राजधानी है; चमोली जिले का गैरसैंण (भराड़ीसैंण) ग्रीष्मकालीन राजधानी घोषित है।"),
+  ("उत्तराखंड का क्षेत्रफल और जनसंख्या कितनी है?", "क्षेत्रफल लगभग 53,483 वर्ग किमी है और जनगणना 2011 के अनुसार जनसंख्या 1,00,86,292 है।"),
+  ("उत्तराखंड में विधानसभा की कितनी सीटें हैं?", "70 विधानसभा सीटें हैं; लोकसभा की 5 और राज्यसभा की 3 सीटें हैं।"),
+  ("उत्तराखंड का हाई कोर्ट कहां है?", "नैनीताल में।"),
+  ("उत्तराखंड के राज्य प्रतीक क्या हैं?", "राज्य पशु कस्तूरी मृग, राज्य पक्षी हिमालयी मोनाल, राज्य पुष्प ब्रह्मकमल और राज्य वृक्ष बुरांश।"),
+ ],
+}
+
+# v3.3.4: 13 'ghumne ki jagah' page par Hindi (Devanagari) sawal-jawab - har jawab usi page par likhi baat se (haath se, naya
+# tathya nahi, machine anuvaad nahi). Zila main page ke Hindi sawal dohraye nahi.
+GHUMNE_HI = {
+ "almora-ghumne-ki-jagah": [
+  ("बिनसर अल्मोड़ा से कितनी दूर है?", "लगभग 26 से 30 किमी।"),
+  ("बिनसर से हिमालय की कौन सी चोटियां दिखती हैं?", "मौसम साफ हो तो केदारनाथ, चौखंबा, शिवलिंग, त्रिशूल, नंदा देवी, नंदा कोट और पंचाचूली।"),
+  ("रानीखेत अल्मोड़ा से कितनी दूर है?", "लगभग 50 किमी।"),
+  ("काठगोदाम से अल्मोड़ा कितनी दूर है?", "लगभग 90 किमी, सड़क से 3 से 4 घंटे (मौसम और ट्रैफिक पर निर्भर)।"),
+  ("अल्मोड़ा घूमने के लिए कितने दिन काफी हैं?", "3 दिन में मुख्य जगहें, 5 से 7 दिन में आराम से पूरा जिला।"),
+ ],
+ "bageshwar-ghumne-ki-jagah": [
+  ("बागेश्वर में घूमने की सबसे प्रसिद्ध जगह कौन सी है?", "बागनाथ मंदिर, बैजनाथ, कौसानी और पिंडारी ट्रेक।"),
+  ("बैजनाथ बागेश्वर से कितनी दूर है?", "लगभग 26 किमी (जिला पोर्टल के अनुसार)।"),
+  ("पिंडारी ट्रेक कितने दिन का है?", "आम तौर पर 6 से 7 दिन (यात्रा के साथ)।"),
+  ("पिंडारी ट्रेक का सबसे अच्छा समय कब है?", "अप्रैल से जून और सितंबर से अक्टूबर।"),
+  ("कौसानी में कितने दिन रुकें?", "कई यात्रा गाइड कौसानी के लिए 2 से 3 दिन सही बताते हैं; आसपास के जिलों की जगहें जोड़ें तो 4 से 5 दिन।"),
+ ],
+ "chamoli-ghumne-ki-jagah": [
+  ("चमोली के सबसे प्रसिद्ध स्थल कौन से हैं?", "बद्रीनाथ, हेमकुंड साहिब, फूलों की घाटी (वैली ऑफ फ्लावर्स), औली और जोशीमठ।"),
+  ("क्या केदारनाथ चमोली जिले में है?", "नहीं, केदारनाथ रुद्रप्रयाग जिले में है।"),
+  ("माणा गांव कहां है?", "बद्रीनाथ से लगभग 3 किमी उत्तर में। कई स्रोत इसे 'भारत का पहला गांव' कहते हैं।"),
+  ("रूपकुंड ट्रेक कहां से शुरू होता है?", "लोहाजंग के पास से (वाण या दीदना से)।"),
+  ("क्या बद्रीनाथ साल भर खुला रहता है?", "नहीं, सर्दियों में कपाट बंद रहते हैं।"),
+ ],
+ "champawat-ghumne-ki-jagah": [
+  ("चंपावत में घूमने की सबसे अच्छी जगह कौन सी है?", "बालेश्वर मंदिर, एक हथिया नौला, लोहाघाट, मायावती आश्रम, एबट माउंट, बाणासुर का किला, पंचेश्वर, देवीधुरा और पूर्णागिरि।"),
+  ("मायावती आश्रम कहां है?", "चंपावत से लगभग 22 किमी और लोहाघाट से लगभग 9 किमी, लगभग 1,940 मीटर की ऊंचाई पर (जिला प्रशासन)।"),
+  ("पंचेश्वर क्या है?", "नेपाल सीमा पर काली और सरयू नदी का संगम। यहां चौमू मंदिर है और यह राफ्टिंग का शुरुआती बिंदु है।"),
+  ("पूर्णागिरि कैसे जाएं?", "ज्यादातर यात्री टनकपुर से टुन्यास तक गाड़ी से जाकर लगभग 3 किमी पैदल चलते हैं।"),
+  ("चंपावत घूमने का सबसे अच्छा समय कब है?", "साफ मौसम के लिए अक्टूबर से जून। बरसात (जुलाई-अगस्त) में भूस्खलन का खतरा रहता है।"),
+ ],
+ "dehradun-ghumne-ki-jagah": [
+  ("देहरादून में घूमने की सबसे अच्छी जगह कौन सी है?", "मसूरी, लंढौर, सहस्त्रधारा, रॉबर्स केव (गुच्चूपानी), ऋषिकेश और चकराता।"),
+  ("मसूरी देहरादून से कितनी दूर है?", "लगभग 33 से 35 किमी।"),
+  ("ऋषिकेश देहरादून से कितनी दूर है?", "लगभग 42 से 45 किमी।"),
+  ("चकराता देहरादून से कितनी दूर है?", "रास्ते के हिसाब से लगभग 87 से 98 किमी।"),
+  ("क्या धनौल्टी देहरादून जिले में है?", "नहीं, धनौल्टी टिहरी गढ़वाल जिले में है।"),
+ ],
+ "haridwar-ghumne-ki-jagah": [
+  ("हरिद्वार में सबसे ज्यादा क्या प्रसिद्ध है?", "हर की पौड़ी की गंगा आरती।"),
+  ("हरिद्वार घूमने के लिए कितने दिन काफी हैं?", "मंदिर और घाट के लिए 2 दिन; राजाजी और ऋषिकेश के साथ 3-4 दिन।"),
+  ("क्या हर की पौड़ी पर कोई प्रवेश शुल्क है?", "नहीं।"),
+  ("मनसा देवी पैदल जाने में कितना समय लगता है?", "लगभग 20-30 मिनट; रोपवे से भी जा सकते हैं।"),
+  ("हरिद्वार से मसूरी कितनी दूर है?", "लगभग 85-95 किमी, 2.5 से 3.5 घंटे।"),
+ ],
+ "nainital-ghumne-ki-jagah": [
+  ("नैनीताल घूमने का सबसे अच्छा समय कब है?", "आम तौर पर मार्च से जून (गर्मी से राहत) और अक्टूबर-नवंबर (साफ आसमान)। जुलाई से सितंबर में बारिश और भूस्खलन का जोखिम रहता है।"),
+  ("नैनीताल घूमने के लिए कितने दिन काफी हैं?", "शहर के लिए 2 से 3 दिन; भीमताल, सातताल, नौकुचियाताल, मुक्तेश्वर और कॉर्बेट के साथ 5 से 10 दिन।"),
+  ("नैनीताल के आसपास कौन सी झीलें हैं?", "भीमताल, सातताल, नौकुचियाताल, खुरपाताल, सरियाताल, हरीशताल और लोखमताल। इसी वजह से नैनीताल को 'लेक डिस्ट्रिक्ट ऑफ इंडिया' कहते हैं।"),
+  ("नैनी झील में बोटिंग कैसे करें?", "झील के किनारे बोट काउंटर से पैडल, रो और सेल बोट की बुकिंग होती है। लाइफ जैकेट जरूर पहनें।"),
+  ("नैनीताल में पैराग्लाइडिंग कहां होती है?", "नौकुचियाताल और भीमताल के आसपास, लाइसेंस वाले ऑपरेटर के साथ।"),
+ ],
+ "pauri-garhwal-ghumne-ki-jagah": [
+  ("पौड़ी गढ़वाल में घूमने की सबसे अच्छी जगह कौन सी है?", "पौड़ी, खिर्सू, लैंसडाउन, कण्वाश्रम और नीलकंठ।"),
+  ("खिर्सू पौड़ी से कितनी दूर है?", "लगभग 19 किमी। यह सेब के बाग, शांति और हिमालय दृश्य के लिए प्रसिद्ध है।"),
+  ("लैंसडाउन कोटद्वार से कितनी दूर है?", "लगभग 40 किमी।"),
+  ("नीलकंठ महादेव किस जिले में है?", "पौड़ी गढ़वाल में। पैदल रास्ता स्वर्ग आश्रम (ऋषिकेश) से है।"),
+  ("दूधातोली कितनी ऊंचाई पर है?", "लगभग 3,100 मीटर; ट्रेक थलीसैंण से होता है।"),
+ ],
+ "pithoragarh-ghumne-ki-jagah": [
+  ("पिथौरागढ़ घूमने का सबसे अच्छा समय कब है?", "मार्च से जून और अक्टूबर से नवंबर। जुलाई से सितंबर में बरसात के कारण भूस्खलन का खतरा ज्यादा होता है।"),
+  ("पिथौरागढ़ में कितने दिन रुकना चाहिए?", "शहर और आसपास के लिए 3 दिन, मुनस्यारी के साथ 5 से 7 दिन, और पूरे जिले के लिए 10 दिन।"),
+  ("मिलम ग्लेशियर ट्रेक में कितने दिन लगते हैं?", "मुनस्यारी-लीलम से आम तौर पर 7 से 10 दिन। लोकल गाइड और ऊंचाई के अनुकूल होना (acclimatization) जरूरी है।"),
+ ],
+ "rudraprayag-ghumne-ki-jagah": [
+  ("चोपता से तुंगनाथ कितना पैदल है?", "लगभग 3.5 किमी (एक तरफ)।"),
+  ("चंद्रशिला ट्रेक कितना लंबा है?", "तुंगनाथ से लगभग 1.5 किमी और, यानी चोपता से कुल लगभग 5 किमी एक तरफ।"),
+  ("देवरिया ताल का ट्रेक कहां से शुरू होता है?", "सारी गांव से, लगभग 2 से 3 किमी, आसान ट्रेक।"),
+  ("मध्यमहेश्वर ट्रेक कितना कठिन है?", "मध्यम; रांसी गांव से लगभग 16 किमी, एक या दो दिन में।"),
+  ("चोपता कब जाना चाहिए?", "बुरांश और साफ मौसम के लिए मार्च से जून, साफ हिमालय के लिए सितंबर-अक्टूबर, बर्फ के लिए दिसंबर से फरवरी।"),
+ ],
+ "tehri-garhwal-ghumne-ki-jagah": [
+  ("टिहरी में क्या-क्या देखने लायक है?", "टिहरी झील और बांध, डोबरा-चांठी पुल, देवप्रयाग संगम, सुरकंडा देवी, कुंजापुरी और चंद्रबदनी मंदिर, धनौल्टी, कानाताल, नाग टिब्बा और खतलिंग ग्लेशियर।"),
+  ("धनौल्टी में कितने दिन रुकना चाहिए?", "आम तौर पर 2 दिन (1 रात) काफी है; इसके साथ सुरकंडा और कानाताल भी देख सकते हैं।"),
+  ("नाग टिब्बा ट्रेक कितना मुश्किल है?", "आसान से मध्यम। ऊंचाई लगभग 3,000 मीटर, रास्ता लगभग 16 किमी (आना-जाना), आम तौर पर 2 दिन में।"),
+  ("टिहरी में राफ्टिंग कहां होती है?", "शिवपुरी और कौड़ियाला से ऋषिकेश की तरफ गंगा में। मानसून में आम तौर पर बंद रहती है।"),
+  ("क्या टिहरी घूमने के लिए 3 दिन काफी हैं?", "3 दिन में न्यू टिहरी, टिहरी झील, डोबरा-चांठी पुल, धनौल्टी और सुरकंडा देवी देख सकते हैं। ट्रेक या देवप्रयाग के लिए 1-2 दिन और रखें।"),
+ ],
+ "udham-singh-nagar-ghumne-ki-jagah": [
+  ("ऊधम सिंह नगर में घूमने की सबसे अच्छी जगह कौन सी है?", "गुरुद्वारा नानकमत्ता साहिब, मोटेश्वर महादेव, चैती देवी मंदिर, गिरि सरोवर और नानक सागर।"),
+  ("क्या ऊधम सिंह नगर में कोई हिल स्टेशन है?", "नहीं, यह तराई का मैदानी जिला है। नैनीताल, भीमताल और रानीखेत जैसे पहाड़ी स्थल पास के जिलों में हैं।"),
+  ("काशीपुर के पास घूमने की जगह कौन सी हैं?", "मोटेश्वर महादेव, चैती देवी मंदिर, गिरि सरोवर, द्रोणासागर और तुमरिया डैम।"),
+  ("ऊधम सिंह नगर घूमने का सबसे अच्छा समय कब है?", "अक्टूबर से मार्च। सर्दियों में कोहरा होता है, इसलिए सुबह की यात्रा ध्यान से करें।"),
+  ("ऊधम सिंह नगर घूमने के लिए कितने दिन चाहिए?", "सिर्फ तराई घूमना हो तो 2 से 3 दिन; पास के पहाड़ी शहर जोड़ें तो 4 से 5 दिन।"),
+ ],
+ "uttarkashi-ghumne-ki-jagah": [
+  ("उत्तरकाशी में घूमने की सबसे अच्छी जगह कौन सी है?", "गंगोत्री, यमुनोत्री, हर्षिल, दयारा बुग्याल, डोडीताल, हर की दून और केदारकांठा।"),
+  ("उत्तरकाशी से गंगोत्री कितनी दूर है?", "लगभग 99 से 100 किमी।"),
+  ("गरतांग गली क्या है?", "नेलांग घाटी में चट्टान पर बना लगभग 150 साल पुराना लकड़ी का रास्ता, जो कभी तिब्बत से व्यापार का मार्ग था।"),
+  ("हर की दून ट्रेक कितने दिन का है?", "आम तौर पर 5 से 7 दिन; बेस कैंप सांकरी (लगभग 1,950 मीटर, मोरी ब्लॉक) है।"),
+  ("केदारकांठा ट्रेक कितने दिन का है?", "आम तौर पर 4 दिन (सांकरी से गोल चक्कर, लगभग 17 किमी)। शिखर लगभग 3,800 मीटर का है।"),
+ ],
+}
+for _k, _v in GHUMNE_HI.items():
+    FAQ_EXTRA.setdefault(_k, []).extend(_v)
