@@ -645,6 +645,17 @@ def _strip_code(stem: str) -> str:
     return _re.sub(r"\s*\(?(?:Code\s*)?#\d{3,6}\)?", "", stem or "").strip()
 
 
+def q_clean(stem):
+    """v3.4.3: reel-code/emoji hata kar sawal. ' [' ke baad ka hissa tabhi kaato jab wo aakhri sanket ho - agar ' [' se
+    pehle sirf naam bacha (':' par khatam / bahut chhota), to bracket hi sawal hai (गोला पहेली: [3, 6, 2]→18 ...) - mat kaato.
+    16 Nov ko LinkedIn aur /jawab par sirf 'गोला पहेली:' gaya tha."""
+    s = _no_emoji(_strip_code(stem))
+    head, sep, _tail = s.partition(" [")
+    if sep and not head.rstrip().endswith(":") and len(head.strip()) >= 15:
+        return head
+    return s
+
+
 def _no_emoji(t):
     return _re.sub(r"\s{2,}", " ", _EMOJI.sub("", t or "")).strip()
 
@@ -1076,7 +1087,7 @@ def generate_puzzle(kind: str = "auto", brand: str = "sunonatak", _depth: int = 
         "puzzle_options": list(opts_out)[:4],
         "puzzle_answer": ans_c,
         "puzzle_exp": str((locals().get("item") or {}).get("exp", "") or "")[:300],   # v2.5.0: website/Telegram jawab ke liye
-        "puzzle_q": _no_emoji(_strip_code(q_stem)).split(" [")[0],
+        "puzzle_q": q_clean(q_stem),              # v3.4.3: 'गोला पहेली: [3, 6, 2]→..' ab poora (pehle sirf 'गोला पहेली:')
         "design": "neon_quiz",                    # v2.3.0: owner ke reference jaisa premium neon quiz design
         "look24": (locals().get("item") or {}).get("look", "") if kind == "elite24" else "",
         "grid4": (locals().get("item") or {}).get("grid4") if kind in ("sudoku4", "magic_square", "pick_sum") else None,

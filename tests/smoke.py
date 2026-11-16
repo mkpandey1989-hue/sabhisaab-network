@@ -357,11 +357,12 @@ with _tf.TemporaryDirectory() as _d:
              "opts": ["5", "10", "15", "20"], "ans": "10", "kind": ""},
             {"code": 4002, "aid": "4002", "brand": "pahadi", "bname": "Pahadi Hisaab", "date": str(_today), "q": "Nali kitni hoti hai?",
              "opts": ["A", "B", "C", "D"], "ans": "A", "kind": "purane_shabd"},
-            {"code": 3000, "aid": "3000", "brand": "deals", "bname": "Labh Lo Deals", "date": str(_today - _dt.timedelta(days=9)), "q": "Purana?"}])
+            {"code": 3000, "aid": "3000", "brand": "deals", "bname": "Labh Lo Deals", "date": str(_today - _dt.timedelta(days=9)), "q": "Purana?"},
+            {"code": 4003, "aid": "4003", "brand": "deals", "bname": "Labh Lo Deals", "date": str(_today), "q": "गोला पहेली:", "opts": ["1", "2", "3", "4"]}])
         state.put("li_codes", [])
         state.put("li_last_brand", "pahadi")
         _e = _LIV.pick(_today)
-        check(_e and _e["code"] == 4001, "LinkedIn: kal wala brand chhod kar doosra (aur purana 9 din wala nahi)")
+        check(_e and _e["code"] == 4001, "LinkedIn: kal wala brand chhod kar doosra (purana 9 din wala nahi, adhura 'गोला पहेली:' nahi)")
         _sv_live = A.live
         A.live = lambda: True                     # /jawab live maano (bina network)
         _txt = _LIV.build(_e)
@@ -389,11 +390,24 @@ with _tf.TemporaryDirectory() as _d:
         class _R:  # noqa: E701
             def __init__(s, c, t): s.status_code, s.text = c, t
         _rqv.post = lambda u, data=None, headers=None, timeout=None: (_seen.update(h=headers, d=data), _R(200, "Accepted"))[1]
-        _ok, _why = _LIV.send("namaste")
-        check(_ok and _seen["h"].get("x-make-apikey") == "Abc123xyz789" and _jsv.loads(_seen["d"])["text"] == "namaste", "LinkedIn: Make ko text + API key header")
+        _ok, _why, _pid = _LIV.send("A) namaste")
+        check(_ok is None and _seen["h"].get("x-make-apikey") == "Abc123xyz789" and _seen["d"]["text"] == "A\\) namaste",
+              "LinkedIn: form 'text' + API key + LinkedIn nishaan bachaye; sirf 'Accepted' = pakki khabar NAHI")
+        _rqv.post = lambda *a, **k: _R(200, '{"id":"urn:li:share:7528085589896769536"}')
+        _ok, _why, _pid = _LIV.send("x")
+        check(_ok is True and _pid == "urn:li:share:7528085589896769536", "LinkedIn: Webhook response ka post-ID = pakki safalta")
         _rqv.post = lambda *a, **k: _R(410, "There is no scenario listening for this webhook.")
-        _ok, _why = _LIV.send("x")
-        check(not _ok and "BAND" in _why and "make.com/" not in _why, "LinkedIn: scenario band ho to saaf wajah (URL nahi)")
+        _ok, _why, _pid = _LIV.send("x")
+        check(_ok is False and "BAND" in _why and "make.com/" not in _why, "LinkedIn: scenario band ho to saaf wajah (URL nahi)")
+        check(_LIV.ltf("utm_source jawab#c12 (x) #SabHisaab") == "utm\\_source jawab\\#c12 \\(x\\) {hashtag|\\#|SabHisaab}",
+              "LinkedIn: Little Text Format (_ # ( ) bachaye, hashtag sahi roop)")
+        state.put("li_done_day", ""); state.put("paused", False); state.put("li_try", {})
+        _rqv.post = lambda *a, **k: _R(200, "Accepted")
+        _c0, _t0x = list(state.get("li_codes") or []), state.get("li_tools")
+        _r = _LIV.post_today()
+        check(_r.startswith("⚠️") and state.get("li_done_day") == str(_dt.date.today())
+              and state.get("li_codes") == _c0 and state.get("li_tools") == _t0x,
+              "LinkedIn: pakki khabar na ho to aaj dobara nahi (Make queue mein dohri nahi) aur sawal 'gaya' nahi gina")
         _rqv.post = _sv_post
     finally:
         _LIV.state = _sv_state
@@ -417,5 +431,19 @@ check(_TF41.C_MARK in _p1 and "else if(_c==='essential')" in _p1 and "'GB'" in _
 check(_SK41.faqs('<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"name":"Q?","acceptedAnswer":{"text":"A"}}]}</script>')
       == [("Q?", "A")], "Share kit: page ke FAQ se Quora sawal-jawab")
 check("def run(slot=0)" in _insp.getsource(_TP41) and "ghumne" in _TP41.KEYS["pahadi"], "Pinterest: roz 3 page-pin, pahad ke ghumne wale page bhi")
+
+# v3.4.3: adhura sawal ('गोला पहेली:') - source par aur LinkedIn par
+from app.puzzles import q_clean as _qc  # noqa: E402
+check(_qc("गोला पहेली: [3, 6, 2]→18, [7, 2, 9]→? #5180") .startswith("गोला पहेली: [3, 6, 2]→18"), "Puzzle: bracket wala sawal ab poora (pehle sirf 'गोला पहेली:')")
+check(_qc("100 का 10% कितना होगा? [संकेत: दस]") == "100 का 10% कितना होगा?", "Puzzle: aakhri [sanket] pehle jaisa hatta hai")
+_sv_ak, _sv_rc = state.get("answer_key"), state.get("reel_codes")
+try:
+    state.put("reel_codes", {"5180": {"q": "गोला पहेली: [3, 6, 2]→18, [7, 2, 9]→?"}})
+    state.put("answer_key", [{"code": 5180, "q": "गोला पहेली:"}, {"code": 1, "q": "पूरा सवाल है ये वाला ठीक?"}])
+    check(A.repair_short_q() == 1 and state.get("answer_key")[0]["q"].startswith("गोला पहेली: [3") and
+          state.get("answer_key")[1]["q"] == "पूरा सवाल है ये वाला ठीक?", "/jawab: adhure sawal reel_codes se poore, baaki nahi chhede")
+finally:
+    state.put("answer_key", _sv_ak)
+    state.put("reel_codes", _sv_rc)
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

@@ -59,9 +59,11 @@ def intake(text):
         c["hook"] = m.group()
         c.setdefault("conn_date", str(datetime.date.today()))
         _save(c)
+        if new and datetime.datetime.now(IST).strftime("%H:%M") >= when():
+            state.put("li_done_day", str(datetime.date.today()))   # v3.4.2: jodte hi raat ko post nahi - kal se samay par
         state.put("li_fail", 0)
         return ("🔐 LinkedIn (Make) webhook mila - chat se mitaya, VM par surakshit.\n"
-                + ("✅ Ab roz " + when() + " par Sab Hisaab Page par 1 post jayegi (us din ka sawal + jawab link + 1 free tool).\n"
+                + ("✅ Roz " + when() + " par Sab Hisaab Page par 1 post jayegi (pehli: agla " + when() + ") (us din ka sawal + jawab link + 1 free tool).\n"
                    if new else "Wahi purana URL tha - kuch nahi badla.\n")
                 + "Pehle dekhna ho: 'linkedin namoona' | Abhi bhejna: 'linkedin abhi' | Haal: 'linkedin haal'")
     k = re.match(r"(?i)^\s*linkedin\s+key\s+(\S{8,200})\s*$", text or "")
@@ -95,6 +97,9 @@ def pick(today=None):
         try:
             age = (today - datetime.date.fromisoformat(str(e.get("date"))[:10])).days
         except Exception:
+            continue
+        q = re.sub(r"\s*#\S+", "", _clean(e.get("q"))).strip()
+        if len(q) < 14 or q.endswith(":"):          # v3.4.3: sirf 'गोला पहेली:' jaisa adhura sawal nahi
             continue
         if 0 <= age <= 3 and str(e.get("aid") or e.get("code")) not in done:
             fresh.append(e)
@@ -166,29 +171,58 @@ def compose():
 
 
 # ---------------------------------------------------------------- bhejna
+RESERVED = set("\\|{}@[]()<>#*_~")
+
+
+def ltf(text):
+    """v3.4.2: LinkedIn 'Little Text Format' - in nishaanon \\ | { } @ [ ] ( ) < > # * _ ~ ko '\\' se bachana zaroori,
+    warna LinkedIn post kaat deta/rok deta hai (16 Nov: 'A)' aur utm_source ke '_' wali post nahi dikhi). '#Tag' hashtag ka
+    sahi roop {hashtag|\\#|Tag}. Link ke andar ke '_' '#' bhi bachaye jaate hain (LinkedIn dikhate waqt '\\' hata deta hai)."""
+    out, i, n = [], 0, len(text)
+    while i < n:
+        m = re.match(r"#([A-Za-z\u0900-\u097F][\w\u0900-\u097F]{1,40})", text[i:])
+        if m and (i == 0 or text[i - 1] in " \n"):
+            out.append("{hashtag|\\#|" + m.group(1) + "}")
+            i += len(m.group(0))
+            continue
+        ch = text[i]
+        out.append("\\" + ch if ch in RESERVED else ch)
+        i += 1
+    return "".join(out)
+
+
 def send(text):
-    """-> (ok, sandesh). Webhook URL kabhi sandesh/log mein nahi."""
+    """-> (ok, sandesh, post_id). Webhook URL kabhi sandesh/log mein nahi.
+    v3.4.2: text 'form' ki tarah (Make ne dhancha ?text= se seekha tha - JSON wala 16 Nov ko khaali pahuncha: 5 B,
+    'Validation failed'). Pakki khabar SIRF jab Make ka 'Webhook response' LinkedIn ka post-ID (urn:li:...) lautaye.
+    Sirf 'Accepted' = Make ne liya par post bani ya nahi pata nahi (scenario band ho to Make queue mein rakh kar bhi
+    'Accepted' bolta hai) - ise safalta NAHI maante."""
     import requests
     c = _cfg()
     if not c.get("hook"):
-        return False, "webhook URL nahi (bot chat mein Make ka hook.eu1.make.com/... URL paste karein)"
-    h = {"Content-Type": "application/json"}
+        return False, "webhook URL nahi (bot chat mein Make ka hook.eu1.make.com/... URL paste karein)", None
+    h = {}
     if c.get("key"):
         h["x-make-apikey"] = c["key"]
     try:
-        r = requests.post(c["hook"], data=json.dumps({"text": text}, ensure_ascii=False).encode("utf-8"), headers=h, timeout=30)
+        r = requests.post(c["hook"], data={"text": ltf(text)}, headers=h, timeout=60)
     except Exception as ex:
-        return False, f"network: {type(ex).__name__}"
-    body = (r.text or "")[:120]
-    if r.status_code == 200:
-        return True, "Make ne le liya"
+        return False, f"network: {type(ex).__name__}", None
+    body = (r.text or "").strip()[:300]
+    urn = re.search(r"urn:li:(?:share|ugcPost|activity):\d+", body)
+    if r.status_code == 200 and urn:
+        return True, "LinkedIn ne post bana di", urn.group()
+    if r.status_code == 200 and body.lower() == "accepted":
+        return None, ("Make ne liya par LinkedIn ki pakki khabar nahi - Make scenario mein aakhir mein 'Webhook response' "
+                      "(Body = Post ID) nahi hai, ya scenario BAND hai aur message queue mein ruka hai"), None
     if r.status_code in (404, 410) or "no scenario listening" in body.lower():
-        return False, "Make scenario BAND hai (Make → Scenarios → 'Integration Webhooks, LinkedIn' → toggle ON)"
+        return False, "Make scenario BAND hai (Make → Scenarios → 'Integration Webhooks, LinkedIn' → toggle ON)", None
     if r.status_code in (401, 403):
-        return False, "API key galat/nahi (Make webhook mein key lagi hai to bot ko 'linkedin key <key>' bhejein)"
+        return False, "API key galat/nahi (Make webhook mein key lagi hai to bot ko 'linkedin key <key>' bhejein)", None
     if r.status_code == 429:
-        return False, "Make ki seema (bahut zyada request) - baad mein dobara"
-    return False, f"HTTP {r.status_code}: {body}"
+        return False, "Make ki seema (bahut zyada request) - baad mein dobara", None
+    clean = re.sub(r"https?://\S+", "<link>", body)[:150]
+    return False, f"HTTP {r.status_code}: {clean}", None
 
 
 def post_today():
@@ -198,8 +232,13 @@ def post_today():
     text, e, sl = compose()
     if not text:
         return "Aaj bhejne layak kuch nahi mila."
-    ok, why = send(text)
+    ok, why, pid = send(text)
     day = str(datetime.date.today())
+    if ok is None:                                    # pakki khabar nahi: dobara NAHI (Make queue mein dohri post banegi)
+        state.put("li_done_day", day)
+        state.put("li_last_err", f"{day} {time.strftime('%H:%M')} {why}")
+        state.update("li_log", lambda l: ((l or []) + [{"d": day, "t": time.strftime("%H:%M"), "c": "?"}])[-60:], [])
+        return "⚠️ " + why + ". Aaj dobara nahi bhejunga (dohri post se bachne ke liye)."
     if ok:
         if e:
             state.update("li_codes", lambda l: ((l or []) + [str(e.get("aid") or e.get("code"))])[-500:], [])
@@ -212,8 +251,10 @@ def post_today():
         state.put("li_done_day", day)
         state.put("li_fail", 0)
         state.update("li_log", lambda l: ((l or []) + [{"d": day, "t": time.strftime("%H:%M"),
-                                                         "c": str(e.get("code")) if e else "tool"}])[-60:], [])
-        return f"✅ LinkedIn (Sab Hisaab Page) par post gayi" + (f" - sawal #{e.get('code')} ({e.get('bname')})" if e else " - aaj ka free tool")
+                                                         "c": str(e.get("code")) if e else "tool", "id": pid}])[-60:], [])
+        link = f"https://www.linkedin.com/feed/update/{pid}/" if pid else ""
+        return (f"✅ LinkedIn (Sab Hisaab Page) par post bani" + (f" - sawal #{e.get('code')} ({e.get('bname')})" if e else
+                " - aaj ka free tool") + (f"\n{link}" if link else ""))
     n = (state.get("li_fail") or 0) + 1
     state.put("li_fail", n)
     state.put("li_last_err", f"{day} {time.strftime('%H:%M')} {why}")
@@ -221,7 +262,32 @@ def post_today():
     return f"❌ LinkedIn post nahi gayi ({why})"
 
 
+def _mig343():
+    if state.get("li_mig343"):
+        return
+    state.put("li_mig343", True)
+    try:
+        from .answers import repair_short_q
+        n = repair_short_q()
+        if n:
+            log(f"jawab: {n} adhure sawal poore kiye (v3.4.3)")
+    except Exception as ex:
+        log(f"repair_short_q: {ex}")
+
+
+def _mig342():
+    """16 Nov ki 'post gayi' (sawal #1723) asal mein Make par atki thi - wo record mitao taaki sawal dobara ja sake."""
+    if state.get("li_mig342"):
+        return
+    state.put("li_mig342", True)
+    if not any((x or {}).get("id") for x in (state.get("li_log") or [])):
+        state.put("li_codes", [])
+        state.put("li_log", [])
+
+
 def due(now=None):
+    _mig342()
+    _mig343()
     now = now or datetime.datetime.now(IST)
     if not on() or state.get("paused") or state.get("li_done_day") == str(now.date()):
         return False
@@ -247,6 +313,9 @@ def run_due():
     r = post_today()
     if r.startswith("✅"):
         tg.alert("green", "💼 " + r)
+    elif r.startswith("⚠️"):
+        tg.alert("yellow", "💼 " + r + "\nTheek karna: Make → scenario → Edit → LinkedIn gole ke baad + → Webhooks → "
+                 "'Webhook response' (Status 200, Body = LinkedIn ka Post ID) → Save → toggle ON.")
     elif n >= MAX_TRY:
         tg.alert("red", "💼 " + r + f"\n{MAX_TRY} baar koshish hui. Kya karein:\n1) Make.com kholein → Scenarios → 'Integration Webhooks, "
                  "LinkedIn' → upar toggle Active ho\n2) Wahan History mein laal ❌ ho to us par tap → error ka screenshot Claude ko\n"
@@ -291,7 +360,8 @@ def status_text():
             f"• 7 din mein post: {len(week)} | kul: {len(lg)}\n"
             f"• Connection umr: {age or '-'} (50 din par bot yaad dilayega)\n"
             + (f"• Aakhri dikkat: {state.get('li_last_err')}\n" if state.get("li_fail") else "")
-            + "Hukum: 'linkedin namoona' | 'linkedin abhi' | 'linkedin samay 9:15' | 'linkedin band/chalu' (dohri pushti)")
+            + "Hukum: 'linkedin namoona' | 'linkedin abhi' | 'linkedin samay 9:15' | 'linkedin band/chalu' (dohri pushti) | "
+              "'linkedin seekh' (Make ko khaana sikhana)")
 
 
 # ---------------------------------------------------------------- chat
@@ -313,6 +383,13 @@ def on_text(t, tl):
         txt = compose()[0]
         return tg.say("⚠️ Ye abhi Sab Hisaab LinkedIn Page par jayega (aaj ki roz wali post yahi maani jayegi):\n\n" + (txt or "")[:1500],
                       tg.inline([[("✅✅ Haan, abhi bhejo", "li:now"), ("❌ Nahi", "li:x")]]))
+    if tl in ("linkedin seekh", "linkedin learn", "linkedin dhancha"):
+        if not ready():
+            return tg.say("❌ Pehle Make ka webhook URL paste karein.")
+        return tg.say("⚠️ Ye sirf tab dabayein jab Make mein Webhook gole par 'Redetermine data structure' chalu ho (Listening). "
+                      "Bot ek chhota namoona bhejega taaki Make 'text' khaana pehchaane. Scenario ON ho to ye namoona Page par "
+                      "post ban sakta hai - isliye pehle scenario OFF rakhein.",
+                      tg.inline([[("✅✅ Haan, namoona bhejo", "li:learn"), ("❌ Nahi", "li:x")]]))
     if tl in ("linkedin band", "linkedin chalu"):
         v = "on" if tl.endswith("chalu") else "off"
         return tg.say(f"⚠️ Pakka? LinkedIn roz ki post {'CHALU' if v == 'on' else 'BAND'}.",
@@ -339,6 +416,12 @@ def on_text(t, tl):
 def on_callback(rest, run):
     if rest == "x":
         return tg.say("👍 Kuch nahi badla.")
+    if rest == "learn":
+        def _l():
+            ok, why, pid = send("Sab Hisaab - Make dhancha jaanch (ye post dikhe to mita dein)")
+            return tg.say("📨 Namoona bheja. Make mein 'Successfully determined' dikhe to OK dabayein, phir LinkedIn gole mein "
+                          "Content = 'text' dobara chunein. (Make ka jawab: " + ("post bani!" if ok else why) + ")")
+        return run(_l)
     if rest == "now":
         return run(lambda: tg.say(post_today()))
     if rest in ("on", "off"):

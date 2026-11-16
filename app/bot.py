@@ -935,7 +935,7 @@ HELP = (f"📖 Sabhisaab Network v{VER}\n"
         "🩺 'website doctor' - page index kyun nahi | 🔄 'upgrade haal' - khud-sudhaar | 'cf token <t>' / 'cf account <id>' - seedha deploy\n"
         "🔎 'vm audit' - poore VM ki jaanch (sirf padhta hai) | 🛡 'chowkidar fix'\n"
         "📡 'raasta haal' - Telegram ke raaste (seedha + Cloudflare relay) | 🆘 'backup setup' - Telegram band ho tab bhi khabar (ntfy)\n"
-        "💼 v3.4.0 LinkedIn (Sab Hisaab Page): 'linkedin haal' | 'linkedin namoona' | 'linkedin abhi' | 'linkedin samay 9:15' | 'linkedin band/chalu'\n"
+        "💼 v3.4.2 LinkedIn (Sab Hisaab Page): 'linkedin haal' | 'linkedin namoona' | 'linkedin abhi' | 'linkedin samay 9:15' | 'linkedin band/chalu' | 'linkedin seekh'\n"
         "YouTube client JSON: file yahin bhej do (bot surakshit rakh kar message mita dega).")
 
 # ---------------- v2.3.0 Step 7 (v11 se): 👑 50-BUTTON PRO DECK - har button hamare asli kaam par ----------------

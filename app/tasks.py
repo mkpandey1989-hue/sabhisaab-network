@@ -396,6 +396,10 @@ def _li_hook():
     return _L.ready()
 
 
+def _li_ok():
+    return any((x or {}).get("id") for x in (state.get("li_log") or []))
+
+
 def _li_key():
     from . import linkedin as _L
     return bool(_L._cfg().get("key"))
@@ -405,7 +409,7 @@ def _tf_consent():
     return bool(state.get("trackfix_consent"))
 
 
-AUTO = {"tf_consent": _tf_consent, "li_hook": _li_hook, "li_key": _li_key, "pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
+AUTO = {"tf_consent": _tf_consent, "li_ok": _li_ok, "li_hook": _li_hook, "li_key": _li_key, "pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
         "threads_ok": _threads_all_ok, "pin_oauth": _pin_oauth, "cf_acc": _cf_acc_ok, "cw_done": _cw_done,
         "meta_secret": _meta_secret_ok, "tg_pin": _tg_pinned, "gsc_all": _gsc_all_indexed, "psi": _psi_key, "cf": _cf_ok, "dm_over": _dm_over,
         "w7": _w7_live, "fb_perm": _fb_perm_fixed, "w8": _w8_live, "ga4": _ga_ok, "w9": _w9_live, "ytc": _ytc_ok, "bkpass": _bk_saved, "anall": _analytics_all, "push": _push_ok, "quizb": _quiz_ok,
@@ -1397,6 +1401,25 @@ SEED_V341 = [            # v3.4.1 (16 Nov 2026 raat): traffic ke naye raaste + (
 ]
 
 
+SEED_V342 = [            # v3.4.2 (16 Nov 2026 raat): LinkedIn post Make par 'Validation failed' se atki thi
+    ("[Owner, phone, 5 min] LinkedIn chalu karna: 1) ZIP install 2) make.com → Scenarios → 'Integration Webhooks, LinkedIn' → Edit "
+     "3) LinkedIn gole ke right ka + → Add module → Webhooks → 'Webhook response' → Status 200, Body: LinkedIn ka 'Post ID' chunein "
+     "→ Save 4) neeche Save (💾) → upar toggle ON 5) bot: 'linkedin chalu' ✅✅ phir 'linkedin abhi' ✅✅", None, "li_ok",
+     "Bot ko LinkedIn ka post-ID milte hi khud hatega. 'Validation failed' phir aaye to bot mein 'linkedin seekh' (steps bot batayega)"),
+]
+
+
+def seed_v342():
+    import datetime as _d
+    day = str(_d.date.today())
+    lst = state.get("todo") or []
+    have = {o.get("x") for o in lst}
+    lst += [{"x": t, "t": day, **({"after": a} if a else {}), **({"auto": k} if k else {}), "how": h}
+            for t, a, k, h in SEED_V342 if t not in have]
+    state.put("todo", lst)
+    _dirty()
+
+
 def seed_v341():
     import datetime as _d
     day = str(_d.date.today())
@@ -1436,6 +1459,13 @@ def seed_todo():
         _mig_3310()
     except Exception:
         pass
+    if not state.get("seed_v342"):
+        state.put("seed_v342", True)
+        try:
+            seed_v342()
+        except Exception as e:
+            from .log import log as _lg
+            _lg(f"seed_v342: {e}")
     if not state.get("seed_v341"):
         state.put("seed_v341", True)
         try:

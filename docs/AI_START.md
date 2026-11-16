@@ -129,4 +129,7 @@ Auto Ads/ad refresh/khud click/ad ke paas answer button; kisi aur ki photo se pu
 - Sab Hisaab LinkedIn Page par post SIRF Make.com webhook se (bot -> {"text"} -> Make -> 'Create a Company Text Post'). Owner ka
   personal profile / naya-nakli account / LinkedIn Community Management API form - KABHI nahi (poori wajah ROADMAP v3.4.0).
 - Webhook URL + API key secret hain (secrets/linkedin.json). Image post abhi nahi (Cloudflare image Make tak nahi gayi).
-- Roz 09:15, ek sawal + /jawab#cCODE link + 1 free tool; samay/band/chalu dohri pushti. Owner ka kaam: PENDING (SEED_V340).
+- Roz 09:15, ek sawal + /jawab#cCODE link + 1 free tool; samay/band/chalu dohri pushti. Owner ka kaam: PENDING (SEED_V340/V342).
+- v3.4.2: bot FORM field 'text' bhejta hai (JSON nahi), LinkedIn Little Text Format se bachaya text; '✅ post gayi' SIRF jab Make ka
+  'Webhook response' post-ID (urn:li:...) de. Sirf 'Accepted' = pakki khabar nahi, retry nahi. (ROADMAP v3.4.2)
+- v3.4.3: puzzle_q ab puzzles.q_clean se (' [' par andha kaatna = 'गोला पहेली:' adhura). Adhura sawal LinkedIn par kabhi nahi.

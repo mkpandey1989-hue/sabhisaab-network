@@ -1104,3 +1104,24 @@ def apply_mech(script, keep, opts_, ans, mech=None):
     script["vmech"] = mech
     state.update("last_vmech", lambda d, v=mech: {**(d or {}), brand: v}, {})
     return mech
+
+
+def repair_short_q():
+    """v3.4.3 (ek baar): jin jawab-record ka sawal sirf naam reh gaya ('गोला पहेली:'), unhe reel_codes ke poore sawal se bharo.
+    Tathya wahi (bot ka apna banaya sawal), sirf kata hua hissa wapas. -> kitne sudhre"""
+    from .puzzles import q_clean
+    rc = state.get("reel_codes") or {}
+    lst = state.get("answer_key") or []
+    n = 0
+    for e in lst:
+        q = str(e.get("q") or "").strip()
+        if q.endswith(":") or len(q) < 14:
+            full = (rc.get(str(e.get("code"))) or {}).get("q")
+            if full:
+                fq = q_clean(full)[:220]
+                if len(fq) > len(q):
+                    e["q"] = fq
+                    n += 1
+    if n:
+        state.put("answer_key", lst)
+    return n

@@ -1724,3 +1724,33 @@ Instagram par jawab ka pata likh do; Pinterest link zyada; Quora / WhatsApp stat
   Text sirf site ke apne page se (bot naya content nahi likhta). Hukum 'share kit', 'share kit band/chalu'.
 - PENDING (SEED_V341): 'tracking fix' (auto band), 'owner link', Telegram directory (tgstat.com Add channel), apna FB group.
 - Smoke 329 PASS.
+
+## v3.4.2 (16 Nov 2026 raat) - [OPUS 5.5] LinkedIn: post Make par atki thi - asli ilaaj + jhoothi 'post gayi' band
+Kya hua (owner ke Make screenshot): 20:57 par bot ne bheja, Make ne 'Accepted' kaha, bot ne owner ko '✅ post gayi #1723' bata
+diya - par Make mein run ERROR 'Validation failed for 1 parameter(s)' (Content khaali; data transfer sirf 5 B) aur Make ne
+scenario khud BAND kar diya; 2 record queue mein (owner ne delete kiye). Page par post NAHI thi.
+Wajah + ilaaj (app/linkedin.py):
+- Make ne webhook ka dhancha '?text=hello' (form/query) se seekha tha; bot JSON bhej raha tha -> 'text' khaane mein kuch nahi.
+  Ab bot 'text' FORM field bhejta hai (seekhe dhanche jaisa). Phir bhi na mile to 'linkedin seekh' (✅✅): owner Make mein
+  Webhook -> 'Redetermine data structure' chalu kare, bot ek namoona bhejta hai.
+- Pakki khabar: ab sirf jab Make scenario ke aakhir ka 'Webhook response' LinkedIn ka post-ID (urn:li:share/ugcPost) lautaye.
+  Sirf 'Accepted' = 'pakki khabar nahi' 🟡 + aaj dobara NAHI (scenario band ho to Make queue mein rakh kar bhi 'Accepted'
+  kehta hai - retry = queue mein dohri post). Safal par owner ko post ka seedha link (linkedin.com/feed/update/<id>/).
+- LinkedIn 'Little Text Format': \ | { } @ [ ] ( ) < > # * _ ~ ab '\' se bache (link ke andar bhi); '#Tag' ->
+  {hashtag|\#|Tag}. Namoona owner ko saadha dikhta hai, LinkedIn ko bacha hua jaata hai.
+- URL jodte hi raat ko post nahi (samay nikal gaya ho to pehli post agle din samay par).
+- Migration (ek baar): 16 Nov ka jhootha record (bina post-ID) mita - sawal #1723 dobara ja sakta hai.
+- Owner ka kaam (SEED_V342, auto 'li_ok' = pehla asli post-ID): Make mein LinkedIn ke baad 'Webhooks -> Webhook response'
+  (Status 200, Body = Post ID), Save, toggle ON; bot 'linkedin chalu' + 'linkedin abhi'.
+- Smoke 332 (LinkedIn: form+key, Accepted != safal, post-ID = safal, ltf, pakki khabar na ho to sawal 'gaya' nahi gina).
+Niyam (aage ke AI): LinkedIn par '✅ post gayi' SIRF post-ID ke saath. Make scenario deactivate ho to pehle uski queue saaf.
+
+## v3.4.3 (16 Nov 2026 raat) - [OPUS 5.5] Adhura sawal ('गोला पहेली:') - LinkedIn + /jawab
+- 21:38 par pehli asli LinkedIn post bani (post-ID ke saath, Page par 'Sab Hisaab' naam - owner ne dekha ✅). Par sawal sirf
+  'गोला पहेली:' dikha. Wajah PURANI galti (puzzles.py): puzzle_q = stem.split(" [")[0] - pie_rule ka sawal hi '[3, 6, 2]→18 ...'
+  bracket se shuru hota hai, to sab kat jaata tha. Yahi adhura sawal /jawab par bhi jaa raha tha.
+- Ilaaj: puzzles.q_clean - ' [' tabhi kaato jab pehle ka hissa asli sawal ho (':' par khatam na ho, 15+ akshar); aakhri [sanket]
+  pehle jaisa hatta hai. answers.repair_short_q (ek baar, li_mig343): jin record mein sawal sirf naam bacha, unhe bot ke apne
+  reel_codes ke poore sawal se bharo (tathya wahi). LinkedIn.pick: 14 akshar se chhota / ':' par khatam sawal kabhi nahi.
+- 16 Nov 21:38 wali LinkedIn post (#5180) adhuri hai - owner chahe to Page par '...' -> Delete (bot use dobara nahi bhejega).
+- Smoke 335.
