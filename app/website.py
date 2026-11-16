@@ -953,6 +953,56 @@ def traffic(days=1):
     return "\n".join(lines)
 
 
+def notset_report(days=7):
+    """v3.4.1 (owner: '(not set) kahan se aaya - itni baar poocha'): GA4 se un session ka poora khulaasa - kaunse page/link par
+    utre, pichhla page (referrer), device, shehar. Saath mein sachchi wajah (Gemini ka andaaza nahi)."""
+    if not SA.exists():
+        return "🔑 Google service account file nahi - GA4 nahi padh sakta."
+    from . import state as _st
+    tok = _gcreds("https://www.googleapis.com/auth/analytics.readonly")
+    url = f"https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport"
+    h = {"Authorization": f"Bearer {tok}"}
+    flt = {"filter": {"fieldName": "sessionSource", "stringFilter": {"matchType": "EXACT", "value": "(not set)"}}}
+
+    def rep(dims, n=10):
+        j = requests.post(url, headers=h, timeout=60, json={
+            "dateRanges": [{"startDate": f"{days}daysAgo", "endDate": "today"}], "dimensions": [{"name": d} for d in dims],
+            "metrics": [{"name": "activeUsers"}, {"name": "screenPageViews"}], "dimensionFilter": flt,
+            "orderBys": [{"metric": {"metricName": "activeUsers"}, "desc": True}], "limit": n}).json()
+        if "error" in j:
+            raise RuntimeError(j["error"].get("message", "")[:200])
+        return [([d["value"] for d in r["dimensionValues"]], int(r["metricValues"][0]["value"]), int(r["metricValues"][1]["value"]))
+                for r in j.get("rows", [])]
+    try:
+        loc = rep(["pageLocation"], 8)
+        ref = rep(["pageReferrer"], 6)
+        dev = rep(["deviceCategory", "city"], 6)
+    except Exception as e:
+        return _ga_help(str(e))
+    tot = sum(x[1] for x in dev)
+    L = [f"🔍 '(not set)' ka poora khulaasa (pichhle {days} din): {tot} log"]
+    if not tot:
+        L.append("• Is dauran koi '(not set)' visit nahi. ✅")
+    else:
+        def src_of(u):
+            m = re.search(r"utm_source=([\w.-]+)", u)
+            return f" ← {m.group(1)} ka link" if m else ""
+        L.append("📄 Kahan utre (page + link):")
+        L += [f"• {d[0].replace(SITE, '')[:80]}{src_of(d[0])} → {u}" for d, u, _ in loc]
+        rr = [(d, u) for d, u, _ in ref if d[0] and d[0] != "(not set)"]
+        if rr:
+            L.append("↩️ Pichhla page (referrer):")
+            L += [f"• {d[0][:80]} → {u}" for d, u in rr]
+        L.append("📱 Device / shehar: " + ", ".join(f"{d[0]}/{d[1]} {u}" for d, u, _ in dev))
+    L.append("\n💡 Sachchi wajah: visitor ne cookie banner der se (ya agle page par) 'Sab cookies theek hain' dabaya - tab Google ko "
+             "visit ki shuruaat (source) nahi mili. WhatsApp/Telegram wale aam taur par '(direct)' mein aate hain, (not set) mein nahi.")
+    if not _st.get("trackfix_consent"):
+        L.append("🛠 Pakka ilaaj taiyaar hai: bot mein 'tracking fix' likhein (aapki pushti ke baad lagega).")
+    else:
+        L.append("✅ Tracking sudhaar laga hai - naye (not set) bahut kam honge (purane din ke aankde nahi badalte).")
+    return "\n".join(L)
+
+
 def find_files(name):
     """Website repo + is bot ka code + aapki photo/video gallery - sab jagah naam se khojo."""
     sync()

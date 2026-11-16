@@ -39,7 +39,8 @@ Live: https://sabhisaab.com/ · Asli bot: Oracle VM nifty-a1 (140.245.x.x), syst
 - Token kabhi chat/GitHub par nahi. Owner seedha bot ko bhejta hai; bot message mita kar VM ke secrets/ mein rakhta hai.
 - Privacy policy jo kahe wahi code kare. Commenter data max 30 din, platform jodkar nahi.
 - AI label har video; owner ka naam video/social par kabhi nahi; finance mein SEBI disclaimer; #ad sirf affiliate.
-- Instagram par koi link/UTM nahi ("link bio mein"); "comment LINK / DM" wala bulawa kabhi nahi (29 Oct 2026 ki rok).
+- Instagram par koi clickable link/UTM nahi ("link bio mein"); "comment LINK / DM" wala bulawa kabhi nahi (29 Oct 2026 ki rok).
+  Apvaad (owner, 16 Nov 2026): jawab line mein SAADA 'sabhisaab.com/jawab' (bina https/UTM) likha rehta hai - meta.ig_safe_text.
 - Website: .html URL nahi, _redirects nahi, din mein 10 se zyada naye page nahi, IndexNow sirf badle URL (max 10/din),
   sitemap delete nahi, Indexing API calculator par nahi, backlink kharidna nahi.
 - Pakki setting (samay, topic, platform, niyam, report) bina owner ki DOHRI pushti ke kabhi nahi.
@@ -117,6 +118,12 @@ Auto Ads/ad refresh/khud click/ad ke paas answer button; kisi aur ki photo se pu
   sirf haath ke saanche (ukgen/headings_tpl.py) se - niyam-aadharit anuvaad mat.
 - v3.3.0: Uttarakhand 264 page roz 8 (app/pagequeue.py) - PEHLE docs/UTTARAKHAND_QUEUE.md (owner ke attachment ke sujhaavon ka
   faisla bhi wahin: aggregateRating, nakli %, bulk IndexNow, Indexing API, lastmod jitter = KABHI NAHI). Naya bada content isi queue se.
+
+## 3i. v3.4.1 (16 Nov 2026): tracking + traffic raaste
+- app/trackfix.py: Consent Mode region (EEA denied, baaki analytics granted) SIRF owner ki 'tracking fix' pushti ke baad; owner-mode
+  cookie + ?owner=on + H1 par 7 tap apne aap. Manual page_view resend KABHI nahi (GA4 double ginta).
+- '(not set)' sawal = website.notset_report (GA4), Gemini nahi. Share kit app/sharekit.py roz 19:15 (copy-paste, bot post nahi karta).
+- Pinterest page-pin roz 3 (toolpin.run(slot)). Instagram caption mein sirf saada 'sabhisaab.com/jawab' (owner ne maanga 16 Nov).
 
 ## 3h. v3.4.0 (16 Nov 2026): LinkedIn Page (Make.com) - app/linkedin.py
 - Sab Hisaab LinkedIn Page par post SIRF Make.com webhook se (bot -> {"text"} -> Make -> 'Create a Company Text Post'). Owner ka

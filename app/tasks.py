@@ -401,7 +401,11 @@ def _li_key():
     return bool(_L._cfg().get("key"))
 
 
-AUTO = {"li_hook": _li_hook, "li_key": _li_key, "pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
+def _tf_consent():
+    return bool(state.get("trackfix_consent"))
+
+
+AUTO = {"tf_consent": _tf_consent, "li_hook": _li_hook, "li_key": _li_key, "pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
         "threads_ok": _threads_all_ok, "pin_oauth": _pin_oauth, "cf_acc": _cf_acc_ok, "cw_done": _cw_done,
         "meta_secret": _meta_secret_ok, "tg_pin": _tg_pinned, "gsc_all": _gsc_all_indexed, "psi": _psi_key, "cf": _cf_ok, "dm_over": _dm_over,
         "w7": _w7_live, "fb_perm": _fb_perm_fixed, "w8": _w8_live, "ga4": _ga_ok, "w9": _w9_live, "ytc": _ytc_ok, "bkpass": _bk_saved, "anall": _analytics_all, "push": _push_ok, "quizb": _quiz_ok,
@@ -1379,6 +1383,31 @@ SEED_V340 = [            # v3.4.0 (16 Nov 2026): LinkedIn Page 'Sab Hisaab' (Mak
 ]
 
 
+SEED_V341 = [            # v3.4.1 (16 Nov 2026 raat): traffic ke naye raaste + (not set) ka ilaaj
+    ("[Owner, 1 min] Bot mein 'tracking fix' likhein → padh kar ✅✅ dabayein ((not set) aur kam ginti ka asli ilaaj - India mein "
+     "ginti wali cookie shuru se, Europe mein pehle jaisa; privacy page bhi saath badlega)", None, "tf_consent",
+     "Bot khud pakdega aur list se hatayega"),
+    ("[Owner, 5 min] Apni visit kabhi na gine: bot mein 'owner link' likhein → har app mein ek baar (Chrome, Telegram, Instagram, "
+     "Facebook) - kaali patti 'Owner mode' dikhe", None, None, "ho jaye to: 'ho gaya owner link'"),
+    ("(Marzi, 5 min) Telegram directory: tgstat.com → 'Log in' (Telegram se) → 'Add channel' → @sabhisaab → bhasha Hindi, "
+     "vishay Education. Koi paisa/premium nahi", None, None, "ho jaye to: 'ho gaya telegram directory'"),
+    ("(Marzi, 3 min) Facebook par apna group: Pahadi Hisaab page → Groups → 'Create group' → naam 'Pahadi Hisaab Parivar' → "
+     "Public. Roz 19:15 ki 'share kit' ka FB wala text wahan daalein (koi admin ki manzoori nahi)", None, None,
+     "ho jaye to: 'ho gaya fb group'"),
+]
+
+
+def seed_v341():
+    import datetime as _d
+    day = str(_d.date.today())
+    lst = state.get("todo") or []
+    have = {o.get("x") for o in lst}
+    lst += [{"x": t, "t": day, **({"after": a} if a else {}), **({"auto": k} if k else {}), "how": h}
+            for t, a, k, h in SEED_V341 if t not in have]
+    state.put("todo", lst)
+    _dirty()
+
+
 def seed_v340():
     import datetime as _d
     day = str(_d.date.today())
@@ -1407,6 +1436,13 @@ def seed_todo():
         _mig_3310()
     except Exception:
         pass
+    if not state.get("seed_v341"):
+        state.put("seed_v341", True)
+        try:
+            seed_v341()
+        except Exception as e:
+            from .log import log as _lg
+            _lg(f"seed_v341: {e}")
     if not state.get("seed_v340"):
         state.put("seed_v340", True)
         try:

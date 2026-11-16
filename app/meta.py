@@ -413,12 +413,21 @@ IG_LINK_LINE = "🔗 Free calculator ka link bio mein 👆"
 _URL_RX = __import__("re").compile(r"(?:https?://|www\.)\S+|\b[\w-]+\.(?:com|in|net|org|me|ly)(?:/\S*)?", __import__("re").I)
 
 
+_IG_KEEP = "sabhisaab.com/jawab"
+
+
 def ig_safe_text(text, add_line=True):
     """Instagram text se har link/UTM hatao; link wali line ki jagah ek baar 'link bio mein'."""
     if not isinstance(text, str):
         return text
     out, had = [], False
     for line in text.splitlines():
+        # v3.4.1 (owner 16 Nov raat): "Instagram par link click nahi hota par jawab wala pata likh do - 1 log bhi aaye to fayda".
+        # Sirf ye ek SAADA pata (bina https/UTM, click nahi hota) bachta hai; baaki har link/UTM pehle jaisa hatta hai.
+        if (__import__("re").search(r"(?<![\w/.])sabhisaab\.com/jawab(?=[\s,)।]|$)", line) and "utm" not in line.lower()
+                and not _URL_RX.search(line.replace(_IG_KEEP, ""))):
+            out.append(line)
+            continue
         if _URL_RX.search(line):
             had = True
             parts = __import__("re").split(r"(?<=[!?।.])\s+", _URL_RX.sub("", line))

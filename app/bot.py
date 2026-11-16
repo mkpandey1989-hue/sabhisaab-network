@@ -255,6 +255,13 @@ def scheduler():
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
+                try:                                   # v3.4.1: roz 19:15 share kit (WhatsApp status / FB group / Quora - copy-paste)
+                    from . import sharekit as _SK
+                    if _SK.due(nowt):
+                        state.put("sk_day", day)
+                        run(_SK.run)
+                except Exception as _e_sk:
+                    log(f"sharekit loop: {_e_sk}")
                 try:                                   # v3.4.0: LinkedIn Page roz 1 post (Make.com) + connection yaad
                     from . import linkedin as _LI
                     if _LI.due(nowt):
@@ -527,11 +534,16 @@ def scheduler():
                     if r_:
                         tg.say(r_)
                 run(_ab)
-            if "17:10" <= nowt.strftime("%H:%M") < "18:00" and state.get("toolpin_day") != day and state.get("toolpin_on", True):
-                state.put("toolpin_day", day)              # v2.9.1: roz 1 website-tool pin (Pinterest link click hote hain)
-                def _tp():
+            _tps = None                                    # v3.4.1 (owner: 'pinterest ka link jyada'): roz 3 alag page-pin
+            for _i, _w in enumerate(("10:10", "14:10", "17:10")):     # (pehle 1) - Pinterest ki 15/din seema + ek page 60 din mein 1
+                if _w <= nowt.strftime("%H:%M") < f"{int(_w[:2]) + 1:02d}{_w[2:]}":
+                    _tps = _i
+            _tpd = state.get("toolpin_slots") or {}
+            if (_tps is not None and state.get("toolpin_on", True) and _tps not in (_tpd.get(day) or [])):
+                state.put("toolpin_slots", {day: (_tpd.get(day) or []) + [_tps]})
+                def _tp(_slot=_tps):
                     from . import toolpin as _TP
-                    log(_TP.run())
+                    log(_TP.run(_slot))
                 run(_tp)
             if nowt.weekday() == 5 and "20:00" <= nowt.strftime("%H:%M") < "21:00" and state.get("ideas_day") != day:
                 state.put("ideas_day", day)                # v2.9.1: comment se hafte ka idea (sirf owner ko)
@@ -573,6 +585,17 @@ def scheduler():
                     if r_:
                         tg.say(r_)
                 run(_om)
+            if not state.get("trackfix_owner") and time.time() - STARTED > 600 and state.get("trackfix_try") != day:
+                state.put("trackfix_try", day)             # v3.4.1: owner mode app-browser mein bhi (cookie + ?owner=on) - ek baar
+                def _tf():
+                    from . import trackfix as _TF
+                    r_ = _TF.apply()
+                    if r_ is None or r_.startswith("✅"):
+                        state.put("trackfix_owner", True)
+                    if r_:
+                        tg.say(r_ + "\n👤 Ab 'owner link' likhein - Telegram/Instagram/Facebook ke andar wale browser mein bhi aapki "
+                               "visit na gine, uska tareeka.")
+                run(_tf)
             if "19:05" <= nowt.strftime("%H:%M") < "20:00" and state.get("push_day") != day and state.get("push_on"):
                 state.put("push_day", day)                 # v2.9.2: roz max 1 website notification (opt-in walon ko)
                 def _ps():
@@ -1593,6 +1616,23 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.1
+        from . import sharekit as _SK
+        _r_sk = _SK.on_text(tl)
+        if _r_sk is not None:
+            return _r_sk
+    except Exception as _e_sk:
+        log(f"sharekit text: {_e_sk}")
+    if tl in ("tracking fix", "tracking sudhaar", "not set fix", "ginti fix"):            # v3.4.1
+        from . import trackfix as _TF
+        return _TF.ask()
+    if "not set" in tl or "notset" in tl or "(not set)" in tl:                          # v3.4.1: Gemini ka andaaza nahi
+        from . import website as _WN
+        tg.say("🔎 '(not set)' wale visit GA4 se khol raha hoon...")
+        return run(lambda: tg.say(_WN.notset_report(7)))
+    if tl in ("owner link", "owner links", "meri ginti", "meri ginti band", "owner mode app"):   # v3.4.1
+        from . import ownermode as _OM
+        return tg.say(_OM.app_guide())
     if tl in ("owner mode", "ownermode", "owner mod", "meri visit", "meri visit mat gino", "apni visit"):   # v3.1.2
         from . import ownermode as _OM
         return tg.say(_OM.status())
@@ -2088,9 +2128,12 @@ def on_text(text):
     if tl in ("bing haal", "bing", "indexing haal", "index haal", "/bing", "indexnow haal"):
         from . import website
         return run(lambda: tg.say(website.bing_report() + "\n\n" + website.indexnow_text()))
-    if (any(w in tl for w in ("website", "site", "link", "traffic")) and
+    if ((any(w in tl for w in ("website", "site", "link", "traffic")) and
             any(w in tl for w in ("aaye", "aaya", "aya ", "aye", "kitne log", "click", "visitor", "traffic", "aate", "aaenge",
-                                  "aayenge", "users"))):
+                                  "aayenge", "users")))
+            or re.search(r"\b(kaha|kahan|kha|kidhar) ?se (aaye|aye|aaya|aya|aa rahe|aa rhe|aa raha|aa rha)\b", tl)   # v3.4.1: 'kaha se
+            or re.search(r"\bkitne (log|visitor|user)\w* (aaye|aye|aaya|aya)\b", tl)) and not any(
+                w in tl for w in ("subscriber", "view", "youtube par", "follower", "comment")):            # aaye' kabhi Gemini ke paas chala jaata tha
         from . import website                       # v2.1.4: seedha GA4 (Gemini se 'access nahi' jawab nahi)
         d = 30 if any(w in tl for w in ("mahin", "month", "30 din")) else (
             7 if any(w in tl for w in ("hafte", "hafta", "week", "7 din", "saptah")) else (2 if "kal" in tl else 1))
@@ -2815,6 +2858,9 @@ def on_callback(cb):
     data = cb.get("data", "")
     tg.answer(cb["id"])
     kind, _, rest = data.partition(":")
+    if kind == "tf":                               # v3.4.1: tracking fix (dohri pushti)
+        from . import trackfix as _TF
+        return _TF.on_callback(rest, run)
     if kind == "li":                               # v3.4.0: LinkedIn (dohri pushti)
         from . import linkedin as _LI
         return _LI.on_callback(rest, run)

@@ -383,6 +383,11 @@ def _run_day(force):
     for s in chosen:
         src = (QDIR / "pages" / f"{s}.html").read_text(encoding="utf-8")
         html = gate(src, after, today, tc)
+        try:                                 # v3.4.1: naye page par bhi wahi tracking/owner-mode sudhaar
+            from . import trackfix as _TF
+            html = _TF.patch_html(html, name=f"{s}.html")[0]
+        except Exception as e:
+            log(f"pq trackfix: {e}")
         (out / "site" / f"{s}.html").write_text(html, encoding="utf-8")
         files.append(f"site/{s}.html")
         m = re.search(r'og:image" content="https://sabhisaab\.com/([^"]+)"', html)
@@ -407,6 +412,11 @@ def _run_day(force):
             new = gate(src, after, pub[s], tc, moddate=md)
         else:
             continue
+        try:                                         # v3.4.1: source se dobara bana page bhi tracking-sudhaar ke saath
+            from . import trackfix as _TF
+            new = _TF.patch_html(new, name=f"{s}.html")[0]
+        except Exception as e:
+            log(f"pq trackfix: {e}")
         if new != old:
             (out / "site" / f"{s}.html").write_text(new, encoding="utf-8")
             files.append(f"site/{s}.html")

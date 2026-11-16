@@ -253,7 +253,7 @@ def desc_line(meta, platform):
     if platform == "instagram":
         # v3.3.10 (owner 16 Nov): Instagram par '@sabhisaab' = kisi AJNABI ka Instagram profile (hamara Telegram nahi) -
         # Instagram caption mein kabhi '@' se Telegram nahi. Telegram ka link bio mein (owner ne lagaya).
-        return (f"✅ सही जवाब (कोड #{code}): बायो के पहले लिंक पर - सब हिसाब वेबसाइट के 'जवाब' पेज पर कोड डालें" if live()
+        return (f"✅ सही जवाब (कोड #{code}): sabhisaab.com/jawab पर कोड {code} डालें (लिंक बायो में भी)" if live()
                 else f"✅ सही जवाब (कोड #{code}): बायो में टेलीग्राम लिंक पर")
     if not live():
         return f"✅ सही जवाब (कोड #{code}): {TG_LINK}"

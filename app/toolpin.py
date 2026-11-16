@@ -12,7 +12,8 @@ from .log import log
 
 KEYS = {"deals": r"discount|offer|gst|sale|price|cashback|chhoot|shopping|bijli|electricity|mobile|recharge",
         "money": r"emi|tax|salary|percent|interest|byaj|ctc|hra|gratuity|epf|budget|inflation|tds",
-        "pahadi": r"nali|mutthi|pahad|uttarakhand|bigha|mausam|weather",
+        "pahadi": r"nali|mutthi|pahad|uttarakhand|bigha|mausam|weather|ghumne|almora|nainital|dehradun|haridwar|rishikesh|"
+                  r"pithoragarh|bageshwar|champawat|chamoli|rudraprayag|tehri|uttarkashi|pauri|udham|kumaon|garhwal|char-dham",
         "sunonatak": r"age|umar|date|din|typing|unit|converter|stopwatch|random|number|bmi|time|calendar"}
 ORDER = ["deals", "money", "sunonatak", "pahadi", "deals", "money", "sunonatak"]
 
@@ -65,10 +66,12 @@ def image(title, brand):
     return out
 
 
-def run():
+def run(slot=0):
+    """v3.4.1: roz 3 slot (10:10, 14:10, 17:10) - har slot alag brand ka vishay, alag page. slot 0 = pehle jaisa."""
     from . import pinterest, siteknow
     today = datetime.date.today()
-    brand = ORDER[today.weekday()]
+    # slot 1 hamesha Pahadi (Uttarakhand ghumne/jile ke page - Pinterest par travel sabse zyada chalta hai)
+    brand = "pahadi" if slot == 1 else ORDER[(today.weekday() + (3 if slot == 2 else 0)) % len(ORDER)]
     used = dict(state.get("toolpin_used") or {})
     got = pick(brand, siteknow.pages() or {}, used, today)
     if not got:
@@ -82,7 +85,7 @@ def run():
         img = image(title, brand)
         clean = re.sub(r"\s*\|\s*Sab Hisaab.*$", "", title)
         u = pinterest.post_pin(brand, img, clean[:95], f"{clean} - free, Hindi mein, bina login. Seedha hisaab: {SITE}{path}", link,
-                               section="tool")            # v3.0.0: 'Free Calculators & Tools' khane mein
+                               section="pahadi" if brand == "pahadi" else "tool")   # v3.4.1: pahad ke page pahadi khane mein
     except Exception as e:
         log(f"toolpin: {e}")
         return f"toolpin: nahi gaya ({str(e)[:100]})"

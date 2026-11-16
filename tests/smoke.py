@@ -403,5 +403,19 @@ from app import state  # noqa: E402,F811
 check("hasattr(fo, \"seek\")" in _insp.getsource(_TGV._http), "Telegram: (naam, bytes, type) tuple file bhi chalti hai")
 from app import watchdog as _WDV  # noqa: E402
 check('"adsbygoogle" in home and re.search(r"koi vigyapan nahi"' in _insp.getsource(_WDV), "AdSense: sirf pub-ID par 'koi vigyapan nahi' galat alert nahi")
+# v3.4.1: IG par saada jawab-pata, tracking/owner-mode sudhaar, share kit, Pinterest 3 slot
+from app import meta as _MT41, trackfix as _TF41, sharekit as _SK41, toolpin as _TP41  # noqa: E402
+_ig = _MT41.ig_safe_text("✅ सही जवाब (कोड #5): sabhisaab.com/jawab पर कोड 5 डालें\nx https://sabhisaab.com/jawab?utm_source=y\nz")
+check("sabhisaab.com/jawab पर" in _ig and "utm" not in _ig and "https" not in _ig, "Instagram: sirf saada 'sabhisaab.com/jawab' bachta, UTM/https nahi")
+_pg = ("<script>\nwindow.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}\n" + _TF41.O_OLD +
+       "document.addEventListener('DOMContentLoaded',function(){});}}catch(e){}\n" + _TF41.C_OLD + "\n" + _TF41.U_OLD + "\n</script>")
+_p0, _c0 = _TF41.patch_html(_pg, consent=False)
+check(_c0 and _TF41.O_MARK in _p0 and _TF41.C_MARK not in _p0, "Owner mode: cookie + ?owner=on apne aap; consent bina pushti nahi badla")
+_p1, _c1 = _TF41.patch_html(_pg, consent=True)
+check(_TF41.C_MARK in _p1 and "else if(_c==='essential')" in _p1 and "'GB'" in _p1 and not _TF41.patch_html(_p1, consent=True)[1],
+      "Tracking fix: Europe mein denied, baaki granted, 'sirf zaroori' yaad; dobara chalane par kuch nahi")
+check(_SK41.faqs('<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"name":"Q?","acceptedAnswer":{"text":"A"}}]}</script>')
+      == [("Q?", "A")], "Share kit: page ke FAQ se Quora sawal-jawab")
+check("def run(slot=0)" in _insp.getsource(_TP41) and "ghumne" in _TP41.KEYS["pahadi"], "Pinterest: roz 3 page-pin, pahad ke ghumne wale page bhi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

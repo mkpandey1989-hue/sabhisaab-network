@@ -90,3 +90,17 @@ def status():
             "Dhyan: (1) phone aur laptop dono par alag-alag kholna hai, har browser mein. (2) Incognito tab mein ya browser ka data saaf "
             "karne ke baad dobara. (3) Search Console par asar nahi - wo visit nahi ginta, sirf Google search mein dikhna aur click; "
             "isliye Google par khud apni site khoj kar baar-baar click na karein.")
+
+
+def app_guide():
+    """v3.4.1: Telegram/Instagram/Facebook ke andar wale browser ka alag dabba hota hai - wahan bhi owner mode."""
+    return ("👤 MERI VISIT KABHI NA GINE - har jagah (ek-ek baar):\n\n"
+            "1) Phone ka Chrome + laptop ka Chrome: ye link kholein → https://sabhisaab.com/?owner=on\n"
+            "2) Telegram ke andar: isi sandesh ka upar wala link yahin Telegram mein tap karein (Telegram apne browser mein kholega) ✅\n"
+            "3) Instagram / Facebook / Threads / YouTube ke andar: apni kisi post ka website link kholein → page ke sabse bade "
+            "shirshak (heading) par 4 second mein 7 baar tap → 'Owner mode?' → OK\n"
+            "4) WhatsApp: link Chrome mein khulta hai - pehla kadam kaafi.\n\n"
+            "Pehchaan: neeche-baayein kaali patti 'Owner mode: ye visit Analytics me nahi gini jaati'. Patti dikhe = us app/browser mein "
+            "aapki visit nahi ginegi.\n"
+            "Dhyan: app update/cache saaf hone par kabhi patti chali jaye to wahi tap dobara. Band karna: https://sabhisaab.com/?owner=off\n"
+            "(Ye sirf aapke browser mein hota hai - aam visitor par koi asar nahi.)")

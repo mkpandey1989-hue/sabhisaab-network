@@ -1699,3 +1699,28 @@ Chat/ESCALATE se nikli galtiyan (sirf yahi badla - video, thumbnail, website, sc
 - Smoke: 324 (LinkedIn 18 nayi jaanch; asli state.json kabhi nahi chhuti - nakli state).
 Agla (owner pakka kare tab): LinkedIn image post (upar), hafte mein ek 'top 5 sawal' carousel/document post, LinkedIn analytics
 (Make 'Get the Page Statistics' -> webhook response) - bina owner ki pushti nahi.
+
+## v3.4.1 (16 Nov 2026 raat) - [OPUS 5.5] (not set) ka asli ilaaj, owner-mode har app mein, Pinterest 3x, share kit
+Owner (16 Nov raat): "(not set) kahan se aaya - itni baar bola theek nahi hua; meri khud ki ginti link se aane par bhi na ho;
+Instagram par jawab ka pata likh do; Pinterest link zyada; Quora / WhatsApp status / FB group / Telegram directory bhi".
+- (not set) ki ASLI wajah mili: har page par Consent Mode 'analytics_storage: denied' SAB deshon ke liye default. Banner der se
+  dabaya = session_start (source) gayab = '(not set)'; na dabaya = gina hi nahi (Telegram/Instagram ke andar wale browser mein
+  zyada). Gemini ka 'WhatsApp/Telegram se' wala jawab galat tha (wo '(direct)' mein aate hain).
+  ILAAJ app/trackfix.py (owner ki DOHRI PUSHTI 'tracking fix' ke baad hi): Europe/UK/CH (EEA) mein pehle jaisa denied (region),
+  baaki desh mein sirf analytics granted (ads cookie phir bhi denied); 'Sirf zaroori' ab agle har page par bhi yaad (pehle nahi
+  tha). Privacy page ka Analytics hissa + 'Aakhri update' tareekh saath. 296-page audit ERROR 0 / WARNING 0.
+  Manual page_view dobara bhejna JAAN-BOOJH kar nahi (GA4 pehle wale hit dobara process karta hai - double ginti hoti).
+- 'not set' / 'notset' wale sawal ab seedha GA4 khulaasa (website.notset_report: page+UTM, referrer, device/shehar) - Gemini nahi.
+- 'kaha se aaye' / 'kitne log aaye' (bina 'website' shabd) bhi ab GA4 report par (pehle kabhi Gemini ke paas).
+- Owner mode: '?owner=on' + cookie (localStorage ke saath); kisi bhi app ke andar wale browser mein H1 par 4 sec mein 7 tap ->
+  confirm -> chalu. Apne aap lagta hai (privacy par asar nahi; privacy page ki sh_owner line saaf). Hukum 'owner link'.
+  Naye roz ke UK page (pagequeue) bhi publish se pehle isi patch se.
+- Instagram caption: saada 'sabhisaab.com/jawab पर कोड N डालें' (click nahi hota, par likha rahe). https/UTM wala link pehle
+  jaisa hatta hai (meta.ig_safe_text sirf ye ek saada pata chhodta hai).
+- Pinterest: website page-pin roz 1 -> 3 (10:10 / 14:10 / 17:10); beech wala hamesha Pahadi (UK ghumne/jile ke page, 'pahadi'
+  khana). Seema waisi: din mein 15 pin, ek URL 2, ek page 60 din mein 1.
+- Share kit (app/sharekit.py) roz 19:15: WhatsApp Status (aaj ka sawal + jawab link), Facebook group (ek UK page), Quora (page ke
+  FAQ ka asli sawal-jawab + link) - alag-alag sandesh, copy-paste. Bot khud post nahi karta (Groups API band / Quora API nahi).
+  Text sirf site ke apne page se (bot naya content nahi likhta). Hukum 'share kit', 'share kit band/chalu'.
+- PENDING (SEED_V341): 'tracking fix' (auto band), 'owner link', Telegram directory (tgstat.com Add channel), apna FB group.
+- Smoke 329 PASS.
