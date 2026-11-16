@@ -1771,3 +1771,20 @@ link likho; GSC wale index ho chuke URL baar-baar".
 - GSC 'index ho chuke URL phir diye': wajah v3.3.10 wali (ZIP-fail par state/daily.json 13 Nov par palat jaata tha) - 16 Nov
   15:58 se theek; data aaj ka na ho to bot chetavni deta hai. daily.py ka kram (kabhi-nahi-jaanche > pending > baaki) sahi.
 - Smoke 340 PASS.
+
+## v3.4.5 (16 Nov 2026 raat) - [OPUS 5.5] Auto-doctor, poori table report (N din), sitemap-pehle, Bing report ek baar
+Owner (16 Nov 22:39): "roz kahin kuch fail - fully automatic audit jo khud problem sort kare; table mein Bing/Pinterest/LinkedIn/
+GSC sab, brand-wise + combined, jitne din bolu utne ka; naya page pehle sitemap phir indexing link; story page index".
+- app/autodoctor.py: roz 05:40 + 'auto doctor'. Jaanch + KHUD sudhaar (sirf pehle se bane raaste): website 200 + live sitemap =
+  VM sitemap (kam -> deploy), /jawab atka (answer_dirty -> publish force), Bing sitemap ginti (bing_feed), Google index data purana
+  (daily.py dobara), Threads token refresh, owner-mode patch, disk >=85% (purane namoone), manzoor video 2 ghante se atki (owner
+  ko step). Sab theek ho to chup (sirf log). Naya content kabhi nahi. Har check alag try (ek fail = baaki chalti).
+- scoreboard: 'report table N din' (koi bhi 1-90; aaj/kal/hafta/mahina bhi) + 'table'/'report' wale vaakya. Naye khand: Website
+  log kahan se (GA4 source: Google, Bing, Pinterest, LinkedIn, FB, IG, YouTube, Telegram, Threads, WhatsApp, Quora, Seedha,
+  (not set)) + KUL; Search: Google (GSC) + Bing dikha/click, Pinterest dikha/website-click, LinkedIn post ginti. 2 sandesh (4000 seema).
+- Sitemap-pehle: Web Story ka IndexNow + owner ka 'Request indexing' sandesh ab DEPLOY LIVE ke baad (website.after_live_msg);
+  pehle apply_zip ke turant baad (15 min pehle, sitemap live nahi). _after_live ab /stories/x ka sahi URL banata (pehle basename).
+  Roz ke UK page ka sandesh: live + LIVE sitemap mein hone par hi. Purane 'index nahi' page sirf 3 din tak ki taaza Google-jaanch se.
+- Web Stories orphan the (kisi page se link nahi) - /jawab khand (v3.4.4). Site par baaki koi orphan page nahi (297 jaanche).
+- Bing ki auto report 4 ghante mein ek (restart par 4 baar aati thi).
+- Smoke 344 PASS.

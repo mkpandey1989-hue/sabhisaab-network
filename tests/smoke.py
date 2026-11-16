@@ -458,5 +458,13 @@ check('"sm:S:' in _insp.getsource(_ST44.promote_ask) and '"sm:N:' in _insp.getso
 check(_SB44._n(None) == "-" and _SB44._n(12500) == "12.5k" and _SB44._n(42) == "42", "Scoreboard: '-' = data nahi (andaaza nahi)")
 check("_stories_block(DIR)" in _insp.getsource(_AN44.build_page), "/jawab se Web Stories ka link (akele page nahi)")
 check("%" not in _insp.getsource(_SK41.quiz_group_text), "FB group text mein koi nakli % nahi")
+# v3.4.4b: N din ki table, sitemap-pehle sandesh, auto-doctor
+check([_SB44.parse_days(x) for x in ("report table 6 din", "3 din ka table", "report table aaj", "report table mahina", "report table")]
+      == [6, 3, 1, 30, 7], "Table report: koi bhi din (6/3/aaj/mahina)")
+from app import webstory as _WS44, website as _WE44, autodoctor as _AD44  # noqa: E402
+check("after_live_msg" in _insp.getsource(_WS44) and "indexnow([" not in _insp.getsource(_WS44),
+      "Web Story: Bing/Google sandesh deploy LIVE + sitemap ke BAAD (pehle 15 min pehle jaata tha)")
+check("p[5:-5]" in _insp.getsource(_WE44._after_live), "Deploy ke baad IndexNow: /stories/x sahi URL")
+check("+= [" not in _insp.getsource(_AD44.run).replace("L += [", ""), "Auto-doctor: andar ke check mein list rebind galti nahi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

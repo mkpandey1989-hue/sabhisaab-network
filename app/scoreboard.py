@@ -145,11 +145,9 @@ def table(days=7):
     if site_tot is not None:
         out.append(f"🌐 Website par kul log (har jagah se): <b>{site_tot}</b> | inme video-link se: {sum(site.values())}")
     try:
-        from . import pinterest as PI
-        if PI.connected():
-            out.append(_h.escape(PI.analytics_summary(min(30, max(1, days))).split("\n")[0][:200]))
-    except Exception:
-        pass
+        out.append(extra_table(days))
+    except Exception as e:
+        log(f"scoreboard extra: {e}")
     out.append("<i>Views = us din bani videos ke ab tak ke views. '-' = platform ne data nahi diya (andaaza nahi).\n"
                "Site = video ke link se website par aaye log (GA4). YT=YouTube, FB=Facebook, IG=Instagram, Thr=Threads.</i>")
     return "\n".join(out)
@@ -160,12 +158,18 @@ def send(days=7):
         txt = table(days)
     except Exception as e:
         return tg.say(f"📊 Scoreboard nahi bana: {str(e)[:200]}")
-    try:
-        return tg.call("sendMessage", {"chat_id": tg._chat(), "text": txt[:4000], "parse_mode": "HTML",
-                                       "disable_web_page_preview": "true"})
-    except Exception:
-        import re
-        return tg.say(re.sub(r"</?(pre|b|i)>", "", _h.unescape(txt)))
+    parts = txt.split("\n🌐 WEBSITE", 1)
+    if len(parts) == 2:
+        parts[1] = "🌐 WEBSITE" + parts[1]
+    r = None
+    for part in parts:
+        try:
+            r = tg.call("sendMessage", {"chat_id": tg._chat(), "text": part[:4000], "parse_mode": "HTML",
+                                        "disable_web_page_preview": "true"})
+        except Exception:
+            import re
+            r = tg.say(re.sub(r"</?(pre|b|i)>", "", _h.unescape(part)))
+    return r
 
 
 def due(now=None):
@@ -174,11 +178,124 @@ def due(now=None):
 
 
 def on_text(tl, run):
-    if tl.startswith("report table") or tl in ("scoreboard", "table report", "report tabel"):
+    if (tl.startswith("report table") or tl.startswith("table report") or tl.startswith("scoreboard") or tl.startswith("report tabel")
+            or (("table" in tl or "tabel" in tl) and any(w in tl for w in ("report", "din ka", "din ki", "hisaab")))):
         if tl.endswith("band") or tl.endswith("chalu"):
             state.put("sb_on", tl.endswith("chalu"))
             return tg.say("📊 Roz 21:50 ki table report: " + ("CHALU" if tl.endswith("chalu") else "BAND"))
-        d = 1 if "aaj" in tl else (30 if "30" in tl or "mahin" in tl else 7)
+        d = parse_days(tl)
         tg.say("📊 Saare platform se ginti la raha hoon (1-2 minute)...")
         return run(lambda: send(d))
     return None
+
+
+SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")),
+              ("Facebook", ("facebook", "fb", "m.facebook", "l.facebook")), ("Instagram", ("instagram", "ig")),
+              ("YouTube", ("youtube",)), ("Telegram", ("telegram", "t.me")), ("Threads", ("threads",)),
+              ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Seedha", ("(direct)",)), ("(not set)", ("(not set)",))]
+
+
+def site_sources(days):
+    """GA4: website par log - kahan se (source) -> [(naam, log)], kul."""
+    from . import website as W
+    tok = W._gcreds("https://www.googleapis.com/auth/analytics.readonly")
+    url = f"https://analyticsdata.googleapis.com/v1beta/properties/{W.GA4_PROPERTY}:runReport"
+    rng = [{"startDate": f"{max(0, days - 1)}daysAgo" if days > 1 else "today", "endDate": "today"}]
+    j = requests.post(url, headers={"Authorization": f"Bearer {tok}"}, timeout=60, json={
+        "dateRanges": rng, "dimensions": [{"name": "sessionSource"}], "metrics": [{"name": "activeUsers"}], "limit": 100}).json()
+    agg = {}
+    for r in j.get("rows") or []:
+        src = r["dimensionValues"][0]["value"].lower()
+        n = int(r["metricValues"][0]["value"])
+        name = next((g for g, keys in SRC_GROUPS if any(src == k or src.startswith(k + ".") or k in src.split(".") for k in keys)),
+                    "Baaki")
+        agg[name] = agg.get(name, 0) + n
+    order = [g for g, _ in SRC_GROUPS] + ["Baaki"]
+    return [(g, agg[g]) for g in order if agg.get(g)]
+
+
+def search_stats(days):
+    """Google search (GSC) + Bing search: (dikha, click). GSC 2 din der se data deta hai."""
+    from . import website as W
+    import datetime as _d
+    g = b = None
+    try:
+        gt = W._gcreds("https://www.googleapis.com/auth/webmasters.readonly")
+        e = _d.date.today() - _d.timedelta(days=2)
+        r = requests.post("https://www.googleapis.com/webmasters/v3/sites/sc-domain%3Asabhisaab.com/searchAnalytics/query",
+                          headers={"Authorization": f"Bearer {gt}"}, timeout=60,
+                          json={"startDate": str(e - _d.timedelta(days=max(0, days - 1))), "endDate": str(e)}).json()
+        row = (r.get("rows") or [{}])[0]
+        g = (int(row.get("impressions", 0)), int(row.get("clicks", 0)))
+    except Exception as ex:
+        log(f"scoreboard gsc: {ex}")
+    try:
+        key = W._env().get("BING_API_KEY")
+        if key:
+            b = W._bing_traffic(key, days)
+    except Exception as ex:
+        log(f"scoreboard bing: {ex}")
+    return g, b
+
+
+def pin_stats(days):
+    from . import pinterest as PI
+    import datetime as _d
+    if not PI.connected():
+        return None
+    end = _d.date.today()
+    j = PI._req("GET", "/user_account/analytics", params={
+        "start_date": str(end - _d.timedelta(days=max(1, days))), "end_date": str(end),
+        "metric_types": "IMPRESSION,SAVE,OUTBOUND_CLICK", "content_type": "ALL", "app_types": "ALL"})
+    m = (j.get("all") or {}).get("summary_metrics") or {}
+    return int(m.get("IMPRESSION", 0)), int(m.get("SAVE", 0)), int(m.get("OUTBOUND_CLICK", 0))
+
+
+def linkedin_posts(days):
+    import datetime as _d
+    cut = str(_d.date.today() - _d.timedelta(days=max(0, days - 1)))
+    return len([x for x in (state.get("li_log") or []) if str(x.get("d", "")) >= cut and x.get("c") != "?"])
+
+
+def extra_table(days):
+    L = []
+    try:
+        src = site_sources(days)
+        if src:
+            w = max(len(g) for g, _ in src)
+            rows = [f"{g:<{w}} {n:>6}" for g, n in src]
+            rows.append("-" * (w + 7))
+            rows.append(f"{'KUL':<{w}} {sum(n for _, n in src):>6}")
+            L.append("🌐 WEBSITE - log kahan se aaye (GA4):\n<pre>" + _h.escape("\n".join(rows)) + "</pre>")
+    except Exception as e:
+        log(f"scoreboard src: {e}")
+    g, b = search_stats(days)
+    rows = ["Jagah       Dikha  Click"]
+    rows.append(f"{'Google':<10}{_n(g[0]) if g else '-':>7}{_n(g[1]) if g else '-':>7}")
+    rows.append(f"{'Bing':<10}{_n(b[0]) if b else '-':>7}{_n(b[1]) if b else '-':>7}")
+    try:
+        ps = pin_stats(days)
+    except Exception as e:
+        log(f"scoreboard pin: {e}")
+        ps = None
+    rows.append(f"{'Pinterest':<10}{_n(ps[0]) if ps else '-':>7}{_n(ps[2]) if ps else '-':>7}")
+    rows.append(f"{'LinkedIn':<10}{'post ' + str(linkedin_posts(days)):>14}")
+    L.append("🔎 SEARCH + PINTEREST + LINKEDIN:\n<pre>" + _h.escape("\n".join(rows)) + "</pre>"
+             + ("\n<i>Google ka data 2 din der se aata hai. Pinterest 'Click' = website par click. LinkedIn: kitni post gayi "
+                "(views Make se nahi aate).</i>"))
+    return "\n".join(L)
+
+
+def parse_days(tl):
+    """'report table 6 din' / '3 din ka' / 'aaj' / 'kal' / 'hafte' / 'mahina' / '15' -> din (1-90)."""
+    import re as _r
+    if "aaj" in tl:
+        return 1
+    m = _r.search(r"(\d{1,2})", tl)
+    if m:
+        return max(1, min(90, int(m.group(1))))
+    if "kal" in tl:
+        return 2
+    if "mahin" in tl or "month" in tl:
+        return 30
+    return 7

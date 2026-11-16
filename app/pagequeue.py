@@ -515,6 +515,13 @@ def tick():
         return
     urls = [f"{SITE}/{s}" for s in n.get("urls", [])]
     ok = [u for u in urls if _is_live(u)]
+    try:                                         # v3.4.4 (owner): pehle LIVE sitemap mein, tabhi indexing ka link
+        from . import website as _W
+        _sm = _W.live_sitemap_urls()
+        if _sm:
+            ok = [u for u in ok if u in _sm]
+    except Exception as e:
+        log(f"pq sitemap check: {e}")
     if len(ok) < len(urls) and float(n.get("tries", 0)) < 4:
         n["t"] = time.time() + 20 * 60
         n["tries"] = float(n.get("tries", 0)) + 1
@@ -770,8 +777,10 @@ def request_list(today_new, k=10, st=None):
     st = _idx_status() if st is None else st
     pub = state.get("pq_pub") or {}
     drop = [u.replace(SITE + "/", "") for u in (state.get("pq_idx_drop") or {})]
+    import datetime as _d
+    fresh = str(_d.date.today() - _d.timedelta(days=3))   # v3.4.4: sirf taaza Google-jaanch (3 din) - index ho chuke page phir na aayein
     old = [s for s in sorted(pub, key=lambda x: pub[x]) if s not in today_new
-           and f"{SITE}/{s}" in st and not st[f"{SITE}/{s}"].get("ok")]
+           and f"{SITE}/{s}" in st and not st[f"{SITE}/{s}"].get("ok") and str(st[f"{SITE}/{s}"].get("day") or "9999") >= fresh]
     out = list(today_new)[:k]
     for s in drop + old:
         if s not in out and len(out) < k:

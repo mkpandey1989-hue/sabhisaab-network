@@ -160,7 +160,9 @@ def daily(hold_until=None):
     try:                                          # v3.2.0 (owner): Bing ki report bhi GSC ke saath, usi samay
         if hold_until and time.time() < hold_until:
             time.sleep(max(0, hold_until - time.time()))
-        tg.say(bing_report())
+        if time.time() - float(state.get("bing_auto_at") or 0) > 4 * 3600:   # v3.4.4: restart par 4 baar wahi report nahi
+            state.put("bing_auto_at", time.time())
+            tg.say(bing_report())
     except Exception as e:
         log(f"bing report: {e}")
 
@@ -576,6 +578,10 @@ def deploy_direct():
     msg = ["✅ Website LIVE (VM se seedha Cloudflare)."]
     msg.append(submit_sitemap())
     msg.append(_after_live())
+    try:
+        _send_after_live()
+    except Exception as e:
+        log(f"after live: {e}")
     try:                                       # v3.3.10: Bing ko bhi sitemap (sirf jab ginti badli; din mein max 2)
         msg.append(bing_feed(why="deploy ke baad"))
     except Exception as e:
@@ -604,7 +610,8 @@ def submit_sitemap():
 
 def _after_live():
     ch = state.get("site_changed") or []
-    urls = [f"{SITE}/{os.path.basename(p)[:-5]}" for p in ch if p.endswith(".html")]
+    # v3.4.4: 'site/stories/x.html' -> /stories/x (pehle sirf basename -> galat URL, story ko IndexNow kabhi nahi jaata tha)
+    urls = [f"{SITE}/{p[5:-5] if p.startswith('site/') else os.path.basename(p)[:-5]}" for p in ch if p.endswith(".html")]
     urls = [SITE + "/" if u.endswith("/index") else u for u in urls]
     try:
         sm = (DIR / "site" / "sitemap.xml").read_text(encoding="utf-8")
@@ -618,6 +625,21 @@ def _after_live():
     except Exception as e:
         log(f"siteknow after deploy: {e}")
     return indexnow(urls, "deploy")
+
+
+def after_live_msg(text):
+    """v3.4.4 (owner: 'naya page pehle sitemap mein, tab indexing ka link'): sandesh deploy LIVE hone ke BAAD hi."""
+    state.update("after_live_msgs", lambda l: ((l or []) + [str(text)])[-10:], [])
+
+
+def _send_after_live():
+    msgs = state.get("after_live_msgs") or []
+    state.put("after_live_msgs", [])
+    for m in msgs:
+        try:
+            tg.say(m)
+        except Exception as e:
+            log(f"after live msg: {e}")
 
 
 def deploy():

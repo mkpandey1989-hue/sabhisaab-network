@@ -170,12 +170,10 @@ def publish(brand):
     z.unlink(missing_ok=True)
     if str(r).startswith("✅"):
         state.update("stories", lambda d: {**(d or {}), sl: str(datetime.date.today())}, {})
-        try:                                           # v3.0.0: Bing/Yandex ko turant (IndexNow) - Google sitemap se
-            website.indexnow([f"{SITE}/stories/{sl}"], "web story")
-        except Exception as e:
-            log(f"story indexnow: {e}")
-        ok_, msg_ = live_check(f"{SITE}/stories/{sl}")
-        return (f"📖 Web Story live: {SITE}/stories/{sl}\n(Bing ko turant bheja; Google sitemap se.)\n" + (msg_ if ok_ is not None else ""))
+        # v3.4.4: IndexNow/Bing + owner ka sandesh DEPLOY LIVE ke baad (pehle 15 min pehle hi bhej deta tha - sitemap mein bhi nahi tha)
+        website.after_live_msg(f"📖 Web Story LIVE + sitemap mein: {SITE}/stories/{sl}\n(Bing ko bot ne bhej diya. Google: GSC → URL "
+                               f"inspection → ye URL → Request indexing - https://search.google.com/search-console)")
+        return f"📖 Web Story taiyaar: {SITE}/stories/{sl} - deploy ke baad (lagbhag 20 min) LIVE + sitemap, phir indexing ka sandesh."
     return f"📖 Web Story audit mein ruki (kuch live nahi): {str(r)[:200]}"
 
 
@@ -353,11 +351,7 @@ def publish_uk():
     z.unlink(missing_ok=True)
     if str(r).startswith("✅"):
         state.update("uk_stories", lambda d: {**(d or {}), s: str(datetime.date.today())}, {})
-        try:
-            website.indexnow([f"{SITE}/stories/{sl}"], "uk web story")
-        except Exception as e:
-            log(f"ukstory indexnow: {e}")
-        ok_, msg_ = live_check(f"{SITE}/stories/{sl}")
-        return (f"📖 Uttarakhand Web Story live: {SITE}/stories/{sl}\nGSC mein is URL par 'Request indexing' karein.\n"
-                + (msg_ if ok_ is not None else ""))
+        website.after_live_msg(f"📖 Uttarakhand Web Story LIVE + sitemap mein: {SITE}/stories/{sl}\nGoogle: GSC → URL inspection → "
+                               f"ye URL → Request indexing - https://search.google.com/search-console (Bing ko bot ne bhej diya)")
+        return f"📖 UK Web Story taiyaar: {SITE}/stories/{sl} - deploy ke baad LIVE + sitemap, phir indexing ka sandesh."
     return f"📖 UK Web Story audit mein ruki (kuch live nahi): {str(r)[:200]}"

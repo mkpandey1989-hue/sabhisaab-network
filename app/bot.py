@@ -255,6 +255,17 @@ def scheduler():
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
+                try:                                   # v3.4.4: roz 05:40 auto-doctor (khud jaanch + khud sudhaar)
+                    from . import autodoctor as _AD
+                    if _AD.due(nowt):
+                        state.put("ad_day", day)
+                        def _adr():
+                            r_ = _AD.run()
+                            if r_:
+                                tg.say(r_)
+                        run(_adr)
+                except Exception as _e_ad:
+                    log(f"autodoctor loop: {_e_ad}")
                 try:                                   # v3.4.4: roz 21:50 brand x platform table
                     from . import scoreboard as _SB
                     if _SB.due(nowt):
@@ -1623,6 +1634,13 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.4
+        from . import autodoctor as _ADT
+        _r_ad = _ADT.on_text(tl, run)
+        if _r_ad is not None:
+            return _r_ad
+    except Exception as _e_adt:
+        log(f"autodoctor text: {_e_adt}")
     try:                                                                              # v3.4.4
         from . import scoreboard as _SBT
         _r_sb = _SBT.on_text(tl, run)
