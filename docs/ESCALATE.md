@@ -1,5 +1,5 @@
 # ESCALATE - jo bot khud theek nahi kar paya (AI/developer ke liye)
-Updated: 2026-11-16 19:52 IST. Koi secret nahi. Ise padh kar fix ZIP banayein (root mein install.sh, VERSION, app/, docs/).
+Updated: 2026-11-16 19:20 IST. Koi secret nahi. Ise padh kar fix ZIP banayein (root mein install.sh, VERSION, app/, docs/).
 
 ## Khule mudde
 - (koi nahi)

@@ -1,8 +1,6 @@
 # CHAT - owner (👤) aur bot (🤖) ki baat, 30 din, naya upar. Token/password/secret/phone/email/@handle chhupe.
 Commenter ke comment yahan kabhi nahi (privacy policy). AI: galat/adhoore jawab yahin se pakdo, fix ZIP do.
 
-- 2026-11-16 19:47 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 297 URL | Bing ki ginti 297 | ✅ barabar canary ✅
-- 2026-11-16 19:41 🤖 🟢 ♻️ Suno Natak (dobara koshish): 1 से 100 तक सारी संख्याएँ लिखने में 9 का अंक कितनी बार आ #Shorts / ✅ facebook: FB page: Sunonatak  / ✅ instagram: https://www.instagram.com/reel/Dfzh28DDPQR/ / ✅ threads: https://www.threads.net/@*** / ✅ telegram: https://t.me/sabhisaab/198 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #1311)
 - 2026-11-16 19:18 🤖 🟡 DHYAN ⚠️ AdSense chalu hai par privacy page par 'koi vigyapan nahi' line hai / Kya karein (step wise): / 1) docs/PRIVACY_PATCH.md ka 'Section 4' text developer ko dein / 2) Privacy page ki 'Aakhri update' tareekh badlwayein
 - 2026-11-16 19:10 🤖 🟢 🤖 sun21dc0: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 19:30 par jayegi.
 - 2026-11-16 19:10 🤖 🟢 ⏰ sun21dc0: YouTube par 19:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.

@@ -117,3 +117,9 @@ Auto Ads/ad refresh/khud click/ad ke paas answer button; kisi aur ki photo se pu
   sirf haath ke saanche (ukgen/headings_tpl.py) se - niyam-aadharit anuvaad mat.
 - v3.3.0: Uttarakhand 264 page roz 8 (app/pagequeue.py) - PEHLE docs/UTTARAKHAND_QUEUE.md (owner ke attachment ke sujhaavon ka
   faisla bhi wahin: aggregateRating, nakli %, bulk IndexNow, Indexing API, lastmod jitter = KABHI NAHI). Naya bada content isi queue se.
+
+## 3h. v3.4.0 (16 Nov 2026): LinkedIn Page (Make.com) - app/linkedin.py
+- Sab Hisaab LinkedIn Page par post SIRF Make.com webhook se (bot -> {"text"} -> Make -> 'Create a Company Text Post'). Owner ka
+  personal profile / naya-nakli account / LinkedIn Community Management API form - KABHI nahi (poori wajah ROADMAP v3.4.0).
+- Webhook URL + API key secret hain (secrets/linkedin.json). Image post abhi nahi (Cloudflare image Make tak nahi gayi).
+- Roz 09:15, ek sawal + /jawab#cCODE link + 1 free tool; samay/band/chalu dohri pushti. Owner ka kaam: PENDING (SEED_V340).

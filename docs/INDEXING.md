@@ -1,5 +1,5 @@
 # INDEXING - kaunsa page kab search engine ko bheja (bot khud likhta hai, purana kabhi nahi mitta)
-Updated: 2026-11-16 19:52 IST | kul 353 entry
+Updated: 2026-11-16 19:20 IST | kul 353 entry
 
 Niyam: IndexNow sirf badle/naye URL, din mein max 10, ek URL 14 din mein ek baar. Bulk kabhi nahi. Bing Webmaster API (v2.6.0): roz max 30 (quota ka 1/3), kram: Google-index-nahi > Bing-crawl-nahi > naya/badla > crawl-hua-par-Bing-index-nahi (30 din mein 1 baar, v3.2.0); Bing-index wale bina badle dobara NAHI; ek URL 14/30 din mein ek baar.
 

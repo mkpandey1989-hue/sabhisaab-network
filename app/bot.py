@@ -255,6 +255,16 @@ def scheduler():
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
+                try:                                   # v3.4.0: LinkedIn Page roz 1 post (Make.com) + connection yaad
+                    from . import linkedin as _LI
+                    if _LI.due(nowt):
+                        _LI.mark_try()                 # turant (thread se pehle) - dohri post kabhi nahi
+                        run(_LI.run_due)
+                    _lr = _LI.remind_due(nowt)
+                    if _lr:
+                        tg.alert("yellow", _lr)
+                except Exception as _e_li:
+                    log(f"linkedin loop: {_e_li}")
                 from . import ukwatch as _UW           # v3.3.5: UK page roz social par, bahari link + sarkari srot chowkidar
                 if _UW.share_due(nowt):
                     state.put("uk_share_day", day)
@@ -902,6 +912,7 @@ HELP = (f"📖 Sabhisaab Network v{VER}\n"
         "🩺 'website doctor' - page index kyun nahi | 🔄 'upgrade haal' - khud-sudhaar | 'cf token <t>' / 'cf account <id>' - seedha deploy\n"
         "🔎 'vm audit' - poore VM ki jaanch (sirf padhta hai) | 🛡 'chowkidar fix'\n"
         "📡 'raasta haal' - Telegram ke raaste (seedha + Cloudflare relay) | 🆘 'backup setup' - Telegram band ho tab bhi khabar (ntfy)\n"
+        "💼 v3.4.0 LinkedIn (Sab Hisaab Page): 'linkedin haal' | 'linkedin namoona' | 'linkedin abhi' | 'linkedin samay 9:15' | 'linkedin band/chalu'\n"
         "YouTube client JSON: file yahin bhej do (bot surakshit rakh kar message mita dega).")
 
 # ---------------- v2.3.0 Step 7 (v11 se): 👑 50-BUTTON PRO DECK - har button hamare asli kaam par ----------------
@@ -1055,6 +1066,13 @@ def on_text(text):
         from . import privacy
         return run(lambda: tg.say(privacy.report()))
     tl = t.lower()
+    try:                                           # v3.4.0: LinkedIn (Sab Hisaab Page, Make.com) - apne hukum
+        from . import linkedin as _LI
+        _r_li = _LI.on_text(t, tl)
+        if _r_li is not None:
+            return _r_li
+    except Exception as _e_li:
+        log(f"linkedin text: {_e_li}")
     if t in ("🩺 Website doctor", "/doctor") or tl in ("website doctor", "doctor"):
         from . import siteknow
         return run(lambda: tg.say(siteknow.doctor()))
@@ -2622,6 +2640,16 @@ def _psi_test():
 
 def secret_intake(msg, text):
     """Message mein token ho to: turant chat se mitao, VM par surakshit rakho, jaanch kar batao. Format ki chinta nahi."""
+    try:                                      # v3.4.0: Make.com webhook URL / 'linkedin key' (LinkedIn Page post)
+        from . import linkedin as _LI
+        _li = _LI.intake(text)
+    except Exception as _e:
+        _li = None
+        log(f"linkedin intake: {_e}")
+    if _li:
+        tg.delete(msg["chat"]["id"], msg["message_id"])
+        tg.say(_li)
+        return True
     cft = _re.search(r"\bcf[a-z]{2,3}_[A-Za-z0-9._\-]{20,}", text)
     if cft:                                   # v2.0.8: Cloudflare token bina 'cf token' ke bhi pakdo (Gemini tak kabhi nahi)
         tg.delete(msg["chat"]["id"], msg["message_id"])
@@ -2787,6 +2815,9 @@ def on_callback(cb):
     data = cb.get("data", "")
     tg.answer(cb["id"])
     kind, _, rest = data.partition(":")
+    if kind == "li":                               # v3.4.0: LinkedIn (dohri pushti)
+        from . import linkedin as _LI
+        return _LI.on_callback(rest, run)
     if kind == "pq":                               # v3.3.0: page queue (dohri pushti)
         from . import pagequeue as _PQ
         return _PQ.on_callback(rest, run)

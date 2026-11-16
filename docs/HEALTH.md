@@ -1,5 +1,5 @@
 # HEALTH - kaun sa channel/page chal raha hai, kaun ruka (bot roz + har galti par likhta hai)
-Updated: 2026-11-16 19:52 IST
+Updated: 2026-11-16 19:20 IST
 
 | Brand | Platform | Haal | Aakhri | Galti / kya karein |
 |---|---|---|---|---|
@@ -30,15 +30,15 @@ Updated: 2026-11-16 19:52 IST
 | Pahadi Hisaab | telegram | ✅ chal raha | 2026-11-16 18:08 |  |
 | Pahadi Hisaab | threads | ✅ chal raha | 2026-11-16 18:08 |  |
 | Pahadi Hisaab | youtube | ✅ chal raha | 2026-11-16 18:08 |  |
-| Suno Natak | answer | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | facebook | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | instagram | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | pinterest | ⏸ intezaar | 2026-11-16 19:41 | ⏸ https://sabhisaab.com/jawab par aaj 2 pin ja chuke (spam-suraksha) - kal phir (Pinterest spam niyam ke andar) |
-| Suno Natak | playlist | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | story | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | telegram | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | threads | ✅ chal raha | 2026-11-16 19:41 |  |
-| Suno Natak | youtube | ✅ chal raha | 2026-11-16 19:41 |  |
+| Suno Natak | answer | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | facebook | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | instagram | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | pinterest | ⏸ intezaar | 2026-11-16 13:36 | ⏸ https://sabhisaab.com/jawab par aaj 2 pin ja chuke (spam-suraksha) - kal phir (Pinterest spam niyam ke andar) |
+| Suno Natak | playlist | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | story | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | telegram | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | threads | ✅ chal raha | 2026-11-16 13:36 |  |
+| Suno Natak | youtube | ✅ chal raha | 2026-11-16 13:36 |  |
 
 ## Redirect jaanch (2026-11-04): 536 theek, 2 galat
 - https://sabhisaab.com/.html → https://sabhisaab.com/.html (404, 0 hop)

@@ -391,7 +391,17 @@ def _pq_loaded():
     return bool(state.get("pq_loaded"))
 
 
-AUTO = {"pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
+def _li_hook():
+    from . import linkedin as _L
+    return _L.ready()
+
+
+def _li_key():
+    from . import linkedin as _L
+    return bool(_L._cfg().get("key"))
+
+
+AUTO = {"li_hook": _li_hook, "li_key": _li_key, "pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
         "threads_ok": _threads_all_ok, "pin_oauth": _pin_oauth, "cf_acc": _cf_acc_ok, "cw_done": _cw_done,
         "meta_secret": _meta_secret_ok, "tg_pin": _tg_pinned, "gsc_all": _gsc_all_indexed, "psi": _psi_key, "cf": _cf_ok, "dm_over": _dm_over,
         "w7": _w7_live, "fb_perm": _fb_perm_fixed, "w8": _w8_live, "ga4": _ga_ok, "w9": _w9_live, "ytc": _ytc_ok, "bkpass": _bk_saved, "anall": _analytics_all, "push": _push_ok, "quizb": _quiz_ok,
@@ -1354,6 +1364,32 @@ def seed_v312():
     _dirty()
 
 
+SEED_V340 = [            # v3.4.0 (16 Nov 2026): LinkedIn Page 'Sab Hisaab' (Make.com) - owner ne laptop par sab bana diya
+    ("[Owner, 1 min] LinkedIn ko bot se jodein: phone Chrome mein make.com → Scenarios → 'Integration Webhooks, LinkedIn' → "
+     "gulabi Webhook gola → URL ke paas copy nishaan → wahi URL bot chat mein paste (bot turant mita kar VM par rakhega). "
+     "Phir bot mein 'linkedin namoona'. URL kisi photo/chat/AI ko kabhi nahi", None, "li_hook",
+     "Bot khud pakdega aur list se hatayega. Roz 09:15 par Page par 1 post (sawal + jawab link + free tool)"),
+    ("(Marzi, 3 min, suraksha) Make webhook par API key - URL kisi ke haath lage to bhi koi post na kar sake. KRAM ZAROORI: "
+     "1) pehle bot mein likhein: linkedin key SabHisaab-apna-lamba-shabd (bot mita dega) 2) phir make.com → left 'Webhooks' → "
+     "sabhisaab-linkedin → Edit → API Key authentication → Add API key → wahi shabd → Save", None, "li_key",
+     "Ulta kram (pehle Make) = post rukegi. Bot khud pakdega"),
+    ("(Marzi, 2 min) LinkedIn Page par shuru ke follower: linkedin.com/company/sabhisaab/admin → '+ Invite' / 'Invite to follow' → "
+     "apne connections chunein (LinkedIn mahine mein kuch muft invite deta hai). Premium/trial kabhi nahi", None, None,
+     "ho jaye to likhein: 'ho gaya linkedin invite'"),
+]
+
+
+def seed_v340():
+    import datetime as _d
+    day = str(_d.date.today())
+    lst = state.get("todo") or []
+    have = {o.get("x") for o in lst}
+    lst += [{"x": t, "t": day, **({"after": a} if a else {}), **({"auto": k} if k else {}), "how": h}
+            for t, a, k, h in SEED_V340 if t not in have]
+    state.put("todo", lst)
+    _dirty()
+
+
 def _mig_3310():
     """v3.3.10: purane 'GSC Request indexing dobara' kaam ko auto-jaanch do (index ho chuke page suchi se hatte hain)."""
     if state.get("mig_3310"):
@@ -1371,6 +1407,13 @@ def seed_todo():
         _mig_3310()
     except Exception:
         pass
+    if not state.get("seed_v340"):
+        state.put("seed_v340", True)
+        try:
+            seed_v340()
+        except Exception as e:
+            from .log import log as _lg
+            _lg(f"seed_v340: {e}")
     if not state.get("seed_v330"):
         state.put("seed_v330", True)
         try:

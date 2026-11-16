@@ -103,3 +103,10 @@ Sab Hisaab Handover v5.1 · page
 - Install: sabhinet-v2.0.4-update.zip (bot) + W4-site-fix-v2-29oct.zip (website; pehli W4 ki jagah - dono mein se sirf ye).
 - Naye command: bot ke message par reply + 'delete'; 'chowkidar file do'; 'report time'.
 - Saare khule kaam: bot se 'pending list do' ya GitHub docs/PENDING.md. Owner ki unsamjhi baatein: docs/QUERIES.md.
+
+# 12. v3.4.0 (16 Nov 2026, raat) — LinkedIn Page
+- Bana hua (16 Nov, laptop se): LinkedIn Page "Sab Hisaab" (linkedin.com/company/sabhisaab), Make.com account + scenario "Integration Webhooks, LinkedIn" (Active). Post par sirf Sab Hisaab ka naam.
+- Install: sabhinet-v3.4.0-update.zip bot ko → "✅ Haan, install karo".
+- Phir (phone se 1 min): make.com → Scenarios → "Integration Webhooks, LinkedIn" → gulabi Webhook gola → URL copy → bot chat mein paste (bot mita dega). Phir "linkedin namoona".
+- Roz 09:15 par bot khud 1 post karega. Hukum: "linkedin haal", "linkedin abhi", "linkedin samay 9:15", "linkedin band/chalu".
+- Mat karna: LinkedIn developer ka form submit, naya/nakli LinkedIn account, Premium trial, webhook URL kisi photo/chat mein.

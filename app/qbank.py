@@ -57,7 +57,8 @@ correct AND the only correct option among the options (unambiguous). Return ONLY
 
 def _load():
     try:
-        return json.loads(FILE.read_text(encoding="utf-8"))
+        d = json.loads(FILE.read_text(encoding="utf-8"))
+        return d if isinstance(d, dict) else {}       # v3.4.0: file kabhi list ho to bhi na tute
     except Exception:
         return {}
 
@@ -212,7 +213,14 @@ def fill_all(max_cats=6):
     for cat in order[:max_cats]:
         if len(available(cat)) >= LOW:
             continue
-        k = fill(cat)
+        try:                                          # v3.4.0: ek category ki galti baaki ko na roke
+            k = fill(cat)                             # (ESCALATE: _qb 'list' object has no attribute 'get')
+        except Exception as e:
+            import traceback
+            tb = traceback.extract_tb(e.__traceback__)[-1]
+            log(f"qbank {cat} galti: {e} @ {tb.name}:{tb.lineno}")
+            state.put("qbank_last_err", {"t": str(datetime.datetime.now())[:16], "cat": cat, "err": str(e)[:80]})
+            k = 0
         out.append(f"{cat}+{k}")
     if out:
         log("qbank: " + ", ".join(out))

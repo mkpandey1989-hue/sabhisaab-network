@@ -1660,3 +1660,42 @@ index se na hate, Drive ke 'Claudi Ai' folder ki photo (duplicate bhi hain) dekh
 - Pinterest drip: pichhle 30 din ke naye UK page pehle; pin page ki apni asli photo se (imagegen.make_photo_pin), infographic sirf
   jab photo na ho. Roz 15 / ek URL 2 ki seema waisi.
 - Audit: din-1 + 536 page ERROR 0 / WARNING 0; anchor 3,227 toota 0; dohri heading 0; E2E photo gayab 0; SMOKE 276 PASS.
+
+## v3.4.0 (16 Nov 2026 raat) - [OPUS 5.5] LinkedIn Page 'Sab Hisaab' (Make.com) + chat se nikli 4 galti
+Owner (16 Nov): "LinkedIn par bot automatic post kare, ek baar login; post par mera naam nahi, sirf page ka; jawab wala link aisa
+ki log der tak rukein; chat dekh kar bot ki dikkat bhi theek karo; pending/md update karo taaki koi bhi AI padh le".
+Jo owner ne 16 Nov ko khud bana diya (laptop, sab screenshot se pakka):
+- LinkedIn Company Page: linkedin.com/company/sabhisaab (ID 144149065) - logo, banner (1128x191), tagline, overview, Bageshwar,
+  'Visit website' button -> https://sabhisaab.com/jawab?utm_source=linkedin&utm_medium=page_button. Admin = owner ka apna account
+  (LinkedIn ek insaan ke do account nahi maanta - nakli/doosra account KABHI nahi; owner ko samjha diya).
+- LinkedIn developer app 'Sabhisaab page Poster' (ID 264267243, Page se verified) par Community Management API ki request shuru hui,
+  par FORM SUBMIT NAHI KIYA (sirf registered company ko milta hai; reject = wahi app dobara nahi). Ab zaroorat nahi - mat bharo.
+- Make.com (free, EU, owner ka Gmail): connection 'Sab Hisaab LinkedIn', scenario 'Integration Webhooks, LinkedIn' (ACTIVE,
+  max 2 run/min): Custom webhook 'sabhisaab-linkedin' (field: text) -> LinkedIn 'Create a Company Text Post' (Company: Sab Hisaab,
+  Content = text). Test post Page par 'Sab Hisaab' naam se dikhi. Do purane test scenario INACTIVE hain - chalu mat karna.
+- Image post: 'Create a Company Image Post' + link sabhisaab.com/sab-hisaab-og.png ne Post ID diya par post dikhi NAHI (Make ko image
+  44 B mili - Cloudflare ne server ko image nahi di). Isliye abhi sirf TEXT post. Image chahiye to agla kadam: bot image ko
+  multipart file ki tarah webhook par bheje + Make mein 'Upload by file' (map: file data) - pehle Make mein structure dobara seekhna.
+Bot (app/linkedin.py, naya):
+- Webhook URL owner chat mein paste kare -> secret_intake pakadta hai, message mitata hai, secrets/linkedin.json (0600). 'linkedin key
+  <k>' = Make webhook API key (header x-make-apikey). URL/key kabhi log/alert/GitHub mein nahi.
+- Roz 09:15 IST (owner ne sujhav maana) ek post: us din (3 din ke andar) ka quiz sawal + 4 vikalp + 'jawab comment karo' + sahi
+  jawab ka link /jawab#cCODE (answers.answer_url, utm_source=linkedin, brand, code) + us sawal se juda EK free tool (related_tools,
+  roz alag) = 2 page, zyada der. '#Shorts'/'#1234' tag hatte hain. Ek sawal LinkedIn par kabhi dobara nahi (li_codes). Kal wala
+  brand ho to doosra pehle. Taaza sawal na ho to ek free tool ka parichay (dohraav nahi). Jawab post mein KABHI nahi (curiosity-gap).
+- Fail: 30 min ruk kar dobara, din mein max 3; teesri baar 🔴 + step. Make ka 410/'no scenario listening' = 'scenario BAND' saaf
+  batata hai. Pause par nahi. Dohri post nahi (mark_try thread se pehle).
+- Make ka LinkedIn connection ~60 din: 50 aur 57 din par 🟡 yaad (Credentials -> Reauthorize); 'ho gaya linkedin reconnect' se ginti dobara.
+- Hukum: 'linkedin haal' | 'linkedin namoona' (kahin post nahi) | 'linkedin abhi' (✅✅) | 'linkedin samay 9:15' (✅✅) |
+  'linkedin band/chalu' (✅✅). Pending SEED_V340: webhook paste (auto li_hook), marzi API key (auto li_key, KRAM: pehle bot phir
+  Make), marzi follower invite.
+Chat/ESCALATE se nikli galtiyan (sirf yahi badla - video, thumbnail, website, schedule kuch nahi chheda):
+- tg._http: files mein ("naam", bytes, type) tuple par .seek() -> 'tuple' object has no attribute 'seek'. 16 Nov 18:45 UK page ka
+  Telegram share isi se ruka. Ab tuple bhi chalta hai.
+- 'Telegram ka raasta badla' sandesh 16 Nov ko ek ghante mein 6-8 baar: ab 'wapas' wala kabhi nahi, 'band mila' 6 ghante mein max 1.
+- AdSense: sirf pub-ID (site verify) par 'privacy par koi vigyapan nahi line' ka galat 🟡 alert - ab tabhi jab homepage par asli ad
+  code (adsbygoogle) ho. PRIVACY_PATCH Section 4 approval ke DIN hi.
+- qbank.fill_all: ek category ki galti ('list' object has no attribute 'get') baaki category nahi rokti; galti ki jagah log mein.
+- Smoke: 324 (LinkedIn 18 nayi jaanch; asli state.json kabhi nahi chhuti - nakli state).
+Agla (owner pakka kare tab): LinkedIn image post (upar), hafte mein ek 'top 5 sawal' carousel/document post, LinkedIn analytics
+(Make 'Get the Page Statistics' -> webhook response) - bina owner ki pushti nahi.

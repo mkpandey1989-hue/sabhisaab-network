@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -328,5 +328,80 @@ for _lay in _DSV.LAYOUTS:
     with _tf.TemporaryDirectory() as _d:
         _DSV.body_frame(_scx, 1, 3, str(_pl.Path(_d, "x.png")))
     check(bool(_DSV.TIMERS.get(1)), f"video: '{_lay}' look par bhi ghatti ghadi/patti")
+
+# ---------------- v3.4.0: LinkedIn (Make webhook) - bina network ----------------
+from app import linkedin as _LIV, tg as _TGV  # noqa: E402
+import json as _jsv  # noqa: E402
+_li_store = _LIV.STORE
+with _tf.TemporaryDirectory() as _d:
+    _LIV.STORE = _pl.Path(_d, "li.json")
+    class _FakeState:                             # asli VM state.json ko kabhi na chhuo (test bot chalte hue chalta hai)
+        def __init__(s): s.d = {}
+        def get(s, k, default=None): return s.d.get(k, default)
+        def put(s, k, v): s.d[k] = v
+        def update(s, k, fn, default=None):
+            s.d[k] = fn(s.d.get(k, default)); return s.d[k]
+    _sv_state = _LIV.state
+    state = _LIV.state = _FakeState()
+    try:
+        check(_LIV.intake("hello") is None and not _LIV.ready(), "LinkedIn: bina URL juda nahi")
+        _hk = "https://hook.eu1.make.com/" + "ab12" * 8
+        _r = _LIV.intake("ye lo " + _hk)
+        check(_r and "mitaya" in _r and _hk not in _r and _LIV.ready(), "LinkedIn: webhook URL surakshit, jawab mein URL nahi")
+        check(oct(_LIV.STORE.stat().st_mode)[-3:] == "600", "LinkedIn: secret file 0600")
+        _r2 = _LIV.intake("linkedin key Abc123xyz789")
+        check(_r2 and "Abc123xyz789" not in _r2 and _jsv.loads(_LIV.STORE.read_text()).get("key") == "Abc123xyz789", "LinkedIn: API key surakshit")
+        _today = _dt.date.today()
+        state.put("answer_key", [
+            {"code": 4001, "aid": "4001", "brand": "money", "bname": "Sab Hisaab Money", "date": str(_today), "q": "100 ka 10% kitna? #Shorts #4001",
+             "opts": ["5", "10", "15", "20"], "ans": "10", "kind": ""},
+            {"code": 4002, "aid": "4002", "brand": "pahadi", "bname": "Pahadi Hisaab", "date": str(_today), "q": "Nali kitni hoti hai?",
+             "opts": ["A", "B", "C", "D"], "ans": "A", "kind": "purane_shabd"},
+            {"code": 3000, "aid": "3000", "brand": "deals", "bname": "Labh Lo Deals", "date": str(_today - _dt.timedelta(days=9)), "q": "Purana?"}])
+        state.put("li_codes", [])
+        state.put("li_last_brand", "pahadi")
+        _e = _LIV.pick(_today)
+        check(_e and _e["code"] == 4001, "LinkedIn: kal wala brand chhod kar doosra (aur purana 9 din wala nahi)")
+        _sv_live = A.live
+        A.live = lambda: True                     # /jawab live maano (bina network)
+        _txt = _LIV.build(_e)
+        A.live = _sv_live
+        check("10" in _txt and "SECRET" not in _txt and "#Shorts" not in _txt and "#4001" not in _txt, "LinkedIn: post mein vikalp, #Shorts/#code tag nahi")
+        check("utm_source=linkedin" in _txt and "#c4001" in _txt and "ANS" not in _txt, "LinkedIn: jawab ka link (UTM + #code), jawab khud nahi")
+        check(len(_txt) <= 2900 and "sabhisaab.com/" in _txt.split("मुफ़्त टूल")[-1], "LinkedIn: free tool ka link (zyada der ruke)")
+        state.put("li_codes", ["4001", "4002"])
+        check(_LIV.pick(_today) is None, "LinkedIn: ek sawal kabhi dobara nahi")
+        _before = state.get("li_tools")
+        _ft, _sl = _LIV.fallback_text()
+        check(bool(_ft) and bool(_sl) and state.get("li_tools") == _before, "LinkedIn: taaza sawal na ho to free tool; namoona se state nahi badalta")
+        state.put("li_on", True); state.put("paused", False); state.put("li_done_day", ""); state.put("li_try", {})
+        _t0 = _LIV.datetime.datetime(2026, 11, 16, 9, 0, tzinfo=_LIV.IST)
+        _t1 = _LIV.datetime.datetime(2026, 11, 16, 9, 20, tzinfo=_LIV.IST)
+        check(not _LIV.due(_t0) and _LIV.due(_t1), "LinkedIn: 09:15 se pehle nahi, baad mein haan")
+        _LIV.mark_try()
+        check(not _LIV.due(_LIV.datetime.datetime.now(_LIV.IST).replace(hour=23)), "LinkedIn: koshish ke 30 min tak dobara nahi (dohri post nahi)")
+        state.put("paused", True); state.put("li_try", {})
+        check(not _LIV.due(_t1), "LinkedIn: Pause par nahi")
+        # bhejna: Make ka jawab (bina network - requests.post nakli)
+        import requests as _rqv
+        _sv_post = _rqv.post
+        _seen = {}
+        class _R:  # noqa: E701
+            def __init__(s, c, t): s.status_code, s.text = c, t
+        _rqv.post = lambda u, data=None, headers=None, timeout=None: (_seen.update(h=headers, d=data), _R(200, "Accepted"))[1]
+        _ok, _why = _LIV.send("namaste")
+        check(_ok and _seen["h"].get("x-make-apikey") == "Abc123xyz789" and _jsv.loads(_seen["d"])["text"] == "namaste", "LinkedIn: Make ko text + API key header")
+        _rqv.post = lambda *a, **k: _R(410, "There is no scenario listening for this webhook.")
+        _ok, _why = _LIV.send("x")
+        check(not _ok and "BAND" in _why and "make.com/" not in _why, "LinkedIn: scenario band ho to saaf wajah (URL nahi)")
+        _rqv.post = _sv_post
+    finally:
+        _LIV.state = _sv_state
+        _LIV.STORE = _li_store
+from app import state  # noqa: E402,F811
+# v3.4.0: Telegram file tuple par seek nahi (Uttarakhand share 'tuple' object has no attribute 'seek')
+check("hasattr(fo, \"seek\")" in _insp.getsource(_TGV._http), "Telegram: (naam, bytes, type) tuple file bhi chalti hai")
+from app import watchdog as _WDV  # noqa: E402
+check('"adsbygoogle" in home and re.search(r"koi vigyapan nahi"' in _insp.getsource(_WDV), "AdSense: sirf pub-ID par 'koi vigyapan nahi' galat alert nahi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

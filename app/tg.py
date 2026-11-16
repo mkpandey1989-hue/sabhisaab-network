@@ -50,6 +50,14 @@ def route_change():
     """Raasta badla ho to EK baar batane wala sandesh (scheduler bhejta hai)."""
     ch = _R["changed"]
     _R["changed"] = None
+    # v3.4.0: owner ko shor nahi - 'wapas' wala sandesh kabhi nahi, 'band mila' 6 ghante mein max 1 baar.
+    # (16 Nov ko ek ghante mein 6-8 baar aaya tha.) Ginti /raasta haal mein milti hai.
+    if not ch:
+        return None
+    _R["flips"] = _R.get("flips", 0) + 1
+    if "wapas" in ch or time.time() - _R.get("told", 0) < 6 * 3600:
+        return None
+    _R["told"] = time.time()
     return ch
 
 
@@ -85,8 +93,10 @@ def _http(kind, path, timeout, files=None, **kw):
     for b in bases:
         try:
             if files:
-                for f in files.values():
-                    f.seek(0)
+                for f in files.values():          # v3.4.0: tuple ("naam", bytes, type) bhi chalta hai
+                    fo = f[1] if isinstance(f, tuple) and len(f) > 1 else f
+                    if hasattr(fo, "seek"):
+                        fo.seek(0)
             r = requests.request(kind, b + path, timeout=(8, timeout), files=files, **kw)
             relayed = b not in (DIRECT, BASE)
             if relayed and r.status_code in (400, 404, 500, 502, 503, 504, 520, 522, 524, 530) and \

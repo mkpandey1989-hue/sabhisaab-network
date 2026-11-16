@@ -105,7 +105,9 @@ def net_checks():
     if "adsbygoogle" in home and not pub:
         out.append({"key": "ads_before_approval", "title": "Homepage par AdSense code hai par ads.txt/approval nahi",
                     "steps": ["Developer se ad code abhi hatwayein (approval se pehle nahi)", "Ya AdSense approve ho gaya ho to bot mein 'adsense id pub-...' likhein"]})
-    if pub and re.search(r"koi vigyapan nahi", priv, re.I):
+    # v3.4.0: sirf pub-ID (site verify) se ad nahi dikhte - "koi vigyapan nahi" tab tak SACH hai jab tak
+    # homepage par asli ad code (adsbygoogle) na lage. 16 Nov ko verify ke din hi galat alert aaya tha.
+    if pub and "adsbygoogle" in home and re.search(r"koi vigyapan nahi", priv, re.I):
         out.append({"key": "privacy_no_ads_line", "title": "AdSense chalu hai par privacy page par 'koi vigyapan nahi' line hai",
                     "steps": ["docs/PRIVACY_PATCH.md ka 'Section 4' text developer ko dein", "Privacy page ki 'Aakhri update' tareekh badlwayein"]})
     if re.search(r"(?i:instagram)[^.\n]{0,200}\bLINK\b|\bLINK\b[^.\n]{0,200}(?i:instagram)", priv):
