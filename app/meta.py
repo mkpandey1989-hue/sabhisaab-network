@@ -424,8 +424,8 @@ def ig_safe_text(text, add_line=True):
     for line in text.splitlines():
         # v3.4.1 (owner 16 Nov raat): "Instagram par link click nahi hota par jawab wala pata likh do - 1 log bhi aaye to fayda".
         # Sirf ye ek SAADA pata (bina https/UTM, click nahi hota) bachta hai; baaki har link/UTM pehle jaisa hatta hai.
-        if (__import__("re").search(r"(?<![\w/.])sabhisaab\.com/jawab(?=[\s,)।]|$)", line) and "utm" not in line.lower()
-                and not _URL_RX.search(line.replace(_IG_KEEP, ""))):
+        if (__import__("re").search(r"(?<![\w/.])(?:https://)?sabhisaab\.com/jawab(?=[\s,)।]|$)", line) and "utm" not in line.lower()
+                and not _URL_RX.search(line.replace("https://" + _IG_KEEP, "").replace(_IG_KEEP, ""))):   # v3.4.4: pura https bhi
             out.append(line)
             continue
         if _URL_RX.search(line):

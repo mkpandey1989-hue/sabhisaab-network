@@ -252,27 +252,53 @@ def finalize(jid):
             f"({rec['layout'].replace('L_', '')}, {rec['palette']}). Agli roz wali video se laagu. Namoona mita diya.")
 
 
+FREE_TIMES = ("11:00", "15:00", "17:15", "22:45")     # kisi brand ka roz ka slot nahi (config.SCHEDULE) - schedule wali video na bigde
+
+
+def free_slot(now=None):
+    """v3.4.4: namoona ke liye agla KHAALI samay (roz ki schedule video ke samay ko chhod kar) - aaj, warna kal."""
+    from . import pipeline
+    from .config import SCHEDULE
+    now = now or pipeline.now()
+    busy = {t.strip() for v in SCHEDULE.values() for t in str(v).split(",")}
+    for add in (0, 1):
+        d = (now + datetime.timedelta(days=add)).date()
+        for t in FREE_TIMES:
+            if t in busy:
+                continue
+            dt = datetime.datetime.combine(d, datetime.time(int(t[:2]), int(t[3:])), tzinfo=now.tzinfo)
+            if dt >= now + datetime.timedelta(minutes=40):
+                return dt
+    return now + datetime.timedelta(hours=2)
+
+
 def promote_ask(jid):
-    """v3.3.10: 'Isi ko daalo' par dohri pushti - galti se dabne par namoona asli upload line mein na jaye."""
-    tg.say(f"⚠️ Pakka? Ye NAMOONA ({jid}) asli video ban kar upload line mein jayega (Thumb chunne par channel par chali jayegi).",
-           tg.inline([[("✅ Haan, isi ko daalo", f"sm:P:{jid}"), ("❌ Nahi", f"sm:z:{jid}")]]))
+    """v3.4.4 (owner 16 Nov raat): namoona sirf Telegram par rehta hai. 'Isi ko daalo' par 3 raaste - Schedule / Abhi / Delete.
+    Jawab na diya to KUCH NAHI hota (na upload, na schedule). Roz ki schedule video ko chheda nahi jaata."""
+    t = free_slot()
+    tg.say(f"🧪 Namoona {jid} - kya karna hai? (Jawab nahi diya to kuch nahi hoga - ye sirf Telegram par rahega)",
+           tg.inline([[(f"📅 Schedule ({t:%d %b %H:%M}, khaali samay)", f"sm:S:{jid}")],
+                      [("🚀 Abhi daalo", f"sm:N:{jid}"), ("🗑 Delete", f"sm:d:{jid}")]]))
     return ""
 
 
-def promote(jid):
-    """Namoona -> normal manzoori line (aapke button ke bina upload nahi)."""
+def promote(jid, when="ask"):
+    """Namoona -> upload. when: 'slot' (agla khaali samay) | 'now' (abhi). 'ask' = purana button -> 3 raaste poochho."""
     from . import pipeline
+    if when == "ask":
+        return promote_ask(jid)
     j = pipeline.jobs().get(jid)
     if not j or j.get("status") != "sample":
-        return "Ye namoona ab nahi hai."
+        return tg.say("Ye namoona ab nahi hai (pehle hi daala/mitaya ja chuka).")
+    t = free_slot() if when == "slot" else pipeline.now()
     j["status"] = "waiting"
-    j["reason"] = "aapne maanga (namoona se)"
+    j["reason"] = "aapne maanga (namoona se)"          # auto-approve kabhi nahi (pipeline.auto_ok sirf roz ki video)
     j["from_sample"] = True
-    j["slot"] = (pipeline.now() + datetime.timedelta(minutes=30)).isoformat()
+    j["slot"] = t.isoformat()
     pipeline.save_job(jid, j)
-    tg.say(f"📤 {jid} ab manzoori line mein. Thumb chunein (ya 🚀 Abhi daalo). Aapke button ke bina kahin nahi jayegi.",
-           pipeline.job_buttons(jid))
-    return ""
+    r = pipeline.approve(jid, int(j.get("liked") or 1), now_flag=(when == "now"))
+    return tg.say(("🚀 " if when == "now" else "📅 ") + f"Namoona {jid}: " + r +
+                  "\n(Roz ki schedule video waisi hi. Rokna ho to us video ke '❌ Mat daalo' se - YouTube copy bhi hat jayegi.)")
 
 
 def cleanup(days=1):

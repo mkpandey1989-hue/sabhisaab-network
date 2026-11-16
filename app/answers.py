@@ -253,7 +253,7 @@ def desc_line(meta, platform):
     if platform == "instagram":
         # v3.3.10 (owner 16 Nov): Instagram par '@sabhisaab' = kisi AJNABI ka Instagram profile (hamara Telegram nahi) -
         # Instagram caption mein kabhi '@' se Telegram nahi. Telegram ka link bio mein (owner ne lagaya).
-        return (f"✅ सही जवाब (कोड #{code}): sabhisaab.com/jawab पर कोड {code} डालें (लिंक बायो में भी)" if live()
+        return (f"✅ सही जवाब (कोड #{code}): https://sabhisaab.com/jawab पर कोड {code} डालें (लिंक बायो में भी)" if live()
                 else f"✅ सही जवाब (कोड #{code}): बायो में टेलीग्राम लिंक पर")
     if not live():
         return f"✅ सही जवाब (कोड #{code}): {TG_LINK}"
@@ -613,6 +613,21 @@ def jawab_table(lst, old):
 
 
 
+def _stories_block(DIR):
+    """v3.4.4 (owner: 'story wala page index nahi hua'): Web Stories kisi page se jude hi nahi the (sirf sitemap) - Google
+    akele (orphan) page der se/kam index karta hai. /jawab se seedha link (sabse naye 8)."""
+    try:
+        sd = DIR / "site" / "stories"
+        items = []
+        for f in sorted(sd.glob("*.html"), key=lambda x: x.stat().st_mtime, reverse=True)[:8]:
+            m = re.search(r"<title>([^<|]+)", f.read_text(encoding="utf-8", errors="ignore"))
+            if m:
+                items.append(f'<a href="/stories/{f.stem}">{_esc(m.group(1).strip())}</a>')
+        return ("<h2>Web Stories - tap karke dekhein</h2><p>" + " · ".join(items) + "</p>") if items else ""
+    except Exception:
+        return ""
+
+
 def build_page():
     """site/about.html ke template se /jawab - title<=60, description 95-165, ek H1, canonical, og:url (site audit niyam)."""
     from .website import DIR
@@ -717,7 +732,7 @@ def build_page():
             '<b>code</b> dikhta hai, wahi code yahan dhoondhein. Har jawab pehle ganit, tark ya pakke srot se jaancha jaata hai. '
             f'Roz naye sawal ke liye Telegram se judein: <a href="{TG_LINK}" rel="noopener">{TG_LINK}</a>.</p>'
             + table + nav + ("".join(blocks) or "<p>Aaj ke jawab jaldi aa rahe hain.</p>") + guide +
-            chan + '<h2>Sab Hisaab ke kaam ke free tools</h2><p>Paise ka hisaab: <a href="/sip-calculator">SIP</a> · <a href="/emi-calculator">EMI</a> · '
+            chan + _stories_block(DIR) + '<h2>Sab Hisaab ke kaam ke free tools</h2><p>Paise ka hisaab: <a href="/sip-calculator">SIP</a> · <a href="/emi-calculator">EMI</a> · '
             '<a href="/discount-calculator">Discount</a> · <a href="/percentage-calculator">Percentage</a>. Roz ke kaam: <a href="/age-calculator">Umar</a> · '
             '<a href="/date-difference-calculator">Do tareekh ka farak</a>. Uttarakhand: <a href="/nali-mutthi-converter">Nali-Mutthi</a>. '
             'Saari categories: <a href="/nivesh-calculators">Nivesh</a> · <a href="/loan-tax-calculators">Loan &amp; Tax</a> · '

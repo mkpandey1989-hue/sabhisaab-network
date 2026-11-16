@@ -1754,3 +1754,20 @@ Niyam (aage ke AI): LinkedIn par '✅ post gayi' SIRF post-ID ke saath. Make sce
   reel_codes ke poore sawal se bharo (tathya wahi). LinkedIn.pick: 14 akshar se chhota / ':' par khatam sawal kabhi nahi.
 - 16 Nov 21:38 wali LinkedIn post (#5180) adhuri hai - owner chahe to Page par '...' -> Delete (bot use dobara nahi bhejega).
 - Smoke 335.
+
+## v3.4.4 (16 Nov 2026 raat) - [OPUS 5.5] Namoona: Schedule/Abhi/Delete, table report, Web Story links, IG pura pata
+Owner (16 Nov 22:19): "namoona sirf Telegram par rahe - approve par poochhe schedule/abhi/delete, jawab nahi to kuch na kare,
+schedule video na bigde; story wala page index nahi; dusre ke FB group ka roz post; brand x platform table report; IG par pura
+link likho; GSC wale index ho chuke URL baar-baar".
+- Namoona (studio.promote_ask): '📤 Isi ko daalo' -> 3 button: 📅 Schedule (agla KHAALI samay 11:00/15:00/17:15/22:45 - roz ki
+  schedule ke samay kabhi nahi) | 🚀 Abhi daalo | 🗑 Delete. Jawab nahi = kuch nahi (namoona Telegram par hi). Reason
+  'namoona se' par auto-approve pehle se band (pipeline auto_ok sirf roz ki video). Purana 'sm:P' button bhi ab 3 raaste dikhata.
+- app/scoreboard.py: 'report table' (7 din) / 'report table aaj' / 'report table 30' + roz 21:50 (aaj). Brand x (YT, FB, IG,
+  Threads) views + 'Site' (GA4 utm_campaign=brand) + KUL; like/comment, website kul, Pinterest line. API na de to '-' (andaaza nahi).
+- Web Stories orphan the (sirf sitemap, kisi page se link nahi) -> /jawab par 'Web Stories' khand (naye 8). Audit 0/0.
+- Share kit: dusre ke FB group ke liye alag quiz-post (sawal + vikalp + 'jawab comment mein' + link, UTM facebook_group) +
+  Facebook niyam (din mein 2-3 group, ek text sab jagah ek saath nahi, group rules). Koi nakli % nahi.
+- Instagram jawab line: pura 'https://sabhisaab.com/jawab' (click nahi hota, bas pura dikhe). UTM wala link pehle jaisa hatta.
+- GSC 'index ho chuke URL phir diye': wajah v3.3.10 wali (ZIP-fail par state/daily.json 13 Nov par palat jaata tha) - 16 Nov
+  15:58 se theek; data aaj ka na ho to bot chetavni deta hai. daily.py ka kram (kabhi-nahi-jaanche > pending > baaki) sahi.
+- Smoke 340 PASS.

@@ -255,6 +255,13 @@ def scheduler():
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
+                try:                                   # v3.4.4: roz 21:50 brand x platform table
+                    from . import scoreboard as _SB
+                    if _SB.due(nowt):
+                        state.put("sb_day", day)
+                        run(lambda: _SB.send(1))
+                except Exception as _e_sb:
+                    log(f"scoreboard loop: {_e_sb}")
                 try:                                   # v3.4.1: roz 19:15 share kit (WhatsApp status / FB group / Quora - copy-paste)
                     from . import sharekit as _SK
                     if _SK.due(nowt):
@@ -1616,6 +1623,13 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.4
+        from . import scoreboard as _SBT
+        _r_sb = _SBT.on_text(tl, run)
+        if _r_sb is not None:
+            return _r_sb
+    except Exception as _e_sbt:
+        log(f"scoreboard text: {_e_sbt}")
     try:                                                                              # v3.4.1
         from . import sharekit as _SK
         _r_sk = _SK.on_text(tl)
@@ -3444,8 +3458,12 @@ def on_callback(cb):
             return tg.say(studio.finalize(jid))
         if op == "p":
             return studio.promote_ask(jid)
-        if op == "P":
-            return studio.promote(jid)
+        if op == "P":                                # purana button (pehle ke sandesh) -> ab 3 raaste
+            return studio.promote_ask(jid)
+        if op == "S":
+            return studio.promote(jid, "slot")
+        if op == "N":
+            return studio.promote(jid, "now")
         return tg.say("👍 Theek hai, kuch pakka nahi kiya.")
     if kind == "mk":
         return run(pipeline.prepare, rest, None, "aapne maanga")

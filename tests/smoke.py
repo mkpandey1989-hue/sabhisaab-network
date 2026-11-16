@@ -419,8 +419,8 @@ from app import watchdog as _WDV  # noqa: E402
 check('"adsbygoogle" in home and re.search(r"koi vigyapan nahi"' in _insp.getsource(_WDV), "AdSense: sirf pub-ID par 'koi vigyapan nahi' galat alert nahi")
 # v3.4.1: IG par saada jawab-pata, tracking/owner-mode sudhaar, share kit, Pinterest 3 slot
 from app import meta as _MT41, trackfix as _TF41, sharekit as _SK41, toolpin as _TP41  # noqa: E402
-_ig = _MT41.ig_safe_text("✅ सही जवाब (कोड #5): sabhisaab.com/jawab पर कोड 5 डालें\nx https://sabhisaab.com/jawab?utm_source=y\nz")
-check("sabhisaab.com/jawab पर" in _ig and "utm" not in _ig and "https" not in _ig, "Instagram: sirf saada 'sabhisaab.com/jawab' bachta, UTM/https nahi")
+_ig = _MT41.ig_safe_text("✅ सही जवाब (कोड #5): https://sabhisaab.com/jawab पर कोड 5 डालें\nx https://sabhisaab.com/jawab?utm_source=y\nz")
+check("https://sabhisaab.com/jawab पर" in _ig and "utm" not in _ig and "\nx " not in _ig, "Instagram: pura 'https://sabhisaab.com/jawab' bachta, UTM wala nahi")
 _pg = ("<script>\nwindow.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}\n" + _TF41.O_OLD +
        "document.addEventListener('DOMContentLoaded',function(){});}}catch(e){}\n" + _TF41.C_OLD + "\n" + _TF41.U_OLD + "\n</script>")
 _p0, _c0 = _TF41.patch_html(_pg, consent=False)
@@ -445,5 +445,18 @@ try:
 finally:
     state.put("answer_key", _sv_ak)
     state.put("reel_codes", _sv_rc)
+# v3.4.4: namoona 3 raaste (bina jawab kuch nahi), scoreboard table, web stories /jawab se jude, FB dusre group ka text
+from app import studio as _ST44, scoreboard as _SB44, answers as _AN44  # noqa: E402
+import datetime as _dt44  # noqa: E402
+_n44 = _dt44.datetime(2026, 11, 16, 9, 0, tzinfo=_dt44.timezone(_dt44.timedelta(hours=5, minutes=30)))
+_fs = _ST44.free_slot(_n44)
+from app.config import SCHEDULE as _SCH44  # noqa: E402
+check(_fs.strftime("%H:%M") not in {t.strip() for v in _SCH44.values() for t in v.split(",")},
+      "Namoona schedule: roz ki video ke samay se alag khaali samay")
+check('"sm:S:' in _insp.getsource(_ST44.promote_ask) and '"sm:N:' in _insp.getsource(_ST44.promote_ask)
+      and '"sm:d:' in _insp.getsource(_ST44.promote_ask), "Namoona: Schedule / Abhi / Delete - teen raaste")
+check(_SB44._n(None) == "-" and _SB44._n(12500) == "12.5k" and _SB44._n(42) == "42", "Scoreboard: '-' = data nahi (andaaza nahi)")
+check("_stories_block(DIR)" in _insp.getsource(_AN44.build_page), "/jawab se Web Stories ka link (akele page nahi)")
+check("%" not in _insp.getsource(_SK41.quiz_group_text), "FB group text mein koi nakli % nahi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

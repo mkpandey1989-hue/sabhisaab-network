@@ -91,6 +91,21 @@ def group_text(today=None):
     return f"🏔️ {title}\n\n{desc}\n\n👉 पूरी जानकारी (फ्री, हिंदी में):\n{_u('/' + s, 'facebook', 'fb_group')}", s
 
 
+def quiz_group_text():
+    """Dusre ke group ke liye: aaj ka ek sawal (WhatsApp wale se alag) + 4 vikalp + 'aapka jawab?' + jawab link (fb_group UTM).
+    Sawal poochne wali post group mein sabse zyada chalti hai (log comment karte hain) - seedha link-dump nahi."""
+    from .answers import answer_url
+    lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
+    if len(lst) < 1:
+        return None
+    e = lst[1] if len(lst) > 1 else lst[0]          # WhatsApp status wale se alag sawal
+    q = re.sub(r"\s*#\S+", "", _txt(e.get("q")))
+    ops = "\n".join(f"{'ABCD'[i]}) {_txt(o)}" for i, o in enumerate((e.get("opts") or [])[:4]))
+    link = answer_url(e.get("aid") or e.get("code"), "facebook_group", e.get("brand"))
+    return (f"🧠 दिमाग लगाइए - पहली बार में सही बता पाएँगे?\n\n{q}\n\n{ops}\n\n"
+            f"✍️ अपना जवाब कमेंट में लिखिए। सही जवाब और आसान तरीका यहाँ:\n{link}")
+
+
 # ---------------------------------------------------------------- 3) Quora
 def quora_text():
     site = _site()
@@ -146,6 +161,15 @@ def run(manual=False):
             state.update("sk_group_used", lambda d: {**(d or {}), gs: day}, {})
     except Exception as e:
         log(f"sharekit fb: {e}")
+    try:                                                # v3.4.4: dusre ke group (aap admin nahi) - quiz wala text
+        gq = quiz_group_text()
+        if gq:
+            parts.append(("👥 DUSRE KE FACEBOOK GROUP (GK / exam / pahadi groups - aap member ho, admin nahi). Facebook niyam: "
+                          "din mein 2-3 group se zyada nahi, ek hi text ek saath sab group mein nahi, group ke 'Rules' padhein; "
+                          "jahan link mana ho wahan link hata kar 'jawab comment mein' likhein. Admin manzoori maange to "
+                          "intezaar karein - baar-baar post = spam.", gq))
+    except Exception as e:
+        log(f"sharekit fbq: {e}")
     try:
         q, qs = quora_text()
         if q:
