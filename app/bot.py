@@ -506,7 +506,11 @@ def scheduler():
             if nowt.weekday() == 6 and nowt.strftime("%H:%M") >= "21:00" and state.get("week_day") != str(nowt.date()):
                 state.put("week_day", str(nowt.date()))
                 from . import growth
-                run(lambda: tg.alert("green", growth.weekly_report()))
+                def _wk():
+                    tg.alert("green", growth.weekly_report())
+                    from . import scoreboard as _SBW            # v3.4.6: hafte ke hisaab ke saath poori 7 din table
+                    _SBW.send(7)
+                run(_wk)
             if state.get("bk_pass_saved") is False and nowt.strftime("%H:%M") >= "10:05" and state.get("bkpass_remind_day") != day:
                 state.put("bkpass_remind_day", day)       # v2.7.1: naya backup password save hone tak roz ek yaad
                 tg.say("🔐 Yaad: naya backup password abhi 'save' mark nahi hua. 'backup password' likh kar dekhein, kahin likh lein, "
@@ -854,6 +858,8 @@ def today_text():
     lines.append("🎨 Seekh:\n" + learn.report())
     if state.get("paused"):
         lines.append("⏸ Bot ROKA hua hai (▶️ Resume dabayein)")
+    lines.append("📊 Saare platform (YouTube/FB/IG/Threads/Google/Bing/Pinterest/LinkedIn/website) ki ek table: "
+                 "'report table aaj' ya 'report table 7 din' (roz 21:50 apne aap)")
     return "\n".join(lines)
 
 
@@ -917,9 +923,54 @@ def health_text():
                  + (" | LIVE public" if ps["live"] else " | public ke liye Standard manzoori baaki"))
     if M.has_token() and M._cfg().get("secret_bad"):
         lines.append("🔴 Meta App Secret galat/purana - App settings > Basic se abhi wala secret bhejein")
+    try:                                           # v3.4.6 (owner: 'LinkedIn/Bing/GSC kisi ka kuch nahi') - baaki sab bhi
+        lines += health_more()
+    except Exception as _e_hm:
+        lines.append(f"⚠️ Website/indexing hissa padh nahi paya: {str(_e_hm)[:80]}")
     lines.append(f"{'⏸ ROKA hua' if state.get('paused') else '▶️ Chal raha'} | Auto-upload: {'ON' if pipeline.auto_on() else 'OFF'}")
     lines.append(f"📋 Kaam line mein: {WORK.qsize()} | abhi chal raha: {state.get('working_on') or 'kuch nahi'}")
     return "\n".join(lines)
+
+
+def health_more():
+    """v3.4.6: 'Sab theek?' mein LinkedIn, Website, Google (GSC/GA4), Bing, IndexNow, GitHub, AdSense, Telegram channel,
+    auto-doctor - sab ek jagah. Sirf VM ki jaankari (turant), network nahi."""
+    import json as _j
+    from . import website as W, linkedin as LI
+    today = str(datetime.date.today())
+    L = []
+    L.append(f"{'✅' if LI.ready() else '🔑'} LinkedIn: " + (("roz post " + ("CHALU" if LI.on() else "BAND")
+             + f" | aaj {'✅ gayi' if state.get('li_done_day') == today else 'abhi nahi'}"
+             + (f" | galti: {str(state.get('li_last_err'))[:60]}" if state.get("li_fail") else "")) if LI.ready()
+             else "Make webhook URL baaki (Mere kaam dekhein)"))
+    cf = all(W._cf())
+    L.append(f"{'✅' if cf else '🔑'} Website deploy (Cloudflare): " + ("VM se seedha" if cf else "token baaki - GitHub se chalega")
+             + (" | ⚠️ GitHub copy baaki" if state.get("gh_pending") else " | GitHub copy ✅"))
+    L.append(f"{'✅' if state.get('jawab_live') else '⚠️'} /jawab page " + ("live" if state.get("jawab_live") else "live nahi dikha")
+             + (" | naya jawab chadhna baaki" if state.get("answer_dirty") else ""))
+    try:
+        dd = _j.loads((W.DIR / "state" / "daily.json").read_text()).get("day")
+    except Exception:
+        dd = None
+    fresh = bool(dd) and dd >= str(datetime.date.today() - datetime.timedelta(days=1))
+    L.append(f"{'✅' if W.SA.exists() else '🔑'} Google (GSC + GA4): " + ("service account ✅" if W.SA.exists() else "file baaki")
+             + f" | index jaanch: {dd or 'kabhi nahi'}" + ("" if fresh else " ⚠️ purani (auto-doctor dobara chalata hai)"))
+    bk = bool(W._env().get("BING_API_KEY"))
+    bf = state.get("bing_feed") or {}
+    L.append(f"{'✅' if bk else '🔑'} Bing: " + ("API key ✅" if bk else "API key baaki")
+             + (f" | sitemap live {bf.get('live_n', '?')} / Bing {bf.get('bing_n', '?')}" if bf else "")
+             + f" | aaj URL bheje: {'haan' if state.get('bing_api_day') == today else 'abhi nahi (06:40)'}")
+    L.append(f"✅ IndexNow: kul {len(state.get('indexnow_sent') or {})} URL bheje (key site par public)")
+    pub = state.get("adsense_pub")
+    L.append(f"{'✅' if pub else '🔑'} AdSense: " + (f"{pub} juda | review Google ke paas (approval mail ka intezaar)" if pub
+                                                    else "pub ID baaki"))
+    tf = state.get("trackfix_consent")
+    L.append(f"{'✅' if tf else '🔑'} Tracking fix ((not set) ilaaj): " + ("laga" if tf else "baaki - 'tracking fix' likhein")
+             + f" | owner-mode: {'✅' if state.get('trackfix_owner') else 'lag raha'}")
+    ad = state.get("ad_last") or {}
+    L.append("🩺 Auto-doctor: " + (f"aakhri {datetime.datetime.fromtimestamp(ad['at']).strftime('%d %b %H:%M')} | khud theek "
+                                   f"{ad.get('fixed', 0)} | aapka kaam {ad.get('need', 0)}" if ad.get("at") else "abhi chala nahi (roz 05:40)"))
+    return L
 
 
 def security_text():
@@ -1334,11 +1385,13 @@ def on_text(text):
         state.put("news_day", "")
         return run(growth.news_digest)
     if t in ("👀 Views", "/views"):
-        from . import growth
-        return tg.say(growth.views_report())
+        from . import growth, scoreboard as _SBV
+        tg.say(growth.views_report())
+        return run(lambda: _SBV.send(7))           # v3.4.6: sirf YouTube nahi - saare platform ki table
     if t in ("📒 Hafte ka hisaab", "/report"):
-        from . import growth
-        return tg.say(growth.weekly_report())
+        from . import growth, scoreboard as _SBH
+        tg.say(growth.weekly_report())
+        return run(lambda: _SBH.send(7))           # v3.4.6: saath mein saare platform ki table
     if t in ("📓 Diary", "/diary"):
         from . import diary
         return tg.say(diary.text_view())
@@ -2034,8 +2087,10 @@ def on_text(text):
         return tg.say(pipeline.reject(jid))
     if t == "📊 Aaj ka haal":
         return tg.say(today_text())
-    if t == "📅 7 din":
-        return tg.say(week_text())
+    if t == "📅 7 din":                            # v3.4.6: purani suchi + saare platform ki poori table (ek jaisa total)
+        tg.say(week_text())
+        from . import scoreboard as _SB7
+        return run(lambda: _SB7.send(7))
     if t == "🖥 VM":
         return tg.say(vm_text())
     if t == "🩺 Sab theek?":

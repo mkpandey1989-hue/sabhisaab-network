@@ -1788,3 +1788,17 @@ GSC sab, brand-wise + combined, jitne din bolu utne ka; naya page pehle sitemap 
 - Web Stories orphan the (kisi page se link nahi) - /jawab khand (v3.4.4). Site par baaki koi orphan page nahi (297 jaanche).
 - Bing ki auto report 4 ghante mein ek (restart par 4 baar aati thi).
 - Smoke 344 PASS.
+
+## v3.4.6 (16 Nov 2026 raat) - [OPUS 5.5] Ek sandesh ek baar, 'Sab theek?' poora, har report mein saare platform
+Owner (16 Nov 22:46): "'Sab theek?' mein LinkedIn/Bing kuch nahi - saari report mein total ek jaisa; chat mein ek message 2-3
+baar - system banao".
+- Chat (9-16 Nov) mein dohraaye sandesh gine: 'Telegram ka raasta badla' 110 (30 min ke andar 40 baar), Bing roz report 4x
+  (restart par), Update/Install sandesh (owner ki ZIP - sahi), 'Website LIVE' (alag deploy - sahi).
+- tg._dupe (har tg.say se pehle): bilkul wahi text + wahi button 90 sec ke andar = nahi bheja (dohri thread/restart);
+  AUTO_ONCE: 'Telegram ka raasta badla' 6 ghante mein ek (state mein - restart par bhi yaad). Owner ka alag sawal kabhi nahi rukta.
+- 'Sab theek?' (health_more): LinkedIn (Make, aaj post, galti), Website deploy (Cloudflare + GitHub copy), /jawab live + atka,
+  Google GSC/GA4 + index jaanch kis din ki, Bing (key, sitemap live/Bing ginti, aaj bheje), IndexNow, AdSense (pub/review),
+  Tracking fix + owner-mode, Auto-doctor aakhri nateeja. Network nahi - turant.
+- Report ek jaisi: '📅 7 din', '📒 Hafte ka hisaab', '👀 Views' aur Ravivaar ki hafte wali report ke saath scoreboard 7 din
+  (saare brand x platform + website source + Google/Bing/Pinterest/LinkedIn + KUL); 'Aaj ka haal' mein table ka hukum.
+- v3.4.5 ka sab isme (auto-doctor, N din table, sitemap-pehle). Smoke 347 PASS.

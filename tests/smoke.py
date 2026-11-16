@@ -466,5 +466,16 @@ check("after_live_msg" in _insp.getsource(_WS44) and "indexnow([" not in _insp.g
       "Web Story: Bing/Google sandesh deploy LIVE + sitemap ke BAAD (pehle 15 min pehle jaata tha)")
 check("p[5:-5]" in _insp.getsource(_WE44._after_live), "Deploy ke baad IndexNow: /stories/x sahi URL")
 check("+= [" not in _insp.getsource(_AD44.run).replace("L += [", ""), "Auto-doctor: andar ke check mein list rebind galti nahi")
+# v3.4.6: ek sandesh 2-3 baar nahi; 'Sab theek?' mein LinkedIn/Bing/Google/AdSense bhi
+from app import tg as _TG46, bot as _BOT46  # noqa: E402
+state.put("say_seen", {})
+check(not _TG46._dupe("smoke-x 1", None) and _TG46._dupe("smoke-x 1", None) and not _TG46._dupe("smoke-x 2", None),
+      "Telegram: bilkul wahi sandesh 90 sec mein dobara nahi; alag sandesh jaata hai")
+check(not _TG46._dupe("📡 Telegram ka raasta badla: a", None) and _TG46._dupe("📡 Telegram ka raasta badla: b", None),
+      "Telegram raasta-badla shor: 6 ghante mein ek")
+state.put("say_seen", {})
+_hm = "\n".join(_BOT46.health_more())
+check(all(w in _hm for w in ("LinkedIn", "Bing", "Google (GSC + GA4)", "AdSense", "IndexNow", "Auto-doctor", "/jawab")),
+      "Sab theek?: LinkedIn, Bing, Google, AdSense, IndexNow, /jawab, auto-doctor sab")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

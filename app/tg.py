@@ -188,7 +188,34 @@ def _chunks(text, n=3900):
     return out
 
 
+AUTO_ONCE = (("📡 Telegram ka raasta badla", 6 * 3600),)   # v3.4.6: shor wale apne-aap sandesh - itni der mein ek
+
+
+def _dupe(text, kb):
+    """v3.4.6 (owner: 'ek message 2-3 baar'): (1) bilkul wahi sandesh (wahi button) 90 sec ke andar dobara -> nahi bhejo
+    (dohri thread/restart se); (2) AUTO_ONCE wale sandesh apni khidki mein ek baar. Aapke poochhe sawal ka jawab kabhi nahi
+    rukta - wo alag text hota hai, ya 90 sec baad."""
+    try:
+        import hashlib
+        from . import state
+        now = time.time()
+        seen = {k: v for k, v in (state.get("say_seen") or {}).items() if now - float(v) < 6 * 3600}
+        h = hashlib.md5((str(text) + json.dumps(kb, sort_keys=True, default=str)).encode()).hexdigest()
+        keys = [("x:" + h, 90)] + [("p:" + p, w) for p, w in AUTO_ONCE if str(text).startswith(p)]
+        for k, w in keys:
+            if k in seen and now - float(seen[k]) < w:
+                return True
+        for k, _ in keys:
+            seen[k] = now
+        state.put("say_seen", seen)
+    except Exception:
+        return False
+    return False
+
+
 def say(text, kb=None):
+    if _dupe(text, kb):
+        return None
     parts = _chunks(text)
     if len(parts) > 1:                             # pehle hisse bina button, aakhri par button
         for k, part in enumerate(parts[:-1]):
