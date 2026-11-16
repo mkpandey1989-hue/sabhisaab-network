@@ -710,6 +710,14 @@ def body_frame(script, idx, total, out_path):
 
 
 
+def _light_timer(idx, y, acc):
+    """v3.3.11: safed/exam look - sochne wale scene par wahi asli ghatti patti (render overlay). -> naya y"""
+    if _HOLD["idx"] is not None and _HOLD["idx"] == idx:
+        TIMERS[idx] = {"kind": "bar", "y": int(y) + 14, "acc": acc}
+        return y + 34 + 40
+    return y
+
+
 def _body_light(script, idx, total, out_path):
     """v2.7.6: light/comic card - gehre akshar, safed card, rangin vikalp. Jawab kabhi nahi (offsite), flash nahi."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -765,6 +773,7 @@ def _body_light(script, idx, total, out_path):
                 _strike(img, [x0, y0, x0 + bw, y0 + bh])
                 d = ImageDraw.Draw(img)
         y += 2 * (bh + gap)
+        y = _light_timer(idx, y, (240, 70, 70))       # v3.3.11 (owner 16 Nov: 'ghatti ghadi sab look par')
     # neeche ki line (hook / sochiye / link)
     line = _clean(sc.get("show")) if not cta_scene and idx > 0 else ""
     line = re.sub(r"\s*\((?:Code|कोड)\s*#\d+\)", "", line)
@@ -917,6 +926,7 @@ def _body_exam(script, idx, total, out_path):
                     _strike(img, [cx0 + 10, cy0 - 5, cx0 + cw - 20, cy0 + 115])
                     d = ImageDraw.Draw(img)
             y += 285
+            y = _light_timer(idx, y - 20, RED)        # v3.3.11: exam look mein bhi ghatti patti
         line = re.sub(r"\s*\((?:Code|कोड)\s*#\d+\)", "", _clean(sc.get("show")))
         line = re.sub(r"^(?:सवाल|प्रश्न)\s*[:：].*$", "", line).strip()
         if line and line not in q:

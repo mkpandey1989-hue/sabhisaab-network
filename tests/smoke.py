@@ -320,5 +320,13 @@ with _tf.TemporaryDirectory() as _d:
     _pl.Path(_d, "p8.html").write_text("<p>Salary 2027 tak, aur 1 January 2026 se arrear milne ki ummeed hai.</p>")
     check(_PQX.fresh_scan(_d, _dt.date(2026, 11, 16), ["p8"]) == [], "taazgi: '1 January 2026 se arrear' = shuru ki tareekh, chetavni nahi")
 check(_WSX._feed_count({"UrlCount": 278}) == 278 and _WSX._feed_count({}) is None, "Bing sitemap: ginti padhna")
+# v3.3.11: har look (safed/exam/versus bhi) par sochne wale scene ki ghatti patti
+for _lay in _DSV.LAYOUTS:
+    _scx = {"brand": "money", "layout": _lay, "puzzle_q": "Q?", "puzzle_options": ["1", "2", "3", "4"], "puzzle_answer": "4",
+            "answer_offsite": True, "scenes": [{"show": "h", "say": "a"}, {"show": "5 सेकंड", "say": "b", "hold": 5.0},
+                                               {"show": "e", "say": "c", "answer_cta": True}]}
+    with _tf.TemporaryDirectory() as _d:
+        _DSV.body_frame(_scx, 1, 3, str(_pl.Path(_d, "x.png")))
+    check(bool(_DSV.TIMERS.get(1)), f"video: '{_lay}' look par bhi ghatti ghadi/patti")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

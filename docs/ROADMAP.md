@@ -1525,6 +1525,12 @@ the wo index ho gaye, purane jo Google ne index se hataye unko bhi theek karo, g
     gayab; SMOKE 273 PASS.
 
 
+## v3.3.11 (16 Nov 2026 shaam) - [OPUS 5.5] Ghatti ghadi HAR look par
+Owner (reel #1311, safed '5 SEC TEST' look): "5 second wala sab look par aana chahiye tha". Jaancha: chuppi poore 5 sec (18.5-23.5s)
+thi, par safed (light3), 'aap kiske saath' (versus) aur exam look mein ghatti patti banti hi nahi thi (sirf neon look mein).
+Ab teeno mein vikalp ke theek neeche wahi asli ghatti patti 5->1 (render overlay, laal). Baaki look/rang/shabd waise hi.
+Asli render se jaancha (5s,4s,3s,2s,1s); 8/8 look par smoke test.
+
 ## v3.3.10 (16 Nov 2026) - [OPUS 5.5] /jawab dobara chalu, namoona-race, Bing sitemap khud, Google index data bachao
 Owner (16 Nov): "IG link ajnabi profile kholta hai; link se aaye to pehle sawal dikhe; bot chat ki galtiyan; Bing sitemap
 manual karne par 269->278, agle din phir 269; namoona video chali gayi; index ho chuke page kyu de rahe; AdSense taiyari".
