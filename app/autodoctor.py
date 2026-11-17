@@ -156,7 +156,7 @@ def run(manual=False):
 
     # 9) v3.4.7: Claude ke jaanche website sudhaar (ek baar, audit gate) - /uttarakhand toote link, FIRE title, TDEE guide link
     def sitefix():
-        from . import webfix347 as sitepatch
+        from . import webfix as sitepatch
         r = sitepatch.apply()
         if r and r.startswith("⚠️"):
             need.append(r)

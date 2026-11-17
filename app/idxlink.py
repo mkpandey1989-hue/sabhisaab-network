@@ -5,6 +5,7 @@ GOOGLE 'REQUEST INDEXING' KI ROZ KI SUCHI - ek hi jagah, ek hi niyam:
 1) Pehle Google ko LIVE sitemap bhejta hai (website.submit_sitemap - wahi jo Search Console mein 'Submit' hai).
 2) Sirf wahi URL jo (a) LIVE sitemap.xml mein hain, (b) abhi HTTP 200 khulte hain, (c) roz ki Google jaanch (daily.json,
    URL Inspection API) ke hisaab se index NAHI hain.
+2b) v3.4.8: link dene se theek pehle har URL Google URL Inspection API se TAAZA jaancha - index ho chuka = link nahi.
 3) Har URL ka SEEDHA Search Console link (URL Inspection khulta hai) - dabao → 'REQUEST INDEXING'. Google ka apna link format
    (URL Inspection API ka 'inspectionResultLink' yahi hota hai).
 4) Din mein max 10 (Google roz itne hi leta hai). Ek URL 7 din mein ek baar - roz wahi suchi dobara nahi.
@@ -57,7 +58,34 @@ def _live_ok(u):
         return False
 
 
-def pick(extra_new=(), k=MAX_DAY, today=None, live_sm=None, status=None, live_ok=None):
+def google_says_indexed(u):
+    """v3.4.8 (owner: 'jo index ho gaye unka bhi link de raha hai'): daily.json kal ka ho sakta hai - link dene se THEEK PEHLE
+    Google URL Inspection API se taaza jaanch (roz 2000 ki seema, hum max ~15). -> True (index hai) / False / None (pata nahi)."""
+    import requests
+    from . import website
+    cache = state.get("idx_fresh") or {}
+    today = str(datetime.date.today())
+    if (cache.get(u) or [None])[0] == today:
+        return cache[u][1]
+    try:
+        tk = website._gcreds("https://www.googleapis.com/auth/webmasters.readonly")
+        j = requests.post("https://searchconsole.googleapis.com/v1/urlInspection/index:inspect", timeout=60,
+                          headers={"Authorization": f"Bearer {tk}"},
+                          json={"inspectionUrl": u, "siteUrl": PROP, "languageCode": "en"}).json()
+        r = (j.get("inspectionResult") or {}).get("indexStatusResult") or {}
+        if not r:
+            return None
+        ok = r.get("verdict") == "PASS"
+    except Exception as e:
+        log(f"idx inspect: {e}")
+        return None
+    cache = {k: v for k, v in cache.items() if (v or [""])[0] == today}
+    cache[u] = [today, ok]
+    state.put("idx_fresh", cache)
+    return ok
+
+
+def pick(extra_new=(), k=MAX_DAY, today=None, live_sm=None, status=None, live_ok=None, indexed=None):
     """-> [(url, wajah)] - sitemap-first + live + index-nahi + 7-din-ek-baar. (test ke liye sab inject ho sakta hai)"""
     today = today or datetime.date.today()
     st = status if status is not None else _status()[0]
@@ -67,6 +95,8 @@ def pick(extra_new=(), k=MAX_DAY, today=None, live_sm=None, status=None, live_ok
     if not live_sm:                     # sitemap hi nahi mila to KOI link nahi (niyam: pehle sitemap)
         return []
     live_ok = live_ok or _live_ok
+    indexed = indexed or google_says_indexed
+    new_set = set(extra_new)
     given = state.get("idx_given") or {}
     cut = str(today - datetime.timedelta(days=REPEAT_DAYS))
     drop = set(state.get("pq_idx_drop") or {})
@@ -83,8 +113,11 @@ def pick(extra_new=(), k=MAX_DAY, today=None, live_sm=None, status=None, live_ok
         if u in seen or u not in live_sm or str(given.get(u, "")) > cut:
             continue
         seen.add(u)
-        if live_ok(u):
-            out.append((u, why))
+        if not live_ok(u):
+            continue
+        if u not in new_set and indexed(u) is True:     # Google kehta hai index ho chuka -> link nahi (purani daily.json)
+            continue
+        out.append((u, why))
         if len(out) >= k:
             break
     return out

@@ -569,6 +569,13 @@ def reject(jid):
         job["rejected_at"] = now().isoformat(timespec="seconds")
         save_job(jid, job)
         extra = _undo_youtube(jid, job)
+        dmx = (job.get("ids") or {}).get("dailymotion")
+        if dmx:                                   # v3.4.8: Dailymotion copy bhi hatao
+            try:
+                from . import dailymotion as _DMr
+                extra += "\n✅ Dailymotion copy bhi mita di." if _DMr.delete(dmx) else "\n⚠️ Dailymotion copy khud nahi miti - Studio mein hatayein."
+            except Exception as e:
+                extra += f"\n⚠️ Dailymotion copy nahi miti ({str(e)[:60]})"
         if job.get("status") != "queued":
             shutil.rmtree(job.get("meta", ""), ignore_errors=True)
     return "🗑 Video hata di. Is slot ke liye nayi video chahiye to 🎬 Abhi video dabayein." + extra
@@ -1054,6 +1061,28 @@ def upload(jid, pre=False):
             waits["pinterest"] = str(w)
         except Exception as e:
             errs["pinterest"] = str(e)[:200]
+    if "dailymotion" not in done and "youtube" in done and not pre:
+        try:                                      # v3.4.8: Dailymotion (Partner, private key) - roz max N, galti main kaam nahi rokti
+            from . import dailymotion as _DM
+            if _DM.on():
+                if not _DM.can_post_today():
+                    waits["dailymotion"] = f"⏸ aaj ki Dailymotion seema ({_DM.per_day()}) poori - baaki video sirf baaki platform par"
+                else:
+                    def _dm():
+                        u_, x_ = _DM.upload(vpath, meta)
+                        ids["dailymotion"] = x_
+                        return u_
+                    _e_dm = {}
+                    _locked_post(brand, "dailymotion", _sig(meta), done, _e_dm, _dm)
+                    if _e_dm:
+                        waits["dailymotion"] = "⏸ " + _e_dm["dailymotion"]
+        except Exception as e:
+            log(f"dailymotion: {e}")
+            waits["dailymotion"] = f"⚠️ {str(e)[:150]}"
+            try:
+                _DM.warn_once(e)
+            except Exception:
+                pass
     if "telegram" not in done:
         try:
             lk = dict(done, _thumb=thumb)

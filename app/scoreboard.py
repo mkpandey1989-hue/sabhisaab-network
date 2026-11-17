@@ -192,7 +192,7 @@ def on_text(tl, run):
 SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")),
               ("Facebook", ("facebook", "fb", "m.facebook", "l.facebook")), ("Instagram", ("instagram", "ig")),
               ("YouTube", ("youtube",)), ("Telegram", ("telegram", "t.me")), ("Threads", ("threads",)),
-              ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Push", ("push",)), ("Seedha", ("(direct)",)),
+              ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Dailymotion", ("dailymotion", "dai")), ("Push", ("push",)), ("Seedha", ("(direct)",)),
               ("(not set)", ("(not set)",))]
 
 
@@ -299,7 +299,14 @@ def extra_table(days):
         ps = None
     rows.append(f"{'Pinterest':<10}{_n(ps[0]) if ps else '-':>7}{_n(ps[2]) if ps else '-':>7}")
     rows.append(f"{'LinkedIn':<10}{'post ' + str(linkedin_posts(days)):>14}")
-    L.append("🔎 SEARCH + PINTEREST + LINKEDIN:\n<pre>" + _h.escape("\n".join(rows)) + "</pre>"
+    try:                                          # v3.4.8: Dailymotion par gayi video ke views (juda ho tabhi)
+        from . import dailymotion as _DMs
+        if _DMs.ready():
+            _v = _DMs.views(days)
+            rows.append(f"{'Dailymotion':<10}{('views ' + _n(_v)) if _v is not None else '-':>14}")
+    except Exception as e:
+        log(f"scoreboard dm: {e}")
+    L.append("🔎 SEARCH + PINTEREST + LINKEDIN + DAILYMOTION:\n<pre>" + _h.escape("\n".join(rows)) + "</pre>"
              + ("\n<i>Google ka data 2 din der se aata hai. Pinterest 'Click' = website par click. LinkedIn: kitni post gayi "
                 "(views Make se nahi aate).</i>"))
     return "\n".join(L)

@@ -1828,3 +1828,27 @@ Quora/LinkedIn sab jodo; jo kami hai pura accuracy ke saath theek karo".
   alag (Discovered-not-indexed ki wajah); TDEE guide ko calorie/BMR/weight-loss se link (andar ke link 3 -> 6). Site audit
   ERROR 0 / WARNING 0, sitescan self 2 -> 0. ukgen SITEURL ab poore shabd par hi (aage ki queue ZIP ke liye).
 - 'Sab theek?' mein Google indexing link ki line; auto-doctor mein website sudhaar + aaj ki indexing suchi ki jaanch.
+
+## v3.4.8 (17 Nov 2026 subah) - [OPUS 5.5] Dailymotion (bot khud key maange), index ho chuke page ka link nahi, website sudhaar dobara
+Owner (17 Nov 08:26): "key rakh di - simple rakhna, kuch na likhna pade, bot khud maange fir hata de; link jitne ho sakein (privacy
+dekh kar), log ruke bhi; website par hamare channel jodne hon to jod do; jo page index ho gaye unka bhi message kyun - theek karo;
+bot chatting padh kar ek saath final".
+- NAYA app/dailymotion.py: Partner account + Private API key (client_credentials; token URL/scope dono raaste aazmata, jo chale
+  wahi yaad). Install ke 3 min baad bot KHUD poochta hai: key paste → chat se mitao → secret maango → mitao → token jaanch →
+  channel (me / @sabhisaab) → ✅. Galat ho to saaf sandesh + dobara. Sirf ek-shabd wala message hi key maana jaata hai (button/
+  baat chat galti se nahi nigli jaati). Secret: secrets/dailymotion.json (600).
+- Pipeline: YouTube par gayi video mein se roz max 2 (dailymotion roz N) Dailymotion par bhi - title (#tag hata ke), poori
+  description (audit.description: jawab-link + calculator + Telegram + brand footer + AI label, utm_source=dailymotion), tags,
+  category school, is_created_for_kids=false, public. Galti = sirf ⏸/⚠️ line + din mein ek alert; baaki platform/job status par
+  koi asar nahi. 'Mat daalo' = Dailymotion copy bhi delete. Post-taala (dohri upload nahi).
+- Report: GA4 source 'dailymotion' alag line; scoreboard mein Dailymotion views (7 din); 'Sab theek?' mein Dailymotion line.
+  Hukum: dailymotion jodo / haal / roz 3 / band / chalu / channel <username>.
+- Indexing link (owner: index ho chuke page bhi aa rahe the): daily.json kal ka hota hai - ab link dene se theek pehle har purane
+  URL ki Google URL Inspection API se TAAZA jaanch (cache din bhar); 'PASS' = link nahi. Queue ke 'aaj naye page' sandesh ke
+  purane page par bhi yahi.
+- Website sudhaar (webfix.py, pehle webfix347) VM audit ne roka tha: FIRE title 74 akshar ('title 60 se lamba'). GALTI: mera
+  local audit config.json ke site_dir se ASLI copy jaanch raha tha, patch wali nahi - ab copy ka config badal kar jaancha (galat
+  title par audit ERROR deta hai, sahi par 0/0). Naya: title 57 akshar; + /links, /about, homepage sameAs mein LinkedIn Page
+  (company/144149065) aur Dailymotion (@sabhisaab); privacy policy section 10 mein LinkedIn (Make) + Dailymotion (sirf upload,
+  koi player/cookie nahi) + tareekh aaj + sitemap lastmod. Flag sitepatch_348 (v3.4.7 wala fail hua tha, dobara chalega).
+- Watchdog 'Theek ho gaya: scan mismatch 2' jaisa code-naam nahi - asli shirshak; purana jhootha scan_mismatch chupchap hata.

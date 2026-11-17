@@ -478,7 +478,7 @@ _hm = "\n".join(_BOT46.health_more())
 check(all(w in _hm for w in ("LinkedIn", "Bing", "Google (GSC + GA4)", "AdSense", "IndexNow", "Auto-doctor", "/jawab")),
       "Sab theek?: LinkedIn, Bing, Google, AdSense, IndexNow, /jawab, auto-doctor sab")
 # v3.4.7: GSC indexing link (sitemap pehle), ek jaisi ginti, source naam, jhootha 'galat link' alarm, website sudhaar
-from app import idxlink as _IX47, scoreboard as _SB47, webfix347 as _SP47, website as _WE47, sitescan as _SS47  # noqa: E402
+from app import idxlink as _IX47, scoreboard as _SB47, webfix as _SP47, website as _WE47, sitescan as _SS47  # noqa: E402
 _sv47 = (state.get("idx_given"), state.get("pq_idx_drop"))
 try:
     state.put("idx_given", {"https://sabhisaab.com/c": "2099-01-01"})
@@ -488,14 +488,15 @@ try:
              "https://sabhisaab.com/d": {"ok": False, "why": "URL is unknown to Google"},
              "https://sabhisaab.com/e": {"ok": False, "why": "Discovered - currently not indexed"}}
     _sm47 = {"https://sabhisaab.com/a", "https://sabhisaab.com/b", "https://sabhisaab.com/c", "https://sabhisaab.com/e"}
-    _r47 = _IX47.pick(status=_st47, live_sm=_sm47, live_ok=lambda u: True)
+    _r47 = _IX47.pick(status=_st47, live_sm=_sm47, live_ok=lambda u: True, indexed=lambda u: False)
     check([u for u, _ in _r47] == ["https://sabhisaab.com/e", "https://sabhisaab.com/b"],
           "Indexing link: sirf LIVE sitemap wale + index-nahi + 7 din mein dobara nahi; kram unknown > discovered > crawled")
-    check(_IX47.pick(status=_st47, live_sm=None, live_ok=lambda u: True) == [], "Indexing link: sitemap na mile to KOI link nahi")
+    check(_IX47.pick(status=_st47, live_sm=None, live_ok=lambda u: True, indexed=lambda u: False) == [], "Indexing link: sitemap na mile to KOI link nahi")
     check(_IX47.gsc_link("https://sabhisaab.com/x-y") == "https://search.google.com/search-console/inspect?resource_id="
           "sc-domain%3Asabhisaab.com&id=https%3A%2F%2Fsabhisaab.com%2Fx-y", "Indexing link: Search Console URL Inspection ka seedha link")
     check(len(_IX47.pick(status={f"https://sabhisaab.com/p{i}": {"ok": False} for i in range(30)},
-                         live_sm={f"https://sabhisaab.com/p{i}" for i in range(30)}, live_ok=lambda u: True)) == 10,
+                         live_sm={f"https://sabhisaab.com/p{i}" for i in range(30)}, live_ok=lambda u: True,
+                         indexed=lambda u: False)) == 10,
           "Indexing link: din mein max 10")
     check("submit_sitemap()" in _insp.getsource(_IX47.run) and _insp.getsource(_IX47.run).index("submit_sitemap()")
           < _insp.getsource(_IX47.run).index("pick("), "Indexing link: pehle Google ko sitemap, phir suchi")
@@ -524,5 +525,35 @@ check(_SP47.fix_tdee(_SP47.fix_tdee('<div class="nextread"><a href="/tdee-calcul
       "TDEE guide link ek hi baar")
 check('"mismatch": len(rep["mismatch"]),' in _insp.getsource(_SS47.run) if hasattr(_SS47, "run") else
       '"mismatch": len(rep["mismatch"]),' in _insp.getsource(_SS47), "Site scan: 'khud ko link' galat-link alarm mein nahi gina")
+# v3.4.8: Dailymotion (bot khud key maange), index ho chuke page ka link nahi, website sudhaar audit-paas
+from app import dailymotion as _DM48, webfix as _WF48, idxlink as _IX48  # noqa: E402
+state.put("idx_given", {"https://sabhisaab.com/c": "2099-01-01"})
+check([u for u, _ in _IX48.pick(status=_st47, live_sm=_sm47, live_ok=lambda u: True,
+                                indexed=lambda u: u.endswith("/e"))] == ["https://sabhisaab.com/b"],
+      "Indexing link: Google ki taaza jaanch mein index ho chuka page suchi se bahar")
+state.put("idx_given", _sv47[0])
+_sv48 = (state.get("awaiting"), _DM48.STORE.read_text() if _DM48.STORE.exists() else None)
+try:
+    _DM48.STORE.unlink(missing_ok=True)
+    state.put("awaiting", "dm_key")
+    _a48 = _DM48.intake("abc123def456ghi789")
+    check("secret" in _a48 and state.get("awaiting") == "dm_secret" and _DM48._cfg().get("key") == "abc123def456ghi789",
+          "Dailymotion: key ke baad bot khud secret maangta hai")
+    _DM48.token = lambda force=False: (_ for _ in ()).throw(RuntimeError("test"))
+    _b48 = _DM48.intake("secretXYZ0123456789")
+    check("❌" in _b48 and state.get("awaiting") == "dm_key" and not _DM48.ready(),
+          "Dailymotion: galat key par saaf sandesh aur dobara maangna (aadha juda nahi maana)")
+finally:
+    state.put("awaiting", _sv48[0] or "")
+    if _sv48[1] is None:
+        _DM48.STORE.unlink(missing_ok=True)
+    else:
+        _DM48.STORE.write_text(_sv48[1])
+check(len(_WF48.FIRE_NEW_T) <= 60, "FIRE title 60 akshar ke andar (VM audit ne 74 par roka tha)")
+_l48 = '<ul>' + _WF48.PIN_LI + '</ul>'
+check(_WF48.fix_links(_WF48.fix_links(_l48)).count('href="https://www.dailymotion.com/sabhisaab"') == 1 and "linkedin.com/company" in _WF48.fix_links(_l48),
+      "/links: LinkedIn + Dailymotion ek hi baar")
+check("_DM.warn_once(e)" in _insp.getsource(_PLU.upload) and 'waits["dailymotion"]' in _insp.getsource(_PLU.upload)
+      and "errs[\"dailymotion\"]" not in _insp.getsource(_PLU.upload), "Pipeline: Dailymotion ki galti baaki platform nahi rokti")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

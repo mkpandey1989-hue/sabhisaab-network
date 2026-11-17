@@ -81,13 +81,20 @@ def notify(problems):
     sent = state.get("wd_sent") or {}
     now = time.time()
     keys = {p["key"] for p in problems}
+    titles = state.get("wd_titles") or {}
     for p in problems:
         if now - sent.get(p["key"], 0) >= p.get("every", RESEND_H) * 3600:
             sent[p["key"]] = now
+            titles[p["key"]] = p["title"][:120]
             tg.alert("yellow", _fmt(p))
     for k in [k for k in sent if k not in keys and sent[k]]:
-        tg.say(f"✅ Theek ho gaya: {k.replace('_', ' ')}")
+        if k.startswith("scan_mismatch_"):               # v3.4.7 ka purana jhootha alarm - chupchap hatao (wo 'khud ko link' tha)
+            sent.pop(k, None)
+            titles.pop(k, None)
+            continue
+        tg.say(f"✅ Theek ho gaya: {titles.pop(k, None) or k.replace('_', ' ')}")      # v3.4.8: asli shirshak (code naam nahi)
         sent.pop(k, None)
+    state.put("wd_titles", titles)
     state.put("wd_sent", sent)
 
 

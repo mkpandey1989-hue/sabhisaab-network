@@ -625,11 +625,19 @@ def scheduler():
                         tg.say(r_ + "\n👤 Ab 'owner link' likhein - Telegram/Instagram/Facebook ke andar wale browser mein bhi aapki "
                                "visit na gine, uska tareeka.")
                 run(_tf)
-            if (state.get("trackfix_owner") and not state.get("sitepatch_347") and time.time() - STARTED > 900
+            if not state.get("dm_ask_done") and time.time() - STARTED > 180:   # v3.4.8: Dailymotion key bot khud maange (ek baar)
+                state.put("dm_ask_done", True)
+                try:
+                    from . import dailymotion as _DMa
+                    if not _DMa.ready():
+                        _DMa.ask()
+                except Exception as _e_dma:
+                    log(f"dm ask: {_e_dma}")
+            if (state.get("trackfix_owner") and not state.get("sitepatch_348") and time.time() - STARTED > 900
                     and state.get("sitepatch_try") != day):
                 state.put("sitepatch_try", day)            # v3.4.7: Claude ke jaanche website sudhaar - ek baar, audit gate se
                 def _sp():
-                    from . import webfix347 as _SPx
+                    from . import webfix as _SPx
                     r_ = _SPx.apply()
                     if r_:
                         tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
@@ -977,6 +985,11 @@ def health_more():
              + (f" | sitemap live {bf.get('live_n', '?')} / Bing {bf.get('bing_n', '?')}" if bf else "")
              + f" | aaj URL bheje: {'haan' if state.get('bing_api_day') == today else 'abhi nahi (06:40)'}")
     L.append(f"✅ IndexNow: kul {len(state.get('indexnow_sent') or {})} URL bheje (key site par public)")
+    try:                                              # v3.4.8
+        from . import dailymotion as _DMh
+        L.append(("✅ " if _DMh.ready() else "⚪ ") + _DMh.status_text().split("\n")[0])
+    except Exception:
+        pass
     _il = state.get("idx_last") or {}                 # v3.4.7: Google 'Request indexing' ke seedhe link
     L.append(f"🔎 Google indexing link: " + (f"aakhri {_il.get('day')} ({len(_il.get('urls') or [])} link)" if _il else "abhi nahi diye")
              + " | roz 11:40 (sitemap ke baad) | abhi: 'indexing link'")
@@ -1706,6 +1719,13 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.8
+        from . import dailymotion as _DMT
+        _r_dmt = _DMT.on_text(tl)
+        if _r_dmt is not None:
+            return _r_dmt
+    except Exception as _e_dmt:
+        log(f"dailymotion text: {_e_dmt}")
     try:                                                                              # v3.4.7
         from . import idxlink as _IXT
         _r_ix = _IXT.on_text(tl, run)
@@ -3796,6 +3816,13 @@ def main():
                 elif m.get("video"):
                     v = m["video"]
                     save_clip(v["file_id"], v.get("file_size", 0), m.get("caption") or "")
+                elif (m.get("text") and str(state.get("awaiting") or "").startswith("dm_") and not m["text"].startswith("/")
+                      and len(m["text"].split()) == 1 and _re.fullmatch(r"[A-Za-z0-9._\-]{8,300}", m["text"].strip())):
+                    from . import dailymotion as _DMi       # v3.4.8: bot ne khud maanga - key/secret, turant chat se mitao
+                    tg.delete(m["chat"]["id"], m["message_id"])
+                    _r_dm = _DMi.intake(m["text"])
+                    if _r_dm:
+                        tg.say(_r_dm)
                 elif m.get("text") and state.get("awaiting") == "pin_secret" and not m["text"].startswith("/"):
                     from . import pinterest as PI
                     tg.delete(m["chat"]["id"], m["message_id"])

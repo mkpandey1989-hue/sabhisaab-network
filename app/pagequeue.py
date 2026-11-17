@@ -542,7 +542,13 @@ def owner_message(ok, bad=()):
     _given = state.get("idx_given") or {}
     _cut = str(datetime.date.today() - datetime.timedelta(days=7))
     old_ni = [s for s in request_list([u.replace(SITE + "/", "") for u in ok]) if f"{SITE}/{s}" not in ok
-              and str(_given.get(f"{SITE}/{s}", "")) <= _cut][:max(0, 10 - len(ok))]
+              and str(_given.get(f"{SITE}/{s}", "")) <= _cut]
+    try:                                         # v3.4.8: purane page ka link tabhi jab Google abhi bhi 'index nahi' kahe (taaza jaanch)
+        from .idxlink import google_says_indexed
+        old_ni = [s for s in old_ni[:15] if google_says_indexed(f"{SITE}/{s}") is not True]
+    except Exception as e:
+        log(f"pq fresh idx: {e}")
+    old_ni = old_ni[:max(0, 10 - len(ok))]
     if old_ni:                                   # v3.3.2: bot ki Google-jaanch mein jo purane page abhi index nahi
         lines.append("Purane page jo Google ne index nahi kiye ya index se nikal gaye (roz ki Google jaanch) - inka bhi Request indexing:")
         lines += [f"{len(ok) + i}. {SITE}/{s}\n   👉 {gsc_link(SITE + '/' + s)}" for i, s in enumerate(old_ni, 1)]
