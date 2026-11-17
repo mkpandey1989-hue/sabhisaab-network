@@ -100,6 +100,14 @@ def run():
         log(f"groupkit read: {e}")
         return None
     group, short, link = build(s, kind, h)
+    ban = None
+    try:                                           # v3.4.21: banner photo (post ke saath lagao - zyada log rukte hain)
+        from .config import TMP
+        title, _d = card(h)
+        lg = _site() / "icon-512.png"
+        ban = banner(kind, title, points(h), s, TMP / f"grp_{s}.jpg", lg if lg.exists() else None)
+    except Exception as e:
+        log(f"groupkit banner: {e}")
     if kind == "tool":
         state.put("grp_used", ((state.get("grp_used") or []) + [s])[-300:])
     tg.say("👥 AAJ KA GROUP POST (7:30) - neeche ke 2 sandesh copy karke paste karein:\n"
@@ -107,6 +115,13 @@ def run():
            "2️⃣ Instagram / Moj / ShareChat → doosra (wahan caption ka link click nahi hota)\n"
            "Niyam: din mein 2-3 group, ek group mein hafte mein max 2 baar, har jagah group ke niyam padh kar. "
            "Band: 'group post band'")
+    if ban:
+        try:
+            with open(ban, "rb") as f:
+                tg.call("sendPhoto", {"chat_id": tg._chat(), "caption": "🖼 Banner - pehle ye photo lagao, phir neeche ka text"},
+                        {"photo": ("banner.jpg", f.read(), "image/jpeg")})
+        except Exception as e:
+            log(f"groupkit photo: {e}")
     tg.say(group)
     tg.say(short)
     return None
@@ -121,3 +136,93 @@ def on_text(tl):
         state.put("grp_on", tl.endswith("chalu"))
         return tg.say("👥 Roz 7:30 ka group post: " + ("CHALU" if tl.endswith("chalu") else "BAND"))
     return None
+
+
+# ------------------------------------------------------------------ v3.4.21: banner (group admin ko bhi achha lage)
+BW, BH = 1080, 1350
+
+
+def _short(p, n=62):
+    p = re.sub(r"\s*\([^)]*\)", "", p).strip()
+    return p if len(p) <= n else p[:n - 1].rsplit(" ", 1)[0] + "…"
+
+
+def banner(kind, title, pts, slug, out_path, logo=None):
+    """1080x1350 jaankari-banner: bada shirshak patti par, hare tick wali 4 baatein, neeche poora pata. Owner ka naam/photo nahi."""
+    from PIL import Image, ImageDraw, ImageFilter
+    from . import text as T
+    img = Image.new("RGB", (BW, BH), "#ffffff")
+    d = ImageDraw.Draw(img)
+    top, bot = ((120, 190, 245), (235, 248, 255)) if kind == "uk" else ((15, 118, 110), (30, 58, 138))
+    for y in range(BH):
+        t = y / BH
+        d.line([(0, y), (BW, y)], fill=tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3)))
+    if kind == "uk":                                   # pahad: 3 parat + barf
+        d.ellipse([820, 120, 980, 280], fill=(255, 214, 90))
+        for base, col, pk in ((760, (96, 125, 160), [(0, 760), (180, 470), (330, 620), (520, 380), (700, 600), (880, 430), (1080, 640)]),
+                              (900, (52, 120, 80), [(0, 900), (220, 640), (420, 820), (640, 600), (860, 800), (1080, 650)]),
+                              (1040, (30, 90, 55), [(0, 1040), (260, 850), (540, 1000), (800, 860), (1080, 980)])):
+            d.polygon(pk + [(BW, BH), (0, BH)], fill=col)
+        for (x, y) in ((520, 380), (180, 470), (880, 430)):
+            d.polygon([(x, y), (x - 45, y + 55), (x + 45, y + 55)], fill=(250, 250, 255))
+    else:
+        for i in range(0, BW, 90):                      # halka grid (calculator ehsaas)
+            d.line([(i, 0), (i, BH)], fill=(255, 255, 255, 30) if False else tuple(min(255, c + 18) for c in top), width=1)
+        for i in range(0, BH, 90):
+            d.line([(0, i), (BW, i)], fill=tuple(min(255, c + 18) for c in top), width=1)
+    # shirshak patti (laal, tirchhi)
+    t1, _, t2 = title.partition(":")
+    t1, t2 = t1.strip(), (t2.strip() or "")
+    if not t2 and "—" in t1:
+        t1, _, t2 = t1.partition("—")
+        t1, t2 = t1.strip(), t2.strip()
+    l1 = T.wrap(t1, 84, BW - 140)[:2]
+    l2 = T.wrap(t2, 62, BW - 140)[:2] if t2 else []
+    hh = 40 + len(l1) * 100 + len(l2) * 78 + 30
+    d.polygon([(30, 70), (BW - 30, 50), (BW - 50, 70 + hh), (50, 90 + hh)], fill=(200, 30, 40))
+    y = 95
+    for ln in l1:
+        T.draw(d, (BW / 2 - T.width(ln, 84) / 2, y), ln, 84, (255, 255, 255), stroke=4, stroke_fill=(90, 0, 10))
+        y += 100
+    for ln in l2:
+        T.draw(d, (BW / 2 - T.width(ln, 62) / 2, y), ln, 62, (255, 228, 70), stroke=3, stroke_fill=(90, 0, 10))
+        y += 78
+    # tick wali baatein
+    y = 140 + hh
+    for p in [_short(x) for x in pts[:4]]:
+        lines = T.wrap(p, 44, BW - 260)[:2]
+        bh = 30 + 58 * len(lines)
+        sh = Image.new("RGBA", (BW, BH), (0, 0, 0, 0))
+        ImageDraw.Draw(sh).rounded_rectangle([86, y + 8, BW - 74, y + bh + 8], radius=26, fill=(0, 0, 0, 90))
+        img.paste(sh.filter(ImageFilter.GaussianBlur(6)), (0, 0), sh.filter(ImageFilter.GaussianBlur(6)))
+        d = ImageDraw.Draw(img)
+        d.rounded_rectangle([80, y, BW - 80, y + bh], radius=26, fill=(255, 250, 220), outline=(255, 200, 40), width=4)
+        d.ellipse([104, y + bh / 2 - 30, 164, y + bh / 2 + 30], fill=(22, 163, 74))
+        d.line([(119, y + bh / 2), (131, y + bh / 2 + 13), (151, y + bh / 2 - 13)], fill=(255, 255, 255), width=8)
+        yy = y + 14
+        for ln in lines:
+            T.draw(d, (186, yy), ln, 44, (20, 30, 60))
+            yy += 58
+        y += bh + 26
+    # khaali jagah: bada 'FREE' tamga (calculator) - aankh khinchne ke liye
+    if kind != "uk" and BH - 190 - y > 240:
+        cx, cy, r = BW // 2, (y + BH - 190) // 2, min(170, (BH - 190 - y) // 2 - 20)
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(255, 210, 40), outline=(255, 255, 255), width=8)
+        for txt, sz, dy in (("100%", 70, -r * 0.62), ("FREE", 92, -r * 0.18), ("Hindi mein", 40, r * 0.42)):
+            T.draw(d, (cx - T.width(txt, sz) / 2, cy + dy - sz * 0.55), txt, sz, (150, 20, 30))
+    # neeche ka pata
+    by = BH - 190
+    d.polygon([(0, by + 20), (BW, by), (BW, BH), (0, BH)], fill=(18, 52, 140))
+    msg = "Poori jaankari FREE - bina login"
+    T.draw(d, (60, by + 34), msg, 40, (255, 228, 70))
+    url = f"sabhisaab.com/{slug}"
+    fz = 52 if T.width(url, 52) < BW - 260 else 40
+    T.draw(d, (60, by + 92), url, fz, (255, 255, 255))
+    if logo:
+        try:
+            lg = Image.open(logo).convert("RGBA").resize((130, 130))
+            img.paste(lg, (BW - 170, by + 30), lg)
+        except Exception:
+            pass
+    img.save(out_path, "JPEG", quality=92)
+    return out_path

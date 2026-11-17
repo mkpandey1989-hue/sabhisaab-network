@@ -721,5 +721,22 @@ _g420 = _GK420.build("emi-calculator", "tool", '<title>EMI Calculator | Sab Hisa
 check("utm_source=fbgroup" in _g420[0] and "EMI ka formula" in _g420[0] and "Srot" not in _g420[0] and "bio" in _g420[1]
       and "Manoj" not in _g420[0], "Group post: jaankari + poora link, Instagram ke liye 'link bio mein', owner ka naam nahi")
 check("hs - 0.2" in _in417.getsource(_RN420.countdown_overlay), "Video ghadi sirf sochne ke samay (5 par atki nahi)")
+# v3.4.21: banner, Telegram group quiz, Quora draft, privacy line
+import tempfile as _tf421  # noqa: E402
+from app import groupquiz as _GQ421, quoradraft as _QD421, webfix as _WF421  # noqa: E402
+_bp421 = _tf421.mktemp(suffix=".jpg")
+_GK420.banner("tool", "EMI Calculator — Home Loan", ["EMI ka formula", "Kitni EMI safe hai?"], "emi-calculator", _bp421)
+from PIL import Image as _Im421  # noqa: E402
+check(_Im421.open(_bp421).size == (1080, 1350), "Group post banner 1080x1350 banta hai (owner ka naam/photo nahi)")
+check(_GQ421._letter("b", ["x", "y", "z", "w"]) == "B" and _GQ421._letter("C) z", ["x", "y", "z", "w"]) == "C"
+      and _GQ421._letter("y", ["x", "y", "z", "w"]) == "B" and _GQ421._letter("hello", ["x", "y", "z", "w"]) is None
+      and _GQ421._code("सवाल ... #8572 #Shorts") == "8572", "Group quiz: A/B/C/D ya vikalp pehchaan + post ka code")
+_sv421 = state.get("sitepatch_3421")
+state.put("sitepatch_3421", False)
+check(not _GQ421.store_ok(), "Group quiz: privacy line lagne se pehle naam/score save nahi")
+state.put("sitepatch_3421", _sv421)
+_ph421 = "<p>x Hum aapka phone number ya naam save nahi karte.</p>"
+check("discussion group quiz" in _WF421.fix_privacy_gq(_ph421), "Privacy: group quiz ki line")
+check(_QD421.on_text("hello", "hello") is None and "Nifty options" in " ".join(_QD421.FACTS), "Quora draft: sirf 'quora:' par, anubhav sirf pakki baaton se")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

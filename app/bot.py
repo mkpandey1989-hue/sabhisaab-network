@@ -658,6 +658,21 @@ def scheduler():
                     if r_:
                         tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
                 run(_sp)
+            if (not state.get("sitepatch_3421") and time.time() - STARTED > 660 and state.get("sitepatch_try3421") != day):
+                state.put("sitepatch_try3421", day)           # v3.4.21: privacy mein group-quiz line (audit gate)
+                def _sp21():
+                    from . import webfix as _SPz
+                    r_ = _SPz.apply_privacy_gq()
+                    if r_:
+                        tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
+                run(_sp21)
+            try:
+                from . import groupquiz as _GQw
+                if _GQw.weekly_due(nowt):
+                    state.put("gq_wk_day", day)
+                    run(_GQw.weekly)
+            except Exception as _e_gqw:
+                log(f"gq weekly: {_e_gqw}")
             if (not state.get("sitepatch_3418") and time.time() - STARTED > 600 and state.get("sitepatch_try3418") != day):
                 state.put("sitepatch_try3418", day)           # v3.4.18: web story ke dohraaye title - ek baar, audit gate se
                 def _sp18():
@@ -1742,6 +1757,13 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.21: Quora jawab draft
+        from . import quoradraft as _QD
+        _r_qd = _QD.on_text(text, tl)
+        if _r_qd is not None:
+            return _r_qd
+    except Exception as _e_qd:
+        log(f"quoradraft: {_e_qd}")
     try:                                                                              # v3.4.20
         from . import groupkit as _GKt
         _r_gk = _GKt.on_text(tl)
@@ -2633,6 +2655,7 @@ CAN_DO = """📋 Main ye sab kar sakta hoon (button dabao ya aise likho):
 🔎 'indexing link' = Google ke liye aaj ke poore link | 'kitne page index nahi' = poori suchi | 'indexing ho gaya'
 🎬 'dailymotion haal' | 'dailymotion roz 3' | 'dailymotion band/chalu'
 🩺 Sab theek? | 🖥 VM | 🛡 Suraksha | 🩺 'website doctor' | 'mera kaam' (aapke kaam ki list)
+✍️ 'quora: <sawal>' = paste-layak Quora jawab | 👥 'group post' = banner + group ke liye post (roz 7:30 khud)
 ⏸ Pause / ▶️ Resume | ⏰ Best time | 'money ka time 13:30 kar do' | 'pahadi ki video <topic> par banao'
 📖 Poora menu - saare hukum"""
 
@@ -3858,6 +3881,13 @@ def main():
                     log(f"purana message chhoda ({int(time.time() - m.get('date', 0))}s purana)")
                     continue          # restart/update ke baad purane message dobara na chalein
                 who = (cb or m).get("from", {}).get("id")
+                if m and (m.get("chat") or {}).get("type") in ("group", "supergroup"):
+                    try:                                  # v3.4.21: channel discussion group quiz (owner ke hukum yahan nahi)
+                        from . import groupquiz as _GQ
+                        run(_GQ.on_group, m, owner)
+                    except Exception:
+                        log("groupquiz " + traceback.format_exc())
+                    continue
                 if who != owner:
                     continue   # sirf owner
                 if cb:

@@ -1988,3 +1988,16 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   Scoreboard source 'FB Group'.
 - Video (owner 18:50, Labh Lo Deals #5387): ghadi '5' par ~11 sec atki dikhti thi (scene shuru se sochne ke samay tak).
   render.countdown_overlay: ghadi sirf hold (sochne) ke samay. Rang (laal/gulabi neon) design ka hai, galti nahi.
+
+## v3.4.21 (17 Nov 2026 raat) - [OPUS 5.5] Banner + Telegram group quiz + Quora jawab draft
+- groupkit.banner: 1080x1350 jaankari-banner (laal tirchhi patti par bada shirshak, hare tick wali 4 baatein, neeche
+  'sabhisaab.com/<page>' + logo; UK = pahad, tool = grid + '100% FREE Hindi mein' tamga). Owner ka naam/photo kabhi nahi.
+  Roz 19:30 group post ke saath pehle photo, phir 2 text.
+- groupquiz.py: Telegram channel ke discussion group mein A/B/C/D jawab par turant sahi/galat (+ galat par jawab ka link),
+  pehla jawab hi gina jaata, 'mera score', 'score hatao', Ravivaar 20:00 hafte ke top 5. Setup: group bana kar channel se
+  jodo, bot admin, group mein /quizgroup. Owner ke hukum group mein nahi chalte (sirf private chat).
+  Naam/score tabhi save jab privacy line lag jaye (webfix.apply_privacy_gq, flag sitepatch_3421, audit PASS).
+- quoradraft.py: 'quora: <sawal>' -> paste-layak jawab (pehli line sirf pakki baaton se anubhav, sawal ki bhasha, 150-260
+  shabd, banawati aankde nahi, 20 Nov se har 3rd jawab mein juda calculator link). Bot Quora par khud kuch nahi daalta.
+  Gmail se Quora mail padhna NAHI banaya: Gmail ki 'restricted' ijazat ke liye Google app verification chahiye, warna
+  test-mode token har 7 din khatam - owner ka kaam badhta. 'quora:' 10 second ka kaam hai.

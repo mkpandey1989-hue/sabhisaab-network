@@ -173,6 +173,65 @@ def fix_story_title(html, wk):
     return html
 
 
+GQ_PIN = "Hum aapka phone number ya naam save nahi karte.</p>"
+GQ_ADD = ('\n<p><b>Telegram discussion group quiz:</b> hamare Telegram channel ke discussion group mein sawal-post ke neeche '
+          'A/B/C/D likhne par bot batata hai ki jawab sahi hai ya nahi. Hafte ki leaderboard ke liye sirf aapka Telegram '
+          'first name, Telegram ka number-id aur score rakha jaata hai — phone number kabhi nahi. Group mein "score hatao" '
+          'likhte hi aapka naam aur score turant mit jaata hai.</p>')
+
+
+def fix_privacy_gq(html, today=None):
+    import datetime as _d
+    if "discussion group quiz" in html or GQ_PIN not in html:
+        return html
+    t = today or _d.date.today()
+    mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November",
+           "December"][t.month - 1]
+    html = html.replace(GQ_PIN, GQ_PIN + GQ_ADD, 1)
+    html = re.sub(r'"dateModified": "\d{4}-\d\d-\d\d"', f'"dateModified": "{t.isoformat()}"', html, count=1)
+    html = re.sub(r'(Aakhri update: <time datetime=")\d{4}-\d\d-\d\d(">)[^<]*(</time>)',
+                  lambda m: f"{m.group(1)}{t.isoformat()}{m.group(2)}{t.day} {mon} {t.year}{m.group(3)}", html, count=1)
+    return html
+
+
+def apply_privacy_gq():
+    """v3.4.21: privacy mein group-quiz line (ek baar, audit gate). Lagne ke baad hi groupquiz naam/score rakhta hai."""
+    from . import website
+    if state.get("sitepatch_3421") or not website.DIR.exists():
+        return None
+    with website.ZIP_LOCK:
+        site = website.DIR / "site"
+        f = site / "privacy.html"
+        if not f.exists():
+            return None
+        old = f.read_text(encoding="utf-8")
+        new = fix_privacy_gq(old)
+        if new == old:
+            if "discussion group quiz" in old:
+                state.put("sitepatch_3421", True)
+            return None
+        changed = {"site/privacy.html": new}
+        sm = site / "sitemap.xml"
+        m = re.search(r'"dateModified": "(\d{4}-\d\d-\d\d)"', new)
+        if sm.exists() and m:
+            x = sm.read_text(encoding="utf-8")
+            y = re.sub(r"(<loc>https://sabhisaab\.com/privacy</loc>\s*<lastmod>)[^<]*(</lastmod>)",
+                       lambda k: k.group(1) + m.group(1) + k.group(2), x, count=1)
+            if y != x:
+                changed["site/sitemap.xml"] = y
+        with tempfile.TemporaryDirectory() as td:
+            zp = Path(td) / "sitepatch3421.zip"
+            with zipfile.ZipFile(zp, "w", zipfile.ZIP_DEFLATED) as z:
+                for rel, txt in changed.items():
+                    z.writestr(rel, txt)
+            r = website._apply_zip(str(zp))
+    if str(r).startswith("✅") or "pehle se lagi" in str(r):
+        state.put("sitepatch_3421", True)
+        return "Privacy policy mein Telegram group-quiz ki line judi (audit paas) - ab group leaderboard chalu."
+    log(f"sitepatch3421: {str(r)[:200]}")
+    return "⚠️ Privacy (group quiz) sudhaar audit mein ruka: " + str(r)[:200]
+
+
 def apply_stories():
     """VM website par EK baar (audit gate): purani quiz stories ke title alag."""
     from . import website
