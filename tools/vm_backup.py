@@ -78,8 +78,10 @@ def collect_literals(texts):
     """sab file mein se ntfy topic + chat id + webhook jaise asli maan - har jagah (URL mein bhi) chhupane ke liye."""
     lit = set()
     for t in texts:
-        for m in re.finditer(r"""(?i)\b\w*(?:TOPIC|CHAT_?ID|OWNER_?ID)\w*["']?[ \t]*[:=][ \t]*(?:["']([A-Za-z0-9_-]{5,})["']|(-?\d{6,})\b)""", t):
+        for m in re.finditer(r"""(?i)\b\w*(?:TOPIC|CHAT_?ID|OWNER_?ID|CLIENT_?ID)\w*["']?[ \t]*[:=][ \t]*(?:["']([A-Za-z0-9_-]{5,})["']|(-?\d{6,})\b)""", t):
             lit.add(m.group(1) or m.group(2))
+        for m in re.finditer(r"(?i)\bclient_?id\s*=\s*(\d{6,})", t):     # Dhan client id (comment/print mein bhi)
+            lit.add(m.group(1))
         for m in re.finditer(r"ntfy\.sh/([A-Za-z0-9_-]{5,})", t):
             lit.add(m.group(1))
     return {x for x in lit if not x.isupper() and x not in ("None", "True", "False")}
@@ -308,7 +310,35 @@ def install():
         print("ℹ️ Roz wala pehle se laga hai")
 
 
+SELF_URL = "https://raw.githubusercontent.com/mkpandey1989-hue/sabhisaab-network/claude/v348/tools/vm_backup.py"
+
+
+def self_update():
+    """roz raat: owner ke apne repo se is script ka naya version (Claude ka sudhaar) - owner ko dobara command nahi chalani.
+    Sirf tab badle jab naya code compile ho aur usme ye hi script ho (vm-bots + PRIVATE jaanch)."""
+    import py_compile
+    me = os.path.abspath(__file__)
+    try:
+        new = urllib.request.urlopen(SELF_URL, timeout=30).read().decode("utf-8")
+    except Exception:
+        return False
+    if new == open(me, encoding="utf-8").read() or 'REPO = "mkpandey1989-hue/vm-bots"' not in new or "PRIVATE hai" not in new:
+        return False
+    tmp = me + ".new"
+    open(tmp, "w", encoding="utf-8").write(new)
+    try:
+        py_compile.compile(tmp, doraise=True)
+    except Exception:
+        os.remove(tmp)
+        return False
+    os.replace(tmp, me)
+    print("🔄 vm_backup.py naya version laga")
+    return True
+
+
 if __name__ == "__main__":
+    if "--no-update" not in sys.argv and "--dry" not in sys.argv and self_update():
+        os.execv(sys.executable, [sys.executable, os.path.abspath(__file__), "--no-update"] + [a for a in sys.argv[1:] if a != "--install"])
     if "--install" in sys.argv:
         install()
     run(dry=sys.argv[sys.argv.index("--dry") + 1] if "--dry" in sys.argv else None)
