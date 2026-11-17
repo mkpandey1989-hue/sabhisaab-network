@@ -762,10 +762,10 @@ def gidx_summary(st=None):
     if g:
         lines.append(f"📈 Google search (28 din): {g.get('pages', 0)} Uttarakhand page dikhe, {g.get('imp', 0)} baar dikhe, {g.get('clk', 0)} click")
         if g.get("top"):
-            lines.append("   Sabse zyada: " + ", ".join(f"{s} ({i})" for s, i, _ in g["top"][:3]))
+            lines.append("   Sabse zyada:" + "".join(f"\n   • {SITE}/{str(s).strip('/')} - {i} baar dikha" for s, i, _ in g["top"][:3]))
         if g.get("low_ctr"):
             lines.append("   Title sudhaar ke layak (1000+ baar dikhe, click 1% se kam - sirf sujhav, aapki haan ke bina kuch nahi badlega): "
-                         + ", ".join(s for s, _, _ in g["low_ctr"][:3]))
+                         + ", ".join(f"{SITE}/{str(s).strip('/')}" for s, _, _ in g["low_ctr"][:3]))
     return "\n".join(lines)
 
 

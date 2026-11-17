@@ -193,7 +193,7 @@ SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pint
               ("Facebook", ("facebook", "fb", "m.facebook", "l.facebook")), ("Instagram", ("instagram", "ig")),
               ("YouTube", ("youtube",)), ("Telegram", ("telegram", "t.me")), ("Threads", ("threads",)),
               ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Dailymotion", ("dailymotion", "dai")), ("Push", ("push",)), ("Seedha", ("(direct)",)),
-              ("(not set)", ("(not set)",))]
+              ("Anjaan", ("(not set)",))]
 
 
 def group_source(src):

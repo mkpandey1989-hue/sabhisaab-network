@@ -1,6 +1,7 @@
 """Telegram (seedha HTTP, purane bot jaisa). Token sirf env se."""
 import json
 import os
+import re
 import time
 import requests
 
@@ -122,6 +123,20 @@ def _chat():
     return os.environ["OWNER_CHAT_ID"]
 
 
+_SLUG_END = r"(?:uttarakhand|calculator|ghumne-ki-jagah|kaise-pahunche|converter|countdown|calculator-hindi)"
+_P1 = re.compile(r"(?<![\w/.:%@#=-])(/(?:jawab|stories|uttarakhand|[a-z0-9]+(?:-[a-z0-9]+)+)(?:/[a-z0-9-]+)*/?)(?=[\s,;:)\]|<]|$)")
+_P2 = re.compile(r"(?<![\w/.:%@#=-])([a-z0-9]+(?:-[a-z0-9]+)*-" + _SLUG_END + r")(?=[\s,;)\]|<]|$)")
+
+
+def full_links(text):
+    """'/emi-calculator' ya 'tehri-garhwal-uttarakhand' -> 'https://sabhisaab.com/...'. Hukum (/login, /pro50) nahi chhuta
+    (unme '-' nahi). Pehle se poore URL nahi badalte."""
+    if not text or not isinstance(text, str):
+        return text
+    t = _P1.sub(lambda m: "https://sabhisaab.com" + m.group(1), text)
+    return _P2.sub(lambda m: "https://sabhisaab.com/" + m.group(1), t)
+
+
 def call(method, data=None, files=None, timeout=120, tries=4):
     """Network toote to har baar saare raaste (seedha + Cloudflare relay), phir 10s, 30s, 60s ruk kar."""
     last = None
@@ -131,6 +146,11 @@ def call(method, data=None, files=None, timeout=120, tries=4):
                 try:                               # v2.0.2: public channel post mein ginti/link hamesha sahi
                     from .guardtext import tg_clean
                     data = tg_clean(dict(data))
+                except Exception:
+                    pass
+                try:                               # v3.4.17: owner ko kabhi adhura link nahi ('/x-y' -> poora https://sabhisaab.com/x-y)
+                    if method == "sendMessage" and str(data.get("chat_id")) == str(os.environ.get("OWNER_CHAT_ID", "")):
+                        data = dict(data, text=full_links(data.get("text", "")))
                 except Exception:
                     pass
             r, b = _http("POST", f"/bot{_tok()}/{method}", timeout, files=files, data=data or {})

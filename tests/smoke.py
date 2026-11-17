@@ -673,5 +673,17 @@ check("dm_last_err" in _in417.getsource(_DM417.status_text) and "dm_retry" in _i
       "'dailymotion haal' mein aakhri galti + dobara wali line")
 check("idx_sent_day" in _in417.getsource(_IX417.run), "Indexing suchi din mein ek hi baar (do baar nahi)")
 check("search-console" not in _in417.getsource(_WS417), "Web Story sandesh: alag GSC link nahi - 11:40 ki ek suchi")
+# v3.4.17b: owner - 'adhure link', '(not set)', table report saath, bot na samjhe to sab kaam bataye
+from app import tg as _TG417, bot as _BOT417, scoreboard as _SB417  # noqa: E402
+check(_TG417.full_links("Agle page: tehri-garhwal-uttarakhand, /emi-calculator, /jawab (20)") ==
+      "Agle page: https://sabhisaab.com/tehri-garhwal-uttarakhand, https://sabhisaab.com/emi-calculator, https://sabhisaab.com/jawab (20)"
+      and _TG417.full_links("/login /pro50 https://sabhisaab.com/x-y") == "/login /pro50 https://sabhisaab.com/x-y",
+      "Owner ko kabhi adhura link nahi (hukum /login waise hi)")
+check(_SB417.group_source("(not set)") == "Anjaan", "'(not set)' ki jagah 'Anjaan' + samjhaav")
+check("_traffic_full" in _in417.getsource(_BOT417) and "scoreboard.send" in _in417.getsource(_BOT417._traffic_full),
+      "Traffic poochho to table report bhi saath")
+check("Abhi video" in _BOT417.CAN_DO and "dailymotion haal" in _BOT417.CAN_DO and "index nahi" in _BOT417.CAN_DO,
+      "Bot samajh na paaye to saare kaam/button batata hai")
+check("not_indexed_text" in _in417.getsource(_IX417.on_text), "'kitne page index nahi' = seedha ginti + poore link")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

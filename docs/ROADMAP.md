@@ -1941,3 +1941,11 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   * 12:39 Web Story sandesh abhi bhi alag "GSC → Request indexing" de raha tha (ek-suchi niyam toota). Ab story URL
     11:40 ki suchi mein (note_new_pages), sandesh mein link nahi.
 - Theek chal raha (jaancha): indexing suchi 11:54 poore URL ke saath aayi; Bing/Google report; traffic report; LinkedIn post.
+- v3.4.17 (b) owner 17:09 ("adhure link, not set, table report saath nahi, bot na samjhe to sab bataye"):
+  * tg.full_links: OWNER ko jaane wale HAR sandesh mein '/x-y', '/jawab', '/stories/..', 'tehri-garhwal-uttarakhand' ->
+    poora https://sabhisaab.com/... (hukum /login, /pro50 nahi badalte; pehle se poore URL nahi badalte). Traffic ke top page
+    alag line mein poore URL; Uttarakhand GSC 'Sabse zyada' poore URL; upload report ka '🔗 Website' '/' ki jagah /jawab#c<code>.
+  * '(not set)' -> 'Anjaan' + ek line samjhaav (tracking fix 16 Nov laga; app-browser wale ab bhi kuch aate hain).
+  * Traffic / 'video link se kitne log' / 👥 button -> traffic sandesh + scoreboard TABLE ek saath (_traffic_full).
+  * 'kitne page index nahi' -> seedha jawab: ginti + har page ka poora link + wajah (aaj taaza jaancha) - Bing ki lambi report nahi.
+  * Bot samajh na paaye (chat) -> jawab ke saath CAN_DO: saare button + likhne wale hukum ki chhoti suchi.

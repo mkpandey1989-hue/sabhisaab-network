@@ -1167,7 +1167,10 @@ def upload(jid, pre=False):
         lines += [f"✅ {k}: {v}" for k, v in done.items()]
         lines += [f"❌ {k}: {v}" for k, v in errs.items()]
         lines += [f"{'' if str(v)[:1] in '⏸🔁⚠' else '⏸ '}{k}: {v}" for k, v in waits.items()]   # v3.4.17: ruke platform bhi dikhein
-        lines.append(f"🔗 Website: {SITE}{meta.get('page', '/')}")
+        _pg = meta.get("page") or "/"              # v3.4.17: '/' (adhura) ki jagah us video ke jawab ka poora link
+        if _pg == "/" and meta.get("reel_code"):
+            _pg = f"/jawab#c{meta.get('reel_code')}"
+        lines.append(f"🔗 Website: {SITE}{_pg}")
     if not errs and not retry:
         yt = done.get("youtube", "")
         tg.say("📲 WhatsApp channel ke liye (copy karke forward karein):\n\n"

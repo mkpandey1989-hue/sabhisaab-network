@@ -215,6 +215,42 @@ def migrate_3413():
     state.put("idx_day", "")
 
 
+def not_indexed_text():
+    """v3.4.17 (owner 16:49: 'kitne page index nahi huye, fresh report' -> bot ne Bing ki lambi report di, seedha jawab nahi).
+    Google ki roz ki jaanch (daily.json) + aaj taaza jaanch: kitne index nahi, har ek ka POORA link aur wajah."""
+    import html as _h
+    st, day = _status()
+    if not st:
+        return "🔎 Google ki roz ki jaanch abhi nahi mili (daily.json). 11:30 ke baad phir poochhein."
+    try:
+        from . import website
+        live = website.live_sitemap_urls() or set()
+    except Exception:
+        live = set()
+    bad = []
+    for u, v in st.items():
+        if v.get("ok") or (live and u not in live):
+            continue
+        fresh = google_says_indexed(u)
+        if fresh is True:
+            continue
+        bad.append((u, v.get("why") or "index nahi"))
+    tot = len([u for u in st if not live or u in live])
+    L = [f"🔎 <b>GOOGLE: {len(bad)} page index NAHI</b> (kul {tot} mein se {tot - len(bad)} index) - jaanch {day}, aaj taaza pakka kiya", ""]
+    for i, (u, w) in enumerate(sorted(bad, key=lambda x: _RANK.get(x[1], 4)), 1):
+        L.append(f"{i}. <code>{_h.escape(u)}</code>\n    <i>{_h.escape(WHY_HI.get(w, w))}</i>")
+    if bad:
+        L += ["", "Inke Google link roz 11:40 ki suchi mein aate hain (din mein max 10). Abhi chahiye to likhein: <b>indexing link</b>"]
+    try:
+        from . import bing
+        b = bing.summary_line() if hasattr(bing, "summary_line") else ""
+        if b:
+            L += ["", "🅱️ " + _h.escape(b)]
+    except Exception:
+        pass
+    return "\n".join(L)
+
+
 def due(now=None):
     now = now or datetime.datetime.now(IST)
     try:
@@ -248,6 +284,10 @@ def on_text(tl, run_bg):
               "indexing link do", "gsc link do", "indexing", "aaj ke indexing link", "indexing link nahi aaye"):
         tg.say("🔎 Pehle Google ko live sitemap bhej raha hoon, phir har page Google se taaza jaanch kar suchi deta hoon (1-3 min)...")
         return run_bg(lambda: (lambda r: r and tg.say(r))(run(manual=True)))
+    if ("index" in tl and any(w in tl for w in ("nahi", "nhi", "nai", "baaki", "baki", "bache"))
+            and any(w in tl for w in ("kitne", "kitna", "kaun", "kon", "list", "suchi", "report", "batao", "page"))
+            and "ho gaya" not in tl):
+        return run_bg(lambda: send_html(not_indexed_text()))     # v3.4.17: seedha jawab - ginti + poore link
     if tl in ("indexing ho gaya", "index ho gaya", "gsc ho gaya", "request indexing ho gaya", "ho gaya indexing"):
         last = state.get("idx_last") or {}
         note_given(last.get("urls") or [])

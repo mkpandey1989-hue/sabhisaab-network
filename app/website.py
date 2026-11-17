@@ -970,10 +970,14 @@ def traffic(days=1):
     lines = [f"🌐 sabhisaab.com ({'aaj' if days == 1 else f'pichhle {days} din'}): {users} log, "
              f"{views} page dekhe" + dwell_str,
              "📍 Kahan se aaye: " + (where or "abhi koi nahi")]
+    if "Anjaan" in (where or ""):
+        lines.append("   ℹ️ Anjaan = GA4 ko raasta nahi mila ('(not set)'): zyadatar Telegram/Instagram/FB app ke andar khula link, "
+                     "ya page khulte hi band. Tracking fix 16 Nov se laga hai - ye ab kam hote jayenge, poora 0 kabhi nahi hota.")
     if camp:
         lines.append("🔗 Hamare link se (brand): " + ", ".join(f"{c} {u}" for c, u, _ in camp[:6]))
-    lines.append("📄 Sabse zyada dekhe page: " + (", ".join(f"{'/ (home)' if p == '/' else p} ({v})" for p, _, v in pages if v > 0)
-                                                 or "abhi koi nahi"))
+    _top = [(p, v) for p, _, v in pages if v > 0]      # v3.4.17 (owner: 'adhure link'): poora URL, ek line ek page
+    lines.append("📄 Sabse zyada dekhe page:" + ("".join(f"\n   • {SITE}{p if p.startswith('/') else '/' + p} - {v} baar"
+                                                         for p, v in _top[:8]) or " abhi koi nahi"))
     ours = [x for x in links if x[3] > 0 and (x[1] not in ("organic", "(none)") or x[2] not in ("(not set)", "(direct)", "(organic)"))]
     if ours:
         lines.append("\n🔗 Har link (kahan se / kaise / kis brand ka → log):")

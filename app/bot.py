@@ -1276,8 +1276,7 @@ def on_text(text):
         return tg.say("✅ Website ZIP ab " + ("bina pooche audit ke baad chadhegi (deploy phir bhi aap dabayein)." if tl.endswith("chalu")
                                               else "chadhane se pehle poochegi."))
     if t in ("👥 Website par aaj kitne log", "/traffic"):
-        from . import website
-        return run(lambda: tg.say(website.traffic_smart()))
+        return run(lambda: _traffic_full(1))
     if t in ("📁 Website ki file", "/files"):
         return tg.say("Kaunsi file chahiye? Likhein: 'website file emi' ya 'website file site' (poori site ZIP).")
     if t.lower().startswith("website file "):
@@ -2277,9 +2276,7 @@ def on_text(text):
         d = 30 if any(w in tl for w in ("mahin", "month", "30 din")) else (
             7 if any(w in tl for w in ("hafte", "hafta", "week", "7 din", "saptah")) else (2 if "kal" in tl else 1))
         tg.say("🔎 Google Analytics se asli ginti la raha hoon...")
-        if d == 1 and any(w in tl for w in ("brand", "video", "hamare", "humare", "reel", "alag", "kahan se", "kaha se")):
-            return run(lambda: tg.say(website.traffic_smart()))   # v3.3.10 (16 Nov 'video link se brand wise' par sirf aaj ka 0 aaya)
-        return run(lambda: tg.say(website.traffic(d)))
+        return run(lambda: _traffic_full(d))         # v3.4.17: traffic + table report EK SATH (owner: 'table wala ek sath nahi aata')
     if "pinterest" in tl and any(w in tl for w in ("kya hua", "kya huwa", "haal", "status", "manzoori", "approve")):
         from . import pinterest as PI
         ps = PI.status()
@@ -2504,7 +2501,7 @@ def think(text):
         return tg.say(plan_text(it.get("time")))
     if a == "website" and (it.get("topic") or "").lower().strip() in ("traffic", "users", "visitors", "log"):
         from . import website
-        return run(lambda: tg.say(website.traffic_smart() if int(it.get("count") or 1) == 1 else website.traffic(int(it.get("count")))))
+        return run(lambda: _traffic_full(int(it.get("count") or 1)))
     if a == "website" and (it.get("topic") or "").lower().startswith("file"):
         from . import website
         nm = (it.get("topic") or "").split(":", 1)[-1].strip() or "site"
@@ -2592,11 +2589,37 @@ def think(text):
                                  r"chalu kar diya|delete kar|mita diya|thik kar diya|theek kar diya|fix kar)", rep.lower()):
         rep += ("\n\n⚠️ Sach: ye sirf baat-cheet ka jawab hai - maine abhi koi kaam CHALAYA nahi. Asli kaam ke liye button dabayein "
                 "ya saaf hukum likhein (jaise 'kachra saaf', '3d jaanch', 'schedule money 12:30,20:30').")   # v2.3.7
+    if a == "chat":                                # v3.4.17 (owner: 'samajh na aaye to bataye jitne button aur kaam hain')
+        rep += "\n\n" + CAN_DO
     tg.say(rep)
     try:                                           # v2.0.4: har baat ka record; jo bot kar nahi paya wo AI ke liye
         updater.log_query(text, a, rep)
     except Exception:
         log("log_query " + traceback.format_exc())
+
+
+CAN_DO = """📋 Main ye sab kar sakta hoon (button dabao ya aise likho):
+🎬 Abhi video - brand chuno, video banegi → manzoori → sab platform (YouTube, FB, IG, Threads, Pinterest, Telegram, Dailymotion)
+⏳ Pending - manzoori wali video | ✅ Thumb 1/2/3 | 🎨 Naye thumbnail | ❌ Mat daalo
+📊 Aaj ka haal | 'traffic' / 'video link se kitne log' = traffic + poori TABLE report ek saath | 'report table 7 din'
+🔎 'indexing link' = Google ke liye aaj ke poore link | 'kitne page index nahi' = poori suchi | 'indexing ho gaya'
+🎬 'dailymotion haal' | 'dailymotion roz 3' | 'dailymotion band/chalu'
+🩺 Sab theek? | 🖥 VM | 🛡 Suraksha | 🩺 'website doctor' | 'mera kaam' (aapke kaam ki list)
+⏸ Pause / ▶️ Resume | ⏰ Best time | 'money ka time 13:30 kar do' | 'pahadi ki video <topic> par banao'
+📖 Poora menu - saare hukum"""
+
+
+def _traffic_full(d=1):
+    """v3.4.17: traffic sandesh + scoreboard TABLE hamesha saath (owner ka hukum)."""
+    from . import website, scoreboard
+    try:
+        tg.say(website.traffic_smart() if d == 1 else website.traffic(d))
+    except Exception as e:
+        tg.say(f"🌐 Traffic nahi aaya: {str(e)[:150]}")
+    try:
+        scoreboard.send(max(d, 7) if d == 1 else d)
+    except Exception as e:
+        tg.say(f"📊 Table report nahi bani: {str(e)[:150]}")
 
 
 def save_intent(it):
