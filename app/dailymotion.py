@@ -26,6 +26,13 @@ from .log import log
 STORE = SECRETS / "dailymotion.json"
 TOKEN_URLS = ("https://oauth2.dailymotion.com/v2/token", "https://partner.api.dailymotion.com/oauth/v1/token")
 SCOPES = ("manage_videos", "video.manage")
+# v3.4.14 (17 Nov 12:32): Dailymotion ne naya API v2 (api.dailymotion.com/v2) laya - v2 token purane /rest/file/upload par
+# 401 'invalid' deta tha (aaj ek bhi video nahi gayi). Ab pehle v2: token scope 'video.manage account.read' -> /files/upload_sessions
+# -> file POST -> /profiles/{profile_id}/videos. v2 na chale tabhi purana tareeka (partner token + /rest).
+V2 = "https://api.dailymotion.com/v2"
+V2_TOKEN = "https://oauth2.dailymotion.com/v2/token"
+V2_SCOPES = ("video.manage account.read", "video.manage")
+LEGACY_TOKEN = "https://partner.api.dailymotion.com/oauth/v1/token"
 API = "https://partner.api.dailymotion.com/rest"
 PUBLIC = "https://api.dailymotion.com"
 DM_MAX = 2
@@ -91,6 +98,97 @@ def token(force=False):
 
 def _h():
     return {"Authorization": f"Bearer {token()}"}
+
+
+def _tok_req(url, scope):
+    c = _cfg()
+    r = requests.post(url, timeout=30, data={"grant_type": "client_credentials", "client_id": c.get("key", ""),
+                                             "client_secret": c.get("secret", ""), "scope": scope},
+                      headers={"Content-Type": "application/x-www-form-urlencoded"})
+    j = r.json() if r.content else {}
+    if r.status_code == 200 and j.get("access_token"):
+        return j
+    raise RuntimeError(f"{r.status_code} {str(j.get('error_description') or j.get('error') or r.text)[:120]}")
+
+
+def token_v2(force=False):
+    """API v2 ka token (video.manage + account.read). -> (token, scope)"""
+    tk = state.get("dm_tok2") or {}
+    if not force and tk.get("t") and time.time() < float(tk.get("exp", 0)) - 120:
+        return tk["t"], tk.get("scope", "")
+    last = ""
+    for sc in V2_SCOPES:
+        try:
+            j = _tok_req(V2_TOKEN, sc)
+            state.put("dm_tok2", {"t": j["access_token"], "exp": time.time() + int(j.get("expires_in", 1800)), "scope": sc})
+            return j["access_token"], sc
+        except Exception as e:
+            last = str(e)
+    raise RuntimeError(f"Dailymotion v2 login nahi hua ({last})")
+
+
+def token_legacy():
+    """Purane /rest ke liye partner token (manage_videos)."""
+    tk = state.get("dm_tok1") or {}
+    if tk.get("t") and time.time() < float(tk.get("exp", 0)) - 120:
+        return tk["t"]
+    j = _tok_req(LEGACY_TOKEN, "manage_videos")
+    state.put("dm_tok1", {"t": j["access_token"], "exp": time.time() + int(j.get("expires_in", 1800))})
+    return j["access_token"]
+
+
+def profile_id():
+    """v2 /me -> profiles[].profile_id (hamara 'sabhisaab'). Ek baar mil gaya to yaad."""
+    c = _cfg()
+    if c.get("profile_id"):
+        return c["profile_id"]
+    t, _ = token_v2()
+    r = requests.get(f"{V2}/me", headers={"Authorization": f"Bearer {t}"}, timeout=30)
+    j = r.json() if r.content else {}
+    pr = j.get("profiles") or []
+    want = (c.get("user") or "sabhisaab").lower()
+    pick = next((p for p in pr if str(p.get("name", "")).lower() == want), pr[0] if pr else None)
+    if not pick or not pick.get("profile_id"):
+        raise RuntimeError(f"profile id nahi mila ({r.status_code} {str(j)[:120]}) - Dailymotion API key mein 'account read' "
+                           "permission chahiye")
+    c["profile_id"] = pick["profile_id"]
+    _save(c)
+    return c["profile_id"]
+
+
+def _upload_v2(vpath, meta):
+    t, _ = token_v2()
+    H = {"Authorization": f"Bearer {t}"}
+    r = requests.post(f"{V2}/files/upload_sessions", headers=H, timeout=60)
+    j = r.json() if r.content else {}
+    up = j.get("upload_url")
+    if not up:
+        raise RuntimeError(f"v2 upload session nahi bana: {r.status_code} {str(j)[:150]}")
+    with open(vpath, "rb") as f:
+        fr = requests.post(up, files={"file": (str(vpath).rsplit("/", 1)[-1], f, "video/mp4")}, timeout=1800)
+    fj = fr.json() if fr.content else {}
+    furl = fj.get("url") or fj.get("file_url") or (fj.get("source") or {}).get("file_url")
+    if not furl:
+        raise RuntimeError(f"v2 file upload fail: {fr.status_code} {str(fj)[:150]}")
+    title = re.sub(r"\s*#\S+", "", meta.get("title", "")).strip()[:250] or "Sab Hisaab"
+    body = {"title": title, "visibility": "public", "is_for_kids": False, "source": {"file_url": furl},
+            "description": build_desc(meta)[:2900], "tags": [x for x in tags_of(meta).split(",") if x][:10],
+            "language": "hi", "country": "IN"}
+    pid = profile_id()
+    cr = requests.post(f"{V2}/profiles/{pid}/videos", headers=H, json=body, timeout=120)
+    cj = cr.json() if cr.content else {}
+    if cr.status_code not in (200, 201) and cr.status_code == 422:      # koi vaikalpik khaana na chale to bina uske
+        log(f"dm v2 create full: {str(cj)[:200]}")
+        cr = requests.post(f"{V2}/profiles/{pid}/videos", headers=H, timeout=120,
+                           json={k: body[k] for k in ("title", "visibility", "is_for_kids", "source")})
+        cj = cr.json() if cr.content else {}
+    vid = cj.get("id") or cj.get("video_id") or cj.get("xid")
+    if cr.status_code not in (200, 201) or not vid:
+        raise RuntimeError(f"v2 video nahi bani: {cr.status_code} {str(cj)[:180]}")
+    c = _cfg()
+    c["api"] = "v2"
+    _save(c)
+    return f"https://www.dailymotion.com/video/{vid}", vid
 
 
 def find_channel(name_hint=None, tries=3):
@@ -237,9 +335,27 @@ def tags_of(meta):
 
 
 def upload(vpath, meta):
-    """-> (video_url, xid)"""
+    """-> (video_url, xid). v3.4.14: pehle naya API v2; na chale to purana /rest (partner token)."""
+    try:
+        u, x = _upload_v2(vpath, meta)
+        _mark_posted()
+        return u, x
+    except Exception as e2:
+        log(f"dm v2: {e2}")
+        err2 = str(e2)
+    try:
+        return _upload_legacy(vpath, meta)
+    except Exception as e1:
+        raise RuntimeError(f"naya API: {err2[:160]} | purana: {str(e1)[:120]}")
+
+
+def _hl():
+    return {"Authorization": f"Bearer {token_legacy()}"}
+
+
+def _upload_legacy(vpath, meta):
     c = _cfg()
-    j = requests.get(f"{API}/file/upload", headers=_h(), timeout=60).json()
+    j = requests.get(f"{API}/file/upload", headers=_hl(), timeout=60).json()
     up = j.get("upload_url")
     if not up:
         raise RuntimeError(f"upload URL nahi mila: {str(j)[:150]}")
@@ -252,13 +368,13 @@ def upload(vpath, meta):
     base = {"url": furl, "title": title, "channel": CATEGORY, "published": "true", "private": "false",
             "is_created_for_kids": "false"}
     extra = {"description": build_desc(meta), "tags": tags_of(meta)}
-    r = requests.post(f"{API}/user/{c['channel']}/videos", headers=_h(), data={**base, **extra}, timeout=120).json()
+    r = requests.post(f"{API}/user/{c['channel']}/videos", headers=_hl(), data={**base, **extra}, timeout=120).json()
     if not r.get("id"):                       # koi vaikalpik khaana na chale to bina uske (video phir bhi jaye)
         log(f"dm create full: {str(r)[:200]}")
-        r = requests.post(f"{API}/user/{c['channel']}/videos", headers=_h(), data=base, timeout=120).json()
+        r = requests.post(f"{API}/user/{c['channel']}/videos", headers=_hl(), data=base, timeout=120).json()
         if r.get("id"):
             try:
-                requests.post(f"{API}/video/{r['id']}", headers=_h(), data={"description": extra["description"]}, timeout=60)
+                requests.post(f"{API}/video/{r['id']}", headers=_hl(), data={"description": extra["description"]}, timeout=60)
             except Exception:
                 pass
     if not r.get("id"):
@@ -268,12 +384,22 @@ def upload(vpath, meta):
 
 
 def delete(xid):
-    r = requests.delete(f"{API}/video/{xid}", headers=_h(), timeout=60)
-    return r.status_code in (200, 204)
+    try:
+        t, _ = token_v2()
+        r = requests.delete(f"{V2}/videos/{xid}", headers={"Authorization": f"Bearer {t}"}, timeout=60)
+        if r.status_code in (200, 202, 204):
+            return True
+    except Exception as e:
+        log(f"dm v2 delete: {e}")
+    try:
+        r = requests.delete(f"{API}/video/{xid}", headers=_hl(), timeout=60)
+        return r.status_code in (200, 204)
+    except Exception:
+        return False
 
 
 def warn_once(err):
-    d = str(datetime.date.today())
+    d = str(datetime.date.today()) + "|" + str(err)[:25]      # v3.4.14: nayi tarah ki galti ho to usi din bhi batao
     if state.get("dm_warn_day") == d:
         return
     state.put("dm_warn_day", d)

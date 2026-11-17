@@ -606,5 +606,45 @@ try:
           "Queue sandesh: alag indexing link nahi - sab 11:40 ki ek suchi mein")
 finally:
     state.put("idx_given", _sv413[0] or {}); state.put("pq_new_pages", _sv413[1] or {}); state.put("idx_last", _sv413[2] or {})
+# v3.4.14: Dailymotion naya API v2 (purane /rest par v2 token 401 deta tha)
+from app import dailymotion as _DM414  # noqa: E402
+_sv414 = (_DM414.STORE.read_text() if _DM414.STORE.exists() else None, state.get("dm_tok2"), _DM414.requests.post, _DM414.requests.get)
+try:
+    _DM414._save({"key": "k", "secret": "s", "channel": "x1", "user": "sabhisaab"})
+    state.put("dm_tok2", {"t": "T2", "exp": 9e12, "scope": "video.manage account.read"})
+    _calls = []
+
+    class _R:
+        def __init__(s, code, j):
+            s.status_code, s._j, s.content = code, j, b"1"
+
+        def json(s):
+            return s._j
+
+    def _post(url, **k):
+        _calls.append(url)
+        if url.endswith("/files/upload_sessions"):
+            return _R(201, {"upload_url": "https://up.example/x", "progress_url": "p"})
+        if url.startswith("https://up.example"):
+            return _R(200, {"url": "https://files/abc"})
+        if "/profiles/" in url:
+            check(k.get("json", {}).get("is_for_kids") is False and k["json"]["source"]["file_url"] == "https://files/abc"
+                  and k["json"]["visibility"] == "public", "Dailymotion v2: sahi khaane (is_for_kids, source.file_url, public)")
+            return _R(201, {"id": "xV2"})
+        return _R(500, {})
+    _DM414.requests.post = _post
+    _DM414.requests.get = lambda url, **k: _R(200, {"profiles": [{"profile_id": "P1", "name": "sabhisaab"}]})
+    import tempfile as _tf414
+    _v = _tf414.NamedTemporaryFile(suffix=".mp4", delete=False); _v.write(b"0"); _v.close()
+    _u414 = _DM414.upload(_v.name, {"title": "Test #shorts", "brand": "money"})
+    check(_u414 == ("https://www.dailymotion.com/video/xV2", "xV2") and any("/v2/profiles/P1/videos" in c for c in _calls),
+          "Dailymotion: naye API v2 se upload (session -> file -> profile video)")
+finally:
+    _DM414.requests.post, _DM414.requests.get = _sv414[2], _sv414[3]
+    state.put("dm_tok2", _sv414[1] or {})
+    if _sv414[0] is None:
+        _DM414.STORE.unlink(missing_ok=True)
+    else:
+        _DM414.STORE.write_text(_sv414[0])
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

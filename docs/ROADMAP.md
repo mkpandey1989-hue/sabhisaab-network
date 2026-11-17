@@ -1909,3 +1909,13 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   (2) 7-din niyam sirf owner ke `indexing ho gaya` ke baad (`note_given`); bina kiye suchi agle din phir aati hai.
   (3) Kuch baaki na ho to bhi 11:40 par chhota "aaj koi kaam nahi" sandesh. (4) Naye page par bhi Google ki taaza jaanch.
   (5) `migrate_3413`: aaj ke adhoore 'diye' hata kar update ke turant baad aaj ki poori suchi dobara.
+
+## v3.4.14 (17 Nov 2026 dopahar) - [OPUS 5.5] Dailymotion naya API v2
+- 12:32 alert: "upload URL nahi mila: 401 invalid ..." - aaj ek bhi video nahi gayi. Wajah: Dailymotion ka naya API v2
+  (api.dailymotion.com/v2). Bot ka token oauth2.dailymotion.com/v2 se banta tha (v2 token) par upload purane
+  partner.api.dailymotion.com/rest/file/upload par jata tha -> 401.
+- Ab: token `video.manage account.read` → POST /v2/files/upload_sessions → file POST (field `file`) → GET /v2/me (profile_id)
+  → POST /v2/profiles/{profile_id}/videos (title, visibility=public, is_for_kids=false, source.file_url, description, tags,
+  language=hi, country=IN). v2 na chale to purana /rest partner token se. Delete bhi v2 pehle.
+- Docs: developers.dailymotion.com/docs/migrating-from-legacy-api-to-api-v2 , /reference/create-profile-video , /docs/collect-profile-ids
+- Agar key mein 'account read' permission nahi to saaf sandesh (profile id nahi mila). warn_once ab nayi galti par usi din bhi batata hai.
