@@ -190,6 +190,10 @@ def run(manual=False, extra_new=()):
         return ("✅ GOOGLE INDEXING: aaj aapka koi kaam nahi - sitemap ke sab live page Google index mein hain"
                 + (f" ya {wk} page par aap pichhle 7 din mein Request indexing kar chuke (Google 2-14 din leta hai)." if wk else "."))
     # v3.4.13: 7-din wala niyam sirf tab jab owner 'indexing ho gaya' likhe - bina kiye suchi gayab nahi hoti
+    if not manual:                       # v3.4.17: 11:54 par suchi 2 baar gayi thi (restart ke beech) - din mein ek hi baar
+        if state.get("idx_sent_day") == str(today):
+            return None
+        state.put("idx_sent_day", str(today))
     state.put("idx_last", {"day": str(today), "urls": [u for u, _ in rows]})
     send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line))
     return None

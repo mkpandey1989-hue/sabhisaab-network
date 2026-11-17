@@ -1930,3 +1930,14 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Ab: har Dailymotion call 3 koshish (5s/20s ruk kar) + browser jaisa User-Agent. Phir bhi network toote to video ki copy
   data/dm_retry/ mein, bot har 30 min khud dobara (2 din tak, roz ki seema ke andar), safal hone par sandesh. Owner ko baar-baar alert nahi.
 - 15:36 bot AI ne kaha "Dailymotion integration hamare system mein nahi" - galat. brain.PROMPT mein Dailymotion (+LinkedIn) joda.
+
+## v3.4.17 (17 Nov 2026 shaam) - [OPUS 5.5] Bot chat review: report, YouTube ❌ jhootha, DM haal, indexing do baar
+- Owner: "jo jo theek karwaya tha sab bekar ho gaya, bot chat padho". CHAT.md 06:00-16:58 padha:
+  * 16:54 Money test video: YouTube CHALI GAYI (link bhi) par report mein "❌ youtube: thumbs.json nahi" - neon_quiz design
+    thumbs.json nahi likhta, upload ke BAAD learn.record_upload use padhta tha -> jhootha ❌. Ab na ho to {} (koi ❌ nahi).
+  * Upload report mein ⏸/🔁 (Pinterest seema, Dailymotion dobara/galti) dikhte hi nahi the (sirf ✅/❌). Ab dikhte hain.
+  * 'dailymotion haal' sirf "aaj gayi 0" - kyun nahi, pata nahi chalta tha. Ab aakhri galti + dobara-line dikhti hai.
+  * 11:54 indexing suchi CHAT mein 2 baar (restart ke beech). Ab auto-suchi din mein ek hi baar (idx_sent_day).
+  * 12:39 Web Story sandesh abhi bhi alag "GSC → Request indexing" de raha tha (ek-suchi niyam toota). Ab story URL
+    11:40 ki suchi mein (note_new_pages), sandesh mein link nahi.
+- Theek chal raha (jaancha): indexing suchi 11:54 poore URL ke saath aayi; Bing/Google report; traffic report; LinkedIn post.

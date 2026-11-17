@@ -928,8 +928,13 @@ def upload(jid, pre=False):
                     log(f"ab remember: {e}")
             if meta.get("format") == "long":       # lambi video = us brand ki 'hub' (Shorts ka Related video)
                 state.update("hub_videos", lambda d, v=vid: {**(d or {}), brand: v}, {})
-            variants = json.loads((pathlib.Path(job["meta"]) / "thumbs.json").read_text())
-            learn.record_upload(vid, {**variants[int(job.get("thumb", 1)) - 1], "brand": brand,
+            try:                                   # v3.4.17: thumbs.json na ho to bhi YouTube ❌ nahi (video to chali gayi)
+                variants = json.loads((pathlib.Path(job["meta"]) / "thumbs.json").read_text())
+                _v1 = variants[int(job.get("thumb", 1)) - 1]
+            except Exception as _e_tj:
+                log(f"thumbs.json: {_e_tj}")
+                _v1 = {}
+            learn.record_upload(vid, {**_v1, "brand": brand,
                                       "kind": job.get("topic_kind", "idea"), "hour": now().strftime("%H"),
                                       "fmt": meta.get("format", "short"), "title": meta["title"][:80],
                                       "mood": job.get("style") or "normal", "hook": meta.get("hook_used", ""),
@@ -1079,6 +1084,7 @@ def upload(jid, pre=False):
         except Exception as e:
             log(f"dailymotion: {e}")
             waits["dailymotion"] = f"⚠️ {str(e)[:150]}"
+            state.put("dm_last_err", {"t": now().strftime("%d %b %H:%M"), "jid": jid, "err": str(e)[:200]})
             try:                                  # v3.4.16: network galti -> 30-30 min par khud dobara (owner ko baar-baar nahi)
                 if _DM.is_net_err(e) and _DM.queue_retry(vpath, meta, jid):
                     waits["dailymotion"] = "🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega"
@@ -1160,6 +1166,7 @@ def upload(jid, pre=False):
         lines = [f"📤 {BRANDS[brand]['name']}: {meta['title']}"]
         lines += [f"✅ {k}: {v}" for k, v in done.items()]
         lines += [f"❌ {k}: {v}" for k, v in errs.items()]
+        lines += [f"{'' if str(v)[:1] in '⏸🔁⚠' else '⏸ '}{k}: {v}" for k, v in waits.items()]   # v3.4.17: ruke platform bhi dikhein
         lines.append(f"🔗 Website: {SITE}{meta.get('page', '/')}")
     if not errs and not retry:
         yt = done.get("youtube", "")

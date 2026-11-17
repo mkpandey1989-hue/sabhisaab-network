@@ -171,8 +171,13 @@ def publish(brand):
     if str(r).startswith("✅"):
         state.update("stories", lambda d: {**(d or {}), sl: str(datetime.date.today())}, {})
         # v3.4.4: IndexNow/Bing + owner ka sandesh DEPLOY LIVE ke baad (pehle 15 min pehle hi bhej deta tha - sitemap mein bhi nahi tha)
-        website.after_live_msg(f"📖 Web Story LIVE + sitemap mein: {SITE}/stories/{sl}\n(Bing ko bot ne bhej diya. Google: GSC → URL "
-                               f"inspection → ye URL → Request indexing - https://search.google.com/search-console)")
+        try:                                       # v3.4.17: Google indexing link sirf 11:40 ki EK suchi mein
+            from .idxlink import note_new_pages
+            note_new_pages([f"{SITE}/stories/{sl}"])
+        except Exception:
+            pass
+        website.after_live_msg(f"📖 Web Story LIVE + sitemap mein: {SITE}/stories/{sl}\n(Bing ko bot ne bhej diya. Google ka link "
+                               f"11:40 ki '🔎 GOOGLE INDEXING' suchi mein aayega - abhi kuch nahi karna)")
         return f"📖 Web Story taiyaar: {SITE}/stories/{sl} - deploy ke baad (lagbhag 20 min) LIVE + sitemap, phir indexing ka sandesh."
     return f"📖 Web Story audit mein ruki (kuch live nahi): {str(r)[:200]}"
 
@@ -351,7 +356,12 @@ def publish_uk():
     z.unlink(missing_ok=True)
     if str(r).startswith("✅"):
         state.update("uk_stories", lambda d: {**(d or {}), s: str(datetime.date.today())}, {})
-        website.after_live_msg(f"📖 Uttarakhand Web Story LIVE + sitemap mein: {SITE}/stories/{sl}\nGoogle: GSC → URL inspection → "
-                               f"ye URL → Request indexing - https://search.google.com/search-console (Bing ko bot ne bhej diya)")
+        try:
+            from .idxlink import note_new_pages
+            note_new_pages([f"{SITE}/stories/{sl}"])
+        except Exception:
+            pass
+        website.after_live_msg(f"📖 Uttarakhand Web Story LIVE + sitemap mein: {SITE}/stories/{sl}\n(Bing ko bot ne bhej diya. Google ka "
+                               f"link 11:40 ki '🔎 GOOGLE INDEXING' suchi mein aayega - abhi kuch nahi karna)")
         return f"📖 UK Web Story taiyaar: {SITE}/stories/{sl} - deploy ke baad LIVE + sitemap, phir indexing ka sandesh."
     return f"📖 UK Web Story audit mein ruki (kuch live nahi): {str(r)[:200]}"

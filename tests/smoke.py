@@ -664,5 +664,14 @@ try:
 finally:
     state.put("dm_retry", _q416 or [])
 check("Dailymotion" in _BR416.PROMPT and "integration nahi" in _BR416.PROMPT, "Bot AI ko pata hai ki Dailymotion juda hai")
+# v3.4.17: report mein ruke platform; thumbs.json na ho to YouTube ❌ nahi; DM haal mein galti; indexing din mein 1 baar
+import inspect as _in417  # noqa: E402
+from app import pipeline as _PL417, dailymotion as _DM417, idxlink as _IX417, webstory as _WS417  # noqa: E402
+_src417 = _in417.getsource(_PL417.upload)
+check("for k, v in waits.items()]" in _src417 and "_v1 = {}" in _src417, "Upload report: ⏸/🔁 platform dikhte hain; thumbs.json na ho to YouTube ❌ nahi")
+check("dm_last_err" in _in417.getsource(_DM417.status_text) and "dm_retry" in _in417.getsource(_DM417.status_text),
+      "'dailymotion haal' mein aakhri galti + dobara wali line")
+check("idx_sent_day" in _in417.getsource(_IX417.run), "Indexing suchi din mein ek hi baar (do baar nahi)")
+check("search-console" not in _in417.getsource(_WS417), "Web Story sandesh: alag GSC link nahi - 11:40 ki ek suchi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

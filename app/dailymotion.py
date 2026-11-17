@@ -365,6 +365,7 @@ def upload(vpath, meta):
     try:
         u, x = _upload_v2(vpath, meta)
         _mark_posted()
+        state.put("dm_last_err", {})
         return u, x
     except Exception as e2:
         log(f"dm v2: {e2}")
@@ -531,8 +532,15 @@ def status_text():
         return "🎬 Dailymotion: abhi juda nahi. Likhiye 'dailymotion jodo' - bot key/secret khud maangega."
     d = str(datetime.date.today())
     v = views(7)
+    q = state.get("dm_retry") or []
+    le = state.get("dm_last_err") or {}
+    extra = ""
+    if q:
+        extra += "\n🔁 Dobara bhejne ki line mein: " + ", ".join(f"{x['jid']} ({x.get('n', 0)} koshish)" for x in q)
+    if le:
+        extra += f"\n⚠️ Aakhri galti ({le.get('t')}, {le.get('jid')}): {le.get('err', '')[:160]}"
     return (f"🎬 Dailymotion: @{c.get('user', '?')} | roz {per_day()} video | aaj gayi: {(state.get('dm_log') or {}).get(d, 0)} | "
-            f"{'CHALU' if on() else 'BAND'}" + (f" | 7 din views: {v}" if v is not None else "") +
+            f"{'CHALU' if on() else 'BAND'}" + (f" | 7 din views: {v}" if v is not None else "") + extra +
             "\nHukum: 'dailymotion roz 3' | 'dailymotion band' / 'dailymotion chalu' | 'dailymotion jodo' (nayi key)")
 
 
