@@ -189,7 +189,7 @@ def on_text(tl, run):
     return None
 
 
-SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")),
+SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")), ("FB Group", ("fbgroup",)),
               ("Facebook", ("facebook", "fb", "m.facebook", "l.facebook")), ("Instagram", ("instagram", "ig")),
               ("YouTube", ("youtube",)), ("Telegram", ("telegram", "t.me")), ("Threads", ("threads",)),
               ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Dailymotion", ("dailymotion", "dai")), ("Push", ("push",)), ("Seedha", ("(direct)",)),

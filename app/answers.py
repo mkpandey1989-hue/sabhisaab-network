@@ -409,6 +409,49 @@ JW_STREAK = ("<script>document.addEventListener('DOMContentLoaded',function(){va
 
 
 
+def similar_block(e, lst, i_):
+    """v3.4.20: jawab khulte hi 'isi tarah ke 3 aur' (usi channel ke, tap wale) - usi page par, koi naya page/popup nahi."""
+    out = []
+    for j, x in enumerate(lst):
+        if j in (i_, i_ + 1) or x.get("brand") != e.get("brand") or not tap_ok(x):
+            continue
+        q = re.sub(r"\s*#\S+", "", str(x.get("q", ""))).strip()
+        out.append(f'<a href="#c{_esc(x.get("aid") or x["code"])}">{_esc(q[:55])}{"…" if len(q) > 55 else ""}</a>')
+        if len(out) >= 3:
+            break
+    if not out:
+        return ""
+    return '<p class="upd jw-sim" hidden>🎯 Isi tarah ke ' + str(len(out)) + ' aur - khud try karo: ' + " · ".join(out) + "</p>"
+
+
+def challenge_block(lst):
+    """v3.4.20: page ke upar 'Aaj ka Challenge' - sabse naye 5 tap wale sawal + 'kitne kiye' (isi phone mein, koi login nahi)."""
+    its = [x for x in lst if tap_ok(x)][:5]
+    if len(its) < 3:
+        return ""
+    li = "".join(f'<li><a href="#c{_esc(x.get("aid") or x["code"])}">{_esc(re.sub(r"[ ]*#[^ ]+", "", str(x.get("q", ""))).strip()[:70])}</a> '
+                 f'<span class="upd">({_esc(x.get("bname"))})</span></li>' for x in its)
+    ids = ",".join(str(x.get("aid") or x["code"]) for x in its)
+    return (f'<div class="jw-chal" data-ids="{_esc(ids)}" style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:14px;padding:12px 16px;margin:12px 0">'
+            f'<p><b>🔥 Aaj ka Challenge: {len(its)} naye sawal</b> <span id="jwChal" class="upd"></span></p><ol>{li}</ol>'
+            '<p class="upd">Har sawal par tap karke chuniye - sahi/galat wahin dikhega. Score aur streak isi phone mein rehti hai.</p></div>'
+            "<script>document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.jw-chal');if(!b)return;"
+            "var ids=b.getAttribute('data-ids').split(','),d;try{d=JSON.parse(localStorage.getItem('sh_jawab_streak')||'{}')}catch(e){d={}}"
+            "var p=d.pick||{},n=ids.filter(function(x){return p[x]!==undefined}).length,el=document.getElementById('jwChal');"
+            "if(el)el.textContent='- aapne '+n+'/'+ids.length+' kiye'+(n===ids.length?' 🎉':'')});</script>")
+
+
+INAPP = ('<p id="jwApp" class="upd" hidden style="background:#FEF3C7;border-radius:10px;padding:8px 12px">📲 Ye page Facebook/Instagram '
+         'ke andar khula hai. <a id="jwChrome" href="#" rel="nofollow">Chrome mein kholein</a> - streak bachi rahegi aur Sab Hisaab ko '
+         'phone par App bana sakte hain. <button type="button" id="jwAppX" aria-label="band">✕</button></p>'
+         "<script>(function(){try{var u=navigator.userAgent||'',k='sh_inapp_x';if(!/FBAN|FBAV|FB_IAB|Instagram/i.test(u))return;"
+         "if(localStorage.getItem(k))return;var p=document.getElementById('jwApp'),a=document.getElementById('jwChrome');if(!p)return;"
+         "if(/Android/i.test(u)){a.href='intent://'+location.host+location.pathname+location.search+"
+         "'#Intent;scheme=https;package=com.android.chrome;end'}else{a.removeAttribute('href');a.textContent='upar ⋯ dabakar \\'Open in "
+         "browser\\' chuniye'}p.hidden=false;document.getElementById('jwAppX').addEventListener('click',function(){p.hidden=true;"
+         "try{localStorage.setItem(k,'1')}catch(e){}})}catch(e){}})();</script>")
+
+
 def tap_ok(e):
     """v2.8.0: is jawab par 'tap karke socho' ban sakta hai? (4 vikalp + sahi unme ek hi baar)"""
     o = [str(x) for x in (e.get("opts") or [])]
@@ -434,8 +477,8 @@ def tap_js():
         vu = votes.url() if state.get("votes_on") else ""
     except Exception:
         vu = ""
-    return ("<script>window.jwOpen=function(s){var a=s.querySelector('.jw-ans'),b=s.querySelector('.jw-show');if(a)a.hidden=false;"
-            "if(b)b.hidden=true};document.addEventListener('click',function(ev){var t=ev.target.closest&&ev.target.closest('.jw-show');"
+    return ("<script>window.jwOpen=function(s){var a=s.querySelector('.jw-ans'),b=s.querySelector('.jw-show'),m=s.querySelector('.jw-sim');"
+            "if(a)a.hidden=false;if(b)b.hidden=true;if(m)m.hidden=false};document.addEventListener('click',function(ev){var t=ev.target.closest&&ev.target.closest('.jw-show');"
             "if(t){var s=t.closest('section');if(s)jwOpen(s)}});</script>"
             "<script>document.addEventListener('DOMContentLoaded',function(){var VU=" + json.dumps(vu) + ",K='sh_jawab_streak',d;"
             "try{d=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){d={}}d.ok=d.ok||0;d.n=d.n||0;d.days=d.days||0;d.last=d.last||'';"
@@ -668,6 +711,7 @@ def build_page():
                f'<p class="upd jw-me" data-id="{_esc(e.get("aid") or e["code"])}">Aapne pehle socha tha? '
                f'<button type="button" data-r="1">✅ Mera jawab sahi tha</button> <button type="button" data-r="0">❌ Galat tha</button></p>')
             + (f'<p class="jw-next"><a href="#c{_esc((lst[i_ + 1].get("aid") or lst[i_ + 1]["code"]))}">➡ Agla sawal: kya ye bhi sahi karoge?</a></p>' if i_ + 1 < len(lst) else "")
+            + similar_block(e, lst, i_)
             + "</section>")
     from .config import LINKS, WHATSAPP, TELEGRAM, PINTEREST
     chan = ("<h2>Hamare channel</h2><p>" + " · ".join(
@@ -731,7 +775,7 @@ def build_page():
             '<p>Hamari reels (YouTube, Instagram, Facebook, Threads, Pinterest) mein roz naye sawal aate hain. Video mein jo '
             '<b>code</b> dikhta hai, wahi code yahan dhoondhein. Har jawab pehle ganit, tark ya pakke srot se jaancha jaata hai. '
             f'Roz naye sawal ke liye Telegram se judein: <a href="{TG_LINK}" rel="noopener">{TG_LINK}</a>.</p>'
-            + table + nav + ("".join(blocks) or "<p>Aaj ke jawab jaldi aa rahe hain.</p>") + guide +
+            + INAPP + challenge_block(lst) + table + nav + ("".join(blocks) or "<p>Aaj ke jawab jaldi aa rahe hain.</p>") + guide +
             chan + _stories_block(DIR) + '<h2>Sab Hisaab ke kaam ke free tools</h2><p>Paise ka hisaab: <a href="/sip-calculator">SIP</a> · <a href="/emi-calculator">EMI</a> · '
             '<a href="/discount-calculator">Discount</a> · <a href="/percentage-calculator">Percentage</a>. Roz ke kaam: <a href="/age-calculator">Umar</a> · '
             '<a href="/date-difference-calculator">Do tareekh ka farak</a>. Uttarakhand: <a href="/nali-mutthi-converter">Nali-Mutthi</a>. '

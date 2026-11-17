@@ -310,6 +310,13 @@ def scheduler():
                 if _UW.share_due(nowt):
                     state.put("uk_share_day", day)
                     run(lambda: (lambda r: r and tg.say(r))(_UW.share_run()))
+                try:                                   # v3.4.20: roz 19:30 group ke liye copy-paste post (owner haath se daalta hai)
+                    from . import groupkit as _GK
+                    if _GK.due(nowt):
+                        state.put("grp_day", day)
+                        run(_GK.run)
+                except Exception as _e_gk:
+                    log(f"groupkit loop: {_e_gk}")
                 if _UW.link_due(nowt):
                     state.put("uk_link_wk", nowt.strftime("%G-W%V"))
                     run(lambda: tg.say(_UW.link_run()))
@@ -1735,6 +1742,13 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.20
+        from . import groupkit as _GKt
+        _r_gk = _GKt.on_text(tl)
+        if _r_gk is not None:
+            return _r_gk
+    except Exception as _e_gkt:
+        log(f"groupkit text: {_e_gkt}")
     if re.search(r"\bpin", tl) and any(w in tl for w in ("kitne", "kitna", "kitni", "bane", "banaye", "huye", "hue", "gaye", "gye")):
         from . import pinterest as _PIc                          # v3.4.19: asli ginti (AI ka andaaza '30' nahi)
         return run(lambda: tg.say(_PIc.today_text()))

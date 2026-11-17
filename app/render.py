@@ -451,6 +451,7 @@ def countdown_overlay(joined, scenes, durs, total, job, enc, threads):
     out = joined
     for n_, (i, s0, hs, he, h) in enumerate(tl):
         g = _DS.TIMERS[i]
+        s0 = max(s0, hs - 0.2)        # v3.4.20: ghadi sirf sochne ke samay - pehle sawal padhte waqt 11+ sec '5' par atki dikhti thi
         nfr = max(1, int(round((he + 0.3 - s0) * fps)))
         y0 = None
         for k in range(nfr):

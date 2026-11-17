@@ -708,5 +708,18 @@ finally:
 check(_LI419.EVE_TIME == "18:30" and callable(_LI419.due_eve), "LinkedIn: shaam 18:30 doosri post (free tool)")
 check("GINTI" in _BR419.PROMPT, "Bot AI ginti ka andaaza nahi lagata")
 check(_DM417.DM_MAX == 3 and callable(_DM417.send_latest), "Dailymotion roz 3 + 'dailymotion par ek aur bhejo'")
+# v3.4.20: /jawab challenge + isi tarah ke 3 + app-browser patta; groupkit; video ghadi
+from app import answers as _AN420, groupkit as _GK420, render as _RN420  # noqa: E402
+_l420 = [{"code": str(9000 + i), "aid": str(9000 + i), "q": f"Q{i}", "ans": "B", "opts": ["A", "B", "C", "D"], "bname": "M",
+          "brand": "money", "date": "d"} for i in range(6)]
+check("jw-sim" in _AN420.similar_block(_l420[0], _l420, 0) and "#c9002" in _AN420.similar_block(_l420[0], _l420, 0)
+      and "jw-chal" in _AN420.challenge_block(_l420), "/jawab: Aaj ka Challenge + 'isi tarah ke 3 aur' (usi page par)")
+check("FBAN" in _AN420.INAPP and "com.android.chrome" in _AN420.INAPP and "location.hash" not in _AN420.INAPP,
+      "/jawab: Facebook/Instagram app ke andar 'Chrome mein kholein' (band kar sakte hain)")
+_g420 = _GK420.build("emi-calculator", "tool", '<title>EMI Calculator | Sab Hisaab</title><meta name="description" content="Free EMI.">'
+                     '<h2>EMI ka formula</h2><h2>Srot</h2>')
+check("utm_source=fbgroup" in _g420[0] and "EMI ka formula" in _g420[0] and "Srot" not in _g420[0] and "bio" in _g420[1]
+      and "Manoj" not in _g420[0], "Group post: jaankari + poora link, Instagram ke liye 'link bio mein', owner ka naam nahi")
+check("hs - 0.2" in _in417.getsource(_RN420.countdown_overlay), "Video ghadi sirf sochne ke samay (5 par atki nahi)")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

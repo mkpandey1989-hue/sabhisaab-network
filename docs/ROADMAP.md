@@ -1974,3 +1974,17 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Traffic report: 'ek aadmi ausat N page'.
 - Threads par alag text post NAHI joda: har video already Threads par jaati hai (4 account x 2-3/din) - aur zyada = spam.
 - Privacy: koi naya data nahi (wahi UTM link), policy mein badlaav ki zarurat nahi.
+
+## v3.4.20 (17 Nov 2026 shaam) - [OPUS 5.5] Log rukein: /jawab challenge + group post kit + video ghadi
+- Sach (pehle Claude ne galat 'naya' bola tha): /jawab par tap-quiz, streak 🔥, score, logon ka % aur score-card share PEHLE SE hai.
+- Naya /jawab (answers.py, site audit 304 page PASS, 0 issue):
+  * 'Aaj ka Challenge' - sabse naye 5 tap wale sawal upar, 'aapne N/5 kiye' (localStorage, koi login/server nahi).
+  * Jawab khulte hi 'Isi tarah ke 3 aur - khud try karo' (usi channel ke, usi page par anchor - koi naya page/popup/timer nahi).
+  * Facebook/Instagram app ke andar: chhota patta 'Chrome mein kholein' (Android = intent link, iPhone = ⋯ > Open in browser),
+    ✕ se hamesha band. Wajah: app-browser mein 'App banayein' button/streak nahi chalti.
+- groupkit.py: roz 19:30 owner ko 2 copy-paste post - (1) FB group/WhatsApp/Threads: shirshak + page ke apne heading + poora
+  link (utm_source=fbgroup) (2) Instagram/Moj/ShareChat: chhota, 'link bio mein'. Page = aaj ka UK share page, warna agla
+  free tool. Owner ka naam kabhi nahi. Bot group mein khud post NAHI karta (Facebook niyam). 'group post' / 'group post band'.
+  Scoreboard source 'FB Group'.
+- Video (owner 18:50, Labh Lo Deals #5387): ghadi '5' par ~11 sec atki dikhti thi (scene shuru se sochne ke samay tak).
+  render.countdown_overlay: ghadi sirf hold (sochne) ke samay. Rang (laal/gulabi neon) design ka hai, galti nahi.
