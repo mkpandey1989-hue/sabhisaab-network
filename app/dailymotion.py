@@ -93,7 +93,17 @@ def _h():
     return {"Authorization": f"Bearer {token()}"}
 
 
-def find_channel(name_hint=None):
+def find_channel(name_hint=None, tries=3):
+    """v3.4.11: Dailymotion kabhi 'Connection reset' deta hai (17 Nov 09:51) - 3 baar koshish."""
+    for i in range(max(1, tries)):
+        cid, user = _find_channel_once(name_hint)
+        if cid:
+            return cid, user
+        time.sleep(3 * (i + 1))
+    return None, None
+
+
+def _find_channel_once(name_hint=None):
     """Private key se jude channel ka id (xid) + username."""
     for url in (f"{API}/me?fields=id,username,screenname", ):
         try:

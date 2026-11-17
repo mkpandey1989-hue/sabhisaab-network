@@ -86,3 +86,10 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
   → `tests/smoke.py` PASS → owner bot ko ZIP bhejta hai. Naye owner-kaam `app/tasks.py` SEED mein (auto checker ho to do).
 - Website badlaav: `app/webfix.py` jaisa idempotent patch + `website._apply_zip` (audit gate) ya site ZIP.
 - Har report mein ek hi ginti: `website.ga_range(N)` + GA4 asli total; source naam `scoreboard.group_source`.
+
+## 8. Teen bot - kaun kya bataye (takraav nahi)
+| Bot | Kaam (sirf ye) | Na kare |
+|---|---|---|
+| **sabhinet** (@Sabhisaab_bot, @Manoj_yt_sahayak_bot - repo sabhisaab-network) | video, saare channel, website, indexing, GA4/GSC/Bing, Quora/LinkedIn/Dailymotion, 'vm audit' (maangne par) | trading chhedna |
+| **chowkidar** (@manoj_vm_chowkidar_bot, ~/chowkidar, cron: 09:05 subah, 21:00 report, 03:15 daily, Sat weekly, 1 tareekh monthly, 09:00 bill) | VM (RAM/disk/CPU/kernel/update), suraksha (SSH/fail2ban), trading services up/down, bill, **sabhinet service sirf chal raha/ruka** | channel ki post ginti / website / token - ye sabhinet ka hai (iska "6-channel tracker" Posts=0 galat dikhata tha) |
+| **master_guard / vm_health / ntfy_monitor** (cron) | chupchap jaanch + sirf galti par alert | roz ka "sab theek" sandesh (dohra shor) |

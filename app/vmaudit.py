@@ -286,7 +286,8 @@ def sec_security(R):
     if tmpx:
         R.find("🟡", "/tmp mein chalne layak file (aksar install ka kachra; kabhi malware)", "List Claude ko")
     for ln in sh("ps -eo pcpu,user,cmd --sort=-pcpu --no-headers | awk '$1>60' | head -5").splitlines():
-        if not any(w in ln for w in ("ffmpeg", "python", "chrome", "node", "piper", "apt", "dpkg", "unattended")):
+        if not any(w in ln for w in ("ffmpeg", "python", "chrome", "node", "piper", "apt", "dpkg", "unattended",
+                                     "unified-monitoring-agent", "oracle-cloud-agent", "gomon", "fluentd")):   # v3.4.11: Oracle ka apna agent (17 Nov jhootha 🔴)
             R.find("🔴", f"Anjaan process zyada CPU: {ln[:120]}", "Pehchaan na ho to Claude ko (miner jaanch)")
     est = sh("ss -tnpH state established 2>/dev/null | awk '{print $4, $5}' | "
              "sed -E 's/users:\\(\\(\"([^\"]+)\".*/\\1/' | awk '{n=split($1,a,\":\"); ip=a[1]; for(i=2;i<n;i++) ip=ip\":\"a[i]; "

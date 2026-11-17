@@ -1026,7 +1026,7 @@ def publish_site(force=False):
         z.unlink(missing_ok=True)
         if str(r2).startswith("✅"):
             r = r2
-    if str(r).startswith("✅"):
+    if str(r).startswith("✅") or "pehle se lagi hui" in str(r):   # v3.4.11: 'ZIP pehle se lagi' = website par wahi hai, galti nahi
         state.put("jawab_hash", dig)
         state.put("answer_dirty", False)
         state.put("jawab_check_at", 0)            # deploy ke kuch min baad live jaancha jaayega

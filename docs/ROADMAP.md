@@ -1882,3 +1882,11 @@ AI galat na kare - kahan kaun sa account, kya post ja raha; privacy check".
   Alternate page' (normal: .html → saaf URL); Quora par sawal ka jawab aaya + 'Nifty vs Bank Nifty' ka request.
 - 'VM' bot ka '24-ghante tracker' Posts=0 / Pinterest Errors=2 galat: wo alag (Gemini) bot hai, code yahan nahi; asli haal
   sabhinet 'report table' / HEALTH.md (Pinterest '⏸' = roz 2 pin ki spam-seema, galti nahi).
+
+## v3.4.11 (17 Nov 2026 din) - [OPUS 5.5] VM audit + chat se 3 chhote sudhaar
+Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report takraav na ho".
+- /jawab: 'ℹ️ ZIP pehle se lagi hui hai' ko galti maan kar 🟡 DHYAN aata tha (17 Nov 10:38) - ab wo safal (website par wahi hai).
+- Dailymotion channel dhoondhna 3 baar (17 Nov 09:51 'Connection reset' se owner ko haath se 'dailymotion channel sabhisaab'
+  likhna pada). Dailymotion ab juda: @sabhisaab.
+- vm audit: Oracle ka apna agent (unified-monitoring-agent/fluentd/gomon) 'anjaan process zyada CPU' 🔴 nahi.
+- Chowkidar (alag repo, VM par ~/chowkidar, code GitHub par nahi) - sujhav MASTER.md hissa 8 mein; code owner bhejega tabhi badlega.
