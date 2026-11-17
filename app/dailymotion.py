@@ -24,6 +24,23 @@ from .config import SECRETS, SITE
 from .log import log
 
 STORE = SECRETS / "dailymotion.json"
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) SabHisaabBot/3.4 (+https://sabhisaab.com)"}
+
+
+def _rq(method, url, tries=3, **k):
+    """v3.4.16: VM -> Dailymotion beech-beech mein 'Connection reset by peer' - 3 koshish (5s, 20s ruk kar)."""
+    k.setdefault("headers", {})
+    k["headers"] = {**UA, **k["headers"]}
+    last = None
+    for i in range(tries):
+        try:
+            fn = {"POST": requests.post, "GET": requests.get, "DELETE": requests.delete}.get(method)
+            return fn(url, **k) if fn else requests.request(method, url, **k)
+        except (requests.ConnectionError, requests.Timeout) as e:
+            last = e
+            if i < tries - 1:
+                time.sleep((5, 20, 40)[i])
+    raise last
 TOKEN_URLS = ("https://oauth2.dailymotion.com/v2/token", "https://partner.api.dailymotion.com/oauth/v1/token")
 SCOPES = ("manage_videos", "video.manage")
 # v3.4.14 (17 Nov 12:32): Dailymotion ne naya API v2 (api.dailymotion.com/v2) laya - v2 token purane /rest/file/upload par
@@ -80,7 +97,7 @@ def token(force=False):
     combos += [(u, s) for u in TOKEN_URLS for s in SCOPES]
     for url, scope in combos:
         try:
-            r = requests.post(url, timeout=30, data={"grant_type": "client_credentials", "client_id": c.get("key", ""),
+            r = _rq("POST", url, timeout=30, data={"grant_type": "client_credentials", "client_id": c.get("key", ""),
                                                      "client_secret": c.get("secret", ""), "scope": scope},
                               headers={"Content-Type": "application/x-www-form-urlencoded"})
             j = r.json() if r.content else {}
@@ -143,7 +160,12 @@ def profile_id():
     if c.get("profile_id"):
         return c["profile_id"]
     t, _ = token_v2()
-    r = requests.get(f"{V2}/me", headers={"Authorization": f"Bearer {t}"}, timeout=30)
+    try:
+        r = _rq("GET", f"{V2}/me", headers={"Authorization": f"Bearer {t}"}, timeout=30)
+    except Exception as e:
+        if c.get("channel"):
+            return c["channel"]
+        raise e
     j = r.json() if r.content else {}
     pr = j.get("profiles") or []
     want = (c.get("user") or "sabhisaab").lower()
@@ -163,13 +185,13 @@ def profile_id():
 def _upload_v2(vpath, meta):
     t, _ = token_v2()
     H = {"Authorization": f"Bearer {t}"}
-    r = requests.post(f"{V2}/files/upload_sessions", headers=H, timeout=60)
+    r = _rq("POST", f"{V2}/files/upload_sessions", headers=H, timeout=60)
     j = r.json() if r.content else {}
     up = j.get("upload_url")
     if not up:
         raise RuntimeError(f"v2 upload session nahi bana: {r.status_code} {str(j)[:150]}")
     with open(vpath, "rb") as f:
-        fr = requests.post(up, files={"file": (str(vpath).rsplit("/", 1)[-1], f, "video/mp4")}, timeout=1800)
+        fr = _rq("POST", up, files={"file": (str(vpath).rsplit("/", 1)[-1], f, "video/mp4")}, timeout=1800, tries=2)
     fj = fr.json() if fr.content else {}
     furl = fj.get("url") or fj.get("file_url") or (fj.get("source") or {}).get("file_url")
     if not furl:
@@ -179,11 +201,11 @@ def _upload_v2(vpath, meta):
             "description": build_desc(meta)[:2900], "tags": [x for x in tags_of(meta).split(",") if x][:10],
             "language": "hi", "country": "IN"}
     pid = profile_id()
-    cr = requests.post(f"{V2}/profiles/{pid}/videos", headers=H, json=body, timeout=120)
+    cr = _rq("POST", f"{V2}/profiles/{pid}/videos", headers=H, json=body, timeout=120)
     cj = cr.json() if cr.content else {}
     if cr.status_code not in (200, 201) and cr.status_code == 422:      # koi vaikalpik khaana na chale to bina uske
         log(f"dm v2 create full: {str(cj)[:200]}")
-        cr = requests.post(f"{V2}/profiles/{pid}/videos", headers=H, timeout=120,
+        cr = _rq("POST", f"{V2}/profiles/{pid}/videos", headers=H, timeout=120,
                            json={k: body[k] for k in ("title", "visibility", "is_for_kids", "source")})
         cj = cr.json() if cr.content else {}
     vid = cj.get("id") or cj.get("video_id") or cj.get("xid")
@@ -400,6 +422,81 @@ def delete(xid):
         return r.status_code in (200, 204)
     except Exception:
         return False
+
+
+# ---------------------------------------------------------------- baad mein dobara (v3.4.16)
+RETRY_DIR = None
+
+
+def _rdir():
+    from .config import DATA
+    d = DATA / "dm_retry"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def is_net_err(err):
+    t = str(err).lower()
+    return any(w in t for w in ("connection reset", "connection aborted", "timed out", "timeout", "temporarily", "max retries",
+                                "502", "503", "504", "name resolution"))
+
+
+def queue_retry(vpath, meta, jid):
+    """Network galti par video ki copy rakh kar 30-30 min par dobara (2 din tak, din ki seema ke andar)."""
+    import shutil
+    try:
+        dst = _rdir() / f"{jid}.mp4"
+        if not dst.exists():
+            shutil.copy2(str(vpath), dst)
+        q = [x for x in (state.get("dm_retry") or []) if x.get("jid") != jid]
+        m = {k: meta.get(k) for k in ("title", "brand", "tags", "description", "desc", "topic", "page", "url") if meta.get(k)}
+        q.append({"jid": jid, "file": str(dst), "meta": m, "since": time.time(), "next": time.time() + 1800, "n": 0})
+        state.put("dm_retry", q[-6:])
+        return True
+    except Exception as e:
+        log(f"dm queue: {e}")
+        return False
+
+
+def retry_due():
+    return any(time.time() >= x.get("next", 0) for x in (state.get("dm_retry") or [])) and on()
+
+
+def retry_run():
+    """bot loop: ek video dobara. -> text (safal) ya None"""
+    import os
+    q = state.get("dm_retry") or []
+    out, msg = [], None
+    for x in q:
+        if msg is not None or time.time() < x.get("next", 0):
+            out.append(x)
+            continue
+        if time.time() - x.get("since", 0) > 2 * 86400 or not os.path.exists(x["file"]):
+            try:
+                os.remove(x["file"])
+            except Exception:
+                pass
+            continue
+        if not can_post_today():
+            out.append({**x, "next": time.time() + 3 * 3600})
+            msg = ""
+            continue
+        try:
+            u, xid = upload(x["file"], x["meta"])
+            try:
+                os.remove(x["file"])
+            except Exception:
+                pass
+            ids = state.get("dm_retry_done") or {}
+            ids[x["jid"]] = xid
+            state.put("dm_retry_done", dict(list(ids.items())[-50:]))
+            msg = f"🎬 Dailymotion: {x['jid']} ab chali gayi (dobara koshish {x['n'] + 1}) ✅ {u}"
+        except Exception as e:
+            log(f"dm retry {x['jid']}: {e}")
+            out.append({**x, "n": x["n"] + 1, "next": time.time() + (1800 if x["n"] < 6 else 3 * 3600), "err": str(e)[:120]})
+            msg = ""
+    state.put("dm_retry", out)
+    return msg or None
 
 
 def warn_once(err):

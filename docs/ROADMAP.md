@@ -1921,3 +1921,10 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Agar key mein 'account read' permission nahi to saaf sandesh (profile id nahi mila). warn_once ab nayi galti par usi din bhi batata hai.
 - v3.4.15: owner ki key mein sirf "Manage videos" (Upload/Read/Edit/Delete) hai, 'account read' jaisa koi option nahi.
   Isliye /v2/me na chale to jude channel ka id (dailymotion.json `channel`, x...) hi profile_id maan kar upload.
+
+## v3.4.16 (17 Nov 2026 shaam) - [OPUS 5.5] Dailymotion: network toote to khud dobara + bot AI ki galat baat
+- 16:01: v3.4.15 ke baad galti badli - ab 401 nahi, "Connection reset by peer" (VM -> Dailymotion network beech mein tootna;
+  subah 09:51 juda tha, 12:31 par jawab aaya tha = raasta khula hai, kabhi-kabhi toot-ta hai).
+- Ab: har Dailymotion call 3 koshish (5s/20s ruk kar) + browser jaisa User-Agent. Phir bhi network toote to video ki copy
+  data/dm_retry/ mein, bot har 30 min khud dobara (2 din tak, roz ki seema ke andar), safal hone par sandesh. Owner ko baar-baar alert nahi.
+- 15:36 bot AI ne kaha "Dailymotion integration hamare system mein nahi" - galat. brain.PROMPT mein Dailymotion (+LinkedIn) joda.

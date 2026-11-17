@@ -1079,8 +1079,11 @@ def upload(jid, pre=False):
         except Exception as e:
             log(f"dailymotion: {e}")
             waits["dailymotion"] = f"⚠️ {str(e)[:150]}"
-            try:
-                _DM.warn_once(e)
+            try:                                  # v3.4.16: network galti -> 30-30 min par khud dobara (owner ko baar-baar nahi)
+                if _DM.is_net_err(e) and _DM.queue_retry(vpath, meta, jid):
+                    waits["dailymotion"] = "🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega"
+                else:
+                    _DM.warn_once(e)
             except Exception:
                 pass
     if "telegram" not in done:

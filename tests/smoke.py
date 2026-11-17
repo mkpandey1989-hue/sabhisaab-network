@@ -646,5 +646,23 @@ finally:
         _DM414.STORE.unlink(missing_ok=True)
     else:
         _DM414.STORE.write_text(_sv414[0])
+# v3.4.16: Dailymotion network toote to 30 min baad khud dobara; AI 'integration nahi' na kahe
+from app import dailymotion as _DM416, brain as _BR416  # noqa: E402
+import time as _t416, pathlib  # noqa: E402
+check(_DM416.is_net_err("('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))")
+      and not _DM416.is_net_err("401 invalid_token"), "Dailymotion: network galti pehchaan (reset = dobara, 401 = nahi)")
+_q416 = state.get("dm_retry")
+try:
+    import tempfile as _tf416
+    _f416 = _tf416.NamedTemporaryFile(suffix=".mp4", delete=False); _f416.write(b"0"); _f416.close()
+    state.put("dm_retry", [])
+    _DM416.queue_retry(_f416.name, {"title": "T", "brand": "money"}, "jtest416")
+    _qq = state.get("dm_retry") or []
+    check(len(_qq) == 1 and _qq[0]["next"] > _t416.time() + 1700 and pathlib.Path(_qq[0]["file"]).exists(),
+          "Dailymotion: video ki copy rakh kar 30 min baad dobara ki line mein")
+    pathlib.Path(_qq[0]["file"]).unlink(missing_ok=True)
+finally:
+    state.put("dm_retry", _q416 or [])
+check("Dailymotion" in _BR416.PROMPT and "integration nahi" in _BR416.PROMPT, "Bot AI ko pata hai ki Dailymotion juda hai")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

@@ -259,6 +259,12 @@ def scheduler():
                         run(lambda: (lambda r: r and tg.say(r))(_IX.run()))
                 except Exception as _e_ix:
                     log(f"idxlink loop: {_e_ix}")
+                try:                                   # v3.4.16: Dailymotion network-galti wali video 30-30 min par dobara
+                    from . import dailymotion as _DMq
+                    if _DMq.retry_due() and not state.get("paused"):
+                        run(lambda: (lambda r: r and tg.say(r))(_DMq.retry_run()))
+                except Exception as _e_dq:
+                    log(f"dm retry loop: {_e_dq}")
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
