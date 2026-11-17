@@ -1802,3 +1802,29 @@ baar - system banao".
 - Report ek jaisi: '📅 7 din', '📒 Hafte ka hisaab', '👀 Views' aur Ravivaar ki hafte wali report ke saath scoreboard 7 din
   (saare brand x platform + website source + Google/Bing/Pinterest/LinkedIn + KUL); 'Aaj ka haal' mein table ka hukum.
 - v3.4.5 ka sab isme (auto-doctor, N din table, sitemap-pehle). Smoke 347 PASS.
+
+## v3.4.7 (17 Nov 2026 subah) - [OPUS 5.5] Google indexing ke seedhe link (sitemap pehle), har report ki ginti ek jaisi, website sudhaar
+Owner (17 Nov 06:29): "bahut se page indexing nahi hue - jo indexing karna ho wo link de dena; bot website live ke baad sitemap
+dabayega uske baad hi indexing karega aur GSC wali link mujhe dega; link se jo traffic aata hai bot kaise de raha hai theek karo;
+Quora/LinkedIn sab jodo; jo kami hai pura accuracy ke saath theek karo".
+- NAYA app/idxlink.py: roz 11:40 (Google index jaanch ke baad) aur 'indexing link' par - (1) Google ko LIVE sitemap (API), (2) sirf
+  wahi URL jo LIVE sitemap mein + HTTP 200 + noindex nahi + daily.json mein index NAHI, (3) har URL ka Search Console URL
+  Inspection seedha link (dabao -> REQUEST INDEXING), (4) max 10/din, ek URL 7 din mein ek baar (idx_given), kram: index se nikle >
+  naye > unknown > discovered > crawled. 'indexing ho gaya' = note. Sitemap na jaye to KOI link nahi. Bot khud Request indexing
+  nahi bhej sakta (Indexing API sirf job/live-video - niyam).
+- Uttarakhand queue ka 'aaj naye page LIVE' sandesh: har URL ke neeche wahi seedha link, purane index-nahi page milakar max 10,
+  idx_given mein darj (11:40 wali suchi dohraati nahi). Purane haath wale '[Owner] GSC Request indexing...' kaam chupchap itihaas
+  mein (_mig_347) - ab ek hi jagah.
+- Traffic report sach aur ek jaisi: website.ga_range(N) = aaj samet N din (pehle '7daysAgo'=8 din aur '6daysAgo' mile-jule the -
+  isliye ek hi sandesh mein 11 log vs 13 log). Kul log = GA4 ka asli (dohra nahi) total har jagah (traffic, 7-din kul,
+  scoreboard KUL). '0' wali source line ('youtube.com 0') nahi. 'Kahan se aaye' ab platform naam se.
+- scoreboard.group_source: 'whatsapp_status', 'facebook_group', 'org.telegram.messenger', 'lnkd.in', 'quora', 'push' sahi khaane
+  mein (pehle '_' wale 'Baaki' mein jaate the). Quora + Push naye raaste.
+- Jhootha alarm: '2 galat link (naam kisi aur page ka)' asal mein /uttarakhand ke 2 'khud ko link' the jo 'link theek' kabhi
+  theek nahi karta (alarm kabhi nahi hat'ta). Ab sitescan sirf asli galat link ginta hai (v=347), self alag.
+- Asli bug mila: ukgen render.SITEURL ne 'https://sabhisaab.com/uttarakhand-farmer-id-ukfr' ka shuru hissa link bana diya ->
+  page par 'Uttarakhand guide-farmer-id-ukfr' toota dikhta tha. app/webfix347.py (ek baar, audit gate): /uttarakhand table ke
+  15 URL-text khaane asli link (live) ya soye link (queue page, live hote hi jagenge); FIRE calculator ka title/H1 retirement se
+  alag (Discovered-not-indexed ki wajah); TDEE guide ko calorie/BMR/weight-loss se link (andar ke link 3 -> 6). Site audit
+  ERROR 0 / WARNING 0, sitescan self 2 -> 0. ukgen SITEURL ab poore shabd par hi (aage ki queue ZIP ke liye).
+- 'Sab theek?' mein Google indexing link ki line; auto-doctor mein website sudhaar + aaj ki indexing suchi ki jaanch.

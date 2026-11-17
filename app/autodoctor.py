@@ -154,6 +154,27 @@ def run(manual=False):
             ok.append("Video line")
     chk("Video", stuck)
 
+    # 9) v3.4.7: Claude ke jaanche website sudhaar (ek baar, audit gate) - /uttarakhand toote link, FIRE title, TDEE guide link
+    def sitefix():
+        from . import webfix347 as sitepatch
+        r = sitepatch.apply()
+        if r and r.startswith("⚠️"):
+            need.append(r)
+        elif r:
+            fixed.append(r)
+    chk("Website sudhaar", sitefix)
+
+    # 10) v3.4.7: aaj ki Google indexing suchi gayi? (11:40 ke baad, din mein ek baar - na gayi ho to khud bhejo)
+    def idx():
+        from . import idxlink
+        if idxlink.due():
+            state.put("idx_day", str(datetime.date.today()))
+            r = idxlink.run()
+            if r:
+                tg.say(r)
+                fixed.append("Aaj ki Google indexing suchi (seedhe link) bheji")
+    chk("Indexing link", idx)
+
     state.put("ad_last", {"at": time.time(), "fixed": len(fixed), "need": len(need)})
     if not manual and not fixed and not need:
         log("autodoctor: sab theek")

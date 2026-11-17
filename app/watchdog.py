@@ -64,7 +64,7 @@ def evaluate():
     except Exception as ex:
         log(f"watchdog ytc: {ex}")
     sl = state.get("sitescan_last") or {}
-    if sl.get("mismatch") and sl.get("v", 0) >= 260:     # v2.8.1: purane (v2.6.0 se pehle) scanner ki 105 wali ginti nahi
+    if sl.get("mismatch") and sl.get("v", 0) >= 347:     # v3.4.7: purani ginti mein "khud ko link" bhi juda tha (jhootha alarm)
         out.append({"key": f"scan_mismatch_{sl['mismatch']}", "title": f"Website par {sl['mismatch']} galat link (naam kisi aur page ka)",
                     "steps": ["Kuch karna nahi: bot Ravivaar scan ke baad khud theek karta hai (audit pass hone par hi live)",
                               "Abhi karna ho to bot mein likhein: 'link theek'",

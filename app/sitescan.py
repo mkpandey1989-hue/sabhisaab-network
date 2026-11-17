@@ -178,7 +178,10 @@ def run(max_pages=400):
     except Exception as e:
         log(f"sitescan md: {e}")
     state.put("sitescan_at", time.time())
-    state.put("sitescan_last", {"mismatch": len(rep["mismatch"]) + len(rep.get("self", [])), "thin": len(rep["thin"]), "n": rep["n"], "v": 260})
+    # v3.4.7: 'khud ko link' alag - wo galat link nahi (pehle jodne se '2 galat link (naam kisi aur page ka)' ka jhootha alarm aata
+    # tha aur 'link theek' use kabhi theek nahi karta, isliye alarm kabhi hat'ta hi nahi tha)
+    state.put("sitescan_last", {"mismatch": len(rep["mismatch"]), "self": len(rep.get("self", [])), "thin": len(rep["thin"]),
+                                "n": rep["n"], "v": 347})
     return report_text(rep)
 
 

@@ -345,7 +345,7 @@ def linkify(text_html, p, hmap, mmap, titles):
         out = out.replace("\x00", "yeh hissa")
     return out
 
-SITEURL = re.compile(r"https?://(?:www\.)?sabhisaab\.com/uttarakhand(?:/([a-z-]+))?/?")
+SITEURL = re.compile(r"https?://(?:www\.)?sabhisaab\.com/uttarakhand(?:/([a-z-]+))?/?(?![a-z0-9-])")
 def siteurl(m):
     d = m.group(1)
     if d and d in DNAME:

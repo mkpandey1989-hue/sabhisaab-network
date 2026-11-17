@@ -192,7 +192,20 @@ def on_text(tl, run):
 SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")),
               ("Facebook", ("facebook", "fb", "m.facebook", "l.facebook")), ("Instagram", ("instagram", "ig")),
               ("YouTube", ("youtube",)), ("Telegram", ("telegram", "t.me")), ("Threads", ("threads",)),
-              ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Seedha", ("(direct)",)), ("(not set)", ("(not set)",))]
+              ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Push", ("push",)), ("Seedha", ("(direct)",)),
+              ("(not set)", ("(not set)",))]
+
+
+def group_source(src):
+    """v3.4.7: GA4 source -> platform naam. 'whatsapp_status', 'facebook_group', 'lm.facebook.com', 'org.telegram.messenger',
+    'quora' sab sahi khaane mein (pehle '_' wale 'Baaki' mein chale jaate the)."""
+    import re as _r
+    src = (src or "").lower().strip()
+    toks = set(_r.split(r"[._\-/:]+", src))
+    for g, keys in SRC_GROUPS:
+        if any(src == k or src.startswith(k + ".") or k in toks for k in keys):
+            return g
+    return "Baaki"
 
 
 def site_sources(days):
@@ -205,10 +218,8 @@ def site_sources(days):
         "dateRanges": rng, "dimensions": [{"name": "sessionSource"}], "metrics": [{"name": "activeUsers"}], "limit": 100}).json()
     agg = {}
     for r in j.get("rows") or []:
-        src = r["dimensionValues"][0]["value"].lower()
         n = int(r["metricValues"][0]["value"])
-        name = next((g for g, keys in SRC_GROUPS if any(src == k or src.startswith(k + ".") or k in src.split(".") for k in keys)),
-                    "Baaki")
+        name = group_source(r["dimensionValues"][0]["value"])
         agg[name] = agg.get(name, 0) + n
     order = [g for g, _ in SRC_GROUPS] + ["Baaki"]
     return [(g, agg[g]) for g in order if agg.get(g)]
@@ -265,8 +276,16 @@ def extra_table(days):
             w = max(len(g) for g, _ in src)
             rows = [f"{g:<{w}} {n:>6}" for g, n in src]
             rows.append("-" * (w + 7))
-            rows.append(f"{'KUL':<{w}} {sum(n for _, n in src):>6}")
-            L.append("🌐 WEBSITE - log kahan se aaye (GA4):\n<pre>" + _h.escape("\n".join(rows)) + "</pre>")
+            raw = sum(n for _, n in src)
+            try:                                 # v3.4.7: KUL = GA4 ka asli total (baaki reports jaisa), jodna nahi
+                from . import website as W
+                kul = (W._ga_total(*W.ga_range(days)) or (raw,))[0]
+            except Exception:
+                kul = raw
+            rows.append(f"{'KUL':<{w}} {kul:>6}")
+            note = ("\n<i>Ek aadmi do raaste se aaya to dono line mein gina jaata hai - isliye lines ka jod KUL se thoda zyada ho "
+                    "sakta hai.</i>" if raw > kul else "")
+            L.append("🌐 WEBSITE - log kahan se aaye (GA4):\n<pre>" + _h.escape("\n".join(rows)) + "</pre>" + note)
     except Exception as e:
         log(f"scoreboard src: {e}")
     g, b = search_stats(days)

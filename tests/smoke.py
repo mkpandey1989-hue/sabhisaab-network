@@ -477,5 +477,52 @@ state.put("say_seen", {})
 _hm = "\n".join(_BOT46.health_more())
 check(all(w in _hm for w in ("LinkedIn", "Bing", "Google (GSC + GA4)", "AdSense", "IndexNow", "Auto-doctor", "/jawab")),
       "Sab theek?: LinkedIn, Bing, Google, AdSense, IndexNow, /jawab, auto-doctor sab")
+# v3.4.7: GSC indexing link (sitemap pehle), ek jaisi ginti, source naam, jhootha 'galat link' alarm, website sudhaar
+from app import idxlink as _IX47, scoreboard as _SB47, webfix347 as _SP47, website as _WE47, sitescan as _SS47  # noqa: E402
+_sv47 = (state.get("idx_given"), state.get("pq_idx_drop"))
+try:
+    state.put("idx_given", {"https://sabhisaab.com/c": "2099-01-01"})
+    state.put("pq_idx_drop", {})
+    _st47 = {"https://sabhisaab.com/a": {"ok": True}, "https://sabhisaab.com/b": {"ok": False, "why": "Crawled - currently not indexed"},
+             "https://sabhisaab.com/c": {"ok": False, "why": "URL is unknown to Google"},
+             "https://sabhisaab.com/d": {"ok": False, "why": "URL is unknown to Google"},
+             "https://sabhisaab.com/e": {"ok": False, "why": "Discovered - currently not indexed"}}
+    _sm47 = {"https://sabhisaab.com/a", "https://sabhisaab.com/b", "https://sabhisaab.com/c", "https://sabhisaab.com/e"}
+    _r47 = _IX47.pick(status=_st47, live_sm=_sm47, live_ok=lambda u: True)
+    check([u for u, _ in _r47] == ["https://sabhisaab.com/e", "https://sabhisaab.com/b"],
+          "Indexing link: sirf LIVE sitemap wale + index-nahi + 7 din mein dobara nahi; kram unknown > discovered > crawled")
+    check(_IX47.pick(status=_st47, live_sm=None, live_ok=lambda u: True) == [], "Indexing link: sitemap na mile to KOI link nahi")
+    check(_IX47.gsc_link("https://sabhisaab.com/x-y") == "https://search.google.com/search-console/inspect?resource_id="
+          "sc-domain%3Asabhisaab.com&id=https%3A%2F%2Fsabhisaab.com%2Fx-y", "Indexing link: Search Console URL Inspection ka seedha link")
+    check(len(_IX47.pick(status={f"https://sabhisaab.com/p{i}": {"ok": False} for i in range(30)},
+                         live_sm={f"https://sabhisaab.com/p{i}" for i in range(30)}, live_ok=lambda u: True)) == 10,
+          "Indexing link: din mein max 10")
+    check("submit_sitemap()" in _insp.getsource(_IX47.run) and _insp.getsource(_IX47.run).index("submit_sitemap()")
+          < _insp.getsource(_IX47.run).index("pick("), "Indexing link: pehle Google ko sitemap, phir suchi")
+finally:
+    state.put("idx_given", _sv47[0])
+    state.put("pq_idx_drop", _sv47[1])
+check([_SB47.group_source(x) for x in ("whatsapp_status", "facebook_group", "org.telegram.messenger", "quora", "lnkd.in", "push",
+                                         "(direct)", "duckduckgo")]
+      == ["WhatsApp", "Facebook", "Telegram", "Quora", "LinkedIn", "Push", "Seedha", "Baaki"],
+      "Report: har raasta sahi naam (WhatsApp status, FB group, Telegram app, Quora, LinkedIn)")
+check(_WE47.ga_range(7) == ("6daysAgo", "today") and _WE47.ga_range(1) == ("today", "today"),
+      "Report: '7 din' har jagah ek hi range (aaj samet 7 din)")
+check("ga_range" in _insp.getsource(_WE47.traffic) and "_ga_total(_s, _e)" in _insp.getsource(_WE47.traffic)
+      and "ga_range(7)" in _insp.getsource(_WE47.traffic_smart), "Report: kul log har jagah GA4 ka ek hi asli total")
+check("x[1] > 0" in _insp.getsource(_WE47.traffic), "Report: 'youtube.com 0' jaisi khaali line nahi")
+_uk47 = ('<tr><td>Kisan</td><td>Uttarakhand Farmer ID (UKFR)</td><td><a href="/uttarakhand" data-uk="uttarakhand">Uttarakhand '
+         'guide</a>-farmer-id-ukfr</td></tr><tr><td>Zameen kagaz</td><td>Guide</td><td>https://sabhisaab.com/zameen-kagaz</td></tr>'
+         '<tr><td>Quiz</td><td>GK Quiz (naya)</td><td>https://sabhisaab.com/uttarakhand-gk-quiz</td></tr>')
+_fx47 = _SP47.fix_uk_table(_uk47, lambda s: s != "uttarakhand-gk-quiz")
+check('<a href="/uttarakhand-farmer-id-ukfr">Uttarakhand Farmer ID (UKFR)</a>' in _fx47 and "guide</a>-" not in _fx47
+      and '<a href="/zameen-kagaz">Zameen kagaz</a>' in _fx47
+      and '<span data-ukg="uttarakhand-gk-quiz" data-h="/uttarakhand-gk-quiz">GK Quiz</span>' in _fx47
+      and _SP47.fix_uk_table(_fx47, lambda s: True) == _fx47,
+      "/uttarakhand table: toota link theek, URL text -> asli link, queue page soya link; dobara chalane par kuch nahi badla")
+check(_SP47.fix_tdee(_SP47.fix_tdee('<div class="nextread"><a href="/tdee-calculator">TDEE Calculator</a></div>')).count("/tdee-guide") == 1,
+      "TDEE guide link ek hi baar")
+check('"mismatch": len(rep["mismatch"]),' in _insp.getsource(_SS47.run) if hasattr(_SS47, "run") else
+      '"mismatch": len(rep["mismatch"]),' in _insp.getsource(_SS47), "Site scan: 'khud ko link' galat-link alarm mein nahi gina")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

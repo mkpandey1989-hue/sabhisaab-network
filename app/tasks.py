@@ -1454,9 +1454,33 @@ def _mig_3310():
     state.put("todo", lst)
 
 
+def _mig_347():
+    """v3.4.7 (owner: 'indexing ka link bot de, sitemap ke baad'): purane haath wale GSC kaam ('URL inspection mein URL daalo')
+    ab roz 11:40 ke 'GOOGLE INDEXING' sandesh mein SEEDHE link ke saath aate hain - dohra kaam chupchap itihaas mein (sandesh nahi)."""
+    if state.get("mig_347"):
+        return
+    state.put("mig_347", True)
+    import datetime as _d
+    keep, moved = [], []
+    for o in state.get("todo") or []:
+        x = str(o.get("x", ""))
+        if x.startswith("[Owner] GSC Request indexing") or x.startswith("[Owner] GSC 'Request indexing'"):
+            moved.append({**o, "done": str(_d.date.today()), "by": "v3.4.7",
+                          "note": "ab roz 11:40 'GOOGLE INDEXING' sandesh (seedhe link, sitemap ke baad) - 'indexing link'"})
+        else:
+            keep.append(o)
+    if moved:
+        state.put("todo", keep)
+        state.update("todo_done", lambda l: ((l or []) + moved)[-200:], [])
+
+
 def seed_todo():
     try:
         _mig_3310()
+    except Exception:
+        pass
+    try:
+        _mig_347()
     except Exception:
         pass
     if not state.get("seed_v342"):

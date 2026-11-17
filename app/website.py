@@ -815,7 +815,7 @@ def traffic_smart():
         except Exception:
             pass
     extra = []
-    for st, en, lb in (("yesterday", "yesterday", "kal, pakka"), ("7daysAgo", "yesterday", "7 din")):
+    for st, en, lb in (("yesterday", "yesterday", "kal, pakka"), (ga_range(7)[0], "today", "pichhle 7 din")):
         try:
             x = link_traffic(st, en, lb)
             if x:
@@ -827,9 +827,9 @@ def traffic_smart():
     except Exception as e:
         log(f"traffic trend: {e}")
     try:                          # v2.8.2 ('sabka lagakar kitna?' par sirf 'aaj 1 log' aaya tha): 7 din ka kul hamesha upar
-        tot = _ga_total("7daysAgo", "today")
+        tot = _ga_total(*ga_range(7))
         if tot is not None:
-            prev = _ga_total("14daysAgo", "8daysAgo")      # v2.9.8 (owner: 'badh raha ya ghat raha, din ka ausat'): pichhle hafte se tulna
+            prev = _ga_total("13daysAgo", "7daysAgo")      # v2.9.8 (owner: 'badh raha ya ghat raha, din ka ausat'): pichhle hafte se tulna
             trend = ""
             if prev is not None:
                 d_ = tot[0] - prev[0]
@@ -867,6 +867,13 @@ def traffic_trend():
     return "\n".join(L)
 
 
+def ga_range(days):
+    """v3.4.7 (owner: 'har report mein total ek jaisa'): 'N din' = aaj samet pichhle N din - har report (traffic, scoreboard,
+    7-din kul) ab yahi ek range leti hai. Pehle kahin 7daysAgo (8 din) tha, kahin 6daysAgo - isliye 11 vs 13 log aate the."""
+    days = max(1, int(days or 1))
+    return ("today" if days == 1 else f"{days - 1}daysAgo"), "today"
+
+
 def _ga_total(start, end):
     """(kul log, kul page views) - ek chhoti GA4 report."""
     if not SA.exists():
@@ -893,7 +900,8 @@ def traffic(days=1):
     tok = _gcreds("https://www.googleapis.com/auth/analytics.readonly")
     url = f"https://analyticsdata.googleapis.com/v1beta/properties/{GA4_PROPERTY}:runReport"
     h = {"Authorization": f"Bearer {tok}"}
-    rng = [{"startDate": "today" if days == 1 else f"{days}daysAgo", "endDate": "today"}]
+    _s, _e = ga_range(days)
+    rng = [{"startDate": _s, "endDate": _e}]
 
     def rep(dim, n=8):
         j = requests.post(url, headers=h, timeout=60, json={
@@ -930,7 +938,15 @@ def traffic(days=1):
         lands = [(r["dimensionValues"][0]["value"], int(r["metricValues"][0]["value"])) for r in j.get("rows", [])]
     except Exception:
         lands = []
+    src = [x for x in src if x[1] > 0]                  # v3.4.7: 'youtube.com 0' jaisi khaali line nahi
     users = sum(x[1] for x in src)
+    views = sum(x[2] for x in src)
+    try:                                                 # v3.4.7: kul log = GA4 ka asli (dohra nahi) total - har report mein same
+        _t = _ga_total(_s, _e)
+        if _t:
+            users, views = _t
+    except Exception as _e2:
+        log(f"traffic total: {_e2}")
     dwell_str = ""
     try:                     # v2.3.0 (v11 se): log kitni der ruke (GA4 averageSessionDuration + engagement)
         j_dur = requests.post(url, headers=h, timeout=45, json={
@@ -942,13 +958,23 @@ def traffic(days=1):
                          f"{float(mv[2].get('value', 0) or 0) * 100:.1f}% ({int(float(mv[1].get('value', 0) or 0))} session)")
     except Exception as _e:
         log(f"ga4 dwell: {_e}")
+    try:
+        from .scoreboard import group_source
+        grp = {}
+        for s_, u_, _ in src:
+            g_ = group_source(s_)
+            grp[g_] = grp.get(g_, 0) + u_
+        where = ", ".join(f"{g_} {u_}" for g_, u_ in sorted(grp.items(), key=lambda x: -x[1]))
+    except Exception:
+        where = ", ".join(f"{s} {u}" for s, u, _ in src[:8])
     lines = [f"🌐 sabhisaab.com ({'aaj' if days == 1 else f'pichhle {days} din'}): {users} log, "
-             f"{sum(x[2] for x in src)} page dekhe" + dwell_str,
-             "📍 Kahan se aaye: " + ", ".join(f"{s} {u}" for s, u, _ in src[:8])]
+             f"{views} page dekhe" + dwell_str,
+             "📍 Kahan se aaye: " + (where or "abhi koi nahi")]
     if camp:
         lines.append("🔗 Hamare link se (brand): " + ", ".join(f"{c} {u}" for c, u, _ in camp[:6]))
-    lines.append("📄 Sabse zyada dekhe page: " + ", ".join(f"{p} ({v})" for p, _, v in pages))
-    ours = [x for x in links if x[1] not in ("organic", "(none)") or x[2] not in ("(not set)", "(direct)", "(organic)")]
+    lines.append("📄 Sabse zyada dekhe page: " + (", ".join(f"{'/ (home)' if p == '/' else p} ({v})" for p, _, v in pages if v > 0)
+                                                 or "abhi koi nahi"))
+    ours = [x for x in links if x[3] > 0 and (x[1] not in ("organic", "(none)") or x[2] not in ("(not set)", "(direct)", "(organic)"))]
     if ours:
         lines.append("\n🔗 Har link (kahan se / kaise / kis brand ka → log):")
         lines += [f"• {s_} / {m_} / {c_} → {u_}" for s_, m_, c_, u_ in ours[:15]]

@@ -252,6 +252,13 @@ def scheduler():
                 if _PQ.gidx_due(nowt):                 # v3.3.2: roz 11:30 ke baad Google index ka haal (sirf padhna)
                     state.put("pq_gidx_day", day)
                     run(_PQ.gidx_run)
+                try:                                   # v3.4.7: roz 11:40 - sitemap Google ko, phir GSC 'Request indexing' ke seedhe link
+                    from . import idxlink as _IX
+                    if _IX.due(nowt):
+                        state.put("idx_day", day)
+                        run(lambda: (lambda r: r and tg.say(r))(_IX.run()))
+                except Exception as _e_ix:
+                    log(f"idxlink loop: {_e_ix}")
                 if _PQ.fresh_due(nowt):                # v3.3.2 audit-6: Somvaar - purani pad chuki baat ki suchi (content nahi badalta)
                     state.put("pq_fresh_wk", nowt.strftime("%G-W%V"))
                     run(_PQ.fresh_run)
@@ -618,6 +625,15 @@ def scheduler():
                         tg.say(r_ + "\n👤 Ab 'owner link' likhein - Telegram/Instagram/Facebook ke andar wale browser mein bhi aapki "
                                "visit na gine, uska tareeka.")
                 run(_tf)
+            if (state.get("trackfix_owner") and not state.get("sitepatch_347") and time.time() - STARTED > 900
+                    and state.get("sitepatch_try") != day):
+                state.put("sitepatch_try", day)            # v3.4.7: Claude ke jaanche website sudhaar - ek baar, audit gate se
+                def _sp():
+                    from . import webfix347 as _SPx
+                    r_ = _SPx.apply()
+                    if r_:
+                        tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
+                run(_sp)
             if "19:05" <= nowt.strftime("%H:%M") < "20:00" and state.get("push_day") != day and state.get("push_on"):
                 state.put("push_day", day)                 # v2.9.2: roz max 1 website notification (opt-in walon ko)
                 def _ps():
@@ -961,6 +977,9 @@ def health_more():
              + (f" | sitemap live {bf.get('live_n', '?')} / Bing {bf.get('bing_n', '?')}" if bf else "")
              + f" | aaj URL bheje: {'haan' if state.get('bing_api_day') == today else 'abhi nahi (06:40)'}")
     L.append(f"✅ IndexNow: kul {len(state.get('indexnow_sent') or {})} URL bheje (key site par public)")
+    _il = state.get("idx_last") or {}                 # v3.4.7: Google 'Request indexing' ke seedhe link
+    L.append(f"🔎 Google indexing link: " + (f"aakhri {_il.get('day')} ({len(_il.get('urls') or [])} link)" if _il else "abhi nahi diye")
+             + " | roz 11:40 (sitemap ke baad) | abhi: 'indexing link'")
     pub = state.get("adsense_pub")
     L.append(f"{'✅' if pub else '🔑'} AdSense: " + (f"{pub} juda | review Google ke paas (approval mail ka intezaar)" if pub
                                                     else "pub ID baaki"))
@@ -1687,6 +1706,13 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.7
+        from . import idxlink as _IXT
+        _r_ix = _IXT.on_text(tl, run)
+        if _r_ix is not None:
+            return _r_ix
+    except Exception as _e_ixt:
+        log(f"idxlink text: {_e_ixt}")
     try:                                                                              # v3.4.4
         from . import autodoctor as _ADT
         _r_ad = _ADT.on_text(tl, run)
