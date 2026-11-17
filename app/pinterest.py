@@ -95,12 +95,71 @@ def can_pin_now(brand, link):
     st = state.get("pin_pace") or {}
     if st.get("date") != today:
         st = {"date": today, "total": 0, "urls": {}, "last_ts": {}}
-    if st["total"] >= 15:
-        return False, "Pinterest ki roz ki surakshit seema (15 pin) poori"
+    cap = day_cap()
+    if st["total"] >= cap:
+        return False, f"Pinterest ki aaj ki surakshit seema ({cap} pin) poori"
     clean_u = (link or "").split("?")[0].rstrip("/")
     if st["urls"].get(clean_u, 0) >= 2 and clean_u != SITE.rstrip("/"):
         return False, f"{clean_u} par aaj 2 pin ja chuke (spam-suraksha)"
     return True, "OK"
+
+
+def day_cap(today=None):
+    """Roz ki kul seema (video pin + 3 page pin milakar). Pehle asal mein ~5-6/din jaate the (har video ek hi /jawab link par,
+    2 ke baad ruk jaati). v3.4.19: alag-alag page ke link se badhenge - par DHEERE (ek saath doguna = spam jaisa):
+    18-20 Nov 8, 21-24 Nov 10, 25 Nov se 12. Pehle wali 15 ki upar seema waisi. state 'pin_max' se badal sakte hain."""
+    import datetime
+    from . import state
+    try:
+        if state.get("pin_max"):
+            return max(1, min(15, int(state.get("pin_max"))))
+    except Exception:
+        pass
+    d = ((today or datetime.date.today()) - datetime.date(2026, 11, 18)).days
+    return 8 if d < 3 else (10 if d < 7 else 12)
+
+
+def pick_link(brand, meta, jawab_link):
+    """v3.4.19 (owner: 'pin badhao, spam na lage'): pehle us sawal ka jawab; /jawab aaj 2 baar ho chuka to us vishay ka
+    free calculator/guide (har pin alag page par). -> (link, kis-tarah) ya (None, wajah)"""
+    utm = f"?utm_source=pinterest&utm_medium=pin&utm_campaign={brand}"
+    cands = []
+    if jawab_link:
+        cands.append((jawab_link, "jawab"))
+    pg = meta.get("page") or "/"
+    if pg not in ("/", ""):
+        cands.append((f"{SITE}{pg}{utm}", "page"))
+    try:
+        from .answers import related_tools
+        for sl, _nm in related_tools({"kind": meta.get("puzzle_kind") or meta.get("topic_kind"), "brand": brand}):
+            cands.append((f"{SITE}/{sl}{utm}&utm_content=c{meta.get('reel_code', '')}", "tool"))
+    except Exception:
+        pass
+    why = "koi link nahi"
+    for u, k in cands:
+        ok, why = can_pin_now(brand, u)
+        if ok:
+            return u, k
+        if "seema" in why:
+            break
+    return None, why
+
+
+def today_text():
+    """v3.4.19 (owner 17:43 'aaj kitne pin' -> bot AI ne jhootha '30' bola): asli ginti state se."""
+    import datetime
+    from . import state
+    st = state.get("pin_pace") or {}
+    n = st.get("total", 0) if st.get("date") == str(datetime.date.today()) else 0
+    urls = st.get("urls") or {} if st.get("date") == str(datetime.date.today()) else {}
+    L = [f"📌 Pinterest AAJ: {n} pin gaye (seema {day_cap()}) - video ke pin + har ~90 min wale page pin, dono milakar"]
+    if urls:
+        L += [f"   • {u} - {c}" for u, c in sorted(urls.items(), key=lambda x: -x[1])[:10]]
+    try:
+        L.append(analytics_summary(30))
+    except Exception:
+        pass
+    return "\n".join(L)
 
 
 def record_pin_sent(brand, link):

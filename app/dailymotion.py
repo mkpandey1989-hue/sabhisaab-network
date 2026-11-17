@@ -52,7 +52,7 @@ V2_SCOPES = ("video.manage account.read", "video.manage")
 LEGACY_TOKEN = "https://partner.api.dailymotion.com/oauth/v1/token"
 API = "https://partner.api.dailymotion.com/rest"
 PUBLIC = "https://api.dailymotion.com"
-DM_MAX = 2
+DM_MAX = 3              # v3.4.19: 2 -> 3 (owner: post badhao, surakshit had mein)
 CATEGORY = "school"
 
 
@@ -500,6 +500,40 @@ def retry_run():
     return msg or None
 
 
+def send_latest():
+    """Sabse nayi job jo YouTube par gayi par Dailymotion par nahi -> abhi bhejo (din ki seema ke andar)."""
+    import pathlib
+    from . import pipeline as P
+    if not ready():
+        return "🎬 Dailymotion juda nahi. 'dailymotion jodo' likhein."
+    if not can_post_today():
+        return f"⏸ Aaj ki Dailymotion seema ({per_day()}) poori. Badhani ho to: 'dailymotion roz 4'"
+    jobs = P.jobs()
+    cand = []
+    for jid, j in jobs.items():
+        d = j.get("done") or {}
+        if "youtube" in d and "dailymotion" not in d and not (j.get("ids") or {}).get("dailymotion"):
+            cand.append((j.get("uploaded_at") or j.get("slot") or "", jid, j))
+    for _, jid, j in sorted(cand, reverse=True):
+        try:
+            meta = P._meta(j)
+        except Exception:
+            continue
+        v = pathlib.Path(j.get("meta", "")) / "final.mp4"
+        v = v if v.exists() else pathlib.Path(meta.get("video", ""))
+        if not v.exists():
+            continue
+        try:
+            u, x = upload(v, meta)
+        except Exception as e:
+            return f"⚠️ {jid} Dailymotion par nahi gayi: {str(e)[:200]}"
+        j.setdefault("done", {})["dailymotion"] = u
+        j.setdefault("ids", {})["dailymotion"] = x
+        P.save_job(jid, j)
+        return f"🎬 {jid} Dailymotion par gayi ✅ {u}"
+    return "🎬 Aisi koi video nahi mili jiski file abhi VM par ho aur Dailymotion par na gayi ho."
+
+
 def warn_once(err):
     d = str(datetime.date.today()) + "|" + str(err)[:25]      # v3.4.14: nayi tarah ki galti ho to usi din bhi batao
     if state.get("dm_warn_day") == d:
@@ -551,8 +585,15 @@ def on_text(tl):
         state.put("awaiting", "")
         state.put("dm_ask_done", True)
         return tg.say("👍 Theek hai. Jab chahein: 'dailymotion jodo'.")
-    if tl in ("dailymotion haal", "dailymotion", "dailymotion status"):
+    if tl in ("dailymotion haal", "dailymotion", "dailymotion status") or (
+            "dailymotion" in tl.replace(" ", "") and any(w in tl for w in ("kitni", "kitne", "kitna", "gayi", "gyi", "haal"))
+            and not any(w in tl for w in ("bhejo", "daalo", "dalo", "upload"))):
         return tg.say(status_text())
+    if "dailymotion" in tl.replace(" ", "") and any(w in tl for w in ("bhejo", "daalo", "dalo", "upload karo", "aur ek", "ek aur")):
+        import threading                              # v3.4.19 (owner 17:44 'ek video aur bhejo' -> AI ne mana kiya tha)
+        tg.say("🎬 Aaj ki sabse nayi video (jo YouTube par gayi, Dailymotion par nahi) Dailymotion par bhej raha hoon...")
+        threading.Thread(target=lambda: tg.say(send_latest()), daemon=True).start()
+        return True
     m = re.match(r"^dailymotion roz (\d{1,2})$", tl)
     if m:
         state.put("dm_max", max(0, min(10, int(m.group(1)))))

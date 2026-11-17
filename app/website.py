@@ -968,7 +968,7 @@ def traffic(days=1):
     except Exception:
         where = ", ".join(f"{s} {u}" for s, u, _ in src[:8])
     lines = [f"🌐 sabhisaab.com ({'aaj' if days == 1 else f'pichhle {days} din'}): {users} log, "
-             f"{views} page dekhe" + dwell_str,
+             f"{views} page dekhe" + (f" (ek aadmi ausat {views / users:.1f} page)" if users else "") + dwell_str,
              "📍 Kahan se aaye: " + (where or "abhi koi nahi")]
     if "Anjaan" in (where or ""):
         lines.append("   ℹ️ Anjaan = GA4 ko raasta nahi mila ('(not set)'): zyadatar Telegram/Instagram/FB app ke andar khula link, "

@@ -285,6 +285,38 @@ def _mig342():
         state.put("li_log", [])
 
 
+EVE_TIME = "18:30"
+
+
+def due_eve(now=None):
+    """v3.4.19: roz shaam 18:30 doosri post - free calculator/guide (hisaab wali, sawal nahi). Subah wali gayi ho tabhi."""
+    now = now or datetime.datetime.now(IST)
+    d = str(now.date())
+    return (on() and not state.get("paused") and state.get("li_eve_on", True) and state.get("li_done_day") == d
+            and state.get("li_eve_day") != d and now.strftime("%H:%M") >= EVE_TIME)
+
+
+def run_eve():
+    state.put("li_eve_day", str(datetime.date.today()))       # ek hi koshish (dohri post kabhi nahi)
+    txt, sl = fallback_text()
+    if not txt:
+        return None
+    ok, why, pid = send(txt)
+    if ok:
+        used = state.get("li_tools") or []
+        try:
+            from .answers import TOOL_NAMES
+            used = [] if all(k in used for k in TOOL_NAMES) else used
+        except Exception:
+            pass
+        state.put("li_tools", (used + [sl])[-60:])
+        state.update("li_log", lambda l: ((l or []) + [{"d": str(datetime.date.today()), "t": time.strftime("%H:%M"), "c": "tool",
+                                                         "id": pid}])[-60:], [])
+        return "💼 LinkedIn shaam ki post (free tool) gayi ✅" + (f"\nhttps://www.linkedin.com/feed/update/{pid}/" if pid else "")
+    log(f"linkedin eve: {why}")
+    return None
+
+
 def due(now=None):
     _mig342()
     _mig343()

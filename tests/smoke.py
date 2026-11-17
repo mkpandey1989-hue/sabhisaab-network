@@ -691,5 +691,22 @@ _h418 = '<title>उत्तराखंड GK: 5 सवाल - कितने
 _n418 = _WF418.fix_story_title(_h418, "47")
 check(_n418.count("(सप्ताह 47)") == 3 and _WF418.fix_story_title(_n418, "47") == _n418, "Web Story: dohraaye title alag (सप्ताह N), dobara chalane par kuch nahi")
 check("सप्ताह" in _in417.getsource(_WS417.build), "Nayi Web Story ka title har hafte alag")
+# v3.4.19: post badhao (surakshit) + bot asli ginti de
+import datetime as _dt419  # noqa: E402
+from app import pinterest as _PI419, linkedin as _LI419, brain as _BR419  # noqa: E402
+_sv419 = (state.get("pin_pace"), state.get("pin_max"))
+try:
+    state.put("pin_max", None)
+    check(_PI419.day_cap(_dt419.date(2026, 11, 19)) == 8 and _PI419.day_cap(_dt419.date(2026, 11, 22)) == 10
+          and _PI419.day_cap(_dt419.date(2026, 12, 1)) == 12, "Pinterest dheere badhe: 8 -> 10 -> 12 (15 se upar kabhi nahi)")
+    state.put("pin_pace", {"date": str(_dt419.date.today()), "total": 1, "urls": {"https://sabhisaab.com/jawab": 2}, "last_ts": {}})
+    _l419, _k419 = _PI419.pick_link("money", {"page": "/", "reel_code": "1234", "puzzle_kind": ""},
+                                    "https://sabhisaab.com/jawab?utm_source=pinterest#c1234")
+    check(_l419 and "/jawab" not in _l419 and _k419 == "tool", "Pinterest: jawab link 2 baar ho gaya to us vishay ka calculator (alag page)")
+finally:
+    state.put("pin_pace", _sv419[0] or {}); state.put("pin_max", _sv419[1])
+check(_LI419.EVE_TIME == "18:30" and callable(_LI419.due_eve), "LinkedIn: shaam 18:30 doosri post (free tool)")
+check("GINTI" in _BR419.PROMPT, "Bot AI ginti ka andaaza nahi lagata")
+check(_DM417.DM_MAX == 3 and callable(_DM417.send_latest), "Dailymotion roz 3 + 'dailymotion par ek aur bhejo'")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

@@ -1958,3 +1958,19 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   Poori site: toote andar ke link 0, thin page 0, dohraaye title/desc sirf 1 jodi: stories/pahadi-quiz-2026-w46 aur w47.
 - Sudhaar: webstory.build title mein '(सप्ताह N)' + description mein pehla sawal (har story alag). webfix.apply_stories:
   purani quiz stories ke title/description/amp-story title ek baar (audit gate, flag sitepatch_3418).
+
+## v3.4.19 (17 Nov 2026 shaam) - [OPUS 5.5] Post surakshit tareeke se badhao + bot asli ginti de
+- Owner: "audience badhao, der tak roko, spam na lage, jahan link lag sakta hai lagao; chat bhi dekho".
+- Link ka niyam (sab platform): sawal/quiz -> us sawal ka jawab (/jawab#cCODE); hisaab/calculation -> us vishay ka calculator;
+  aam post -> homepage. (Pehle se aisa tha; Pinterest ab isi par.)
+- Pinterest: har video ka pin pehle /jawab#c par; /jawab aaj 2 baar ho gaya to us sawal-type/brand ka free calculator/guide
+  (related_tools) - har pin alag page. Pehle sab /jawab par jaate the -> 2 ke baad baaki RUK jaate (asli 5-6 pin/din).
+  Kul seema dheere: 18-20 Nov 8, 21-24 Nov 10, 25 Nov se 12 (15 ki upar seema waisi). 'pin_max' state.
+- LinkedIn: subah 09:15 quiz (waisa) + shaam 18:30 free tool post (subah gayi ho tabhi, din mein ek hi koshish).
+- Dailymotion: DM_MAX 2 -> 3. 'dailymotion par ek aur bhejo' -> sabse nayi YouTube-wali video jo DM par nahi (send_latest).
+- Bot chat (17:43-17:52): 'aaj kitne pin' par AI ne jhootha "30 pin" kaha; 'ek video aur bhejo dailymotion' par mana kiya;
+  'dailymotion par kitni gayi' par gol-mol. Ab: pin ginti pin_pace se (pinterest.today_text), DM ginti status_text,
+  brain.PROMPT: ginti kabhi andaaze se nahi.
+- Traffic report: 'ek aadmi ausat N page'.
+- Threads par alag text post NAHI joda: har video already Threads par jaati hai (4 account x 2-3/din) - aur zyada = spam.
+- Privacy: koi naya data nahi (wahi UTM link), policy mein badlaav ki zarurat nahi.

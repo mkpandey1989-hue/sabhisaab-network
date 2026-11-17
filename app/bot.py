@@ -298,6 +298,9 @@ def scheduler():
                     if _LI.due(nowt):
                         _LI.mark_try()                 # turant (thread se pehle) - dohri post kabhi nahi
                         run(_LI.run_due)
+                    elif _LI.due_eve(nowt):            # v3.4.19: shaam 18:30 doosri post (free tool)
+                        state.put("li_eve_day", day)
+                        run(lambda: (lambda r: r and tg.say(r))(_LI.run_eve()))
                     _lr = _LI.remind_due(nowt)
                     if _lr:
                         tg.alert("yellow", _lr)
@@ -1732,6 +1735,9 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    if re.search(r"\bpin", tl) and any(w in tl for w in ("kitne", "kitna", "kitni", "bane", "banaye", "huye", "hue", "gaye", "gye")):
+        from . import pinterest as _PIc                          # v3.4.19: asli ginti (AI ka andaaza '30' nahi)
+        return run(lambda: tg.say(_PIc.today_text()))
     try:                                                                              # v3.4.8
         from . import dailymotion as _DMT
         _r_dmt = _DMT.on_text(tl)

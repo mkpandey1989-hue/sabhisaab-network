@@ -1045,9 +1045,10 @@ def upload(jid, pre=False):
             from . import answers as _ANSL
             if meta.get("answer_offsite") and _ANSL.live():   # v2.5.0: pin dabate hi seedha us sawal ka jawab (website)
                 link = f"{SITE}/jawab?utm_source=pinterest&utm_medium=pin&utm_campaign={brand}&utm_content=c{meta.get('reel_code', '')}#c{meta.get('reel_code', '')}"
-            _okp, _whyp = PI.can_pin_now(brand, link)          # v2.6.0: roz ki spam-suraksha seema = ⏸ intezaar, galti (❌) nahi
-            if not _okp:
+            _lk, _whyp = PI.pick_link(brand, meta, link)      # v3.4.19: jawab ka link 2 baar ho gaya to us vishay ka calculator
+            if not _lk:
                 raise _Wait("⏸ " + _whyp + " - kal phir (Pinterest spam niyam ke andar)")
+            link = _lk
             pin_img = pathlib.Path(job["meta"]) / "pinterest_infographic.jpg"     # v2.3.0 (v11 se): 1000x1500 checklist pin
             try:
                 from . import imagegen as _IG
