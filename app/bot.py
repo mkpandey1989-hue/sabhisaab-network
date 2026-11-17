@@ -634,8 +634,8 @@ def scheduler():
                 except Exception as _e_dma:
                     log(f"dm ask: {_e_dma}")
             if (state.get("trackfix_owner") and not state.get("sitepatch_348") and time.time() - STARTED > 900
-                    and state.get("sitepatch_try") != day):
-                state.put("sitepatch_try", day)            # v3.4.7: Claude ke jaanche website sudhaar - ek baar, audit gate se
+                    and state.get("sitepatch_try348") != day):
+                state.put("sitepatch_try348", day)            # v3.4.7: Claude ke jaanche website sudhaar - ek baar, audit gate se
                 def _sp():
                     from . import webfix as _SPx
                     r_ = _SPx.apply()
