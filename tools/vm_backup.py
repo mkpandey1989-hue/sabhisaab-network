@@ -33,6 +33,9 @@ SKIP_DIRS = {"sabhisaab-network", "sabhisaab", "unit_backups", "secrets", "snap"
              "chart_data", "photos", "videos", "deploy_backups", "backups", "bt", "tmp", "__pycache__", "sabhisaab_site", "site"}
 BAD_NAME = re.compile(r"(?i)(token|passw|pwd|secret|apikey|api_key|\.env$|\.key$|\.pem$|credential|cookie|session|oauth|"
                       r"mainnet|delta_tg|\.bak|backup)")
+BAD_CODE = re.compile(r"(?i)\.bak|backup|\.orig$|\.old$")    # code file (.py/.sh): naam mein 'token' ho to bhi aaye (refresh_token.py) - andar safai hoti hai
+SKIP_FILES = {"caf.py", "csf.py", "vm_backup.py"}            # Claude ke tool ki download copy (asli tools/ mein) - vm_backup.py alag se
+SKIP_DIRS |= {"carve", "keep"}                               # purani recovery ke tukde (Perl CPAN) - code nahi
 MAXB = 900_000
 CRON = "40 2 * * * /usr/bin/python3 %s/vm_backup.py >> %s/vm_backup.log 2>&1" % (HOME, HOME)
 
@@ -116,7 +119,10 @@ def gather():
         for f in fs:
             p = os.path.join(root, f)
             rp = os.path.normpath(os.path.join("home", rel, f))
-            if BAD_NAME.search(f) or f.startswith(".") or os.path.islink(p):
+            if f.startswith(".") or os.path.islink(p) or (depth == 0 and f in SKIP_FILES):
+                continue
+            if BAD_NAME.search(f) and not (f.endswith((".py", ".sh")) and not BAD_CODE.search(f)
+                                           and not re.search(r"(?i)\.(env|key|pem)$", f)):
                 continue
             try:
                 if os.path.getsize(p) > MAXB:
@@ -162,14 +168,20 @@ Aakhri update: {when} | {n} file
 ## Kya kahan
 | Folder | Kya |
 |---|---|
-| home/ | /home/ubuntu ke bot: nifty_option_LIVE.py (Nifty options, Dhan), delta_btc_LIVE.py (BTC, Delta), master_guard.py, vm_health.py, ntfy_monitor.py, refresh_token.py, maintenance.sh |
+| home/ | /home/ubuntu ke bot: nifty_option_LIVE.py (Nifty options, Dhan), refresh_token.py (Dhan token roz 08:45), master_guard.py, vm_health.py, ntfy_monitor.py, maintenance.sh |
+| home/deltabot/ | BTC bot (Delta) - delta-live yahi wala chalata hai |
 | home/nifty_chart/ | Nifty live chart (port 8003) + watchdog + maint |
 | home/chowkidar/ | VM chowkidar Telegram bot (report, suraksha, bill) |
 | systemd/ | service/timer file (Restart=always, StartLimitIntervalSec=0) |
 | cron/ | crontab (ubuntu + root) |
 | *.docx.md | roadmap/guide docx ka text |
 
-Kabhi nahi aata: secrets/, .ssh, .oci, *.env, token/pass/key naam ki file, *.json state, *.db, log, xlsx journal, photo/video.
+Kabhi nahi aata: secrets/, .ssh, .oci, *.env, token/pass/key naam ki DATA file (code .py aata hai, andar `***`), *.json state, *.db, log, xlsx journal, photo/video.
+
+## Koi AI kaise padhe
+- Claude (claude.ai / Claude Code): owner chat mein bole "vm-bots repo bhi padho" -> repo jod kar `git clone` (private - owner ki ijazat se).
+- Doosra AI: owner GitHub par is repo ka ZIP (Code -> Download ZIP) de, ya us AI ko repo ki access de.
+- Pehle ye README, phir neeche ki 'ASLI chalne wali file' table, phir sabhisaab-network ka docs/MASTER.md.
 """
 
 
@@ -177,6 +189,46 @@ def build(lits_out=None):
     files = gather()
     lits = collect_literals(files.values())
     return files, lits
+
+
+def running_table():
+    """systemd ExecStart + crontab se: ASLI chalne wali file kaun si (AI galat copy na badle) + service ka haal."""
+    rows, seen = [], set()
+    for u in UNITS:
+        p = os.path.join(SYSD, u + ".service")
+        if not os.path.exists(p):
+            continue
+        txt = open(p).read()
+        try:
+            act = subprocess.run(["systemctl", "is-active", u], capture_output=True, text=True, timeout=10).stdout.strip()
+            ena = subprocess.run(["systemctl", "is-enabled", u], capture_output=True, text=True, timeout=10).stdout.strip()
+        except Exception:
+            act = ena = "?"
+        paths = re.findall(r"/home/ubuntu/[\w./-]+\.(?:py|sh)\b", txt)
+        wd = re.search(r"WorkingDirectory=(\S+)", txt)
+        for rel in re.findall(r"ExecStart=\S+\s+(?:-u\s+)?([\w.-]+\.py)\b", txt):
+            if wd:
+                paths.append(os.path.join(wd.group(1), rel))
+        for f in paths:
+            if f in seen or "/venv/" in f or "env/bin" in f:
+                continue
+            seen.add(f)
+            loc = f.replace("/home/ubuntu", "home", 1)
+            ok = os.path.exists(f.replace("/home/ubuntu", HOME, 1))
+            rows.append(f"| {u} ({act}, {ena}) | `{loc}` | {'✅' if ok else '❌ VM par file nahi mili'} |")
+    try:
+        cr = subprocess.run(["crontab", "-l"], capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        cr = ""
+    for f in sorted(set(re.findall(r"/home/ubuntu/[\w./-]+\.(?:py|sh)", cr))):
+        if f in seen:
+            continue
+        seen.add(f)
+        ok = os.path.exists(f.replace("/home/ubuntu", HOME, 1))
+        rows.append(f"| cron | `{f.replace('/home/ubuntu', 'home', 1)}` | {'✅' if ok else '❌ VM par file nahi mili'} |")
+    return ("\n## ASLI chalne wali file (systemd + cron se - inhi ko badlo, baaki copy/purani ho sakti hain)\n"
+            "| Kaun chalata (haal) | File | |\n|---|---|---|\n" + "\n".join(rows) + "\n"
+            "| sabhinet | alag repo: https://github.com/mkpandey1989-hue/sabhisaab-network | ✅ |\n")
 
 
 def run(dry=None):
@@ -212,7 +264,7 @@ def run(dry=None):
         os.makedirs(os.path.dirname(fp), exist_ok=True)
         open(fp, "w", encoding="utf-8").write(scrub(t, lits))
     open(os.path.join(out, "README.md"), "w").write(
-        README.format(when=time.strftime("%d %b %Y %H:%M", time.gmtime(time.time() + 19800)) + " IST", n=len(files)))
+        README.format(when=time.strftime("%d %b %Y %H:%M", time.gmtime(time.time() + 19800)) + " IST", n=len(files)) + running_table())
     shutil.copy2(os.path.abspath(__file__), os.path.join(out, "vm_backup.py"))
     # aakhri jaal: koi bhi bacha secret jaisa shabd mila to push hi nahi
     left = []

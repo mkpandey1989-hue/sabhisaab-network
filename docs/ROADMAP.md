@@ -1899,6 +1899,7 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   Token = sabhinet ka GITHUB_TOKEN (naya kuch nahi). `--install` = crontab mein 1 line (dohra nahi).
 - tasks.py `_mig_3412`: owner kaam "vm_backup ek baar chalao" joda; Dailymotion key wala kaam itihaas mein (17 Nov juda).
 - MASTER.md: GitHub niyam (section 7 table), vm-bots, Dailymotion juda, 17 Nov VM fix (autostart, chowkidar, chart 500 MB) - itihaas.
+- vm_backup v2: refresh_token.py bhi (code file naam mein token ho to bhi, andar safai), carve/keep kachra aur caf/csf copy nahi, README mein ASLI chalne wali file ki table (systemd+cron se, file na mile to ❌).
 - Isi din VM par owner ne chalaye (bot code nahi): autostart_fix.sh, chowkidar_social_fix.py v2, chart_alert_fix.py v2 - sab OK.
 
 ## v3.4.13 (17 Nov 2026 dopahar) - [OPUS 5.5] Indexing suchi: ek hi, poori, kabhi chup nahi
