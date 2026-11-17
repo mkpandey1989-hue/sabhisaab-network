@@ -1919,3 +1919,5 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   language=hi, country=IN). v2 na chale to purana /rest partner token se. Delete bhi v2 pehle.
 - Docs: developers.dailymotion.com/docs/migrating-from-legacy-api-to-api-v2 , /reference/create-profile-video , /docs/collect-profile-ids
 - Agar key mein 'account read' permission nahi to saaf sandesh (profile id nahi mila). warn_once ab nayi galti par usi din bhi batata hai.
+- v3.4.15: owner ki key mein sirf "Manage videos" (Upload/Read/Edit/Delete) hai, 'account read' jaisa koi option nahi.
+  Isliye /v2/me na chale to jude channel ka id (dailymotion.json `channel`, x...) hi profile_id maan kar upload.

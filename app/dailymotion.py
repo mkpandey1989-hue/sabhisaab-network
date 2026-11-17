@@ -148,6 +148,10 @@ def profile_id():
     pr = j.get("profiles") or []
     want = (c.get("user") or "sabhisaab").lower()
     pick = next((p for p in pr if str(p.get("name", "")).lower() == want), pr[0] if pr else None)
+    if (not pick or not pick.get("profile_id")) and c.get("channel"):
+        # v3.4.15: key mein 'account read' nahi (owner ki key: sirf Manage videos) -> jude channel ka id (x...) hi profile id
+        log(f"dm v2 /me: {r.status_code} - channel id {c['channel']} se koshish")
+        return c["channel"]
     if not pick or not pick.get("profile_id"):
         raise RuntimeError(f"profile id nahi mila ({r.status_code} {str(j)[:120]}) - Dailymotion API key mein 'account read' "
                            "permission chahiye")
