@@ -565,5 +565,25 @@ check(_UP48b._mask(_sec48) == "***" and _UP48b._mask("https://sabhisaab.com/emi-
 _m48 = _IX48b.message([("https://sabhisaab.com/abc", "URL is unknown to Google")])
 check("<code>https://sabhisaab.com/abc</code>" in _m48 and "search-console/inspect" not in _m48, "Indexing: sirf poora URL (tap = copy), console deep-link nahi")
 check("run(website.pending)" not in _insp.getsource(_BOT48b), "Website ki dusri 'PENDING KAAM' indexing suchi band - ek hi jagah")
+# v3.4.10: PENDING saaf (ho chuke AdSense/owner-mode/Pinterest hate), naye owner kaam, MASTER.md
+from app import tasks as _TK410  # noqa: E402
+_sv410 = (state.get("todo"), state.get("todo_done"), state.get("mig_349"))
+try:
+    state.put("todo", [{"x": "📌 AdSense apply: adsense.google.com ...", "t": "x"}, {"x": "AdSense approve hone par: bot ko ...", "t": "x"},
+                       {"x": "[Owner, 1 min] OWNER MODE (aapki ...", "t": "x"}, {"x": "kuch aur", "t": "x"}])
+    state.put("mig_349", False)
+    _TK410._mig_349()
+    _tx = [o["x"] for o in state.get("todo")]
+    check(not any(x.startswith(("📌 AdSense apply", "[Owner, 1 min] OWNER MODE")) for x in _tx) and "kuch aur" in _tx
+          and any(x.startswith("[Intezaar] AdSense approval") for x in _tx) and any("Dailymotion" in x for x in _tx)
+          and any("Quora purane 4 jawab" in x for x in _tx), "PENDING: ho chuke kaam hate, naye (Dailymotion/Quora/indexing) jude")
+finally:
+    state.put("todo", _sv410[0] or [])
+    state.put("todo_done", _sv410[1] or [])
+    state.put("mig_349", _sv410[2] or False)
+import pathlib as _pl410  # noqa: E402
+_mm = (_pl410.Path(__file__).resolve().parent.parent / "docs" / "MASTER.md").read_text(encoding="utf-8")
+check(all(w in _mm for w in ("company/144149065", "dailymotion.com/sabhisaab", "pub-1074878035420336", "KABHI MAT KARNA", "11:40")),
+      "docs/MASTER.md: saare account + roz ka samay + niyam")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

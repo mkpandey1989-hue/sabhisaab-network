@@ -409,11 +409,19 @@ def _tf_consent():
     return bool(state.get("trackfix_consent"))
 
 
+def _dm_ok():
+    try:
+        from . import dailymotion as _D
+        return _D.ready()
+    except Exception:
+        return False
+
+
 AUTO = {"tf_consent": _tf_consent, "li_ok": _li_ok, "li_hook": _li_hook, "li_key": _li_key, "pq": _pq_loaded, "looks4": _looks4, "cw52": _cw52, "cw_dash": _cw_dash,
         "threads_ok": _threads_all_ok, "pin_oauth": _pin_oauth, "cf_acc": _cf_acc_ok, "cw_done": _cw_done,
         "meta_secret": _meta_secret_ok, "tg_pin": _tg_pinned, "gsc_all": _gsc_all_indexed, "psi": _psi_key, "cf": _cf_ok, "dm_over": _dm_over,
         "w7": _w7_live, "fb_perm": _fb_perm_fixed, "w8": _w8_live, "ga4": _ga_ok, "w9": _w9_live, "ytc": _ytc_ok, "bkpass": _bk_saved, "anall": _analytics_all, "push": _push_ok, "quizb": _quiz_ok,
-        "gsc_again": _gsc_again_done}
+        "gsc_again": _gsc_again_done, "dm_ok": _dm_ok}
 
 
 def add(text, how="", after=None, auto=None):
@@ -1474,11 +1482,75 @@ def _mig_347():
         state.update("todo_done", lambda l: ((l or []) + moved)[-200:], [])
 
 
+SEED_V349 = [           # v3.4.9 (17 Nov 2026): Dailymotion, Quora, indexing - owner ke naye kaam (docs/MASTER.md mein poora)
+    ("[Owner, 5 min] Dailymotion: Studio → Settings → Account → API keys → purani key DELETE (secret chat-record mein khul gaya "
+     "tha) → Create → Private API Key → Manage videos ON → Create. Bot khud key maangega - pehle key paste, phir secret", None, "dm_ok",
+     "Bot juda pakka karte hi khud hatayega. Na maange to bot mein: 'dailymotion jodo'"),
+    ("[Owner, roz 15 min] Quora: roz 2-3 jawab (1 Hindi + 1-2 English), sirf kam-jawab wale sawal, upar apni 1 line anubhav ki. "
+     "Sawal ka screenshot Claude ko - Claude poora jawab deta hai", None, None, "Ye roz ka kaam hai - list mein rehta hai. Band: 'ho gaya quora roz'"),
+    ("[Owner, 10 min] Quora purane 4 jawab mein aakhri line link (Edit answer → neeche paste): loan app → "
+     "https://sabhisaab.com/emi-se-byaj-dar-calculator?utm_source=quora | SBI SIP 15 saal → https://sabhisaab.com/sip-calculator?utm_source=quora "
+     "| call vs put → https://sabhisaab.com/options-breakeven-calculator?utm_source=quora | heavy call wale mein link NAHI", "2026-11-20", None,
+     "ho jaye to: 'ho gaya quora link'"),
+    ("[Owner, 1 min] Quora Space 'Sab Hisaab - Paisa, Pahad aur Paheli' ka poora link (quora.com/... ) Claude ko bhejein - website ki "
+     "/links aur homepage par jodna hai", None, None, "ho jaye to: 'ho gaya quora space link'"),
+    ("[Owner, roz 5 min] Bot ki roz 11:40 'GOOGLE INDEXING' suchi: link tap (copy) → search.google.com/search-console → 'Inspect any URL' "
+     "→ paste → REQUEST INDEXING. Upar se shuru; Quota exceeded = baaki kal. Phir bot mein 'indexing ho gaya'", None, None,
+     "Roz ka kaam. Suchi khaali aaye to kuch nahi karna"),
+    ("(Marzi, hafte mein 1-2) Reddit: sirf r/Uttarakhand jaise subreddit mein, unke Rules padh kar, kaam ki jaankari + 1 link. "
+     "Bot se auto-post kabhi nahi (ban)", None, None, "ho jaye to: 'ho gaya reddit'"),
+    ("[Faisla, Jan 2027] Uttarakhand queue poori (~mid Dec) + 4-6 hafte Search Console data → 1/3 UK page dikhne lagein to Himachal ke "
+     "20-30 page (sirf jo UK mein chale), warna pehle UK sudhaar. Data Claude ko dikhayein", "2027-01-10", None,
+     "ho jaye to: 'ho gaya hp faisla'"),
+]
+
+STALE_V349 = [          # (shuru ka text, wajah) - ho chuke/dohre, chupchap itihaas mein
+    ("📌 AdSense apply:", "16 Nov apply ho gaya (Welcome to AdSense mail) - review chal raha"),
+    ("AdSense apply:", "16 Nov apply ho gaya (Welcome to AdSense mail) - review chal raha"),
+    ("AdSense → Privacy & messaging → Certified CMP", "16 Nov AdSense apply ke saath ho gaya"),
+    ("AdSense: 20-30 sabse accha page", "apply ho chuka; ab sirf approval ka intezaar"),
+    ("[Owner, 1 min] OWNER MODE", "dohra: v3.4.1 'owner link' (har app mein) ne jagah li"),
+    ("Pinterest: 29 Oct ko Standard form", "Pinterest Standard access 2 Nov tak manzoor ho gaya"),
+]
+
+
+def _mig_349():
+    if state.get("mig_349"):
+        return
+    state.put("mig_349", True)
+    import datetime as _d
+    keep, moved = [], []
+    for o in state.get("todo") or []:
+        x = str(o.get("x", "")).lstrip("📌 ").strip()
+        hit = next((w for k, w in STALE_V349 if x.startswith(k.lstrip("📌 "))), None)
+        if hit:
+            moved.append({**o, "done": str(_d.date.today()), "by": "v3.4.9", "note": hit})
+        else:
+            if x.startswith("AdSense approve hone par"):
+                o = {**o, "x": "[Intezaar] AdSense approval mail (2-4 hafte, review chal raha). pub-ID bot mein pehle se juda. Mail aate hi "
+                               "Claude ko batayein - privacy ki 'abhi koi vigyapan nahi' line badlegi aur ad jagah tay hogi (quiz vikalp ke paas kabhi nahi)",
+                     "how": "ho jaye to: 'ho gaya adsense approve'"}
+            keep.append(o)
+    have = {o.get("x") for o in keep}
+    day = str(_d.date.today())
+    keep += [{"x": t, "t": day, **({"after": a} if a else {}), **({"auto": k} if k else {}), "how": h}
+             for t, a, k, h in SEED_V349 if t not in have]
+    state.put("todo", keep)
+    if moved:
+        state.update("todo_done", lambda l: ((l or []) + moved)[-200:], [])
+    _dirty()
+
+
 def seed_todo():
     try:
         _mig_3310()
     except Exception:
         pass
+    try:
+        _mig_349()
+    except Exception as e:
+        from .log import log as _lg
+        _lg(f"mig_349: {e}")
     try:
         _mig_347()
     except Exception:
@@ -1870,7 +1942,7 @@ def pending_md():
     done = (state.get("todo_done") or [])[-30:]
     lines = ["# PENDING - saare khule kaam (bot roz khud likhta hai)", f"Updated: {datetime.datetime.now():%Y-%m-%d %H:%M} IST", "",
              "Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata deta hai. Baaki owner",
-             "'ho gaya <shabd>' likhta hai. Naya kaam: 'list mein daalo <kaam>'. AI/developer: pehle docs/AI_START.md.", "",
+             "'ho gaya <shabd>' likhta hai. Naya kaam: 'list mein daalo <kaam>'. AI/developer: SABSE PEHLE docs/MASTER.md (saare account, roz ka kaam, niyam), phir docs/AI_START.md.", "",
              f"## Abhi khule (owner ke haath ke) - {len(open_)}"]
     lines += [f"- {t}\n  - Kaise: {h}" for t, h in open_] or ["- (koi nahi)"]
     lines += ["", f"## Claude/developer ke kaam - {len(dev_)} (owner ko kuch nahi karna; Claude ko 'continue')"]

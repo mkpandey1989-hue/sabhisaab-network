@@ -1,5 +1,8 @@
 # AI_START - koi bhi AI / developer SABSE PEHLE ye padhe
 
+> **17 Nov 2026 se SABSE PEHLE: `docs/MASTER.md`** - saare account (kahan, kis naam se), roz kya-kab-kahan post hota hai, owner ke
+> haath ke kaam, privacy, aur KABHI MAT KARNA. Phir `docs/PENDING.md`. Neeche ka baaki purana sandarbh hai.
+
 > **SABSE PEHLE (12 Nov 2026 se): docs/TRAFFIC_PLAN.md** - impression/click ka plan aur agle kaam ka kram (T1, T2...). Owner ka sabse bada
 > lakshya traffic hai; naya feature banane se pehle wahi kaam karo.
 > 12 Nov 2026: **Claude Fable 5.2 ka poora audit** ho chuka - **docs/AUDIT_11NOV2026.md** (hissa A zaroor padho). v3.1.0-v3.1.2 + website
