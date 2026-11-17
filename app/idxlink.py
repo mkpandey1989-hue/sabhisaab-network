@@ -6,6 +6,8 @@ GOOGLE 'REQUEST INDEXING' KI ROZ KI SUCHI - ek hi jagah, ek hi niyam:
 2) Sirf wahi URL jo (a) LIVE sitemap.xml mein hain, (b) abhi HTTP 200 khulte hain, (c) roz ki Google jaanch (daily.json,
    URL Inspection API) ke hisaab se index NAHI hain.
 2b) v3.4.8: link dene se theek pehle har URL Google URL Inspection API se TAAZA jaancha - index ho chuka = link nahi.
+3b) v3.4.13: queue ke naye page bhi isi suchi mein (pagequeue alag link nahi deta); 7-din niyam sirf "indexing ho gaya" ke baad;
+   kuch na ho to bhi 11:40 par chhota "aaj kaam nahi" sandesh (chup nahi).
 3) v3.4.8b: sirf page ka POORA URL (tap = copy) - Search Console ka deep-link owner ke phone par error deta tha.
 4) Din mein max 10 (Google roz itne hi leta hai). Ek URL 7 din mein ek baar - roz wahi suchi dobara nahi.
 5) Kram: index se NIKLE page > aaj/haal ke naye page > 'URL is unknown' > 'Discovered' > 'Crawled - not indexed'.
@@ -114,7 +116,7 @@ def pick(extra_new=(), k=MAX_DAY, today=None, live_sm=None, status=None, live_ok
         seen.add(u)
         if not live_ok(u):
             continue
-        if u not in new_set and indexed(u) is True:     # Google kehta hai index ho chuka -> link nahi (purani daily.json)
+        if indexed(u) is True:          # Google kehta hai index ho chuka -> link nahi (v3.4.13: naye page par bhi)
             continue
         out.append((u, why))
         if len(out) >= k:
@@ -179,43 +181,72 @@ def run(manual=False, extra_new=()):
         return (f"🔎 Indexing link abhi nahi diye: Google ko sitemap nahi gaya ({sm_line}). Niyam: pehle sitemap, phir link. "
                 "Bot agle ghante phir koshish karega." if not manual else f"🔎 Pehle sitemap jaana zaroori hai: {sm_line}")
     st, day = _status()
-    rows = pick(extra_new, status=st)
+    cut3 = str(today - datetime.timedelta(days=3))       # v3.4.13: queue ke naye page (subah live) bhi ISI ek suchi mein
+    pqn = [u for u, d in sorted((state.get("pq_new_pages") or {}).items(), key=lambda x: x[1], reverse=True) if d >= cut3]
+    rows = pick(list(extra_new) + [u for u in pqn if u not in extra_new], status=st)
     if not rows:
-        if not manual:
-            return None
-        return ("✅ Aaj koi indexing link nahi: sitemap ke sab live page ya to Google index mein hain, ya pichhle 7 din mein aapko "
-                "diye ja chuke hain (Google ko samay dein).")
-    given = state.get("idx_given") or {}
-    for u, _ in rows:
-        given[u] = str(today)
-    cut = str(today - datetime.timedelta(days=40))
-    state.put("idx_given", {u: d for u, d in given.items() if d >= cut})
+        gv = state.get("idx_given") or {}
+        wk = len([u for u, d in gv.items() if d > str(today - datetime.timedelta(days=REPEAT_DAYS))])
+        return ("✅ GOOGLE INDEXING: aaj aapka koi kaam nahi - sitemap ke sab live page Google index mein hain"
+                + (f" ya {wk} page par aap pichhle 7 din mein Request indexing kar chuke (Google 2-14 din leta hai)." if wk else "."))
+    # v3.4.13: 7-din wala niyam sirf tab jab owner 'indexing ho gaya' likhe - bina kiye suchi gayab nahi hoti
     state.put("idx_last", {"day": str(today), "urls": [u for u, _ in rows]})
     send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line))
     return None
 
 
+def migrate_3413():
+    """v3.4.13 ek baar: aaj subah ke adhoore sandesh (console link / /path) ke URL 'diye' maan liye gaye the - owner ne kiye nahi.
+    Unhe wapas suchi mein lao; queue ke pichhle 3 din ke naye page jodo; aaj ki suchi update ke baad turant dobara aaye."""
+    if state.get("mig_idx3413"):
+        return
+    state.put("mig_idx3413", True)
+    done = state.get("idx_done") or {}
+    cut = str(datetime.date.today() - datetime.timedelta(days=7))
+    if not (done.get("day") and done["day"] >= cut):
+        state.put("idx_given", {})
+    pub = state.get("pq_pub") or {}
+    c3 = str(datetime.date.today() - datetime.timedelta(days=3))
+    note_new_pages([f"{SITE}/{k}" for k, d in pub.items() if str(d) >= c3])
+    state.put("idx_day", "")
+
+
 def due(now=None):
     now = now or datetime.datetime.now(IST)
+    try:
+        migrate_3413()
+    except Exception as e:
+        log(f"idx mig: {e}")
     return (now.strftime("%H:%M") >= HHMM and state.get("idx_day") != str(now.date()) and state.get("idx_on", True)
             and not state.get("paused"))
 
 
 def note_given(urls):
-    """pagequeue ke 'aaj naye page' sandesh mein jo link gaye - unhe 7 din dobara na do."""
+    """owner ne 'indexing ho gaya' likha - in URL ko 7 din dobara na do (v3.4.13: sirf pakka hone par)."""
     given = state.get("idx_given") or {}
     for u in urls:
         given[u] = str(datetime.date.today())
-    state.put("idx_given", given)
+    cut = str(datetime.date.today() - datetime.timedelta(days=40))
+    state.put("idx_given", {u: d for u, d in given.items() if d >= cut})
+
+
+def note_new_pages(urls):
+    """pagequeue: aaj live hue naye page - 11:40 ki ek hi indexing suchi mein sabse upar aayenge."""
+    d = state.get("pq_new_pages") or {}
+    for u in urls:
+        d.setdefault(u, str(datetime.date.today()))
+    cut = str(datetime.date.today() - datetime.timedelta(days=10))
+    state.put("pq_new_pages", {u: x for u, x in d.items() if x >= cut})
 
 
 def on_text(tl, run_bg):
     if tl in ("indexing link", "index link", "gsc link", "gsc links", "indexing links", "request indexing", "indexing kya karu",
-              "indexing link do", "gsc link do"):
+              "indexing link do", "gsc link do", "indexing", "aaj ke indexing link", "indexing link nahi aaye"):
         tg.say("🔎 Pehle Google ko live sitemap bhej raha hoon, phir har page Google se taaza jaanch kar suchi deta hoon (1-3 min)...")
         return run_bg(lambda: (lambda r: r and tg.say(r))(run(manual=True)))
-    if tl in ("indexing ho gaya", "index ho gaya", "gsc ho gaya", "request indexing ho gaya"):
+    if tl in ("indexing ho gaya", "index ho gaya", "gsc ho gaya", "request indexing ho gaya", "ho gaya indexing"):
         last = state.get("idx_last") or {}
+        note_given(last.get("urls") or [])
         state.put("idx_done", {"day": str(datetime.date.today()), "n": len(last.get("urls") or [])})
         return tg.say(f"👍 Note kiya ({len(last.get('urls') or [])} link). Ye 7 din dobara nahi aayenge. Google 2-14 din leta hai - "
                       "bot roz jaanch kar index hote hi suchi se hata dega.")

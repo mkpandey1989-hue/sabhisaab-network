@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 17 Nov 2026 dopahar (Claude Opus 5.5, bot v3.4.12). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 17 Nov 2026 dopahar (Claude Opus 5.5, bot v3.4.13). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein
@@ -48,7 +48,7 @@ Brand: Suno Natak (sunonatak), Sab Hisaab Money (money), Labh Lo Deals (deals), 
 1. ~~Dailymotion nayi key~~ - 17 Nov ho gaya (juda).
 1b. **VM backup ek baar chalao** (2 min): `curl -sL https://raw.githubusercontent.com/mkpandey1989-hue/sabhisaab-network/claude/v348/tools/vm_backup.py -o vm_backup.py && python3 vm_backup.py --install`
    → "✅ GitHub par gaya" aaye to bas. Uske baad roz raat 02:40 apne aap.
-2. **Google indexing** (roz 5 min): 11:40 suchi → link tap (copy) → search.google.com/search-console → "Inspect any URL" → REQUEST
+2. **Google indexing** (roz 5 min): 11:40 ki EK hi suchi (queue ke naye page bhi isi mein; subah ka queue sandesh link nahi deta; kaam na ho to 'aaj koi kaam nahi' aata hai) → link tap (copy) → search.google.com/search-console → "Inspect any URL" → REQUEST
    INDEXING → bot mein `indexing ho gaya`. Google ka Indexing API sirf job/live-video ke liye hai - bot khud nahi kar sakta.
 3. **Quora** (roz 15 min): 2-3 jawab; screenshot Claude ko. 20 Nov se purane 4 jawab mein link (PENDING mein poore link).
    Quora Space ka link Claude ko (website par jodna baaki).

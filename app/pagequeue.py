@@ -536,30 +536,18 @@ def owner_message(ok, bad=()):
     live = live_slugs()
     left = len([m for m in man if m["slug"] not in live])
     per = int(state.get("pq_per_day") or DEFAULT_PER_DAY)
-    from .idxlink import note_given   # v3.4.7: har URL ka seedha Search Console link (copy-paste nahi)
     lines = [f"🏔️ Aaj {len(ok)} naya page LIVE (Uttarakhand) - live sitemap mein pakka ✅:"]
-    lines += [f"{i}. {u}" for i, u in enumerate(ok, 1)]      # v3.4.8b: sirf poora URL (console deep-link phone par error deta tha)
-    _given = state.get("idx_given") or {}
-    _cut = str(datetime.date.today() - datetime.timedelta(days=7))
-    old_ni = [s for s in request_list([u.replace(SITE + "/", "") for u in ok]) if f"{SITE}/{s}" not in ok
-              and str(_given.get(f"{SITE}/{s}", "")) <= _cut]
-    try:                                         # v3.4.8: purane page ka link tabhi jab Google abhi bhi 'index nahi' kahe (taaza jaanch)
-        from .idxlink import google_says_indexed
-        old_ni = [s for s in old_ni[:15] if google_says_indexed(f"{SITE}/{s}") is not True]
-    except Exception as e:
-        log(f"pq fresh idx: {e}")
-    old_ni = old_ni[:max(0, 10 - len(ok))]
-    if old_ni:                                   # v3.3.2: bot ki Google-jaanch mein jo purane page abhi index nahi
-        lines.append("Purane page jo Google ne index nahi kiye ya index se nikal gaye (roz ki Google jaanch) - inka bhi Request indexing:")
-        lines += [f"{len(ok) + i}. {SITE}/{s}" for i, s in enumerate(old_ni, 1)]
+    lines += [f"{i}. {u}" for i, u in enumerate(ok, 1)]
     if bad:
         lines.append("⚠️ Ye abhi live nahi dikhe (bot kal phir jaanchega): " + ", ".join(bad))
-    if ok:
-        note_given(list(ok) + [f"{SITE}/{s}" for s in old_ni])
-        lines += ["", "👉 Aapka kaam (har link 1 min, sirf Google):",
-                  "Link copy karo → https://search.google.com/search-console → upar 'Inspect any URL' mein paste → "
-                  "'REQUEST INDEXING'. Upar se shuru karo; 'Quota exceeded' aaye to baaki kal.",
-                  "Bing + IndexNow + Google sitemap: bot ne khud bhej diya (kuch nahi karna)."]
+    if ok:                                       # v3.4.13 (owner: 'ek hi suchi'): indexing link sirf 11:40 ki GOOGLE INDEXING suchi mein
+        try:
+            from .idxlink import note_new_pages
+            note_new_pages(list(ok))
+        except Exception as e:
+            log(f"pq new pages: {e}")
+        lines += ["", "👉 Google 'Request indexing' ke link aaj 11:40 ki ek hi suchi '🔎 GOOGLE INDEXING' mein (sabse upar). Abhi kuch nahi karna.",
+                  "Bing + IndexNow + Google sitemap: bot ne khud bhej diya."]
     lines.append(f"\nBaaki {left} page, roz {per} = ~{-(-left // per) if per else 0} din. 'queue haal' se poora haal.")
     return "\n".join(lines)
 

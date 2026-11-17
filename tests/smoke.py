@@ -585,5 +585,26 @@ import pathlib as _pl410  # noqa: E402
 _mm = (_pl410.Path(__file__).resolve().parent.parent / "docs" / "MASTER.md").read_text(encoding="utf-8")
 check(all(w in _mm for w in ("company/144149065", "dailymotion.com/sabhisaab", "pub-1074878035420336", "KABHI MAT KARNA", "11:40")),
       "docs/MASTER.md: saare account + roz ka samay + niyam")
+# v3.4.13: indexing - ek hi suchi (queue ke naye page bhi), bina 'ho gaya' ke gayab nahi, kabhi chup nahi
+from app import idxlink as _IX413, pagequeue as _PQ413  # noqa: E402
+_sv413 = (state.get("idx_given"), state.get("pq_new_pages"), state.get("idx_last"))
+try:
+    state.put("idx_given", {}); state.put("pq_new_pages", {})
+    _IX413.note_new_pages(["https://sabhisaab.com/naya1"])
+    check("https://sabhisaab.com/naya1" in (state.get("pq_new_pages") or {}), "Indexing: queue ka naya page 11:40 ki suchi ke liye yaad")
+    state.put("idx_last", {"day": "x", "urls": ["https://sabhisaab.com/q1"]})
+    check(not (state.get("idx_given") or {}).get("https://sabhisaab.com/q1"), "Indexing: suchi dene se 'diya' nahi maana (owner ne kiya nahi)")
+    _tgs413 = _IX413.tg.say; _IX413.tg.say = lambda *a, **k: None
+    try:
+        _IX413.on_text("indexing ho gaya", lambda f: None)
+    finally:
+        _IX413.tg.say = _tgs413
+    check((state.get("idx_given") or {}).get("https://sabhisaab.com/q1"), "Indexing: 'indexing ho gaya' ke baad hi 7 din ka niyam")
+    _src = _insp.getsource(_IX413.run)
+    check("aaj aapka koi kaam nahi" in _src and "return None\n        return" not in _src, "Indexing: kuch na ho to bhi chhota sandesh (chup nahi)")
+    check("search-console/inspect" not in _insp.getsource(_PQ413.owner_message) and "note_new_pages" in _insp.getsource(_PQ413.owner_message),
+          "Queue sandesh: alag indexing link nahi - sab 11:40 ki ek suchi mein")
+finally:
+    state.put("idx_given", _sv413[0] or {}); state.put("pq_new_pages", _sv413[1] or {}); state.put("idx_last", _sv413[2] or {})
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

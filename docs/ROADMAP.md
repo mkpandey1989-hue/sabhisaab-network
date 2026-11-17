@@ -1900,3 +1900,11 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - tasks.py `_mig_3412`: owner kaam "vm_backup ek baar chalao" joda; Dailymotion key wala kaam itihaas mein (17 Nov juda).
 - MASTER.md: GitHub niyam (section 7 table), vm-bots, Dailymotion juda, 17 Nov VM fix (autostart, chowkidar, chart 500 MB) - itihaas.
 - Isi din VM par owner ne chalaye (bot code nahi): autostart_fix.sh, chowkidar_social_fix.py v2, chart_alert_fix.py v2 - sab OK.
+
+## v3.4.13 (17 Nov 2026 dopahar) - [OPUS 5.5] Indexing suchi: ek hi, poori, kabhi chup nahi
+- Owner: "aaj ke indexing link nahi aaye, jo aaye wo adhure bina kaam ke". Wajah: subah 06:47 (v3.4.7, /path + console link) aur
+  07:16 (queue sandesh, console link) ne 17 URL ko 'diya' maan liya -> 7-din niyam -> 11:40 par suchi khaali -> bot CHUP raha.
+- Ab: (1) queue ka subah ka sandesh indexing link nahi deta, naye page 11:40 ki EK suchi mein sabse upar (`pq_new_pages`).
+  (2) 7-din niyam sirf owner ke `indexing ho gaya` ke baad (`note_given`); bina kiye suchi agle din phir aati hai.
+  (3) Kuch baaki na ho to bhi 11:40 par chhota "aaj koi kaam nahi" sandesh. (4) Naye page par bhi Google ki taaza jaanch.
+  (5) `migrate_3413`: aaj ke adhoore 'diye' hata kar update ke turant baad aaj ki poori suchi dobara.
