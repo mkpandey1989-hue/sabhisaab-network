@@ -60,7 +60,8 @@ def on_group(m, owner):
     cid = chat.get("id")
     txt = (m.get("text") or m.get("caption") or "").strip()
     who = (m.get("from") or {})
-    if txt.lower().startswith("/quizgroup") and who.get("id") == owner:
+    anon_admin = who.get("id") == 1087968824 or (m.get("sender_chat") or {}).get("id") == cid   # 'anonymous admin' se likha
+    if txt.lower().startswith("/quizgroup") and (who.get("id") == owner or anon_admin):
         state.put("gq_chat", cid)
         return _send(cid, "✅ Quiz group juda. Channel ki har sawal-post ke neeche A/B/C/D likhiye - bot turant batayega sahi ya galat. "
                           "Har Ravivaar raat 8 baje hafte ke top 5. Apna score mitana ho to likhiye: score hatao")

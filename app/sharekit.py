@@ -154,10 +154,24 @@ def run(manual=False):
             parts.append(("📱 WHATSAPP STATUS (lamba dabao → Copy → Status par paste; saath mein aaj ki video ka screenshot lagayein)", w))
     except Exception as e:
         log(f"sharekit wa: {e}")
+    banner = None
     try:
         g, gs = group_text()
         if g:
-            parts.append(("👥 FACEBOOK GROUP (apne 'Pahadi Hisaab Parivar' group ya jis group mein aap ho - niyam padh kar)", g))
+            ig = None
+            try:                                        # v3.4.21b: groupkit ka behtar text + banner (alag 19:30 sandesh band - dohra tha)
+                from . import groupkit as _GK
+                from .config import TMP
+                h = (_site() / f"{gs}.html").read_text(encoding="utf-8", errors="ignore")
+                g, ig, _l = _GK.build(gs, "uk", h)
+                t_, _d = _GK.card(h)
+                lg = _site() / "icon-512.png"
+                banner = _GK.banner("uk", t_, _GK.points(h), gs, TMP / f"grp_{gs}.jpg", lg if lg.exists() else None)
+            except Exception as e:
+                log(f"sharekit banner: {e}")
+            parts.append(("👥 FACEBOOK GROUP / WHATSAPP / THREADS - upar wali BANNER photo lagao, phir ye text (link click hota hai)", g))
+            if ig:
+                parts.append(("📸 INSTAGRAM / MOJ / SHARECHAT - wahi banner + ye chhota text (yahan caption ka link click nahi hota)", ig))
             state.update("sk_group_used", lambda d: {**(d or {}), gs: day}, {})
     except Exception as e:
         log(f"sharekit fb: {e}")
@@ -179,9 +193,16 @@ def run(manual=False):
         log(f"sharekit quora: {e}")
     if not parts:
         return "Share kit: aaj kuch taiyaar nahi mila."
-    tg.say("🧰 AAJ KI SHARE KIT - 3 jagah, 5 minute. Har sandesh alag hai: lamba dabao → Copy → wahan paste.")
+    tg.say("🧰 AAJ KI SHARE KIT - 5 minute. Har sandesh alag hai: lamba dabao → Copy → wahan paste.")
     for head, body in parts:
         tg.say(head)
+        if banner and head.startswith("👥 FACEBOOK GROUP /"):
+            try:
+                with open(banner, "rb") as f:
+                    tg.call("sendPhoto", {"chat_id": tg._chat(), "caption": "🖼 BANNER - photo par lamba dabao → Save, phir post mein lagao"},
+                            {"photo": ("banner.jpg", f.read(), "image/jpeg")})
+            except Exception as e:
+                log(f"sharekit photo: {e}")
         tg.say(body)
     return None
 

@@ -2001,3 +2001,10 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   shabd, banawati aankde nahi, 20 Nov se har 3rd jawab mein juda calculator link). Bot Quora par khud kuch nahi daalta.
   Gmail se Quora mail padhna NAHI banaya: Gmail ki 'restricted' ijazat ke liye Google app verification chahiye, warna
   test-mode token har 7 din khatam - owner ka kaam badhta. 'quora:' 10 second ka kaam hai.
+
+## v3.4.22 (17 Nov 2026 raat) - [OPUS 5.5] Dohra group-post hataya + quiz group setup
+- Galti (Claude): v3.4.20 ka groupkit 19:30 alag sandesh bhejta - jabki sharekit (v3.4.1) 19:15 par pehle se FB group/WhatsApp/
+  Quora kit deta hai -> owner ko do-do sandesh. Ab ek hi: 19:15 SHARE KIT mein FB group ka text groupkit wala (heading + link)
+  + BANNER photo + Instagram/Moj chhota text. groupkit.due() = False; 'group post' = share kit abhi.
+- groupquiz: owner group mein 'anonymous admin' ho to bhi /quizgroup chale (GroupAnonymousBot / sender_chat = group).
+  Private chat mein /quizgroup = setup ke 3 kadam.

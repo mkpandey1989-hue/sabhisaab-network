@@ -738,5 +738,9 @@ state.put("sitepatch_3421", _sv421)
 _ph421 = "<p>x Hum aapka phone number ya naam save nahi karte.</p>"
 check("discussion group quiz" in _WF421.fix_privacy_gq(_ph421), "Privacy: group quiz ki line")
 check(_QD421.on_text("hello", "hello") is None and "Nifty options" in " ".join(_QD421.FACTS), "Quora draft: sirf 'quora:' par, anubhav sirf pakki baaton se")
+# v3.4.22: share kit + banner ek hi sandesh (dohra 19:30 band); anonymous admin se /quizgroup
+check(_GK420.due() is False and "banner" in _in417.getsource(__import__("app.sharekit", fromlist=["x"]).run),
+      "Group post 19:15 ki share kit mein (banner ke saath) - alag 19:30 sandesh nahi")
+check("1087968824" in _in417.getsource(_GQ421.on_group), "Quiz group: 'anonymous admin' se /quizgroup bhi chale")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

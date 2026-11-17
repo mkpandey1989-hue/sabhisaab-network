@@ -84,6 +84,7 @@ def build(slug, kind, html_text):
 
 
 def due(now=None):
+    return False                     # v3.4.21b: roz 19:15 ki SHARE KIT mein mila diya (alag 19:30 sandesh dohra tha)
     now = now or datetime.datetime.now(IST)
     return (now.strftime("%H:%M") >= HHMM and state.get("grp_day") != str(now.date()) and state.get("grp_on", True)
             and not state.get("paused"))
@@ -129,9 +130,15 @@ def run():
 
 def on_text(tl):
     if tl in ("group post", "group post do", "aaj ka group post"):
-        state.put("grp_day", "")
-        run()
+        from . import sharekit
+        r = sharekit.run(manual=True)
+        if r:
+            tg.say(r)
         return True
+    if tl.startswith("/quizgroup") or tl in ("quiz group", "quizgroup"):
+        return tg.say("👥 /quizgroup yahan nahi, QUIZ GROUP ke andar likhna hai:\n1) Group 'Sab Hisaab Quiz' → upar naam → Edit → "
+                      "Administrators → Bot ko Admin banao\n2) Channel 'Sab Hisaab' → upar naam → Edit → Discussion → 'Sab Hisaab Quiz' chuno\n"
+                      "3) Group mein /quizgroup likho → bot '✅ Quiz group juda' bolega")
     if tl in ("group post band", "group post chalu"):
         state.put("grp_on", tl.endswith("chalu"))
         return tg.say("👥 Roz 7:30 ka group post: " + ("CHALU" if tl.endswith("chalu") else "BAND"))
