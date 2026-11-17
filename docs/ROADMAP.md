@@ -1949,3 +1949,12 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   * Traffic / 'video link se kitne log' / 👥 button -> traffic sandesh + scoreboard TABLE ek saath (_traffic_full).
   * 'kitne page index nahi' -> seedha jawab: ginti + har page ka poora link + wajah (aaj taaza jaancha) - Bing ki lambi report nahi.
   * Bot samajh na paaye (chat) -> jawab ke saath CAN_DO: saare button + likhne wale hukum ki chhoti suchi.
+
+## v3.4.18 (17 Nov 2026 shaam) - [OPUS 5.5] 9 'index nahi' page ki gehri jaanch + Web Story title
+- Owner: "in 9 page mein kami hai (referring page nahi, heading, language, thin) - theek karo, task zero".
+- Jaancha (site repo, 307 page): 7 calculator/guide page - 1,300-1,800 shabd, 88-93% apna (dusre page se alag) content,
+  homepage + 5-15 andar ke page se link, sitemap mein, ek H1, title 49-59, description 141-162, lang hi-Latn sahi, canonical
+  khud par, noindex nahi, robots.txt khula, FAQ + 3 JSON-LD. Inme koi on-page kami NAHI mili - Google ka apna faisla/samay.
+  Poori site: toote andar ke link 0, thin page 0, dohraaye title/desc sirf 1 jodi: stories/pahadi-quiz-2026-w46 aur w47.
+- Sudhaar: webstory.build title mein '(सप्ताह N)' + description mein pehla sawal (har story alag). webfix.apply_stories:
+  purani quiz stories ke title/description/amp-story title ek baar (audit gate, flag sitepatch_3418).

@@ -158,6 +158,51 @@ def patch_dir(site):
     return out
 
 
+def fix_story_title(html, wk):
+    """v3.4.18: stories/*-quiz-YYYY-wNN - title/description/amp-story title mein '(सप्ताह NN)' (do hafte ke same title the)."""
+    if f"(सप्ताह {wk})" in html:
+        return html
+    m = re.search(r"<title>(.*?) \| Sab Hisaab</title>", html)
+    if not m:
+        return html
+    t = m.group(1)
+    t2 = f"{t} (सप्ताह {wk})"
+    html = html.replace(f"<title>{t} | Sab Hisaab</title>", f"<title>{t2} | Sab Hisaab</title>", 1)
+    html = html.replace(f'<meta name="description" content="{t} - ', f'<meta name="description" content="{t2} - ', 1)
+    html = html.replace(f'<amp-story standalone title="{t}"', f'<amp-story standalone title="{t2}"', 1)
+    return html
+
+
+def apply_stories():
+    """VM website par EK baar (audit gate): purani quiz stories ke title alag."""
+    from . import website
+    if state.get("sitepatch_3418") or not website.DIR.exists():
+        return None
+    with website.ZIP_LOCK:
+        site = website.DIR / "site"
+        changed = {}
+        for f in sorted((site / "stories").glob("*-quiz-*-w*.html")):
+            wk = f.stem.rsplit("-w", 1)[-1].lstrip("0")
+            old = f.read_text(encoding="utf-8")
+            new = fix_story_title(old, wk)
+            if new != old:
+                changed[f"site/stories/{f.name}"] = new
+        if not changed:
+            state.put("sitepatch_3418", True)
+            return None
+        with tempfile.TemporaryDirectory() as td:
+            zp = Path(td) / "sitepatch3418.zip"
+            with zipfile.ZipFile(zp, "w", zipfile.ZIP_DEFLATED) as z:
+                for rel, txt in changed.items():
+                    z.writestr(rel, txt)
+            r = website._apply_zip(str(zp))
+    if str(r).startswith("✅") or "pehle se lagi" in str(r):
+        state.put("sitepatch_3418", True)
+        return f"Website sudhaar: {len(changed)} Web Story ke title ab alag-alag (do hafte ke same the) - audit paas, 15 min mein live."
+    log(f"sitepatch3418: {str(r)[:200]}")
+    return "⚠️ Web Story title sudhaar audit mein ruka, kuch live nahi hua: " + str(r)[:250]
+
+
 def apply():
     """VM ki website par (audit gate). -> sandesh ya None (kuch badalna nahi tha)."""
     from . import website

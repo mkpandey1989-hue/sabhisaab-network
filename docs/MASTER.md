@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 17 Nov 2026 dopahar (Claude Opus 5.5, bot v3.4.17). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 17 Nov 2026 dopahar (Claude Opus 5.5, bot v3.4.18). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein

@@ -648,6 +648,14 @@ def scheduler():
                     if r_:
                         tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
                 run(_sp)
+            if (not state.get("sitepatch_3418") and time.time() - STARTED > 600 and state.get("sitepatch_try3418") != day):
+                state.put("sitepatch_try3418", day)           # v3.4.18: web story ke dohraaye title - ek baar, audit gate se
+                def _sp18():
+                    from . import webfix as _SPy
+                    r_ = _SPy.apply_stories()
+                    if r_:
+                        tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
+                run(_sp18)
             if "19:05" <= nowt.strftime("%H:%M") < "20:00" and state.get("push_day") != day and state.get("push_on"):
                 state.put("push_day", day)                 # v2.9.2: roz max 1 website notification (opt-in walon ko)
                 def _ps():

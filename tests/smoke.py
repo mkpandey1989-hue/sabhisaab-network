@@ -685,5 +685,11 @@ check("_traffic_full" in _in417.getsource(_BOT417) and "scoreboard.send" in _in4
 check("Abhi video" in _BOT417.CAN_DO and "dailymotion haal" in _BOT417.CAN_DO and "index nahi" in _BOT417.CAN_DO,
       "Bot samajh na paaye to saare kaam/button batata hai")
 check("not_indexed_text" in _in417.getsource(_IX417.on_text), "'kitne page index nahi' = seedha ginti + poore link")
+# v3.4.18: web story title har hafte alag + purani stories ka ek-baar sudhaar
+from app import webfix as _WF418  # noqa: E402
+_h418 = '<title>उत्तराखंड GK: 5 सवाल - कितने सही? | Sab Hisaab</title><meta name="description" content="उत्तराखंड GK: 5 सवाल - कितने सही? - har"><amp-story standalone title="उत्तराखंड GK: 5 सवाल - कितने सही?" x>'
+_n418 = _WF418.fix_story_title(_h418, "47")
+check(_n418.count("(सप्ताह 47)") == 3 and _WF418.fix_story_title(_n418, "47") == _n418, "Web Story: dohraaye title alag (सप्ताह N), dobara chalane par kuch nahi")
+check("सप्ताह" in _in417.getsource(_WS417.build), "Nayi Web Story ka title har hafte alag")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

@@ -75,7 +75,8 @@ def build(brand, key=None, today=None):
     if len(its) < 4:
         return None
     sl = slug(brand, today)
-    t = title(brand, len(its))
+    _wk = sl.rsplit("-w", 1)[-1].lstrip("0")
+    t = f"{title(brand, len(its))} (सप्ताह {_wk})"     # v3.4.18: har hafte ka title alag (w46/w47 dohraaye the - Google ek hi rakhta)
     c1, c2 = COLORS.get(brand, ("#111827", "#6366F1"))
     url = f"{SITE}/stories/{sl}"
     pages = [f'<amp-story-page id="cover"><amp-story-grid-layer template="fill"><div class="bg"></div></amp-story-grid-layer>'
@@ -107,7 +108,8 @@ def build(brand, key=None, today=None):
            "margin:8px 0;font-size:19px}")
     html = ("<!doctype html>\n<html ⚡ lang=\"hi\">\n<head>\n<meta charset=\"utf-8\">\n<title>" + _e(t) + " | Sab Hisaab</title>\n"
             f'<link rel="canonical" href="{url}">\n<meta name="viewport" content="width=device-width">\n'
-            f'<meta name="description" content="{_e(t)} - har sawal ka sahi jawab aur wajah, sabhisaab.com">\n'
+            f'<meta name="description" content="{_e(t)} - पहला सवाल: {_e(re.sub(r"#\S+", "", str(its[0].get("q", ""))).strip()[:70])}... '
+            f'har sawal ka sahi jawab aur wajah, sabhisaab.com">\n'
             '<script async src="https://cdn.ampproject.org/v0.js"></script>\n'
             '<script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>\n'
             '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s '
