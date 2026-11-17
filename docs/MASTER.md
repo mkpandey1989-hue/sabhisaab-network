@@ -63,6 +63,9 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
   auto-doctor, scoreboard, share kit, Quora/WhatsApp/FB group kit (v3.3.x - v3.4.6).
 - 17 Nov: v3.4.7 indexing suchi + ek jaisi ginti + site sudhaar; v3.4.8 Dailymotion + LinkedIn/Dailymotion website/privacy par;
   v3.4.9 Dailymotion secret pehchaan + chat mein secret chhupa + ek hi indexing suchi (website ki 09:05 'PENDING KAAM' band).
+- 17 Nov VM (owner ne chalaye, sab OK): tools/autostart_fix.sh (5 service boot par chalu + kabhi haar na maane), tools/chowkidar_social_fix.py
+  (chowkidar post ginti sabhinet se + Dhan token fallback), tools/chart_alert_fix.py (nifty-chart MemoryMax 500M, memory message 475+ MB
+  din mein 1 baar, raat 03:00 300+ MB par chart khud restart, subah 8 baje report sirf gadbad par), journal 200M + apt clean.
 - Aage: ~mid Dec UK queue poori → Jan 2027 Search Console data dekh kar Himachal ke 20-30 page (sirf jo UK mein chala) ya UK sudhaar.
 
 ## 5. Privacy policy (https://sabhisaab.com/privacy, aakhri update 17 Nov 2026) - code wahi kare jo ye kehti hai
@@ -93,3 +96,4 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
 | **sabhinet** (@Sabhisaab_bot, @Manoj_yt_sahayak_bot - repo sabhisaab-network) | video, saare channel, website, indexing, GA4/GSC/Bing, Quora/LinkedIn/Dailymotion, 'vm audit' (maangne par) | trading chhedna |
 | **chowkidar** (@manoj_vm_chowkidar_bot, ~/chowkidar, cron: 09:05 subah, 21:00 report, 03:15 daily, Sat weekly, 1 tareekh monthly, 09:00 bill) | VM (RAM/disk/CPU/kernel/update), suraksha (SSH/fail2ban), trading services up/down, bill, **sabhinet service sirf chal raha/ruka** | channel ki post ginti / website / token - ye sabhinet ka hai (iska "6-channel tracker" Posts=0 galat dikhata tha) |
 | **master_guard / vm_health / ntfy_monitor** (cron) | chupchap jaanch + sirf galti par alert | roz ka "sab theek" sandesh (dohra shor) |
+| **nifty-chart** (~/nifty_chart, ntfy) | chart + shaam 20:00 health report, chart band ho to watchdog restart | memory ka har ghante sandesh (17 Nov band) - trading logic kabhi na chhedo |
