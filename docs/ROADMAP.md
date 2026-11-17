@@ -2008,3 +2008,12 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   + BANNER photo + Instagram/Moj chhota text. groupkit.due() = False; 'group post' = share kit abhi.
 - groupquiz: owner group mein "anonymous admin" ya CHANNEL ke naam se likhe to bhi /quizgroup chale (GroupAnonymousBot / Channel_Bot / sender_chat = group ya hamara channel).
   Private chat mein /quizgroup = setup ke 3 kadam.
+
+## v3.4.23 (17 Nov 2026 raat) - [OPUS 5.5] Quora: asli sawal + link + jawab
+- Owner: "bot Quora ka sawal kahan se dekhta hai? sawal dikhta hi nahi, jawab kaise lagaun - mujhe sawal + jawab do, main
+  turant app mein reply kar dun". Pehle share kit apne PAGE ke FAQ ka sawal deta tha ('Quora par khojein') - Quora par wo
+  sawal ho, zaroori nahi.
+- Ab (19:15 share kit + 'quora sawal' hukum): Gemini + Google search (ask_grounded) se hamare kisi tool ke vishay par ASLI
+  Quora sawal + uska quora.com link (na mile to Quora search link) -> quoradraft.draft se jawab (pehli line pakka anubhav,
+  sawal ki bhasha, 20 Nov se har 3rd mein usi tool ka link). AI band ho to purana tareeka + Quora search link.
+- Bot Quora par khud kuch nahi daalta (niyam).

@@ -184,13 +184,25 @@ def run(manual=False):
                           "intezaar karein - baar-baar post = spam.", gq))
     except Exception as e:
         log(f"sharekit fbq: {e}")
-    try:
-        q, qs = quora_text()
-        if q:
-            parts.append(("❓ QUORA (roz 1 jawab = mahino tak Google se log)", q))
-            state.update("sk_quora_used", lambda d: {**(d or {}), qs: day}, {})
+    qp = None
+    try:                                                # v3.4.23: ASLI Quora sawal (link ke saath) + taiyaar jawab
+        from . import quoradraft as _QDk
+        qp = _QDk.daily_pack()
+        if qp:
+            parts.append(qp)
     except Exception as e:
-        log(f"sharekit quora: {e}")
+        log(f"sharekit quora find: {e}")
+    if not qp:
+        try:
+            q, qs = quora_text()
+            if q:
+                from . import quoradraft as _QDs
+                q0 = q.split("\n", 1)[0].replace("🔎 Quora par ye sawal khojein (ya naya poochhein): ", "").strip()
+                parts.append((f"❓ QUORA - is link par sawal dhoondho (na mile to yahi sawal khud poochho, phir jawab do):\n"
+                              f"{_QDs.search_url(q0)}", q))
+                state.update("sk_quora_used", lambda d: {**(d or {}), qs: day}, {})
+        except Exception as e:
+            log(f"sharekit quora: {e}")
     if not parts:
         return "Share kit: aaj kuch taiyaar nahi mila."
     tg.say("🧰 AAJ KI SHARE KIT - 5 minute. Har sandesh alag hai: lamba dabao → Copy → wahan paste.")

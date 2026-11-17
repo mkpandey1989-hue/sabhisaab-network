@@ -35,11 +35,17 @@ def _tool_for(q):
     return best[1:] if best else None
 
 
-def draft(q):
+def draft(q, slug=None):
     from . import brain
     hindi = bool(re.search(r"[ऀ-ॿ]", q))
     n = (state.get("qd_n") or 0) + 1
-    tool = _tool_for(q) if datetime.date.today() >= LINK_FROM and n % 3 == 0 else None
+    tool = None
+    if datetime.date.today() >= LINK_FROM and n % 3 == 0:     # har 3rd jawab mein ek seedha juda calculator
+        try:
+            from .answers import TOOL_NAMES
+            tool = (slug, TOOL_NAMES[slug]) if slug and slug in TOOL_NAMES else _tool_for(q)
+        except Exception:
+            tool = _tool_for(q)
     p = ("Write a Quora answer.\nQUESTION: " + q + "\n\nRULES:\n"
          f"- Language: {'simple Hindi (Devanagari)' if hindi else 'simple English'}.\n"
          "- FIRST line = one honest personal-experience line using ONLY one of these true facts (rephrase, do not add new "
@@ -68,6 +74,19 @@ def draft(q):
 
 
 def on_text(t, tl):
+    if tl in ("quora sawal", "quora question", "quora sawal do", "quora jawab do"):
+        import threading
+        tg.say("🔎 Quora par asli sawal dhoondh kar jawab bana raha hoon (1-2 min)...")
+
+        def _f():
+            p_ = daily_pack()
+            if not p_:
+                return tg.say("⚠️ Abhi sawal nahi mila (Google-search wala AI band/seema). Quora app mein koi sawal copy karke "
+                              "likhein: quora: <sawal>")
+            tg.say(p_[0])
+            tg.say(p_[1])
+        threading.Thread(target=_f, daemon=True).start()
+        return True
     m = re.match(r"^\s*quora(?:\s*jawab)?\s*[:\-]\s*(.{10,})$", t, re.S | re.I) or re.match(r"^\s*quora jawab\s+(.{10,})$", t, re.S | re.I)
     if not m:
         return None
@@ -81,3 +100,60 @@ def on_text(t, tl):
         tg.say(a)
     threading.Thread(target=_go, daemon=True).start()
     return True
+
+
+# ---------------------------------------------------------------- v3.4.23: asli Quora sawal khud dhoondhna
+def _topic():
+    """Aaj ka vishay - hamare tool/page ki suchi se baari-baari (har din alag)."""
+    try:
+        from .answers import TOOL_NAMES
+    except Exception:
+        TOOL_NAMES = {}
+    used = state.get("qf_used") or []
+    left = [k for k in TOOL_NAMES if k not in used] or list(TOOL_NAMES)
+    if not left:
+        return None, None
+    sl = left[0]
+    state.put("qf_used", (used + [sl])[-400:])
+    return sl, TOOL_NAMES[sl]
+
+
+def search_url(q):
+    import urllib.parse
+    return "https://www.quora.com/search?q=" + urllib.parse.quote(q)
+
+
+def find_question():
+    """Google search (Gemini grounded) se ek ASLI Quora sawal jo hamare kisi tool se juda ho. -> (sawal, url, slug) ya None.
+    URL quora.com ka hi ho; na mile to Quora search ka link (sawal khud khulta hai)."""
+    from . import brain
+    for _ in range(2):
+        sl, nm = _topic()
+        if not sl:
+            return None
+        try:
+            txt, _src = brain.ask_grounded(
+                f"Find ONE real question asked on Quora (quora.com or hi.quora.com) by Indian users about '{nm}' "
+                "(money / calculation / daily life). Prefer recent questions with few answers. Reply exactly in 2 lines:\n"
+                "Q: <the exact question text>\nURL: <full quora.com link of that question>")
+        except Exception as e:
+            log(f"quora find: {e}")
+            return None
+        q = re.search(r"Q:\s*(.+)", txt or "")
+        u = re.search(r"https://(?:www\.|hi\.)?quora\.com/[^\s)\]>\"']+", txt or "")
+        if q and len(q.group(1).strip()) > 12:
+            qq = q.group(1).strip().strip('"')
+            return qq, (u.group(0) if u else search_url(qq)), sl
+    return None
+
+
+def daily_pack():
+    """Share kit ke liye: (header, body) - sawal + link + taiyaar jawab. None = kuch nahi mila."""
+    f = find_question()
+    if not f:
+        return None
+    q, url, sl = f
+    a = draft(q, sl)
+    if a.startswith("⚠️"):
+        return None
+    return (f"❓ QUORA - is sawal ka link kholo (Quora app khulega) → Answer → neeche ka jawab paste karo:\n{q}\n{url}", a)

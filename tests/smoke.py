@@ -742,5 +742,9 @@ check(_QD421.on_text("hello", "hello") is None and "Nifty options" in " ".join(_
 check(_GK420.due() is False and "banner" in _in417.getsource(__import__("app.sharekit", fromlist=["x"]).run),
       "Group post 19:15 ki share kit mein (banner ke saath) - alag 19:30 sandesh nahi")
 check("1087968824" in _in417.getsource(_GQ421.on_group), "Quiz group: 'anonymous admin' se /quizgroup bhi chale")
+# v3.4.23: Quora - asli sawal + link + jawab
+check(_QD421.search_url("EMI kaise nikale?").startswith("https://www.quora.com/search?q=") and callable(_QD421.daily_pack)
+      and "daily_pack" in _in417.getsource(__import__("app.sharekit", fromlist=["x"]).run),
+      "Quora: share kit mein asli sawal ka link + taiyaar jawab (na mile to Quora search link)")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)
