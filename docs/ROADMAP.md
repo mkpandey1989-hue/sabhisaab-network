@@ -1890,3 +1890,13 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   likhna pada). Dailymotion ab juda: @sabhisaab.
 - vm audit: Oracle ka apna agent (unified-monitoring-agent/fluentd/gomon) 'anjaan process zyada CPU' 🔴 nahi.
 - Chowkidar (alag repo, VM par ~/chowkidar, code GitHub par nahi) - sujhav MASTER.md hissa 8 mein; code owner bhejega tabhi badlega.
+
+## v3.4.12 (17 Nov 2026 dopahar) - [OPUS 5.5] Saara code GitHub par + VM fix ka hisaab
+- Owner: "sari file GitHub par rakho, koi bhi AI se theek karwa saku; security wali file mat bhejna; niyam likho ki taaza copy hamesha GitHub par".
+- `tools/vm_backup.py`: VM ka code (nifty_option_LIVE, delta_btc_LIVE, nifty_chart, chowkidar, master_guard/vm_health/ntfy_monitor,
+  systemd unit, crontab, roadmap docx ka text) roz 02:40 **PRIVATE** repo `mkpandey1989-hue/vm-bots` par. Public mila to push nahi.
+  Secret file kabhi nahi; code ke andar token/ntfy topic/chat id/password `***`; aakhri jaal mein secret jaisa kuch bache to push nahi.
+  Token = sabhinet ka GITHUB_TOKEN (naya kuch nahi). `--install` = crontab mein 1 line (dohra nahi).
+- tasks.py `_mig_3412`: owner kaam "vm_backup ek baar chalao" joda; Dailymotion key wala kaam itihaas mein (17 Nov juda).
+- MASTER.md: GitHub niyam (section 7 table), vm-bots, Dailymotion juda, 17 Nov VM fix (autostart, chowkidar, chart 500 MB) - itihaas.
+- Isi din VM par owner ne chalaye (bot code nahi): autostart_fix.sh, chowkidar_social_fix.py v2, chart_alert_fix.py v2 - sab OK.

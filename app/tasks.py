@@ -1541,6 +1541,40 @@ def _mig_349():
     _dirty()
 
 
+SEED_V3412 = [          # v3.4.12 (17 Nov 2026 dopahar): VM ka code roz private GitHub par
+    ("[Owner, 2 min, ek baar] VM ka poora code (trading bot, chart, chowkidar) roz PRIVATE GitHub (vm-bots) par - VM par ye ek line chalao: "
+     "curl -sL https://raw.githubusercontent.com/mkpandey1989-hue/sabhisaab-network/claude/v348/tools/vm_backup.py -o vm_backup.py "
+     "&& python3 vm_backup.py --install  → '✅ GitHub par gaya' aaye to bas (roz raat 02:40 apne aap)", None, None,
+     "'Token repo nahi bana sakta' aaye to: github.com/new → naam vm-bots → Private → Create → command dobara. Ho jaye to: 'ho gaya vm backup'"),
+]
+STALE_V3412 = [
+    ("[Owner, 5 min] Dailymotion:", "17 Nov 09:51 nayi key se juda (@sabhisaab)"),
+]
+
+
+def _mig_3412():
+    if state.get("mig_3412"):
+        return
+    state.put("mig_3412", True)
+    import datetime as _d
+    keep, moved = [], []
+    for o in state.get("todo") or []:
+        x = str(o.get("x", "")).lstrip("📌 ").strip()
+        hit = next((w for k, w in STALE_V3412 if x.startswith(k)), None)
+        if hit:
+            moved.append({**o, "done": str(_d.date.today()), "by": "v3.4.12", "note": hit})
+        else:
+            keep.append(o)
+    have = {o.get("x") for o in keep}
+    day = str(_d.date.today())
+    keep += [{"x": t, "t": day, **({"after": a} if a else {}), **({"auto": k} if k else {}), "how": h}
+             for t, a, k, h in SEED_V3412 if t not in have]
+    state.put("todo", keep)
+    if moved:
+        state.update("todo_done", lambda l: ((l or []) + moved)[-200:], [])
+    _dirty()
+
+
 def seed_todo():
     try:
         _mig_3310()
@@ -1551,6 +1585,11 @@ def seed_todo():
     except Exception as e:
         from .log import log as _lg
         _lg(f"mig_349: {e}")
+    try:
+        _mig_3412()
+    except Exception as e:
+        from .log import log as _lg
+        _lg(f"mig_3412: {e}")
     try:
         _mig_347()
     except Exception:

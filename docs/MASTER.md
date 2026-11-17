@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 17 Nov 2026 (Claude Opus 5.5, bot v3.4.9). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 17 Nov 2026 dopahar (Claude Opus 5.5, bot v3.4.12). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein
@@ -14,7 +14,7 @@ Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `do
 |---|---|---|---|
 | Website | https://sabhisaab.com (Cloudflare Pages + DNS) | bot deploy (VM se seedha) | ~305 URL sitemap mein |
 | Email | contact@sabhisaab.com (profiles par) ; owner Gmail alag | - | - |
-| GitHub | mkpandey1989-hue/sabhisaab-network (public, bot) ; mkpandey1989-hue/sabhisaab (public, website copy) ; yt-auto (private, purana) | bot khud push | koi secret repo mein NAHI |
+| GitHub | mkpandey1989-hue/sabhisaab-network (public, bot) ; mkpandey1989-hue/sabhisaab (public, website copy) ; **mkpandey1989-hue/vm-bots (PRIVATE - trading bot, chart, chowkidar, systemd, cron)** ; yt-auto (private, purana) | sabhinet/website: bot khud push ; vm-bots: VM roz 02:40 (`~/vm_backup.py`) | koi secret repo mein NAHI (code mein `***`) |
 | Google Search Console | sc-domain:sabhisaab.com (service account bot ke paas) | bot sitemap bhejta, index jaanchta | Google 288/297 index (16 Nov) |
 | Google Analytics 4 | G-QX5MWV42TR | - | owner-mode + India mein analytics default ON (consent region) |
 | Google AdSense | pub-1074878035420336 | - | 16 Nov apply, **review chal raha** - ad code site par NAHI |
@@ -26,7 +26,7 @@ Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `do
 | Telegram | t.me/sabhisaab (channel) ; bot sabhinet owner chat | bot | chal raha |
 | WhatsApp channel | https://whatsapp.com/channel/0029Vb8rHA5EFeXmREHFHk3n | **owner forward** (API nahi) | bot taiyaar text deta hai |
 | LinkedIn Page | https://www.linkedin.com/company/144149065/ ("Sab Hisaab") | bot → Make.com webhook (eu1, scenario "Integration Webhooks, LinkedIn") → Page | roz 09:15 1 post; Make scenario galti par khud BAND hota hai (16 Nov hua tha) - band dikhe to Make mein ON |
-| Dailymotion | https://www.dailymotion.com/sabhisaab (Partner, 17 Nov) | bot (Private API key) | **key dobara banani hai** (17 Nov ka secret chat-record mein khul gaya) - bot khud maangega |
+| Dailymotion | https://www.dailymotion.com/sabhisaab (Partner, 17 Nov) | bot (Private API key) | 17 Nov 09:51 nayi key se **juda** (@sabhisaab), roz max 2 video |
 | Quora | profile "Manoj Kumar Pandey" (bio: Founder sabhisaab.com · 2010 se hisaab-kitaab) + Space "Sab Hisaab - Paisa, Pahad aur Paheli" | **owner haath se** (API nahi) | 17 Nov se: 4 jawab + 1 sawal; 20 Nov se link wale jawab |
 | UptimeRobot | owner Gmail par hafte ki report | - | site up |
 | Doosra "VM" Telegram bot | Gemini se bana alag bot (TradingBot/VM sahayak) - code is repo mein NAHI | - | uska "24-ghante channel tracker" Posts=0 dikhata hai - **galat hai**, sabhinet ka '📊 Aaj ka haal' / 'report table' maano |
@@ -45,7 +45,9 @@ Brand: Suno Natak (sunonatak), Sab Hisaab Money (money), Labh Lo Deals (deals), 
   quora/dailymotion/push. Report (`report table 7 din`) inhi naam se alag line deta hai. Instagram par UTM/click-link nahi (niyam).
 
 ## 3. Owner ke haath ke kaam (sach - bot ye nahi kar sakta)
-1. **Dailymotion nayi key** (5 min, abhi): purani DELETE → nayi Private key (Manage videos ON) → bot ke maangne par key, phir secret.
+1. ~~Dailymotion nayi key~~ - 17 Nov ho gaya (juda).
+1b. **VM backup ek baar chalao** (2 min): `curl -sL https://raw.githubusercontent.com/mkpandey1989-hue/sabhisaab-network/claude/v348/tools/vm_backup.py -o vm_backup.py && python3 vm_backup.py --install`
+   → "✅ GitHub par gaya" aaye to bas. Uske baad roz raat 02:40 apne aap.
 2. **Google indexing** (roz 5 min): 11:40 suchi → link tap (copy) → search.google.com/search-console → "Inspect any URL" → REQUEST
    INDEXING → bot mein `indexing ho gaya`. Google ka Indexing API sirf job/live-video ke liye hai - bot khud nahi kar sakta.
 3. **Quora** (roz 15 min): 2-3 jawab; screenshot Claude ko. 20 Nov se purane 4 jawab mein link (PENDING mein poore link).
@@ -85,6 +87,15 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
 - Local audit: `config.json` ka `site_dir` **patch wali copy** par karo (17 Nov galti: asli copy jaanchi, lamba title VM par ruka).
 
 ## 7. Kaam dene ka tareeka (AI ke liye)
+- **NIYAM (17 Nov, owner): sab kuch ki TAAZA copy hamesha GitHub par** - owner ko kisi AI ko file bhejni na pade:
+  | Kya | Kahan | Kaun update karta |
+  |---|---|---|
+  | sabhinet bot code + docs (MASTER, PENDING, ROADMAP, STATUS, CHAT...) | sabhisaab-network (public) | bot khud (badlav ke 10 min mein) + AI apni branch push |
+  | website | sabhisaab (public) | bot deploy ke saath |
+  | trading bot, Nifty chart, chowkidar, master_guard/vm_health/ntfy_monitor, systemd unit, crontab, roadmap docx (text) | **vm-bots (PRIVATE)** | VM roz 02:40 (`vm_backup.py`, secrets `***`) |
+  Har AI: kaam ke baad MASTER.md + ROADMAP + (owner-kaam ho to) tasks.py SEED update karke **push** kare. VM par badlav sirf
+  `tools/` ki script (backup + py_compile + idempotent) se; agli raat vm-bots khud taaza. Secret (token/key/password/topic/chat id)
+  kabhi kisi repo mein nahi - na public, na private.
 - Bot ZIP: `git ls-files` (photos/*.webp, data/, secrets/, pycache, .gitignore bina) → VERSION badhao → ROADMAP mein `## vX.Y.Z`
   → `tests/smoke.py` PASS → owner bot ko ZIP bhejta hai. Naye owner-kaam `app/tasks.py` SEED mein (auto checker ho to do).
 - Website badlaav: `app/webfix.py` jaisa idempotent patch + `website._apply_zip` (audit gate) ya site ZIP.

@@ -1,5 +1,7 @@
 # AI_START - koi bhi AI / developer SABSE PEHLE ye padhe
 
+> **17 Nov 2026: VM ke trading bot/chart/chowkidar ka code PRIVATE repo `mkpandey1989-hue/vm-bots` mein (VM roz khud bhejta). Niyam: taaza copy hamesha GitHub par - MASTER section 7.**
+
 > **17 Nov 2026 se SABSE PEHLE: `docs/MASTER.md`** - saare account (kahan, kis naam se), roz kya-kab-kahan post hota hai, owner ke
 > haath ke kaam, privacy, aur KABHI MAT KARNA. Phir `docs/PENDING.md`. Neeche ka baaki purana sandarbh hai.
 
