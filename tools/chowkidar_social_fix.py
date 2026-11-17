@@ -5,6 +5,7 @@ Pehle: sabhinet ke log mein shabd dhoondh kar andaaza (Posts=0, Pinterest Errors
 ki spam-seema hai, galti nahi). Ab: sabhinet ki apni pakki ginti padhta hai (data/state.json: platform_health + posted_log
 + uploads) - wahi jo sabhinet ke 'report table' / HEALTH.md mein hai. Sirf PADHTA hai.
 
+v2: subah ki jaanch ka Dhan token - config .json dhoondhta tha jabki refresh_token.py dhan_token.txt likhta hai -> ab .txt bhi.
 Kya karta hai: ~/chowkidar/chowkidar.py (+ chowkidar_pro.py agar same ho) mein SIRF function sabhisaab_omnichannel_audit
 badalta hai. Backup: ~/chowkidar/<file>.<samay>.bak. py_compile pass hone par hi likhta hai, phir chowkidar restart
 (chowkidar sirf nigrani bot hai - trading/sabhinet par koi asar nahi). Dobara chalane par kuch nahi badalta.
@@ -54,15 +55,25 @@ NEW = r'''def sabhisaab_omnichannel_audit():
     return "\n".join(L)
 '''
 
+TOK_OLD = '''    tok = CFG.get("token_file", "")
+    if tok and os.path.exists(tok):'''
+TOK_NEW = '''    tok = CFG.get("token_file", "")
+    if (not tok or not os.path.exists(tok)) and os.path.exists(HOME + "/dhan_token.txt"):
+        tok = HOME + "/dhan_token.txt"          # 17 Nov (Claude): refresh_token.py .txt likhta hai, config .json maangta tha -> jaanch chupchap chhoot jaati
+    if tok and os.path.exists(tok):'''
+
+
 def patch(fp):
     src = open(fp, encoding="utf-8").read()
     a = src.find("def sabhisaab_omnichannel_audit():")
     b = src.find("def sabhisaab_replies_audit():")
     if a < 0 or b < 0 or b < a:
         return "❌ %s: function nahi mila - kuch nahi badla" % fp
-    if "sabhinet ki apni pakki ginti (data/state.json)" in src[a:b]:
+    if "sabhinet ki apni pakki ginti (data/state.json)" in src[a:b] and (TOK_OLD not in src or "refresh_token.py .txt likhta hai" in src):
         return "ℹ️ %s: pehle se naya - kuch nahi badla" % fp
     new = src[:a] + NEW + src[b:]
+    if TOK_OLD in new and "refresh_token.py .txt likhta hai" not in new:
+        new = new.replace(TOK_OLD, TOK_NEW, 1)
     tmp = fp + ".new"
     open(tmp, "w", encoding="utf-8").write(new)
     try:
