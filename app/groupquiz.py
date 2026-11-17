@@ -60,7 +60,13 @@ def on_group(m, owner):
     cid = chat.get("id")
     txt = (m.get("text") or m.get("caption") or "").strip()
     who = (m.get("from") or {})
-    anon_admin = who.get("id") == 1087968824 or (m.get("sender_chat") or {}).get("id") == cid   # 'anonymous admin' se likha
+    sc_ = m.get("sender_chat") or {}
+    try:
+        from .config import TG_CHANNEL as _TGC
+    except Exception:
+        _TGC = ""
+    anon_admin = (who.get("id") in (1087968824, 136817688) or sc_.get("id") == cid      # group/channel ke naam se likha
+                  or (sc_.get("username") and str(_TGC).lstrip("@").lower().endswith(str(sc_.get("username")).lower())))
     if txt.lower().startswith("/quizgroup") and (who.get("id") == owner or anon_admin):
         state.put("gq_chat", cid)
         return _send(cid, "✅ Quiz group juda. Channel ki har sawal-post ke neeche A/B/C/D likhiye - bot turant batayega sahi ya galat. "

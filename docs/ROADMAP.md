@@ -2006,5 +2006,5 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Galti (Claude): v3.4.20 ka groupkit 19:30 alag sandesh bhejta - jabki sharekit (v3.4.1) 19:15 par pehle se FB group/WhatsApp/
   Quora kit deta hai -> owner ko do-do sandesh. Ab ek hi: 19:15 SHARE KIT mein FB group ka text groupkit wala (heading + link)
   + BANNER photo + Instagram/Moj chhota text. groupkit.due() = False; 'group post' = share kit abhi.
-- groupquiz: owner group mein 'anonymous admin' ho to bhi /quizgroup chale (GroupAnonymousBot / sender_chat = group).
+- groupquiz: owner group mein "anonymous admin" ya CHANNEL ke naam se likhe to bhi /quizgroup chale (GroupAnonymousBot / Channel_Bot / sender_chat = group ya hamara channel).
   Private chat mein /quizgroup = setup ke 3 kadam.
