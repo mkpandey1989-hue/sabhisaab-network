@@ -416,6 +416,10 @@ def _mask(t):
     t = re.sub(r"\bcf[a-z]{2,3}_[A-Za-z0-9._\-]{20,}|\b[0-9a-f]{40}\b", "***", t)
     t = re.sub(r"(?<![/\w.-])(?=[A-Za-z0-9._\-]*\d)(?=[A-Za-z0-9._\-]*[A-Za-z])[A-Za-z0-9._\-]{32,}", "***", t)
     t = re.sub(r"(?i)\b(key|secret|token|password)\s+\S{6,}", r"\1 ***", t)
+    # v3.4.8b: random secret jisme nishaan bhi hon ('851<1v&WtAP...' - Dailymotion) - 20+ akshar, koi space nahi, kam se kam
+    # 3 tarah ke akshar (bada/chhota/ank/nishaan), URL/path nahi
+    t = re.sub(r"(?<!\S)(?!https?://)(?=\S*[A-Za-z])(?=\S*\d)(?=\S*[^A-Za-z0-9\s])\S{20,}(?!\S)",
+               lambda m: m.group(0) if ("/" in m.group(0) and "." in m.group(0)) or m.group(0).count(".") >= 2 else "***", t)
     t = re.sub(r"\b[\w.+-]+@[\w-]+\.[\w.]+\b", "***@***", t)          # email
     t = re.sub(r"(?<!\d)(\+?91[\s-]?)?[6-9]\d{9}(?!\d)", "***", t)      # phone
     t = re.sub(r"(?<![\w.])(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)(?![\w.])", "***.***", t)   # v3.1.0: IP (VM ka pata public copy mein nahi)

@@ -555,5 +555,15 @@ check(_WF48.fix_links(_WF48.fix_links(_l48)).count('href="https://www.dailymotio
       "/links: LinkedIn + Dailymotion ek hi baar")
 check("_DM.warn_once(e)" in _insp.getsource(_PLU.upload) and 'waits["dailymotion"]' in _insp.getsource(_PLU.upload)
       and "errs[\"dailymotion\"]" not in _insp.getsource(_PLU.upload), "Pipeline: Dailymotion ki galti baaki platform nahi rokti")
+# v3.4.8b: Dailymotion secret nishaan wala bhi; chat mein chhupa; indexing sirf poora URL, ek hi suchi
+from app import updater as _UP48b, idxlink as _IX48b, bot as _BOT48b  # noqa: E402
+_sec48 = "851<1v&WtAPmnh\\ny<IQ,?a?EIQ'k|D8"
+check(_DM48.clean_secret(_sec48) == _sec48 and _DM48.clean_secret("🩺 Sab theek?") == "" and _DM48.clean_secret("report table 7 din") == "",
+      "Dailymotion: < & \\ ' | wala secret bhi pehchana; button/baat secret nahi maani")
+check(_UP48b._mask(_sec48) == "***" and _UP48b._mask("https://sabhisaab.com/emi-calculator?utm_source=x&a=1").startswith("https://"),
+      "CHAT.md: nishaan wala secret chhupa, link nahi chhupa")
+_m48 = _IX48b.message([("https://sabhisaab.com/abc", "URL is unknown to Google")])
+check("<code>https://sabhisaab.com/abc</code>" in _m48 and "search-console/inspect" not in _m48, "Indexing: sirf poora URL (tap = copy), console deep-link nahi")
+check("run(website.pending)" not in _insp.getsource(_BOT48b), "Website ki dusri 'PENDING KAAM' indexing suchi band - ek hi jagah")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

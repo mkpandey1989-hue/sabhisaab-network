@@ -172,7 +172,8 @@ def run(manual=False):
             r = idxlink.run()
             if r:
                 tg.say(r)
-                fixed.append("Aaj ki Google indexing suchi (seedhe link) bheji")
+            elif (state.get("idx_last") or {}).get("day") == str(datetime.date.today()):
+                fixed.append("Aaj ki Google indexing suchi (poore link) bheji")
     chk("Indexing link", idx)
 
     state.put("ad_last", {"at": time.time(), "fixed": len(fixed), "need": len(need)})

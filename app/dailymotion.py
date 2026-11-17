@@ -115,20 +115,40 @@ def find_channel(name_hint=None):
 
 
 # ---------------------------------------------------------------- jodna (bot khud poochta hai)
-def ask():
+def ask(rotate=False):
     state.put("awaiting", "dm_key")
-    return tg.say("🎬 DAILYMOTION JODNA (1 minute, kuch type nahi karna)\n\n"
-                  "Laptop ke Notepad se sirf API key copy karke yahan paste kar dijiye (aur kuch nahi).\n"
+    note = ("⚠️ Pehle: subah wala secret bot ne pehchana nahi tha aur wo chat-record (GitHub) mein khul gaya - isliye Dailymotion "
+            "Studio → Settings → Account → API keys mein purani key DELETE karke nayi Private key banaiye (Manage videos ON).\n\n"
+            "Phir Notepad se sirf nayi API key copy karke yahan paste kar dijiye (aur kuch nahi).\n" if rotate else
+            "Laptop ke Notepad se sirf API key copy karke yahan paste kar dijiye (aur kuch nahi).\n")
+    return tg.say("🎬 DAILYMOTION JODNA (1 minute, kuch type nahi karna)\n\n" + note +
                   "Bot use turant chat se mita dega, phir secret maangega.\n\n"
                   "(Key: Dailymotion Studio → Settings → Account → API keys. Abhi nahi karna ho to: 'dailymotion baad mein')")
+
+
+def clean_secret(t):
+    """v3.4.8b: Dailymotion secret mein < & \\ ' | ? , jaise nishaan hote hain (pehle sirf A-Z 0-9 maanta tha -> secret
+    pehchana hi nahi, Gemini tak gaya). Ab: aage-peeche ki khaali jagah + beech ki line-break (Notepad copy) hatao; koi bhi
+    akshar chalega, bas beech mein space na ho aur 8-300 lamba ho. -> saaf text ya '' """
+    t = re.sub(r"[\r\n]+", "", (t or "").strip())
+    if not (8 <= len(t) <= 300) or re.search(r"\s", t):
+        return ""
+    if re.search(r"[\u2190-\u2BFF\U0001F000-\U0001FFFF]", t):      # emoji/teer = button/baat, secret nahi
+        return ""
+    return t
+
+
+def looks_secret(t):
+    """bot.py: awaiting dm_* ke dauran ye message key/secret maana jaaye?"""
+    return bool(clean_secret(t))
 
 
 def intake(msg_text):
     """awaiting dm_key / dm_secret mein aaya text -> jawab (message bot.py mitata hai)."""
     aw = state.get("awaiting") or ""
-    val = (msg_text or "").strip()
+    val = clean_secret(msg_text)
     if aw == "dm_key":
-        if not re.fullmatch(r"[A-Za-z0-9._\-]{8,200}", val):
+        if not val:
             return "❌ Ye API key jaisi nahi lagi. Notepad se sirf key (ek shabd) copy karke bhejiye."
         c = _cfg()
         c["key"] = val
@@ -137,7 +157,7 @@ def intake(msg_text):
         state.put("awaiting", "dm_secret")
         return "🔐 API key mili (chat se mitayi). Ab API secret paste kariye - wo bhi turant mitega."
     if aw == "dm_secret":
-        if not re.fullmatch(r"[A-Za-z0-9._\-]{8,300}", val):
+        if not val:
             return "❌ Ye secret jaisa nahi laga. Notepad se sirf secret (ek shabd) copy karke bhejiye."
         c = _cfg()
         c["secret"] = val

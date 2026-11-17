@@ -6,8 +6,7 @@ GOOGLE 'REQUEST INDEXING' KI ROZ KI SUCHI - ek hi jagah, ek hi niyam:
 2) Sirf wahi URL jo (a) LIVE sitemap.xml mein hain, (b) abhi HTTP 200 khulte hain, (c) roz ki Google jaanch (daily.json,
    URL Inspection API) ke hisaab se index NAHI hain.
 2b) v3.4.8: link dene se theek pehle har URL Google URL Inspection API se TAAZA jaancha - index ho chuka = link nahi.
-3) Har URL ka SEEDHA Search Console link (URL Inspection khulta hai) - dabao → 'REQUEST INDEXING'. Google ka apna link format
-   (URL Inspection API ka 'inspectionResultLink' yahi hota hai).
+3) v3.4.8b: sirf page ka POORA URL (tap = copy) - Search Console ka deep-link owner ke phone par error deta tha.
 4) Din mein max 10 (Google roz itne hi leta hai). Ek URL 7 din mein ek baar - roz wahi suchi dobara nahi.
 5) Kram: index se NIKLE page > aaj/haal ke naye page > 'URL is unknown' > 'Discovered' > 'Crawled - not indexed'.
 Bot khud Google ko 'Request indexing' NAHI bhej sakta (Google ka Indexing API sirf job/live-video page ke liye - niyam).
@@ -123,25 +122,46 @@ def pick(extra_new=(), k=MAX_DAY, today=None, live_sm=None, status=None, live_ok
     return out
 
 
+WHY_HI = {"URL is unknown to Google": "Google ko pata hi nahi", "Discovered - currently not indexed": "Google ne dekha, index nahi kiya",
+          "Crawled - currently not indexed": "Google aaya, index nahi kiya", "naya page": "naya page"}
+
+
 def message(rows, day=None, stale=False, sm_line=""):
+    """v3.4.8b (owner: 'console ka link error deta hai - sirf POORA link do jo karna hai, priority se'): sirf page ka poora URL,
+    upar se zaroori pehle. HTML <code> = Telegram mein ek tap se copy. -> HTML text"""
+    import html as _h
     if not rows:
         return None
-    L = [f"🔎 GOOGLE INDEXING - aaj ke {len(rows)} link (sitemap mein pakka ✅ | page live ✅ | Google index mein abhi nahi)"]
-    if sm_line:
-        L.append(f"🗺 {sm_line}")
+    L = [f"🔎 <b>GOOGLE INDEXING - aaj ke {len(rows)} page</b> (upar wala sabse zaroori)",
+         "Har page: sitemap mein ✅ | live ✅ | Google ne abhi index nahi kiya (aaj Google se taaza jaancha)", ""]
     if stale:
-        L.append(f"⚠️ Google ki index jaanch aakhri {day} ki hai - kuch page shayad ab tak index ho chuke hon (dabane se nuksaan nahi).")
-    L.append("")
+        L.insert(1, f"⚠️ Google ki roz ki jaanch aakhri {day} ki hai.")
     for i, (u, why) in enumerate(rows, 1):
-        L.append(f"{i}. {u.replace(SITE, '') or '/'} ({why})\n   👉 {gsc_link(u)}")
-    L += ["", "Kaise (har link 1 minute):",
-          "1) Link dabao → Search Console khulega (pehli baar Google account chunna pad sakta hai)",
-          "2) 'URL is not on Google' / jaanch poori hone do (10-30 sec)",
-          "3) 'REQUEST INDEXING' dabao → 1-2 min → 'Indexing requested' ✅",
-          "Google din mein ~10 hi leta hai - 'Quota exceeded' aaye to baaki kal. Ek page ko dobara-dobara mat dabaiye.",
-          "Ho jaye to likhein: 'indexing ho gaya' (ye link 7 din tak dobara nahi aayenge; bot roz Google se jaanchta rahega).",
-          "Bing + IndexNow: bot khud bhejta hai, aapko kuch nahi karna."]
+        w = WHY_HI.get(why.replace("index se nikla - ", ""), why)
+        L.append(f"{i}. <code>{_h.escape(u)}</code>\n    <i>{_h.escape(('index se nikla - ' if why.startswith('index se nikla') else '') + w)}</i>")
+    L += ["", "<b>Kaise (har page 1 minute):</b>",
+          "1) Upar ka link <b>dabao</b> → copy ho jayega",
+          "2) Search Console kholo: https://search.google.com/search-console → upar <b>'Inspect any URL'</b> dabbe mein paste → Enter",
+          "3) <b>REQUEST INDEXING</b> dabao → 'Indexing requested' ✅",
+          "'Quota exceeded' aaye to baaki kal. Ho jaye to likhein: <b>indexing ho gaya</b> (ye page 7 din dobara nahi aayenge).",
+          "Bing + IndexNow bot khud karta hai."]
     return "\n".join(L)
+
+
+def send_html(text):
+    try:
+        from . import updater
+        updater.log_bot(text)
+    except Exception:
+        pass
+    try:
+        r = tg.call("sendMessage", {"chat_id": tg._chat(), "text": text[:4000], "parse_mode": "HTML", "disable_web_page_preview": "true"})
+        if r and (not isinstance(r, dict) or r.get("ok", True)):
+            return r
+    except Exception as e:
+        log(f"idx html: {e}")
+    import re as _r, html as _h
+    return tg.say(_h.unescape(_r.sub(r"</?(b|i|code)>", "", text)))
 
 
 def run(manual=False, extra_new=()):
@@ -171,7 +191,8 @@ def run(manual=False, extra_new=()):
     cut = str(today - datetime.timedelta(days=40))
     state.put("idx_given", {u: d for u, d in given.items() if d >= cut})
     state.put("idx_last", {"day": str(today), "urls": [u for u, _ in rows]})
-    return message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line)
+    send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line))
+    return None
 
 
 def due(now=None):
@@ -191,8 +212,8 @@ def note_given(urls):
 def on_text(tl, run_bg):
     if tl in ("indexing link", "index link", "gsc link", "gsc links", "indexing links", "request indexing", "indexing kya karu",
               "indexing link do", "gsc link do"):
-        tg.say("🔎 Pehle Google ko live sitemap bhej raha hoon, phir link chunta hoon (1-2 min)...")
-        return run_bg(lambda: tg.say(run(manual=True) or "✅ Aaj koi indexing link nahi."))
+        tg.say("🔎 Pehle Google ko live sitemap bhej raha hoon, phir har page Google se taaza jaanch kar suchi deta hoon (1-3 min)...")
+        return run_bg(lambda: (lambda r: r and tg.say(r))(run(manual=True)))
     if tl in ("indexing ho gaya", "index ho gaya", "gsc ho gaya", "request indexing ho gaya"):
         last = state.get("idx_last") or {}
         state.put("idx_done", {"day": str(datetime.date.today()), "n": len(last.get("urls") or [])})

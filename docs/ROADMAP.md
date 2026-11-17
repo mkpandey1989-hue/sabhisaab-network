@@ -1852,3 +1852,16 @@ bot chatting padh kar ek saath final".
   (company/144149065) aur Dailymotion (@sabhisaab); privacy policy section 10 mein LinkedIn (Make) + Dailymotion (sirf upload,
   koi player/cookie nahi) + tareekh aaj + sitemap lastmod. Flag sitepatch_348 (v3.4.7 wala fail hua tha, dobara chalega).
 - Watchdog 'Theek ho gaya: scan mismatch 2' jaisa code-naam nahi - asli shirshak; purana jhootha scan_mismatch chupchap hata.
+
+## v3.4.9 (17 Nov 2026 subah) - [OPUS 5.5] Dailymotion secret pehchaan, chat mein secret chhupa, indexing ek hi jagah poore link
+Owner (17 Nov 09:39): "Dailymotion secret nahi le raha; PENDING KAAM mein /stories... adhoore link, 14 din; console ka link error
+deta hai - sirf poora link do jo karna hai, priority se; sab ek saath".
+- GALTI (v3.4.8): Dailymotion secret mein < & \ ' | ? , jaise nishaan the; intake sirf A-Z0-9 maanta tha -> secret Gemini tak
+  gaya aur CHAT.md (public GitHub) mein khul gaya. Ab: clean_secret - koi bhi akshar, bas beech mein space/emoji nahi, 8-300;
+  Notepad ki line-break hatti hai. updater._mask: 20+ akshar, space nahi, akshar+ank+nishaan = *** (URL/path nahi chhupte) -
+  agla CHAT.md purana secret bhi chhupa dega (har baar _mask dobara lagta hai). Git itihaas mein reh gaya -> owner ko purani key
+  DELETE + nayi banane ko bot install ke 3 min baad khud kehta hai (dm_ask_done2) aur phir key/secret maangta hai.
+- Indexing: website repo ki 09:05 'PENDING KAAM' (dusri suchi, /path, 14 din, console deep-link) band - ab sirf idxlink (11:40 +
+  'indexing link'): poora URL <code> mein (ek tap = copy), upar se priority, Hindi wajah, Google se taaza jaanch, 'Inspect any URL'
+  mein paste karne ke steps. Console deep-link hataya (owner ke phone par error). Queue ke 'naye page LIVE' sandesh mein bhi
+  sirf poora URL.

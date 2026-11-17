@@ -228,8 +228,8 @@ def scheduler():
                     hold = _at(nowt, rt["site"]).timestamp()
                     threading.Thread(target=lambda h=hold: safe(website.daily, h), daemon=True).start()
                 if nowt.strftime("%H:%M") >= "09:05" and state.get("site_pend_day") != day:
-                    state.put("site_pend_day", day)
-                    run(website.pending)
+                    state.put("site_pend_day", day)    # v3.4.8b: website ki 'PENDING KAAM' (dusri indexing suchi, /path, 14 din) band -
+                    # owner: 'ek hi jagah, poora link, priority se' -> sirf idxlink (11:40). Audit/speed/faltu-file auto-doctor + Sab theek mein.
                 if time.time() - state.get("site_watch_at", 0) > 1800:
                     state.put("site_watch_at", time.time())
                     run(website.watch)
@@ -625,12 +625,12 @@ def scheduler():
                         tg.say(r_ + "\n👤 Ab 'owner link' likhein - Telegram/Instagram/Facebook ke andar wale browser mein bhi aapki "
                                "visit na gine, uska tareeka.")
                 run(_tf)
-            if not state.get("dm_ask_done") and time.time() - STARTED > 180:   # v3.4.8: Dailymotion key bot khud maange (ek baar)
-                state.put("dm_ask_done", True)
+            if not state.get("dm_ask_done2") and time.time() - STARTED > 180:   # v3.4.8b: Dailymotion key bot khud maange (ek baar)
+                state.put("dm_ask_done2", True)
                 try:
                     from . import dailymotion as _DMa
                     if not _DMa.ready():
-                        _DMa.ask()
+                        _DMa.ask(rotate=True)
                 except Exception as _e_dma:
                     log(f"dm ask: {_e_dma}")
             if (state.get("trackfix_owner") and not state.get("sitepatch_348") and time.time() - STARTED > 900
@@ -3817,7 +3817,7 @@ def main():
                     v = m["video"]
                     save_clip(v["file_id"], v.get("file_size", 0), m.get("caption") or "")
                 elif (m.get("text") and str(state.get("awaiting") or "").startswith("dm_") and not m["text"].startswith("/")
-                      and len(m["text"].split()) == 1 and _re.fullmatch(r"[A-Za-z0-9._\-]{8,300}", m["text"].strip())):
+                      and __import__("app.dailymotion", fromlist=["x"]).looks_secret(m["text"])):
                     from . import dailymotion as _DMi       # v3.4.8: bot ne khud maanga - key/secret, turant chat se mitao
                     tg.delete(m["chat"]["id"], m["message_id"])
                     _r_dm = _DMi.intake(m["text"])
