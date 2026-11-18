@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -746,5 +746,20 @@ check("1087968824" in _in417.getsource(_GQ421.on_group), "Quiz group: 'anonymous
 check(_QD421.search_url("EMI kaise nikale?").startswith("https://www.quora.com/search?q=") and callable(_QD421.daily_pack)
       and "daily_pack" in _in417.getsource(__import__("app.sharekit", fromlist=["x"]).run),
       "Quora: share kit mein asli sawal ka link + taiyaar jawab (na mile to Quora search link)")
+# v3.4.24: FB link-card, mauka calendar, funnel, quiz bot inline (koi naya page nahi)
+from app import reach as _RC424, quizbot as _QB424  # noqa: E402
+import datetime as _dt424  # noqa: E402
+_e424 = {"code": "77", "aid": "77", "brand": "money", "bname": "X", "q": "5+5? #77", "ans": "10", "opts": ["8", "9", "10", "11"]}
+_m424, _l424 = _RC424.fb_text(_e424)
+check("utm_medium=linkpost" in _l424 and "#77" not in _m424 and "D) 11" in _m424 and _RC424.FB_MAX == 2
+      and not any(w in _m424.lower() for w in ("tag", "share karo", "comment yes")),
+      "FB link-card: sawal + 4 vikalp + UTM link, brand max 2/din, engagement-bait nahi")
+_d424 = lambda s: _dt424.datetime.fromisoformat(s + "T11:00:00+05:30")
+check(_RC424._in("12-25", "12-20", "01-10") and _RC424._in("01-03", "12-20", "01-10") and not _RC424._in("08-20", "12-20", "01-10")
+      and all(len(m) == 5 for m in _RC424.MAUKA), "Mauka calendar: tareekh window (saal paar bhi) sahi")
+_t424 = _RC424.funnel_text(7, {"Facebook": [200, 220, 40, 260, 3000], "Google": [50, 55, 40, 90, 4000]})
+check("Sabse badi kami: Facebook" in _t424 and "Google" in _t424, "Funnel: platform-wise rukna + sabse badi kami (ginti se)")
+check(_RC424.on_text("hello", lambda f: f) is None and "inline_query" in _in417.getsource(_QB424.handle)
+      and "show_alert" in _in417.getsource(_QB424.handle), "Quiz bot inline share: dost ki chat mein tap -> sahi/galat popup")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

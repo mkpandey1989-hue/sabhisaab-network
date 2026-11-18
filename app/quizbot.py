@@ -75,15 +75,55 @@ def lookup_code(code):
     return f"#{r['c']} ({r['d']}, {r['b']}): {r['q']}\n✅ सही जवाब: {r['ans']}" + (f"\n{r['e']}" if r.get("e") else "") + f"\n{SITE}/jawab#c{r['a']}"
 
 
+def _tapq(e):
+    o = [str(x) for x in (e.get("opts") or [])]
+    return len(o) == 4 and o.count(str(e.get("ans", ""))) == 1
+
+
+def inline_results(query, n=10):
+    """v3.4.24: kisi bhi chat mein '@bot <shabd/code>' -> sawal chuno -> dost ko A/B/C/D wala sawal + jawab ka link.
+    Kuch save nahi hota (query bhi nahi)."""
+    qx = re.sub(r"^#", "", (query or "").strip().lower())
+    out = []
+    for e in reversed(state.get("answer_key") or []):
+        if not _tapq(e):
+            continue
+        aid = str(e.get("aid") or e.get("code"))
+        qt = re.sub(r"[ ]*#\S+", "", str(e.get("q", ""))).strip()
+        if qx and not (qx == str(e.get("code")) or qx in qt.lower() or qx in str(e.get("bname", "")).lower()):
+            continue
+        link = f"{SITE}/jawab?utm_source=telegram&utm_medium=inline&utm_content=c{aid}#c{aid}"
+        rows = [[{"text": f"{'ABCD'[i]}) {str(o)[:28]}", "callback_data": f"qi:{aid}:{i}"}] for i, o in enumerate(e["opts"][:4])]
+        rows.append([{"text": "✅ Sahi jawab aur tareeka", "url": link}])
+        out.append({"type": "article", "id": aid[:60], "title": qt[:80] or f"Sawal #{e.get('code')}",
+                    "description": " | ".join(str(o)[:20] for o in e["opts"][:4]),
+                    "input_message_content": {"message_text": f"🧩 {qt}\n\nSoch kar tap karein - sahi/galat turant dikhega 👇"[:4000]},
+                    "reply_markup": {"inline_keyboard": rows}})
+        if len(out) >= n:
+            break
+    return out
+
+
 def handle(u):
+    if "inline_query" in u:
+        iq = u["inline_query"]
+        res = inline_results(iq.get("query", ""))
+        data = {"inline_query_id": iq["id"], "results": json.dumps(res, ensure_ascii=False), "cache_time": 120, "is_personal": "false"}
+        if not res:
+            data["button"] = json.dumps({"text": "Sawal nahi mila - bot kholein", "start_parameter": "inline"})
+        return api("answerInlineQuery", data)
     if "callback_query" in u:
         cq = u["callback_query"]
         try:
             _, aid, i = cq["data"].split(":")
             e = answer_for(aid)
             if not e:
-                return api("answerCallbackQuery", {"callback_query_id": cq["id"], "text": "Ye sawal purana ho gaya"})
+                return api("answerCallbackQuery", {"callback_query_id": cq["id"], "text": "Ye sawal purana ho gaya", "show_alert": "true"})
             ok = e["opts"][int(i)] == e["ans"]
+            if "message" not in cq:                # v3.4.24: inline (dost ki chat) wala sawal - sirf popup, chat mein kuch nahi
+                return api("answerCallbackQuery", {"callback_query_id": cq["id"], "show_alert": "true",
+                                                   "text": (("🎉 Sahi jawab!" if ok else "❌ Galat.") + f" सही जवाब: {e['ans']}\n"
+                                                            "Poora tareeka: neeche '✅ Sahi jawab' button")[:200]})
             api("answerCallbackQuery", {"callback_query_id": cq["id"], "text": "🎉 Sahi!" if ok else "❌ Galat"})
             api("sendMessage", {"chat_id": cq["message"]["chat"]["id"], "text": ("🎉 Sahi jawab!" if ok else "❌ Galat.")
                                 + f" सही जवाब: {e['ans']}\nPoori wajah: {SITE}/jawab#c{aid}\nAur sawal: /aaj"})
@@ -98,7 +138,10 @@ def handle(u):
     subs = set(state.get("quiz_subs") or [])
     if t.startswith("/start"):
         return api("sendMessage", {"chat_id": chat, "text": "🙏 Sab Hisaab Quiz mein swagat!\n/aaj - aaj ka sawal\nReel ka code (jaise 1270) bhejein - "
-                                   "uska jawab\n/roz - roz subah 8 baje ek sawal (band: /stop)\nHum aapka naam/number save nahi karte."})
+                                   "uska jawab\n/roz - roz subah 8 baje ek sawal (band: /stop)\n"
+                                   + (f"Dost ko sawal bhejna: kisi bhi chat mein @{state.get('quizbot_user')} likhein aur sawal chunein\n"
+                                      if state.get("quizbot_inline") and state.get("quizbot_user") else "")
+                                   + "Hum aapka naam/number save nahi karte."})
     if t.startswith("/roz"):
         subs.add(chat)
         state.put("quiz_subs", sorted(subs))
@@ -141,8 +184,12 @@ def _loop():
         try:
             if not hooked:                         # purana webhook ho to getUpdates kabhi kuch nahi deta
                 api("deleteWebhook", {"drop_pending_updates": "false"})
+                me_check()
                 hooked = True
-            r = api("getUpdates", {"offset": off, "timeout": 50}, timeout=65)
+            if time.time() - state.get("quizbot_me_at", 0) > 21600:
+                me_check()
+            r = api("getUpdates", {"offset": off, "timeout": 50,
+                                   "allowed_updates": json.dumps(["message", "callback_query", "inline_query"])}, timeout=65)
             state.put("quizbot_poll", time.strftime("%Y-%m-%d %H:%M:%S"))
             for u in r.get("result", []):
                 off = u["update_id"] + 1
@@ -154,6 +201,26 @@ def _loop():
             log(f"quizbot poll: {str(ex)[:80]}")
             state.put("quizbot_err", {"t": time.strftime("%Y-%m-%d %H:%M"), "e": f"poll: {str(ex)[:150]}"})
             time.sleep(15)
+
+
+def me_check():
+    """v3.4.24: BotFather mein inline chalu hai ya nahi (getMe) - haal mein dikhane ke liye."""
+    state.put("quizbot_me_at", time.time())
+    try:
+        j = api("getMe")
+        r = j.get("result") or {}
+        if r:
+            state.put("quizbot_user", r.get("username", ""))
+            state.put("quizbot_inline", bool(r.get("supports_inline_queries")))
+            if r.get("supports_inline_queries") and not state.get("quizbot_inline_task_done"):
+                state.put("quizbot_inline_task_done", True)
+                try:
+                    from . import tasks
+                    tasks.mark_done("setinline")
+                except Exception:
+                    pass
+    except Exception as ex:
+        log(f"quizbot getMe: {ex}")
 
 
 _TH = {"t": None}

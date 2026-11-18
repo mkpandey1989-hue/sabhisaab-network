@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 17 Nov 2026 dopahar (Claude Opus 5.5, bot v3.4.23). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 18 Nov 2026 subah (Claude Opus 5.5, bot v3.4.24). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein
@@ -41,8 +41,11 @@ Brand: Suno Natak (sunonatak), Sab Hisaab Money (money), Labh Lo Deals (deals), 
   08:00 website report | 09:15 LinkedIn | 11:30 Google index jaanch | **11:40 GOOGLE INDEXING suchi (poore URL, tap = copy)** |
   18:45 UK page social | 19:15 share kit (WhatsApp status / FB group / Quora ka taiyaar text) | 21:50 brand x platform table |
   Ravivaar: site scan, link-chowkidar, hafte ki report.
+  **v3.4.24:** 10:30 mauka calendar (juda calculator Telegram + FB) | sawal wali reel ke 3 ghante baad FB page link-card (brand max 2/din) |
+  Ravivaar 20:40 funnel (platform-wise kitne ruke) | 20 Dec saal jaanch. Quiz bot inline share (BotFather /setinline ke baad). Haal: 'naye kaam haal'.
+  Faisla (18 Nov, owner): har sawal ka alag website page NAHI banega (Google ka khatra) - sirf bahar se log + purane page behtar.
 - Har link par UTM: utm_source = youtube/facebook/threads/pinterest/telegram/whatsapp/whatsapp_status/facebook_group/linkedin/
-  quora/dailymotion/push. Report (`report table 7 din`) inhi naam se alag line deta hai. Instagram par UTM/click-link nahi (niyam).
+  quora/dailymotion/push (+ medium linkpost/mauka/inline v3.4.24). Report (`report table 7 din`) inhi naam se alag line deta hai. Instagram par UTM/click-link nahi (niyam).
 
 ## 3. Owner ke haath ke kaam (sach - bot ye nahi kar sakta)
 1. ~~Dailymotion nayi key~~ - 17 Nov ho gaya (juda).
@@ -68,6 +71,7 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
 - 17 Nov VM (owner ne chalaye, sab OK): tools/autostart_fix.sh (5 service boot par chalu + kabhi haar na maane), tools/chowkidar_social_fix.py
   (chowkidar post ginti sabhinet se + Dhan token fallback), tools/chart_alert_fix.py (nifty-chart MemoryMax 500M, memory message 475+ MB
   din mein 1 baar, raat 03:00 300+ MB par chart khud restart, subah 8 baje report sirf gadbad par), journal 200M + apt clean.
+- 18 Nov: v3.4.24 reach.py (FB link-card, mauka calendar, funnel, saal jaanch) + quiz bot inline share. 11 kaam pehle se bane mile.
 - Aage: ~mid Dec UK queue poori → Jan 2027 Search Console data dekh kar Himachal ke 20-30 page (sirf jo UK mein chala) ya UK sudhaar.
 
 ## 5. Privacy policy (https://sabhisaab.com/privacy, aakhri update 17 Nov 2026) - code wahi kare jo ye kehti hai

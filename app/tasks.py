@@ -1575,11 +1575,36 @@ def _mig_3412():
     _dirty()
 
 
+SEED_V3424 = [          # v3.4.24 (18 Nov 2026): quiz bot inline share - BotFather ka ek switch (bot khud nahi kar sakta)
+    ("[Owner, 1 min, ek baar] Quiz bot se dost ko sawal: Telegram mein @BotFather kholo → /setinline → apna quiz bot chuno → "
+     "likho: sawal ya code likhein → bas. Phir koi bhi kisi chat mein @<quiz bot> likh kar sawal bhej sakega", None, None,
+     "Bot 6 ghante mein khud pehchaan lega ('naye kaam haal' mein ✅). Ho jaye to: 'ho gaya inline'"),
+]
+
+
+def _mig_3424():
+    if state.get("mig_3424"):
+        return
+    state.put("mig_3424", True)
+    import datetime as _d
+    have = {o.get("x") for o in state.get("todo") or []}
+    day = str(_d.date.today())
+    add = [{"x": t, "t": day, "how": h} for t, a, k, h in SEED_V3424 if t not in have]
+    if add:
+        state.update("todo", lambda l: (l or []) + add, [])
+        _dirty()
+
+
 def seed_todo():
     try:
         _mig_3310()
     except Exception:
         pass
+    try:
+        _mig_3424()
+    except Exception as e:
+        from .log import log as _lg
+        _lg(f"mig_3424: {e}")
     try:
         _mig_349()
     except Exception as e:

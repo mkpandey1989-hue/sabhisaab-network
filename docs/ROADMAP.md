@@ -2017,3 +2017,23 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   Quora sawal + uska quora.com link (na mile to Quora search link) -> quoradraft.draft se jawab (pehli line pakka anubhav,
   sawal ki bhasha, 20 Nov se har 3rd mein usi tool ka link). AI band ho to purana tareeka + Quora search link.
 - Bot Quora par khud kuch nahi daalta (niyam).
+
+## v3.4.24 (18 Nov 2026 subah) - [OPUS 5.5] Traffic + rukna: bina naye page ke
+- Owner: "sawal ka alag page risky hai, chhod do - baaki advance kaam sab bana do, nakli VM/website par jaanch kar final zip".
+- Jaancha: 16 mein se 11 kaam PEHLE se bane the (jawab page par agla sawal/khoj/3 milte-julte/challenge/streak, PWA, OneSignal
+  push, Telegram quiz poll, comment-reply link ke saath, Threads, GSC->FAQ (kwfix), PageSpeed, qplan weekly_adapt, traffic dwell).
+  Inka switch/login ek jagah: 'naye kaam haal'.
+- NAYA app/reach.py:
+  1) FB PAGE LINK-CARD: sawal wali reel (answer_key, aaj ki, 4 vikalp) ke 3 ghante baad usi brand ke FB page /feed par sawal +
+     A-D + /jawab link (utm_medium=linkpost). Har brand max 2/din, 09:00-21:30, 2 galti ke baad wo sawal chhoda. Bait shabd nahi.
+     'fb link post band/chalu'.
+  2) MAUKA CALENDAR: 17 pakke mauke (advance tax 15 Mar/Jun/Sep/Dec, naya FY, ITR, 80C, budget, admission, result, Char Dham,
+     garmi bijli, festive sale, gehne, naya saal) + har mahine 1-3 tareekh salary -> juda calculator. Roz 10:30 max 1, ek tool 10
+     din mein dobara nahi. Telegram channel (button) + FB page (cap ke andar). Text = page ka apna title/description.
+     'mauka band/chalu' | 'mauka abhi'.
+  3) FUNNEL: GA4 sessionSource -> platform: log, ruke % (engagedSessions/sessions), ausat sec, page/aadmi + sabse badi kami.
+     Ravivaar 20:40 + 'funnel' / 'funnel 30'.
+  4) SAAL JAANCH: 20 Dec - title mein abhi ka saal wale page ki suchi (apne aap nahi badalta; tax page galat ho sakte).
+- quizbot: INLINE share - kisi bhi chat mein @bot <shabd/code> -> sawal + A-D + jawab link; dost tap kare to popup sahi/galat.
+  getMe se 'inline chalu?' (6 ghante), chalu hote hi owner task khud hatta. Owner: BotFather /setinline (ek baar).
+- Nakli VM + asli site copy par jaancha (reach_test 33 ✅), smoke 414 ✅.
