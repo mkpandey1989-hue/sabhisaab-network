@@ -2037,3 +2037,20 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - quizbot: INLINE share - kisi bhi chat mein @bot <shabd/code> -> sawal + A-D + jawab link; dost tap kare to popup sahi/galat.
   getMe se 'inline chalu?' (6 ghante), chalu hote hi owner task khud hatta. Owner: BotFather /setinline (ek baar).
 - Nakli VM + asli site copy par jaancha (reach_test 33 ✅), smoke 414 ✅.
+
+## v3.4.25 (18 Nov 2026 subah) - [OPUS 5.5] Turant sawal wali post + chat ki galtiyan
+- Owner: "jab bolu 'sawal wali post do' turant wahi sawal jo reel mein ja chuka, jawab website par - jo de diya dobara na de,
+  roz naya, reel ke kram se" + saancha (🧠 आज का सवाल / sawal / A-D / 👇 सही जवाब + तरीका / link).
+- NAYA app/sawalpost.py: 'sawal wali post' / 'ek post do' / 'quiz post' / 'pahadi sawal post' -> answer_key se sabse nayi reel
+  ka sawal (4 vikalp + sahi jawab ek baar) jo sp_given mein nahi; do sandesh (upar jaankari, neeche sirf post - lamba dabao Copy)
+  + WhatsApp / Facebook share button. Diya = kabhi dohra nahi. 19:15 share kit ke WhatsApp-status + dusre-group sawal bhi
+  isi suchi se chhante aur isme judte. Seed: 17 Nov ke #5574, #8572 (ja chuke).
+- Chat (CHAT.md 17-18 Nov) se pakdi galtiyan:
+  1) "Ek post do" -> AI ne video samjha ('brand aur topic batayein') -> ab seedha sawal post.
+  2) "restart" -> AI ne jhootha kaha "VM par services dobara check ho rahi hain" (koi hukum tha hi nahi) -> ab sach mein
+     restart (3 sec baad os._exit, systemd wapas chalata; offset pehle save, message dobara nahi chalta).
+  3) "naye kaam haal." (poorn viram) -> AI ne purani v2.6 baatein batayin -> reach/sawalpost aakhri . ! ? hata kar milate.
+  4) Budh 02:10 "Redirect jaanch: /.html 404, // 200 galat" -> homepage (slug "") jaancha ja raha tha = jhootha alarm. Ab skip.
+  5) "quora: <koi sawal" (saancha hi bhej diya) -> bekaar generic jawab bana -> ab sahi tareeka batata hai.
+- Owner ke liye: quiz bot asal mein @Sabhisaab_bot (getMe) - BotFather /setinline wahi par; AutoBot par /empty.
+- smoke 420 ✅, nakli VM par sawalpost 12 ✅ + bot hukum jaanch.

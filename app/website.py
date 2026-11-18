@@ -1148,7 +1148,7 @@ def redirect_check(limit=400):
     bad, ok = [], 0
     s = requests.Session()
     for slug in pg:
-        if slug in ("index", "404") or slug.startswith("google"):
+        if not slug or slug in ("index", "404") or slug.startswith("google") or "/" in slug:   # v3.4.25: "" = homepage (".html"/"//" jhoothi galti)
             continue
         for old in (f"{SITE}/{slug}.html", f"{SITE}/{slug}/"):
             url, hops, seen = old, 0, set()

@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -761,5 +761,16 @@ _t424 = _RC424.funnel_text(7, {"Facebook": [200, 220, 40, 260, 3000], "Google": 
 check("Sabse badi kami: Facebook" in _t424 and "Google" in _t424, "Funnel: platform-wise rukna + sabse badi kami (ginti se)")
 check(_RC424.on_text("hello", lambda f: f) is None and "inline_query" in _in417.getsource(_QB424.handle)
       and "show_alert" in _in417.getsource(_QB424.handle), "Quiz bot inline share: dost ki chat mein tap -> sahi/galat popup")
+# v3.4.25: turant sawal wali post (kabhi dohra nahi) + chat ki galtiyan
+from app import sawalpost as _SP425, quoradraft as _QD425  # noqa: E402
+check(bool(_SP425.RX.search("ek post do")) and bool(_SP425.RX.search("sawal wali post")) and not _SP425.RX.search("linkedin post kitni gayi")
+      and _SP425.on_text("group post") is None, "Sawal post: 'ek post do'/'sawal wali post' pakde, doosre post-hukum nahi")
+_e425 = {"code": "9758", "aid": "9758", "brand": "pahadi", "q": "घट? #9758", "ans": "b", "opts": ["a", "b", "c", "d"]}
+_t425 = _SP425.post_text(_e425)
+check(_t425.startswith("🧠 आज का सवाल") and "#9758\n" not in _t425 and "D) d" in _t425 and "सही जवाब + तरीका" in _t425,
+      "Sawal post: owner ka saancha (sawal, A-D, jawab link)")
+check('if not slug or slug in ("index", "404")' in _in417.getsource(W.redirect_check), "Redirect jaanch: homepage ka '.html' / '//' jhootha alarm nahi")
+check("koi sawal" in _in417.getsource(_QD425.on_text), "Quora: '<koi sawal' par bekaar jawab nahi, sahi tareeka batata hai")
+check('"restart"' in _in417.getsource(__import__("app.bot", fromlist=["x"]).on_text), "'restart' = sach mein restart (AI ka jhootha 'ho gaya' nahi)")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

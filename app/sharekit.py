@@ -66,6 +66,12 @@ def status_text(today=None):
     from .answers import answer_url
     today = today or datetime.date.today()
     lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
+    try:                                            # v3.4.25: owner ko pehle diya ('sawal wali post') dobara nahi
+        from .sawalpost import given as _gv
+        _g = set(_gv())
+        lst = [x for x in lst if str(x.get("aid") or x.get("code")) not in _g] or lst
+    except Exception:
+        pass
     e = next((x for x in lst if str(x.get("date", ""))[:10] == str(today)), lst[0] if lst else None)
     if not e:
         return None
@@ -96,6 +102,12 @@ def quiz_group_text():
     Sawal poochne wali post group mein sabse zyada chalti hai (log comment karte hain) - seedha link-dump nahi."""
     from .answers import answer_url
     lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
+    try:                                            # v3.4.25
+        from .sawalpost import given as _gv
+        _g = set(_gv())
+        lst = [x for x in lst if str(x.get("aid") or x.get("code")) not in _g] or lst
+    except Exception:
+        pass
     if len(lst) < 1:
         return None
     e = lst[1] if len(lst) > 1 else lst[0]          # WhatsApp status wale se alag sawal
@@ -151,6 +163,11 @@ def run(manual=False):
     try:
         w = status_text()
         if w:
+            try:
+                from .sawalpost import note_from_text as _nft
+                _nft(w)                                 # v3.4.25: diya hua sawal dobara nahi
+            except Exception:
+                pass
             parts.append(("📱 WHATSAPP STATUS (lamba dabao → Copy → Status par paste; saath mein aaj ki video ka screenshot lagayein)", w))
     except Exception as e:
         log(f"sharekit wa: {e}")
@@ -178,6 +195,11 @@ def run(manual=False):
     try:                                                # v3.4.4: dusre ke group (aap admin nahi) - quiz wala text
         gq = quiz_group_text()
         if gq:
+            try:
+                from .sawalpost import note_from_text as _nft
+                _nft(gq)
+            except Exception:
+                pass
             parts.append(("👥 DUSRE KE FACEBOOK GROUP (GK / exam / pahadi groups - aap member ho, admin nahi). Facebook niyam: "
                           "din mein 2-3 group se zyada nahi, ek hi text ek saath sab group mein nahi, group ke 'Rules' padhein; "
                           "jahan link mana ho wahan link hata kar 'jawab comment mein' likhein. Admin manzoori maange to "

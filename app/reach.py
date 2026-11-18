@@ -402,7 +402,7 @@ def tick(now, run):
 
 
 def on_text(tl, run):
-    tl = (tl or "").strip().lower()
+    tl = re.sub(r"[.!?।]+$", "", (tl or "").strip().lower()).strip()
     m = re.fullmatch(r"funnel(?: (\d{1,3}))?(?: din)?|platform (?:wise|ke hisaab se) rukna|kaun kitna ruka|kahan se aaye kitne ruke", tl)
     if m:
         d = int(m.group(1)) if m.lastindex and m.group(1) else 7

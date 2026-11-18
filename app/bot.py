@@ -1762,6 +1762,19 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
+    try:                                                                              # v3.4.25: turant sawal wali post
+        from . import sawalpost as _SPT
+        _SPT.seed_once()
+        _r_sp = _SPT.on_text(tl)
+        if _r_sp is not None:
+            return _r_sp
+    except Exception as _e_spt:
+        log(f"sawalpost text: {_e_spt}")
+    if re.sub(r"[.!?।\s]+$", "", tl) in ("restart", "bot restart", "restart karo", "bot restart karo", "restart kar do"):
+        tg.say("🔄 Bot restart ho raha hai - 10-20 second mein wapas (video/website ka kaam nahi rukta, queue wahi rehti hai).")
+        import threading as _thr
+        _thr.Timer(3, lambda: os._exit(0)).start()      # systemd Restart=always naye sire se chalu karta hai
+        return True
     try:                                                                              # v3.4.24
         from . import reach as _RCT
         _r_rc = _RCT.on_text(tl, run)
@@ -2667,6 +2680,7 @@ CAN_DO = """📋 Main ye sab kar sakta hoon (button dabao ya aise likho):
 🔎 'indexing link' = Google ke liye aaj ke poore link | 'kitne page index nahi' = poori suchi | 'indexing ho gaya'
 🎬 'dailymotion haal' | 'dailymotion roz 3' | 'dailymotion band/chalu'
 🩺 Sab theek? | 🖥 VM | 🛡 Suraksha | 🩺 'website doctor' | 'mera kaam' (aapke kaam ki list)
+🧠 'sawal wali post' / 'ek post do' = turant copy-layak sawal post (reel wala, kabhi dohra nahi; 'pahadi sawal post')
 📉 'funnel' = platform-wise kitne ruke | 🚀 'naye kaam haal' = FB link-card, mauka calendar, push/poll/inline ka haal
 ✍️ 'quora: <sawal>' = paste-layak Quora jawab | 👥 'group post' = banner + group ke liye post (roz 7:30 khud)
 ⏸ Pause / ▶️ Resume | ⏰ Best time | 'money ka time 13:30 kar do' | 'pahadi ki video <topic> par banao'

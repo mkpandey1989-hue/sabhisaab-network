@@ -91,6 +91,9 @@ def on_text(t, tl):
     if not m:
         return None
     q = m.group(1).strip()
+    if "<" in q or re.sub(r"\W+", " ", q.lower()).strip() in ("koi sawal", "sawal", "apna sawal", "yahan sawal"):
+        return tg.say("✍️ 'quora:' ke baad ASLI sawal likhein (Quora app se copy karke), jaise:\n"
+                      "quora: How long does a personal loan take to get approved in India?")   # v3.4.25: 17 Nov '<koi sawal' par bekaar jawab bana tha
     tg.say("✍️ Quora jawab taiyaar kar raha hoon (30-60 sec)... Bot Quora par khud kuch nahi daalta - aap copy-paste karenge.")
     import threading
 
