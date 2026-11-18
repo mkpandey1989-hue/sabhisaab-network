@@ -817,8 +817,15 @@ def link_traffic(start="yesterday", end="yesterday", label="kal (pakka)"):
         L.append("   Platform: " + ", ".join(f"{k} {v}" for k, v in sorted(plat.items(), key=lambda x: -x[1])))
     if brand:
         L.append("   Brand: " + ", ".join(f"{k} {v}" for k, v in sorted(brand.items(), key=lambda x: -x[1])))
-    if code:
-        L.append("   Reel code: " + ", ".join(f"{k} {v}" for k, v in sorted(code.items(), key=lambda x: -x[1])[:8]))
+    if code:                                      # v3.4.27 (owner: 'adhure link') - har reel ka sawal + POORA link
+        qmap = {}
+        for e in state.get("answer_key") or []:
+            qmap[str(e.get("code"))] = (re.sub(r"[ ]*#\S+", "", str(e.get("q", ""))).strip()[:45], str(e.get("aid") or e.get("code")))
+        L.append("   Kis reel se kitne (sawal + poora link):")
+        for k, v in sorted(code.items(), key=lambda x: -x[1])[:8]:
+            c = str(k).lstrip("#c").lstrip("#")
+            q, aid = qmap.get(c, ("", c))
+            L.append(f"   • {v} log - #{c} {q}\n     {SITE}/jawab#c{aid}")
     return "\n".join(L)
 
 

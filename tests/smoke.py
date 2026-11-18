@@ -792,5 +792,15 @@ check(__import__("app.meta", fromlist=["x"]).IG_LINK_LINE.count("हाइला
       "Instagram caption: bio + '✅ जवाब' highlight line")
 check("_DAILY" in dir(W) and "daily_day" in dir(W) and "site_daily_tries" in _in417.getsource(__import__("app.bot", fromlist=["x"])),
       "Google index jaanch: restart ke baad aaj ka nateeja na ho to dobara (max 3)")
+# v3.4.27: FB group 3 line, platform-wise 'diya hua', 'facebook' = group, reel ke poore link, 'link table'
+_g427 = _SP425.fmt({"code": "2001", "aid": "2001", "brand": "pahadi", "q": "नथ? #Shorts", "ans": "b",
+                    "opts": ["a", "b", "c", "d"]}, "fbgroup")
+check(len(_g427) == 2 and len(_g427[0][1].split("\n")) <= 5 and "LINK MANA" in _g427[1][0] and "❌ MAT" in _g427[0][0],
+      "FB group post: 3 line (See more se pehle link) + link-mana group ka pehla comment")
+check(_SP425.plats_in("swal wali facebook post") == ["fbgroup"] and _SP425.plats_in("money fb page post") == ["facebook"],
+      "'facebook post' = GROUP, 'fb page post' = PAGE")
+check("plat" in _in417.signature(_SP425.note).parameters and "plats" in _in417.signature(_SP425.candidates).parameters,
+      "Diya hua sawal platform-wise (WhatsApp wala FB group ke liye bhi milta)")
+check("Kis reel se kitne" in _in417.getsource(W.link_traffic), "Traffic report: reel code ke saath sawal + poora link")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

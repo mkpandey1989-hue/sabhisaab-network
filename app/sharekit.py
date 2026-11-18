@@ -68,7 +68,7 @@ def status_text(today=None):
     lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
     try:                                            # v3.4.25: owner ko pehle diya ('sawal wali post') dobara nahi
         from .sawalpost import given as _gv
-        _g = set(_gv())
+        _g = set(_gv("whatsapp"))
         lst = [x for x in lst if str(x.get("aid") or x.get("code")) not in _g] or lst
     except Exception:
         pass
@@ -104,18 +104,22 @@ def quiz_group_text():
     lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
     try:                                            # v3.4.25
         from .sawalpost import given as _gv
-        _g = set(_gv())
+        _g = set(_gv("fbgroup"))
         lst = [x for x in lst if str(x.get("aid") or x.get("code")) not in _g] or lst
     except Exception:
         pass
     if len(lst) < 1:
         return None
     e = lst[1] if len(lst) > 1 else lst[0]          # WhatsApp status wale se alag sawal
+    try:                                            # v3.4.27: 3 line (group mein 'See more' se pehle link dikhe)
+        from .sawalpost import fmt as _fmt
+        return _fmt(e, "fbgroup")[0][1]
+    except Exception:
+        pass
     q = re.sub(r"\s*#\S+", "", _txt(e.get("q")))
-    ops = "\n".join(f"{'ABCD'[i]}) {_txt(o)}" for i, o in enumerate((e.get("opts") or [])[:4]))
+    ops = "  ".join(f"{'ABCD'[i]}) {_txt(o)}" for i, o in enumerate((e.get("opts") or [])[:4]))
     link = answer_url(e.get("aid") or e.get("code"), "facebook_group", e.get("brand"))
-    return (f"🧠 दिमाग लगाइए - पहली बार में सही बता पाएँगे?\n\n{q}\n\n{ops}\n\n"
-            f"✍️ अपना जवाब कमेंट में लिखिए। सही जवाब और आसान तरीका यहाँ:\n{link}")
+    return f"🧠 {q}\n{ops}\n👇 सही जवाब: {link}\n✍️ अपना जवाब कमेंट में लिखिए"
 
 
 # ---------------------------------------------------------------- 3) Quora
@@ -197,7 +201,7 @@ def run(manual=False):
         if gq:
             try:
                 from .sawalpost import note_from_text as _nft
-                _nft(gq)
+                _nft(gq, "fbgroup")
             except Exception:
                 pass
             parts.append(("👥 DUSRE KE FACEBOOK GROUP (GK / exam / pahadi groups - aap member ho, admin nahi). Facebook niyam: "

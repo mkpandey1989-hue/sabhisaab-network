@@ -2356,7 +2356,7 @@ def on_text(text):
         return run(lambda: tg.say(website.bing_report() + "\n\n" + website.indexnow_text()))
     if ((any(w in tl for w in ("website", "site", "link", "traffic")) and
             any(w in tl for w in ("aaye", "aaya", "aya ", "aye", "kitne log", "click", "visitor", "traffic", "aate", "aaenge",
-                                  "aayenge", "users")))
+                                  "aayenge", "users", "table", "tabel", "report")))   # v3.4.27: 'link table format per' AI ke paas jaata tha
             or re.search(r"\b(kaha|kahan|kha|kidhar) ?se (aaye|aye|aaya|aya|aa rahe|aa rhe|aa raha|aa rha)\b", tl)   # v3.4.1: 'kaha se
             or re.search(r"\bkitne (log|visitor|user)\w* (aaye|aye|aaya|aya)\b", tl)) and not any(
                 w in tl for w in ("subscriber", "view", "youtube par", "follower", "comment")):            # aaye' kabhi Gemini ke paas chala jaata tha

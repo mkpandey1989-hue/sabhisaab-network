@@ -32,14 +32,15 @@ BRAND_WORDS = {"pahadi": ("pahadi", "pahad", "पहाड़ी", "uttarakhand"
 
 # platform -> (pehchaan shabd, utm_source, naam)
 PLAT = {
-    "fbgroup": (("fb group", "facebook group", "fbgroup", "group ke liye", "group mein", "group me ", "groups"), "facebook_group", "Facebook GROUP"),
+    "facebook": (("fb page", "facebook page", "page ke liye", "page par"), "facebook", "Facebook PAGE"),
+    "fbgroup": (("fb group", "facebook group", "fbgroup", "group ke liye", "group mein", "group me ", "groups", "facebook", "fb ", " fb"),
+                "facebook_group", "Facebook GROUP"),     # v3.4.27: sirf 'facebook' = GROUP (owner groups mein daalta hai)
     "whatsapp": (("whatsapp", "whats app", "wa status", "status"), "whatsapp_status", "WhatsApp status / channel"),
     "instagram": (("instagram", "insta", " ig", "ig ", "story"), "instagram", "Instagram"),
     "threads": (("threads", "thread"), "threads", "Threads"),
     "linkedin": (("linkedin", "linkdin", "linked in"), "linkedin", "LinkedIn"),
     "reddit": (("reddit",), "reddit", "Reddit"),
     "telegram": (("telegram", "tg "), "telegram", "Telegram"),
-    "facebook": (("facebook", "fb page", "fb ", " fb"), "facebook", "Facebook PAGE"),
 }
 ALL_WORDS = ("sab platform", "sabhi platform", "har platform", "all platform", "sab jagah", "sabki post", "sab ki post", "sabke liye")
 SKIP_WORDS = ("kitn", "gayi", "gyi", "gaya", "hatao", "delete", "band", "chalu", "haal", "status kya", "report", "seekh", "namoona")
@@ -51,22 +52,46 @@ RX = re.compile(r"(s[ae]?wa+l|sval|swal|quiz|paheli|पहेली|सवाल
                 r"^(ek |1 |aur |ek aur |naya |nayi |new )?post (do|de|dedo|de do|dena|bhejo|chahiye|banao)\b|^(ek |1 )?aur post\b")
 
 
-def given():
-    return [str(x) for x in (state.get("sp_given") or [])]
+def _gv():
+    """v3.4.27: platform-wise 'diya hua' (owner: WhatsApp par diya sawal FB group ke liye bhi chahiye - Pahadi jaldi khatam ho
+    jaata tha). Purana sp_given (sab ek suchi) -> whatsapp + facebook mein maana."""
+    d = state.get("sp_gv")
+    if d is None:
+        old = [str(x) for x in (state.get("sp_given") or [])]
+        d = {"whatsapp": old[-KEEP:], "facebook": old[-KEEP:]}
+        state.put("sp_gv", d)
+    return d
 
 
-def note(aid):
+def given(plat=None):
+    d = _gv()
+    if plat:
+        return [str(x) for x in d.get(plat, [])]
+    out = []
+    for v in d.values():
+        out += [str(x) for x in v]
+    return out
+
+
+def note(aid, plat="whatsapp"):
     if not aid:
         return
     aid = str(aid)
-    state.update("sp_given", lambda l: ([x for x in (l or []) if str(x) != aid] + [aid])[-KEEP:], [])
+
+    def f(d):
+        d = d or {}
+        lst = [x for x in d.get(plat, []) if str(x) != aid] + [aid]
+        d[plat] = lst[-KEEP:]
+        return d
+    _gv()
+    state.update("sp_gv", f, {})
 
 
-def note_from_text(text):
+def note_from_text(text, plat="whatsapp"):
     """share kit ke sandesh se '#c<aid>' nikaal kar 'diya hua' maano."""
-    m = re.search(r"#c([0-9][0-9\-]*)\s*$", (text or "").strip())
+    m = re.findall(r"#c([0-9][0-9\-]*)", (text or ""))      # v3.4.27: link ab aakhri line nahi (3 line saancha)
     if m:
-        note(m.group(1))
+        note(m[-1], plat)
 
 
 def _ok(e):
@@ -74,8 +99,10 @@ def _ok(e):
     return bool(e.get("q")) and len(o) == 4 and o.count(str(e.get("ans", ""))) == 1
 
 
-def candidates(brand=None):
-    g = set(given())
+def candidates(brand=None, plats=None):
+    g = set()
+    for p_ in (plats or ["whatsapp"]):
+        g |= set(given(p_))
     out = []
     for e in reversed(state.get("answer_key") or []):          # sabse nayi reel pehle
         aid = str(e.get("aid") or e.get("code") or "")
@@ -161,10 +188,25 @@ def fmt(e, plat):
     if plat == "telegram":
         return [("✈️ TELEGRAM", post_text(e, "telegram"))]
     if plat == "fbgroup":
-        op = OPENERS[sum(map(ord, str(e.get("aid") or ""))) % len(OPENERS)]       # har sawal par alag pehli line
-        return [("👥 FACEBOOK GROUP (har group mein alag sawal maango - ek hi text kai group mein = spam). Group mein link mana "
-                 "ho to aakhri 2 line hata kar link pehle comment mein daalo.",
-                 f"{op}\n\n{q}\n\n{_ops(e)}\n\n✍️ अपना जवाब कमेंट में लिखिए।\nसही जवाब और आसान तरीका:\n{link(e, 'facebook_group')}")]
+        # v3.4.27 (owner: group mein 'See more' aata, link chhup jaata): 3 line - sawal / vikalp ek line / link. Chhota link.
+        aid = str(e.get("aid") or e.get("code"))
+        os_ = [_clean(o) for o in (e.get("opts") or [])[:4]]
+        one = "  ".join(f"{'ABCD'[i]}) {o}" for i, o in enumerate(os_))
+        opl = one if len(one) <= 60 else "  ".join(f"{'ABCD'[i]}) {o}" for i, o in enumerate(os_[:2])) + "\n" + \
+            "  ".join(f"{'ABCD'[i + 2]}) {o}" for i, o in enumerate(os_[2:]))
+        lk = link(e, "facebook_group")
+        try:
+            from . import answers as _A
+            if _A.live():
+                lk = f"{SITE}{_A.PAGE}?utm_source=facebook_group&utm_campaign={e.get('brand')}&utm_content=c{aid}#c{aid}"
+        except Exception:
+            pass
+        return [("👥 FACEBOOK GROUP - 3 line (See more se pehle sab dikhega). Post karte waqt neeche bana LINK CARD ka ❌ MAT "
+                 "dabana - wo poora card clickable hai. Har group mein alag sawal maango.",
+                 f"🧠 {q}\n{opl}\n👇 सही जवाब: {lk}\n✍️ अपना जवाब कमेंट में लिखिए"),
+                ("💬 Jis group mein LINK MANA ho: post mein upar ki sirf pehli 2 line (sawal + vikalp) daalo, aur ye apne PEHLE "
+                 "COMMENT mein (comment ka link bhi click hota hai):",
+                 f"✅ सही जवाब और आसान तरीका यहाँ: {lk}")]
     if plat == "facebook":
         return [("📘 FACEBOOK PAGE post (link ka card apne aap banega)",
                  f"🧩 आज का सवाल\n{q}\n\n{_ops(e)}\n\nपहले खुद सोचिए, फिर सही जवाब और तरीका यहाँ देखिए 👇\n{link(e, 'facebook')}")]
@@ -232,15 +274,17 @@ def give(tl=""):
     """-> (head, [(sirlekh, text)], photo ya None) ya (sandesh, [], None)."""
     b = brand_in(tl or "")
     ps = plats_in(tl or "") or ["whatsapp"]
-    c = candidates(b)
+    c = candidates(b, ps)
     if not c:
-        left = len(candidates())
+        left = len(candidates(None, ps))
         bn = BRANDS.get(b, {}).get("name", b) if b else ""
+        pn0 = "sab platform" if len(ps) > 1 else PLAT[ps[0]][2]
         if b and left:
-            return (f"📭 {bn} ke saare reel-sawal pehle de chuka hoon. Doosre brand ke {left} naye sawal baaki hain - "
-                    "likho 'sawal wali post'.", [], None)
-        return ("📭 Abhi koi naya sawal nahi bacha - jo reel gayi uske sawal pehle de chuka hoon (dohraana nahi). "
-                "Agli sawal wali reel jaate hi naya milega.", [], None)
+            return (f"📭 {bn} ke saare reel-sawal {pn0} ke liye pehle de chuka hoon. Doosre brand ke {left} naye sawal baaki "
+                    f"hain - likho '{PLAT[ps[0]][2].split()[0].lower()} post' (bina brand). Doosre platform ke liye {bn} ke "
+                    "sawal abhi baaki ho sakte hain.", [], None)
+        return (f"📭 {pn0} ke liye koi naya sawal nahi bacha - jo reel gayi uske sawal is platform par pehle de chuka hoon "
+                "(dohraana nahi). Agli sawal wali reel jaate hi naya milega.", [], None)
     e = c[0]
     parts = []
     for p_ in ps:
@@ -252,11 +296,12 @@ def give(tl=""):
             photo = story_card(e, TMP / f"story_{e.get('aid') or e.get('code')}.jpg")
         except Exception as ex:
             log(f"story card: {ex}")
-    note(e.get("aid") or e.get("code"))
+    for p_ in ps:
+        note(e.get("aid") or e.get("code"), p_)
     rest = len(c) - 1
     pn = "sab platform" if len(ps) > 1 else PLAT[ps[0]][2]
     head = (f"📋 {pn} ki post ({e.get('bname') or BRANDS.get(e.get('brand'), {}).get('name', '')}, reel #{e.get('code')}, "
-            f"{e.get('date', '')}) - har sandesh lamba dabao → Copy. Ye sawal ab dobara nahi aayega. "
+            f"{e.get('date', '')}) - har sandesh lamba dabao → Copy. Ye sawal {pn} ke liye dobara nahi aayega. "
             f"Abhi {rest} naye aur baaki" + (" (is brand ke)" if b else "") + ".\n"
             "Maang sakte ho: '<brand> <platform> post' - jaise 'pahadi fb group post', 'money insta post', 'sab platform post'.")
     return head, parts, photo

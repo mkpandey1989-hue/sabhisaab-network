@@ -2073,3 +2073,16 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Chat se: 'Pahadi post' (video samjha), 'Pahadi swal' (AI baat), 'Aaj linkdin per kitni post gyi' (AI: "bot post nahi karta"),
   'Graff' (AI: saaf likho) - sab seedhe.
 - Nakli VM: v326_test 40 ✅, reach 33 ✅; smoke 428 ✅.
+
+## v3.4.27 (19 Nov 2026 subah) - [OPUS 5.5] FB group 3 line + chat ki galtiyan
+- Owner: "facebook group par 'Read more' aata, saaf nahi dikhta, link chhup jaata; report mein link adhure; bot 'facebook post'
+  nahi samajhta".
+- FB GROUP post ab 3 line: "🧠 sawal" / "A) .. B) .. C) .. D) .." (lambe vikalp ho to 2 line) / "👇 सही जवाब: <chhota link>"
+  + "✍️ कमेंट में लिखिए". Chhota link = utm_source=facebook_group&utm_campaign&utm_content (medium hata). Saath mein: link-mana
+  group ke liye PEHLE COMMENT ka text, aur note "link card ka ❌ mat dabana". 19:15 share kit ka group sawal bhi isi saanche.
+- Diya hua sawal ab PLATFORM-WISE (state sp_gv): WhatsApp par diya sawal FB group ke liye bhi milta (18 Nov 'pahadi post
+  facebook group k liye' par 'Pahadi khatam' aaya tha). Purana sp_given -> whatsapp + facebook page.
+- 'facebook post' / 'fb post' = GROUP (owner groups mein daalta hai; 18 Nov 3 baar PAGE mila). 'fb page post' = PAGE.
+- Traffic report: 'Reel code: #7752 9' -> har reel: log + sawal + POORA link (sabhisaab.com/jawab#c7752).
+- 'Link table format per' (AI ke paas jaata tha) -> seedha traffic + table.
+- smoke 432 ✅, v327_test 14 ✅, v326 + reach dobara ✅.
