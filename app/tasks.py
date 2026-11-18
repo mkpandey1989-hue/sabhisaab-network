@@ -1595,11 +1595,36 @@ def _mig_3424():
         _dirty()
 
 
+SEED_V3426 = [          # v3.4.26 (18 Nov 2026): har platform par ek baar ka pin/bio/highlight (bot API se nahi kar sakta)
+    ("[Owner, ek baar ~30 min] Pin kit: bot ko likho 'pin kit' -> har brand ke Instagram (bio link + '✅ जवाब' highlight + pin reel), "
+     "Facebook (button + pin post), YouTube (channel link + post), Threads (bio + pin) par lagao; Telegram ke liye 'welcome pin'",
+     None, None, "Ho jaye to: 'ho gaya pin kit'"),
+]
+
+
+def _mig_3426():
+    if state.get("mig_3426"):
+        return
+    state.put("mig_3426", True)
+    import datetime as _d
+    have = {o.get("x") for o in state.get("todo") or []}
+    day = str(_d.date.today())
+    add = [{"x": t, "t": day, "how": h} for t, a, k, h in SEED_V3426 if t not in have]
+    if add:
+        state.update("todo", lambda l: (l or []) + add, [])
+        _dirty()
+
+
 def seed_todo():
     try:
         _mig_3310()
     except Exception:
         pass
+    try:
+        _mig_3426()
+    except Exception as e:
+        from .log import log as _lg
+        _lg(f"mig_3426: {e}")
     try:
         _mig_3424()
     except Exception as e:

@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 18 Nov 2026 subah (Claude Opus 5.5, bot v3.4.25). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 18 Nov 2026 shaam (Claude Opus 5.5, bot v3.4.26). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein
@@ -74,6 +74,8 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
 - 18 Nov: v3.4.24 reach.py (FB link-card, mauka calendar, funnel, saal jaanch) + quiz bot inline share. 11 kaam pehle se bane mile.
 - 18 Nov: v3.4.25 'sawal wali post' / 'ek post do' = turant copy-layak reel ka sawal (kabhi dohra nahi), 'restart' asli, chat ki 5 galti theek.
   Quiz bot = @Sabhisaab_bot (Telegram getMe) - inline BotFather mein isi par.
+- 18 Nov shaam: v3.4.26 '<brand> <platform> post' / 'sab platform post' (Insta story photo bhi), 'pin kit', Google index jaanch
+  restart-proof (16 Nov se atki thi), traffic table par din. AdSense: review 16 Nov 16:49 se ('Getting ready'), 18 Nov mail.
 - Aage: ~mid Dec UK queue poori → Jan 2027 Search Console data dekh kar Himachal ke 20-30 page (sirf jo UK mein chala) ya UK sudhaar.
 
 ## 5. Privacy policy (https://sabhisaab.com/privacy, aakhri update 17 Nov 2026) - code wahi kare jo ye kehti hai

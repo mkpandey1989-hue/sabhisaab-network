@@ -123,7 +123,7 @@ def table(days=7):
     rows, nvid = collect(days)
     site, site_tot = site_by_brand(days)
     head = "Brand  " + "".join(f"{c:>6}" for c in COLS + ["Site"])
-    L = [head, "-" * len(head)]
+    L = [f"PICHHLE {days} DIN (aaj adhoora)" if days > 1 else "AAJ (adhoora)", head, "-" * len(head)]   # v3.4.26: din saaf
     tot = {c: None for c in COLS}
     for b in BRANDS:
         cells = []
@@ -274,7 +274,7 @@ def extra_table(days):
         src = site_sources(days)
         if src:
             w = max(len(g) for g, _ in src)
-            rows = [f"{g:<{w}} {n:>6}" for g, n in src]
+            rows = [f"PICHHLE {days} DIN" if days > 1 else "AAJ (adhoora)"] + [f"{g:<{w}} {n:>6}" for g, n in src]   # v3.4.26
             rows.append("-" * (w + 7))
             raw = sum(n for _, n in src)
             try:                                 # v3.4.7: KUL = GA4 ka asli total (baaki reports jaisa), jodna nahi

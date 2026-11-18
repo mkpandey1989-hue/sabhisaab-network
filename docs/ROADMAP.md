@@ -2054,3 +2054,22 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   5) "quora: <koi sawal" (saancha hi bhej diya) -> bekaar generic jawab bana -> ab sahi tareeka batata hai.
 - Owner ke liye: quiz bot asal mein @Sabhisaab_bot (getMe) - BotFather /setinline wahi par; AutoBot par /empty.
 - smoke 420 ✅, nakli VM par sawalpost 12 ✅ + bot hukum jaanch.
+
+## v3.4.26 (18 Nov 2026 shaam) - [OPUS 5.5] Har platform + brand ki post maangne par, pin kit, chat ki galtiyan
+- Owner: "jis platform/brand ki likhu uski de, sab platform ki jab mangu, kuch miss na ho; Instagram par jawab ka link rahe +
+  traffic ke liye aur; chatting dekh kar sab nipta do".
+- sawalpost: '<brand> <platform> post' / '<brand> post' / '<brand> sawal' / 'sab platform post'. Platform: fb group (har sawal
+  par alag pehli line, link-mana group ka note), facebook page, whatsapp, telegram, threads (500 akshar), linkedin, reddit
+  (title bina link + body alag, naye account ka note), instagram (caption bina link + 1080x1920 STORY photo + sticker link
+  utm_medium=story). Ek sawal kabhi dohra nahi; 'sab platform' = ek sawal sab saanche. Hook ab on_text ke SABSE UPAR.
+- intents.py: 'linkdin kitni post gayi' (asli ginti li_log se), 'graff/graph', 'pin kit [brand]' (Instagram bio + '✅ जवाब'
+  highlight + pin reel, FB button + pin post, YouTube channel link + post, Threads bio + pin, WhatsApp/LinkedIn/Dailymotion/
+  Quora; Telegram = 'welcome pin'), 'ho gaya pin kit'. Owner task SEED_V3426.
+- Instagram caption line: "✅ सही जवाब + फ्री कैलकुलेटर: प्रोफ़ाइल का bio लिंक या '✅ जवाब' हाइलाइट 👆" (ig_safe_text idempotent).
+- Traffic table: <pre> ke andar pehli line "PICHHLE N DIN" (18 Nov owner + Claude dono ne 7 din ke 79 ko 'aaj' samjha).
+- Google index jaanch (daily.py) 16 Nov se atki: update/restart beech mein thread maar deta tha, site_daily_day pehle hi lag
+  jaata. Ab website.daily ek waqt ek (_DAILY), aur tay samay ke baad aaj ka daily.json na ho to har 40 min dobara (max 3/din).
+- reach/intents/sawalpost: hukum mila = True lautate (tg.say dohra-rok par None -> AI ke paas chala jaata tha).
+- Chat se: 'Pahadi post' (video samjha), 'Pahadi swal' (AI baat), 'Aaj linkdin per kitni post gyi' (AI: "bot post nahi karta"),
+  'Graff' (AI: saaf likho) - sab seedhe.
+- Nakli VM: v326_test 40 ✅, reach 33 ✅; smoke 428 ✅.

@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -772,5 +772,25 @@ check(_t425.startswith("🧠 आज का सवाल") and "#9758\n" not in _
 check('if not slug or slug in ("index", "404")' in _in417.getsource(W.redirect_check), "Redirect jaanch: homepage ka '.html' / '//' jhootha alarm nahi")
 check("koi sawal" in _in417.getsource(_QD425.on_text), "Quora: '<koi sawal' par bekaar jawab nahi, sahi tareeka batata hai")
 check('"restart"' in _in417.getsource(__import__("app.bot", fromlist=["x"]).on_text), "'restart' = sach mein restart (AI ka jhootha 'ho gaya' nahi)")
+# v3.4.26: platform+brand post, pin kit, chat ki galtiyan, Google index jaanch dobara
+from app import intents as _IN426  # noqa: E402
+check(_SP425.is_ours("pahadi post") and _SP425.is_ours("pahadi swal") and _SP425.is_ours("money insta post")
+      and _SP425.is_ours("sab platform post") and not _SP425.is_ours("group post") and not _SP425.is_ours("linkedin post")
+      and not _SP425.is_ours("linkedin post kitni gayi"), "Post maangna: brand/platform/sab platform pakde, purane hukum nahi")
+check(_SP425.plats_in("pahadi fb group post") == ["fbgroup"] and _SP425.plats_in("insta story") == ["instagram"]
+      and len(_SP425.plats_in("sab platform post")) == 8, "Platform pehchaan (fb group / insta / sab 8)")
+import app.answers as _A426  # noqa: E402
+_live426 = _A426.live
+_A426.live = lambda: True
+_f426 = _SP425.fmt(_e425, "instagram")
+check(len(_f426) == 2 and "http" not in _f426[0][1] and "utm_medium=story" in _f426[1][1], "Instagram: caption bina link + story link alag")
+_r426 = _SP425.fmt(_e425, "reddit")
+_A426.live = _live426
+check(len(_r426) == 2 and "http" not in _r426[0][1] and "utm_source=reddit" in _r426[1][1], "Reddit: title (bina link) + body alag")
+check("PIN KIT" in _IN426.pin_kit("pahadi") and "utm_campaign=pahadi" in _IN426.pin_kit("pahadi"), "Pin kit: brand ke UTM ke saath")
+check(__import__("app.meta", fromlist=["x"]).IG_LINK_LINE.count("हाइलाइट") == 1,
+      "Instagram caption: bio + '✅ जवाब' highlight line")
+check("_DAILY" in dir(W) and "daily_day" in dir(W) and "site_daily_tries" in _in417.getsource(__import__("app.bot", fromlist=["x"])),
+      "Google index jaanch: restart ke baad aaj ka nateeja na ho to dobara (max 3)")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

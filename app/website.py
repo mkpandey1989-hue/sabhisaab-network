@@ -142,7 +142,29 @@ def run_script(*args, timeout=3600, extra_env=None):
     return r.returncode, out
 
 
+_DAILY = {"on": False}
+
+
+def daily_day():
+    try:
+        return json.loads((DIR / "state" / "daily.json").read_text()).get("day")
+    except Exception:
+        return None
+
+
 def daily(hold_until=None):
+    """v3.4.26: ek waqt mein ek hi (restart ke baad dobara koshish bot loop karta hai)."""
+    if _DAILY["on"]:
+        log("website daily: pehle se chal rahi - dobara nahi")
+        return
+    _DAILY["on"] = True
+    try:
+        return _daily(hold_until)
+    finally:
+        _DAILY["on"] = False
+
+
+def _daily(hold_until=None):
     """Roz ki website report. v2.0.3: hold_until (epoch) = report pehle taiyaar, Telegram par theek tay samay par
     (website repo ki daily.py TG_HOLD_UNTIL maanti hai - W4 ke baad)."""
     wait = max(0, int((hold_until or 0) - time.time()))          # v2.3.6: report 8 baje tak rukti hai - wo samay bhi jodo

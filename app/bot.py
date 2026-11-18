@@ -227,6 +227,15 @@ def scheduler():
                     state.put("site_daily_day", day)          # v2.0.3: 110 min pehle taiyari, bhejna theek tay samay par
                     hold = _at(nowt, rt["site"]).timestamp()
                     threading.Thread(target=lambda h=hold: safe(website.daily, h), daemon=True).start()
+                # v3.4.26: Google index jaanch (daily.py ~70 min) update/restart se beech mein marti thi -> 16 Nov se atki.
+                # Ab: tay samay ke baad bhi aaj ka nateeja na ho to har 40 min dobara (din mein max 3), ek waqt ek.
+                if (nowt >= _at(nowt, rt["site"]) and website.daily_day() != day and not website._DAILY["on"]
+                        and time.time() - state.get("site_daily_retry_at", 0) > 2400
+                        and (state.get("site_daily_tries") or {}).get(day, 0) < 3):
+                    state.put("site_daily_retry_at", time.time())
+                    state.update("site_daily_tries", lambda d: {day: (d or {}).get(day, 0) + 1}, {})
+                    log("website daily: aaj ka nateeja nahi - dobara chala raha hoon")
+                    threading.Thread(target=lambda: safe(website.daily), daemon=True).start()
                 if nowt.strftime("%H:%M") >= "09:05" and state.get("site_pend_day") != day:
                     state.put("site_pend_day", day)    # v3.4.8b: website ki 'PENDING KAAM' (dusri indexing suchi, /path, 14 din) band -
                     # owner: 'ek hi jagah, poora link, priority se' -> sirf idxlink (11:40). Audit/speed/faltu-file auto-doctor + Sab theek mein.
@@ -1217,6 +1226,18 @@ def on_text(text):
     if t not in BUTTONS and not t.startswith("/"):
         t = NORM.get(_norm(t), t)        # bina emoji / chhote-bade akshar bhi chalega
     t = PRO.get(t, t)
+    try:                                       # v3.4.26: sabse pehle - platform/brand post, LinkedIn ginti, graph (AI galat samajhta tha)
+        from . import sawalpost as _SPT, intents as _INT
+        _SPT.seed_once()
+        _tl0 = t.lower().strip()
+        _r_int = _INT.on_text(_tl0, run)
+        if _r_int is not None:
+            return _r_int
+        _r_sp = _SPT.on_text(_tl0)
+        if _r_sp is not None:
+            return _r_sp
+    except Exception as _e_spt:
+        log(f"sawalpost/intents: {_e_spt}")
     if t in ("/start", "/menu", "📖 Poora menu", "/help"):
         tg.say(HELP, KB)
         return tg.say("Baaki sab yahan:", tg.inline([[(x, f"mn:{i}:{j}") for j, x in enumerate(r)]
@@ -1762,14 +1783,6 @@ def on_text(text):
                       f"website /jawab: {'CHALU' if state.get('jawab_site_on') else 'BAND'} | ab tak {len(lst)} jawab\n"
                       + "\n".join(f"#{e['code']} {e['bname']}: {e['ans']}" for e in lst[-5:])
                       + "\nBadalna: 'jawab website chalu/band' | 'jawab video mein' / 'jawab website par' (dohri pushti)")
-    try:                                                                              # v3.4.25: turant sawal wali post
-        from . import sawalpost as _SPT
-        _SPT.seed_once()
-        _r_sp = _SPT.on_text(tl)
-        if _r_sp is not None:
-            return _r_sp
-    except Exception as _e_spt:
-        log(f"sawalpost text: {_e_spt}")
     if re.sub(r"[.!?।\s]+$", "", tl) in ("restart", "bot restart", "restart karo", "bot restart karo", "restart kar do"):
         tg.say("🔄 Bot restart ho raha hai - 10-20 second mein wapas (video/website ka kaam nahi rukta, queue wahi rehti hai).")
         import threading as _thr
@@ -2680,7 +2693,7 @@ CAN_DO = """📋 Main ye sab kar sakta hoon (button dabao ya aise likho):
 🔎 'indexing link' = Google ke liye aaj ke poore link | 'kitne page index nahi' = poori suchi | 'indexing ho gaya'
 🎬 'dailymotion haal' | 'dailymotion roz 3' | 'dailymotion band/chalu'
 🩺 Sab theek? | 🖥 VM | 🛡 Suraksha | 🩺 'website doctor' | 'mera kaam' (aapke kaam ki list)
-🧠 'sawal wali post' / 'ek post do' = turant copy-layak sawal post (reel wala, kabhi dohra nahi; 'pahadi sawal post')
+🧠 'sawal wali post' / 'pahadi fb group post' / 'money insta post' / 'sab platform post' = turant copy-layak post (reel wala, kabhi dohra nahi)\n📌 'pin kit' = har platform par ek baar pin/bio/highlight wala text
 📉 'funnel' = platform-wise kitne ruke | 🚀 'naye kaam haal' = FB link-card, mauka calendar, push/poll/inline ka haal
 ✍️ 'quora: <sawal>' = paste-layak Quora jawab | 👥 'group post' = banner + group ke liye post (roz 7:30 khud)
 ⏸ Pause / ▶️ Resume | ⏰ Best time | 'money ka time 13:30 kar do' | 'pahadi ki video <topic> par banao'

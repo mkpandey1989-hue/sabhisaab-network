@@ -409,7 +409,7 @@ def private_reply_fb(brand, comment_id, text, username=""):
 # ---------------- v2.0.3: Instagram suraksha (29 Oct 2026, @sunonatak par Meta ki rok ke baad) ----------------
 # Instagram caption/comment mein link click nahi hota, aur naye finance account par link + "comment LINK" + DM ka
 # pattern Meta "scam / prohibited commercial practices" maanta hai. Isliye Instagram par: koi URL nahi, sirf "link bio mein".
-IG_LINK_LINE = "🔗 Free calculator ka link bio mein 👆"
+IG_LINK_LINE = "✅ सही जवाब + फ्री कैलकुलेटर: प्रोफ़ाइल का bio लिंक या '✅ जवाब' हाइलाइट 👆"   # v3.4.26 (owner: insta par jawab ka raasta saaf + highlight)
 _URL_RX = __import__("re").compile(r"(?:https?://|www\.)\S+|\b[\w-]+\.(?:com|in|net|org|me|ly)(?:/\S*)?", __import__("re").I)
 
 
@@ -436,7 +436,8 @@ def ig_safe_text(text, add_line=True):
             line = " ".join(k for k in keep if k)
             if not line or not __import__("re").search(r"[\w\u0900-\u097f]", line):   # v3.3.10: sirf '📢' jaisi khaali line nahi
                 continue
-        if "link bio mein" in line.lower() or "comment mein link" in line.lower() or "link likh" in line.lower():
+        if ("link bio mein" in line.lower() or "comment mein link" in line.lower() or "link likh" in line.lower()
+                or "जवाब' हाइलाइट" in line):           # v3.4.26: nayi line dobara na jude
             had = True
             continue
         out.append(line)

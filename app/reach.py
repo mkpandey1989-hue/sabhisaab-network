@@ -402,6 +402,15 @@ def tick(now, run):
 
 
 def on_text(tl, run):
+    """v3.4.26: hukum mila = True (tg.say dohra-rok par None deta tha -> AI ke paas chala jaata)."""
+    r = _on_text(tl, run)
+    return None if r is _NOPE else True
+
+
+_NOPE = object()
+
+
+def _on_text(tl, run):
     tl = re.sub(r"[.!?।]+$", "", (tl or "").strip().lower()).strip()
     m = re.fullmatch(r"funnel(?: (\d{1,3}))?(?: din)?|platform (?:wise|ke hisaab se) rukna|kaun kitna ruka|kahan se aaye kitne ruke", tl)
     if m:
@@ -425,4 +434,4 @@ def on_text(tl, run):
         return tg.say(status_text())
     if tl in ("saal jaanch", "year check"):
         return tg.say(year_text())
-    return None
+    return _NOPE
