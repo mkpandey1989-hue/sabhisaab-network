@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents featureaudit").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -807,5 +807,10 @@ import app.answers as _A428, app.pipeline as _P428  # noqa: E402
 check(_A428.OPTS_KEEP >= 100 and "o" in _A428._arch_row({"opts": ["a", "b", "c", "d"]}), "Sawal ke vikalp 150 tak + archive mein (sawal post jaldi khatam nahi)")
 check(_SP425.RECYCLE_DAYS == 14 and "_recent" in _in417.getsource(_SP425.candidates), "Usi platform par 14 din baad sawal dobara chal sakta")
 check("FileNotFoundError" in _in417.getsource(_P428.upload) and callable(_P428.sweep_broken), "Mit chuki video: laal galti nahi, 'kharab' + suchi se hati")
+# v3.4.29: 'sab features' - har feature ka asli haal
+from app import featureaudit as _FA429  # noqa: E402
+_r429 = _FA429.checks()
+check(len(_r429) >= 35 and all(r[2] in ("✅", "⬜", "🔑", "⏳", "🛡️") for r in _r429) and "SAB FEATURES" in _FA429.text()
+      and not any(k in _FA429.text().lower() for k in ("aiza", "token=", "secret=")), "'sab features': 35+ feature, 5 haal, koi secret nahi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

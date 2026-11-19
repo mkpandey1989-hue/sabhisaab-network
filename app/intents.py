@@ -71,6 +71,13 @@ def pin_kit(brand=None):
 
 def on_text(tl, run=None):
     tl = re.sub(r"[.!?।]+$", "", (tl or "").strip().lower()).strip()
+    try:                                                    # v3.4.29: 'sab features' - har feature ka asli haal
+        from . import featureaudit
+        if featureaudit.on_text(tl):
+            return True
+    except Exception as ex:
+        from .log import log
+        log(f"featureaudit: {ex}")
     if re.search(r"\blinked?\s?in\b|\blinkdin\b|\blinkden\b", tl) and re.search(r"kitn|gayi|gyi|gai\b|hui|huyi|post gayi", tl):
         tg.say(li_count_text())
         return True

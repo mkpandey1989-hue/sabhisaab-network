@@ -2096,3 +2096,11 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   video, file safai mein mit chuki): upload() ab FileNotFoundError par job 'kharab' + saaf sandesh; pipeline.sweep_broken()
   Pending dabane par aur auto-doctor 05:40 mein.
 - smoke 435 ✅, v328_test 5 ✅, v327/v326/reach dobara ✅.
+
+## v3.4.29 (19 Nov 2026 subah) - [OPUS 5.5] 'sab features' - har feature ka asli haal
+- Owner: "kaun se feature band, kaun approval ke bina ruke, kisme permission/set nahi - sab check karo".
+- NAYA app/featureaudit.py: 39 feature (traffic, comment, Google, khud-dekhbhaal, kamai) - VM ka state + secrets dekh kar:
+  ✅ chal raha | ⬜ band (ek hukum) | 🔑 key/login nahi | ⏳ intezaar | 🛡️ jaanboojh kar band. Jo nahi chal rahe unke saath
+  'kyun + kya karna'. Koi secret ka text nahi. Hukum: 'sab features' / 'feature audit' / 'kya band hai'.
+- Sudhaar (owner ko): vault = emergency web panel (VM ke andar, Telegram band ho tab), document locker NAHI.
+- smoke 437 ✅.

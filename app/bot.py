@@ -2700,6 +2700,7 @@ CAN_DO = """📋 Main ye sab kar sakta hoon (button dabao ya aise likho):
 🎬 'dailymotion haal' | 'dailymotion roz 3' | 'dailymotion band/chalu'
 🩺 Sab theek? | 🖥 VM | 🛡 Suraksha | 🩺 'website doctor' | 'mera kaam' (aapke kaam ki list)
 🧠 'sawal wali post' / 'pahadi fb group post' / 'money insta post' / 'sab platform post' = turant copy-layak post (reel wala, kabhi dohra nahi)\n📌 'pin kit' = har platform par ek baar pin/bio/highlight wala text
+🧩 'sab features' = kaun sa feature chal raha / band / key nahi / intezaar - asli haal
 📉 'funnel' = platform-wise kitne ruke | 🚀 'naye kaam haal' = FB link-card, mauka calendar, push/poll/inline ka haal
 ✍️ 'quora: <sawal>' = paste-layak Quora jawab | 👥 'group post' = banner + group ke liye post (roz 7:30 khud)
 ⏸ Pause / ▶️ Resume | ⏰ Best time | 'money ka time 13:30 kar do' | 'pahadi ki video <topic> par banao'
