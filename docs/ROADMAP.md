@@ -2137,3 +2137,12 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   pehli jaanch ka nateeja HAMESHA (kitne comment dekhe, kitne chhupe, galti), aur 'comment wapas' bhi yahi deta.
   API mein chhupa na mile to Instagram ka apna filter: Hidden words -> Hide comments / Advanced comment filtering band.
 - smoke 444 ✅.
+
+## v3.4.33 (19 Nov 2026 10:55) - [OPUS 5.5] 'Mat daalo' ke baad doosri video
+- Owner: "Mat daalo bolu to pooche doosri banau - turant pooche ya automatically kare". Pehle sirf likhta tha
+  '🎬 Abhi video dabayein' (wo bhi slot ke liye nahi, 30 min baad ka).
+- Ab (pipeline.ask_replace/replace_answer/replace_tick): roz ke schedule wali video 'Mat daalo' -> turant sandesh
+  '🔁 Haan, abhi banao' / '⏭ Nahi, slot khaali'. 10 min jawab nahi -> usi slot (same samay) ki nayi video khud banti hai
+  (aakhri slot = sawal/puzzle wali), wo bhi manzoori ke liye aati hai (pehle jaisa niyam: 20 min pehle tak jawab nahi to Thumb 1).
+  Slot 25 min se kam door ho to poochhta nahi (banne mein 10-15 min).
+- smoke 445 ✅.

@@ -855,5 +855,21 @@ check(_QB432.cliche("एक तालाब में 5 मेंढक बै�
       "Mendhak-faisla jaisi ghisi-piti/bachkani paheli: bank, Gemini-jaanch aur video audit teeno mein ruki")
 check("uh_first_done" in _in417.getsource(_RC432 := __import__("app.reach", fromlist=["x"]).tick) and "uh_last" in _in417.getsource(_G430.unhide_answers),
       "Chhupe-comment jaanch: install ke baad nateeja hamesha sandesh mein (chup nahi), galti bhi dikhti")
+# v3.4.33: 'Mat daalo' ke baad poochhta 'doosri banau?' - 10 min jawab nahi to khud
+import app.pipeline as _PP433, datetime as _dt433  # noqa: E402
+_said433, _ran433 = [], []
+_oldsay433 = tg.say
+tg.say = lambda t, *a, **k: _said433.append(t)
+state.put("replace_ask", {})
+_slot433 = (_PP433.now() + _dt433.timedelta(hours=2)).isoformat()
+_r433 = _PP433.ask_replace("t433", {"brand": "sunonatak", "slot": _slot433, "reason": "roz ka schedule"})
+_near433 = _PP433.ask_replace("t433b", {"brand": "sunonatak", "slot": (_PP433.now() + _dt433.timedelta(minutes=10)).isoformat(),
+                                        "reason": "roz ka schedule"})
+_d433 = state.get("replace_ask"); _d433["t433"]["at"] = 0; state.put("replace_ask", _d433)
+_PP433.replace_tick(lambda fn, *a: _ran433.append((fn.__name__, a)))
+tg.say = _oldsay433
+check(_r433 == "asked" and not _near433 and any("Doosri video banau" in x for x in _said433)
+      and _ran433 and _ran433[0][0] == "prepare" and _ran433[0][1][0] == "sunonatak" and _ran433[0][1][1] == _slot433
+      and not state.get("replace_ask"), "'Mat daalo' -> 'doosri banau?' button; 10 min jawab nahi to usi slot ki nayi video khud")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

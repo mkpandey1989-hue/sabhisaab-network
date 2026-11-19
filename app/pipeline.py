@@ -590,6 +590,8 @@ def reject(jid):
                 extra += f"\n⚠️ Dailymotion copy nahi miti ({str(e)[:60]})"
         if job.get("status") != "queued":
             shutil.rmtree(job.get("meta", ""), ignore_errors=True)
+    if job and ask_replace(jid, job):
+        return "🗑 Video hata di." + extra
     return "🗑 Video hata di. Is slot ke liye nayi video chahiye to 🎬 Abhi video dabayein." + extra
 
 
@@ -1226,6 +1228,10 @@ def tick(run, run_up=None):
     """Har minute: schedule ke hisaab se video banao / upload karo. run(fn,*a) = worker queue."""
     if state.get("paused"):
         return
+    try:
+        replace_tick(run)
+    except Exception as e:
+        log(f"replace tick: {e}")
     t = now()
     today = str(t.date())
     made = state.get("made_today", {})
@@ -1456,3 +1462,71 @@ def bank_refill(max_new=3):
             except Exception as e:
                 log(f"bank_refill {b}: {e}")
     return made
+
+
+# ---------------- v3.4.33 (owner 19 Nov: "'Mat daalo' bolu to pooche doosri banau - turant pooche ya khud kare") ----------------
+REPLACE_WAIT_MIN = 10      # itne minute jawab na aaye to khud nayi
+REPLACE_MIN_LEAD = 25      # slot mein isse kam minute bache to nayi nahi (banne mein ~10-15 min)
+
+
+def _was_puzzle_slot(brand, slot_dt):
+    """Roz ke schedule mein aakhri slot = sawal/puzzle wali reel (tick jaisa hi niyam)."""
+    try:
+        sl = [x.strip() for x in str(schedule().get(brand, "")).split(",") if x.strip()]
+        from .config import QUIZ_SLOT
+        hh = slot_dt.strftime("%H:%M")
+        return state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hh or (len(sl) > 1 and hh == sl[-1]))
+    except Exception:
+        return False
+
+
+def ask_replace(jid, job):
+    """Reject ke baad: slot abhi door hai to poochho 'doosri banau?' (button). Jawab na aaye to REPLACE_WAIT_MIN baad khud."""
+    try:
+        slot = datetime.datetime.fromisoformat(job["slot"])
+    except Exception:
+        return ""
+    lead = (slot - now()).total_seconds() / 60
+    if job.get("reason") not in ("roz ka schedule", "schedule") or lead < REPLACE_MIN_LEAD:
+        return ""
+    state.update("replace_ask", lambda d: {**(d or {}), jid: {"at": time.time(), "brand": job["brand"], "slot": job["slot"]}}, {})
+    tg.say(f"🔁 {BRANDS[job['brand']]['name']} ka {slot.strftime('%H:%M')} wala slot khaali ho gaya. Doosri video banau?\n"
+           f"({REPLACE_WAIT_MIN} min mein jawab na aaya to main khud nayi bana dunga - wo bhi manzoori ke liye aayegi.)",
+           tg.inline([[("🔁 Haan, abhi banao", f"rp:{jid}"), ("⏭ Nahi, slot khaali", f"rx:{jid}")]]))
+    return "asked"
+
+
+def replace_answer(jid, yes, run):
+    d = state.get("replace_ask") or {}
+    it = d.pop(jid, None)
+    state.put("replace_ask", d)
+    if not it:
+        return tg.say("Ye sawaal purana ho gaya (ya nayi video pehle hi ban rahi hai).")
+    if not yes:
+        return tg.say("👍 Theek hai, ye slot khaali rahega.")
+    return _make_replacement(it, run)
+
+
+def _make_replacement(it, run):
+    slot = datetime.datetime.fromisoformat(it["slot"])
+    if (slot - now()).total_seconds() / 60 < REPLACE_MIN_LEAD - 10:
+        return tg.say(f"⏰ {slot.strftime('%H:%M')} ka slot ab bahut paas hai - nayi video samay par nahi banegi. Slot khaali.")
+    b = it["brand"]
+    if _was_puzzle_slot(b, slot):
+        run(prepare, b, it["slot"], "roz ka schedule", None, "short", "__puzzle__")
+    else:
+        run(prepare, b, it["slot"], "roz ka schedule")
+    return tg.say(f"🎬 {BRANDS[b]['name']}: {slot.strftime('%H:%M')} ke liye nayi video ban rahi hai (pehle wali ki jagah).")
+
+
+def replace_tick(run):
+    """Har minute: jinka jawab REPLACE_WAIT_MIN tak nahi aaya, unki jagah khud nayi."""
+    d = state.get("replace_ask") or {}
+    due = [j for j, it in d.items() if time.time() - float(it.get("at", 0)) >= REPLACE_WAIT_MIN * 60]
+    if not due:
+        return
+    for j in due:
+        it = d.pop(j)
+        state.put("replace_ask", d)
+        tg.say(f"⏱ {REPLACE_WAIT_MIN} min mein jawab nahi aaya - {BRANDS[it['brand']]['name']} ke liye khud nayi video bana raha hoon.")
+        _make_replacement(it, run)

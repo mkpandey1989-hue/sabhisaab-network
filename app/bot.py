@@ -3723,6 +3723,8 @@ def on_callback(cb):
         return run(pipeline.new_thumbs, rest)
     if kind == "no":
         return tg.say(pipeline.reject(rest))
+    if kind in ("rp", "rx"):                       # v3.4.33: 'Mat daalo' ke baad - doosri banau?
+        return pipeline.replace_answer(rest, kind == "rp", run)
     if kind == "lg":
         return run(do_login, rest)
     if kind == "th":
