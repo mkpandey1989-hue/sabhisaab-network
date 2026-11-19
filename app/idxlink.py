@@ -145,19 +145,23 @@ def message(rows, day=None, stale=False, sm_line=""):
           "1) Upar ka link <b>dabao</b> → copy ho jayega",
           "2) Search Console kholo: https://search.google.com/search-console → upar <b>'Inspect any URL'</b> dabbe mein paste → Enter",
           "3) <b>REQUEST INDEXING</b> dabao → 'Indexing requested' ✅",
-          "'Quota exceeded' aaye to baaki kal. Ho jaye to likhein: <b>indexing ho gaya</b> (ye page 7 din dobara nahi aayenge).",
+          "'Quota exceeded' aaye to baaki kal. Ho jaye to neeche <b>✅ Maine Request Indexing kar di</b> dabao - ye page 7 din dobara nahi aayenge "
+          "(Google 2-14 din leta hai; index hote hi bot khud suchi se hata deta hai).",
           "Bing + IndexNow bot khud karta hai."]
     return "\n".join(L)
 
 
-def send_html(text):
+def send_html(text, markup=None):
     try:
         from . import updater
         updater.log_bot(text)
     except Exception:
         pass
     try:
-        r = tg.call("sendMessage", {"chat_id": tg._chat(), "text": text[:4000], "parse_mode": "HTML", "disable_web_page_preview": "true"})
+        _d = {"chat_id": tg._chat(), "text": text[:4000], "parse_mode": "HTML", "disable_web_page_preview": "true"}
+        if markup:
+            _d["reply_markup"] = json.dumps(markup)
+        r = tg.call("sendMessage", _d)
         if r and (not isinstance(r, dict) or r.get("ok", True)):
             return r
     except Exception as e:
@@ -195,7 +199,8 @@ def run(manual=False, extra_new=()):
             return None
         state.put("idx_sent_day", str(today))
     state.put("idx_last", {"day": str(today), "urls": [u for u, _ in rows]})
-    send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line))
+    send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line),
+              markup=tg.inline([[("✅ Maine Request Indexing kar di", "ix:done")]]))
     return None
 
 
@@ -288,12 +293,25 @@ def on_text(tl, run_bg):
             and any(w in tl for w in ("kitne", "kitna", "kaun", "kon", "list", "suchi", "report", "batao", "page"))
             and "ho gaya" not in tl):
         return run_bg(lambda: send_html(not_indexed_text()))     # v3.4.17: seedha jawab - ginti + poore link
-    if tl in ("indexing ho gaya", "index ho gaya", "gsc ho gaya", "request indexing ho gaya", "ho gaya indexing"):
-        last = state.get("idx_last") or {}
-        note_given(last.get("urls") or [])
-        state.put("idx_done", {"day": str(datetime.date.today()), "n": len(last.get("urls") or [])})
-        return tg.say(f"👍 Note kiya ({len(last.get('urls') or [])} link). Ye 7 din dobara nahi aayenge. Google 2-14 din leta hai - "
-                      "bot roz jaanch kar index hote hi suchi se hata dega.")
+    import re as _re
+    if (tl in ("indexing ho gaya", "index ho gaya", "gsc ho gaya", "request indexing ho gaya", "ho gaya indexing")
+            or (_re.search(r"\b(index|indexing|gsc)\b", tl) and _re.search(r"ho ?gaya|ho ?gya|kar (di|diya|dia)|kr (di|diya)|done", tl)
+                and not _re.search(r"kitn|\bkya\b|kaun|\bkon\b|kab\b|kyu", tl))):
+        return mark_done()
+    return _on_text2(tl)
+
+
+def mark_done():
+    """'indexing ho gaya' / button '✅ Maine Request Indexing kar di' -> aakhri suchi ke link 7 din dobara nahi."""
+    last = state.get("idx_last") or {}
+    note_given(last.get("urls") or [])
+    state.put("idx_done", {"day": str(datetime.date.today()), "n": len(last.get("urls") or [])})
+    tg.say(f"👍 Note kiya ({len(last.get('urls') or [])} link). Ye 7 din dobara nahi aayenge. Google 2-14 din leta hai - "
+           "bot roz jaanch kar index hote hi suchi se hata dega.")
+    return True
+
+
+def _on_text2(tl):
     if tl in ("indexing link band", "indexing link chalu"):
         state.put("idx_on", tl.endswith("chalu"))
         return tg.say("🔎 Roz 11:40 ki indexing suchi: " + ("CHALU" if tl.endswith("chalu") else "BAND"))

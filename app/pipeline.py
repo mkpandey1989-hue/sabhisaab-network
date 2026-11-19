@@ -749,7 +749,7 @@ def _fb_photo_daily(brand, meta):
     try:
         pid = M.post_fb_photo(brand, th, cap)
         state.update("fb_photo_day", lambda d_: {**(d_ or {}), brand: day}, {})
-        return f"FB photo-post {str(pid)[:20]}"
+        return f"FB photo-post https://www.facebook.com/{pid}"
     except Exception as e:
         return f"FB photo-post nahi ({str(e)[:60]})"
 
@@ -1018,7 +1018,7 @@ def upload(jid, pre=False):
                 raise RuntimeError("Meta token nahi (/meta)")
             def _fb():
                 ids["facebook"] = M.post_facebook(brand, vpath, audit.description(meta, "facebook", "reels"))
-                return f"FB page: {M.brand_info(brand)['page_name']}"
+                return f"https://www.facebook.com/reel/{ids['facebook']}"
             _locked_post(brand, "facebook", _sig(meta), done, errs, _fb)
         except Exception as e:
             errs["facebook"] = str(e)[:200]

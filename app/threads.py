@@ -142,7 +142,14 @@ def post_text(brand, text, link=None):
         raise RuntimeError(f"Threads publish: {p.get('error', {}).get('message', p)}")
     state_id = p["id"]
     _threads_count(brand)
-    return f"https://www.threads.net/@{v['username']}#{state_id}"
+    lk = f"https://www.threads.net/@{v['username']}"
+    try:                                   # v3.4.31: profile nahi, POST ka poora link (owner: 'adhure link')
+        pl = requests.get(f"{API}/{state_id}", timeout=20, params={"fields": "permalink", "access_token": v["token"]}).json().get("permalink")
+        if pl and pl.startswith("http"):
+            lk = pl.split("#")[0]
+    except Exception:
+        pass
+    return f"{lk}#{state_id}"
 
 
 

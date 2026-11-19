@@ -138,6 +138,55 @@ def _may_hide(platform, b, c, typ):
     return typ == "abuse"
 
 
+def unhide_answers(brands=None):
+    """v3.4.31 (owner: 'Unhide karta hoon phir chhup jaata hai'): pichhle 8 reel/post ke CHHUPE comment dekho - jo quiz-jawab
+    jaisa ho (A/B/C/D, 'Khet ❤️' ...) aur link/promo nahi, use WAPAS dikhao + hidden_once mein (bot dobara kabhi nahi chhupayega).
+    -> [(brand, platform, text)]"""
+    from . import meta as M
+    out = []
+    for b in (brands or BRANDS):
+        bi = M.brand_info(b) or {}
+        tok = bi.get("page_token")
+        if not tok:
+            continue
+        try:
+            if bi.get("ig_id"):
+                media = M._get(f"/{bi['ig_id']}/media", tok, fields="id,comments.limit(50){id,text,hidden}", limit=8).get("data", [])
+                for md in media:
+                    for c in (md.get("comments") or {}).get("data", []):
+                        if c.get("hidden") and not _may_hide("ig", b, {"id": c["id"], "text": c.get("text", ""), "media": md["id"]}, "spam"):
+                            M._post(f"/{c['id']}", tok, hide="false")
+                            state.update("hidden_once", lambda l, i=c["id"]: ((l or []) + [i])[-3000:], [])
+                            out.append((b, "ig", c.get("text", "")[:60]))
+        except Exception as e:
+            log(f"unhide ig {b}: {e}")
+        try:
+            if bi.get("page_id") and fb_perm_ok(b):
+                posts = M._get(f"/{bi['page_id']}/posts", tok, fields="id,comments.limit(50).filter(stream){id,message,is_hidden}",
+                               limit=8).get("data", [])
+                for p_ in posts:
+                    for c in (p_.get("comments") or {}).get("data", []):
+                        if c.get("is_hidden") and not _may_hide("fb", b, {"id": c["id"], "text": c.get("message", ""), "media": p_["id"]}, "spam"):
+                            M._post(f"/{c['id']}", tok, is_hidden="false")
+                            state.update("hidden_once", lambda l, i=c["id"]: ((l or []) + [i])[-3000:], [])
+                            out.append((b, "fb", c.get("message", "")[:60]))
+        except Exception as e:
+            log(f"unhide fb {b}: {e}")
+    if out:
+        diary.add("setting", "chhupe quiz-jawab wapas dikhaye: " + "; ".join(f"{x[1]} {x[2]}" for x in out)[:300])
+    return out
+
+
+def unhide_text():
+    r = unhide_answers()
+    if not r:
+        return ("✅ Pichhli 8 reel/post par koi chhupa hua quiz-jawab nahi mila. (Gaali/link wale chhupe rehte hain.)\n"
+                "Agar app mein abhi bhi 'Hidden by you' dikhe to wo Instagram ka apna filter hai: Profile → ☰ → "
+                "Hidden words → 'Hide comments' / 'Advanced comment filtering' band karein.")
+    return ("✅ Ye chhupe comment WAPAS dikha diye (bot inhe dobara kabhi nahi chhupayega):\n"
+            + "\n".join(f"• {BRANDS[b]['name']} {p.upper()}: \"{t}\"" for b, p, t in r))
+
+
 def _fallback_reply(b, c):
     """Gemini na chale to bhi chhota, vinamra jawab (spam/link/gaali jaisa ho to nahi)."""
     t = (c.get("text") or "").lower()
@@ -193,7 +242,10 @@ def _handle_comment(platform, b, c):
             else:
                 from . import meta as M
                 bi = M.brand_info(b)
-                M._post(f"/{c['id']}", bi["page_token"], hide="true")
+                if platform == "ig":
+                    M._post(f"/{c['id']}", bi["page_token"], hide="true")
+                else:
+                    M._post(f"/{c['id']}", bi["page_token"], is_hidden="true")
             diary.add("setting", f"{typ} comment hataya ({platform} {BRANDS[b]['name']}): {c['text'][:60]}")
             tg.say(f"🙈 {BRANDS[b]['name']} ({platform.upper()}) par ek comment chhupaya ({'gaali' if typ == 'abuse' else 'spam/link'}):\n"
                    f"\"{c['text'][:200]}\"\nGalat laga to app mein comment → 'View hidden comments' → Unhide. "
@@ -750,7 +802,7 @@ def news_digest():
         key = f"n{today}:{i}"
         state.update("news_posts", lambda d, k=key, v={"brand": p["brand"], "text": p.get("text", ""), "link": items[i]["link"]}:
                      {**(d or {}), k: v}, {})
-        lines.append(f"• {BRANDS[p['brand']]['name']}: {p.get('text', '')}\n  {items[i]['link'][:80]}")
+        lines.append(f"• {BRANDS[p['brand']]['name']}: {p.get('text', '')}\n  {items[i]['link']}")
         rows.append([(f"📢 Post: {BRANDS[p['brand']]['name']}", f"np:{key}"), ("🎬 Video", f"nv:{key}")])
     if rows:
         tg.alert("green", "📰 Aaj ki kaam ki khabar (source ke saath, aapki manzoori se):\n" + "\n".join(lines), tg.inline(rows))

@@ -92,6 +92,12 @@ def on_text(tl, run=None):
         b = brand_in(tl)
         tg.say(pin_kit(b))
         return True
+    if (tl in ("comment wapas", "comment unhide", "unhide", "unhide comment", "chhupe comment", "hidden comment", "comment wapas lao")
+            or (re.search(r"comment", tl) and re.search(r"hide|chhup|chup|hat (gaya|gya|ja)|hat ja", tl))):
+        from . import growth
+        tg.say("🔍 Pichhli 8 reel/post ke chhupe comment dekh raha hoon...")
+        (run or (lambda f: f()))(lambda: tg.say(growth.unhide_text()))
+        return True
     if tl in ("ho gaya pin kit", "pin kit ho gaya"):
         state.put("pin_kit_done", str(datetime.date.today()))
         try:

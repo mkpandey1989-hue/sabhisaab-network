@@ -820,5 +820,32 @@ check(not _G430._may_hide("ig", "pahadi", {"id": "t430a", "text": "Khet ❤️"}
 _G430._save_seen(["t430x", "t430y"]); _G430._save_seen(["t430y", "t430z"])
 check(state.get("seen_comments")[-3:] == ["t430x", "t430y", "t430z"] and "list(seen)[-2000:]" not in _in417.getsource(_G430),
       "Comment seen-list kram se judti hai (YT/FB/IG ek doosre ko nahi mitate)")
+# v3.4.31: chhupe quiz-jawab apne aap wapas, indexing 'ho gaya' button, poore link (FB reel/photo, Threads post, khabar)
+import app.meta as _M431, app.idxlink as _IX431, app.pipeline as _PL431, app.threads as _TH431  # noqa: E402
+from app import tg  # noqa: E402
+_calls431 = []
+_old431 = (_M431.brand_info, _M431._get, _M431._post)
+_M431.brand_info = lambda b: {"page_token": "x", "ig_id": "ig1"} if b == "pahadi" else {}
+_M431._get = lambda path, tok, **k: {"data": [{"id": "m1", "comments": {"data": [
+    {"id": "c1", "text": "Khet ❤️", "hidden": True}, {"id": "c2", "text": "earn money http://x.co", "hidden": True},
+    {"id": "c3", "text": "B", "hidden": False}]}}]}
+_M431._post = lambda path, tok, **k: _calls431.append((path, k)) or {"success": True}
+_r431 = _G430.unhide_answers(["pahadi"])
+_M431.brand_info, _M431._get, _M431._post = _old431
+check(_calls431 == [("/c1", {"hide": "false"})] and "c1" in (state.get("hidden_once") or [])
+      and not _G430._may_hide("ig", "pahadi", {"id": "c1", "text": "lol spam"}, "abuse"),
+      "Chhupa quiz-jawab ('Khet ❤️') apne aap WAPAS + dobara kabhi nahi chhupega; link-spam chhupa hi rehta")
+_said431 = []
+_oldsay431 = tg.say
+tg.say = lambda t, *a, **k: _said431.append(t)
+state.put("idx_last", {"urls": ["https://sabhisaab.com/a1"]})
+_ok431 = _IX431.on_text("ho gaya gsc request indexing", lambda f: f()) is True and _IX431.on_text("kitne page index ho gaye", lambda f: None) is not True
+tg.say = _oldsay431
+check(_ok431 and "https://sabhisaab.com/a1" in (state.get("idx_given") or {}) and "ix:done" in _in417.getsource(_IX431.run),
+      "Indexing: button '✅ Maine Request Indexing kar di' + 'ho gaya gsc request indexing' samajhta; sawaal par galat nishaan nahi")
+_src431 = _in417.getsource(_PL431)
+check("https://www.facebook.com/reel/" in _src431 and "FB photo-post https://www.facebook.com/" in _src431
+      and "permalink" in _in417.getsource(_TH431.post_text) and "['link'][:80]" not in _in417.getsource(_G430),
+      "Har post ka POORA link (FB reel, FB photo-post, Threads post, khabar) - adhoora nahi")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

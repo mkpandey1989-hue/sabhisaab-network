@@ -2113,3 +2113,15 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Karan 2: seen_comments - YT/FB/IG ki teeno jaanch poori list overwrite karti thi + list(set)[-2000:] beqram kaat'ti thi ->
   purane comment 'naye' ban kar dobara jaanche/chhupaye/jawab diye jaate. Ab _save_seen sirf naye id jodta hai (kram, 6000 tak).
 - Naya: hidden_once - jise ek baar chhupaya, aapne Unhide kiya to DOBARA kabhi nahi. Har chhupane par owner ko Telegram sandesh.
+
+## v3.4.31 (19 Nov 2026 10:30) - [OPUS 5.5] Owner: "Unhide karta hoon phir hide; adhure link; index wale bhi dikha raha"
+- CHHUPE COMMENT: growth.unhide_answers() - pichhli 8 IG reel + FB post ke chhupe comment padhta hai (IG 'hidden', FB 'is_hidden');
+  jo quiz-jawab jaisa ho (link/promo nahi) use API se WAPAS dikhata + hidden_once (dobara kabhi nahi). Install ke 5 min mein pehli
+  baar, phir har 3 ghante (reach.tick). Hukum: 'comment wapas' / 'unhide' / 'comment hide ...'. FB comment ab sahi param
+  is_hidden se chhupta (pehle IG wala 'hide' bhejta tha).
+- ADHURE LINK: FB reel ab 'FB page: <naam>' nahi, poora https://www.facebook.com/reel/<id>; FB photo-post ka poora link (pehle
+  20 akshar ka id); Threads ka POST permalink (pehle profile); khabar (news) ka link 80 akshar par kata tha - ab poora.
+- INDEXING: suchi ke saath button '✅ Maine Request Indexing kar di' (owner 2 Nov se 'indexing ho gaya' likhte hi nahi the -> roz
+  wahi page). 'ho gaya gsc request indexing' jaise vakya bhi; 'kitne index ho gaye' jaisa sawaal galti se nishaan nahi lagata.
+  Suchi mein sirf wahi jo Google URL Inspection (aaj taaza) ke hisaab se index NAHI - "Request" karna index hona nahi; Google 2-14 din.
+- smoke 442 ✅.

@@ -3118,6 +3118,9 @@ def on_callback(cb):
     data = cb.get("data", "")
     tg.answer(cb["id"])
     kind, _, rest = data.partition(":")
+    if kind == "ix":                               # v3.4.31: indexing suchi ka button (owner 'indexing ho gaya' likhte nahi the)
+        from . import idxlink as _IX
+        return _IX.mark_done()
     if kind == "tf":                               # v3.4.1: tracking fix (dohri pushti)
         from . import trackfix as _TF
         return _TF.on_callback(rest, run)
