@@ -2104,3 +2104,12 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   'kyun + kya karna'. Koi secret ka text nahi. Hukum: 'sab features' / 'feature audit' / 'kya band hai'.
 - Sudhaar (owner ko): vault = emergency web panel (VM ke andar, Telegram band ho tab), document locker NAHI.
 - smoke 437 ✅.
+
+## v3.4.30 (19 Nov 2026 10:15) - [OPUS 5.5] Asli quiz-jawab comment chhup raha tha (bug)
+- Owner: Pahadi reel par 'Khet ❤️' (sahi jawab, repost karne wale ka) - Instagram mein 'Hidden by you'; Unhide ke baad phir chhup gaya.
+- Karan 1: AI (Gemini) ne naya account dekh kar 'spam/bot' maana -> bot ne hide kiya. Ab niyam (growth._may_hide):
+  quiz-jawab (A/B/C/D, chhota 1-4 shabd, ❤️🙏👍, reel ke option ka shabd) KABHI nahi chhupega; 'spam' sirf tab jab sach mein
+  link/promo shabd (BAD_WORDS) ho; gaali (abuse) wale chhupte rahenge.
+- Karan 2: seen_comments - YT/FB/IG ki teeno jaanch poori list overwrite karti thi + list(set)[-2000:] beqram kaat'ti thi ->
+  purane comment 'naye' ban kar dobara jaanche/chhupaye/jawab diye jaate. Ab _save_seen sirf naye id jodta hai (kram, 6000 tak).
+- Naya: hidden_once - jise ek baar chhupaya, aapne Unhide kiya to DOBARA kabhi nahi. Har chhupane par owner ko Telegram sandesh.

@@ -812,5 +812,13 @@ from app import featureaudit as _FA429  # noqa: E402
 _r429 = _FA429.checks()
 check(len(_r429) >= 35 and all(r[2] in ("✅", "⬜", "🔑", "⏳", "🛡️") for r in _r429) and "SAB FEATURES" in _FA429.text()
       and not any(k in _FA429.text().lower() for k in ("aiza", "token=", "secret=")), "'sab features': 35+ feature, 5 haal, koi secret nahi")
+# v3.4.30: asli quiz-jawab comment kabhi nahi chhupta; seen list beqram nahi katti
+import app.growth as _G430  # noqa: E402
+check(not _G430._may_hide("ig", "pahadi", {"id": "t430a", "text": "Khet ❤️"}, "spam")
+      and not _G430._may_hide("ig", "pahadi", {"id": "t430b", "text": "D"}, "abuse")
+      and _G430._may_hide("ig", "pahadi", {"id": "t430c", "text": "earn 5000 daily http://x.co"}, "spam"), "Quiz-jawab comment ('Khet ❤️', 'D') kabhi nahi chhupta; link-spam chhupta")
+_G430._save_seen(["t430x", "t430y"]); _G430._save_seen(["t430y", "t430z"])
+check(state.get("seen_comments")[-3:] == ["t430x", "t430y", "t430z"] and "list(seen)[-2000:]" not in _in417.getsource(_G430),
+      "Comment seen-list kram se judti hai (YT/FB/IG ek doosre ko nahi mitate)")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

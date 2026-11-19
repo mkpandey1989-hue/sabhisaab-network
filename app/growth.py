@@ -1,6 +1,7 @@
 """Growth kaam: roz ke tyohaar/event idea, comment ka jawab (aapki manzoori se), views report."""
 import datetime
 import json
+import re
 import time
 from . import tg, state, diary, youtube
 from .brain import ask_gemini
@@ -82,6 +83,61 @@ def _cstat(key, n=1, err=""):
 BAD_WORDS = ("http", "www.", "bit.ly", "whatsapp me", "dm me", "earn", "crypto", "loan chahiye", "call me")
 
 
+SEEN_KEEP = 6000
+
+
+def _save_seen(new_ids):
+    """v3.4.30: pehle har jaanch poori list overwrite karti thi (list(set)[-2000:] = BEQRAM kaat) - YT/FB/IG ki jaanch ek
+    doosre ke naye id mita deti thi, aur purane comment dobara 'naye' ban kar phir chhupaye/jawab diye jaate the.
+    Ab sirf naye id JODTE hain (kram ke saath), purane kabhi beqram nahi katte."""
+    new_ids = [i for i in new_ids if i]
+    if not new_ids:
+        return
+    def up(l):
+        l = list(l or [])
+        have = set(l)
+        l += [i for i in new_ids if i not in have]
+        return l[-SEEN_KEEP:]
+    state.update("seen_comments", up, [])
+
+
+ANSWER_RX = re.compile(r"^\s*(?:[abcd]|option\s*[abcd]|[abcd]\s*[).:-]\s*\S{0,20}|[abcd]\s+\S{1,20})\s*\W*$", re.I)
+
+
+def _quizy(platform, b, c, loose=True):
+    """v3.4.30: quiz ka jawab jaisa chhota comment (A/B/C/D, 'Khet ❤️', 'खेत', '15') - ye KABHI spam/abuse nahi."""
+    t = (c.get("text") or "").strip()
+    if not t or any(w in t.lower() for w in BAD_WORDS):
+        return False
+    if ANSWER_RX.match(t) or any(x in t for x in ("❤", "🙏", "👍", "👏", "😍", "🔥")):
+        return True
+    if loose and len(t) <= 30 and len(re.findall(r"\w+", t)) <= 4:
+        return True
+    try:
+        vid = c.get("video") or c.get("media") or ""
+        opts = []
+        for e in reversed(state.get("answer_key") or []):
+            if vid and vid in (str(e.get("ig")), str(e.get("fb")), str(e.get("vid")), str(e.get("yt"))):
+                opts = [str(o) for o in (e.get("opts") or [])]
+                break
+        low = t.lower()
+        return any(o and o.lower() in low for o in opts)
+    except Exception:
+        return False
+
+
+def _may_hide(platform, b, c, typ):
+    """v3.4.30: chhupane ki seema - (1) quiz-jawab kabhi nahi, (2) jise ek baar chhupaya aur aapne Unhide kiya - dobara kabhi
+    nahi, (3) 'spam' sirf tab jab sach mein link/promo shabd ho (AI ke andaze par naya account 'bot' nahi maana jayega)."""
+    if c["id"] in set(state.get("hidden_once") or []):
+        return False
+    if _quizy(platform, b, c, loose=(typ == "spam")):     # gaali wale chhote comment (2-3 shabd) phir bhi chhup sakte
+        return False
+    if typ == "spam":
+        return any(w in (c.get("text") or "").lower() for w in BAD_WORDS)
+    return typ == "abuse"
+
+
 def _fallback_reply(b, c):
     """Gemini na chale to bhi chhota, vinamra jawab (spam/link/gaali jaisa ho to nahi)."""
     t = (c.get("text") or "").lower()
@@ -126,7 +182,10 @@ def _handle_comment(platform, b, c):
         a["brands"].append(b)
     state.put("audience", dict(list(aud.items())[-3000:]))
     typ = r.get("type", "other")
+    if typ in ("abuse", "spam") and not _may_hide(platform, b, c):
+        typ = "other"                              # v3.4.30: chhupao mat - normal jawab do
     if typ in ("abuse", "spam"):
+        state.update("hidden_once", lambda l: ((l or []) + [c["id"]])[-3000:], [])
         try:
             if platform == "yt":
                 youtube._api(b, "POST", "/youtube/v3/comments/setModerationStatus",
@@ -136,6 +195,9 @@ def _handle_comment(platform, b, c):
                 bi = M.brand_info(b)
                 M._post(f"/{c['id']}", bi["page_token"], hide="true")
             diary.add("setting", f"{typ} comment hataya ({platform} {BRANDS[b]['name']}): {c['text'][:60]}")
+            tg.say(f"🙈 {BRANDS[b]['name']} ({platform.upper()}) par ek comment chhupaya ({'gaali' if typ == 'abuse' else 'spam/link'}):\n"
+                   f"\"{c['text'][:200]}\"\nGalat laga to app mein comment → 'View hidden comments' → Unhide. "
+                   "Bot ise dobara kabhi nahi chhupayega.")
         except Exception as e:
             log(f"moderate: {e}")
         return
@@ -200,6 +262,7 @@ def _ycs(b, s_):
 
 def check_comments():
     seen = set(state.get("seen_comments", []))
+    _seen0 = set(seen)
     _cstat("runs")                                 # v2.9.9: har jaanch par 'aakhri jaanch' ka samay (comment na bhi ho)
     for b in BRANDS:
         if not youtube.has_login(b):
@@ -248,7 +311,7 @@ def check_comments():
                             how=f"Login hote hi apne aap hatega", auto="ytc")
                 except Exception as e2:
                     log(f"ytc reset {b}: {e2}")
-    state.put("seen_comments", list(seen)[-2000:])
+    _save_seen([i for i in seen if i not in _seen0])
 
 
 import re as _re
@@ -259,6 +322,7 @@ def check_fb_comments():
     """v2.3.3: Facebook page comment -> wahi samajh + vinamra jawab (7-45 min baad, insaan jaisa)."""
     from . import meta as M
     seen = set(state.get("seen_comments", []))
+    _seen0 = set(seen)
     for b in BRANDS:
         if not fb_perm_ok(b):                     # v2.6.0: ijaazat nahi to 24 ghante tak baar-baar API mat maaro
             continue
@@ -275,12 +339,13 @@ def check_fb_comments():
                 fb_perm_block(b, str(e))
                 continue
             _cstat("check_fail", err=f"FB {b}: {str(e)[:120]}")
-    state.put("seen_comments", list(seen)[-2000:])
+    _save_seen([i for i in seen if i not in _seen0])
 
 
 def check_ig_comments():
     from . import meta as M
     seen = set(state.get("seen_comments", []))
+    _seen0 = set(seen)
     for b in BRANDS:
         try:
             for c in M.ig_comments(b, seen):
@@ -318,7 +383,7 @@ def check_ig_comments():
         except Exception as e:
             log(f"ig comments {b}: {e}")
             _cstat("check_fail", err=f"IG {b}: {e}")
-    state.put("seen_comments", list(seen)[-2000:])
+    _save_seen([i for i in seen if i not in _seen0])
 
 
 
