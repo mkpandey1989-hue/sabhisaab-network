@@ -802,5 +802,10 @@ check(_SP425.plats_in("swal wali facebook post") == ["fbgroup"] and _SP425.plats
 check("plat" in _in417.signature(_SP425.note).parameters and "plats" in _in417.signature(_SP425.candidates).parameters,
       "Diya hua sawal platform-wise (WhatsApp wala FB group ke liye bhi milta)")
 check("Kis reel se kitne" in _in417.getsource(W.link_traffic), "Traffic report: reel code ke saath sawal + poora link")
+# v3.4.28: sawal bank 150 (pehle 8), 14 din baad dobara, mit chuki video 'kharab'
+import app.answers as _A428, app.pipeline as _P428  # noqa: E402
+check(_A428.OPTS_KEEP >= 100 and "o" in _A428._arch_row({"opts": ["a", "b", "c", "d"]}), "Sawal ke vikalp 150 tak + archive mein (sawal post jaldi khatam nahi)")
+check(_SP425.RECYCLE_DAYS == 14 and "_recent" in _in417.getsource(_SP425.candidates), "Usi platform par 14 din baad sawal dobara chal sakta")
+check("FileNotFoundError" in _in417.getsource(_P428.upload) and callable(_P428.sweep_broken), "Mit chuki video: laal galti nahi, 'kharab' + suchi se hati")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

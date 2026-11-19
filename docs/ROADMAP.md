@@ -2086,3 +2086,13 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Traffic report: 'Reel code: #7752 9' -> har reel: log + sawal + POORA link (sabhisaab.com/jawab#c7752).
 - 'Link table format per' (AI ke paas jaata tha) -> seedha traffic + table.
 - smoke 432 ✅, v327_test 14 ✅, v326 + reach dobara ✅.
+
+## v3.4.28 (19 Nov 2026 subah) - [OPUS 5.5] Audit ke 2 asli sudhaar
+- JAD: answers.record aakhri 8 ke baad har entry se 'opts' hata deta tha -> 'sawal wali post' / group post / quiz bot inline /
+  share kit ke paas kul ~8 sawal hi the (Pahadi roz khatam). Ab OPTS_KEEP=150 (exp/q-chhota pehle jaisa 8 ke baad);
+  jawab_archive.jsonl mein 'br' + 'o' (vikalp) bhi. /jawab page par asar nahi (page sirf aakhri 8 + archive likhai).
+- sawalpost: usi platform par 14 din baad sawal dobara (sp_gvt tareekh). Naye sawal hamesha pehle.
+- 19 Nov 04:28 "🔴 ZAROORI upload mein galti: data/stock/pahadi-20261103-.../meta.json nahi" (15 Nov se 'waiting' 2 khabar
+  video, file safai mein mit chuki): upload() ab FileNotFoundError par job 'kharab' + saaf sandesh; pipeline.sweep_broken()
+  Pending dabane par aur auto-doctor 05:40 mein.
+- smoke 435 ✅, v328_test 5 ✅, v327/v326/reach dobara ✅.

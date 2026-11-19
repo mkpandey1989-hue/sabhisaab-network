@@ -36,6 +36,14 @@ def run(manual=False):
             log(f"autodoctor {name}: {e}")
             need.append(f"{name}: jaanch khud fail ({str(e)[:80]}) - 'Sab theek?' dabayein, na sudhre to Claude ko screenshot")
 
+    # 0) v3.4.27: jin video ki file mit chuki (purana data/stock) - unhe 'kharab' (roz 'AAPKA KAAM' mein faltu na aayein)
+    def broken():
+        from . import pipeline as _P
+        br = _P.sweep_broken()
+        if br:
+            fixed.append(f"{len(br)} purani video ki file VM par nahi thi - suchi se hata di ({', '.join(br)})")
+    chk("purani video", broken)
+
     # 1) website zinda + sitemap live = VM wali (kam ho to dobara deploy)
     def site():
         r = _get(SITE + "/")

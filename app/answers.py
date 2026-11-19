@@ -24,6 +24,7 @@ PAGE = "/jawab"
 KEEP = 8              # v2.9.4 (owner 10 baar kaha): page par sirf aakhri 8 video ke jawab; baaki SAB khoj (register) se - page hamesha halka
 ARCHIVE = 1050        # v2.5.6: uske baad ke purane jawab chhoti list mein (har code ka anchor bana rahe - purani reel ka #cCODE link na tute)
 RETAIN = 1200
+OPTS_KEEP = 150      # v3.4.27: itne purane sawal ke A-D vikalp bhi bache (sawal post / group post ke liye)
 
 
 # v2.5.2 (S1): har jawab ke neeche 2-3 free tool (page patla na ho, visitor ek se zyada page dekhe). Sab slug live homepage se verify kiye.
@@ -284,8 +285,9 @@ def record(meta, links=None):
     lst = lst[-RETAIN:]
     for x in lst[:-KEEP]:                      # purani entry halki (archive mein sirf code/tarikh/sawal/jawab dikhta hai) - state.json bhari na ho
         x.pop("exp", None)
-        x.pop("opts", None)
         x["q"] = str(x.get("q", ""))[:110]
+    for x in lst[:-OPTS_KEEP]:                 # v3.4.27: vikalp aakhri 150 ke rakho - 'sawal wali post' ke liye (pehle sirf 8 = jaldi khatam)
+        x.pop("opts", None)
     state.put("answer_key", lst)
     state.put("answer_dirty", True)
     try:
@@ -523,7 +525,8 @@ ARCH = DATA / "jawab_archive.jsonl"
 def _arch_row(e):
     return {"c": str(e.get("code", "")), "a": str(e.get("aid") or e.get("code", "")), "d": str(e.get("date", "")),
             "b": str(e.get("bname", "")), "q": str(e.get("q", ""))[:220], "ans": str(e.get("ans", ""))[:120],
-            "e": str(e.get("exp", ""))[:200]}
+            "e": str(e.get("exp", ""))[:200], "br": str(e.get("brand", "")),
+            "o": [str(o)[:60] for o in (e.get("opts") or [])][:4]}          # v3.4.27: vikalp bhi (aage sawal post ke kaam)
 
 
 def _hfix(x):

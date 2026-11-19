@@ -501,6 +501,18 @@ def _bank(brand):
     return s
 
 
+def sweep_broken():
+    """v3.4.27: waiting/approved video jiski file VM se mit chuki - 'kharab' (Pending aur 'Aaj ka haal' mein faltu na dikhe)."""
+    n = []
+    for jid, j in list(jobs().items()):
+        if j.get("status") in ("waiting", "approved") and j.get("meta") and not (pathlib.Path(j["meta"]) / "meta.json").exists():
+            j["status"] = "kharab"
+            j["err"] = "video/meta file mit chuki"
+            save_job(jid, j)
+            n.append(jid)
+    return n
+
+
 def _meta(job):
     return json.loads((pathlib.Path(job["meta"]) / "meta.json").read_text())
 
@@ -846,7 +858,16 @@ def upload(jid, pre=False):
         job["status"] = "approved"
         save_job(jid, job)
         return
-    meta = check_link(_meta(job))
+    try:
+        _m0 = _meta(job)
+    except FileNotFoundError:                     # v3.4.27: purani video ki file mit chuki (data/stock saaf) - har baar laal galti nahi
+        job["status"] = "kharab"
+        job["err"] = "video/meta file mit chuki"
+        save_job(jid, job)
+        tg.say(f"🗑️ {jid} ({brand}) ki video file ab VM par nahi hai (purani, safai mein mit gayi). Ise suchi se hata diya - "
+               "dobara 'waiting' / Pending mein nahi aayegi.")
+        return
+    meta = check_link(_m0)
     if "youtube" not in job.get("done", {}):
         dup = (duplicate(brand, "\x00" + meta.get("puzzle_hash", ""), sig=_sig(meta)) if meta.get("puzzle_hash")
                else duplicate(brand, meta["title"], sig=_sig(meta)))

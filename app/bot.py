@@ -2208,6 +2208,12 @@ def on_text(text):
     if t == "©️ Copyright":
         return tg.say(COPYRIGHT)
     if t == "⏳ Pending":
+        try:
+            _br = pipeline.sweep_broken()
+            if _br:
+                tg.say(f"🗑️ {len(_br)} purani video ({', '.join(_br)}) ki file VM par nahi rahi - suchi se hata di.")
+        except Exception as _e_sw:
+            log(f"sweep_broken: {_e_sw}")
         w = [(jid, j) for jid, j in pipeline.jobs().items() if j["status"] in ("waiting", "approved", "need_login", "making")]
         if not w:
             return tg.say("⏳ Koi pending video nahi.")

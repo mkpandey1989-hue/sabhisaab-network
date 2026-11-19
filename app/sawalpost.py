@@ -85,6 +85,30 @@ def note(aid, plat="whatsapp"):
         return d
     _gv()
     state.update("sp_gv", f, {})
+    import datetime as _dt
+    today = str(_dt.date.today())
+
+    def ft(d):
+        d = d or {}
+        m = dict(d.get(plat) or {})
+        m[aid] = today
+        d[plat] = dict(list(m.items())[-KEEP:])
+        return d
+    state.update("sp_gvt", ft, {})
+
+
+RECYCLE_DAYS = 14        # v3.4.27: usi platform par 14 din baad wahi sawal phir chal sakta hai (naye log; Pahadi roz sirf 2 reel)
+
+
+def _recent(plat, aid):
+    import datetime as _dt
+    d = ((state.get("sp_gvt") or {}).get(plat) or {}).get(str(aid))
+    if not d:
+        return True                               # tareekh nahi (purana) = haal ka maano
+    try:
+        return (_dt.date.today() - _dt.date.fromisoformat(d)).days < RECYCLE_DAYS
+    except Exception:
+        return True
 
 
 def note_from_text(text, plat="whatsapp"):
@@ -102,7 +126,7 @@ def _ok(e):
 def candidates(brand=None, plats=None):
     g = set()
     for p_ in (plats or ["whatsapp"]):
-        g |= set(given(p_))
+        g |= {a_ for a_ in given(p_) if _recent(p_, a_)}
     out = []
     for e in reversed(state.get("answer_key") or []):          # sabse nayi reel pehle
         aid = str(e.get("aid") or e.get("code") or "")
