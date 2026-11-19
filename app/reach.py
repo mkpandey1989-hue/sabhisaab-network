@@ -394,10 +394,15 @@ def tick(now, run):
         if funnel_due(now):
             state.put("rc_fn_day", str(now.date()))
             run(lambda: tg.say(funnel_text(7)))
-        if time.time() - float(state.get("uh_at", 0) or 0) > 3 * 3600:      # v3.4.31: chhupe quiz-jawab har 3 ghante wapas
+        if (time.time() - float(state.get("uh_at", 0) or 0) > 3 * 3600 or not state.get("uh_first_done")):   # v3.4.31/32
             state.put("uh_at", time.time())
             def _uh():
                 from . import growth as _G
+                first = not state.get("uh_first_done")
+                if first:                                   # install ke baad pehli baar: nateeja hamesha batao (chup nahi)
+                    state.put("uh_first_done", True)
+                    tg.say(_G.unhide_text())
+                    return
                 r_ = _G.unhide_answers()
                 if r_:
                     tg.say("🙉 Ye asli quiz-jawab comment chhupe mile - WAPAS dikha diye (bot dobara kabhi nahi chhupayega):\n"

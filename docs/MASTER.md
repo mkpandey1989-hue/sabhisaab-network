@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 19 Nov 2026 subah (Claude Opus 5.5, bot v3.4.31). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 19 Nov 2026 subah (Claude Opus 5.5, bot v3.4.32). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein
@@ -83,6 +83,8 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
   beqram kat'ti thi. Ab quiz-jawab kabhi nahi chhupta, spam sirf link/promo par, Unhide kiya to dobara nahi, har chhupane par owner ko sandesh.
 - 19 Nov 10:30: v3.4.31 chhupe quiz-jawab har 3 ghante apne aap WAPAS ('comment wapas'), FB/Threads/khabar ke POORE link,
   indexing suchi par '✅ Maine Request Indexing kar di' button (pehle owner ka likha 'ho gaya' bot samajhta nahi tha -> roz wahi page).
+- 19 Nov 10:45: v3.4.32 owner ne 'mendhak ne kudne ka faisla kiya' sawal par naraazgi -> bachkani/internet trick-paheli band
+  (Gemini prompt adult + regex + Gemini critic + video audit). Unhide jaanch ka nateeja ab hamesha sandesh mein.
 - 19 Nov audit: Google 305/315 page index par impression ~60/hafta (ranking nahi); Bing ~40 index, 217 kabhi crawl nahi; GSC shabd
   sirf 'keywords' likhne par aate (apne aap kabhi nahi). Sujhaav (owner ki haan baaki): UK queue 8/din -> 2/hafta, Somvaar keyword
   sandesh, EMI/MB table. Bing ticket REQ00378387 (29 Oct band) par follow-up draft Gmail mein - feedback link se bhejna.

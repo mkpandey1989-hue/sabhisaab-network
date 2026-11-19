@@ -46,13 +46,51 @@ Category: {hint}
 Rules: each question short (max 90 characters); exactly 4 short options (max 26 characters each, all different);
 exactly ONE correct answer which must be copied exactly as one of the options; a 1-line explanation (max 90 characters);
 facts must be well-established and checkable (no news, no opinions, no made-up statistics, no 'X% log' claims);
-nothing political/religious-controversial/adult; never repeat or rephrase any of these existing questions:
+nothing political/religious-controversial/adult.
+AUDIENCE = ADULTS (18-45). The question must need 5-10 seconds of real thinking. NEVER use famous internet/WhatsApp trick riddles
+or 'gotcha' word-play whose trick is that something only 'decided'/'thought' to happen (e.g. frogs/birds that 'decided to jump/fly',
+'how many months have 28 days', 'kilo of cotton vs kilo of iron', 'birds on a tree, one shot', 'where are survivors buried',
+'what has keys but no lock'), and never questions a small child could answer instantly. Prefer real maths, logic, language
+or knowledge that makes an adult feel smart. Never repeat or rephrase any of these existing questions:
 {seen}
 Return ONLY JSON: {{"items":[{{"q":"...","options":["...","...","...","..."],"answer":"...","exp":"..."}}]}}"""
 
 VERIFY = """You are a strict fact-checker. For each numbered quiz item, use Google Search and decide if the given ANSWER is
 correct AND the only correct option among the options (unambiguous). Return ONLY JSON: {{"results":[{{"i":1,"ok":true}}]}}
 {items}"""
+
+
+# v3.4.32 (owner 19 Nov: 'तालाब में 5 मेंढक, 3 ने कूदने का फैसला किया' - "gali khane wala, 1 mahine ka bachcha bata dega"):
+# purani internet trick-paheli / bachchon jaise sawal bank mein KABHI nahi.
+CLICHE = (r"फ\u093c?ैसला (किया|लिया).{0,40}कितन|सोचा.{0,20}कितने (बचे|रहे)|decided to|28 दिन.{0,30}महीन|महीनों? में 28|"
+          r"किलो.{0,20}(रुई|कपास).{0,30}लोह|लोह.{0,30}(रुई|कपास)|पेड़ पर.{0,40}(गोली|शिकारी)|(गोली|शिकारी).{0,40}पेड़ पर|"
+          r"बचे हुए लोगों को कहाँ दफ़?न|survivors|चाबियाँ (हैं|होती).{0,20}ताला नहीं|मुर्गा.{0,30}अंडा|"
+          r"सबसे (हल्का|भारी).{0,20}(किलो|kg)|गोलि(यां|याँ).{0,25}(आधे घंटे|30 मिनट)|आधे घंटे.{0,25}गोलि")
+
+
+def cliche(q, opts=()):
+    import re
+    return bool(re.search(CLICHE, (q or "") + " " + " ".join(opts or []), re.I))
+
+
+CRITIC = """You judge quiz questions for an ADULT Indian audience (18-45) on a short-video channel. For each item give a score 1-10:
+10 = makes an adult think and feel smart; 1 = childish, an over-used internet/WhatsApp trick riddle, or so obvious a small child
+answers instantly. Be strict. Return ONLY JSON: {{"scores":[{{"i":1,"s":7}}]}}
+{items}"""
+CRITIC_MIN = 6
+
+
+def _critic(cand):
+    """Gemini se 'kya ye bachkana/ghisa-pita hai' - kam score wale hatao. Gemini band ho to sab rehne do (kaam na ruke)."""
+    from .brain import ask_gemini
+    try:
+        res = ask_gemini(CRITIC.format(items="\n".join(f"{i + 1}. {c_['q']} | {c_['opts']} | ANSWER: {c_['ans']}"
+                                                      for i, c_ in enumerate(cand))), temperature=0.0)
+        sc = {int(r.get("i", 0)): int(r.get("s", 10)) for r in _items(res, "scores") if isinstance(r, dict)}
+    except Exception as e:
+        log(f"qbank critic: {str(e)[:100]}")
+        return cand
+    return [c_ for i, c_ in enumerate(cand) if sc.get(i + 1, 10) >= CRITIC_MIN]
 
 
 def _load():
@@ -77,7 +115,7 @@ def _used(q):
 
 
 def available(cat):
-    return [it for it in _load().get(cat, []) if not _used(it["q"])]
+    return [it for it in _load().get(cat, []) if not _used(it["q"]) and not cliche(it["q"], it.get("opts"))]
 
 
 def take(cat, rnd=None):
@@ -141,7 +179,11 @@ def fill(cat, n=PER_CALL):
         import re
         if re.search(r"\d{2}\s*%\s*(लोग|log|लोगों)|सेक्सी|अश्लील", q + " ".join(ops)):
             continue
+        if cliche(q, ops):
+            continue
         cand.append({"q": q, "ans": ans, "opts": ops, "exp": str(x.get("exp", ""))[:120]})
+    if cand:
+        cand = _critic(cand)
     if not cand:
         return 0
     okset, how = None, "google"

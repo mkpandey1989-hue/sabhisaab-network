@@ -143,7 +143,7 @@ def unhide_answers(brands=None):
     jaisa ho (A/B/C/D, 'Khet ❤️' ...) aur link/promo nahi, use WAPAS dikhao + hidden_once mein (bot dobara kabhi nahi chhupayega).
     -> [(brand, platform, text)]"""
     from . import meta as M
-    out = []
+    out, errs, seen_n, hid_n = [], [], 0, 0
     for b in (brands or BRANDS):
         bi = M.brand_info(b) or {}
         tok = bi.get("page_token")
@@ -154,12 +154,15 @@ def unhide_answers(brands=None):
                 media = M._get(f"/{bi['ig_id']}/media", tok, fields="id,comments.limit(50){id,text,hidden}", limit=8).get("data", [])
                 for md in media:
                     for c in (md.get("comments") or {}).get("data", []):
+                        seen_n += 1
+                        hid_n += 1 if c.get("hidden") else 0
                         if c.get("hidden") and not _may_hide("ig", b, {"id": c["id"], "text": c.get("text", ""), "media": md["id"]}, "spam"):
                             M._post(f"/{c['id']}", tok, hide="false")
                             state.update("hidden_once", lambda l, i=c["id"]: ((l or []) + [i])[-3000:], [])
                             out.append((b, "ig", c.get("text", "")[:60]))
         except Exception as e:
             log(f"unhide ig {b}: {e}")
+            errs.append(f"IG {BRANDS[b]['name']}: {str(e)[:120]}")
         try:
             if bi.get("page_id") and fb_perm_ok(b):
                 posts = M._get(f"/{bi['page_id']}/posts", tok, fields="id,comments.limit(50).filter(stream){id,message,is_hidden}",
@@ -172,6 +175,8 @@ def unhide_answers(brands=None):
                             out.append((b, "fb", c.get("message", "")[:60]))
         except Exception as e:
             log(f"unhide fb {b}: {e}")
+            errs.append(f"FB {BRANDS[b]['name']}: {str(e)[:120]}")
+    state.put("uh_last", {"t": time.strftime("%Y-%m-%d %H:%M"), "seen": seen_n, "hidden": hid_n, "fixed": len(out), "errs": errs[:6]})
     if out:
         diary.add("setting", "chhupe quiz-jawab wapas dikhaye: " + "; ".join(f"{x[1]} {x[2]}" for x in out)[:300])
     return out
@@ -179,12 +184,21 @@ def unhide_answers(brands=None):
 
 def unhide_text():
     r = unhide_answers()
-    if not r:
-        return ("✅ Pichhli 8 reel/post par koi chhupa hua quiz-jawab nahi mila. (Gaali/link wale chhupe rehte hain.)\n"
-                "Agar app mein abhi bhi 'Hidden by you' dikhe to wo Instagram ka apna filter hai: Profile → ☰ → "
-                "Hidden words → 'Hide comments' / 'Advanced comment filtering' band karein.")
-    return ("✅ Ye chhupe comment WAPAS dikha diye (bot inhe dobara kabhi nahi chhupayega):\n"
-            + "\n".join(f"• {BRANDS[b]['name']} {p.upper()}: \"{t}\"" for b, p, t in r))
+    u = state.get("uh_last") or {}
+    L = []
+    if r:
+        L.append("✅ Ye chhupe comment WAPAS dikha diye (bot inhe dobara kabhi nahi chhupayega):")
+        L += [f"• {BRANDS[b]['name']} {p.upper()}: \"{t}\"" for b, p, t in r]
+    else:
+        L.append(f"🔍 Instagram ki pichhli 8 reel (har brand) ke {u.get('seen', 0)} comment dekhe: chhupe {u.get('hidden', 0)}, "
+                 "jinme quiz-jawab 0.")
+        if not u.get("errs"):
+            L.append("Matlab API ke hisaab se koi quiz-jawab chhupa nahi hai. Phir bhi app mein 'Hidden by you' dikhe to wo "
+                     "Instagram ka apna filter hai: Profile → ☰ → Settings and activity → Hidden words → "
+                     "'Hide comments' aur 'Advanced comment filtering' BAND karo, phir comment par Unhide.")
+    if u.get("errs"):
+        L.append("⚠️ Jaanch mein dikkat (isliye shayad nahi mila):\n" + "\n".join("• " + e for e in u["errs"]))
+    return "\n".join(L)
 
 
 def _fallback_reply(b, c):

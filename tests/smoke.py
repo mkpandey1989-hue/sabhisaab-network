@@ -847,5 +847,13 @@ _src431 = _in417.getsource(_PL431)
 check("https://www.facebook.com/reel/" in _src431 and "FB photo-post https://www.facebook.com/" in _src431
       and "permalink" in _in417.getsource(_TH431.post_text) and "['link'][:80]" not in _in417.getsource(_G430),
       "Har post ka POORA link (FB reel, FB photo-post, Threads post, khabar) - adhoora nahi")
+# v3.4.32: bachkani/ghisi-piti trick-paheli kabhi nahi (bank + video audit); unhide jaanch hamesha nateeja batati
+import app.qbank as _QB432, app.audit as _AU432  # noqa: E402
+check(_QB432.cliche("एक तालाब में 5 मेंढक बैठे हैं, 3 ने कूदने का फैसला किया। कितने बचे?")
+      and _QB432.cliche("1 किलो रुई और 1 किलो लोहे में कौन भारी?") and not _QB432.cliche("उत्तराखंड में कितने ज़िले हैं?")
+      and "ADULTS" in _QB432.PROMPT and "cliche" in _in417.getsource(_AU432.run) and "_critic" in _in417.getsource(_QB432.fill),
+      "Mendhak-faisla jaisi ghisi-piti/bachkani paheli: bank, Gemini-jaanch aur video audit teeno mein ruki")
+check("uh_first_done" in _in417.getsource(_RC432 := __import__("app.reach", fromlist=["x"]).tick) and "uh_last" in _in417.getsource(_G430.unhide_answers),
+      "Chhupe-comment jaanch: install ke baad nateeja hamesha sandesh mein (chup nahi), galti bhi dikhti")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

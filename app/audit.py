@@ -86,6 +86,12 @@ def run(meta: dict) -> list:
     all_text = " ".join([meta["title"], desc] + [s["show"] + " " + (s.get("say") or "") for s in meta["scenes"]]).lower()
     bad = [w for w in FORBIDDEN_WORDS if w in all_text]
     ok(not bad, "Owner ka naam kahin nahi" if not bad else f"Naam mila: {bad}")
+    try:                                          # v3.4.32 (owner: 'mendhak ne kudne ka faisla kiya - gali khane wala sawal')
+        from .qbank import cliche
+        _cq = cliche(meta.get("title", "") + " " + " ".join(s.get("show", "") for s in meta.get("scenes", [])[:3]))
+    except Exception:
+        _cq = False
+    ok(not _cq, "Sawal ghisa-pita/bachkana nahi" if not _cq else "Ghisi-piti internet trick-paheli (bachkani) - doosra sawal")
     if meta.get("brand") == "money":              # v2.5.2: SEBI finfluencer niyam - return ka daava / tip / salah wale shabd video nahi
         sebi = sebi_hits(all_text)
         ok(not sebi, "SEBI: return/tip/salah wale shabd nahi" if not sebi else f"SEBI jokhim shabd: {sebi}")

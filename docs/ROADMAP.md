@@ -2125,3 +2125,15 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   wahi page). 'ho gaya gsc request indexing' jaise vakya bhi; 'kitne index ho gaye' jaisa sawaal galti se nishaan nahi lagata.
   Suchi mein sirf wahi jo Google URL Inspection (aaj taaza) ke hisaab se index NAHI - "Request" karna index hona nahi; Google 2-14 din.
 - smoke 442 ✅.
+
+## v3.4.32 (19 Nov 2026 10:45) - [OPUS 5.5] Bachkane/ghise-pite sawal band + unhide jaanch ka nateeja hamesha
+- Owner: Suno Natak reel 'तालाब में 5 मेंढक, 3 ने कूदने का फैसला किया - कितने बचे?' -> "gali khane wala, 1 mahine ka bachcha
+  bata dega". Ye Gemini sawal-bank (qbank, ego_sawal/dimag_trend) se aaya tha.
+- qbank: PROMPT mein 'AUDIENCE = ADULTS, 5-10 second sochna, internet/WhatsApp trick-paheli kabhi nahi' + CLICHE regex
+  (faisla kiya..kitne, 28 din wale mahine, kilo rui/loha, ped par chidiya-goli, survivors dafan, aadhe ghante goliyan...) +
+  Gemini 'critic' (adult ke liye 1-10, 6 se kam hatao; Gemini band ho to kaam na ruke). Bank ke purane aise sawal available()
+  se bahar. audit.run mein naya check 'Sawal ghisa-pita/bachkana nahi' -> aisi video bani to doosri script.
+- Unhide: v3.4.31 ki pehli jaanch kuch na mile to chup rehti thi (owner: 'bot ka koi message nahi aaya'). Ab install ke baad
+  pehli jaanch ka nateeja HAMESHA (kitne comment dekhe, kitne chhupe, galti), aur 'comment wapas' bhi yahi deta.
+  API mein chhupa na mile to Instagram ka apna filter: Hidden words -> Hide comments / Advanced comment filtering band.
+- smoke 444 ✅.
