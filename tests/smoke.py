@@ -505,7 +505,7 @@ finally:
     state.put("pq_idx_drop", _sv47[1])
 check([_SB47.group_source(x) for x in ("whatsapp_status", "facebook_group", "org.telegram.messenger", "quora", "lnkd.in", "push",
                                          "(direct)", "duckduckgo")]
-      == ["WhatsApp", "Facebook", "Telegram", "Quora", "LinkedIn", "Push", "Seedha", "Baaki"],
+      == ["WhatsApp", "FB Group", "Telegram", "Quora", "LinkedIn", "Push", "Seedha", "Baaki"],
       "Report: har raasta sahi naam (WhatsApp status, FB group, Telegram app, Quora, LinkedIn)")
 check(_WE47.ga_range(7) == ("6daysAgo", "today") and _WE47.ga_range(1) == ("today", "today"),
       "Report: '7 din' har jagah ek hi range (aaj samet 7 din)")
@@ -871,5 +871,31 @@ tg.say = _oldsay433
 check(_r433 == "asked" and not _near433 and any("Doosri video banau" in x for x in _said433)
       and _ran433 and _ran433[0][0] == "prepare" and _ran433[0][1][0] == "sunonatak" and _ran433[0][1][1] == _slot433
       and not state.get("replace_ask"), "'Mat daalo' -> 'doosri banau?' button; 10 min jawab nahi to usi slot ki nayi video khud")
+# v3.4.34: owner 19 Nov shaam ki 14 baatein
+import app.siteknow as _SK434, app.fuzzybtn as _FB434, app.perf as _PF434, app.masteraudit as _MA434, app.scoreboard as _SB434  # noqa: E402
+import app.updater as _UP434, app.bot as _BOT434  # noqa: E402
+check(_SK434.idx_ok({"ok": False, "why": "Submitted and indexed"}) and _SK434.idx_ok({"why": "Indexed, not submitted in sitemap"})
+      and not _SK434.idx_ok({"why": "Crawled - currently not indexed"}) and not _SK434.idx_ok({"why": "URL is unknown to Google"}),
+      "Index: 'URL is on Google (issues ke saath)' = index (pehle sirf PASS -> index wale bhi suchi mein aate the)")
+_m434 = _IX431.message([("https://sabhisaab.com/a", "naya page")], summ="📊 Kul page (sitemap): <b>10</b> | Google index ✅ <b>9</b> | baaki ⏳ <b>1</b>")
+check("Kul page" in _m434 and "https://sabhisaab.com/a" in _m434 and len(_IX431._chunks("x\n" * 3000)) > 1,
+      "Indexing suchi: kul/ho gaye/baaki + poore link + lambi suchi tukdon mein (4096 seema)")
+_labs434 = _BOT434.all_labels()
+check(_FB434.match("aaj ka hal", _labs434) == "📊 Aaj ka haal" and _FB434.match("आज का हाल", _labs434) == "📊 Aaj ka haal"
+      and _FB434.match("growth grap", _labs434) == "📈 Growth graph" and _FB434.match("indexng", _labs434) == "📑 Indexing"
+      and _FB434.match("video ka title badlo bhai aaj shaam", _labs434) is None and "❌ Mat daalo" in _BOT434.RISKY_BTN,
+      "Button: galat spelling / Devanagari awaaz bhi samjhe; lambi baat nahi; hatane wale button par pushti")
+check(_SB434.group_source("facebook_group") == "FB Group" and _SB434.group_source("m.facebook.com") == "Facebook",
+      "FB group link ke log alag 'FB Group' khaane mein (pehle Facebook mein mil jaate the)")
+state.put("topic_block", ["credit card"])
+_oldsay434 = tg.say
+tg.say = lambda t, *a, **k: None
+check(_PF434.word_blocked("क्रेडिट / credit card ka bill") == "credit card" and _PF434.on_text("band vishay") is True,
+      "Owner: '<shabd> wale sawal band karo' -> video audit + sawal-bank mein rok")
+state.put("topic_block", [])
+check(len(_MA434.RULES) >= 8 and _MA434.on_text("niyam") is True, "Master audit: owner ke saare niyam roz 21:55 jaanch + 'master audit'")
+tg.say = _oldsay434
+_UP434._rows = (lambda fp, cut, _o=_UP434._rows: [{"t": "2026-11-19 10:00", "q": "x" * 900, "b": "y" * 1400}] * 4000)
+check(len(_UP434.chat_md().encode()) < 1_000_000, "CHAT.md 1 MB se chhota (pehle badi hoke GitHub se gayab ho gayi thi)")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

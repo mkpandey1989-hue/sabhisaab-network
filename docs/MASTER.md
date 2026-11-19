@@ -1,6 +1,6 @@
 # MASTER - Sab Hisaab ka POORA haal ek jagah (koi bhi AI / developer SABSE PEHLE ye padhe)
 
-Aakhri update: 19 Nov 2026 subah (Claude Opus 5.5, bot v3.4.33). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
+Aakhri update: 19 Nov 2026 subah (Claude Opus 5.5, bot v3.4.34). Kuch badle to isi file ko update karo, purana sach mitao mat - "pehle/ab" likho.
 Iske baad: `docs/PENDING.md` (bot roz likhta hai) → `docs/AI_START.md` → `docs/ROADMAP.md` (neeche se naye section).
 
 ## 0. Teen line mein
@@ -86,6 +86,10 @@ Poori list + tareekh: `docs/PENDING.md` (bot roz likhta hai; v3.4.9 ne purane ho
 - 19 Nov 10:45: v3.4.32 owner ne 'mendhak ne kudne ka faisla kiya' sawal par naraazgi -> bachkani/internet trick-paheli band
   (Gemini prompt adult + regex + Gemini critic + video audit). Unhide jaanch ka nateeja ab hamesha sandesh mein.
 - 19 Nov 10:55: v3.4.33 'Mat daalo' -> bot poochhta 'doosri banau?'; 10 min jawab nahi to usi slot ki nayi video khud.
+- 19 Nov 19:30: v3.4.34 CHAT.md GitHub par wapas (1 MB seema), indexing PARTIAL=index + kul/ho gaye/baaki + poore link,
+  GA4 traffic chart + FB Group alag, button galat spelling/awaaz, ghumaudar sawal, views se sawal-type band (pushti/24h),
+  sirf jawab-live sawal post, MASTER AUDIT (owner ke niyam roz 21:55). Hukum: 'master audit', 'niyam', 'traffic',
+  '<shabd> wale sawal band karo', 'band vishay', 'sawal jaanch abhi'.
 - 19 Nov audit: Google 305/315 page index par impression ~60/hafta (ranking nahi); Bing ~40 index, 217 kabhi crawl nahi; GSC shabd
   sirf 'keywords' likhne par aate (apne aap kabhi nahi). Sujhaav (owner ki haan baaki): UK queue 8/din -> 2/hafta, Somvaar keyword
   sandesh, EMI/MB table. Bing ticket REQ00378387 (29 Oct band) par follow-up draft Gmail mein - feedback link se bhejna.

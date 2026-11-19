@@ -5,6 +5,7 @@ import datetime
 import json
 import pathlib
 from . import state
+from .config import SITE
 
 STATIC = pathlib.Path(__file__).with_name("kb.md")
 
@@ -24,7 +25,7 @@ def dynamic():
         if pg:
             ni = siteknow.not_indexed()
             out.append(f"WEBSITE ABHI: {len(pg)} HTML page, sitemap mein {sum(1 for v in pg.values() if v.get('in_sitemap'))}; "
-                       f"Google index nahi: {len(ni)} -> " + ", ".join("/" + x for x in ni[:12]))
+                       f"Google index nahi: {len(ni)} -> " + ", ".join(SITE + "/" + x for x in ni[:12]))
     except Exception:
         pass
     td = [x.get("x", "")[:90] for x in (state.get("todo") or [])][:12]

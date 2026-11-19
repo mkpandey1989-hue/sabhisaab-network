@@ -66,6 +66,13 @@ def status_text(today=None):
     from .answers import answer_url
     today = today or datetime.date.today()
     lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
+    try:                                            # v3.4.34: sirf wahi jiska jawab website par LIVE hai
+        from .sawalpost import live_ids as _lv
+        _L = _lv()
+        if _L is not None:
+            lst = [x for x in lst if str(x.get("aid") or x.get("code")) in _L]
+    except Exception:
+        pass
     try:                                            # v3.4.25: owner ko pehle diya ('sawal wali post') dobara nahi
         from .sawalpost import given as _gv
         _g = set(_gv("whatsapp"))
@@ -102,6 +109,13 @@ def quiz_group_text():
     Sawal poochne wali post group mein sabse zyada chalti hai (log comment karte hain) - seedha link-dump nahi."""
     from .answers import answer_url
     lst = [e for e in reversed(state.get("answer_key") or []) if e.get("q") and e.get("opts")]
+    try:                                            # v3.4.34: sirf wahi jiska jawab website par LIVE hai
+        from .sawalpost import live_ids as _lv
+        _L = _lv()
+        if _L is not None:
+            lst = [x for x in lst if str(x.get("aid") or x.get("code")) in _L]
+    except Exception:
+        pass
     try:                                            # v3.4.25
         from .sawalpost import given as _gv
         _g = set(_gv("fbgroup"))

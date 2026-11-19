@@ -703,7 +703,7 @@ def gidx_run():
             try:
                 d = siteknow.doctor(slug_only=slug).split("\n", 1)[-1]
             except Exception:
-                d = f"• /{slug} ({st[u].get('why', '?')})"
+                d = f"• {SITE}/{slug} ({st[u].get('why', '?')})"
             lines.append(d[:500])
         lines.append("Kya karein: ye sandesh Claude ko bhejein - content/heading sudhaar wahi karega (bot apne aap content nahi likhta, "
                      "Google spam policy). Sudhaar live hone ke baad Search Console mein in URL par 'Request indexing' (bot roz ki "
@@ -864,7 +864,7 @@ def fresh_run():
         return f"🧭 Taazgi jaanch: {len(live)} Uttarakhand page - sab taaza"
     lines = [f"🧭 Taazgi jaanch (hafta): {len(res)} page mein purani pad chuki baat - Google purane content ko neeche kar sakta hai:"]
     for s, w in res[:12]:
-        lines.append(f"• /{s}: " + "; ".join(w[:2]))
+        lines.append(f"• {SITE}/{s}: " + "; ".join(w[:2]))
     lines.append("Kya karein: ye sandesh Claude ko bhejein - wo taza sarkari srot se sahi karke website ZIP dega. Bot khud content "
                  "nahi badalta aur nakli 'update' tareekh nahi lagata (dono Google niyam ke khilaaf).")
     tg.alert("yellow", "\n".join(lines))

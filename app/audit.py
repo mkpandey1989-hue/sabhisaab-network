@@ -92,6 +92,12 @@ def run(meta: dict) -> list:
     except Exception:
         _cq = False
     ok(not _cq, "Sawal ghisa-pita/bachkana nahi" if not _cq else "Ghisi-piti internet trick-paheli (bachkani) - doosra sawal")
+    try:                                          # v3.4.34: owner ne band kiya vishay ('credit card wale sawal band karo')
+        from .perf import word_blocked
+        _bw = word_blocked(meta.get("title", "") + " " + " ".join(s.get("show", "") for s in meta.get("scenes", [])[:3]))
+    except Exception:
+        _bw = None
+    ok(not _bw, "Band vishay nahi" if not _bw else f"Owner ne '{_bw}' wale sawal band kiye - doosra sawal")
     if meta.get("brand") == "money":              # v2.5.2: SEBI finfluencer niyam - return ka daava / tip / salah wale shabd video nahi
         sebi = sebi_hits(all_text)
         ok(not sebi, "SEBI: return/tip/salah wale shabd nahi" if not sebi else f"SEBI jokhim shabd: {sebi}")

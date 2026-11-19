@@ -123,7 +123,37 @@ def _ok(e):
     return bool(e.get("q")) and len(o) == 4 and o.count(str(e.get("ans", ""))) == 1
 
 
+_LIVE = {"t": 0, "ids": None}
+
+
+def live_ids():
+    """v3.4.34 (owner: 'jo bhi post maangu wahi sawal aaye jiska jawab website par ho'): sabhisaab.com par ASLI maujood
+    jawab - /jawab ke dabbe (id=c<aid>) + saal ka archive JSON. 30 min cache. Network fail -> None (tab rok nahi)."""
+    import time as _t
+    import requests
+    if _LIVE["ids"] is not None and _t.time() - _LIVE["t"] < 1800:
+        return _LIVE["ids"]
+    try:
+        ids = set()
+        r = requests.get(f"{SITE}/jawab?_={int(_t.time())}", timeout=25, headers={"Cache-Control": "no-cache"})
+        if r.status_code == 200:
+            ids |= set(re.findall(r'id="c([0-9A-Za-z-]+)"', r.text))
+        j = requests.get(f"{SITE}/jawab-archive.json?_={int(_t.time())}", timeout=25).json()
+        for y in j.get("years") or []:
+            for row in requests.get(f"{SITE}/jawab-archive-{y}.json?_={int(_t.time())}", timeout=25).json():
+                ids.add(str(row.get("a") or row.get("c")))
+        if not ids:
+            return None
+        _LIVE.update(t=_t.time(), ids=ids)
+        return ids
+    except Exception as ex:
+        from .log import log
+        log(f"sawalpost live ids: {ex}")
+        return None
+
+
 def candidates(brand=None, plats=None):
+    live = live_ids()
     g = set()
     for p_ in (plats or ["whatsapp"]):
         g |= {a_ for a_ in given(p_) if _recent(p_, a_)}
@@ -131,6 +161,8 @@ def candidates(brand=None, plats=None):
     for e in reversed(state.get("answer_key") or []):          # sabse nayi reel pehle
         aid = str(e.get("aid") or e.get("code") or "")
         if not aid or aid in g or not _ok(e):
+            continue
+        if live is not None and aid not in live:     # website par jawab abhi nahi (ya video hata di) -> kabhi nahi
             continue
         if brand and e.get("brand") != brand:
             continue

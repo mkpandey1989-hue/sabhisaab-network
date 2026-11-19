@@ -124,6 +124,15 @@ def q_seen(q, thr=0.86):
     return False
 
 
+def _topic_off(brand):
+    """v3.4.34: 'aam sawal (AI vishay)' wali reel (jaise credit card) views kam -> band; tab har slot jaancha puzzle/GK."""
+    try:
+        from .perf import blocked_kinds
+        return "" in blocked_kinds(brand)
+    except Exception:
+        return False
+
+
 def blocked_topic(brand, text):
     try:
         from . import qplan as _QPb
@@ -580,7 +589,12 @@ def reject(jid):
         job["status"] = "rejected"
         job["rejected_at"] = now().isoformat(timespec="seconds")
         save_job(jid, job)
+        _yv = (job.get("ids") or {}).get("youtube") or ""
         extra = _undo_youtube(jid, job)
+        if _yv:                                   # v3.4.34: hatayi video ka sawal 'sawal wali post'/share mein kabhi nahi
+            _yid = str(_yv).rsplit("/", 1)[-1]
+            state.update("answer_key", lambda l: [x for x in (l or []) if _yid not in str(x.get("yt") or "")], [])
+            state.put("answer_dirty", True)
         dmx = (job.get("ids") or {}).get("dailymotion")
         if dmx:                                   # v3.4.8: Dailymotion copy bhi hatao
             try:
@@ -1257,7 +1271,7 @@ def tick(run, run_up=None):
                 if _qp_on and _ev_plan and hhmm == _sl[0] and not blocked_topic(brand, _ev_plan):
                     # v2.9.0: tyohaar/khaas din ka plan (calendar ne 2+ website se pakka kiya) - us din pehla slot usi vishay ka sawal
                     run(prepare, brand, slot.isoformat(), "roz ka schedule")
-                elif _qp_on or (state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hhmm or (len(_sl) > 1 and hhmm == _sl[-1]))):
+                elif _qp_on or _topic_off(brand) or (state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hhmm or (len(_sl) > 1 and hhmm == _sl[-1]))):
                     # v2.3.1/2.3.3: doosra (aakhri) slot = jaancha hua puzzle/GK / 24-look elite paheli
                     run(prepare, brand, slot.isoformat(), "roz ka schedule", None, "short", "__puzzle__")
                 else:

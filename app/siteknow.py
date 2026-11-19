@@ -56,11 +56,27 @@ def build():
     return pages
 
 
+def idx_ok(v):
+    """v3.4.34: Google ka 'indexed' = verdict PASS **ya PARTIAL** ('URL is on Google, but has issues') ya coverageState mein
+    'indexed' (par 'not indexed' nahi). Pehle sirf PASS maana jaata tha -> GSC mein 'URL is on Google' wale page bhi
+    'index nahi' suchi mein aate the (owner: 'jo index ho gaye unko bhi dikha raha')."""
+    if not isinstance(v, dict):
+        return bool(v)
+    if v.get("ok"):
+        return True
+    w = str(v.get("why") or v.get("state") or "").lower()
+    return "indexed" in w and "not indexed" not in w
+
+
+def _norm(st):
+    return {u: ({**v, "ok": idx_ok(v)} if isinstance(v, dict) else v) for u, v in (st or {}).items()}
+
+
 def _index_status():
     from .website import DIR, KEEP
     for p in (DIR / "state" / "daily.json", KEEP / "daily.json"):
         try:
-            st = json.loads(p.read_text()).get("status", {})
+            st = _norm(json.loads(p.read_text()).get("status", {}))
             if st:
                 return {u.replace(SITE, "").strip("/"): v for u, v in st.items()}
         except Exception:
@@ -217,7 +233,7 @@ def doctor(slug_only=None):
             why.append("aam tool - Google khud widget dikhata hai; bahar ke link (Pinterest/Threads/FB) sabse zyada madad")
         if not why:
             why.append("technical sab theek - samay + bahar ke link + GSC Request Indexing")
-        lines.append(f"• /{k} ({v.get('why') or 'index nahi'}): " + "; ".join(why))
+        lines.append(f"• {SITE}/{k} ({v.get('why') or 'index nahi'}): " + "; ".join(why))
     if not slug_only:
         if home_cta:
             lines.append(f"⚠️ Tool-naam wale link homepage par ({len(home_cta)}): " + ", ".join(home_cta[:8]))

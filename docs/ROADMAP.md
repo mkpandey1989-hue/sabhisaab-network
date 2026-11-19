@@ -2146,3 +2146,29 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
   (aakhri slot = sawal/puzzle wali), wo bhi manzoori ke liye aati hai (pehle jaisa niyam: 20 min pehle tak jawab nahi to Thumb 1).
   Slot 25 min se kam door ho to poochhta nahi (banne mein 10-15 min).
 - smoke 445 ✅.
+
+## v3.4.34 (19 Nov 2026 19:30) - [OPUS 5.5] Owner ki shaam ki lambi shikayat - ek saath
+- CHAT.md GitHub se GAYAB tha: 1 MB se badi hoke mirror ka size-niyam use mita deta tha -> AI bot ki baat padh hi nahi pata
+  tha. Ab naya-upar 900 KB tak. Docs (CHAT/PENDING/HEALTH/STATUS) ab har ghante GitHub par (pehle sirf code badalne par).
+- INDEXING: (1) Google 'URL is on Google but has issues' (verdict PARTIAL) ko bot 'index nahi' maanta tha -> index ho chuke page
+  suchi mein. siteknow.idx_ok: PASS/PARTIAL/coverageState 'indexed' = index (har jagah: suchi, STATUS, kb, tasks).
+  (2) Ek hi suchi: 'Kul page | Google index ✅ | baaki ⏳' + SAARE baaki page (40 tak) poore link ke saath, tukdon mein.
+  (3) Har report mein '/slug' ki jagah poora https://sabhisaab.com/... (pagequeue, siteknow doctor, kb, STATUS).
+- ALMORA 'kaise pahunche': technical sab theek (index,follow, canonical, sitemap, 15 andar ke link, 4300 shabd, 18 Nov ko bana -
+  Google 2-14 din leta hai). Ek galat tathya theek (Niti-Mana ghati Joshimath ke raste, Almora se nahi) - webfix.apply_almora.
+- TRAFFIC: scoreboard.send_traffic - GA4 se roz ka chart (kul + FB Group/Facebook/Google/...), aaj/kal/7 din/% badhat,
+  FB GROUP alag line. Roz 21:50 table ke saath + 'traffic' / 'aaj kitne log' / 'graff'. BUG: 'facebook_group' UTM 'Facebook'
+  mein ginta tha (FB Group key sirf 'fbgroup' thi) - ab alag.
+- BUTTON samajh: fuzzybtn - har button (keyboard + poora menu) galat spelling / Devanagari awaaz se bhi; max 6 shabd;
+  hatane/rokne wale (Mat daalo, Pause, Post hatao, deploy, safai) par ek-tap pushti.
+- SAWAL: qbank PROMPT 'ghumaudar' (pehla khayal galat, 2 vikalp sahi lagein, ek hi provable) + critic; static bank ke
+  ghise-pite (10vi manzil, bhediya-bakri, bhookhe sher, ...) bahar.
+- VIEWS SE CHHANTNI: perf.py - Ravivaar 19:00 YouTube asli views se har brand ka har sawal-type; median ke 50% se kam (4+ reel)
+  = '🚫 Band karo' button, 24 ghante jawab nahi to bot khud band (+'↩️ Wapas chalu'). Owner: '<shabd> wale sawal band karo'
+  (pushti) -> video audit + sawal-bank mein rok; 'band vishay'; 'sawal jaanch abhi'. AI-vishay type band = har slot puzzle/GK.
+- POST = SIRF JAWAB-LIVE SAWAL: sawalpost/sharekit sirf wahi sawal jinka dabba sabhisaab.com/jawab ya archive mein LIVE;
+  'Mat daalo' wali video ka sawal answer_key se hatta.
+- MASTER AUDIT (masteraudit.py): owner ke 9 niyam roz 21:55 + 'master audit' / 'niyam' - bachkana sawal, band vishay,
+  indexing suchi, adhoore link, chhupe jawab (auto unhide), GitHub taazgi (auto push), khaali slot, jawab live (auto rebuild),
+  baar-baar galti.
+- smoke 452 ✅.

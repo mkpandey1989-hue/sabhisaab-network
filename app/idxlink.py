@@ -17,6 +17,7 @@ Hukum: 'indexing link' / 'gsc link' / 'index link' (abhi) | 'indexing ho gaya' (
 """
 import datetime
 import json
+import re
 import urllib.parse
 
 from . import state, tg
@@ -44,7 +45,8 @@ def _status():
         try:
             d = json.loads(p.read_text())
             if d.get("status"):
-                return d["status"], d.get("day")
+                from .siteknow import _norm
+                return _norm(d["status"]), d.get("day")
         except Exception:
             pass
     return {}, None
@@ -76,7 +78,8 @@ def google_says_indexed(u):
         r = (j.get("inspectionResult") or {}).get("indexStatusResult") or {}
         if not r:
             return None
-        ok = r.get("verdict") == "PASS"
+        from .siteknow import idx_ok
+        ok = r.get("verdict") in ("PASS", "PARTIAL") or idx_ok({"why": r.get("coverageState", "")})
     except Exception as e:
         log(f"idx inspect: {e}")
         return None
@@ -128,14 +131,33 @@ WHY_HI = {"URL is unknown to Google": "Google ko pata hi nahi", "Discovered - cu
           "Crawled - currently not indexed": "Google aaya, index nahi kiya", "naya page": "naya page"}
 
 
-def message(rows, day=None, stale=False, sm_line=""):
+def summary_line(st=None, live_sm=None):
+    """v3.4.34 (owner: 'kul itne the, itne ho gaye, itne hone hain'): sitemap ke live page ka asli hisaab."""
+    try:
+        if st is None:
+            st = _status()[0]
+        if live_sm is None:
+            from . import website
+            live_sm = website.live_sitemap_urls() or []
+        tot = len(live_sm)
+        ok = sum(1 for u in live_sm if (st.get(u) or {}).get("ok"))
+        return f"📊 Kul page (sitemap): <b>{tot}</b> | Google index ✅ <b>{ok}</b> | baaki ⏳ <b>{tot - ok}</b>"
+    except Exception as e:
+        log(f"idx summary: {e}")
+        return ""
+
+
+def message(rows, day=None, stale=False, sm_line="", summ=""):
     """v3.4.8b (owner: 'console ka link error deta hai - sirf POORA link do jo karna hai, priority se'): sirf page ka poora URL,
     upar se zaroori pehle. HTML <code> = Telegram mein ek tap se copy. -> HTML text"""
     import html as _h
     if not rows:
         return None
-    L = [f"🔎 <b>GOOGLE INDEXING - aaj ke {len(rows)} page</b> (upar wala sabse zaroori)",
-         "Har page: sitemap mein ✅ | live ✅ | Google ne abhi index nahi kiya (aaj Google se taaza jaancha)", ""]
+    L = [f"🔎 <b>GOOGLE INDEXING - jo SACH MEIN index nahi ({len(rows)} page)</b>"]
+    if summ:
+        L.append(summ)
+    L += ["Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi.",
+          f"Google roz ~{MAX_DAY} Request leta hai: upar se {MAX_DAY} aaj, baaki kal (yahi suchi kal chhoti hoke aayegi).", ""]
     if stale:
         L.insert(1, f"⚠️ Google ki roz ki jaanch aakhri {day} ki hai.")
     for i, (u, why) in enumerate(rows, 1):
@@ -151,23 +173,40 @@ def message(rows, day=None, stale=False, sm_line=""):
     return "\n".join(L)
 
 
+def _chunks(text, lim=3800):
+    """Lambi suchi (40 page) Telegram ki 4096 seema mein kat'ti thi -> line par todo (HTML tag line ke andar hi band hote)."""
+    out, cur = [], ""
+    for ln in text.split("\n"):
+        if len(cur) + len(ln) + 1 > lim and cur:
+            out.append(cur)
+            cur = ""
+        cur += ("\n" if cur else "") + ln
+    if cur:
+        out.append(cur)
+    return out
+
+
 def send_html(text, markup=None):
     try:
         from . import updater
         updater.log_bot(text)
     except Exception:
         pass
-    try:
-        _d = {"chat_id": tg._chat(), "text": text[:4000], "parse_mode": "HTML", "disable_web_page_preview": "true"}
-        if markup:
-            _d["reply_markup"] = json.dumps(markup)
-        r = tg.call("sendMessage", _d)
-        if r and (not isinstance(r, dict) or r.get("ok", True)):
-            return r
-    except Exception as e:
-        log(f"idx html: {e}")
-    import re as _r, html as _h
-    return tg.say(_h.unescape(_r.sub(r"</?(b|i|code)>", "", text)))
+    parts = _chunks(text)
+    r = None
+    for i, part in enumerate(parts):
+        try:
+            _d = {"chat_id": tg._chat(), "text": part, "parse_mode": "HTML", "disable_web_page_preview": "true"}
+            if markup and i == len(parts) - 1:
+                _d["reply_markup"] = json.dumps(markup)
+            r = tg.call("sendMessage", _d)
+            if r and (not isinstance(r, dict) or r.get("ok", True)):
+                continue
+        except Exception as e:
+            log(f"idx html: {e}")
+        import re as _r, html as _h
+        r = tg.say(_h.unescape(_r.sub(r"</?(b|i|code)>", "", part)))
+    return r
 
 
 def run(manual=False, extra_new=()):
@@ -187,11 +226,12 @@ def run(manual=False, extra_new=()):
     st, day = _status()
     cut3 = str(today - datetime.timedelta(days=3))       # v3.4.13: queue ke naye page (subah live) bhi ISI ek suchi mein
     pqn = [u for u, d in sorted((state.get("pq_new_pages") or {}).items(), key=lambda x: x[1], reverse=True) if d >= cut3]
-    rows = pick(list(extra_new) + [u for u in pqn if u not in extra_new], status=st)
+    rows = pick(list(extra_new) + [u for u in pqn if u not in extra_new], status=st, k=40)
     if not rows:
         gv = state.get("idx_given") or {}
         wk = len([u for u, d in gv.items() if d > str(today - datetime.timedelta(days=REPEAT_DAYS))])
-        return ("✅ GOOGLE INDEXING: aaj aapka koi kaam nahi - sitemap ke sab live page Google index mein hain"
+        return ("✅ GOOGLE INDEXING: aaj aapka koi kaam nahi - sitemap ke sab live page Google index mein hain\n"
+                + re.sub(r"</?b>", "", summary_line(st))
                 + (f" ya {wk} page par aap pichhle 7 din mein Request indexing kar chuke (Google 2-14 din leta hai)." if wk else "."))
     # v3.4.13: 7-din wala niyam sirf tab jab owner 'indexing ho gaya' likhe - bina kiye suchi gayab nahi hoti
     if not manual:                       # v3.4.17: 11:54 par suchi 2 baar gayi thi (restart ke beech) - din mein ek hi baar
@@ -199,7 +239,8 @@ def run(manual=False, extra_new=()):
             return None
         state.put("idx_sent_day", str(today))
     state.put("idx_last", {"day": str(today), "urls": [u for u, _ in rows]})
-    send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line),
+    send_html(message(rows, day, stale=bool(day and day < str(today - datetime.timedelta(days=1))), sm_line=sm_line,
+                      summ=summary_line(st)),
               markup=tg.inline([[("✅ Maine Request Indexing kar di", "ix:done")]]))
     return None
 

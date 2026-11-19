@@ -292,7 +292,16 @@ def scheduler():
                     from . import scoreboard as _SB
                     if _SB.due(nowt):
                         state.put("sb_day", day)
-                        run(lambda: _SB.send(1))
+                        run(lambda: (_SB.send(1), _SB.send_traffic(30)))   # v3.4.34: roz traffic chart bhi
+                    from . import masteraudit as _MA
+                    if _MA.due(nowt):
+                        state.put("ma_day", day)
+                        run(lambda: tg.say(_MA.text()))
+                    from . import perf as _PFw
+                    _PFw.tick()
+                    if _PFw.due(nowt):
+                        state.put("perf_day", str(nowt.date()))
+                        run(_PFw.weekly)
                 except Exception as _e_sb:
                     log(f"scoreboard loop: {_e_sb}")
                 try:                                   # v3.4.24: FB link-card, mauka calendar, funnel, saal jaanch
@@ -687,6 +696,14 @@ def scheduler():
                     run(_GQw.weekly)
             except Exception as _e_gqw:
                 log(f"gq weekly: {_e_gqw}")
+            if (not state.get("sitepatch_3434") and time.time() - STARTED > 720 and state.get("sitepatch_try3434") != day):
+                state.put("sitepatch_try3434", day)           # v3.4.34: Almora page ka galat tathya (audit gate)
+                def _sp34():
+                    from . import webfix as _SPq
+                    r_ = _SPq.apply_almora()
+                    if r_:
+                        tg.say(("✅ " if not r_.startswith("⚠️") else "") + r_)
+                run(_sp34)
             if (not state.get("sitepatch_3418") and time.time() - STARTED > 600 and state.get("sitepatch_try3418") != day):
                 state.put("sitepatch_try3418", day)           # v3.4.18: web story ke dohraaye title - ek baar, audit gate se
                 def _sp18():
@@ -775,7 +792,8 @@ def scheduler():
                 state.put("sq_day", day)                                                     # v2.0.2: GitHub par sirf taaza copy
                 from . import website as _W2
                 run(lambda: log("squash: " + _W2.squash_history()))
-            if state.get("docs_dirty") and time.time() - (state.get("docs_push_at") or 0) > 600:
+            if ((state.get("docs_dirty") and time.time() - (state.get("docs_push_at") or 0) > 600)
+                    or time.time() - (state.get("docs_push_at") or 0) > 3600):   # v3.4.34: har ghante taaza CHAT/PENDING/HEALTH GitHub par
                 state.put("docs_push_at", time.time())                                    # v2.0.4: kaam/query -> GitHub turant
                 state.put("docs_dirty", False)
                 run(lambda: log("docs push: " + updater.mirror(force=True)))
@@ -1216,9 +1234,32 @@ NORM.update({"sabthik": "🩺 Sab theek?", "sabthikhai": "🩺 Sab theek?", "sab
              "videobanao": "🎬 Abhi video", "pending": "⏳ Pending", "login": "/login"})
 
 
+KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup",
+             "🩺 Sab theek?", "⏸ Pause", "▶️ Resume", "⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"]
+RISKY_BTN = {"❌ Mat daalo", "⏸ Pause", "🗑 Post hatao", "🚀 Website deploy", "🧹 Deep Safai", "🧹 GitHub safai", "✅ Thumb 1 se daalo"}
+
+
+def all_labels():
+    out = list(dict.fromkeys(KB_LABELS + BUTTONS + [x for r in MENU_ROWS for x in r] + list(PRO)))
+    return out
+
+
 def on_text(text):
     if text.startswith("__fz__"):                  # v2.7.2: fuzzy se sudhra hua command (ek hi baar)
         text = text[6:]
+    elif not text.startswith("__la__"):            # v3.4.34: button ka naam galat spelling / awaaz se -> wahi button
+        try:
+            from . import fuzzybtn as _FB
+            labs = all_labels()
+            _fb = _FB.match(text, labs) if text.strip() not in labs else None
+            if _fb and _fb != text.strip():
+                if _fb in RISKY_BTN:               # hatane/rokne wale button: andaze par kabhi nahi - ek tap pushti
+                    return tg.say(f"🔤 Aapka matlab '{_fb}' hai? Pakka karne ke liye dabayein:",
+                                  tg.inline([[(f"✅ Haan: {_fb}", f"fb:{labs.index(_fb)}")]]))
+                tg.say(f"🔤 Samjha: '{_fb}'")
+                text = _fb
+        except Exception as _e_fb:
+            log(f"fuzzybtn: {_e_fb}")
     _la = (state.get("learned_alias") or {}).get(text.strip().lower())
     if _la and not text.startswith("__la__"):      # v2.9.4: owner ki pushti se seekha hua matlab
         text = _la
@@ -3723,6 +3764,17 @@ def on_callback(cb):
         return run(pipeline.new_thumbs, rest)
     if kind == "no":
         return tg.say(pipeline.reject(rest))
+    if kind in ("kb", "kk", "ku"):                 # v3.4.34: kam views wale sawal-type band/chalu
+        from . import perf as _PF
+        return _PF.on_callback(kind, rest)
+    if kind == "tb":
+        from . import perf as _PF
+        return _PF.tb_answer(rest == "y")
+    if kind == "fb":                               # v3.4.34: fuzzy button ki pushti
+        try:
+            return on_text("__fz__" + all_labels()[int(rest)])
+        except Exception:
+            return tg.say("Ye button purana ho gaya - dobara likhein.")
     if kind in ("rp", "rx"):                       # v3.4.33: 'Mat daalo' ke baad - doosri banau?
         return pipeline.replace_answer(rest, kind == "rp", run)
     if kind == "lg":

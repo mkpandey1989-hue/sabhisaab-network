@@ -284,3 +284,35 @@ def apply():
                 "FIRE calculator ka alag title, TDEE guide ke andar ke link, LinkedIn + Dailymotion ke link (/links, /about, homepage) aur privacy policy mein dono platform")
     log(f"sitepatch: {str(r)[:200]}")
     return "⚠️ Website sudhaar (v3.4.8) audit mein ruka, kuch live nahi hua: " + str(r)[:250]
+
+ALM_OLD = "Almora ke raste se ho kar jana padta hai, par ILP Chamoli ke liye hai"
+ALM_NEW = "Alag zila - Joshimath (Chamoli) ke raste jaate hain, Almora se nahi; ILP Chamoli prashasan deta hai"
+
+
+def apply_almora():
+    """v3.4.34 (owner: 'almora pahunche wala page index nahi ho raha - kami batao'): technical sab theek (index,follow,
+    canonical, sitemap, 15 andar ke link, 4300 shabd, 18 Nov ko bana). Ek tathya galat mila: Niti-Mana ghati 'Almora ke raste'
+    likha tha - asal mein Joshimath (Chamoli) ke raste. EK baar, audit gate se."""
+    from . import website
+    if state.get("sitepatch_3434") or not website.DIR.exists():
+        return None
+    with website.ZIP_LOCK:
+        f = website.DIR / "site" / "almora-kaise-pahunche.html"
+        if not f.exists():
+            return None
+        old = f.read_text(encoding="utf-8")
+        new = old.replace(ALM_OLD, ALM_NEW)
+        if new == old:
+            state.put("sitepatch_3434", True)
+            return None
+        with tempfile.TemporaryDirectory() as td:
+            zp = Path(td) / "sitepatch3434.zip"
+            with zipfile.ZipFile(zp, "w", zipfile.ZIP_DEFLATED) as z:
+                z.writestr("site/almora-kaise-pahunche.html", new)
+            r = website._apply_zip(str(zp))
+    if str(r).startswith("✅") or "pehle se lagi" in str(r):
+        state.put("sitepatch_3434", True)
+        return ("Almora 'kaise pahunche' page: ek galat tathya theek (Niti-Mana ghati Joshimath ke raste, Almora se nahi) - "
+                "audit paas, 15 min mein live. Baaki page technical roop se theek hai.")
+    log(f"sitepatch3434: {str(r)[:200]}")
+    return "⚠️ Almora page sudhaar audit mein ruka, kuch live nahi hua: " + str(r)[:250]

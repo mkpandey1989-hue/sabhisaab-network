@@ -677,7 +677,14 @@ BRAND_KINDS = {                                  # v2.3.0: har channel ke mizaaj
 
 
 def kinds_for(brand):
-    return BRAND_KINDS.get(brand, PUZZLE_TYPES)
+    ks = BRAND_KINDS.get(brand, PUZZLE_TYPES)
+    try:                                          # v3.4.34: views kam -> owner/bot ne band kiya type
+        from .perf import blocked_kinds
+        bk = blocked_kinds(brand)
+        ks2 = [k for k in ks if k not in bk]
+        return ks2 or ks
+    except Exception:
+        return ks
 
 
 def dual_verify_math(expr_type: str, a: int, b: int, c: int = 0) -> tuple:
@@ -738,7 +745,8 @@ def generate_puzzle(kind: str = "auto", brand: str = "sunonatak", _depth: int = 
                 it_ = _gen_compute(kind, rnd, reel_code)
                 pool = [it_] if it_ and _hash(it_["q"]) not in used_hashes else []
             else:
-                pool = [it for it in MCQ_BANKS.get(kind, []) if _hash(it["q"]) not in used_hashes
+                from .qbank import cliche as _clq          # v3.4.34: bachkani/ghisi-piti paheli static bank se bhi bahar
+                pool = [it for it in MCQ_BANKS.get(kind, []) if _hash(it["q"]) not in used_hashes and not _clq(it["q"])
                         and (kind != "elite24" or it["look"] in looks_for(brand))
                         and (kind != "elite24" or it["look"] not in _looks_today(brand))]
                 if not pool:                      # v2.3.5: pakka static khatam -> ANANT bank (Gemini + Google jaanch)

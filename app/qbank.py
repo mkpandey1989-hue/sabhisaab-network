@@ -51,7 +51,11 @@ AUDIENCE = ADULTS (18-45). The question must need 5-10 seconds of real thinking.
 or 'gotcha' word-play whose trick is that something only 'decided'/'thought' to happen (e.g. frogs/birds that 'decided to jump/fly',
 'how many months have 28 days', 'kilo of cotton vs kilo of iron', 'birds on a tree, one shot', 'where are survivors buried',
 'what has keys but no lock'), and never questions a small child could answer instantly. Prefer real maths, logic, language
-or knowledge that makes an adult feel smart. Never repeat or rephrase any of these existing questions:
+or knowledge that makes an adult feel smart.
+TWIST (owner 19 Nov): every question must be 'ghumaudar' - the FIRST answer that comes to mind should be WRONG (a common
+mistake / trap: bat-and-ball style maths, percentage up-then-down, calendar/clock traps, unit traps, BODMAS, a fact most people
+remember wrongly). Two options must look correct; exactly one is right and fully provable, explained in 'exp'. Fair, never a
+word-play cheat. This makes people doubt their answer and open the website to check. Never repeat or rephrase any of these existing questions:
 {seen}
 Return ONLY JSON: {{"items":[{{"q":"...","options":["...","...","...","..."],"answer":"...","exp":"..."}}]}}"""
 
@@ -65,7 +69,8 @@ correct AND the only correct option among the options (unambiguous). Return ONLY
 CLICHE = (r"फ\u093c?ैसला (किया|लिया).{0,40}कितन|सोचा.{0,20}कितने (बचे|रहे)|decided to|28 दिन.{0,30}महीन|महीनों? में 28|"
           r"किलो.{0,20}(रुई|कपास).{0,30}लोह|लोह.{0,30}(रुई|कपास)|पेड़ पर.{0,40}(गोली|शिकारी)|(गोली|शिकारी).{0,40}पेड़ पर|"
           r"बचे हुए लोगों को कहाँ दफ़?न|survivors|चाबियाँ (हैं|होती).{0,20}ताला नहीं|मुर्गा.{0,30}अंडा|"
-          r"सबसे (हल्का|भारी).{0,20}(किलो|kg)|गोलि(यां|याँ).{0,25}(आधे घंटे|30 मिनट)|आधे घंटे.{0,25}गोलि")
+          r"सबसे (हल्का|भारी).{0,20}(किलो|kg)|10वीं मंज़िल|भेड़िया.{0,15}बकरी|भूखे शेर|आमने-सामने के अंकों|"
+          r"मिनट वाली सुई कितने डिग्री|गुब्बारों में.{0,30}गैस|गोलि(यां|याँ).{0,25}(आधे घंटे|30 मिनट)|आधे घंटे.{0,25}गोलि")
 
 
 def cliche(q, opts=()):
@@ -74,7 +79,8 @@ def cliche(q, opts=()):
 
 
 CRITIC = """You judge quiz questions for an ADULT Indian audience (18-45) on a short-video channel. For each item give a score 1-10:
-10 = makes an adult think and feel smart; 1 = childish, an over-used internet/WhatsApp trick riddle, or so obvious a small child
+10 = makes an adult think, the obvious first answer is a trap so people doubt and want to check the answer, still fair with
+exactly one provable answer; 1 = childish, an over-used internet/WhatsApp trick riddle, or so obvious a small child
 answers instantly. Be strict. Return ONLY JSON: {{"scores":[{{"i":1,"s":7}}]}}
 {items}"""
 CRITIC_MIN = 6
@@ -115,7 +121,9 @@ def _used(q):
 
 
 def available(cat):
-    return [it for it in _load().get(cat, []) if not _used(it["q"]) and not cliche(it["q"], it.get("opts"))]
+    from .perf import word_blocked
+    return [it for it in _load().get(cat, []) if not _used(it["q"]) and not cliche(it["q"], it.get("opts"))
+            and not word_blocked(it["q"] + " " + " ".join(it.get("opts") or []))]
 
 
 def take(cat, rnd=None):

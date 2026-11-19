@@ -189,7 +189,7 @@ def on_text(tl, run):
     return None
 
 
-SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")), ("FB Group", ("fbgroup",)),
+SRC_GROUPS = [("Google", ("google",)), ("Bing", ("bing",)), ("Pinterest", ("pinterest",)), ("LinkedIn", ("linkedin", "lnkd")), ("FB Group", ("fbgroup", "facebook_group", "fb_group", "fbgrp")),
               ("Facebook", ("facebook", "fb", "m.facebook", "l.facebook")), ("Instagram", ("instagram", "ig")),
               ("YouTube", ("youtube",)), ("Telegram", ("telegram", "t.me")), ("Threads", ("threads",)),
               ("WhatsApp", ("whatsapp", "wa")), ("Quora", ("quora",)), ("Dailymotion", ("dailymotion", "dai")), ("Push", ("push",)), ("Seedha", ("(direct)",)),
@@ -325,3 +325,94 @@ def parse_days(tl):
     if "mahin" in tl or "month" in tl:
         return 30
     return 7
+
+
+# ------------- v3.4.34 (owner: "aaj kitna traffic aaya, traffic growth ka chart aaye, FB group link se kitne aaye") -------------
+CHART_SRC = ["FB Group", "Facebook", "Google", "Instagram", "YouTube", "Telegram", "Quora"]
+
+
+def traffic_daily(days=30):
+    """GA4: har din, har platform ke log. -> ({date: {platform: users}}, {date: kul})"""
+    from . import website as W
+    tok = W._gcreds("https://www.googleapis.com/auth/analytics.readonly")
+    url = f"https://analyticsdata.googleapis.com/v1beta/properties/{W.GA4_PROPERTY}:runReport"
+    j = requests.post(url, headers={"Authorization": f"Bearer {tok}"}, timeout=60, json={
+        "dateRanges": [{"startDate": f"{days - 1}daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "date"}, {"name": "sessionSource"}], "metrics": [{"name": "activeUsers"}], "limit": 5000}).json()
+    if j.get("error"):
+        raise RuntimeError(str(j["error"].get("message", j["error"]))[:200])
+    by, tot = {}, {}
+    for r in j.get("rows") or []:
+        d = r["dimensionValues"][0]["value"]
+        d = f"{d[:4]}-{d[4:6]}-{d[6:]}"
+        g = group_source(r["dimensionValues"][1]["value"])
+        n = int(r["metricValues"][0]["value"])
+        by.setdefault(d, {})[g] = by.setdefault(d, {}).get(g, 0) + n
+        tot[d] = tot.get(d, 0) + n
+    # kul (bina source ke) - ek aadmi do source se aaye to dohra na gine
+    j2 = requests.post(url, headers={"Authorization": f"Bearer {tok}"}, timeout=60, json={
+        "dateRanges": [{"startDate": f"{days - 1}daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "date"}], "metrics": [{"name": "activeUsers"}], "limit": 400}).json()
+    for r in j2.get("rows") or []:
+        d = r["dimensionValues"][0]["value"]
+        tot[f"{d[:4]}-{d[4:6]}-{d[6:]}"] = int(r["metricValues"][0]["value"])
+    return by, tot
+
+
+def traffic_text(by, tot):
+    today = datetime.datetime.now(IST).date()
+    ds = [str(today - datetime.timedelta(days=i)) for i in range(0, 14)]
+    t0, t1 = tot.get(ds[0], 0), tot.get(ds[1], 0)
+    w0 = sum(tot.get(d, 0) for d in ds[:7])
+    w1 = sum(tot.get(d, 0) for d in ds[7:14])
+    fb0 = (by.get(ds[0]) or {}).get("FB Group", 0)
+    fbw = sum((by.get(d) or {}).get("FB Group", 0) for d in ds[:7])
+    top = sorted((by.get(ds[0]) or {}).items(), key=lambda x: -x[1])[:6]
+    L = [f"🌐 WEBSITE TRAFFIC (GA4, asli log)",
+         f"• Aaj ({ds[0]}, abhi tak - adhoora): {t0} log",
+         f"• Kal (poora): {t1} log",
+         f"• Pichhle 7 din: {w0} | usse pehle 7 din: {w1}" + (f" ({(w0 - w1) * 100 // w1:+d}%)" if w1 else ""),
+         f"• 👥 FB GROUP link se: aaj {fb0} | 7 din {fbw}"]
+    if top:
+        L.append("• Aaj kahan se: " + ", ".join(f"{g} {n}" for g, n in top))
+    L.append("(GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)")
+    return "\n".join(L)
+
+
+def traffic_chart(days=30):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from .config import DATA
+    by, tot = traffic_daily(days)
+    today = datetime.datetime.now(IST).date()
+    ds = [str(today - datetime.timedelta(days=i)) for i in range(days - 1, -1, -1)]
+    fig, ax = plt.subplots(figsize=(11, 5.5))
+    ax.plot([d[5:] for d in ds], [tot.get(d, 0) for d in ds], marker="o", linewidth=2.5, color="#111", label="Kul log")
+    for g in CHART_SRC:
+        ys = [(by.get(d) or {}).get(g, 0) for d in ds]
+        if sum(ys):
+            ax.plot([d[5:] for d in ds], ys, marker=".", linewidth=1.3, label=g)
+    ax.set_title(f"sabhisaab.com - roz kitne log aaye (pichhle {days} din, GA4)")
+    ax.tick_params(axis="x", rotation=60, labelsize=7)
+    ax.grid(alpha=0.3)
+    ax.legend(fontsize=8, ncol=4)
+    fig.tight_layout()
+    out = DATA / "traffic.png"
+    fig.savefig(out, dpi=110)
+    plt.close(fig)
+    return out, traffic_text(by, tot)
+
+
+def send_traffic(days=30):
+    try:
+        p, cap = traffic_chart(days)
+    except Exception as e:
+        return tg.say(f"🌐 Traffic chart nahi bana: {str(e)[:200]}")
+    with open(p, "rb") as f:
+        tg.call("sendPhoto", {"chat_id": tg._chat(), "caption": cap[:1000]}, {"photo": f})
+    try:
+        from . import updater
+        updater.log_bot(cap)
+    except Exception:
+        pass

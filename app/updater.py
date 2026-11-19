@@ -136,7 +136,7 @@ def status_md():
         from . import siteknow
         pg = siteknow.pages()
         ni = siteknow.not_indexed()
-        lines += ["", "## Website", f"- HTML page: {len(pg)}, Google index nahi: {len(ni)}"] + [f"  - /{x}" for x in ni[:15]]
+        lines += ["", "## Website", f"- HTML page: {len(pg)}, Google index nahi: {len(ni)}"] + [f"  - https://sabhisaab.com/{x}" for x in ni[:40]]
     except Exception:
         pass
     lines += ["", "## Khule kaam (owner)"] + [f"- {x.get('x', '')[:140]}" for x in (state.get("todo") or [])[:15]]
@@ -477,8 +477,15 @@ def chat_md(days=30):                             # v2.8.0 (owner): poori 30 din
     rows.sort()
     lines = ["# CHAT - owner (👤) aur bot (🤖) ki baat, 30 din, naya upar. Token/password/secret/phone/email/@handle chhupe.",
              "Commenter ke comment yahan kabhi nahi (privacy policy). AI: galat/adhoore jawab yahin se pakdo, fix ZIP do.", ""]
-    lines += [f"- {t} {x}" for t, _, x in reversed(rows[-4000:])]
-    return "\n".join(lines) + "\n"
+    body, size = [], sum(len(x.encode()) + 1 for x in lines)
+    for t, _, x in reversed(rows[-4000:]):        # v3.4.34: 1 MB se badi file mirror se mit jaati thi (19 Nov: CHAT.md GitHub
+        ln = f"- {t} {x}"                         # se gayab -> AI bot ki baat padh hi nahi saka). Naya upar, 900 KB tak.
+        size += len(ln.encode()) + 1
+        if size > 900_000:
+            body.append(f"- (purani baat-cheet 900 KB seema ke kaaran yahan nahi - {t} se pehle ki)")
+            break
+        body.append(ln)
+    return "\n".join(lines + body) + "\n"
 
 
 def scrub_logs():

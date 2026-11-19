@@ -78,13 +78,33 @@ def on_text(tl, run=None):
     except Exception as ex:
         from .log import log
         log(f"featureaudit: {ex}")
+    try:                                                    # v3.4.34: master audit (owner ke saare niyam)
+        from . import masteraudit
+        if masteraudit.on_text(tl):
+            return True
+    except Exception as ex:
+        from .log import log
+        log(f"master text: {ex}")
+    try:                                                    # v3.4.34: views se sawal-type band / vishay band
+        from . import perf
+        if perf.on_text(tl):
+            return True
+    except Exception as ex:
+        from .log import log
+        log(f"perf text: {ex}")
     if re.search(r"\blinked?\s?in\b|\blinkdin\b|\blinkden\b", tl) and re.search(r"kitn|gayi|gyi|gai\b|hui|huyi|post gayi", tl):
         tg.say(li_count_text())
         return True
-    if re.fullmatch(r"(growth )?(graff|graf|grph|graph|grafh)( do| dikhao| bhejo)?", tl):
-        from . import growth
-        tg.say("📈 Graph bana raha hoon...")
-        (run or (lambda f: f()))(growth.send_growth)
+    if re.fullmatch(r"(growth |traffic |website )?(graff|graf|grph|graph|grafh|chart|chaart)( do| dikhao| bhejo)?", tl):
+        from . import growth, scoreboard
+        tg.say("📈 Graph bana raha hoon (website traffic + channel growth)...")
+        (run or (lambda f: f()))(lambda: (scoreboard.send_traffic(30), growth.send_growth()))
+        return True
+    if (re.search(r"\b(traffic|trafik|trafic|visitor|log aaye|log aye|kitne log)\b", tl)
+            and not re.search(r"table|tabel|report|link|reel|code|trend|platform", tl)):            # v3.4.34: 'aaj kitna traffic aaya' -> asli GA4 + chart
+        from . import scoreboard
+        tg.say("🌐 GA4 se aaj ka traffic la raha hoon...")
+        (run or (lambda f: f()))(lambda: scoreboard.send_traffic(30))
         return True
     m = re.fullmatch(r"pin ?kit(?: (\w+))?|pin wala text|bio link kit", tl)
     if m:
