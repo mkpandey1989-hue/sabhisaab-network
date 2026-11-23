@@ -153,7 +153,82 @@ def _cool(m, j=None, day=False, key="gemini_cool"):
                                                   if isinstance(v, (int, float))}, m: u}, {})
 
 
-def _models():
+# ---------------- v3.4.43 (owner 23 Nov: "Gemini kahan kharch ho raha, bina kaam ruke jugad lagao") ----------------
+# 1) HISAAB: har call kis module/kaam se aayi (roz) - 'gemini haal' mein dikhta hai.
+# 2) HALKA KAAM (comment, plan, news, bank, seo-diary, idea, meeting...) pehle LITE model par (sabse badi free seema), taaki
+#    owner ki baat + video script + video audit ke liye bade model ki seema bachi rahe. Bada kaam pehle jaisa: sabse uncha pehle.
+# 3) Halke kaam ka wahi prompt 6 ghante mein dobara aaye to purana jawab (cache) - dobara call nahi.
+LOW_MODS = {"growth", "qbank", "seodiary", "ideas", "company", "policywatch", "upgrader", "factwatch", "siteknow", "kb",
+            "quoradraft", "marketing", "news", "perf"}
+LOW_FUNCS = {"learn_propose"}
+CACHE_TTL = 6 * 3600
+
+
+def _caller():
+    import sys as _s
+    f = _s._getframe(1)
+    while f and f.f_globals.get("__name__", "").endswith(".brain"):
+        f = f.f_back
+    if not f:
+        return "?", "?"
+    return f.f_globals.get("__name__", "?").rsplit(".", 1)[-1], f.f_code.co_name
+
+
+def _low(mod, fn):
+    return mod in LOW_MODS or fn in LOW_FUNCS
+
+
+def _use(mod, fn, kind):
+    """kind: call | ok | quota | cache | cf."""
+    day = str(datetime.date.today())
+    def up(d):
+        d = {k: v for k, v in (d or {}).items() if k >= str(datetime.date.today() - datetime.timedelta(days=3))}
+        dd = d.setdefault(day, {})
+        r = dd.setdefault(f"{mod}.{fn}", {})
+        r[kind] = r.get(kind, 0) + 1
+        return d
+    try:
+        state.update("gemini_use", up, {})
+    except Exception:
+        pass
+
+
+def use_text(day=None):
+    """'gemini haal' ke liye: aaj sabse zyada Gemini kaun kha raha."""
+    day = day or str(datetime.date.today())
+    d = (state.get("gemini_use") or {}).get(day) or {}
+    rows = sorted(d.items(), key=lambda kv: -kv[1].get("call", 0))
+    if not rows:
+        return "Aaj abhi koi Gemini call nahi."
+    tot = sum(v.get("call", 0) for _, v in rows)
+    L = [f"📊 Aaj Gemini call: {tot} (cache se bache: {sum(v.get('cache', 0) for _, v in rows)}, seema-fail: "
+         f"{sum(v.get('quota', 0) for _, v in rows)})"]
+    for k, v in rows[:10]:
+        L.append(f"• {k}: {v.get('call', 0)} call" + (f", {v['cache']} cache" if v.get("cache") else "")
+                 + (f", {v['quota']} seema" if v.get("quota") else "") + (" (halka - lite pehle)" if _low(*k.split(".", 1)) else ""))
+    return "\n".join(L)
+
+
+def _cache_get(k):
+    import time as _t
+    c = (state.get("gemini_cache") or {}).get(k)
+    if c and _t.time() - c[0] < CACHE_TTL:
+        return c[1]
+    return None
+
+
+def _cache_put(k, v):
+    import time as _t
+    try:
+        if len(json.dumps(v, ensure_ascii=False)) > 6000:
+            return
+    except Exception:
+        return
+    state.update("gemini_cache", lambda d: dict(list({kk: vv for kk, vv in (d or {}).items()
+                                                         if _t.time() - vv[0] < CACHE_TTL}.items())[-150:] + [(k, [_t.time(), v])]), {})
+
+
+def _models(low=False):
     import time as _t
     cool = state.get("gemini_cool", {}) or {}
     env = os.environ.get("GEMINI_MODEL")
@@ -172,6 +247,8 @@ def _models():
     # thodi der hatte hain; sirf jo aaj asli galti (404/ijaazat/khaali) de chuke, wo aakhir mein.
     good = [m for m in order if not (st.get(m) and st.get(m) != "ok")]
     bad = [m for m in order if st.get(m) and st.get(m) != "ok"]
+    if low:                                   # v3.4.43: halka kaam - lite pehle (badi free seema), phir flash, pro aakhir mein
+        good.sort(key=lambda m: 0 if "lite" in m else (2 if "pro" in m else 1))
     return good + bad
 
 
@@ -241,8 +318,19 @@ def ask_gemini(prompt, json_mode=True, temperature=0.3):
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
         raise RuntimeError("Gemini key nahi")
+    mod, fn = _caller()
+    low = _low(mod, fn)
+    ck = None
+    if low:
+        import hashlib as _hl
+        ck = _hl.md5(f"{json_mode}|{prompt}".encode()).hexdigest()
+        hit = _cache_get(ck)
+        if hit is not None:
+            _use(mod, fn, "cache")
+            return hit
+    _use(mod, fn, "call")
     last = None
-    for m in _models():
+    for m in _models(low):
         try:
             r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",
                               params={"key": key}, timeout=90,
@@ -252,6 +340,7 @@ def ask_gemini(prompt, json_mode=True, temperature=0.3):
             j = r.json()
             if r.status_code in (429, 403) or "quota" in json.dumps(j).lower():
                 _cool(m, j)
+                _use(mod, fn, "quota")
                 log(f"brain: {m} ki seema (thodi der), agla model")
                 last = f"{m} quota"
                 continue
@@ -274,14 +363,16 @@ def ask_gemini(prompt, json_mode=True, temperature=0.3):
             state.update("gemini_status", lambda d, m=m: {**(d or {}), m: "ok"}, {})
             state.put("gemini_last_model", m)
             state.put("gemini_last_error", "")
-            if not json_mode:
-                return txt
-            return _json(txt)
+            out_ = txt if not json_mode else _json(txt)
+            if ck:
+                _cache_put(ck, out_)
+            return out_
         except Exception as e:
             last = f"{m}: {e}"
             state.update("gemini_status", lambda d, m=m, x=str(e): {**(d or {}), m: x[:80]}, {})
     state.put("gemini_last_error", str(last)[:300])
     try:                                     # v2.1.0: doosra dimaag (Cloudflare Workers AI)
+        _use(mod, fn, "cf")
         return ask_cf(prompt, json_mode, temperature)
     except Exception as e:
         log(f"brain: cloudflare AI bhi nahi: {e}")
@@ -366,6 +457,8 @@ def ask_grounded(prompt, temperature=0.1):
         raise RuntimeError("Gemini key nahi")
     if _t.time() < (state.get("grounded_off_until") or 0):   # v2.1.2: 3 din mein ~50 bekaar koshish (audit) -> ruko
         raise RuntimeError("Google-search wala Gemini thodi der band (free seema)")
+    _mod, _fn = _caller()
+    _use(_mod, _fn + "[google]", "call")
     gcool = state.get("grounded_cool") or {}
     last = None
     for m in [x for x in _models() if not (isinstance(gcool.get(x), (int, float)) and gcool[x] > _t.time())]:

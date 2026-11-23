@@ -1,5 +1,7 @@
 # AI_START - koi bhi AI / developer SABSE PEHLE ye padhe
 
+> **SABSE PEHLE (23 Nov 2026): `docs/LESSONS_NEVER.md` - jo galtiyan ho chuki, KABHI dobara nahi.**
+
 > **v3.4.42: `docs/COMMANDS.md` = owner kya likhta hai → kaun si report.** Naya roz ka sawal jode to wahan bhi likho.
 
 > **23 Nov 2026 (v3.4.40): `docs/AUDIT_23NOV2026.md` padho** - owner ke roz ke sawal ab `app/localask.py` (bina Gemini, asli data).

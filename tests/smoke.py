@@ -1124,5 +1124,37 @@ _IX42.not_indexed_text, _IX42.send_html = _ni42, _hs42
 _said42.clear(); state.put("say_seen", {})
 check(_LA42.on_text("like kon kon kar rha hai reels per", _B42.run, "") is None, "'like kon kar raha' purane sahi jawab par (schedule nahi)")
 _TG42.call, _B42.run = _oc42, _or42
+
+# ---------------- v3.4.43: Gemini bachat + hisaab, tareef comment bina AI ----------------
+from app import brain as _BR43, growth as _G43
+import datetime as _dt43
+state.put("gemini_models", {"date": str(_dt43.date.today()), "list": ["gemini-x-pro", "gemini-x-flash", "gemini-x-flash-lite"]})
+state.put("gemini_cool", {}); state.put("gemini_status", {})
+check(_BR43._models(True)[0].endswith("lite") and _BR43._models()[0].endswith("pro"), "halka kaam lite pehle, owner/script bada pehle")
+check(_BR43._low("growth", "check_comments") and not _BR43._low("bot", "think") and not _BR43._low("writer", "script"),
+      "comment/plan = halka; owner ki baat + script = bada")
+_calls43 = []
+import requests as _rq43
+class _R43:
+    status_code = 200
+    def json(self):
+        return {"candidates": [{"content": {"parts": [{"text": '{"x": 1}'}]}}]}
+_op43 = _rq43.post
+_rq43.post = lambda *a, **k: (_calls43.append(1), _R43())[1]
+import os as _os43
+_os43.environ.setdefault("GEMINI_API_KEY", "k")
+_ag43 = _BR43.ask_gemini.__globals__["ask_gemini"]
+def growth_test43():
+    return _BR43.ask_gemini("same prompt 43")
+growth_test43.__globals__["__name__"] = growth_test43.__globals__["__name__"]
+_BR43.LOW_FUNCS.add("growth_test43")
+growth_test43(); growth_test43()
+check(len(_calls43) == 1, "halka kaam ka wahi prompt dobara = cache (Gemini call nahi)")
+check("growth_test43" in _BR43.use_text(), "'gemini haal' mein kaun kitna kha raha")
+_rq43.post = _op43
+state.put("qr_stat", {})
+check(_G43.short_reply("ig", "pahadi", {"id": "s1", "media": "M43", "author": "a1", "text": "❤️"})
+      and _G43.short_reply("ig", "pahadi", {"id": "s2", "media": "M43", "author": "a2", "text": "Ye kaise hua?"}) is None,
+      "tareef/emoji comment = bina AI chhota jawab; sawal = AI")
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

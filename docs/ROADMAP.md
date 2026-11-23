@@ -2243,3 +2243,13 @@ Owner (17 Nov 10:42): VM audit file + "chowkidar par kya jode/hataye, report tak
 - Auto-doctor: roz 05:40 ke alawa har 2 ghante chupchaap (SITE line) - sirf naya kuch ho to khabar. Naye khud-sudhaar: deploy 45 min
   atka -> deploy; comment-jawab line 2 ghante atki -> bhejo; koi kaam 90 min se atka -> khabar.
 - smoke 509 ✅.
+
+## v3.4.43 (23 Nov 2026 shaam) - Gemini bachat + hisaab, LESSONS doc (Claude Opus 5.5)
+- Owner: "Gemini kahan kharch ho raha, bina kaam ruke jugad", "jo kamiyan thi GitHub par rakho - koi AI dobara na kare".
+- docs/LESSONS_NEVER.md (NAYA): 28 sabak - har AI ZIP se pehle padhe (AI_START mein sabse upar).
+- brain.py: har Gemini call ka hisaab (module.kaam, roz) -> 'gemini haal'; halka kaam (growth/qbank/seodiary/ideas/company/
+  policywatch/upgrader/factwatch/siteknow/kb/quoradraft/learn_propose) LITE model pehle (badi free seema), owner ki baat + video
+  script + video audit pehle jaise sabse uncha pehle; halke kaam ka wahi prompt 6 ghante mein dobara = cache.
+- growth.py: tareef/emoji comment ('❤️', 'nice', 'Jai Uttarakhand') = bina AI chhota jawab (5 roop, wahi seema). Quiz A-B-C-D
+  pehle se bina AI (v3.4.41). Comment hi sabse bada Gemini kharch tha.
+- Kuch aur nahi chheda (video ka format/sawal-type owner ki pushti ke bina nahi badla).

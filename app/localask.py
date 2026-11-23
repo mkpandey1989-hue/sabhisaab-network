@@ -142,6 +142,12 @@ def gemini_text():
     err = state.get("gemini_last_error") or ""
     if err:
         L.append(f"Aakhri galti: {err[:160]}")
+    try:                                               # v3.4.43: kahan kharch ho raha
+        L.append("")
+        L.append(brain.use_text())
+        L.append("Bachat chalu: halka kaam lite model par + 6 ghante cache; tareef/A-B-C-D comment bina AI.")
+    except Exception as e:
+        log(f"gemini use: {e}")
     if not free or err:
         L.append("Pakka ilaaj (aapka faisla, Pending list mein): Google AI Studio → Billing chalu + mahine ki seema.")
     return "\n".join(L)

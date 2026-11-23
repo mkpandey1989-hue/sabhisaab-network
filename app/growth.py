@@ -272,8 +272,25 @@ def quiz_choice(text, e):
     return None
 
 
-def quiz_reply(platform, b, c, e, ch):
+THANKS_T = ["🙏 Shukriya! Roz 2 naye sawal aate hain - agla bhi try kijiye.", "😊 Dhanyavaad! Aise hi saath bane rahiye.",
+            "🙌 Bahut shukriya - aapka saath hi hamari taakat hai.", "🙏 Aabhaar! Agla sawal aur mazedaar hoga.",
+            "😊 Shukriya ji! Purane sawal aur jawab sabhisaab.com/jawab par bhi hain."]
+
+
+def short_reply(platform, b, c):
+    """v3.4.43 (Gemini bachat): chhota tareef/emoji comment ('❤️', 'nice', 'very good', '🔥🔥') - AI ke bina, seema ke andar."""
+    t = (c.get("text") or "").strip()
+    if not t or "?" in t or len(t) > 40 or len(re.findall(r"[\w\u0900-\u097F]+", t)) > 3 or any(w in t.lower() for w in BAD_WORDS):
+        return None
+    if not re.search(r"[❤🙏👍👏😍🔥💯😊🥰✨🙌]|\b(nice|good|great|wow|super|osm|awesome|badhiya|badiya|mast|shandar|"
+                     r"accha|achha|sahi|thanks|thank|jai|जय|बढ़िया|बहुत|सुंदर|शानदार|वाह)\b", t, re.I):
+        return None
+    return quiz_reply(platform, b, c, {"code": ""}, ("", ""), THANKS_T)
+
+
+def quiz_reply(platform, b, c, e, ch, templates=None):
     """Seema ke andar ho to chhota jawab (str), warna '' (chup - spam nahi)."""
+    tpl = templates or QR_T
     day = str(datetime.date.today())
     st = state.get("qr_stat") or {}
     if st.get("day") != day:
@@ -283,7 +300,7 @@ def quiz_reply(platform, b, c, e, ch):
         _cstat("quiz_skip_seema")
         return ""
     last = state.get("qr_last") or {}
-    i = (int(last.get(ak_, -1)) + 1 + (len(c.get("id", "")) % 2)) % len(QR_T)
+    i = (int(last.get(ak_, -1)) + 1 + (len(c.get("id", "")) % 2)) % len(tpl)
     state.put("qr_last", {**last, ak_: i})
     st[mk] = st.get(mk, 0) + 1
     st[ak_] = st.get(ak_, 0) + 1
@@ -291,7 +308,7 @@ def quiz_reply(platform, b, c, e, ch):
         st[wk] = 1
     state.put("qr_stat", dict(list(st.items())[-400:]))
     o = str(ch[1])[:40]
-    return QR_T[i].format(L=ch[0], o=o, c=e.get("code"))
+    return tpl[i].format(L=ch[0], o=o, c=e.get("code"))
 
 
 def _quiz_ctx(e):
@@ -324,6 +341,15 @@ def _handle_comment(platform, b, c):
                 at = time.time() + random.randint(7 * 60, 45 * 60)
                 state.update("reply_queue", lambda q: (q or []) + [{"at": at, "pf": platform, "b": b, "id": c.get("parent") or c["id"],
                                                                     "text": rep, "who": c.get("author", "")}], [])
+                _cstat("queued")
+            return
+        sr = short_reply(platform, b, c) if state.get("auto_reply", True) else None   # v3.4.43: tareef/emoji = bina AI
+        if sr is not None and not (platform == "yt" and youtube.comment_blocked(b, "yt_reply_noscope")):
+            _cstat("short_praise")
+            if sr:
+                at = time.time() + random.randint(7 * 60, 45 * 60)
+                state.update("reply_queue", lambda q: (q or []) + [{"at": at, "pf": platform, "b": b, "id": c.get("parent") or c["id"],
+                                                                    "text": sr, "who": c.get("author", "")}], [])
                 _cstat("queued")
             return
     except Exception as e_q:
