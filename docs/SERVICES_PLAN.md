@@ -223,3 +223,12 @@ Audit report `data/services/video_audit.jsonl` mein hamesha.
 - Services video: **roz 4 alag video**, IST 05:00 · 07:00 · 18:00 · 20:00. Bot views/comment/lead data se report de; time owner badlega. Purana brand schedule nahi chhedna.
 - Easy + advance sab features lene hain (sec 12 + 14 + chat wale: story sticker, highlights, 5-min yaad, line-guard slowdown, mahine ka top kaam video).
 - Owner ke haath wale kaam `docs/PENDING.md` mein bhi.
+
+---
+## 16. Instagram suraksha — PLAN BADLA (24 Nov 2026, email + purane docs check)
+- Email: @sunonatak **2 baar band** hua — 26 Oct reinstated; 24 Nov 04:13 IST "Verify you're human" (profile chhupa), 05:17 IST reinstated.
+- Purani wajah (ROADMAP 342, AUDIT_9NOV): "comment LINK, DM milega" + caption mein link/UTM = Meta ne "prohibited commercial practices / scam" shak kiya. @labhlodeals par bhi 30 din DM rok (28 Nov tak).
+- Isliye **Instagram par:** "Comment KAAM → DM" **NAHI** (kisi brand par). Caption/comment mein link nahi. Sirf "Link bio mein" + services bio link. Comment ka jawab public, chhota, bina link, sirf services video par, samajh na aaye to owner ko.
+- IG DM automation tab tak band jab tak: (a) 30 din bina kisi lock/warning, (b) Meta App Review (instagram_manage_messages) pass, (c) owner ki dohri pushti. @sunonatak par kam se kam 2 lock ke baad 60 din.
+- Lead ka raasta: **Facebook** (comment → private reply, Meta niyam 7 din/1 baar, owner pushti ke baad), **YouTube** pinned comment + description link, **Telegram/WhatsApp channel**, **website form**.
+- Services video Instagram par jayega (bina link/DM bulawa ke); text: "Kaam ho to bio ka link dabaiye".
