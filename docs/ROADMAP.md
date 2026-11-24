@@ -2449,3 +2449,13 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
   likhiye"; resume ka naam upar wale naam se apne aap; resume par mobile adhura ho to bataata hai. /services ka mobile header + footer
   412px par theek (pehle 526px - page chhota dikhta tha).
 
+## v3.8.9 (24 Nov 2026) - "baaki page bhi theek, badi file ki limit ka issue na ho"
+- Owner ki haan: saare ~370 page ka phone view. 360/412px par header ke link, footer ke link (Home·About·... bina jagah), Uttarakhand
+  page ki table aur lambe shabd page ko 520px chauda kar dete the (phone par sab chhota). Ilaaj: ek CSS line (/*m412*/, sirf 600px se
+  chhoti screen par) - header wrap, footer link wrap, table apne dibbe mein side-scroll, lamba shabd toote. Laptop par 0 pixel farak.
+  Jaanch: 372 page x 2 chaudai nakli phone par - sab screen ke andar; audit 0 error; calculator test 183 page paas.
+- Badi ZIP nahi: bot khud VM par saare page theek karta hai (website.mobile_fix_apply, ek baar, audit gate, GitHub copy, deploy) - Telegram
+  ki 20 MB seema ka sawaal hi nahi. Sirf CSS badla to IndexNow ko 370 URL ka faltu ping nahi.
+- Aage ke liye: har aane wali website ZIP ke page par fix apne aap (_apply_zip). Services page (services.html, services-list) bot ke saath
+  (app/sitepatch388) - alag website ZIP ki zaroorat nahi. Naya svc-kit (form jaanch) usi din likha jaata hai (svc_kit_v).
+

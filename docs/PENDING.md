@@ -127,16 +127,15 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
 
-## Services - owner ke pending kaam (24 Nov 2026, v3.8.8 ke baad) - sab ek jagah
-- [Owner] Install kram: (1) bot sabhinet-v3.8.8 (2) 2-3 min baad website-v10-services.zip
-- [Owner, haan/na] Baaki ~360 page par mobile header/footer 412px par 526px (page chhota dikhta hai). /services par theek kar diya; baaki par wahi 2 CSS line - owner ki 'haan' ka intezaar.
+## Services - owner ke pending kaam (24 Nov 2026, v3.8.9 ke baad) - sab ek jagah
+- [Owner] Install: SIRF bot sabhinet-v3.8.9 (website ZIP nahi chahiye - bot 4-5 min baad khud saare page ka mobile fix + services page lagata hai, sandesh '📱 Website: ...' aayega)
   (3) apne phone se /services-list par adhura number daal kar dekhiye (Hindi mein rokega), phir sahi number se test kaam bhejiye -> Telegram par "Naya kaam" + 5 min mein card (4) 'services form jaanch'
 - [Owner] Telegram button chahiye to: services telegram <aapka_username> (bina @). Na ho to sirf WhatsApp dikhega.
 - [Owner] 'services video namoona' -> brand chuniye -> video dekhiye; theek ho to 'services video chalu'.
 - [Owner] Brand logo galat/purana lage to Facebook page ki profile photo badaliye (bot wahi leta hai) ya data/brand_logo/<brand>.png rakhiye.
 - [Owner] Awaaz: 'services awaaz jaanch' -> jo shabd galat lage: services awaaz sudhar <likha> = <bolna>.
 - [Owner] AdSense: "Low value content" - Request review abhi MAT. Pehle 2 hafte roz click (GSC). Baaki site ke footer ki mobile chaudai
-  (about, emi jaise pages 412px par 526px) owner ki haan ke baad theek karni hai.
+  (about, emi jaise pages) - v3.8.9 mein theek (bot khud lagata hai).
 - [Owner] Instagram: story question sticker + Highlights "Kaam" khud (API nahi). Comment->DM kisi brand par nahi (sec 16).
 - [Owner] Google Business Profile banana (service area, address chhupa) - asli review ke liye.
 - [Owner] Suno Natak IG 2 baar band ho chuka - 60 din dheere; DM nahi.

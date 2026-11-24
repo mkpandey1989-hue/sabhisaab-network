@@ -445,7 +445,13 @@ def _apply_zip(path, force=False, deploy_in=15):
             if d.startswith("site/") and d.endswith(".html") and not tgt.exists():
                 new_pages += 1
             tgt.parent.mkdir(parents=True, exist_ok=True)
-            tgt.write_bytes(z.read(n))
+            b_ = z.read(n)
+            if d.startswith("site/") and d.endswith(".html"):             # v3.8.9: naye/badle page par bhi mobile fix apne aap
+                try:
+                    b_ = mobile_fix_text(b_.decode("utf-8")).encode("utf-8")
+                except Exception:
+                    pass
+            tgt.write_bytes(b_)
             moved.append(d)
     if new_pages and _new_pages_today(new_pages) > NEW_PAGES_PER_DAY and not force:
         _revert_zip()
@@ -1807,6 +1813,76 @@ def bing_report():
 
 
 # ---------------- v2.9.2: bot ZIP ke saath aaya website-sudhaar (owner ko alag site ZIP nahi) ----------------
+# ---------------- v3.8.9: mobile chaudai (owner 24 Nov: "baaki page bhi theek karo, badi file ki limit ka issue na ho, future mein dikkat na ho")
+# 412px phone par header ke link + footer ke link bahar nikal kar page 526px ka ho jaata tha (sab kuch chhota dikhta). Ilaaj = 2 CSS line,
+# har page ke pehle <style> mein. Bot khud lagata hai (badi ZIP Telegram se bhejne ki zaroorat nahi) + har aane wali ZIP ke page par bhi.
+MFIX_TAG = "/*m412*/"
+MFIX_CSS = (MFIX_TAG + "@media(max-width:600px){.hnav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px 12px;max-width:62vw}"
+            ".hnav a{margin-left:0!important;font-size:.85rem}footer{overflow-wrap:anywhere}footer a{display:inline-block;margin:2px 6px}"
+            "table{display:block;max-width:100%;overflow-x:auto}p,li,dd{overflow-wrap:anywhere}pre,code{white-space:pre-wrap;overflow-wrap:anywhere}img,video,iframe{max-width:100%}}"
+            "#shConsent{max-width:100vw;box-sizing:border-box}#shConsent button{white-space:normal;max-width:100%}")
+
+
+def mobile_fix_text(html):
+    if MFIX_TAG in html or "max-width:62vw" in html or "</style>" not in html:
+        return html
+    i = html.index("</style>")
+    return html[:i] + MFIX_CSS + html[i:]
+
+
+def mobile_fix_all():
+    """site/**/*.html jinme fix nahi -> {raasta: naya text}."""
+    out = {}
+    for f in sorted((DIR / "site").rglob("*.html")):
+        try:
+            t = f.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        n = mobile_fix_text(t)
+        if n != t:
+            out[str(f.relative_to(DIR))] = n
+    return out
+
+
+def mobile_fix_apply():
+    """Ek baar (state mfix_v389): saare page ka mobile fix + bot ke saath aaye services page (app/sitepatch388) - audit gate se."""
+    import pathlib as _pl
+    if state.get("mfix_v389"):
+        return ""
+    try:
+        sync()
+    except Exception as e:
+        log(f"mfix sync: {e}")
+    files = {}
+    src = _pl.Path(__file__).parent / "sitepatch388"
+    if src.exists():
+        for f in sorted(src.iterdir()):
+            if f.is_file():
+                files[f"site/{f.name}"] = f.read_bytes()
+    for p, t in mobile_fix_all().items():
+        if p not in files:
+            files[p] = t.encode("utf-8")
+    if not files:
+        state.put("mfix_v389", True)
+        return ""
+    z = DATA / "mfix389.zip"
+    with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zz:
+        for p, b in files.items():
+            zz.writestr(p, b)
+    only_css = {p for p in files if not p.startswith("site/services")}
+    r = apply_zip(z, force=False, deploy_in=1)
+    z.unlink(missing_ok=True)
+    try:                                   # sirf CSS badla = content nahi badla -> IndexNow ko 360 URL ka faltu ping nahi
+        state.put("site_changed", [p for p in (state.get("site_changed") or []) if p not in only_css])
+    except Exception as e:
+        log(f"mfix site_changed: {e}")
+    if str(r).startswith("✅") or str(r).startswith("ℹ️"):
+        state.put("mfix_v389", True)
+        return (f"📱 Website: {len(files)} page/file - phone par header/footer ab screen ke andar (412px par 526px wali dikkat khatam) + "
+                "services page ka naya form. Audit paas, 1 min mein live.")
+    return f"📱 Website mobile sudhaar audit mein ruka (kuch live nahi): {str(r)[:300]}"
+
+
 def sitepatch_apply():
     """app/sitepatch/*.html -> site/ (audit gate) + unhi page ki sitemap lastmod aaj. Ek baar (state sitepatch_v292)."""
     import pathlib as _pl

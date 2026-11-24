@@ -1484,6 +1484,25 @@ try:
     _ok88, _msg88 = _D88.check_video(None, fix=False)
     check(not _ok88 or "band" in _msg88, "doctor: awaaz bimaar ho to video nahi banata (intezaar)")
     state.put("svc_tts_bad", None)
+    # v3.8.9: saare page ka mobile fix bot khud (badi ZIP nahi) + aage aane wali har ZIP par
+    from app import website as _W89
+    _h89 = "<html><head><style>.hnav a{margin-left:18px}</style><style>x{}</style></head><body></body></html>"
+    _f89 = _W89.mobile_fix_text(_h89)
+    check(_f89.count(_W89.MFIX_TAG) == 1 and _f89.index(_W89.MFIX_TAG) < _f89.index("</style>") and _W89.mobile_fix_text(_f89) == _f89,
+          "mobile fix: pehle <style> mein ek hi baar (dobara nahi)")
+    check(_W89.mobile_fix_text("<html>no style</html>") == "<html>no style</html>", "bina style wale page ko nahi chhedta")
+    _od89 = _W89.DIR
+    try:
+        _W89.DIR = __import__("pathlib").Path(__import__("tempfile").mkdtemp())
+        (_W89.DIR / "site" / "stories").mkdir(parents=True)
+        (_W89.DIR / "site" / "a.html").write_text(_h89, encoding="utf-8")
+        (_W89.DIR / "site" / "stories" / "b.html").write_text(_h89, encoding="utf-8")
+        (_W89.DIR / "site" / "c.html").write_text(_f89, encoding="utf-8")
+        check(sorted(_W89.mobile_fix_all()) == ["site/a.html", "site/stories/b.html"], "mobile fix: sirf bina fix wale page (andar ke folder bhi)")
+    finally:
+        _W89.DIR = _od89
+    check("p[2] === 'add'" in _wj87 and (__import__("pathlib").Path(_W89.__file__).parent / "sitepatch388" / "services-list.html").exists(),
+          "services page bot ke saath (alag website ZIP nahi)")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

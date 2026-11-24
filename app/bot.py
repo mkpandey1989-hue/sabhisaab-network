@@ -686,6 +686,14 @@ def scheduler():
                     if r_:
                         tg.say(r_)
                 run(_sp)
+            if not state.get("mfix_v389") and time.time() - STARTED > 240 and time.time() - (state.get("mfix_try") or 0) > 3 * 3600:
+                state.put("mfix_try", time.time())         # v3.8.9: sab page ka mobile fix + services page - bot khud (badi ZIP nahi)
+                def _mf():
+                    from . import website as _WMF
+                    r_ = _WMF.mobile_fix_apply()
+                    if r_:
+                        tg.say(r_)
+                run(_mf)
             if not state.get("ownermode_v312") and time.time() - STARTED > 300 and state.get("ownermode_try") != day:
                 state.put("ownermode_try", day)            # v3.1.2: owner ki apni visit Analytics mein na gini jaaye - code ek baar har page par
                 def _om():

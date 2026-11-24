@@ -824,6 +824,13 @@ def selftest():
     return ("✅ Form ka raasta theek" if ok else "🔴 FORM KA RAASTA TOOTA") + "\n" + "\n".join(out)
 
 
+def _kit_v():
+    try:
+        return re.search(r"services kit v([\d.]+)", (__import__("pathlib").Path(__file__).parent / "assets" / "svc" / "svc-kit.js").read_text(encoding="utf-8")).group(1)
+    except Exception:
+        return ""
+
+
 def ensure_site_cfg():
     """v3.5.1/v3.8.0: website ZIP ne svc-cfg.js ya proxy mita diya ho to dobara likho + deploy."""
     from . import tg, website
@@ -844,7 +851,9 @@ def ensure_site_cfg():
         c2["wv"] = wv
         _save_cfg(c2)
         return r_
-    if not _write_site_files(c):
+    wrote = _write_site_files(c)
+    state.put("svc_kit_v", _kit_v())                    # v3.8.9: naya svc-kit (form jaanch) aaye to usi din likho, agle din ka intezaar nahi
+    if not wrote:
         return False
     state.put("site_undeployed", True)
     audit("site_cfg_fix")
@@ -1131,7 +1140,8 @@ def tick(run):
             if bad:
                 tg.alert("red", "🛡 Services raat ki jaanch:\n" + "\n".join(bad))
         run(_na)
-    if (state.get("svc_cfg_day4") != d or _cfg().get("wv") != re.search(r"sabhisaab-leads v([\d.]+)", JS).group(1)) \
+    if (state.get("svc_cfg_day4") != d or _cfg().get("wv") != re.search(r"sabhisaab-leads v([\d.]+)", JS).group(1)
+            or state.get("svc_kit_v") != _kit_v()) \
             and _cfg().get("url") and time.time() - state.get("svc_cfg_try", 0) > 1800:        # v3.5.1: website par form ka pata khaali na rahe
         state.put("svc_cfg_day4", d)
         state.put("svc_cfg_try", time.time())
