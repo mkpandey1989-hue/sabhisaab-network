@@ -68,4 +68,10 @@ await R('/api/clog',{method:'POST',body:{w:'TypeError x'}});
 [s,j]=await R('/adm/log'); ok(j.log.some(x=>x.k==='client')&&j.log.some(x=>x.k==='selftest')&&j.log.some(x=>x.k==='ratelimit'),'form log: har koshish ka kaaran');
 [s,j]=await R('/api/find',{method:'POST',body:{id:id.toLowerCase(),last4:'3210'}}); ok(s===200&&j.k===k,'link kho gaya: number + aakhri 4 ank se page mila');
 [s,j]=await R('/api/find',{method:'POST',body:{id,last4:'1111'}}); ok(s===404&&!j.k,'galat ank = page nahi');
+// v3.8.5: KV bhara ho (put fail) to bhi lead Telegram par poora
+const oput=KV.put; KV.put=async(k,v,o)=>{if(String(k).startsWith('lead:')||String(k).startsWith('rl:'))throw new Error('KV limit');return oput.call(KV,k,v,o)};
+tgs.length=0; globalThis.fetch=async(u,o)=>{tgs.push(JSON.parse(o.body).text);return {ok:true}};
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'kvfull',fields:{padhai:'12th'}},h:{'cf-connecting-ip':'4.4.4.4'}});
+ok(s===200&&j.id&&tgs.some(t=>t.includes('SIRF isi sandesh')&&t.includes('padhai: 12th')),'KV fail par bhi lead poora Telegram par (khoya nahi)');
+KV.put=oput;
 console.log(fails?'\nFAILED '+fails:'\nSAB WORKER TEST PASS'); process.exit(fails?1:0);

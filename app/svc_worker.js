@@ -1,4 +1,4 @@
-// sabhisaab-leads v3.8.4 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
+// sabhisaab-leads v3.8.5 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
 // VM band ho to bhi lead surakshit. Customer ko Telegram/WhatsApp ki zaroorat nahi.
 // Rasta: sabhisaab.com/api/* (Pages Function, same-origin) -> yahan. Purana seedha workers.dev bhi chalta hai.
 const ORIG = ['https://sabhisaab.com', 'https://www.sabhisaab.com'];
@@ -24,6 +24,8 @@ async function tg(env, text) {
   } catch (e) {}
 }
 async function getSt(env, id) { try { return JSON.parse(await env.KV.get('st:' + id) || 'null'); } catch (e) { return null; } }
+// v3.8.5: Cloudflare free KV = roz 1000 likhai. Ginti/rate-limit wali likhai fail ho to bhi LEAD kabhi na ruke.
+async function sput(env, k, v, o) { try { await env.KV.put(k, v, o); return true; } catch (e) { return false; } }
 async function putSt(env, st) { await env.KV.put('st:' + st.id, JSON.stringify(st), {expirationTtl: 90 * 86400}); }
 function pub(st) {
   // customer ko sirf apni cheez - phone/ip/owner note kabhi nahi
@@ -107,7 +109,7 @@ export default {
       // dobara bhejna (retry/offline queue): same client id = wahi lead lautao, naya mat banao
       const cid = clean(d.cid, 40).replace(/[^a-z0-9-]/gi, '');
       if (cid) { const old = await env.KV.get('cid:' + cid); if (old) return j(JSON.parse(old), 200, H); }
-      await env.KV.put(rk, String(n + 1), {expirationTtl: 3600});
+      await sput(env, rk, String(n + 1), {expirationTtl: 3600});
       const name = clean(d.name, 80), phone = clean(d.phone, 16).replace(/[^0-9+]/g, ''), msg = clean(d.message, 3000);
       if (!name || phone.replace(/\D/g, '').length < 10 || msg.length < 3) { await lg(env, 'missing', (!name ? 'naam ' : '') + (phone.replace(/\D/g, '').length < 10 ? 'phone ' : '') + (msg.length < 3 ? 'kaam' : '')); return j({error: 'naam, mobile number aur kaam likhiye'}, 400, H); }
       if (!d.consent) { await lg(env, 'consent', ''); return j({error: 'sahmati ka dabba chunein'}, 400, H); }
@@ -120,12 +122,15 @@ export default {
         service: clean(d.service, 160), budget: clean(d.budget, 12), code: clean(d.code, 20).toUpperCase(),
         urgent: !!d.urgent, care: !!d.care, extras: clean(d.extras, 600), src: clean(d.src, 120), page: clean(d.page, 80),
         ip: ip.slice(0, 64), via: clean(d.via, 20), fields: cleanFields(d.fields)};
-      await env.KV.put('lead:' + t + ':' + id, JSON.stringify(lead), {expirationTtl: 90 * 86400});
-      const st = {...lead, status: 'new', hist: []}; hist(st, 'new'); await putSt(env, st);
+      const saved = await sput(env, 'lead:' + t + ':' + id, JSON.stringify(lead), {expirationTtl: 90 * 86400});
+      const st = {...lead, status: 'new', hist: []}; hist(st, 'new'); try { await putSt(env, st); } catch (e) {}
       const out = {id, ref: lead.ref, k};
-      if (cid) await env.KV.put('cid:' + cid, JSON.stringify(out), {expirationTtl: 2 * 86400});
+      if (cid) await sput(env, 'cid:' + cid, JSON.stringify(out), {expirationTtl: 2 * 86400});
+      const fl = Object.entries(lead.fields || {}).map(([a, b]) => a + ': ' + b).join('\n');
       await tg(env, '🛎 Naya kaam ' + id + (lead.urgent ? ' ⚡' : '') + '\n' + name + ' · +' + phone.replace(/\D/g, '') + '\n' +
-        (lead.service || '') + '\n' + msg.slice(0, 300) + '\n(poora card + button 5 min mein bot bhejega)');
+        (lead.service || '') + '\n' + msg.slice(0, saved ? 300 : 2500) + (saved ? '' : '\n' + fl.slice(0, 800) +
+        '\n⚠️ SERVER (KV) aaj bhara/fail - ye lead SIRF isi sandesh mein hai, bot card nahi banega. Seedha WhatsApp karein.') +
+        (saved ? '\n(poora card + button 5 min mein bot bhejega)' : ''));
       await lg(env, hp ? 'ok_hp' : 'ok', id);
       return j(out, 200, H);
     }
@@ -133,7 +138,7 @@ export default {
       let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
       const ip = ipOf(req, env), rk = 'rf:' + ip, n = +(await env.KV.get(rk) || 0);
       if (n >= 10) return j({error: 'bahut koshish - 1 ghante baad, ya WhatsApp par poochiye'}, 429, H);
-      await env.KV.put(rk, String(n + 1), {expirationTtl: 3600});
+      await sput(env, rk, String(n + 1), {expirationTtl: 3600});
       const st = await getSt(env, clean(d.id, 20).toUpperCase());
       const l4 = clean(d.last4, 4).replace(/\D/g, '');
       if (!st || l4.length !== 4 || !String(st.phone || '').replace(/\D/g, '').endsWith(l4)) { await lg(env, 'find_fail', ''); return j({error: 'Number ya mobile ke aakhri 4 ank nahi mile'}, 404, H); }
@@ -143,7 +148,7 @@ export default {
     if (path === '/clog' && req.method === 'POST') {                   // browser mein galti (bina naam/number) - jaanch ke liye
       let d; try { d = await req.json(); } catch (e) { return j({}, 200, H); }
       const ip = ipOf(req, env), rk = 'rc:' + ip, n = +(await env.KV.get(rk) || 0);
-      if (n < 10) { await env.KV.put(rk, String(n + 1), {expirationTtl: 3600}); await lg(env, 'client', clean(d.w, 160)); }
+      if (n < 10) { await sput(env, rk, String(n + 1), {expirationTtl: 3600}); await lg(env, 'client', clean(d.w, 160)); }
       return j({}, 200, H);
     }
 
@@ -193,7 +198,7 @@ export default {
       let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
       const ip = ipOf(req, env), rk = 'rh:' + ip, n = +(await env.KV.get(rk) || 0);
       if (n >= 20) return j({a: 'Bahut sawal ho gaye - WhatsApp par poochiye 🙏'}, 200, H);
-      await env.KV.put(rk, String(n + 1), {expirationTtl: 3600});
+      await sput(env, rk, String(n + 1), {expirationTtl: 3600});
       return j({a: await helpAnswer(env, clean(d.q, 400))}, 200, H);
     }
     if (path === '/q/rate' && req.method === 'POST') {                  // delivery ke baad star
@@ -217,8 +222,9 @@ export default {
       let d; try { d = await req.json(); } catch (e) { return j({}, 200, H); }
       const demo = clean(d.d, 40).replace(/[^a-z0-9-]/gi, ''), ty = ['v', 's', 'c'].includes(d.t) ? d.t : '';
       if (!demo || !ty) return j({}, 200, H);
+      if (Math.random() >= 0.25) return j({}, 200, H);              // 4 mein 1 likho (x4) - free KV ki roz ki likhai lead ke liye bache
       const k = 'ev:' + day() + ':' + demo + ':' + ty; const n = +(await env.KV.get(k) || 0);
-      await env.KV.put(k, String(n + (ty === 's' ? Math.min(+d.n || 0, 600) : 1)), {expirationTtl: 400 * 86400});
+      await sput(env, k, String(n + 4 * (ty === 's' ? Math.min(+d.n || 0, 600) : 1)), {expirationTtl: 400 * 86400});
       return j({}, 200, H);
     }
 

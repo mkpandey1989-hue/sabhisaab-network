@@ -2395,3 +2395,17 @@ Owner: "Telegram par abhi bhi message nahi" + namoona video ki awaaz.
   isi phone ka pichhla kaam ka link. Gupt page par bhi Telegram button.
 - Backup: roz services-YYYYMMDD.tar.gz 400 din (data/services_year, chmod 700/600). 90 din se purane lead ka naam/phone/IP/sandesh
   us copy mein nahi (privacy niyam) - baaki poora hisaab saal bhar.
+
+## v3.8.5 (24 Nov 2026) - poora audit: shabdkosh, takra, KV seema, logo
+Owner: "resume likha aa raha... word bot ke paas save karo, Google check karke; full audit, koi takra to nahi".
+- SHABDKOSH (svcvideo.WORDS + owner 'services shabd X = Y', list: 'services shabd list'): Hindi site/akhbaar "रिज्यूमे" likhte hain
+  (Prabhat Khabar, Visme, ResumeGyani) - ab screen, awaaz, title, description sab mein "रिज्यूमे"; angrezi se aaye shabd bina nukta
+  (फॉर्म, फोटो, साइज, बाजार, सिर्फ...). Poora shabd hi badalta hai (shabd ke beech nahi).
+- TAKRA 1: services slot kabhi-kabhi usi brand ki roz wali video ke paas (pahadi 18:00 dono). Ab brand-slot kram aisa chuna jata hai ki
+  75 min ke andar kabhi nahi (7 din test).
+- TAKRA 2 (chhupa khatra): Cloudflare free KV = roz 1000 likhai; har page-view ginti (ev) + rate-limit bhi likhte the - traffic badhe to
+  LEAD likhna fail ho sakta tha. Ab ginti 4 mein 1 (x4), rate-limit/ginti fail = chalta rahe, aur lead KV mein na likha jaye to bhi
+  POORA lead (fields ke saath) Telegram par + "SIRF isi sandesh mein" chetavni.
+- LOGO: FB page photo lene mein appsecret_proof nahi tha (isliye 'SN' gol nishaan aaya) - ab meta._get se.
+- Baaki jaancha, theek mila: YouTube unit (250/upload, 12/din = ~3300/10000), upload seema 14 (8+4), IG 50/24h, report samay
+  (09:10 jaanch, 21:45 services, 21:55 master), comment raasta (sirf services video), command naam takra nahi.

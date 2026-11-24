@@ -1390,6 +1390,24 @@ try:
     finally:
         _S50.BAK = _obak84
     check(_yb84 and oct(_yb84.stat().st_mode)[-3:] == "600", "saal-bhar ki roz ki copy (sirf owner padh sake)")
+    # v3.8.5: shabdkosh + slot takra + KV-safe
+    check(_V60.fix_words("रिज़्यूमे ₹10 · फ़ॉर्म मदद · रिज्यूमे") == "रिज्यूमे ₹10 · फॉर्म मदद · रिज्यूमे", "shabdkosh: रिज्यूमे/फॉर्म ek jaisa (shabd ke beech nahi badla)")
+    _reg85 = []
+    _V60.frame(_cx60, 12.0, {}, _reg85)
+    check(not any("़" in s_ and ("रिज़" in s_ or "फ़ॉर्म" in s_) for (_b, s_, _t) in _reg85), "video screen par shabdkosh laga")
+    from app import pipeline as _P85
+    _sch85 = _P85.schedule()
+    _okslot = True
+    for _d85 in range(7):
+        _pl85 = _V60.pick_day(seed=_d85, day=f"2026-12-0{_d85 + 1}")
+        for _b85, _v85 in _pl85.items():
+            for _x in str(_sch85.get(_b85, "")).split(","):
+                if _x.strip():
+                    _a = int(_x.split(":")[0]) * 60 + int(_x.split(":")[1]); _c = int(_v85["slot"][:2]) * 60 + int(_v85["slot"][3:])
+                    if abs(_a - _c) < 75:
+                        _okslot = False
+    check(_okslot, "services video brand ki apni roz wali video se 75 min door (takra nahi)")
+    check("sput(" in open(_S50.__file__.replace("svc.py", "svc_worker.js"), encoding="utf-8").read(), "worker: KV bhara ho to bhi lead Telegram par")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

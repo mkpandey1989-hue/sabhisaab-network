@@ -46,14 +46,32 @@ DUR = T_CTA + 4.6                                    # 28.8 (bina awaaz ka defau
 GAP = 0.35                                           # v3.8.2: har vakya ke baad saans (pehle poora script ek saans mein, tez)
 
 
-SAY_FIX = {"रिज़्यूमे": "रिज्यूम", "रिज्यूमे": "रिज्यूम", "सर्विसेज़": "सर्विसेज", "ज़रूरी": "जरूरी", "फ़ॉर्म": "फॉर्म",
-           "फ़ोन": "फोन", "फ़ोटो": "फोटो", "ज़": "ज", "फ़": "फ"}
+# v3.8.5 SHABDKOSH (owner: "Google aur jagah check karke jo asli likhte hain"): Hindi akhbaar/site (Prabhat Khabar, Canva,
+# Visme, ResumeGyani...) "रिज्यूमे" likhte hain; English se aaye shabd bina nukta (फॉर्म, फोटो, साइज). Screen + awaaz dono par.
+# Owner jod sakta hai: 'services shabd <galat> = <sahi>' (state svc_word_fix) - sabse upar.
+WORDS = {"रिज़्यूमे": "रिज्यूमे", "रिज़्यूम": "रिज्यूमे", "रिज्यूम": "रिज्यूमे", "रेज़्यूमे": "रिज्यूमे", "फ़ॉर्म": "फॉर्म", "फ़ोटो": "फोटो",
+         "फ़ोटो-साइन": "फोटो-साइन", "साइज़": "साइज", "फ़ोन": "फोन", "सर्विसेज़": "सर्विसेज", "ज़रूरी": "जरूरी", "बाज़ार": "बाजार",
+         "सिर्फ़": "सिर्फ", "डिज़ाइन": "डिजाइन", "ज़्यादा": "ज्यादा", "हफ़्ते": "हफ्ते", "आख़िरी": "आखिरी", "तारीख़": "तारीख",
+         "ग़लती": "गलती", "ख़त्म": "खत्म", "फ़ीस": "फीस", "प्रोफ़ेशनल": "प्रोफेशनल", "ऑफ़र": "ऑफर", "ज़": "ज"}
+SAY_FIX = {"सर्विसेज़": "सर्विसेज"}
+_DEV = "\u0900-\u097F"
+
+
+def fix_words(t):
+    """Poore shabd badlo (shabd ke beech nahi): owner ka shabdkosh pehle, phir WORDS."""
+    t = str(t or "")
+    table = {**WORDS, **(state.get("svc_word_fix") or {})}
+    for a in sorted(table, key=len, reverse=True):
+        if len(a) <= 1:
+            continue
+        t = re.sub(f"(?<![{_DEV}]){re.escape(a)}(?![{_DEV}])", table[a], t)
+    return t
 
 
 def say_clean(text):
     """v3.8.3: bolne ke liye saaf Hindi - nukta (़) hatao, angrezi shabd ki aam Hindi boli (resume -> रिज्यूम),
     owner ke sudhar (services awaaz sudhar X = Y) sabse upar."""
-    t = str(text or "")
+    t = fix_words(text)
     for a, b in (state.get("svc_say_fix") or {}).items():
         t = t.replace(a, b)
     for a, b in SAY_FIX.items():
@@ -172,6 +190,25 @@ def pick_day(seed=None, day=None):
     brands = list(BRANDS)
     k_ = (datetime.date.fromisoformat(day).toordinal()) % len(brands)
     order = brands[k_:] + brands[:k_]                    # har din brand ka slot badle
+    try:                                                 # v3.8.5: brand ki apni roz wali video ke 75 min ke paas services video nahi (takra)
+        from . import pipeline as _P
+        sch = _P.schedule()
+        def _m(x):
+            h_, m_ = (int(y) for y in x.split(":"))
+            return h_ * 60 + m_
+        def clash(b, sl):
+            return any(abs(_m(x.strip()) - _m(sl)) < 75 for x in str(sch.get(b, "")).split(",") if x.strip())
+        import itertools
+        best = None
+        for perm in itertools.permutations(order):
+            c_ = sum(clash(b, SLOTS[i]) for i, b in enumerate(perm))
+            if best is None or c_ < best[0]:
+                best = (c_, perm)
+            if c_ == 0:
+                break
+        order = list(best[1])
+    except Exception as e:
+        log(f"svc slot clash: {e}")
     plan, looks_today, hooks_today = {}, set(), set()
     for bi, b in enumerate(order):
         for _try in range(400):
@@ -265,6 +302,7 @@ class Canvas:
         self.d = ImageDraw.Draw(im)
 
     def text(self, xy, s, font, fill, anchor="mm", tag=""):
+        s = fix_words(s)                                      # v3.8.5: screen par bhi wahi shabdkosh
         self.d = ImageDraw.Draw(self.im)
         self.d.text(xy, s, font=font, fill=fill, anchor=anchor)
         self.boxes.append((self.d.textbbox(xy, s, font=font, anchor=anchor), s, tag))
@@ -424,15 +462,14 @@ def _logo_img(brand, size):
             im = Image.open(f).convert("RGBA")
         except Exception:
             im = None
-    if im is None and state.get(f"logo_try_{brand}") != str(datetime.date.today()):     # din mein ek koshish
-        state.put(f"logo_try_{brand}", str(datetime.date.today()))
+    if im is None and state.get(f"logo_try2_{brand}") != str(datetime.date.today()):     # din mein ek koshish
+        state.put(f"logo_try2_{brand}", str(datetime.date.today()))
         try:
             import requests
             from . import meta as M
             b = M.brand_info(brand)
-            if b and b.get("page_id"):
-                j = requests.get(f"https://graph.facebook.com/v19.0/{b['page_id']}/picture",
-                                 params={"redirect": "false", "type": "large", "access_token": b["page_token"]}, timeout=20).json()
+            if b and b.get("page_id"):                      # v3.8.5: M._get = appsecret_proof ke saath (pehle bina proof - fail)
+                j = M._get(f"/{b['page_id']}/picture", b["page_token"], redirect="false", type="large", height=400, width=400)
                 url = (j.get("data") or {}).get("url")
                 if url:
                     raw = requests.get(url, timeout=30).content
@@ -907,6 +944,7 @@ def meta_for(cx_, brand, video, thumbs, dur):
                "Hum sarkari vibhag nahi hain - sirf madad karte hain.\n" if madad else "")
             + (f"Code {CODES[brand]} = 10% tak chhoot (har kaam ki nichli seema ke andar).\n" if brand in CODES else "")
             + f"Comment mein apna kaam likhiye · Rate list: {SITE_TXT}\n{BRANDS[brand]['tags']} #SabHisaabServices")
+    title, desc = fix_words(title), fix_words(desc)
     return {"video": video, "thumbs": thumbs, "duration": dur, "title": title, "description": desc, "brand": brand,
             "page": "/services-list", "format": "short", "tags": ["sabhisaab services", "online form madad", "resume", names[:60]],
             "design": "services_ad", "svc_set": [r["id"] for r in cx_["rows"]], "svc_item": cx_["rows"][0]["id"],
@@ -1017,6 +1055,16 @@ def on_text(t, run):
     if m:
         state.put("svc_cap", int(m.group(1)))
         return tg.say(f"✔ Ek saath max {m.group(1)} kaam - isse zyada chal rahe hon to us din services video nahi banegi.")
+    m = re.match(r"services shabd (.+?)\s*=\s*(.+)$", t.strip(), re.I)
+    if m:
+        fx = dict(state.get("svc_word_fix") or {})
+        fx[m.group(1).strip()] = m.group(2).strip()
+        state.put("svc_word_fix", fx)
+        return tg.say(f"✔ Shabdkosh: '{m.group(1).strip()}' → '{m.group(2).strip()}' (video ki screen + awaaz + title, aage hamesha). "
+                      f"Poori list: services shabd list")
+    if tl in ("services shabd list", "services shabdkosh"):
+        fx = {**WORDS, **(state.get("svc_word_fix") or {})}
+        return tg.say("📖 Services shabdkosh (screen + awaaz):\n" + "\n".join(f"{a} → {b}" for a, b in fx.items() if len(a) > 1)[:3500])
     m = re.match(r"services awaaz sudhar (.+?)\s*=\s*(.+)$", t.strip(), re.I)
     if m:
         fx = dict(state.get("svc_say_fix") or {})
