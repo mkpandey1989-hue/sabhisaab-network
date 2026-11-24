@@ -1243,7 +1243,7 @@ try:
 finally:
     _ST70.put("platform_off", _pf70 or {}); _ST70.put("ig_auto_off", _ao70 or []); _TG70.alert = _oal70
 check(_S50.classify("mujhe naukri ke liye resume chahiye")[0][0]["id"] in ("m-resume", "m-resume2", "p-cv"), "resume pehchana")
-check(_S50.classify("scholarship ka online form bharna hai")[0][0]["id"] == "m-form", "form bharne ki madad pehchani")
+check(_S50.classify("scholarship ka online form bharna hai")[0][0]["id"] in ("m-form", "m-scholar"), "form bharne ki madad pehchani")
 check(_S50.rates()["by"]["m-resume"]["price"] == 10, "resume ₹10")
 _fr70 = _V60.frame(_S50.rates()["by"]["m-resume"], {"look": "mint", "hook": 1, "lay": "R"}, 13.0, "pahadi", {})
 check(_fr70.getpixel((5, 400))[0] > 200, "nayi services video ujli (saaf) look")
@@ -1306,6 +1306,30 @@ try:
     check("PKX" in _sf80["functions/api/[[path]].js"] and "PKX" not in _sf80["site/svc-cfg.js"], "gupt PK sirf proxy mein, public file mein nahi")
     check('noindex' in _sf80["site/q.html"] and 'googletagmanager' not in _sf80["site/q.html"], "gupt page: noindex + analytics nahi (key leak nahi)")
     check("AI" not in _S50.customer_msg("SHV3") and "insaan" not in _S50.customer_msg("SHV3").lower(), "customer message mein AI/insaan shabd nahi")
+    # v3.8.0 part 2: madad wale kaam + sachchi sale
+    _by80 = _S50.rates()["by"]
+    check(all(k in _by80 for k in ("m-scholar", "m-yojana", "m-exam", "m-docs", "m-itr1", "m-itr2", "m-mobile", "m-study", "m-typing")), "naye madad wale kaam list mein")
+    check(_by80["m-itr1"]["price"] == 299 and _by80["m-itr2"]["price"] == 699, "ITR-1 ₹299, ITR-2/4 ₹699 (₹49 kabhi nahi)")
+    check(_S50.classify("ITR file karna hai salary")[0][0]["id"] == "m-itr1", "ITR sawal -> ITR madad (₹299)")
+    check(_S50.classify("aadhaar update kar do")[1] and _S50.classify("mobile repair karna hai")[1], "Aadhaar badlav / hardware repair = mana")
+    check(_S50.classify("mera phone slow hai")[0][0]["id"] == "m-mobile", "mobile madad pehchani")
+    _ok_sale = True
+    for _d in range(0, 400, 7):
+        _day = (_dt80.date(2026, 11, 23) + _dt80.timedelta(days=_d)).isoformat()
+        _o = _S50.offer(_day)["sale"]
+        _it = _by80[_o["item"]]
+        if _o["now"] < _it["floor"] or _o["pct"] < 10 or not (_o["start"] <= _day <= _o["end"]):
+            _ok_sale = False
+    check(_ok_sale, "56 hafte: sale kabhi floor se neeche nahi, asli date ke andar")
+    _o80 = _S50.offer("2026-11-24")["sale"]
+    check(_S50.price(_by80[_o80["item"]])["final"] == _o80["now"], "page par dikhi sale rakam = asli quote rakam")
+    check(_S50.offer("2026-11-06")["fest"] and _S50.offer("2026-11-06")["fest"]["name"] == "Dhanteras", "tyohar offer calendar se")
+    check(all(_S50.price(i)["final"] >= i["floor"] for i in _by80.values()), "har kaam: sale+tyohar ke baad bhi floor se upar")
+    _S50.SEASON_F = _S50.DIR / "season.json"
+    _S50.SEASON_F.write_text(__import__("json").dumps([{"date": "2026-12-01", "name": "NSP last date", "item": "m-scholar", "source": "https://scholarships.gov.in/"},
+                                                      {"date": "2026-12-01", "name": "bina sarkari source", "item": "m-scholar", "source": "https://example.com/"}]))
+    check([x["name"] for x in _S50.season_due(7, "2026-11-24")] == ["NSP last date"], "season video sirf sarkari (.gov.in) source wali date par")
+    check(_S50.price(_by80["w-1page"])["advance"] < _by80["w-1page"]["price"] * .5, "advance ~30% (FAQ jaisa)")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

@@ -29,7 +29,7 @@ C = {
 R = [
  # micro (owner 24 Nov: photo/PDF/QR jaise kaam log khud AI se kar lete - hataye. Sabse chhota = Resume ₹10)
  ("m-resume","micro","Resume (taiyaar format mein, ₹10)",10,100,1500,.03,"Same din","G","resume cv biodata naukri job"),
- ("m-form","micro","Online form bharne mein madad (naukri, admission, scholarship, yojana)",49,50,200,.12,"Same din","G","form bharna online form apply aavedan admission scholarship yojana registration"),
+ ("m-form","micro","Online form bharne mein madad (koi bhi portal)",49,50,200,.12,"Same din","G","form bharna online form apply aavedan registration"),
  ("m-letter","micro","Application / letter / notice / shikayat patra",29,100,500,.08,"Same din","G","application letter notice patra shikayat"),
  ("m-biodata","micro","Shaadi biodata design",49,200,1500,.12,"1 din","G","biodata shaadi"),
  ("m-formula","micro","Excel/Sheet formula theek karna",49,100,500,.12,"Same din","G","excel formula sheet"),
@@ -41,6 +41,16 @@ R = [
  ("m-poster","micro","1 poster / banner",99,300,2000,.25,"1 din","G","poster banner"),
  ("m-resume2","micro","Resume pro design + LinkedIn bio",149,500,3000,.4,"1 din","G","resume pro design linkedin"),
  ("m-invite","micro","Digital shaadi / event card",149,500,3000,.4,"1 din","G","invite card shaadi event"),
+ # v3.8.0 (owner 24 Nov): madad wale kaam sabse upar - customer saath, OTP/password sirf customer. Sab AI + owner se 100% ho sakne wale.
+ ("m-scholar","micro","Scholarship form madad (NSP / rajya portal)",99,150,500,.25,"Same din","G","scholarship nsp chhatravriti vazifa form"),
+ ("m-yojana","micro","PM Kisan / ration / pension online apply madad",99,100,500,.25,"Same din","G","pm kisan kisan ration pension yojana vridha vidhwa form apply"),
+ ("m-exam","micro","Exam / naukri / admission form madad (photo-sign size ke saath)",49,50,300,.12,"Same din","G","exam naukri bharti admission vacancy recruitment form"),
+ ("m-docs","micro","Documents scan, photo-sign size theek (form ke liye)",29,50,200,.08,"Same din","G","photo size signature sign kb resize document"),
+ ("m-itr1","micro","ITR-1 madad (salary/pension) - aap login karein, hum saath bhariye",299,899,1500,.6,"Same din","G","itr income tax return form16 salary pension refund"),
+ ("m-itr2","micro","ITR-2 / ITR-4 madad (kathin case CA ko)",699,1440,4000,1.5,"1-2 din","G","itr2 itr4 capital gain business presumptive"),
+ ("m-mobile","micro","Mobile / computer madad (call ya screen-share par)",49,100,500,.12,"Same din","G","mobile phone laptop computer setting setup upi email printer slow whatsapp app"),
+ ("m-study","micro","School / college project, PPT, assignment ka design",99,300,1500,.25,"1 din","G","project ppt presentation assignment school college"),
+ ("m-typing","micro","Hindi / English typing (1 page)",19,30,100,.05,"Same din","G","typing type hindi english page"),
  ("m-any","micro","Koi bhi chhota computer / phone ka kaam (likh kar batayein)",49,100,1000,.12,"Baat karke","G","koi bhi kuch bhi chhota kaam help madad computer phone"),
  # web
  ("w-card","web","Digital visiting card / mini site",999,2000,6000,2.5,"1 din","G","visiting card digital card"),
@@ -151,7 +161,9 @@ RED = [("Google Maps / data scraping, kisi ka phone-email nikalna", "scrap|scrap
        ("Nakli review / followers / likes", "fake review|nakli review|followers badha|followers kharid|likes kharid|fake followers"),
        ("Trading tip / signal / kisi ka account chalana", "signal do|signal bech|tip do|mera account chalao|account chala do|profit guarantee|pakka profit"),
        ("Hacking / copy site / betting / loan app", "hack|hacking|password tod|clone kar|copy kar do site|betting|satta|gambling|loan app|casino"),
-       ("Bina consent outbound AI call", "outbound call|robocall|auto call kar|cold call")]
+       ("Bina consent outbound AI call", "outbound call|robocall|auto call kar|cold call"),
+       ("Aadhaar/PAN mein badlav hum khud karein / tatkal ticket bot", "aadhaar badal|aadhar badal|aadhaar update kar do|aadhar update kar do|aadhaar mein naam badal|tatkal bot|tatkal ticket bot"),
+       ("Haath/hardware repair ya ghar aakar kaam", "mobile repair|phone repair|screen badal|battery badal|ghar aakar|ghar aa kar|ghar pe aao|hardware repair")]
 
 
 def build():
@@ -164,7 +176,7 @@ def build():
                       "market": [lo, hi], "hours": h, "days": d, "risk": r, "kw": kw.split()})
     if bad:
         sys.exit("FLOOR GALTI:\n" + "\n".join(bad))
-    body = {"version": "2026-11-23.1", "hour_rate": HOUR, "buffer": BUF,
+    body = {"version": "2026-11-24.1", "hour_rate": HOUR, "buffer": BUF,
             "cats": {k: {"title": v[0], "sub": v[1]} for k, v in C.items()},
             "items": items, "red": [{"name": a, "kw": b.split("|")} for a, b in RED],
             "discount": {"brand": 10, "ref": 10, "care": 5, "max": 25, "small_cap_under": 300, "small_cap": 50, "urgent": 50}}

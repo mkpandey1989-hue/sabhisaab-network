@@ -95,6 +95,7 @@ BODY = """<body>
 <p>Resume ₹10 · Form bharne mein madad ₹49 · Mobile/computer madad ₹49 · Bill · Website — <b>₹10 se shuru</b></p>
 <span class="pill">📄 Resume sirf ₹10</span><span class="pill">📝 Online form bharne mein madad ₹49</span><span class="pill">✔ Market se kam rate</span><span class="pill">✔ Pehle demo, phir payment</span><span class="pill">✔ 2 badlav shaamil</span><span class="pill">✔ Code aur account aapke naam</span></div>
 
+<div id="offer"></div>
 <input id="q" placeholder="Kya kaam hai? jaise: dukaan website, GST bill, bot, logo, excel…" aria-label="Kaam khojein">
 <div class="cats" id="cats"></div>
 <div class="grid" id="list"></div>
@@ -147,6 +148,7 @@ BODY = """<body>
 """
 
 JS = """<script src="/svc-cfg.js"></script>
+<script src="/svc-offer.js"></script>
 <script>
 var CATS=__CATS__,IT=__ITEMS__,cur='all',$=function(i){return document.getElementById(i)};
 var Q=new URLSearchParams(location.search);if(Q.get('code'))$('code').value=Q.get('code').toUpperCase();
@@ -183,6 +185,10 @@ qsave(d);$('ok').style.display='block';$('ok').innerHTML='<b>Network dheema hai.
 window.addEventListener('online',qflush);setTimeout(qflush,1500);
 [].forEach.call(document.querySelectorAll('.demo'),function(a){a.addEventListener('click',function(){ev(a.getAttribute('data-d'),'c')})});
 var t0=Date.now();ev('list','v');document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')ev('list','s',Math.round((Date.now()-t0)/1000))});
+(function(){var o=window.SVC_OFFER;if(!o||!o.sale)return;var h='',d=new Date(Date.now()+19800000).toISOString().slice(0,10);
+if(o.sale.start<=d&&d<=o.sale.end)h+='<div class="sum" style="background:#FEF3C7"><b>🏷 Is hafte ('+o.sale.start.slice(8)+'–'+o.sale.end.slice(8)+'):</b> '+o.sale.name+' — <s>'+rs(o.sale.price)+'</s> <b>'+rs(o.sale.now)+'</b> se ('+o.sale.end+' tak) <button data-i="'+o.sale.item+'" onclick="pick(this.getAttribute(&quot;data-i&quot;))" style="border:none;background:var(--brand);color:#fff;border-radius:8px;padding:4px 10px">Ye chahiye</button></div>';
+if(o.fest&&o.fest.start<=d&&d<=o.fest.end)h+='<div class="sum" style="background:#FCE7F3"><b>🎉 '+o.fest.name_hi+' offer:</b> '+o.fest.end+' tak har kaam par '+o.fest.pct+'% tak chhoot (har kaam ki nichli seema ke andar).</div>';
+document.getElementById('offer').innerHTML=h})();
 $('waf').addEventListener('click',function(){ev('wa','c')});draw();if(Q.get('svc')&&IT.some(function(x){return x.id===Q.get('svc')}))pick(Q.get('svc'));
 </script>"""
 JS = JS.replace("__CATS__", json.dumps(cats, ensure_ascii=False)).replace("__ITEMS__", json.dumps(items, ensure_ascii=False))

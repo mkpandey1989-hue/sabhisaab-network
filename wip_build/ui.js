@@ -53,6 +53,15 @@ function fill(w) {
   await wait(50); w = dom.window; f = fill(w); f.dispatchEvent(new w.Event("submit", { cancelable: true })); await wait(50);
   ok((w.__alerts || [])[0] === "naam, mobile number aur kaam likhiye", "400 par saaf galti dikhi");
   ok(!w.localStorage.getItem("svcq") || JSON.parse(w.localStorage.getItem("svcq")).length === 0, "400 wala queue mein nahi");
+  // 4b) hafte ki sale banner (asli date + asli rakam)
+  { const d = new Date(Date.now() + 19800000).toISOString().slice(0, 10);
+    const r = page("services-list.html", "https://sabhisaab.com/services-list", () => res(200, {}), "window.SVC_OFFER={sale:{item:'s-bill',name:'GST billing',pct:15,price:3999,now:3399,start:'" + d + "',end:'" + d + "'},fest:{name:'Diwali',name_hi:'दीपावली',pct:5,start:'" + d + "',end:'" + d + "'}};");
+    await wait(50); const h = r.dom.window.document.getElementById("offer").innerHTML;
+    ok(h.includes("3,399") && h.includes("3,999") && h.includes("दीपावली"), "sale/tyohar banner asli rakam ke saath");
+    r.dom.window.document.querySelector("#offer button").click(); ok(r.dom.window.document.getElementById("svc").value.includes("GST"), "sale button se kaam chuna");
+    ok(r.errs.length === 0, "offer JS error nahi " + r.errs.join("|"));
+    const r2 = page("services-list.html", "https://sabhisaab.com/services-list", () => res(200, {}), "window.SVC_OFFER={sale:{item:'s-bill',name:'x',pct:15,price:1,now:1,start:'2000-01-01',end:'2000-01-07'}};");
+    await wait(50); ok(r2.dom.window.document.getElementById("offer").innerHTML === "", "purani sale (date nikal gayi) nahi dikhti"); }
   // 5) q page har stage
   const base = { id: "SH9", ref: "REF-9", name: "Ramesh", service: "Resume", msg: "", stages: ["new","talk","rate","accepted","paid","working","delivered","feedback","closed","lost"], paid: 0, hist: [] };
   const Q = { name: "Resume (taiyaar format)", final: 10, advance: 10, days: "Same din", base: 10, off: 0, valid: "2099-01-01" };

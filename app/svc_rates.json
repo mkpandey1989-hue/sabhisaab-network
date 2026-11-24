@@ -1,5 +1,5 @@
 {
- "version": "2026-11-23.1",
+ "version": "2026-11-24.1",
  "hour_rate": 300,
  "buffer": 1.2,
  "cats": {
@@ -86,7 +86,7 @@
   {
    "id": "m-form",
    "cat": "micro",
-   "name": "Online form bharne mein madad (naukri, admission, scholarship, yojana)",
+   "name": "Online form bharne mein madad (koi bhi portal)",
    "price": 49,
    "floor": 10,
    "max": 196,
@@ -104,9 +104,6 @@
     "form",
     "apply",
     "aavedan",
-    "admission",
-    "scholarship",
-    "yojana",
     "registration"
    ]
   },
@@ -328,6 +325,225 @@
     "card",
     "shaadi",
     "event"
+   ]
+  },
+  {
+   "id": "m-scholar",
+   "cat": "micro",
+   "name": "Scholarship form madad (NSP / rajya portal)",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    150,
+    500
+   ],
+   "hours": 0.25,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "scholarship",
+    "nsp",
+    "chhatravriti",
+    "vazifa",
+    "form"
+   ]
+  },
+  {
+   "id": "m-yojana",
+   "cat": "micro",
+   "name": "PM Kisan / ration / pension online apply madad",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    100,
+    500
+   ],
+   "hours": 0.25,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "pm",
+    "kisan",
+    "kisan",
+    "ration",
+    "pension",
+    "yojana",
+    "vridha",
+    "vidhwa",
+    "form",
+    "apply"
+   ]
+  },
+  {
+   "id": "m-exam",
+   "cat": "micro",
+   "name": "Exam / naukri / admission form madad (photo-sign size ke saath)",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    50,
+    300
+   ],
+   "hours": 0.12,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "exam",
+    "naukri",
+    "bharti",
+    "admission",
+    "vacancy",
+    "recruitment",
+    "form"
+   ]
+  },
+  {
+   "id": "m-docs",
+   "cat": "micro",
+   "name": "Documents scan, photo-sign size theek (form ke liye)",
+   "price": 29,
+   "floor": 10,
+   "max": 116,
+   "market": [
+    50,
+    200
+   ],
+   "hours": 0.08,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "photo",
+    "size",
+    "signature",
+    "sign",
+    "kb",
+    "resize",
+    "document"
+   ]
+  },
+  {
+   "id": "m-itr1",
+   "cat": "micro",
+   "name": "ITR-1 madad (salary/pension) - aap login karein, hum saath bhariye",
+   "price": 299,
+   "floor": 220,
+   "max": 1196,
+   "market": [
+    899,
+    1500
+   ],
+   "hours": 0.6,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "itr",
+    "income",
+    "tax",
+    "return",
+    "form16",
+    "salary",
+    "pension",
+    "refund"
+   ]
+  },
+  {
+   "id": "m-itr2",
+   "cat": "micro",
+   "name": "ITR-2 / ITR-4 madad (kathin case CA ko)",
+   "price": 699,
+   "floor": 540,
+   "max": 2796,
+   "market": [
+    1440,
+    4000
+   ],
+   "hours": 1.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "itr2",
+    "itr4",
+    "capital",
+    "gain",
+    "business",
+    "presumptive"
+   ]
+  },
+  {
+   "id": "m-mobile",
+   "cat": "micro",
+   "name": "Mobile / computer madad (call ya screen-share par)",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    100,
+    500
+   ],
+   "hours": 0.12,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "mobile",
+    "phone",
+    "laptop",
+    "computer",
+    "setting",
+    "setup",
+    "upi",
+    "email",
+    "printer",
+    "slow",
+    "whatsapp",
+    "app"
+   ]
+  },
+  {
+   "id": "m-study",
+   "cat": "micro",
+   "name": "School / college project, PPT, assignment ka design",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    300,
+    1500
+   ],
+   "hours": 0.25,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "project",
+    "ppt",
+    "presentation",
+    "assignment",
+    "school",
+    "college"
+   ]
+  },
+  {
+   "id": "m-typing",
+   "cat": "micro",
+   "name": "Hindi / English typing (1 page)",
+   "price": 19,
+   "floor": 10,
+   "max": 76,
+   "market": [
+    30,
+    100
+   ],
+   "hours": 0.05,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "typing",
+    "type",
+    "hindi",
+    "english",
+    "page"
    ]
   },
   {
@@ -2248,6 +2464,31 @@
     "auto call kar",
     "cold call"
    ]
+  },
+  {
+   "name": "Aadhaar/PAN mein badlav hum khud karein / tatkal ticket bot",
+   "kw": [
+    "aadhaar badal",
+    "aadhar badal",
+    "aadhaar update kar do",
+    "aadhar update kar do",
+    "aadhaar mein naam badal",
+    "tatkal bot",
+    "tatkal ticket bot"
+   ]
+  },
+  {
+   "name": "Haath/hardware repair ya ghar aakar kaam",
+   "kw": [
+    "mobile repair",
+    "phone repair",
+    "screen badal",
+    "battery badal",
+    "ghar aakar",
+    "ghar aa kar",
+    "ghar pe aao",
+    "hardware repair"
+   ]
   }
  ],
  "discount": {
@@ -2259,5 +2500,5 @@
   "small_cap": 50,
   "urgent": 50
  },
- "sha": "336500408cef27cb"
+ "sha": "1e457d17896166c3"
 }

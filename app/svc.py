@@ -166,6 +166,10 @@ def price(item, code="", urgent=False, care=False):
         off += D["brand"]
     if care and item["cat"] != "care":
         off += D["care"]
+    try:
+        off += offer_pct(item.get("id", ""))           # v3.8.0: hafte ki sale / tyohar (asli date)
+    except Exception as e:
+        log(f"svc offer: {e}")
     off = min(off, D["max"])
     d = round(p * off / 100)
     if p < D["small_cap_under"]:
@@ -177,8 +181,68 @@ def price(item, code="", urgent=False, care=False):
         final = round(final * (100 + D["urgent"]) / 100)
     if not (item["floor"] <= final <= item["max"] * 1.5):
         raise ValueError(f"GUARD: {item['id']} final {final} seema ke bahar ({item['floor']}-{item['max']})")
-    adv = final if item["cat"] == "micro" else max(item["floor"], round(final * .3))
+    adv = final if item["cat"] == "micro" else min(final, max(99, round(final * .3)))   # v3.8.0: ~30% (FAQ jaisa; pehle galti se floor tha)
     return {"base": p, "off_pct": off, "off": d, "final": final, "advance": adv, "floor": item["floor"]}
+
+
+# ---------------------------------------------------------------- v3.8.0 sachchi sale + tyohar offer
+SALE_PCT = 20           # hafte ka 1 kaam - max 20%, par SIRF jitna floor (nuksan-rekha) ke upar ho; asli date (Mon-Sun IST)
+FEST_PCT = 5            # bade tyohar se 2 din pehle se tyohar ke din tak (floor ke upar jitna ho)
+# Sach: hamare rate pehle se bazaar se 70-90% kam aur floor ke paas hain - isliye sale aksar 10% hi ho paati hai.
+# Page/video par hamesha ASLI final rakam dikhti hai (sirf % nahi), taaki koi jhootha daava na ho.
+SALE_POOL = ["m-biodata", "w-card", "w-1page", "w-gmb", "c-calc", "s-bill", "s-khata", "b-wa", "d-logo", "d-post30",
+             "p-cv", "w-book", "w-menu", "u-email", "m-letter", "m-formula", "m-maps"]
+SEASON_F = DIR / "season.json"      # season video: {date, name, item, source(sarkari link)} - bina source video NAHI
+
+
+def offer(day=None):
+    """-> {"sale": {...}, "fest": {...}|None}. Nakli jaldi nahi: har offer ki asli date."""
+    from . import indiacal
+    d = datetime.date.fromisoformat(day) if day else now().date()
+    mon = d - datetime.timedelta(days=d.weekday())
+    wk = int(mon.strftime("%G%V"))
+    by = rates()["by"]
+    def room(i):                                   # floor ke upar kitna % (5 ke kadam mein)
+        x = by[i]
+        return int((1 - x["floor"] / x["price"]) * 100 // 5 * 5)
+    pool = [i for i in SALE_POOL if i in by and room(i) >= 10] or [i for i in by if room(i) >= 10]
+    sid = pool[wk % len(pool)]
+    out = {"sale": {"item": sid, "name": by[sid]["name"], "pct": min(SALE_PCT, room(sid)), "price": by[sid]["price"],
+                    "now": by[sid]["price"] - round(by[sid]["price"] * min(SALE_PCT, room(sid)) / 100), "start": mon.isoformat(),
+                    "end": (mon + datetime.timedelta(days=6)).isoformat()}, "fest": None}
+    for k in range(0, 3):
+        fd = (d + datetime.timedelta(days=k)).isoformat()
+        for e in indiacal.events(fd):
+            if e.get("major") and e.get("community") in ("rashtriya", "hindu", "isai", "uttarakhand", "sikh", "muslim", "jain"):
+                out["fest"] = {"name": e["name_en"], "name_hi": e["name_hi"], "pct": FEST_PCT,
+                               "start": (datetime.date.fromisoformat(fd) - datetime.timedelta(days=2)).isoformat(), "end": fd}
+                return out
+    return out
+
+
+def offer_pct(item_id, day=None):
+    o = offer(day)
+    p = 0
+    if o["sale"]["item"] == item_id:
+        p += o["sale"]["pct"]
+    if o["fest"]:
+        p += o["fest"]["pct"]
+    return p
+
+
+def season_list():
+    try:
+        return json.loads(SEASON_F.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+
+def season_due(days_before=7, day=None):
+    """Aaj se 'days_before' din baad wali last date (sirf sarkari source wali entry)."""
+    d = datetime.date.fromisoformat(day) if day else now().date()
+    want = (d + datetime.timedelta(days=days_before)).isoformat()
+    return [x for x in season_list() if x.get("date") == want and str(x.get("source", "")).startswith("https://")
+            and re.search(r"\.(gov|nic)\.in(/|$)", x["source"]) and x.get("item") in rates()["by"]]
 
 
 # ---------------------------------------------------------------- leads
@@ -532,7 +596,12 @@ def _site_files(c):
     cfg = (f"window.SVC_API='/api';window.SVC_API2='{c['url']}';window.SVC_WA='{WA_OWNER}';"
            f"window.SVC_UPI_ON={1 if c.get('upi') else 0};\n")
     q = (__import__("pathlib").Path(__file__).parent / "assets" / "svc" / "q.html").read_text(encoding="utf-8")
-    return {"site/svc-cfg.js": cfg, "functions/api/[[path]].js": FN_JS % (c["url"], c.get("pk", "")), "site/q.html": q}
+    try:
+        o = offer()
+    except Exception:
+        o = {}
+    return {"site/svc-cfg.js": cfg, "functions/api/[[path]].js": FN_JS % (c["url"], c.get("pk", "")), "site/q.html": q,
+            "site/svc-offer.js": "window.SVC_OFFER=" + json.dumps(o, ensure_ascii=False) + ";\n"}
 
 
 def _write_site_files(c):
@@ -889,6 +958,23 @@ def on_text_crm(t, run):
         audit("upi_set")
         run(lambda: (ensure_site_cfg(), tg.say("✅ UPI set. Ab customer ke 'Haan' dabate hi uske page par isi UPI ka QR (amount bhara) dikhega.")))
         return True
+    m = re.match(r"season add (\d{4}-\d{2}-\d{2})\s*\|\s*(.+?)\s*\|\s*([a-z0-9-]+)\s*\|\s*(https://\S+)$", t.strip(), re.I)
+    if m:
+        d_, nm, it, src = m.groups()
+        if it.lower() not in rates()["by"]:
+            return tg.say(f"❓ kaam '{it}' rate list mein nahi")
+        if not re.search(r"\.(gov|nic)\.in(/|$)", src):
+            return tg.say("⛔ Sirf sarkari (.gov.in / .nic.in) link wali last date maani jaati hai - galat date wali video nahi banegi.")
+        L = season_list()
+        L.append({"date": d_, "name": nm[:80], "item": it.lower(), "source": src, "by": "owner"})
+        SEASON_F.parent.mkdir(parents=True, exist_ok=True)
+        SEASON_F.write_text(json.dumps(L, ensure_ascii=False, indent=1), encoding="utf-8")
+        audit("season_add", date=d_, item=it.lower())
+        return tg.say(f"✅ Season: {nm} ({d_}) - 7 din pehle services video is kaam par banegi.")
+    if tl in ("season list", "services season"):
+        L = season_list()
+        return tg.say("📅 Season (last date):\n" + ("\n".join(f"• {x['date']} {x['name']} → {x['item']}" for x in L) or "khaali") +
+                      "\nJodna: season add 2026-12-31 | NSP scholarship last date | m-scholar | https://scholarships.gov.in/")
     if tl in ("services crm", "crm"):
         return tg.say(crm_list())
     m = re.match(r"(?:crm )?(sh\w+) (new|talk|rate|accepted|paid|working|delivered|feedback|closed|lost)$", tl)
