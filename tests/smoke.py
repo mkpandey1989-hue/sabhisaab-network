@@ -1210,7 +1210,7 @@ _pl60 = _V60.pick_day(seed=5, day="2026-11-24")
 check(len(_pl60) == 4 and len({(v["look"], v["hook"]) for v in _pl60.values()}) == 4, "4 brand = 4 alag look+hook")
 check(sorted(v["slot"] for v in _pl60.values()) == ["05:00", "07:00", "18:00", "20:00"], "roz 4 video: 05:00, 07:00, 18:00, 20:00")
 check(all(len(v["set"]) == 6 and len(set(v["set"])) == 6 for v in _pl60.values()), "har video mein 6 alag kaam")
-check(all(sum(1 for i in v["set"] if _V60.KAAM[i][1] == "मदद") >= 2 for v in _pl60.values()), "har video mein kam se kam 2 madad wale kaam")
+check(all(sum(1 for i in v["set"] if _V60.KAAM[i][1] == "मदद") >= 1 for v in _pl60.values()), "har video mein kam se kam 1 madad wala kaam")
 for _b60, _v60 in _pl60.items():
     _V60._hist_add({"day": "2026-11-24", **_v60, "brand": _b60})
 _used60 = {_V60._key(h) for h in _V60._hist()}
@@ -1524,6 +1524,30 @@ try:
         state.put("thumb_rot", _rot90)
     check(sorted(set(_seq90)) == [1, 2, 3] and _seq90[:3] != _seq90[1:4] and len(_day90) == 3, "thumbnail 1/2/3 ghoomta, ek din alag brand par alag")
     check("instagram" in _P90.SVC_PLATFORM_OFF.get("sunonatak", []), "Suno Natak Instagram par services video nahi (2 baar ban)")
+    # v3.9.1: saare 112 kaam har channel par ghoomein (category-wise nahi), ek din dohra nahi, shuru mein sasta
+    _R91 = _S50.rates()["by"]
+    check(set(_V90.KAAM) == set(_R91), "rate-list ke saare kaam video mein (112)")
+    _od91 = _V90.DIR
+    try:
+        _V90.DIR = __import__("pathlib").Path(__import__("tempfile").mkdtemp())
+        _seen91, _dd91, _rep91 = set(), __import__("datetime").date(2026, 12, 1), 0
+        for _i91 in range(8):
+            _p91 = _V90.pick_day(seed=_i91, day=str(_dd91))
+            _all91 = [x for v in _p91.values() for x in v["set"]]
+            _rep91 += len(_all91) - len(set(_all91))
+            for _b91, _v91 in _p91.items():
+                _seen91.update(_v91["set"])
+                _V90._hist_add({"day": str(_dd91), "brand": _b91, **{k: _v91[k] for k in ("set", "look", "hook", "lay")}})
+                if _i91 == 0:
+                    check(_R91[_v91["set"][0]]["price"] <= 499, f"{_b91}: pehla kaam sasta (₹{_R91[_v91['set'][0]]['price']})")
+            _dd91 += __import__("datetime").timedelta(days=1)
+        check(_rep91 == 0, "ek din 4 brand par koi kaam dohra nahi")
+        check(len(_seen91) == len(_R91), f"8 din mein saare kaam dikhe ({len(_seen91)}/{len(_R91)})")
+    finally:
+        _V90.DIR = _od91
+    from app import svccomment as _C91
+    check(_C91.understand("tradingview jaisa chart chahiye").get("item") == "t-chart" and _C91.understand("mujhe signal chahiye")["intent"] == "red",
+          "comment: chart = chart dashboard, signal = mana")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

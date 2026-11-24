@@ -260,3 +260,9 @@ WhatsApp + Telegram seedha baat; apna haal dhoondo; saal-bhar backup (privacy ke
 - Form: label upar + halka "jaise:" hint; mobile 10 ank ki jaanch (Hindi mein, wahi field ke neeche); bekaar likhawat roki; tracker bhi.
 - Phone/WhatsApp/dukaan wala kaam: `manual ...` -> CRM + customer page. `baat SH..` = baat ka record.
 - Bahi-khata zindagi bhar (bina naam/number/sandesh). Payment par rasid. Privacy page isi hisaab se.
+
+## 22. v3.9.1 — saare kaam, saare channel (24 Nov 2026)
+- Video ab category-wise nahi: 112 kaam har channel par ghoomte hain (sabse kam dikha pehle, din mein dohra nahi, ~6 din mein poori list).
+- Shuru mein sasta kaam. Trading tool = sirf aapke niyam ka code, tip/signal nahi.
+- Poora handover: docs/SERVICES_HANDOVER.md.
+

@@ -2473,3 +2473,14 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
   video chhoti bane to log mein wajah.
 - docs/AUDIENCE_SERVICES.md - bio, pin post, pinned comment, WhatsApp status, Google Business, aam sawal ke jawab.
 
+## v3.9.1 (24 Nov 2026) - "sab kaam sab channel par ghoomein" + Gemini/owner jaanch
+- Owner: audience mix hai, video category-wise nahi - rate-list ke SAARE 112 kaam har channel par ghoomein. KAAM (svcvideo) mein
+  baaki 91 kaam jode (Hindi naam, dard-sawal, fayda, screen, bolne ka naam). pick_day: sabse kam dikha pehle, ek din 4 brand mein dohra
+  nahi, ek video mein ek kism ke max 2, kam se kam 1 madad + 1 sasta; ~6 din mein poori list (test: 8 din mein 112/112).
+- Owner ki video (Suno Natak): shuru "बाजार में ₹10,000+ बुकिंग पेज ₹3,999" - mehenga laga. Ab pehla kaam (hook) = set ka sabse sasta /
+  sabse bada bazaar-farak (₹499 tak).
+- Trading tools video mein: "टिप/सिग्नल नहीं" chip, description mein jokhim line; audit mein profit/मुनाफ़ा/पक्की कमाई mana.
+- Comment: "TradingView jaisa chart" -> chart/OI dashboard (pehle alert); "signal chahiye / kaunsa share" -> mana list (owner ko saaf sujhav).
+  Rate list version 2026-11-24.2 (sirf kw badle, koi daam nahi).
+- docs/SERVICES_HANDOVER.md (doosre AI ke liye poora), AI_START mein link.
+

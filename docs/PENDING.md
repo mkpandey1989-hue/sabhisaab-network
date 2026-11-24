@@ -127,8 +127,10 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
 
-## Services - owner ke pending kaam (24 Nov 2026, v3.9.0 ke baad) - sab ek jagah
-- [Owner] Install: SIRF bot sabhinet-v3.9.0 (website ZIP nahi). 4-5 min mein '📱 Website' sandesh (saare page ka mobile fix).
+## Services - owner ke pending kaam (24 Nov 2026, v3.9.1 ke baad) - sab ek jagah
+- [Owner] Install: SIRF bot sabhinet-v3.9.1 (website ZIP nahi; v3.8.8-v3.9.0 isi mein). 4-5 min mein '📱 Website' sandesh (saare page ka mobile fix).
+- [Owner] Ek namoona: 🧾 Services -> 🎬 Services namoona (naye kaam + sasta shuru dekhne ke liye).
+- [AI] Pehle 2 hafte: kaun se kaam/hook se lead aaye (services 7 din) - SERVICES_HANDOVER.md section 8.
 - [Owner] Kuch likhna nahi - services video roz apne aap (aaj 17:00 se pehle lagi to aaj 18:00/20:00 wale slot se). Pehli video
   Telegram par aayegi; jawab na diya to slot par khud (thumbnail 1/2/3 ghoom kar).
 - [Owner] docs/AUDIENCE_SERVICES.md se: Instagram bio (4 brand), FB page Intro + pin post, YouTube channel description, Threads bio,

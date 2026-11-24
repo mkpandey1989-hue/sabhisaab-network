@@ -1,5 +1,5 @@
 {
- "version": "2026-11-24.1",
+ "version": "2026-11-24.2",
  "hour_rate": 300,
  "buffer": 1.2,
  "cats": {
@@ -1558,7 +1558,8 @@
     "oi",
     "pcr",
     "dashboard",
-    "scanner"
+    "scanner",
+    "tradingview"
    ]
   },
   {
@@ -2434,11 +2435,25 @@
    "kw": [
     "signal do",
     "signal bech",
+    "signal chahiye",
+    "signal dena",
+    "signal milega",
     "tip do",
+    "tip chahiye",
+    "tips chahiye",
+    "call do",
+    "kaunsa share",
+    "konsa share",
+    "share batao",
+    "stock batao",
+    "kya khareedu",
+    "kya kharidu",
     "mera account chalao",
     "account chala do",
     "profit guarantee",
-    "pakka profit"
+    "pakka profit",
+    "सिग्नल",
+    "टिप दो"
    ]
   },
   {
@@ -2500,5 +2515,5 @@
   "small_cap": 50,
   "urgent": 50
  },
- "sha": "1e457d17896166c3"
+ "sha": "008c9c0939f494db"
 }

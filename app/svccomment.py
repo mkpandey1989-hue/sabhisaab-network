@@ -176,6 +176,9 @@ def handle(platform, b, c):
     if u["intent"] == "red":
         sug = ("माफ़ कीजिए, ये काम हम नहीं करते 🙏 फ़ॉर्म, रिज़्यूमे, वेबसाइट जैसा काम हो तो बताइए।" if DEV.search(txt) else
                "Maaf kijiye, ye kaam hum nahi karte 🙏 Form, resume, website jaisa koi kaam ho to batayiye.")
+        if str(u.get("red", "")).startswith("Trading"):        # v3.9.1: signal maangne wale ko saaf jawab (aap bhejein)
+            sug = ("जी, हम टिप/सिग्नल नहीं देते, न कमाई का वादा 🙏 आपके अपने नियम का टूल (अलर्ट, चार्ट, बैकटेस्ट) बना सकते हैं।" if DEV.search(txt)
+                   else "Ji, hum tip/signal nahi dete, na kamai ka vaada 🙏 Aapke apne niyam ka tool (alert, chart, backtest) bana sakte hain.")
     if u["intent"] == "trust":
         sug = ("जी, पहले बात, फिर लिखित रेट, पहले डेमो फिर पूरा पैसा। पासवर्ड/OTP हम कभी नहीं माँगते 🙏" if DEV.search(txt) else
                "Ji, pehle baat, phir likhit rate; demo dekh kar baaki payment. Password/OTP hum kabhi nahi maangte 🙏")

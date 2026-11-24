@@ -104,7 +104,7 @@ R = [
  ("t-journal","trade","Trade journal + P&L sheet",1499,3000,8000,3.5,"2 din","Y","journal pnl trade"),
  ("t-paper","trade","Paper-trading bot (bina asli paisa)",3999,10000,30000,9,"4-5 din","Y","paper trading"),
  ("t-algo","trade","Aapki strategy ka bot - AAPKE account/static IP par",5999,15000,50000,14,"7 din","Y","algo bot broker api dhan fyers zerodha angel delta strategy"),
- ("t-chart","trade","Personal chart / OI dashboard (aapke broker data se, login ke peeche)",4999,10000,40000,12,"5 din","Y","chart oi pcr dashboard scanner"),
+ ("t-chart","trade","Personal chart / OI dashboard (aapke broker data se, login ke peeche)",4999,10000,40000,12,"5 din","Y","chart oi pcr dashboard scanner tradingview"),
  ("t-crypto","trade","Crypto (Delta/Binance) strategy bot - aapke account par",5999,15000,50000,14,"7 din","Y","crypto delta binance bot"),
  # design
  ("d-logo","design","Logo + brand kit",999,3000,15000,2.5,"1-2 din","G","logo brand kit"),
@@ -159,7 +159,7 @@ R = [
 RED = [("Google Maps / data scraping, kisi ka phone-email nikalna", "scrap|scraping|scraper|data nikal|number nikal|email nikal|phone list|lead list kharid"),
        ("Cold email / bulk WhatsApp / spam", "bulk whatsapp|bulk sms|bulk message|cold email|mass message|spam"),
        ("Nakli review / followers / likes", "fake review|nakli review|followers badha|followers kharid|likes kharid|fake followers"),
-       ("Trading tip / signal / kisi ka account chalana", "signal do|signal bech|tip do|mera account chalao|account chala do|profit guarantee|pakka profit"),
+       ("Trading tip / signal / kisi ka account chalana", "signal do|signal bech|signal chahiye|signal dena|signal milega|tip do|tip chahiye|tips chahiye|call do|kaunsa share|konsa share|share batao|stock batao|kya khareedu|kya kharidu|mera account chalao|account chala do|profit guarantee|pakka profit|सिग्नल|टिप दो"),
        ("Hacking / copy site / betting / loan app", "hack|hacking|password tod|clone kar|copy kar do site|betting|satta|gambling|loan app|casino"),
        ("Bina consent outbound AI call", "outbound call|robocall|auto call kar|cold call"),
        ("Aadhaar/PAN mein badlav hum khud karein / tatkal ticket bot", "aadhaar badal|aadhar badal|aadhaar update kar do|aadhar update kar do|aadhaar mein naam badal|tatkal bot|tatkal ticket bot"),
@@ -176,7 +176,7 @@ def build():
                       "market": [lo, hi], "hours": h, "days": d, "risk": r, "kw": kw.split()})
     if bad:
         sys.exit("FLOOR GALTI:\n" + "\n".join(bad))
-    body = {"version": "2026-11-24.1", "hour_rate": HOUR, "buffer": BUF,
+    body = {"version": "2026-11-24.2", "hour_rate": HOUR, "buffer": BUF,
             "cats": {k: {"title": v[0], "sub": v[1]} for k, v in C.items()},
             "items": items, "red": [{"name": a, "kw": b.split("|")} for a, b in RED],
             "discount": {"brand": 10, "ref": 10, "care": 5, "max": 25, "small_cap_under": 300, "small_cap": 50, "urgent": 50}}
