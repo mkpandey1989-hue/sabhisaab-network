@@ -232,3 +232,11 @@ Audit report `data/services/video_audit.jsonl` mein hamesha.
 - IG DM automation tab tak band jab tak: (a) 30 din bina kisi lock/warning, (b) Meta App Review (instagram_manage_messages) pass, (c) owner ki dohri pushti. @sunonatak par kam se kam 2 lock ke baad 60 din.
 - Lead ka raasta: **Facebook** (comment → private reply, Meta niyam 7 din/1 baar, owner pushti ke baad), **YouTube** pinned comment + description link, **Telegram/WhatsApp channel**, **website form**.
 - Services video Instagram par jayega (bina link/DM bulawa ke); text: "Kaam ho to bio ka link dabaiye".
+
+---
+## 17. Tagline + kaam ka niyam (FINAL, 24 Nov 2026 06:43)
+- **Tagline:** "Koi bhi digital kaam — ho jayega"
+- **Neeche line:** "Hindi mein likhiye, jaise ghar mein bolte hain"
+- **Saath mein kaam dikhein + ₹10 se shuru:** `Resume ₹10 · Form madad ₹49 · Mobile/computer madad ₹49 · Bill/website… — ₹10 se shuru` (video end card, services-list hero, poster).
+- **Kaam ka niyam:** list mein sirf wahi kaam jo owner **AI ki madad se** kar sake (likhna, design, form/online madad screen share par, sheet/app/website code, guide). NAHI: haath/hardware repair, ghar aakar kaam, license wala kaam (CA ka ITR file daava, vakil), aisa kaam jo AI se na ho. Mobile/computer madad = sirf screen share/call par guide, hardware nahi.
+- Har naya kaam list mein daalne se pehle check: "kya AI + owner ise 100% kar sakte hain?" — nahi to RED list.
