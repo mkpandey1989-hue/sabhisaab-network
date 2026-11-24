@@ -200,3 +200,17 @@ Audit report `data/services/video_audit.jsonl` mein hamesha.
 ---
 ## Badlav log
 - 24 Nov 2026: pehla version. Owner ki baatein: madad wale kaam sabse upar, ITR ₹49 nahi, 5 round video audit, referral % wala, sachchi sale/tyohar, GBP review, video sirf asli kaam ke baad, aur sab future plan.
+
+---
+## 14. Owner ki nayi baatein (24 Nov 2026, 06:24) — sab karna hai
+1. Section 12 ke **saare advance feature** check karke live karne hain.
+2. ITR rate pakka: ITR-1 madad ₹299, ITR-2/4 ₹699 se (build ke waqt bazaar rate dobara check).
+3. **Comment/DM samajh (sirf services video par):** purane/baaki video ke comment ko bot haath nahi lagayega. Customer kuch bhi, kaisi bhi bhasha/spelling mein likhe — bot AI ki tarah samjhe (kaam, jaldi, budget, gussa, spam). Pakka na samjhe = **koi reply nahi, owner ko Telegram**. Galat comment/DM kabhi nahi. Public comment mein rate/QR nahi, sirf link/DM.
+4. Bot customer ki apni bhasha/andaaz (ghar jaisi Hinglish/Hindi) mein jawab de — izzat se, bina gaali/slang ke, jhooth vaada nahi.
+5. **One-click:** owner final amount daale → ek click mein customer page par QR + Pay (final amount) chala jaye; payment list update.
+6. **Owner override:** CRM mein koi bhi stage/amount/note owner seedha badal sake (special case); har badlav log mein.
+7. Privacy policy dobara check karke jo naya data/feature hai uski line jodna.
+8. Website ke 4 brand × jitne platform (IG, FB, YT, Threads, Pinterest, Telegram channel; WhatsApp channel owner manual) — policy ke hisab se sabme.
+9. Services video time: **05:00, 07:00, 18:00, 20:00** (owner se pakka: 4 video roz ya 1 video 4 jagah). Purana brand schedule **nahi chhedna**.
+10. Story/post/community — jo bhi API se policy ke andar ho (IG/FB story) wo bhi.
+11. Sab note karte rehna, phir ek saath build.
