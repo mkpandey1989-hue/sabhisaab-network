@@ -2409,3 +2409,8 @@ Owner: "resume likha aa raha... word bot ke paas save karo, Google check karke; 
 - LOGO: FB page photo lene mein appsecret_proof nahi tha (isliye 'SN' gol nishaan aaya) - ab meta._get se.
 - Baaki jaancha, theek mila: YouTube unit (250/upload, 12/din = ~3300/10000), upload seema 14 (8+4), IG 50/24h, report samay
   (09:10 jaanch, 21:45 services, 21:55 master), comment raasta (sirf services video), command naam takra nahi.
+
+## v3.8.6 (24 Nov 2026) - "jaise log samjhte hain"
+Owner ne "रिज्यूमे" mana kiya. Ab screen par "Resume / बायोडाटा" (Resume = naukri app/website par jo dikhta hai, बायोडाटा = gaon-shehar
+sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का बायोडाटा" (English shabd Hindi awaaz mein saaf nahi). Shaadi wala
+"शादी बायोडाटा" alag hi rehta hai. Shabdkosh: रिज़्यूमे/रिज्यूमे/रिज्यूम -> Resume (screen), Resume -> बायोडाटा (awaaz).

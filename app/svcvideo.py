@@ -46,14 +46,14 @@ DUR = T_CTA + 4.6                                    # 28.8 (bina awaaz ka defau
 GAP = 0.35                                           # v3.8.2: har vakya ke baad saans (pehle poora script ek saans mein, tez)
 
 
-# v3.8.5 SHABDKOSH (owner: "Google aur jagah check karke jo asli likhte hain"): Hindi akhbaar/site (Prabhat Khabar, Canva,
-# Visme, ResumeGyani...) "रिज्यूमे" likhte hain; English se aaye shabd bina nukta (फॉर्म, फोटो, साइज). Screen + awaaz dono par.
+# v3.8.6 SHABDKOSH (owner: "jaise log samjhte hain wo karo"): screen par "Resume" (jaise website/naukri app par dikhta hai) +
+# "बायोडाटा" (gaon-shehar sab samajhte hain); awaaz mein "बायोडाटा" (English shabd Hindi awaaz mein saaf nahi). Pehle "रिज्यूमे" tha; English se aaye shabd bina nukta (फॉर्म, फोटो, साइज). Screen + awaaz dono par.
 # Owner jod sakta hai: 'services shabd <galat> = <sahi>' (state svc_word_fix) - sabse upar.
-WORDS = {"रिज़्यूमे": "रिज्यूमे", "रिज़्यूम": "रिज्यूमे", "रिज्यूम": "रिज्यूमे", "रेज़्यूमे": "रिज्यूमे", "फ़ॉर्म": "फॉर्म", "फ़ोटो": "फोटो",
+WORDS = {"रिज़्यूमे": "Resume", "रिज़्यूम": "Resume", "रिज्यूम": "Resume", "रेज़्यूमे": "Resume", "रिज्यूमे": "Resume", "फ़ॉर्म": "फॉर्म", "फ़ोटो": "फोटो",
          "फ़ोटो-साइन": "फोटो-साइन", "साइज़": "साइज", "फ़ोन": "फोन", "सर्विसेज़": "सर्विसेज", "ज़रूरी": "जरूरी", "बाज़ार": "बाजार",
          "सिर्फ़": "सिर्फ", "डिज़ाइन": "डिजाइन", "ज़्यादा": "ज्यादा", "हफ़्ते": "हफ्ते", "आख़िरी": "आखिरी", "तारीख़": "तारीख",
          "ग़लती": "गलती", "ख़त्म": "खत्म", "फ़ीस": "फीस", "प्रोफ़ेशनल": "प्रोफेशनल", "ऑफ़र": "ऑफर", "ज़": "ज"}
-SAY_FIX = {"सर्विसेज़": "सर्विसेज"}
+SAY_FIX = {"सर्विसेज़": "सर्विसेज", "Resume": "बायोडाटा", "resume": "बायोडाटा"}   # awaaz: English shabd Hindi awaaz mein saaf nahi - बायोडाटा
 _DEV = "\u0900-\u097F"
 
 
@@ -118,7 +118,7 @@ HOOKS = [  # (screen kicker, bolne ke liye) - sach, bina nakli jaldi
 ]
 # kaam: (screen naam, chhota group, dard-sawal line1, line2, ek fayda, screen key, bolne ka naam)
 KAAM = {
-    "m-resume":  ("रिज़्यूमे", "बनाना", "नौकरी के लिए", "रिज़्यूमे चाहिए?", "उसी दिन PDF", "resume", "रिज़्यूमे"),
+    "m-resume":  ("Resume / बायोडाटा", "बनाना", "नौकरी के लिए", "Resume चाहिए?", "उसी दिन PDF", "resume", "नौकरी का बायोडाटा"),
     "m-form":    ("ऑनलाइन फ़ॉर्म मदद", "मदद", "ऑनलाइन फ़ॉर्म", "भरना मुश्किल लगता है?", "OTP आप ही डालें", "form", "ऑनलाइन फ़ॉर्म में मदद"),
     "m-scholar": ("स्कॉलरशिप फ़ॉर्म", "मदद", "स्कॉलरशिप का फ़ॉर्म", "समझ नहीं आता?", "डॉक्यूमेंट लिस्ट साथ", "form", "स्कॉलरशिप फ़ॉर्म"),
     "m-yojana":  ("किसान / पेंशन आवेदन", "मदद", "योजना का आवेदन", "कैसे करें?", "आप सामने, हम साथ", "form", "योजना के आवेदन में मदद"),
@@ -550,8 +550,8 @@ def ctx_for(v, brand, day=None):
         kick, q1, q2 = f"बाज़ार में {_rs(lm)}+", k[0], f"सिर्फ़ {_rs(lp)}"
         say_hook = f"बाज़ार में {lm} रुपये से ऊपर, यहाँ {k[6]}, सिर्फ़ {lp} रुपये"
     elif mode == 2:
-        kick, q1, q2 = "₹10 से शुरू", "रिज़्यूमे ₹10", "फ़ॉर्म मदद ₹49"
-        say_hook = "दस रुपये से शुरू। रिज़्यूम दस रुपये, फ़ॉर्म मदद उनचास रुपये"
+        kick, q1, q2 = "₹10 से शुरू", "Resume ₹10", "फॉर्म मदद ₹49"
+        say_hook = "दस रुपये से शुरू। नौकरी का बायोडाटा दस रुपये, फॉर्म मदद उनचास रुपये"
     season = v.get("season")
     if season:
         d_ = datetime.date.fromisoformat(season["date"])
@@ -690,7 +690,7 @@ def frame(cx_, t, cache, reg=None):
         _card(im, (W // 2 - bw // 2, 790, W // 2 + bw // 2, 790 + bh), 62, shadow=30)
         cv.text((W // 2, 790 + bh // 2), SITE_TXT, _fit(SITE_TXT, 54, bw - 80), br, tag="site")
         cv.text((W // 2, 990), "कमेंट में अपना काम लिखिए", _font(50, "SemiBold"), (255, 255, 255), tag="cm")
-        grid = [("रिज़्यूमे", 10), ("फ़ॉर्म मदद", 49), ("मोबाइल मदद", 49), ("फ़ोटो-साइन", 29), ("ITR-1 मदद", 299),
+        grid = [("Resume", 10), ("फ़ॉर्म मदद", 49), ("मोबाइल मदद", 49), ("फ़ोटो-साइन", 29), ("ITR-1 मदद", 299),
                 ("स्कॉलरशिप", 99), ("बायोडाटा", 49), ("प्रोजेक्ट/PPT", 99), ("वेबसाइट", 2999)]
         gw, gh, gg = 300, 104, 18
         gx0 = (W - (3 * gw + 2 * gg)) // 2
@@ -1091,7 +1091,7 @@ def on_text(t, run):
             with open(out / "awaaz_jaanch.mp3", "rb") as fh:
                 tg.call("sendAudio", {"chat_id": tg._chat(), "caption": "🔊 Services video ke shabd (isi kram mein):\n" +
                                       "\n".join(f"{i + 1}. {w}" for i, w in enumerate(words))[:1000]}, files={"audio": fh})
-            tg.say("Koi shabd galat bola gaya? Likhiye: services awaaz sudhar रिज्यूम = रेज़्यूमे  (baayen jo likha hai, daayen jaisa bolna hai)")
+            tg.say("Koi shabd galat bola gaya? Likhiye: services awaaz sudhar <jo likha hai> = <jaisa bolna hai>")
         tg.say("🔊 Shabd bol kar bhej raha hoon (1-2 min)...")
         run(_aj)
         return True

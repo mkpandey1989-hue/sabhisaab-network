@@ -1391,7 +1391,8 @@ try:
         _S50.BAK = _obak84
     check(_yb84 and oct(_yb84.stat().st_mode)[-3:] == "600", "saal-bhar ki roz ki copy (sirf owner padh sake)")
     # v3.8.5: shabdkosh + slot takra + KV-safe
-    check(_V60.fix_words("रिज़्यूमे ₹10 · फ़ॉर्म मदद · रिज्यूमे") == "रिज्यूमे ₹10 · फॉर्म मदद · रिज्यूमे", "shabdkosh: रिज्यूमे/फॉर्म ek jaisa (shabd ke beech nahi badla)")
+    check(_V60.fix_words("रिज़्यूमे ₹10 · फ़ॉर्म मदद · रिज्यूमे") == "Resume ₹10 · फॉर्म मदद · Resume", "shabdkosh: screen par 'Resume' (log jo padhte hain), फॉर्म")
+    check("बायोडाटा" in _V60.say_clean("Resume / बायोडाटा") and "Resume" not in _V60.say_clean("Resume"), "awaaz mein 'बायोडाटा' (English shabd nahi)")
     _reg85 = []
     _V60.frame(_cx60, 12.0, {}, _reg85)
     check(not any("़" in s_ and ("रिज़" in s_ or "फ़ॉर्म" in s_) for (_b, s_, _t) in _reg85), "video screen par shabdkosh laga")
