@@ -240,3 +240,9 @@ Audit report `data/services/video_audit.jsonl` mein hamesha.
 - **Saath mein kaam dikhein + ₹10 se shuru:** `Resume ₹10 · Form madad ₹49 · Mobile/computer madad ₹49 · Bill/website… — ₹10 se shuru` (video end card, services-list hero, poster).
 - **Kaam ka niyam:** list mein sirf wahi kaam jo owner **AI ki madad se** kar sake (likhna, design, form/online madad screen share par, sheet/app/website code, guide). NAHI: haath/hardware repair, ghar aakar kaam, license wala kaam (CA ka ITR file daava, vakil), aisa kaam jo AI se na ho. Mobile/computer madad = sirf screen share/call par guide, hardware nahi.
 - Har naya kaam list mein daalne se pehle check: "kya AI + owner ise 100% kar sakte hain?" — nahi to RED list.
+
+---
+## 18. Build status (24 Nov 2026) - v3.8.0 bana
+Sec 5-10, 12 (1,2,5,6,7,9 bot mein; 3,4,8 aage), 14, 15 (time/brand/comment/bhasha), 16, 17 - code mein. Test: bot 80, page 39, worker 22, proxy 1.
+Aage (owner/API ki seema): IG story question sticker + Highlights (API nahi - owner khud), Google Business Profile (owner), FB private reply
+(owner ki dohri pushti ke baad), auto receipt PDF, documents checklist, hook A/B (views data ke baad), mahine ka "top kaam" video.

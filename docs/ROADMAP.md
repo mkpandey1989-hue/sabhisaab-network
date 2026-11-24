@@ -2318,3 +2318,25 @@ BAAKI (Phase 2+): roz 1 services video (4 brand x alag version, lifetime no-repe
   "Koi bhi chhota kaam" ₹49. 103 kaam.
 - Website ZIP v4: /services-list par sabse pehle "Koi bhi kaam - apne shabdon mein" card, hero mein Resume ₹10 + Form ₹49,
   form FAQ; /services-demo par 0. Resume demo (₹10); /services + Terms mein form-madad ki shartein.
+
+## v3.8.0 (24 Nov 2026) - Services: form kabhi na atke, gupt page + CRM, naya video, comment samajh
+Owner: "Telegram par message nahi aata, WhatsApp khulta hai... quotation/QR nahi dikhta... video kaam ki nahi... koi bhi kaam dikhna chahiye".
+- FORM: wajah - form workers.dev par jaata tha bina time-limit (kuch ISP/phone workers.dev rokte) -> button atak. Ab sabhisaab.com/api
+  (Pages Function, gupt PK se asli IP), 10s mein jawab nahi to seedha worker, dono fail = phone mein save + net aate hi same cid
+  (dohra lead nahi). WhatsApp sirf extra. Bot apne aap: worker v3.8.0 deploy + functions/api/[[path]].js (gitignore) + site/q.html +
+  svc-offer.js + website audit.py mein /q ko SEO jaanch se bahar (noindex gupt page).
+- GUPT PAGE /q?id&k: haal, rate, "Haan" -> UPI QR (rakam bhari) + Pay button, kaam chalu, taiyaar -> star + ijazat (website par dikhana /
+  namoona). Phone/IP kabhi nahi, analytics/ads script nahi, noindex.
+- CRM: stage new→talk→rate→accepted→paid→working→delivered→feedback→closed/lost; call log; owner override; yaad (5m/3h/24h/48h/due);
+  page-update fail = queue. Referral naya: dost ke PAID bill ka 10% (₹300+, max ₹500), 7 din baad, agle bill ka max 10%, 90 din.
+  Purani galti theek: ₹10 resume par ₹100 credit banta tha; bade kaam par advance ~95% (floor) tha -> ~30%.
+- RATE LIST (112): madad wale kaam - scholarship ₹99, PM Kisan/ration/pension ₹99, exam/naukri ₹49, photo-sign ₹29, ITR-1 madad ₹299,
+  ITR-2/4 ₹699, mobile/computer madad ₹49, project/PPT ₹99, typing ₹19. Mana: Aadhaar/PAN badlav, tatkal bot, hardware/ghar aakar.
+- SALE: hafte ka 1 kaam, floor ke andar jitna (aksar 10-15%), asli date; tyohar (indiacal) 5% tak. Page par asli rakam.
+- VIDEO (svcvideo v3.8.0): 6 kaam/video (2+ madad, 1 mobile, 3 banana), tagline "Koi bhi digital kaam — ho jayega", "Hindi mein likhiye",
+  referral, brand code; roz 4 video 05:00/07:00/18:00/20:00 (brand roz ghoomta); lifetime dohrav nahi; 5 round audit (tathya, niyam,
+  dikhawat har 0.3s, awaaz, owner ✅) - fail = ruki. Season video sirf .gov.in source wali date. Capacity guard + chhutti.
+- COMMENT (svccomment): SIRF services video. Kaam/rate/tareef = usi andaaz mein chhota jawab (IG par link/DM nahi). Bharosa/gaali/
+  mana/samajh nahi = jawab nahi, owner ko sujhaya jawab + button. Purani video ka system waisa hi.
+- STORY: services video ki FB story = kaam wali frame, IG story = video ('jawab socho' text nahi).
+- Instagram: comment→DM kisi brand par NAHI (sunonatak 2 baar band; docs/SERVICES_PLAN.md sec 16).

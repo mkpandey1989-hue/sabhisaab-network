@@ -59,3 +59,25 @@ button deta hai.
 | services video namoona | Abhi ek namoona (Pahadi) - button dabaye bina post nahi |
 | services video report | Bani video ka record (dohrav 0) |
 | (apne aap) Instagram account band mila | Us brand ka IG upload + comment ruk jaata, khulte hi apne aap chalu |
+
+## Services v3.8.0 (24 Nov 2026) - CRM, gupt page, naya video
+| Aap likhte hain | Bot deta hai |
+|---|---|
+| services upi aapki-id@bank | UPI ek baar set (sirf .env/svc.json mein). Customer ke "Haan" dabate hi uske gupt page par isi ka QR, rakam bhari |
+| (naye lead ka card) 💬 WhatsApp · 📞 Uthaya · 📵 Nahi · ⏰ Baad | Bhara hua WhatsApp + call log (nahi uthi = 3 ghante baad yaad, baad = agle din) |
+| ✅ ₹X customer ke page par bhejo (button) | EK click: rate customer ke page par + bhara WhatsApp message aapko |
+| quote SH.. 499 naam | Rate badal kar naya quote (guard + floor) - phir ✅ button |
+| pay SH.. | Haan ka intezaar kiye bina QR khol do (special case) |
+| crm / services crm | Khule kaam stage ke hisaab se |
+| SH.. working (ya talk/rate/accepted/paid/delivered/closed/lost) | Owner override - stage badlo (log + page par) |
+| crm SH.. amount 149 · crm SH.. note ... · crm SH.. due 2026-11-30 | Rakam / note / delivery date badlo (log mein) |
+| paid SH.. 2999 | Paisa (bank app dekh kar) - stage working, referral bonus 10% (₹300+ bill, max ₹500) |
+| deliver SH.. note | Delivered + customer ko rating ka bhara WhatsApp |
+| aur kaam SH.. | 30 din baad "aur kaam?" - SIRF aap bhejte hain (bot apne aap nahi) |
+| season add 2026-12-31 \| NSP last date \| m-scholar \| https://scholarships.gov.in/ | Season date (sirf .gov.in/.nic.in) - 7 din pehle us kaam ki video |
+| season list | Season dates |
+| services chhutti 3 / services chhutti 0 | Chhutti: services video ruki |
+| services seema 8 | Itne kaam chal rahe hon to us din services video nahi |
+| services report 7 | Funnel (aaye → baat → rate → haan → paid → delivered), brand code/source, comment, video audit, CRM |
+| services video namoona | Ek namoona (Pahadi, 6 kaam, 5 round audit) |
+| (apne aap) 5 min / 24 ghante / 48 ghante | Yaad: baat nahi hui / rate nahi gaya / customer ne haan nahi kaha (har ek ek hi baar) |
