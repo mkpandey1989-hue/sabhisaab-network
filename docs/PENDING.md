@@ -127,9 +127,9 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
 
-## Services - owner ke pending kaam (24 Nov 2026, v3.8.4 ke baad) - sab ek jagah
-- [Owner] Install kram: (1) bot sabhinet-v3.8.4 (2) 2-3 min baad website-v8-services.zip (_headers ke saath - form ki asli wajah ka hal)
-  (3) apne phone se /services-list par ek test kaam bhejiye -> Telegram par "Naya kaam" + 5 min mein card (4) 'services form jaanch'
+## Services - owner ke pending kaam (24 Nov 2026, v3.8.7 ke baad) - sab ek jagah
+- [Owner] Install kram: (1) bot sabhinet-v3.8.7 (2) 2-3 min baad website-v9-services.zip (form label/jaanch, privacy)
+  (3) apne phone se /services-list par adhura number daal kar dekhiye (Hindi mein rokega), phir sahi number se test kaam bhejiye -> Telegram par "Naya kaam" + 5 min mein card (4) 'services form jaanch'
 - [Owner] Telegram button chahiye to: services telegram <aapka_username> (bina @). Na ho to sirf WhatsApp dikhega.
 - [Owner] 'services video namoona' -> brand chuniye -> video dekhiye; theek ho to 'services video chalu'.
 - [Owner] Brand logo galat/purana lage to Facebook page ki profile photo badaliye (bot wahi leta hai) ya data/brand_logo/<brand>.png rakhiye.

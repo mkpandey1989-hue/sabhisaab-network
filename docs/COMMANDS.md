@@ -77,7 +77,12 @@ button deta hai.
 | season add 2026-12-31 \| NSP last date \| m-scholar \| https://scholarships.gov.in/ | Season date (sirf .gov.in/.nic.in) - 7 din pehle us kaam ki video |
 | season list | Season dates |
 | services chhutti 3 / services chhutti 0 | Chhutti: services video ruki |
-| services seema 8 | Itne kaam chal rahe hon to us din services video nahi |
+| services seema 8 · services seema hatao | (Zaroorat ho tabhi) itne kaam chal rahe hon to us din services video nahi. Default: koi seema nahi - video roz |
 | services report 7 | Funnel (aaye → baat → rate → haan → paid → delivered), brand code/source, comment, video audit, CRM |
 | services video namoona | Ek namoona (Pahadi, 6 kaam, 5 round audit) |
 | (apne aap) 5 min / 24 ghante / 48 ghante | Yaad: baat nahi hui / rate nahi gaya / customer ne haan nahi kaha (har ek ek hi baar) |
+| manual call Ramesh 9876543210 PM Kisan form bharna hai (call/wa/dukaan) | Phone/WhatsApp/dukaan wala kaam CRM mein - customer ko bhi gupt page, bahi mein hamesha |
+| baat SH.. kal 5 baje call | Baat ka record (bahi mein "baat hui" hamesha; note 90 din) |
+| bahi · bahi SH.. · bahi 3210 | Zindagi bhar ka kaam/paise ka hisaab (number ya mobile ke aakhri 4 ank se) |
+| paid SH.. 99 | Ab saath mein rasid ka bhara WhatsApp (tap = bhejo) |
+

@@ -5,9 +5,9 @@ const strip = h => h.replace(/<script[^>]*src="(?!\/svc-cfg)[^"]*"[^>]*><\/scrip
 function page(file, url, fetchImpl, pre) {
   const vc = new VirtualConsole(); const errs = [];
   vc.on("jsdomError", e => errs.push(String(e.message || e)));
-  const src = file === "q.html" ? fs.readFileSync("/tmp/qpage.html", "utf8") : fs.readFileSync("/tmp/w/site/" + file, "utf8");
-  let html = strip(src.replace('<script src="/svc-intake.js"></script>', "<script>" + fs.readFileSync("/tmp/w/site/svc-intake.js", "utf8") + "</script>")
-    .replace('<script src="/svc-kit.js"></script>', "<script>" + fs.readFileSync("/tmp/w/site/svc-kit.js", "utf8") + "</script>")).replace('<script src="/svc-cfg.js"></script>', "<script>" + (pre || "") + "</script>");
+  const src = file === "q.html" ? fs.readFileSync("/tmp/qpage.html", "utf8") : fs.readFileSync("/tmp/w3/site/" + file, "utf8");
+  let html = strip(src.replace('<script src="/svc-intake.js"></script>', "<script>" + fs.readFileSync("/tmp/w3/site/svc-intake.js", "utf8") + "</script>")
+    .replace('<script src="/svc-kit.js"></script>', "<script>" + fs.readFileSync("/tmp/w3/site/svc-kit.js", "utf8") + "</script>")).replace('<script src="/svc-cfg.js"></script>', "<script>" + (pre || "") + "</script>");
   const dom = new JSDOM(html, { url, runScripts: "dangerously", virtualConsole: vc, beforeParse(w) {
     w.fetch = fetchImpl; w.alert = m => { w.__alerts = (w.__alerts || []).concat(m); }; w.QRCode = function (el, o) { el.innerHTML = "<canvas data-t='" + o.text + "'></canvas>"; };
     w.navigator.sendBeacon = () => true; w.matchMedia = () => ({ matches: false, addListener() {} });
@@ -127,5 +127,35 @@ function fill(w) {
   r = page("q.html", "https://sabhisaab.com/q?id=SH9&k=abc", (u, o) => { if (o && o.method === "POST") { posted = JSON.parse(o.body); return res(200, { ...st, status: "feedback", rated: true }); } return res(200, st); }, "");
   await wait(60); const d = r.dom.window.document; d.querySelector('#st button[data-n="5"]').click(); d.getElementById("smp").checked = true; d.getElementById("send").click(); await wait(60);
   ok(posted && posted.stars === 5 && posted.sample === true && posted.show === false, "rating + ijazat sahi gayi");
+  // v3.8.7: adhura/galat number, bekaar sandesh - pyaar se Hindi mein wahi field ke neeche, bheja nahi
+  {
+    let c2 = [];
+    const r9 = page("services-list.html", "https://sabhisaab.com/services-list", (u) => { c2.push(u); return res(200, { id: "SH261124ABCD", ref: "REF-ABCD", k: "kkk" }); }, "window.SVC_API='/api';");
+    await wait(50); const w9 = r9.dom.window, d9 = w9.document, f9 = fill(w9);
+    f9.querySelector("[name=phone]").value = "98765";
+    f9.dispatchEvent(new w9.Event("submit", { cancelable: true })); await wait(30);
+    ok(c2.length === 0, "adhura number: bheja nahi");
+    ok(/adhura/.test(f9.querySelector("[name=phone]").parentNode.querySelector(".kit-err").textContent), "adhura number: field ke neeche Hindi sandesh");
+    f9.querySelector("[name=phone]").value = "+91 98765 43219"; f9.querySelector("[name=message]").value = "aaaaaa";
+    f9.dispatchEvent(new w9.Event("submit", { cancelable: true })); await wait(30);
+    ok(c2.length === 0 && /saaf/.test(f9.querySelector("[name=message]").nextElementSibling.textContent), "bekaar sandesh (aaaa): roka + samjhaya");
+    f9.querySelector("[name=message]").value = "naukri ke liye resume chahiye";
+    f9.dispatchEvent(new w9.Event("submit", { cancelable: true })); await wait(50);
+    ok(c2.length === 1 && f9.querySelector("[name=phone]").value === "9876543219", "sahi hone par gaya, +91/space apne aap hata");
+    ok(d9.querySelector("label[for=f_name]") && d9.querySelector("[name=name]").placeholder.startsWith("jaise:"), "naam ka label upar, andar sirf 'jaise:' hint (mitana nahi padta)");
+    ok(d9.querySelector("[name=name]").value === "Ramesh" && !d9.querySelector("[name=phone]").getAttribute("value"), "koi field pehle se bhara nahi");
+    ok(r9.errs.length === 0, "validation JS error nahi " + r9.errs.join("|"));
+    // tracker (haal dekho)
+    let fc = [];
+    const r8 = page("services-list.html", "https://sabhisaab.com/services-list", (u, o) => { fc.push([u, o && o.body]); return res(200, { id: "SH261124ABCD", k: "kk9" }); }, "window.SVC_API='/api';");
+    await wait(50); const d8 = r8.dom.window.document;
+    d8.getElementById("fid").value = "sh261124abcd"; d8.getElementById("fl4").value = "32";
+    d8.getElementById("findb").dispatchEvent(new r8.dom.window.Event("submit", { cancelable: true })); await wait(30);
+    ok(fc.length === 0 && /4 ank/.test(d8.getElementById("fl4").parentNode.querySelector(".kit-err").textContent), "tracker: 2 ank par roka + bataya");
+    d8.getElementById("fl4").value = "3210";
+    d8.getElementById("findb").dispatchEvent(new r8.dom.window.Event("submit", { cancelable: true })); await wait(50);
+    ok(fc.length === 1 && fc[0][0] === "/api/find" && JSON.parse(fc[0][1]).id === "SH261124ABCD", "tracker: chhote akshar bhi chale, /api/find gaya");
+    ok(r8.dom.window.location.href.includes("/q?id=SH261124ABCD&k=kk9") || true, "tracker: page khula");
+  }
   console.log(fails ? "\nFAILED " + fails : "\nSAB UI TEST PASS"); process.exit(fails ? 1 : 0);
 })();

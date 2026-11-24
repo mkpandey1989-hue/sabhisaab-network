@@ -85,7 +85,7 @@ EXTRA_CSS = """<style>
 footer .wrap{overflow-wrap:anywhere}footer .wrap a{display:inline-block;margin:2px 7px}#shConsent{max-width:100vw;box-sizing:border-box}#shConsent button{white-space:normal;max-width:100%}html,body{max-width:100%;overflow-x:hidden}
 .cbar{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:100px;padding:6px 8px 6px 14px;box-shadow:0 6px 20px #0002;z-index:60;font-size:.85rem;max-width:94vw}
 .cbar a{color:#fff;border-radius:100px;padding:9px 14px;font-weight:700;text-decoration:none}.cb-wa{background:#25D366}.cb-tg{background:#229ED9}
-.findb{background:#fff;border:1px dashed var(--brand);border-radius:14px;padding:12px;margin:10px 0}.findb input{width:46%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:16px;margin:4px 1%}.findb button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600}
+.findb{background:#fff;border:1px dashed var(--brand);border-radius:14px;padding:12px;margin:10px 0}.findb input{width:100%;box-sizing:border-box;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:16px;margin:0 0 6px}.kit-lab{display:block;font-size:.84rem;font-weight:700;color:#334155;margin:4px 0}.bld label.kit-lab,.bld label.kit-l{display:block;border-bottom:none;padding:0;margin:6px 0 4px}.bld label.kit-lab small,.bld label.kit-l small{margin-left:4px;font-weight:400}.kit-lab small{font-weight:400;color:var(--muted)}#fm ::placeholder,.findb ::placeholder{color:#A3AEB6;opacity:1;font-style:italic}.findb button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600}
 </style>"""
 
 BODY = """<body>
@@ -124,16 +124,20 @@ BODY = """<body>
 </div>
 
 <h2 id="form">Apna kaam likhiye</h2>
-<div class="findb" id="findb"><b>Pehle se kaam diya hai? Apna haal dekhiye</b><br><span id="lastk"></span>
-<input id="fid" placeholder="Kaam number (SH...)" autocomplete="off"><input id="fl4" placeholder="Mobile ke aakhri 4 ank" inputmode="numeric" maxlength="4">
-<button type="button" id="fbtn">Dekhein</button> <small id="fmsg"></small></div>
+<form class="findb" id="findb"><b>Pehle se kaam diya hai? Apna haal dekhiye</b><br><span id="lastk"></span>
+<div class="two"><div><label class="kit-lab" for="fid">Kaam number</label><input id="fid" name="fid" placeholder="jaise: SH261124AB3X" autocomplete="off" autocapitalize="characters" spellcheck="false"></div>
+<div><label class="kit-lab" for="fl4">Mobile ke aakhri 4 ank</label><input id="fl4" name="fl4" placeholder="jaise: 3210" inputmode="numeric" maxlength="4"></div></div>
+<button type="submit" id="fbtn">Dekhein</button> <small id="fmsg"></small></form>
 <div class="bld"><form id="fm">
-<div class="two"><input name="name" required maxlength="80" placeholder="Naam *"><input name="phone" required inputmode="tel" placeholder="Mobile number *"></div>
-<input name="service" id="svc" placeholder="Kaam (list se chunein ya likhein)">
+<div class="two"><div><label class="kit-lab" for="f_name">Aapka naam *</label><input id="f_name" name="name" required maxlength="80" autocomplete="name" placeholder="jaise: Ramesh Kumar"></div>
+<div><label class="kit-lab" for="f_ph">Mobile number (WhatsApp) *</label><input id="f_ph" name="phone" type="tel" required inputmode="tel" autocomplete="tel-national" maxlength="16" placeholder="jaise: 98XXXXXXXX — 10 ank"></div></div>
+<label class="kit-lab" for="svc">Kaam <small>(upar list se chunein ya khud likhein)</small></label><input name="service" id="svc" placeholder="jaise: Resume / PM Kisan form">
 <div id="intake"></div>
 <div id="fwrap"></div>
-<textarea name="message" required rows="3" maxlength="3000" placeholder="Kya chahiye? Hindi mein likhiye, jaise ghar mein bolte hain. Jaise: naukri ke liye resume chahiye / scholarship form bharna hai / phone mein UPI nahi chal raha"></textarea>
-<div class="two"><input name="budget" inputmode="numeric" placeholder="Budget ₹ (optional)"><input name="code" id="code" placeholder="Code (reel / dost se)" style="text-transform:uppercase"></div>
+<label class="kit-lab" for="f_msg">Kya chahiye? * <small>Hindi mein likhiye, jaise ghar mein bolte hain</small></label>
+<textarea id="f_msg" name="message" required rows="3" maxlength="3000" placeholder="jaise: naukri ke liye resume chahiye / scholarship form bharna hai / phone mein UPI nahi chal raha"></textarea>
+<div class="two"><div><label class="kit-lab" for="f_bud">Budget ₹ <small>(zaroori nahi)</small></label><input id="f_bud" name="budget" inputmode="numeric" placeholder="jaise: 500"></div>
+<div><label class="kit-lab" for="code">Code <small>(reel ya dost se mila ho)</small></label><input name="code" id="code" placeholder="jaise: MONEY10" style="text-transform:uppercase" autocomplete="off"></div></div>
 <label style="font-size:.85rem"><input type="checkbox" name="urgent" style="width:auto"> Jaldi chahiye (urgent +50%)</label><br>
 <label style="font-size:.85rem"><input type="checkbox" name="care" style="width:auto"> Har mahine dekhbhal bhi chahiye</label>
 <input name="hp_fax" style="position:absolute;left:-5000px;width:1px;height:1px;opacity:0" tabindex="-1" autocomplete="new-password" aria-hidden="true">
@@ -206,14 +210,15 @@ document.getElementById('offer').innerHTML=h})();
 if(window.SVCKIT){kit('custom');SVCKIT.help($('help'),'Namaste, services ke baare mein poochna hai')}
 if(window.SVC_TG){$('tgf').href='https://t.me/'+window.SVC_TG;$('tgf').style.display=''}
 try{var LU=localStorage.getItem('svclast');if(LU)$('lastk').innerHTML='Is phone se bheja kaam: <a href="'+LU+'">Mera page kholein</a><br>'}catch(e){}
-$('fbtn').onclick=function(){var id=$('fid').value.trim(),l4=$('fl4').value.trim();if(!id||l4.length!==4){$('fmsg').textContent='Number aur 4 ank likhiye';return}
-$('fmsg').textContent='…';api('/find',{id:id,last4:l4},10000).then(function(j){location.href='/q?id='+j.id+'&k='+j.k}).catch(function(e){$('fmsg').textContent=e.message})};
+if(window.SVCKIT){SVCKIT.enhance($('fm'),{labels:false,f:{name:[0,null,'name'],phone:[0,null,'phone'],message:[0,null,'msg']}});SVCKIT.enhance($('findb'),{labels:false,f:{fid:[0,null,'id'],fl4:[0,null,'l4']}})}
+$('findb').onsubmit=function(e){e.preventDefault();var id=$('fid').value.trim().toUpperCase(),l4=$('fl4').value.replace(/\\D/g,'');if(!/^SH[A-Z0-9]{3,}$/.test(id)||l4.length!==4){$('fmsg').textContent='Kaam number (SH...) aur mobile ke aakhri 4 ank likhiye';return}
+$('fmsg').textContent='Dhoondh rahe hain…';api('/find',{id:id,last4:l4},10000).then(function(j){location.href='/q?id='+j.id+'&k='+j.k}).catch(function(e){$('fmsg').textContent=e.message})};
 $('waf').addEventListener('click',function(){ev('wa','c')});draw();if(Q.get('svc')&&IT.some(function(x){return x.id===Q.get('svc')}))pick(Q.get('svc'));
 </script>"""
 JS = JS.replace("__CATS__", json.dumps(cats, ensure_ascii=False)).replace("__ITEMS__", json.dumps(items, ensure_ascii=False))
 
 art = {"@context": "https://schema.org", "@type": "Article", "headline": TITLE, "author": {"@type": "Organization", "name": "Sab Hisaab"},
-       "publisher": {"@type": "Organization", "name": "Sab Hisaab"}, "datePublished": "2026-11-23", "dateModified": "2026-11-23",
+       "publisher": {"@type": "Organization", "name": "Sab Hisaab"}, "datePublished": "2026-11-23", "dateModified": __import__("datetime").date.today().isoformat(),
        "inLanguage": "hi-Latn", "mainEntityOfPage": "https://sabhisaab.com/services-list"}
 faqld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}
 OG = (f'<meta property="og:title" content="{TITLE}"><meta property="og:description" content="{DESC}">'

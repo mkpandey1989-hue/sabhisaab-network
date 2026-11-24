@@ -74,4 +74,18 @@ tgs.length=0; globalThis.fetch=async(u,o)=>{tgs.push(JSON.parse(o.body).text);re
 [s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'kvfull',fields:{padhai:'12th'}},h:{'cf-connecting-ip':'4.4.4.4'}});
 ok(s===200&&j.id&&tgs.some(t=>t.includes('SIRF isi sandesh')&&t.includes('padhai: 12th')),'KV fail par bhi lead poora Telegram par (khoya nahi)');
 KV.put=oput;
+// v3.8.7: mobile number saaf + adhura/nakli/bekaar likhawat
+tgs.length=0;
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n1',phone:'+91 98765-43219'},h:{'cf-connecting-ip':'5.1.1.1'}});
+L=[...store.entries()].find(([kk,v])=>kk.startsWith('lead:')&&v.includes(j.id)); ok(s===200&&JSON.parse(L[1]).phone==='919876543219','+91/space/dash hata kar 91+10 ank');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n2',phone:'098765 43219'},h:{'cf-connecting-ip':'5.1.1.2'}}); ok(s===200,'0 se shuru 11 ank chala');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n3',phone:'98765432'},h:{'cf-connecting-ip':'5.1.1.3'}}); ok(s===400&&/adhura/.test(j.error),'adhura number: saaf Hindi galti');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n4',phone:'0000000000'},h:{'cf-connecting-ip':'5.1.1.4'}}); ok(s===400,'0000000000 nakli roka');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n5',phone:'5876543210'},h:{'cf-connecting-ip':'5.1.1.5'}}); ok(s===400,'5 se shuru mobile nahi');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n6',message:'aaaaaaa'},h:{'cf-connecting-ip':'5.1.1.6'}}); ok(s===400&&/saaf/.test(j.error),'bekaar sandesh (aaaa) roka');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n7',message:'12345 678'},h:{'cf-connecting-ip':'5.1.1.7'}}); ok(s===400,'sirf ank wala sandesh roka');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'n8',name:'राम',message:'मुझे बायोडाटा बनवाना है'},h:{'cf-connecting-ip':'5.1.1.8'}}); ok(s===200,'Hindi naam/sandesh chala');
+tgs.length=0;
+[s,j]=await R('/api/lead',{method:'POST',body:{name:'Sita',phone:'',email:'sita@gmail.com',message:'website chahiye',consent:true,page:'services',cid:'e1'},h:{'cf-connecting-ip':'5.1.1.9'}});
+ok(s===200&&j.id==='EMAIL'&&tgs.some(t=>t.includes('sita@gmail.com')),'/services sirf email: Telegram par aaya');
 console.log(fails?'\nFAILED '+fails:'\nSAB WORKER TEST PASS'); process.exit(fails?1:0);

@@ -253,3 +253,10 @@ Documents/attachment (sawal-form + files + WhatsApp vikalp), sahayak (FAQ + seem
 ## 20. v3.8.4 (24 Nov 2026)
 Form ki asli wajah (CSP) mili aur theek; video: sasta hook (sach), brand logo, 9 kaam grid, chhoti awaaz; namoona brand chunaav;
 WhatsApp + Telegram seedha baat; apna haal dhoondo; saal-bhar backup (privacy ke saath). Owner pending: docs/PENDING.md "Services" section.
+
+## 21. v3.8.7 — awaaz poori, form aasaan, record hamesha (24 Nov 2026)
+- Video jo bada dikhata hai wahi bolta hai: "X रुपये से शुरू", site, comment, brand code. 58s ke andar.
+- Video roz: audit fail par naya set (3 baar), raat chhooti to din mein bache slot.
+- Form: label upar + halka "jaise:" hint; mobile 10 ank ki jaanch (Hindi mein, wahi field ke neeche); bekaar likhawat roki; tracker bhi.
+- Phone/WhatsApp/dukaan wala kaam: `manual ...` -> CRM + customer page. `baat SH..` = baat ka record.
+- Bahi-khata zindagi bhar (bina naam/number/sandesh). Payment par rasid. Privacy page isi hisaab se.

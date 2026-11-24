@@ -79,6 +79,9 @@ def say_clean(text):
     return t.replace("\u093c", "")
 
 
+MAX_DUR = 58.0          # v3.8.7: IG story 60s tak hi leta hai
+
+
 def make_tl(d=None):
     """Scene ka samay. d = har hisse ki awaaz ki lambai {hook, tag, k0..k5, hindi, cta}. Scene kabhi awaaz se chhota nahi."""
     d = d or {}
@@ -562,15 +565,21 @@ def ctx_for(v, brand, day=None):
         p_, old = _price_of(iid, R, sale)
         rows.append({"id": iid, "name": KAAM[iid][0], "group": KAAM[iid][1], "ben": KAAM[iid][4], "shot": KAAM[iid][5],
                      "say": KAAM[iid][6], "price": p_, "was": old, "market": R[iid]["market"][0], "sale_end": sale["end"] if old else ""})
-    segs = [("hook", say_hook), ("tag", f"{TAG1}, {TAG2}।")] + \
-           [(f"k{i}", f"{r['say']}, {r['price']} रुपये।") for i, r in enumerate(rows)] + \
-           [("hindi", "हिंदी में लिखिए। दोस्त को भेजिए, दस प्रतिशत आपका।"),
-            ("cta", "कमेंट में अपना काम लिखिए।")]
+    code_say = {"LABH10": "लाभ टेन", "NATAK10": "नाटक टेन", "MONEY10": "मनी टेन", "PAHADI10": "पहाड़ी टेन"}.get(CODES.get(brand, ""), "")
+    # v3.8.7 (owner: "pura bol nahi raha, kitne se shuru"): screen par jo bada likha hai wo sab bola jaye
+    segs = [("hook", say_hook), ("tag", f"{TAG1}, {TAG2}। दस रुपये से शुरू।")] + \
+           [(f"k{i}", f"{r['say']}, {r['price']} रुपये से शुरू।" + (" इस हफ्ते सस्ता।" if r["was"] else "")) for i, r in enumerate(rows)] + \
+           [("hindi", "हिंदी में लिखिए, जैसे घर में बोलते हैं। इंग्लिश जरूरी नहीं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका।"),
+            ("cta", (f"बाजार से {pct} प्रतिशत तक सस्ता। " if pct >= 30 and not say_hook.startswith("डिजिटल काम, बाज़ार से") else "") + "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम पर देखिए।"
+             + (f" कोड {code_say} से दस प्रतिशत तक छूट।" if code_say else ""))]
     say = (f"{hook[1]} {q1} {q2} {TAG1}, {TAG2}। " +
            "। ".join(f"{r['say']}, {r['price']} रुपये से" for r in rows) +
            "। हिंदी में लिखिए, जैसे घर में बोलते हैं, इंग्लिश ज़रूरी नहीं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका। "
            "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम स्लैश सर्विसेज़ लिस्ट।")
-    return {"segs": segs, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": kick, "q1": q1, "q2": q2, "pct": pct, "rows": rows, "say": say,
+    short = {"cta": "कमेंट में अपना काम लिखिए।" + (f" कोड {code_say}।" if code_say else ""),       # 58s se lambi ho to yahi chhota rup
+             "hindi": "हिंदी में लिखिए, इंग्लिश जरूरी नहीं। दोस्त को भेजिए, दस प्रतिशत आपका।",
+             "tag": f"{TAG1}, {TAG2}।"}
+    return {"segs": segs, "short": short, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": kick, "q1": q1, "q2": q2, "pct": pct, "rows": rows, "say": say,
             "season": season, "sale": sale}
 
 
@@ -820,6 +829,8 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
                 bad.append("4 awaaz: video mein awaaz nahi")
             if dur < DUR_ - 1:
                 bad.append(f"4 awaaz: video chhoti ({dur:.1f}s)")
+            if dur > 60:
+                bad.append(f"4 awaaz: video {dur:.1f}s - 60s se lambi (Instagram story nahi jaayegi)")
             vd = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(mp4), "-af", "volumedetect", "-f", "null", "-"],
                                 capture_output=True, text=True, timeout=120).stderr
             m = re.search(r"mean_volume: (-?[\d.]+) dB", vd)
@@ -891,6 +902,17 @@ def render(cx_, out_dir):
     except Exception as e:
         log(f"svcvideo tts: {e}")
         lens, wavs = {}, {}
+    try:                                            # v3.8.7: Instagram story/Reel 60s ke andar - lambi ho to pehle CTA, phir hindi, phir tag chhota
+        from . import tts
+        for key in ("cta", "hindi", "tag"):
+            if not lens or make_tl(lens)["dur"] <= MAX_DUR:
+                break
+            txt = (cx_.get("short") or {}).get(key)
+            if txt and key in wavs:
+                lens[key] = tts.synth(say_clean(txt), str(wavs[key]), 1, len(segs))
+                cx_["segs"] = segs = [(k, txt if k == key else t) for k, t in segs]
+    except Exception as e:
+        log(f"svcvideo short: {e}")
     cx_["tl"] = tl = make_tl(lens)
     cx_["lens"] = lens
     dur = tl["dur"]
@@ -969,6 +991,12 @@ def make_day(sample=False, only=None, day=None):
     for brand, v in plan.items():
         if only and brand != only:
             continue
+        if not sample and not only and not day:              # v3.8.7: der se bani to sirf aage wale slot (beete slot ki video nahi)
+            try:
+                if _slot_dt(v["slot"], dd) < pipeline.now() + datetime.timedelta(minutes=25):
+                    continue
+            except Exception:
+                pass
         jid = f"svc{brand[:2]}{datetime.datetime.now().strftime('%m%d%H%M%S')}"
         out = OUT / jid
         try:
@@ -983,8 +1011,25 @@ def make_day(sample=False, only=None, day=None):
         (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
         (out / "audit.txt").write_text("\n".join(rep), encoding="utf-8")
         _append_audit(jid, brand, ok, rep)
+        tries = 1
+        while not ok and tries < 3:                     # v3.8.7: schedule na ruke - naya kaam-set/rang/hook le kar dobara (max 3)
+            tg.say(f"🔁 Services video ({BRANDS[brand]['name']}) audit mein ruki ({[r for r in rep if r.startswith('❌')][:2]}) - "
+                   f"naye set se dobara bana raha hoon ({tries + 1}/3)")
+            v = pick_day(seed=int(time.time()) + tries, day=str(dd))[brand] | {"slot": v["slot"]}
+            try:
+                cx_ = ctx_for(v, brand, str(dd))
+                video, thumbs, dur, vdur = render(cx_, out)
+                meta = meta_for(cx_, brand, video, thumbs, dur)
+                ok, rep = audit_video(cx_, meta, video, vdur)
+            except Exception as e:
+                rep = [f"❌ {str(e)[:120]}"]
+                ok = False
+            tries += 1
+            (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
+            (out / "audit.txt").write_text("\n".join(rep), encoding="utf-8")
+            _append_audit(jid, brand, ok, rep)
         if not ok:
-            tg.alert("red", f"⛔ Services video ({BRANDS[brand]['name']}) AUDIT FAIL - publish NAHI hogi:\n" + "\n".join(rep[:10]))
+            tg.alert("red", f"⛔ Services video ({BRANDS[brand]['name']}) 3 baar AUDIT FAIL - is slot mein publish NAHI:\n" + "\n".join(rep[:10]))
             continue
         if not sample:
             _hist_add({"day": str(dd), "set": v["set"], "item": v["set"][0], "look": v["look"], "hook": v["hook"],
@@ -1016,9 +1061,11 @@ def tick(run):
     from . import pipeline
     n = pipeline.now()
     d = str(n.date())
-    if state.get("svc_video_day") == d or not ("01:30" <= n.strftime("%H:%M") <= "04:30"):
+    hm = n.strftime("%H:%M")
+    # v3.8.7: "schedule kabhi na ruke" - raat chhoot gayi (VM band/dusri video ban rahi) to din mein 19:30 tak jo slot baaki hain unki bana do
+    if state.get("svc_video_day") == d or not ("01:30" <= hm <= "19:30"):
         return
-    if any(j.get("status") == "making" for j in pipeline.jobs().values()):
+    if hm <= "04:30" and any(j.get("status") == "making" for j in pipeline.jobs().values()):
         return
     state.put("svc_video_day", d)
     if (state.get("svc_holiday_until") or "") >= d:              # chhutti mode: naya kaam mat bulao
@@ -1026,9 +1073,9 @@ def tick(run):
     try:                                                        # kaam ki line lambi = aaj video nahi (jhootha vaada nahi)
         from . import svc as _S
         open_ = sum(1 for lid in _S.leads() if (_S.lead_state(lid).get("status") in ("accepted", "paid", "working")))
-        if open_ >= int(state.get("svc_cap") or 8):
+        if state.get("svc_cap") and open_ >= int(state.get("svc_cap")):      # v3.8.7: owner ne seema rakhi ho tabhi (default: kabhi na ruke)
             from . import tg
-            tg.say(f"⏸ Aaj services video nahi bani: {open_} kaam chal rahe hain (seema {state.get('svc_cap') or 8}). "
+            tg.say(f"⏸ Aaj services video nahi bani: {open_} kaam chal rahe hain (aapki seema {state.get('svc_cap')}). "
                    "Kaam kam hote hi kal se apne aap. Seema badlein: 'services seema 12'")
             return
     except Exception as e:
@@ -1051,6 +1098,9 @@ def on_text(t, run):
         state.put("svc_holiday_until", till)
         return tg.say(f"🏖 Chhutti {till} tak: services video ruki. Naye lead phir bhi aayenge (form chalu) - unhe sachcha jawab "
                       f"dein ki {till} ke baad kaam hoga. Wapas: 'services chhutti 0'")
+    if tl == "services seema hatao":
+        state.put("svc_cap", 0)
+        return tg.say("✔ Seema hata di - services video roz banegi.")
     m = re.match(r"services seema (\d+)$", tl)
     if m:
         state.put("svc_cap", int(m.group(1)))

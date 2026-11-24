@@ -2414,3 +2414,20 @@ Owner: "resume likha aa raha... word bot ke paas save karo, Google check karke; 
 Owner ne "रिज्यूमे" mana kiya. Ab screen par "Resume / बायोडाटा" (Resume = naukri app/website par jo dikhta hai, बायोडाटा = gaon-shehar
 sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का बायोडाटा" (English shabd Hindi awaaz mein saaf nahi). Shaadi wala
 "शादी बायोडाटा" alag hi rehta hai. Shabdkosh: रिज़्यूमे/रिज्यूमे/रिज्यूम -> Resume (screen), Resume -> बायोडाटा (awaaz).
+
+## v3.8.7 (24 Nov 2026) - "pura bole, form mein pareshani kam, record hamesha"
+- Video awaaz: har kaam "... रुपये से शुरू" (sale ho to "इस हफ्ते सस्ता"); tag "दस रुपये से शुरू"; Hindi scene poora ("जैसे घर में
+  बोलते हैं, इंग्लिश जरूरी नहीं, दोस्त के बिल का दस प्रतिशत"); CTA mein comment + "सब हिसाब डॉट कॉम" + brand code ("मनी टेन").
+  58s se lambi bane to apne aap chhota rup (IG story 60s); audit 60s se lambi ko rokta hai.
+- Schedule kabhi na ruke: audit fail = naye kaam-set/rang se 3 baar tak dobara; raat chhooti (VM band) to din mein 19:30 tak bache slot;
+  "seema" ab sirf owner rakhe ('services seema hatao').
+- Form: har field ka label upar, andar sirf halka "jaise: ..." (mitana nahi padta); mobile +91/0/space apne aap hata, adhura/galat par
+  Hindi mein wahi field ke neeche; bekaar likhawat (aaaa, asdf, sirf ank) roki; tracker (haal dekho) mein bhi. /services par bhi
+  (sirf email wala kaam bhi Telegram par). Worker mein bhi wahi jaanch (browser chhod de to bhi).
+- Manual kaam: 'manual call Ramesh 98XXXXXXXX PM Kisan form' -> CRM + customer ka gupt page + bahi. 'baat SH.. note' = baat ka record.
+- Bahi-khata (bahi.jsonl): har kaam ki har ghatna zindagi bhar, kabhi mitti nahi; naam/number/sandesh nahi (sirf aakhri 4 ank). 'bahi', 'bahi SH..', 'bahi 3210'.
+- Payment par rasid (tap = WhatsApp). 90 din baad paid kaam ka sandesh/IP/files bhi mitte, bill (naam/number/rakam) rehta - privacy page mein likha.
+- Comment: "nice video bhai" = tareef (pehle galti se "promo video" samjhta tha); madad wale kaam mein nateeja ka vaada nahi
+  ("madad kar denge, pehle baat"); "nahi chal raha/dikkat/kharab" = kaam ki maang.
+- Bug: naye kaam card par Code/Budget/Src ki jagah {L.get(...)} likha aa raha tha (f-string) - theek.
+

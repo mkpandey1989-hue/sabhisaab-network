@@ -23,9 +23,11 @@ ABUSE = re.compile(r"\b(chutiya|chutiye|madarchod|mc\b|bc\b|bhosdi|bhenchod|gand
 TRUST = re.compile(r"(fraud|fake|scam|dhokha|dhoka|asli hai|real hai|bharosa|bharose|bharosa kaise|thag|thagi|paisa doob|"
                    r"फ्रॉड|धोखा|असली है|भरोसा|ठग)", re.I)
 PRAISE = re.compile(r"^(\W|nice|good|great|wah|waah|badhiya|bahut badhiya|super|awesome|mast|osm|👍|❤|🔥|🙏|very nice|"
-                    r"अच्छा|बढ़िया|बहुत बढ़िया|वाह|शानदार|सुंदर|thanks|thank you|dhanyavaad|धन्यवाद)+$", re.I)
+                    r"अच्छा|बढ़िया|बहुत बढ़िया|वाह|शानदार|सुंदर|thanks|thank you|dhanyavaad|धन्यवाद|"
+                    r"video|vdo|bhai|bro|ji|sir|hai|h|bahut|bohot|very|so|ekdam|👌|😍|💯|वीडियो|भाई|जी|है|बहुत)+$", re.I)   # v3.8.7: 'nice video bhai' = tareef
 WANT = re.compile(r"(chahiye|chaiye|chahie|chaahiye|banwana|banvana|banwa|banana hai|bana do|bnana|bnwana|karwana|karvana|krwana|"
                   r"karna hai|krna hai|bharna|bharwana|help|madad|madat|kaise|kese|kaam|kam hai|need|want|chahta|chahti|"
+                  r"nahi chal|nhi chal|nahi ho raha|nhi ho rha|kharab|problem|dikkat|samasya|atak|band ho|नहीं चल|खराब|दिक्कत|समस्या|"
                   r"kar doge|kar dogi|kar sakte|kr skte|hoga kya|ho jayega|ho jaega|चाहिए|चाहिये|बनवाना|बनाना|करवाना|भरना|मदद|काम)", re.I)
 PRICE = re.compile(r"(kitne|kitna|kitni|rate|price|charge|fees|fee|paisa|paise|rupay|rupaye|₹|rs\.?|कितने|कितना|रेट|फीस|पैसे)", re.I)
 NORM = [(r"\bresum\w*|\bcv\b|\bbiodata\b", " resume "), (r"\bfrom\b|\bfarm\b|\bform\w*\b|फॉर्म|फ़ॉर्म|फार्म", " form "),
@@ -109,6 +111,14 @@ def understand(text):
     return {"intent": "unclear", "item": None, "conf": 0}
 
 
+def _fw(x):
+    try:
+        from .svcvideo import fix_words
+        return fix_words(x)
+    except Exception:
+        return x
+
+
 def reply_for(platform, u, text):
     """Usi andaaz mein chhota jawab. None = jawab mat do (owner ko)."""
     from . import svc
@@ -121,10 +131,19 @@ def reply_for(platform, u, text):
         from .svcvideo import KAAM
         nm_d = KAAM.get(u["item"], (it["name"],))[0]
         p_ = f"₹{it['price']:,}"
-        return (f"जी, {nm_d} हो जाएगा, {p_} से। {cta_d}{hin_d}" if dev else
-                f"Ji, ye kaam ho jayega - {re.split(r'[(+/]', it['name'])[0].strip()} {p_} se. {cta_r}{hin_r}")
+        nm_r = re.split(r'[(+]|\s-\s', it['name'])[0].strip()
+        madad = KAAM.get(u["item"], ("", ""))[1] in ("मदद", "मोबाइल-कंप्यूटर")
+        nm_d = re.sub(r"\s*(में )?मदद$", "", nm_d).strip()
+        nm_r = re.sub(r"(?i)\s*(mein|me)$", "", re.sub(r"(?i)\s*(madad|help)$", "", nm_r).strip())
+        if madad:                                   # v3.8.7: madad wale kaam mein nateeja ka vaada nahi (jaise "paisa aa jayega") - sirf madad
+            out = (f"जी, {nm_d} में मदद कर देंगे, {p_} से। पहले बात करके देखेंगे क्या हो सकता है। {cta_d}{hin_d}" if dev else
+                   f"Ji, {nm_r} mein madad kar denge - {p_} se. Pehle baat karke dekhenge kya ho sakta hai. {cta_r}{hin_r}")
+        else:
+            out = (f"जी, {nm_d} हो जाएगा, {p_} से। {cta_d}{hin_d}" if dev else
+                   f"Ji, ye kaam ho jayega - {nm_r} {p_} se. {cta_r}{hin_r}")
+        return _fw(out)
     if u["intent"] in ("price", "kaam_any"):
-        return (f"जी, काम के हिसाब से रेट - ₹10 (रिज़्यूमे) से शुरू। पहले बात, फिर लिखित रेट। {cta_d}{hin_d}" if dev else
+        return _fw(f"जी, काम के हिसाब से रेट - ₹10 (Resume) से शुरू। पहले बात, फिर लिखित रेट। {cta_d}{hin_d}" if dev else
                 f"Ji, rate kaam ke hisaab se - ₹10 (resume) se shuru. Pehle baat, phir likhit rate. {cta_r}{hin_r}")
     if u["intent"] == "praise":
         return ("धन्यवाद 🙏 कोई भी डिजिटल काम हो तो बताइए।" if dev else "Dhanyavaad 🙏 Koi bhi digital kaam ho to batayiye.")

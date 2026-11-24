@@ -1,4 +1,4 @@
-// sabhisaab-leads v3.8.5 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
+// sabhisaab-leads v3.8.7 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
 // VM band ho to bhi lead surakshit. Customer ko Telegram/WhatsApp ki zaroorat nahi.
 // Rasta: sabhisaab.com/api/* (Pages Function, same-origin) -> yahan. Purana seedha workers.dev bhi chalta hai.
 const ORIG = ['https://sabhisaab.com', 'https://www.sabhisaab.com'];
@@ -25,6 +25,20 @@ async function tg(env, text) {
 }
 async function getSt(env, id) { try { return JSON.parse(await env.KV.get('st:' + id) || 'null'); } catch (e) { return null; } }
 // v3.8.5: Cloudflare free KV = roz 1000 likhai. Ginti/rate-limit wali likhai fail ho to bhi LEAD kabhi na ruke.
+// v3.8.7: mobile - +91/0/space/dash hatao, 10 ank, 6-9 se shuru; nakli (0000000000/1234567890) nahi. Bahar ka number: + se 11-15 ank
+function phoneNorm(v) {
+  const raw = String(v || '').trim(); let x = raw.replace(/\D/g, '');
+  if (raw.startsWith('+') && !x.startsWith('91') && x.length >= 11 && x.length <= 15) return {ok: true, num: x};
+  if (x.length === 12 && x.startsWith('91')) x = x.slice(2); else if (x.length === 11 && x.startsWith('0')) x = x.slice(1);
+  if (x.length !== 10) return {ok: false, num: '', msg: x.length < 10 ? 'Mobile number adhura hai - 10 ank likhiye' : 'Mobile number 10 ank ka likhiye'};
+  if (!/^[6-9]/.test(x) || /^(\d)\1{9}$/.test(x) || x === '1234567890') return {ok: false, num: '', msg: 'Sahi mobile number likhiye (6/7/8/9 se shuru, 10 ank)'};
+  return {ok: true, num: '91' + x};
+}
+function junk(t, min) {
+  t = String(t || '').trim(); const L = t.match(/[A-Za-z\u0900-\u097F]/g) || [];
+  if (L.length < (min || 3) || new Set(L.map(c => c.toLowerCase())).size < (min === 2 ? 2 : 3)) return true;
+  return /^(.)\1+$/.test(t.replace(/\s/g, ''));
+}
 async function sput(env, k, v, o) { try { await env.KV.put(k, v, o); return true; } catch (e) { return false; } }
 async function putSt(env, st) { await env.KV.put('st:' + st.id, JSON.stringify(st), {expirationTtl: 90 * 86400}); }
 function pub(st) {
@@ -110,8 +124,15 @@ export default {
       const cid = clean(d.cid, 40).replace(/[^a-z0-9-]/gi, '');
       if (cid) { const old = await env.KV.get('cid:' + cid); if (old) return j(JSON.parse(old), 200, H); }
       await sput(env, rk, String(n + 1), {expirationTtl: 3600});
-      const name = clean(d.name, 80), phone = clean(d.phone, 16).replace(/[^0-9+]/g, ''), msg = clean(d.message, 3000);
-      if (!name || phone.replace(/\D/g, '').length < 10 || msg.length < 3) { await lg(env, 'missing', (!name ? 'naam ' : '') + (phone.replace(/\D/g, '').length < 10 ? 'phone ' : '') + (msg.length < 3 ? 'kaam' : '')); return j({error: 'naam, mobile number aur kaam likhiye'}, 400, H); }
+      const name = clean(d.name, 80), msg = clean(d.message, 3000), pn = isTest ? {ok: true, num: '919999999999'} : phoneNorm(d.phone), phone = pn.num;
+      const em = clean(d.email, 120);
+      if (!pn.ok && !String(d.phone || '').replace(/\D/g, '') && /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em) && name && msg.length >= 3 && d.consent && !isTest) {
+        // v3.8.7: /services (purana form) par mobile zaroori nahi - sirf email wala kaam bhi Telegram par (email web3forms se bhi jaata hai)
+        await lg(env, 'email_only', ''); await tg(env, '📧 /services form (sirf email, mobile nahi diya)\n' + name + ' · ' + em + '\n\n' + msg.slice(0, 1500));
+        return j({id: 'EMAIL', ref: '', k: ''}, 200, H);
+      }
+      if (!name || !pn.ok || msg.length < 3) { await lg(env, 'missing', (!name ? 'naam ' : '') + (!pn.ok ? 'phone ' : '') + (msg.length < 3 ? 'kaam' : '')); return j({error: !pn.ok && name && msg.length >= 3 ? pn.msg : 'naam, mobile number aur kaam likhiye'}, 400, H); }
+      if (junk(msg) || junk(name, 2)) { await lg(env, 'junk', ''); return j({error: 'Thoda saaf likhiye - naam aur kya kaam hai (jaise: "resume banana hai")'}, 400, H); }
       if (!d.consent) { await lg(env, 'consent', ''); return j({error: 'sahmati ka dabba chunein'}, 400, H); }
       if ([msg, ...Object.values(cleanFields(d.fields))].some(v => secretIn(v))) { await lg(env, 'secret', ''); return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H); }
       if (isTest) { await lg(env, 'selftest', d.via || ''); return j({ok: true, test: true}, 200, H); }
@@ -239,6 +260,16 @@ export default {
     if (p[2] === 'st' && req.method === 'GET') {                       // owner/bot: poora haal
       const st = await getSt(env, clean(u.searchParams.get('id'), 20));
       return st ? j(st) : j({error: 'nahi mila'}, 404);
+    }
+    if (p[2] === 'add' && req.method === 'POST') {                     // v3.8.7: phone/WhatsApp/dukaan wala (manual) kaam - customer ko bhi apna gupt page
+      let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400); }
+      const id = clean(d.id, 20), k = clean(d.k, 32);
+      if (!/^SH\w{6,}$/.test(id) || k.length < 12) return j({error: 'id/k galat'}, 400);
+      if (await getSt(env, id)) return j({ok: true, dup: true});
+      const st = {id, k, ref: 'REF-' + id.slice(-4), t: new Date().toISOString(), name: clean(d.name, 80), phone: clean(d.phone, 16).replace(/\D/g, ''),
+        message: clean(d.message, 3000), service: clean(d.service, 160), src: clean(d.src, 40), status: 'new', hist: [], fields: {}};
+      hist(st, 'new'); await putSt(env, st);
+      return j({ok: true});
     }
     if (p[2] === 'set' && req.method === 'POST') {                     // owner/bot: rate, stage, upi, note (override)
       let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400); }

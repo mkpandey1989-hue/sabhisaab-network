@@ -1409,6 +1409,36 @@ try:
                         _okslot = False
     check(_okslot, "services video brand ki apni roz wali video se 75 min door (takra nahi)")
     check("sput(" in open(_S50.__file__.replace("svc.py", "svc_worker.js"), encoding="utf-8").read(), "worker: KV bhara ho to bhi lead Telegram par")
+    # v3.8.7: poori awaaz + manual kaam + bahi-khata + rasid + comment samajh + schedule na ruke
+    _cx87 = _V60.ctx_for(_pl60["money"], "money", "2026-11-24")
+    _sg87 = dict(_cx87["segs"])
+    check(all(_sg87[f"k{i}"].count("से शुरू") == 1 for i in range(6)), "awaaz: har kaam ke saath '... रुपये से शुरू'")
+    check("कमेंट में अपना काम लिखिए" in _sg87["cta"] and "सब हिसाब डॉट कॉम" in _sg87["cta"] and "मनी टेन" in _sg87["cta"], "awaaz CTA poora: comment + site + brand code")
+    check("जैसे घर में बोलते हैं" in _sg87["hindi"] and "इंग्लिश जरूरी नहीं" in _sg87["hindi"], "awaaz: Hindi mein likhiye poora")
+    check(_V60.MAX_DUR <= 58 and set(_cx87["short"]) == {"cta", "hindi", "tag"}, "58s se lambi ho to chhota rup taiyaar (IG 60s)")
+    check("svc_cap\") and open_" in open(_V60.__file__, encoding="utf-8").read() and '"01:30" <= hm <= "19:30"' in open(_V60.__file__, encoding="utf-8").read(),
+          "schedule na ruke: seema sirf owner rakhe, raat chhoote to din mein bache slot")
+    _lid87 = _S50.manual_add("Kamla Devi", "+91 98765 43211", "PM Kisan ka status dekhna hai", "call")
+    _L87 = _S50.leads()[_lid87]
+    check(_L87["phone"] == "919876543211" and _L87["src"] == "manual-call" and _S50.page_link(_lid87), "manual kaam: CRM + gupt page link")
+    try:
+        _S50.manual_add("X", "98765", "kuch", "call"); check(False, "manual: adhura number roka")
+    except ValueError:
+        check(True, "manual: adhura number roka")
+    _S50.on_text("baat " + _lid87 + " kal 5 baje call karna", lambda f: f())
+    _mp87 = _S50.mark_paid(_lid87, 99)
+    check("Rasid" in _mp87 and "wa.me/919876543211" in _mp87, "payment par rasid (tap = WhatsApp)")
+    _bh87 = _S50._read("bahi.jsonl")
+    check(any(r["id"] == _lid87 and r["e"] == "manual" for r in _bh87) and any(r["id"] == _lid87 and r["e"] == "paid" for r in _bh87), "bahi-khata: manual + paid darj")
+    check(not any("Kamla" in __import__("json").dumps(r, ensure_ascii=False) or "98765" in __import__("json").dumps(r) or "5 baje" in __import__("json").dumps(r, ensure_ascii=False) for r in _bh87),
+          "bahi mein naam/number/note nahi (sirf aakhri 4 ank)")
+    check("₹99" in _S50.bahi_text("3211") and _lid87 in _S50.bahi_text(_lid87), "bahi khojo: number ya aakhri 4 ank se")
+    from app import svccomment as _C87
+    check(_C87.understand("nice video bhai")["intent"] == "praise", "comment: 'nice video bhai' = tareef (kaam nahi)")
+    _r87 = _C87.reply_for("ig", _C87.understand("PM kisan ka paisa nahi aaya"), "PM kisan ka paisa nahi aaya")
+    check("madad" in _r87 and "ho jayega" not in _r87 and "http" not in _r87, "comment: madad wale kaam mein nateeja ka vaada nahi, IG par link nahi")
+    _wj87 = open(_S50.__file__.replace("svc.py", "svc_worker.js"), encoding="utf-8").read()
+    check("function phoneNorm" in _wj87 and "function junk" in _wj87 and "p[2] === 'add'" in _wj87, "worker: number saaf/adhura, bekaar likhawat, manual kaam ka page")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80
