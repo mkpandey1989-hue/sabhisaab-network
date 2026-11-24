@@ -11,7 +11,7 @@ const id=j.id,k=j.k; ok(tgs[0].includes(id)&&tgs[0].includes('919876543210'.slic
 [s,j]=await R('/api/lead',{method:'POST',body:lead,h:{'cf-connecting-ip':'1.1.1.1'}}); ok(j.id===id,'same cid = wahi lead (dohra nahi)');
 [s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'',consent:false}}); ok(s===400,'bina sahmati 400');
 [s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'',phone:'123'}}); ok(s===400,'galat number 400');
-[s,j]=await R('/api/lead',{method:'POST',body:{...lead,website:'spam'}}); ok(s===200&&j.id==='OK'&&!j.k,'honeypot chupchap');
+[s,j]=await R('/api/lead',{method:'POST',body:{name:'bot',website:'spam'}}); ok(s===200&&j.id==='OK'&&!j.k,'honeypot chupchap');
 for(let i=0;i<6;i++) await R('/lead',{method:'POST',body:{...lead,cid:'r'+i},h:{'cf-connecting-ip':'9.9.9.9'}});
 [s,j]=await R('/lead',{method:'POST',body:{...lead,cid:'r7'},h:{'cf-connecting-ip':'9.9.9.9'}}); ok(s===429,'ek IP se ghante mein 6 ke baad rok');
 [s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'p1'},h:{'cf-connecting-ip':'2.2.2.2','x-sh-pk':'pk1','x-sh-ip':'7.7.7.7'}});
@@ -38,7 +38,7 @@ const old=store.get('st:'+id); const st=JSON.parse(old); st.status='rate'; st.st
 // v3.8.1: details + file + help
 store.set('st:'+id, JSON.stringify({...JSON.parse(store.get('st:'+id)), status:'talk', stars:0}));
 [s,j]=await R('/api/q/info',{method:'POST',body:{id,k,fields:{naam:'Ramesh',padhai:'12th 2022'}}}); ok(s===200&&j.details===2,'details bheji');
-[s,j]=await R('/api/q/info',{method:'POST',body:{id,k,fields:{x:'mera aadhaar 1234 5678 9012'}}}); ok(s===400,'Aadhaar jaisa number roka');
+[s,j]=await R('/api/q/info',{method:'POST',body:{id,k,fields:{x:'mera aadhaar 2341 2341 2346'}}}); ok(s===400,'Aadhaar jaisa number roka');
 [s,j]=await R('/api/q/info',{method:'POST',body:{id,k,fields:{x:'otp 482913'}}}); ok(s===400,'OTP roka');
 const mk=(name,type,size)=>{const fd=new FormData();fd.append('id',id);fd.append('k',k);fd.append('file',new Blob([new Uint8Array(size)],{type}),name);return fd};
 const RF=(fd)=>W.fetch(new Request('https://x/api/q/file',{method:'POST',body:fd,headers:{origin:'https://sabhisaab.com'}}),env).then(async r=>[r.status,await r.json()]);
@@ -58,4 +58,12 @@ env.AI={run:async()=>({response:'Ji, resume ₹10 mein ho jayega. 100% guarantee
 [s,j]=await R('/api/help',{method:'POST',body:{q:'mausam kaisa hai'}}); ok(!j.a.includes('guarantee'),'AI ka guarantee wala jawab roka');
 env.AI={run:async()=>({response:'Ji, hum Hindi mein bhi kaam karte hain.'})};
 [s,j]=await R('/api/help',{method:'POST',body:{q:'mausam kaisa hai'}}); ok(j.a.includes('Hindi'),'AI jawab (seemit)');
+// v3.8.2
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'w1',message:'resume chahiye, mera WhatsApp 919917436371'},h:{'cf-connecting-ip':'8.8.8.1'}}); ok(s===200&&j.k,'WhatsApp number (91..) wala sandesh ab nahi rukta');
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'w2',website:'https://x.com'},h:{'cf-connecting-ip':'8.8.8.2'}}); ok(s===200&&j.k,'browser autofill (chhupa dabba) wala asli customer bhi saved');
+[s,j]=await R('/api/lead',{method:'POST',body:{name:'x',website:'spam'},h:{'cf-connecting-ip':'8.8.8.3'}}); ok(j.id==='OK'&&!j.k,'asli bot spam chupchap');
+const n0=[...store.keys()].filter(x=>x.startsWith('lead:')).length;
+[s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'',test:'adm',via:'site'},h:{'cf-connecting-ip':'9.9.9.9'}}); ok(j.test&&[...store.keys()].filter(x=>x.startsWith('lead:')).length===n0,'self-test: jaanch hui, lead/Telegram nahi bana');
+await R('/api/clog',{method:'POST',body:{w:'TypeError x'}});
+[s,j]=await R('/adm/log'); ok(j.log.some(x=>x.k==='client')&&j.log.some(x=>x.k==='selftest')&&j.log.some(x=>x.k==='ratelimit'),'form log: har koshish ka kaaran');
 console.log(fails?'\nFAILED '+fails:'\nSAB WORKER TEST PASS'); process.exit(fails?1:0);

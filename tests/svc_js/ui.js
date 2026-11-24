@@ -5,9 +5,9 @@ const strip = h => h.replace(/<script[^>]*src="(?!\/svc-cfg)[^"]*"[^>]*><\/scrip
 function page(file, url, fetchImpl, pre) {
   const vc = new VirtualConsole(); const errs = [];
   vc.on("jsdomError", e => errs.push(String(e.message || e)));
-  const src = file === "q.html" ? fs.readFileSync("/tmp/qpage.html", "utf8") : fs.readFileSync("/tmp/w2/site/" + file, "utf8");
-  let html = strip(src.replace('<script src="/svc-intake.js"></script>', "<script>" + fs.readFileSync("/tmp/w2/site/svc-intake.js", "utf8") + "</script>")
-    .replace('<script src="/svc-kit.js"></script>', "<script>" + fs.readFileSync("/tmp/w2/site/svc-kit.js", "utf8") + "</script>")).replace('<script src="/svc-cfg.js"></script>', "<script>" + (pre || "") + "</script>");
+  const src = file === "q.html" ? fs.readFileSync("/tmp/qpage.html", "utf8") : fs.readFileSync("/tmp/w/site/" + file, "utf8");
+  let html = strip(src.replace('<script src="/svc-intake.js"></script>', "<script>" + fs.readFileSync("/tmp/w/site/svc-intake.js", "utf8") + "</script>")
+    .replace('<script src="/svc-kit.js"></script>', "<script>" + fs.readFileSync("/tmp/w/site/svc-kit.js", "utf8") + "</script>")).replace('<script src="/svc-cfg.js"></script>', "<script>" + (pre || "") + "</script>");
   const dom = new JSDOM(html, { url, runScripts: "dangerously", virtualConsole: vc, beforeParse(w) {
     w.fetch = fetchImpl; w.alert = m => { w.__alerts = (w.__alerts || []).concat(m); }; w.QRCode = function (el, o) { el.innerHTML = "<canvas data-t='" + o.text + "'></canvas>"; };
     w.navigator.sendBeacon = () => true; w.matchMedia = () => ({ matches: false, addListener() {} });
@@ -53,7 +53,7 @@ function fill(w) {
   // 4) galat data (400) -> alert, queue mein nahi
   ({ dom, errs } = page("services-list.html", "https://sabhisaab.com/services-list", () => res(400, { error: "naam, mobile number aur kaam likhiye" }), "window.SVC_API='/api';"));
   await wait(50); w = dom.window; f = fill(w); f.dispatchEvent(new w.Event("submit", { cancelable: true })); await wait(50);
-  ok((w.__alerts || [])[0] === "naam, mobile number aur kaam likhiye", "400 par saaf galti dikhi");
+  ok(w.document.getElementById("ok").textContent.includes("naam, mobile number aur kaam likhiye"), "400 par saaf galti page par dikhi (alert nahi)");
   ok(!w.localStorage.getItem("svcq") || JSON.parse(w.localStorage.getItem("svcq")).length === 0, "400 wala queue mein nahi");
   // 4b) hafte ki sale banner (asli date + asli rakam)
   { const d = new Date(Date.now() + 19800000).toISOString().slice(0, 10);

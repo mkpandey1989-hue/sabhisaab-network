@@ -42,7 +42,20 @@ T_HOOK, T_TAG, T_K = 2.6, 2.0, 2.7                   # hook, tagline, har kaam
 T_LIST0 = T_HOOK + T_TAG                             # 4.6
 T_HINDI = T_LIST0 + N_KAAM * T_K                     # 20.8
 T_CTA = T_HINDI + 3.4                                # 24.2
-DUR = T_CTA + 4.6                                    # 28.8
+DUR = T_CTA + 4.6                                    # 28.8 (bina awaaz ka default)
+GAP = 0.35                                           # v3.8.2: har vakya ke baad saans (pehle poora script ek saans mein, tez)
+
+
+def make_tl(d=None):
+    """Scene ka samay. d = har hisse ki awaaz ki lambai {hook, tag, k0..k5, hindi, cta}. Scene kabhi awaaz se chhota nahi."""
+    d = d or {}
+    out, t = {}, 0.0
+    for key, base in [("hook", T_HOOK), ("tag", T_TAG)] + [(f"k{i}", T_K) for i in range(N_KAAM)] + [("hindi", 3.4), ("cta", 4.6)]:
+        ln = max(base, (d.get(key) or 0) + GAP + (0.6 if key == "cta" else 0))
+        out[key] = (round(t, 3), round(t + ln, 3))
+        t += ln
+    out["dur"] = round(t, 3)
+    return out
 
 LOOKS = {   # saaf, ujla: bg upar, bg neeche, brand rang, gehra rang
     "mint":    ("#F2FBF8", "#D7F3EA", "#0F766E", "#0B3B36"),
@@ -418,11 +431,15 @@ def ctx_for(v, brand, day=None):
         p_, old = _price_of(iid, R, sale)
         rows.append({"id": iid, "name": KAAM[iid][0], "group": KAAM[iid][1], "ben": KAAM[iid][4], "shot": KAAM[iid][5],
                      "say": KAAM[iid][6], "price": p_, "was": old, "market": R[iid]["market"][0], "sale_end": sale["end"] if old else ""})
+    segs = [("hook", f"{hook[1]} {q1} {q2}"), ("tag", f"{TAG1}, {TAG2}।")] + \
+           [(f"k{i}", f"{r['say']}, {r['price']} रुपये से।") for i, r in enumerate(rows)] + \
+           [("hindi", "हिंदी में लिखिए, जैसे घर में बोलते हैं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका।"),
+            ("cta", "कमेंट में अपना काम लिखिए। या सब हिसाब डॉट कॉम, स्लैश सर्विसेज़ लिस्ट।")]
     say = (f"{hook[1]} {q1} {q2} {TAG1}, {TAG2}। " +
            "। ".join(f"{r['say']}, {r['price']} रुपये से" for r in rows) +
            "। हिंदी में लिखिए, जैसे घर में बोलते हैं, इंग्लिश ज़रूरी नहीं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका। "
            "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम स्लैश सर्विसेज़ लिस्ट।")
-    return {"day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": hook[0], "q1": q1, "q2": q2, "rows": rows, "say": say,
+    return {"segs": segs, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": hook[0], "q1": q1, "q2": q2, "rows": rows, "say": say,
             "season": season, "sale": sale}
 
 
@@ -437,9 +454,12 @@ def frame(cx_, t, cache, reg=None):
     cv = Canvas(im)
     side = 1 if lay == "R" else -1
     d = ImageDraw.Draw(im)
-    d.rounded_rectangle((60, 70, 60 + int((W - 120) * min(1, t / DUR)), 78), 4, fill=br)
+    tl = cx_.get("tl") or make_tl()
+    DUR_, T_HOOK_, T_LIST0_ = tl["dur"], tl["hook"][1], tl["tag"][1]
+    T_HINDI_, T_CTA_ = tl["hindi"][0], tl["cta"][0]
+    d.rounded_rectangle((60, 70, 60 + int((W - 120) * min(1, t / DUR_)), 78), 4, fill=br)
     # S0 hook
-    if t < T_HOOK:
+    if t < T_HOOK_:
         k = _back(t / .5)
         cv.text((W // 2, 600), cx_["kick"], _font(54, "SemiBold"), br, tag="kick")
         f = _fit(max(cx_["q1"], cx_["q2"], key=len), int(120 * max(.3, k)), W - 160)
@@ -449,8 +469,8 @@ def frame(cx_, t, cache, reg=None):
             d = ImageDraw.Draw(im)
             d.polygon([(W // 2 - 36, 1150), (W // 2 + 36, 1150), (W // 2, 1205)], fill=br)
     # S1 tagline
-    elif t < T_LIST0:
-        k = _back((t - T_HOOK) / .5)
+    elif t < T_LIST0_:
+        k = _back((t - T_HOOK_) / .5)
         f = _fit(TAG1, int(124 * max(.3, k)), W - 140)
         cv.text((W // 2, 760), TAG1, f, dk, tag="tag1")
         _marker(cv, (W // 2, 930), TAG2, f, br, tag="tag2")
@@ -459,12 +479,12 @@ def frame(cx_, t, cache, reg=None):
         cw = fc.getlength(chip) + 70
         _card(im, (W // 2 - cw // 2, 1100, W // 2 + cw // 2, 1180), 40, shadow=12)
         cv.text((W // 2, 1140), chip, fc, br, tag="chip")
-        _chips(im, cv, cx_["rows"], 1300, -1, br, dk, _ease((t - T_HOOK - .3) / .5))
+        _chips(im, cv, cx_["rows"], 1300, -1, br, dk, _ease((t - T_HOOK_ - .3) / .5))
     # S2 kaam list
-    elif t < T_HINDI:
-        i = min(N_KAAM - 1, int((t - T_LIST0) // T_K))
+    elif t < T_HINDI_:
+        i = next((j for j in range(N_KAAM) if t < tl[f"k{j}"][1]), N_KAAM - 1)
         r = cx_["rows"][i]
-        lt = (t - T_LIST0) - i * T_K
+        lt = t - tl[f"k{i}"][0]
         sd = side if i % 2 == 0 else -side
         k = _ease(lt / .4)
         cv.text((W // 2, 210), f"काम {i + 1} / {N_KAAM}  ·  {r['group']}", _font(40, "SemiBold"), br, tag="num")
@@ -504,8 +524,8 @@ def frame(cx_, t, cache, reg=None):
             se = datetime.date.fromisoformat(r["sale_end"])
             cv.text((ccx, 1200), f"इस हफ़्ते · {se.day}/{se.month} तक", _font(36, "SemiBold"), (224, 49, 49), tag="sale")
     # S3 bhasha + referral
-    elif t < T_CTA:
-        lt = t - T_HINDI
+    elif t < T_CTA_:
+        lt = t - T_HINDI_
         for j, (a, b) in enumerate([("हिंदी में लिखिए,", "जैसे घर में बोलते हैं"), ("English ज़रूरी नहीं", "शर्म की कोई बात नहीं"),
                                     ("दोस्त को भेजिए —", "उसके बिल का 10% आपका")]):
             kk = _ease((lt - j * .5) / .45)
@@ -520,9 +540,9 @@ def frame(cx_, t, cache, reg=None):
             cv.text((W // 2 + xo, y0 + 170), b, _fit(b, 52, W - 300, "SemiBold"), br if j < 2 else (255, 255, 255), tag=f"{mv}h{j}b")
     # S4 CTA
     else:
-        k = _ease((t - T_CTA) / .45)
+        k = _ease((t - T_CTA_) / .45)
         im.alpha_composite(Image.new("RGBA", (W, H), (*br, int(255 * k))))
-        kb = _back((t - T_CTA - .1) / .6)
+        kb = _back((t - T_CTA_ - .1) / .6)
         cv.text((W // 2, 520), BRANDS[cx_["brand"]]["name"], _font(52, "SemiBold"), (255, 255, 255), tag="bn")
         cv.text((W // 2, 680), TAG1, _fit(TAG1, int(112 * max(.3, kb)), W - 140), (255, 255, 255), tag="c1")
         cv.text((W // 2, 810), "— " + TAG2 + " —", _fit(TAG2, int(96 * max(.3, kb)), W - 200), (255, 255, 255), tag="c2")
@@ -542,7 +562,7 @@ def frame(cx_, t, cache, reg=None):
             ImageDraw.Draw(im).rounded_rectangle((W // 2 - cw_ // 2, 1480, W // 2 + cw_ // 2, 1570), 45, outline=(255, 255, 255), width=4)
             cv.text((W // 2, 1525), cl, fc_, (255, 255, 255), tag="code")
     cv.text((W // 2, H - 70), BRANDS[cx_["brand"]]["name"] + " · Services", _font(34, "SemiBold"),
-            (255, 255, 255) if t >= T_CTA + .3 else dk, tag="foot")
+            (255, 255, 255) if t >= T_CTA_ + .3 else dk, tag="foot")
     if reg is not None:
         reg.extend(cv.boxes)
     return im.convert("RGB")
@@ -613,7 +633,8 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
     # 3 DIKHAWAT
     vis = []
     cache = {}
-    for t10 in range(0, int(DUR * 10), 3):
+    DUR_ = (cx_.get("tl") or make_tl())["dur"]
+    for t10 in range(0, int(DUR_ * 10), 3):
         t = t10 / 10
         reg = []
         fr = frame(cx_, t, cache, reg)
@@ -640,7 +661,7 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
     if vis:
         bad += ["3 dikhawat: " + x for x in vis[:8]]
     else:
-        good.append(f"3 dikhawat ✅ {int(DUR * 10) // 3} frame: text frame ke andar, chadha nahi, kaali frame nahi, akshar poore")
+        good.append(f"3 dikhawat ✅ {int(DUR_ * 10) // 3} frame: text frame ke andar, chadha nahi, kaali frame nahi, akshar poore")
     # 4 AWAAZ
     if mp4:
         try:
@@ -651,7 +672,7 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
             dur = float(j.get("format", {}).get("duration", 0))
             if "audio" not in kinds:
                 bad.append("4 awaaz: video mein awaaz nahi")
-            if dur < DUR - 1:
+            if dur < DUR_ - 1:
                 bad.append(f"4 awaaz: video chhoti ({dur:.1f}s)")
             vd = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(mp4), "-af", "volumedetect", "-f", "null", "-"],
                                 capture_output=True, text=True, timeout=120).stderr
@@ -660,6 +681,19 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
                 bad.append(f"4 awaaz: bahut dheemi ({m.group(1)} dB)")
             if voice_dur is not None and voice_dur < 8:
                 bad.append("4 awaaz: bolne wali awaaz bani hi nahi")
+            for k_, txt_ in cx_.get("segs") or []:                 # raftaar: har vakya 3.4 shabd/second se tez nahi
+                ln_ = (cx_.get("lens") or {}).get(k_)
+                if ln_ is None:
+                    if cx_.get("lens"):
+                        bad.append(f"4 awaaz: '{k_}' hisse ki awaaz nahi bani")
+                    continue
+                wps = len(txt_.split()) / max(.3, ln_)
+                if wps > 3.4:
+                    bad.append(f"4 awaaz: '{k_}' bahut tez ({wps:.1f} shabd/sec)")
+            sd = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(mp4), "-af", "silencedetect=noise=-35dB:d=0.25", "-f", "null", "-"],
+                                capture_output=True, text=True, timeout=120).stderr
+            if cx_.get("lens") and sd.count("silence_start") < 5:
+                bad.append(f"4 awaaz: vakyon ke beech ruk nahi ({sd.count('silence_start')} jagah) - ek saans mein bol raha")
             if not [b for b in bad if b.startswith("4")]:
                 good.append(f"4 awaaz ✅ {dur:.1f}s, awaaz {m.group(1) if m else '?'} dB")
         except Exception as e:
@@ -696,34 +730,47 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
 
 # ---------------------------------------------------------------- audio + video
 def render(cx_, out_dir):
+    """v3.8.2: har scene ki awaaz ALAG banti hai (saans/ruk ke saath), scene ki lambai usi awaaz se - awaaz aur screen hamesha saath.
+    Pehle poora script ek saans mein 1.06x par bolta tha (24.7s bina ruke) aur CTA bolte waqt screen kuch aur dikhati thi."""
     out_dir = pathlib.Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    wav = out_dir / "voice.wav"
+    segs = cx_["segs"]
+    lens, wavs = {}, {}
     try:
         from . import tts
-        vdur = tts.synth(cx_["say"], str(wav), 0, 1)
+        for i, (key, txt) in enumerate(segs):
+            w_ = out_dir / f"v_{key}.wav"
+            lens[key] = tts.synth(txt, str(w_), 1 if i else 0, len(segs))     # sirf hook thoda josh se, baaki saaf raftaar
+            wavs[key] = w_
     except Exception as e:
         log(f"svcvideo tts: {e}")
-        vdur = 0
-        wav = None
-    dur = max(DUR, (vdur or 0) + 1.2)
+        lens, wavs = {}, {}
+    cx_["tl"] = tl = make_tl(lens)
+    cx_["lens"] = lens
+    dur = tl["dur"]
+    vdur = sum(lens.values())
     n = int(dur * FPS)
     mp4 = out_dir / "video.mp4"
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
            "-i", "-"]
-    if wav:
-        cmd += ["-i", str(wav), "-filter_complex", f"[1:a]apad,atrim=0:{dur:.2f},loudnorm=I=-14:TP=-1.5[a]", "-map", "0:v",
-                "-map", "[a]", "-c:a", "aac", "-b:a", "160k"]
+    if wavs:
+        keys = [k for k, _ in segs if k in wavs]
+        for k in keys:
+            cmd += ["-i", str(wavs[k])]
+        parts = []                                    # har awaaz apne scene ki lambai tak chup se bhari, phir jod (concat) - purane ffmpeg par bhi
+        for j, k in enumerate(keys):
+            sl = tl[k][1] - tl[k][0]
+            parts.append(f"[{j + 1}:a]aresample=24000,aformat=channel_layouts=mono,apad=whole_dur={sl:.3f},atrim=0:{sl:.3f}[a{j}]")
+        mix = "".join(f"[a{j}]" for j in range(len(keys)))
+        cmd += ["-filter_complex", ";".join(parts) + f";{mix}concat=n={len(keys)}:v=0:a=1,apad,atrim=0:{dur:.2f},"
+                f"loudnorm=I=-14:TP=-1.5[a]", "-map", "0:v", "-map", "[a]", "-c:a", "aac", "-b:a", "160k"]
     cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-threads", "2",
             "-movflags", "+faststart", "-t", f"{dur:.2f}", str(mp4)]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     cache, thumbs = {}, []
-    want = {int(1.4 * FPS): "t1.jpg", int((T_LIST0 + 1.6) * FPS): "t2.jpg", int((dur - 1.5) * FPS): "t3.jpg"}
-    scale = (dur - T_LIST0) / (DUR - T_LIST0)        # lambi awaaz = kaam aur CTA barabar lambe (sync)
+    want = {int(1.4 * FPS): "t1.jpg", int((tl["k0"][0] + 1.6) * FPS): "t2.jpg", int((dur - 1.5) * FPS): "t3.jpg"}
     for i in range(n):
-        t = i / FPS
-        tl = t if t < T_LIST0 else T_LIST0 + (t - T_LIST0) / scale
-        fr = frame(cx_, min(tl, DUR - .01), cache)
+        fr = frame(cx_, min(i / FPS, dur - .01), cache)
         if i in want:
             fr.save(out_dir / want[i], quality=92)
             thumbs.append(str(out_dir / want[i]))
@@ -731,6 +778,11 @@ def render(cx_, out_dir):
     p.stdin.close()
     if p.wait() != 0:
         raise RuntimeError("ffmpeg fail")
+    for w_ in wavs.values():
+        try:
+            w_.unlink()
+        except Exception:
+            pass
     return str(mp4), sorted(thumbs), dur, vdur
 
 

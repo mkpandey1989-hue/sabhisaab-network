@@ -1369,6 +1369,12 @@ try:
           "gupt page ab function se (site/ mein .html nahi - website audit nahi rukta)")
     check("site/svc-intake.js" in _sf81, "sawal-form file website ko")
     check(any(r.startswith("6 aakarshan ✅") for r in _V60.audit_video(_cx60)[1]), "6th round: contrast + chhota hook + bada pehla text")
+    # v3.8.2: awaaz har scene alag (timeline) + form self-test
+    _tl82 = _V60.make_tl({"hook": 3.0, "k0": 4.0, "cta": 5.0})
+    check(_tl82["hook"][1] - _tl82["hook"][0] >= 3.0 + _V60.GAP and _tl82["k0"][1] - _tl82["k0"][0] >= 4.0 and _tl82["dur"] > _V60.DUR,
+          "scene ki lambai awaaz se kabhi chhoti nahi (awaaz-screen saath)")
+    check(len(_cx60["segs"]) == 10 and _cx60["segs"][0][0] == "hook" and _cx60["segs"][-1][0] == "cta", "har scene ki apni awaaz (10 hisse)")
+    check(callable(_S50.selftest) and "Bot jaanch" in open(_S50.__file__, encoding="utf-8").read(), "form ki apne aap jaanch (test lead save nahi)")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

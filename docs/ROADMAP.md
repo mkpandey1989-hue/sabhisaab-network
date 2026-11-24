@@ -2355,3 +2355,19 @@ nahi) - website audit ko chhedna hi nahi; bot purana site/q.html mita deta hai. 
 - site/svc-kit.js (bot bhi likhta hai): sawal-form, upload (progress), sahayak - list page aur gupt page dono.
 - Video audit round 6 AAKARSHAN: contrast (text 7:1, brand 3.5:1, CTA safed 4.5:1), hook <= 8 shabd, pehla text >= 90px.
   7 kamzor rang gehre kiye (peach, lemon, teal, coral, forest, indigo, rose).
+
+## v3.8.2 (24 Nov 2026) - form jaanch, awaaz theek, mobile chaudai
+Owner: "Telegram par abhi bhi message nahi" + namoona video ki awaaz.
+- AWAAZ: namoona mein 0-24.7s bina ek bhi ruke (silencedetect) - poora script EK saans mein, aur scene 0 wali 1.06x raftaar poore
+  script par lagti thi; CTA bolte waqt screen 'Hindi mein likhiye' dikhati thi. Ab har scene (hook, tagline, 6 kaam, bhasha, CTA) ki
+  ALAG awaaz, scene ki lambai = awaaz + 0.35s saans (make_tl), sirf hook 1.06x. Video ~30-38s. Audit round 4: har hissa 3.4
+  shabd/sec se tez nahi, kam se kam 5 ruk (warna RUKI).
+- FORM: browser (asli Chromium, mobile) mein form + file theek chalta hai; live mein kyun nahi pahuncha ye yahan se nahi dikhta, isliye:
+  worker ab har koshish ka kaaran likhta hai (ok / missing / secret / ratelimit / honeypot / browser galti), 'services form jaanch'
+  = website /api + seedha worker + worker→Telegram teeno ki asli jaanch (test lead save nahi) + aakhri rukawat. Deploy ke 5-6 min baad
+  aur roz 09:10 apne aap; toota to laal alert.
+  Galti theek: WhatsApp number '91xxxxxxxxxx' (12 ank) ko Aadhaar maan kar form rukta tha -> ab Aadhaar sirf Verhoeff checksum se.
+  Browser autofill ne chhupa 'website' dabba bhar diya to asli customer chupchap gum ho jaata -> ab naam 'hp_fax' (bahar), aur sahi
+  data ho to lead bachta hai. Galti ab alert nahi, form ke neeche saaf likhi + WhatsApp. Card banane mein galti = saada sandesh (lead na khoye).
+- MOBILE: services pages 412px phone par 526px chaude the (footer links bina space + cookie button) - page chhota/zoom dikhta. Services
+  pages par theek. (Baaki site ke kai pages par yahi footer dikkat - owner ki haan ke baad.)

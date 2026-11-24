@@ -612,7 +612,11 @@ def deploy():
     if _write_site_files(c):
         state.put("site_undeployed", True)
         threading.Thread(target=lambda: tg.say("🌐 " + str(website.deploy())), daemon=True).start()
-    return f"✅ Services desk chalu: {c['url']}\nForm ka message ab JSON mein + Telegram. Website deploy ho raha hai."
+    def _later():
+        time.sleep(360)
+        tg.say("🧪 Form jaanch (deploy ke baad):\n" + selftest())
+    threading.Thread(target=_later, daemon=True).start()
+    return f"✅ Services desk chalu: {c['url']}\nForm ka message ab JSON mein + Telegram. Website deploy ho raha hai. 6 min baad form ki jaanch aayegi."
 
 
 def _site_files(c):
@@ -662,6 +666,45 @@ def _write_site_files(c):
     return changed
 
 
+def selftest():
+    """v3.8.2: form ka asli raasta jaancho (website /api aur seedha worker) - test lead save NAHI hota, Telegram nahi jaata."""
+    c = _cfg()
+    if not c.get("url"):
+        return "❓ Services worker abhi nahi bana ('services chalu')."
+    body = {"name": "Bot jaanch", "phone": "9999999999", "message": "form ki apne aap jaanch", "consent": True, "test": c["key"]}
+    out, ok = [], True
+    for nm, url in (("website /api", f"{SITE}/api/lead"), ("seedha worker", f"{c['url']}/lead")):
+        try:
+            r = requests.post(url, json={**body, "via": nm}, headers={"origin": SITE}, timeout=(8, 20))
+            j = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
+            good = r.status_code == 200 and j.get("test")
+            out.append(f"{'✅' if good else '❌'} {nm}: {r.status_code} {'' if good else (j.get('error') or r.text[:120])}")
+            ok = ok and bool(good)
+        except Exception as e:
+            out.append(f"❌ {nm}: {str(e)[:120]}")
+            ok = False
+    try:
+        tt = _api_get("tgtest") or {}
+        out.append(("✅" if tt.get("ok") else "❌") + " worker → Telegram" + ("" if tt.get("ok") else f": {tt.get('err', '')[:100]}"))
+        ok = ok and bool(tt.get("ok"))
+    except Exception as e:
+        out.append(f"❌ worker → Telegram: {str(e)[:100]}")
+        ok = False
+    try:
+        lg = (_api_get("log") or {}).get("log", [])[-40:]
+        cnt = {}
+        for x in lg:
+            cnt[x.get("k")] = cnt.get(x.get("k"), 0) + 1
+        out.append("Pichhle 7 din form ki koshish: " + (", ".join(f"{k} {v}" for k, v in cnt.items()) or "koi nahi"))
+        errs = [x for x in lg if x.get("k") in ("client", "missing", "secret", "ratelimit", "bad_json", "consent")][-6:]
+        if errs:
+            out.append("Aakhri rukawat: " + "; ".join(f"{x['t'][5:16]} {x['k']} {x.get('w', '')[:60]}" for x in errs))
+    except Exception as e:
+        out.append(f"log nahi mila ({str(e)[:60]})")
+    state.put("svc_selftest", {"ok": ok, "t": now().isoformat(timespec="minutes")})
+    return ("✅ Form ka raasta theek" if ok else "🔴 FORM KA RAASTA TOOTA") + "\n" + "\n".join(out)
+
+
 def ensure_site_cfg():
     """v3.5.1/v3.8.0: website ZIP ne svc-cfg.js ya proxy mita diya ho to dobara likho + deploy."""
     from . import tg, website
@@ -679,6 +722,7 @@ def ensure_site_cfg():
     audit("site_cfg_fix")
     r_ = website.deploy()
     tg.say("🔧 Website ke form ka raasta (svc-cfg/api/gupt page) dobara likha. Deploy: " + (str(r_) if r_ else "line mein (3 min mein apne aap)"))
+    threading.Thread(target=lambda: (time.sleep(300), tg.say("🧪 Deploy ke baad form jaanch:\n" + selftest())), daemon=True).start()
     return True
 
 
@@ -702,6 +746,12 @@ def sync():
                 n += 1
         except Exception as e:
             log(f"svc ingest {raw.get('id')}: {e}")
+            try:                                            # v3.8.2: card na bane to bhi lead khoye nahi - saada sandesh
+                from . import tg
+                tg.say(f"🛎 Naya kaam {raw.get('id')} (card banane mein galti: {str(e)[:80]})\n{raw.get('name', '')} · +{raw.get('phone', '')}\n"
+                       f"{str(raw.get('message', ''))[:500]}")
+            except Exception:
+                pass
     if j.get("last"):
         state.put("svc_after", j["last"])
     return n
@@ -857,6 +907,13 @@ def tick(run):
     if state.get("svc_cfg_day3") != d and _cfg().get("url"):        # v3.5.1: website par form ka pata khaali na rahe
         state.put("svc_cfg_day3", d)
         run(ensure_site_cfg)
+    if n.strftime("%H:%M") >= "09:10" and state.get("svc_st_day") != d and _cfg().get("url"):     # roz subah form ki jaanch
+        state.put("svc_st_day", d)
+        def _st():
+            r_ = selftest()
+            if r_.startswith("🔴"):
+                tg.alert("red", r_)
+        run(_st)
     if n.strftime("%H:%M") >= "21:45" and state.get("svc_rep_day") != d and _cfg().get("url"):
         state.put("svc_rep_day", d)
         run(lambda: tg.say(report(1)))
@@ -1021,6 +1078,9 @@ def on_text_crm(t, run):
         L = season_list()
         return tg.say("📅 Season (last date):\n" + ("\n".join(f"• {x['date']} {x['name']} → {x['item']}" for x in L) or "khaali") +
                       "\nJodna: season add 2026-12-31 | NSP scholarship last date | m-scholar | https://scholarships.gov.in/")
+    if tl in ("services form jaanch", "form jaanch", "services form test"):
+        run(lambda: tg.say(selftest()))
+        return True
     if tl in ("services crm", "crm"):
         return tg.say(crm_list())
     m = re.match(r"(?:crm )?(sh\w+) (new|talk|rate|accepted|paid|working|delivered|feedback|closed|lost)$", tl)

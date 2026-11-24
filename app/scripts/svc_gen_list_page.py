@@ -82,6 +82,7 @@ EXTRA_CSS = """<style>
 .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(max-width:600px){.two{grid-template-columns:1fr}}
 .sum{background:#ECFDF5;border-radius:12px;padding:12px;margin:8px 0;font-size:.92rem}
 .okm{display:none;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:12px;padding:14px}
+footer .wrap{overflow-wrap:anywhere}footer .wrap a{display:inline-block;margin:2px 7px}#shConsent{max-width:100vw;box-sizing:border-box}#shConsent button{white-space:normal;max-width:100%}html,body{max-width:100%;overflow-x:hidden}
 .waf{position:fixed;right:14px;bottom:84px;background:#25D366;color:#fff;border-radius:100px;padding:12px 16px;font-weight:700;text-decoration:none;box-shadow:0 4px 14px #0003;z-index:60}
 </style>"""
 
@@ -130,7 +131,7 @@ BODY = """<body>
 <div class="two"><input name="budget" inputmode="numeric" placeholder="Budget ₹ (optional)"><input name="code" id="code" placeholder="Code (reel / dost se)" style="text-transform:uppercase"></div>
 <label style="font-size:.85rem"><input type="checkbox" name="urgent" style="width:auto"> Jaldi chahiye (urgent +50%)</label><br>
 <label style="font-size:.85rem"><input type="checkbox" name="care" style="width:auto"> Har mahine dekhbhal bhi chahiye</label>
-<input name="website" style="display:none" tabindex="-1" autocomplete="off">
+<input name="hp_fax" style="position:absolute;left:-5000px;width:1px;height:1px;opacity:0" tabindex="-1" autocomplete="new-password" aria-hidden="true">
 <input type="hidden" name="extras" id="extras">
 <div class="sum" id="sum">Kaam chunein to andaza yahan dikhega.</div>
 <label style="font-size:.8rem;color:var(--muted)"><input type="checkbox" name="consent" required style="width:auto"> Main sahmat hoon ki meri jaankari sirf is kaam ke liye istemaal ho (90 din baad mita di jaati hai). <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></label>
@@ -170,6 +171,8 @@ function pick(id){var i=IT.filter(function(x){return x.id===id})[0];$('svc').val
 function tot(){var t=+$('bt').value,n=[$('bt').selectedOptions[0].text];[].forEach.call(document.querySelectorAll('#bld input:checked'),function(c){t+=+c.value;n.push(c.getAttribute('data-n'))});$('tot').textContent=rs(t);return [t,n]}
 $('bld').addEventListener('change',tot);
 function useCustom(){var r=tot();$('svc').value='Custom: '+r[1].join(' + ');$('extras').value=r[1].join(', ');$('sum').innerHTML='<b>Custom kaam</b><br>Andaza '+rs(r[0])+'<br><small>Final likhit quote kaam dekh kar.</small>';location.hash='form';kit('w-1page');ev('custom','c')}
+function clog(w){try{var u=(window.SVC_API||'/api')+'/clog';navigator.sendBeacon?navigator.sendBeacon(u,new Blob([JSON.stringify({w:String(w).slice(0,150)})],{type:'text/plain'})):0}catch(e){}}
+window.addEventListener('error',function(e){clog('js: '+(e.message||'')+' @'+(e.lineno||''))});
 function kit(id){if(!window.SVCKIT)return;SVCKIT.fields($('intake'),SVCKIT.kind(id));$('fwrap').innerHTML=SVCKIT.fileInput()}
 function api(path,body,ms){var bases=[window.SVC_API||'/api'];if(window.SVC_API2)bases.push(window.SVC_API2);var i=0;
 return new Promise(function(ok,no){(function go(){var c=window.AbortController?new AbortController():null,t=setTimeout(function(){c&&c.abort()},ms||10000);
@@ -185,7 +188,8 @@ d.cid=d.cid||(Date.now().toString(36)+Math.random().toString(36).slice(2,8));if(
 var wa='https://wa.me/'+(window.SVC_WA||'919917436371')+'?text='+encodeURIComponent('Namaste, kaam: '+(d.service||'')+' | '+d.message+' | '+d.name);
 b.disabled=true;b.textContent='Bhej rahe hain…';
 api('/lead',d,10000).then(function(j){done(j,d);if(FL.length&&window.SVCKIT){var o=$('ok');o.insertAdjacentHTML('beforeend','<p id="fprog">📎 File bhej rahe hain…</p>');SVCKIT.upload(j.id,j.k,FL,function(i,n,nm){$('fprog').textContent='📎 File '+(i+1)+'/'+n+' bhej rahe hain…'}).then(function(r){$('fprog').innerHTML='📎 '+r.ok+' file pahunch gayi'+(r.bad.length?' · nahi gayi: '+r.bad.join(', ')+' — apne page se ya <a href="https://wa.me/'+(window.SVC_WA||'919917436371')+'?text='+encodeURIComponent('Mera number '+j.id+' - files bhej raha hoon')+'">WhatsApp</a> par bhejiye':'')})}}).catch(function(x){b.disabled=false;b.textContent='Bhejiye ✔';
-if(x.hard){alert(x.message);return}
+if(x.hard){clog('hard: '+x.message);$('ok').style.display='block';$('ok').innerHTML='<b>⚠ '+x.message+'</b><br>Theek karke dobara bhejiye, ya <a href="'+wa+'">WhatsApp par bhejiye</a>.';return}
+clog('net: '+x.message);
 qsave(d);$('ok').style.display='block';$('ok').innerHTML='<b>Network dheema hai.</b> Aapka sandesh is phone mein surakshit hai — net aate hi apne aap chala jayega (page khula rakhein ya dobara kholein). Chahein to abhi <a href="'+wa+'">WhatsApp par bhejein</a>.'})};
 window.addEventListener('online',qflush);setTimeout(qflush,1500);
 [].forEach.call(document.querySelectorAll('.demo'),function(a){a.addEventListener('click',function(){ev(a.getAttribute('data-d'),'c')})});

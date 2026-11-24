@@ -1,4 +1,4 @@
-// sabhisaab-leads v3.8.1 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
+// sabhisaab-leads v3.8.2 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
 // VM band ho to bhi lead surakshit. Customer ko Telegram/WhatsApp ki zaroorat nahi.
 // Rasta: sabhisaab.com/api/* (Pages Function, same-origin) -> yahan. Purana seedha workers.dev bhi chalta hai.
 const ORIG = ['https://sabhisaab.com', 'https://www.sabhisaab.com'];
@@ -42,7 +42,20 @@ function cleanFields(f) {
   for (const k of Object.keys(f).slice(0, 20)) { const v = clean(f[k], 1500); if (v) o[clean(k, 20).replace(/[^a-z0-9_]/gi, '')] = v; }
   return o;
 }
-const SECRET = /(\b\d{4}\s?\d{4}\s?\d{4}\b)|(\b[A-Z]{5}\d{4}[A-Z]\b)|(otp\s*[:=]?\s*\d{4,8})|(password|pin)\s*[:=]/i;
+// v3.8.2: Aadhaar sirf asli jaisa (12 ank, 2-9 se shuru, Verhoeff checksum sahi, aur +91 mobile nahi) - pehle '919917436371'
+// jaisa WhatsApp number bhi Aadhaar maan kar form rok deta tha.
+const VD = [[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,0,6,7,8,9,5],[2,3,4,0,1,7,8,9,5,6],[3,4,0,1,2,8,9,5,6,7],[4,0,1,2,3,9,5,6,7,8],[5,9,8,7,6,0,4,3,2,1],[6,5,9,8,7,1,0,4,3,2],[7,6,5,9,8,2,1,0,4,3],[8,7,6,5,9,3,2,1,0,4],[9,8,7,6,5,4,3,2,1,0]];
+const VP = [[0,1,2,3,4,5,6,7,8,9],[1,5,7,6,2,8,3,0,9,4],[5,8,0,3,7,9,6,1,4,2],[8,9,1,6,0,4,3,5,2,7],[9,4,5,3,1,2,6,8,7,0],[4,2,8,6,5,7,3,9,0,1],[2,7,9,3,8,0,6,4,1,5],[7,0,4,6,9,1,3,2,5,8]];
+function verhoeff(n) { let c = 0; const a = n.split('').reverse().map(Number); for (let i = 0; i < a.length; i++) c = VD[c][VP[i % 8][a[i]]]; return c === 0; }
+function secretIn(v) {
+  v = String(v || '');
+  if (/otp\s*[:=-]?\s*\d{4,8}/i.test(v) || /\b(password|passwd|pin)\s*[:=]/i.test(v) || /\b[A-Z]{5}\d{4}[A-Z]\b/.test(v)) return true;
+  const m = v.match(/\d[\d\s-]{10,16}\d/g) || [];
+  for (const x of m) { const d = x.replace(/\D/g, ''); if (d.length === 12 && /^[2-9]/.test(d) && !/^91[6-9]\d{9}$/.test(d) && verhoeff(d)) return true; }
+  return false;
+}
+const SECRET = {test: secretIn};
+async function lg(env, k, w) { try { await env.KV.put('lg:' + Date.now() + ':' + Math.random().toString(36).slice(2, 5), JSON.stringify({k, w: String(w || '').slice(0, 160), t: new Date().toISOString()}), {expirationTtl: 7 * 86400}); } catch (e) {} }
 const FILE_OK = /^(image\/|audio\/|application\/pdf|text\/plain|application\/(msword|vnd\.openxmlformats|vnd\.ms-excel))/;
 async function tgFile(env, name, type, buf, caption) {
   try {
@@ -82,19 +95,24 @@ export default {
     if (req.method === 'OPTIONS') return new Response('', {headers: H});
 
     if (path === '/lead' && req.method === 'POST') {
-      let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
-      if (d.website) return j({id: 'OK', ref: '', k: ''}, 200, H);            // honeypot
+      let d; try { d = await req.json(); } catch (e) { await lg(env, 'bad_json', ''); return j({error: 'data galat'}, 400, H); }
+      const isTest = !!(env.KEY && d.test === env.KEY);
+      const hp = d.website || d.hp_fax;                                       // honeypot (chhupa dabba)
+      if (hp && !(d.consent && String(d.phone || '').replace(/\D/g, '').length >= 10 && String(d.message || '').length >= 3)) {
+        await lg(env, 'honeypot', ''); return j({id: 'OK', ref: '', k: ''}, 200, H);
+      }
       const ip = ipOf(req, env);
       const rk = 'rl:' + ip; const n = +(await env.KV.get(rk) || 0);
-      if (n >= 6) return j({error: 'thodi der baad koshish karein'}, 429, H);
+      if (n >= 6 && !isTest) { await lg(env, 'ratelimit', ''); return j({error: 'Ek ghante mein 6 baar ho gaya - thodi der baad koshish karein ya WhatsApp karein'}, 429, H); }
       // dobara bhejna (retry/offline queue): same client id = wahi lead lautao, naya mat banao
       const cid = clean(d.cid, 40).replace(/[^a-z0-9-]/gi, '');
       if (cid) { const old = await env.KV.get('cid:' + cid); if (old) return j(JSON.parse(old), 200, H); }
       await env.KV.put(rk, String(n + 1), {expirationTtl: 3600});
       const name = clean(d.name, 80), phone = clean(d.phone, 16).replace(/[^0-9+]/g, ''), msg = clean(d.message, 3000);
-      if (!name || phone.replace(/\D/g, '').length < 10 || msg.length < 3) return j({error: 'naam, mobile number aur kaam likhiye'}, 400, H);
-      if (!d.consent) return j({error: 'sahmati ka dabba chunein'}, 400, H);
-      if ([msg, ...Object.values(cleanFields(d.fields))].some(v => SECRET.test(v))) return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H);
+      if (!name || phone.replace(/\D/g, '').length < 10 || msg.length < 3) { await lg(env, 'missing', (!name ? 'naam ' : '') + (phone.replace(/\D/g, '').length < 10 ? 'phone ' : '') + (msg.length < 3 ? 'kaam' : '')); return j({error: 'naam, mobile number aur kaam likhiye'}, 400, H); }
+      if (!d.consent) { await lg(env, 'consent', ''); return j({error: 'sahmati ka dabba chunein'}, 400, H); }
+      if ([msg, ...Object.values(cleanFields(d.fields))].some(v => secretIn(v))) { await lg(env, 'secret', ''); return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H); }
+      if (isTest) { await lg(env, 'selftest', d.via || ''); return j({ok: true, test: true}, 200, H); }
       const t = Date.now(); const id = 'SH' + new Date(t + 19800000).toISOString().slice(2, 10).replace(/-/g, '') +
         Math.random().toString(36).slice(2, 6).toUpperCase();
       const k = rnd(16);
@@ -108,7 +126,14 @@ export default {
       if (cid) await env.KV.put('cid:' + cid, JSON.stringify(out), {expirationTtl: 2 * 86400});
       await tg(env, '🛎 Naya kaam ' + id + (lead.urgent ? ' ⚡' : '') + '\n' + name + ' · +' + phone.replace(/\D/g, '') + '\n' +
         (lead.service || '') + '\n' + msg.slice(0, 300) + '\n(poora card + button 5 min mein bot bhejega)');
+      await lg(env, hp ? 'ok_hp' : 'ok', id);
       return j(out, 200, H);
+    }
+    if (path === '/clog' && req.method === 'POST') {                   // browser mein galti (bina naam/number) - jaanch ke liye
+      let d; try { d = await req.json(); } catch (e) { return j({}, 200, H); }
+      const ip = ipOf(req, env), rk = 'rc:' + ip, n = +(await env.KV.get(rk) || 0);
+      if (n < 10) { await env.KV.put(rk, String(n + 1), {expirationTtl: 3600}); await lg(env, 'client', clean(d.w, 160)); }
+      return j({}, 200, H);
     }
 
     if (path === '/q' && req.method === 'GET') {                       // customer ka gupt page
@@ -131,7 +156,7 @@ export default {
       const st = await getSt(env, clean(d.id, 20));
       if (!st || st.k !== d.k) return j({error: 'link galat'}, 404, H);
       const f = cleanFields(d.fields);
-      if (Object.values(f).some(v => SECRET.test(v))) return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H);
+      if (Object.values(f).some(v => secretIn(v))) return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H);
       st.fields = {...(st.fields || {}), ...f}; await putSt(env, st);
       await tg(env, '📝 ' + st.id + ' ne details bheji:\n' + Object.entries(f).map(([k, v]) => k + ': ' + v).join('\n').slice(0, 3000));
       return j(pub(st), 200, H);
@@ -207,6 +232,18 @@ export default {
       if (P.status && STAGES.includes(P.status) && P.status !== st.status) { st.status = P.status; hist(st, P.status); }
       await putSt(env, st);
       return j({ok: true, status: st.status});
+    }
+    if (p[2] === 'tgtest') {                                           // worker -> Telegram seedha raasta theek?
+      try {
+        const r = await fetch('https://api.telegram.org/bot' + env.TG_TOKEN + '/sendMessage', {method: 'POST', headers: {'content-type': 'application/json'},
+          body: JSON.stringify({chat_id: env.TG_CHAT, text: '🧪 Website form -> Telegram raasta theek hai (ye jaanch ka sandesh hai).'})});
+        const t = await r.json(); return j({ok: !!t.ok, err: t.description || ''});
+      } catch (e) { return j({ok: false, err: String(e).slice(0, 120)}); }
+    }
+    if (p[2] === 'log' && req.method === 'GET') {
+      const L = await env.KV.list({prefix: 'lg:', limit: 1000}); const ks = L.keys.slice(-60); const out = [];
+      for (const key of ks) out.push(JSON.parse(await env.KV.get(key.name) || '{}'));
+      return j({log: out});
     }
     if (p[2] === 'file' && req.method === 'GET') {
       const r = await env.KV.getWithMetadata('f:' + clean(u.searchParams.get('id'), 20) + ':' + (+u.searchParams.get('n') || 0), {type: 'arrayBuffer'});
