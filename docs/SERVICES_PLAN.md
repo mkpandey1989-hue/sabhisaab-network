@@ -214,3 +214,12 @@ Audit report `data/services/video_audit.jsonl` mein hamesha.
 9. Services video time: **05:00, 07:00, 18:00, 20:00** (owner se pakka: 4 video roz ya 1 video 4 jagah). Purana brand schedule **nahi chhedna**.
 10. Story/post/community — jo bhi API se policy ke andar ho (IG/FB story) wo bhi.
 11. Sab note karte rehna, phir ek saath build.
+
+---
+## 15. Final confirm list (24 Nov 2026, 06:31)
+- Purane/baaki video ke comment ka system **jaisa hai waisa** — naya samajh wala system sirf naye services video par.
+- Video/page par saaf likhna-bolna: "Hindi mein likhiye, jaise ghar mein bolte hain — English zaroori nahi, sharm ki baat nahi. Voice note bhi chalega." (Voice note: DM/WhatsApp par; bot likhit mein samjhe, nahi to owner ko.)
+- Platform (website se check): 4 brand × Instagram, Facebook, YouTube, Threads + Pinterest (sabhisaabcom), Telegram channel (t.me/sabhisaab), WhatsApp channel (manual), LinkedIn company page, Dailymotion (sabhisaab). Har jagah policy ke hisab se, alag text.
+- Services video: **roz 4 alag video**, IST 05:00 · 07:00 · 18:00 · 20:00. Bot views/comment/lead data se report de; time owner badlega. Purana brand schedule nahi chhedna.
+- Easy + advance sab features lene hain (sec 12 + 14 + chat wale: story sticker, highlights, 5-min yaad, line-guard slowdown, mahine ka top kaam video).
+- Owner ke haath wale kaam `docs/PENDING.md` mein bhi.

@@ -117,3 +117,9 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-10 (owner): (Marzi) Facebook GROUP post: Meta ne 2024 se group API band kar di - group mein reel khud share karein (Business Dashboard ka 'group post' k
 - 2026-11-10 (owner): (Marzi) Google Cloud mein 'Google Analytics Data API' chalu karein - website par log kitni der ruke (GA4 dwell) ke liye
 - 2026-11-10 (owner): Instagram @sunonatak: 27 Nov tak koi DM nahi (bot ka DM bhi band). 'Established presence' (monetization) wala review abhi MAT dabana - 90 di
+- 2026-11-24 (owner): [Owner] AdSense: "Low value content" reject (23 Nov). Request review abhi MAT dabana — GSC mein 2 hafte lagataar roz click aane ke baad hi.
+- 2026-11-24 (owner): [Owner] Services: tagline chunna (1/2/3, docs/SERVICES_PLAN.md sec 0), phir "shuru karo".
+- 2026-11-24 (owner): [Owner] Services link ek baar khud lagana: 4 IG bio, 4 FB page button, 4 YT channel links, WhatsApp channel/status, LinkedIn page (guide build ke saath milegi).
+- 2026-11-24 (owner): [Owner] Google Business Profile banana (service area, address chhupa) — asli Google review ke liye (guide milegi).
+- 2026-11-24 (owner): [Owner] Suno Natak IG wapas chalu (24 Nov) — app mein ek baar login karke check; 2-3 din dheere (1-2 post/din).
+- 2026-11-24 (owner): [Owner] Har paid lead par bank app mein paisa dekh kar hi "paid" dabana.
