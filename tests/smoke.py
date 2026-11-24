@@ -1203,22 +1203,26 @@ try:
 finally:
     _TG50.say, _TG50.inline = _osay50, _oin50
 
-# ---------------- v3.6.0: services video (sirf ek frame + chunaav, poori video nahi - tez) ----------------
+# ---------------- v3.6.0 -> v3.8.0: services video (6 kaam, 4 slot) - sirf chunaav + frame + audit (poori video nahi - tez) ----------------
 from app import svcvideo as _V60
 _V60.DIR = _S50.DIR
-_it60, _pl60 = _V60.pick_day(seed=5)
+_pl60 = _V60.pick_day(seed=5, day="2026-11-24")
 check(len(_pl60) == 4 and len({(v["look"], v["hook"]) for v in _pl60.values()}) == 4, "4 brand = 4 alag look+hook")
+check(sorted(v["slot"] for v in _pl60.values()) == ["05:00", "07:00", "18:00", "20:00"], "roz 4 video: 05:00, 07:00, 18:00, 20:00")
+check(all(len(v["set"]) == 6 and len(set(v["set"])) == 6 for v in _pl60.values()), "har video mein 6 alag kaam")
+check(all(sum(1 for i in v["set"] if _V60.KAAM[i][1] == "मदद") >= 2 for v in _pl60.values()), "har video mein kam se kam 2 madad wale kaam")
 for _b60, _v60 in _pl60.items():
-    _V60._hist_add({"day": "2026-01-01", "item": _it60["id"], "look": _v60["look"], "hook": _v60["hook"], "lay": _v60["lay"], "brand": _b60})
-_used60 = {(h["item"], h["look"], h["hook"], h["lay"]) for h in _V60._hist()}
-_it61, _pl61 = _V60.pick_day(seed=5)
-check(all((_it61["id"], v["look"], v["hook"], v["lay"]) not in _used60 for v in _pl61.values()), "zindagi bhar: combo kabhi dohra nahi")
+    _V60._hist_add({"day": "2026-11-24", **_v60, "brand": _b60})
+_used60 = {_V60._key(h) for h in _V60._hist()}
+_pl61 = _V60.pick_day(seed=5, day="2026-11-24")
+check(all(_V60._key(v) not in _used60 for v in _pl61.values()), "zindagi bhar: combo kabhi dohra nahi")
+_cx60 = _V60.ctx_for(_pl60["pahadi"], "pahadi", "2026-11-24")
 try:
-    _fr60 = _V60.frame(_it60, _pl60["pahadi"], 10.5, "pahadi", {})
+    _fr60 = _V60.frame(_cx60, 10.5, {})
     check(_fr60.size == (_V60.W, _V60.H), "services video frame bana (1080x1920)")
 except Exception as _e60:
     check(False, f"services video frame: {_e60}")
-_m60 = _V60.meta_for(_it60, _pl60["money"], "money", "/x.mp4", ["/a.jpg"], 20.0)
+_m60 = _V60.meta_for(_cx60, "money", "/x.mp4", ["/a.jpg"], 28.8)
 check(_m60["page"] == "/services-list" and "AI" not in _m60["description"] and "services-list" in _m60["description"],
       "ad meta: page sahi, 'AI' shabd nahi, pata saaf")
 from app import meta as _M60
@@ -1245,7 +1249,7 @@ finally:
 check(_S50.classify("mujhe naukri ke liye resume chahiye")[0][0]["id"] in ("m-resume", "m-resume2", "p-cv"), "resume pehchana")
 check(_S50.classify("scholarship ka online form bharna hai")[0][0]["id"] in ("m-form", "m-scholar"), "form bharne ki madad pehchani")
 check(_S50.rates()["by"]["m-resume"]["price"] == 10, "resume ₹10")
-_fr70 = _V60.frame(_S50.rates()["by"]["m-resume"], {"look": "mint", "hook": 1, "lay": "R"}, 13.0, "pahadi", {})
+_fr70 = _V60.frame(_cx60, 13.0, {})
 check(_fr70.getpixel((5, 400))[0] > 200, "nayi services video ujli (saaf) look")
 
 # ---------------- v3.8.0: form kabhi na atke + gupt page + CRM + referral 10% (owner 24 Nov) ----------------
@@ -1330,6 +1334,31 @@ try:
                                                       {"date": "2026-12-01", "name": "bina sarkari source", "item": "m-scholar", "source": "https://example.com/"}]))
     check([x["name"] for x in _S50.season_due(7, "2026-11-24")] == ["NSP last date"], "season video sirf sarkari (.gov.in) source wali date par")
     check(_S50.price(_by80["w-1page"])["advance"] < _by80["w-1page"]["price"] * .5, "advance ~30% (FAQ jaisa)")
+    # v3.8.0 part 3: video audit + comment samajh
+    _ok81, _rep81 = _V60.audit_video(_cx60, _m60)
+    check(_ok81 and any(r.startswith("3 dikhawat ✅") for r in _rep81), "5-round audit: saaf video pass (tathya/niyam/dikhawat)")
+    _bad81 = dict(_cx60); _bad81["rows"] = [dict(r) for r in _cx60["rows"]]; _bad81["rows"][0]["price"] = 1
+    check(not _V60.audit_video(_bad81)[0], "audit: galat rate wali video RUKI")
+    _bad82 = dict(_cx60); _bad82["say"] = _cx60["say"] + " ये AI से बना है, गारंटी"
+    check(not _V60.audit_video(_bad82)[0], "audit: 'AI'/'गारंटी' wali video RUKI")
+    _bad83 = dict(_cx60); _bad83["season"] = {"date": "2026-12-01", "source": "https://example.com/"}
+    check(not _V60.audit_video(_bad83)[0], "audit: bina sarkari source wali season date RUKI")
+    from app import svccomment as _SC81
+    _u81 = _SC81.understand("mujhe scholarship ka form bharna hai kitne ka")
+    check(_u81["intent"] == "kaam" and _u81["item"] == "m-scholar", "comment samjha: scholarship form")
+    check("link" not in (_SC81.reply_for("ig", _u81, "x") or "").lower().replace("bio ke link", ""), "IG jawab mein link/DM nahi (sirf bio)")
+    check(_SC81.reply_for("ig", _SC81.understand("फॉर्म भरना है"), "फॉर्म भरना है").startswith("जी"), "Devanagari comment = Devanagari jawab")
+    check(_SC81.understand("ye fraud to nahi hai")["intent"] == "trust" and _SC81.reply_for("ig", _SC81.understand("ye fraud hai kya"), "x") is None,
+          "bharose ka sawal = bot jawab nahi deta (owner)")
+    check(_SC81.understand("aadhar update kar doge")["intent"] == "red", "mana kaam pehchana")
+    _ids81 = _SC81.svc_media_ids
+    _SC81.svc_media_ids = lambda: {"VIDSVC123"}
+    try:
+        check(not _SC81.handle("yt", "pahadi", {"id": "c1", "text": "resume chahiye", "video": "OTHERVID999"}), "purani video ka comment: naya system haath nahi lagata")
+        _said80.clear()
+        check(_SC81.handle("yt", "pahadi", {"id": "c2", "text": "kya hal hai bhai", "video": "VIDSVC123"}) and _said80, "samajh na aaye = owner ko Telegram")
+    finally:
+        _SC81.svc_media_ids = _ids81
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

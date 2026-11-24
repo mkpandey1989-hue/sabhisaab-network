@@ -330,6 +330,12 @@ def _fallback_reply(b, c):
 def _handle_comment(platform, b, c):
     """Har comment: samjho, gaali/spam hatao, baaki ka 7-45 min baad insaan jaisa vinamra jawab (queue), diary mein yaad."""
     import random
+    try:                                           # v3.8.0: SIRF services video ka comment -> naya samajh wala raasta
+        from . import svccomment as _SVCC
+        if _SVCC.handle(platform, b, c):
+            return
+    except Exception as e_s:
+        log(f"svccomment: {e_s}")
     qe = None
     try:
         qe = quiz_entry(platform, b, c)
@@ -651,6 +657,9 @@ def send_reply(key):
     if d.get("ig"):
         from . import meta as M
         M.ig_reply(d["brand"], d["parent"], d["text"])
+    elif d.get("fb"):                                  # v3.8.0: Facebook services comment ka jawab
+        from . import meta as M
+        M.fb_reply(d["brand"], d["parent"], d["text"])
     else:
         youtube.reply_comment(d["brand"], d["parent"], d["text"])
     diary.add("upload", f"comment jawab: {d['text'][:60]}")

@@ -755,26 +755,51 @@ def night_audit():
 
 
 def report(days=1):
+    """Funnel: aaye -> baat -> rate -> haan -> paid -> delivered; kahan se (code=brand, src); comment; video audit."""
     cut = (now() - datetime.timedelta(days=days)).isoformat()
     L = [x for x in leads().values() if x.get("t", "") >= cut[:10]]
     P = [p_ for p_ in _read("payments.jsonl") if p_.get("t", "") >= cut]
+    order = ["new", "talk", "rate", "accepted", "paid", "working", "delivered", "feedback"]
+    reach = {k: 0 for k in order}
+    calls = {c_["id"] for c_ in _read("calls.jsonl")}
+    for x in L:
+        seen_ = {e.get("status") for e in _read("events.jsonl") if e.get("id") == x["id"]}
+        if x["id"] in calls:
+            seen_.add("talk")
+        for k in order:
+            if k == "new" or k in seen_ or (k == "talk" and seen_ & {"rate", "accepted", "paid", "working", "delivered"}):
+                reach[k] += 1
+    code2b = {"LABH10": "Deals", "NATAK10": "Suno Natak", "MONEY10": "Money", "PAHADI10": "Pahadi"}
     by_src = {}
     for x in L:
-        k = (x.get("code") or x.get("src") or "seedha")[:20]
+        c_ = (x.get("code") or "").upper()
+        k = code2b.get(c_) or ("dost (REF)" if c_.startswith("REF-") else (x.get("src") or "seedha")[:24])
         by_src[k] = by_src.get(k, 0) + 1
-    lines = [f"🧾 SERVICES - pichhle {days} din", f"Lead: {len(L)} | Paid: {len(P)} | ₹{sum(p_['amt'] for p_ in P)}"]
+    lines = [f"🧾 SERVICES - pichhle {days} din",
+             "Funnel: " + " → ".join(f"{k} {reach[k]}" for k in ("new", "talk", "rate", "accepted", "paid", "delivered")),
+             f"Paisa: ₹{sum(p_['amt'] for p_ in P)} ({len(P)} payment)"]
     if by_src:
         lines.append("Kahan se: " + ", ".join(f"{k} {v}" for k, v in sorted(by_src.items(), key=lambda z: -z[1])))
+    cm = [c for c in _read("comments.jsonl") if c.get("t", "") >= cut]
+    if cm:
+        lines.append(f"Services comment: {len(cm)} (bot ne jawab {sum(1 for c in cm if c.get('auto'))}, aapko {sum(1 for c in cm if not c.get('auto'))})")
+    va = [v for v in _read("video_audit.jsonl") if v.get("t", "") >= cut]
+    if va:
+        lines.append(f"Services video audit: {sum(1 for v in va if v.get('ok'))} pass, {sum(1 for v in va if not v.get('ok'))} ruki")
     try:
         ds = demo_stats()
         if ds:
             top = sorted(ds.items(), key=lambda z: -z[1]["v"])[:8]
-            lines.append("Demo (aaj): " + "; ".join(f"{d} 👁{s['v']} ⏱{round(s['s'] / max(1, s['v']))}s 👆{s['c']}" for d, s in top))
+            lines.append("Page/demo (aaj): " + "; ".join(f"{d} 👁{s['v']} ⏱{round(s['s'] / max(1, s['v']))}s 👆{s['c']}" for d, s in top))
     except Exception as e:
         lines.append(f"Demo ginti abhi nahi ({str(e)[:60]})")
     wait = [r for r in _read("referral.jsonl") if r.get("status") == "wait"]
     if wait:
-        lines.append(f"Referral credit intezaar mein: {len(wait)}")
+        lines.append(f"Referral bonus intezaar mein: {len(wait)}")
+    try:
+        lines.append(crm_list())
+    except Exception:
+        pass
     return "\n".join(lines)
 
 

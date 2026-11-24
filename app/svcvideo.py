@@ -1,14 +1,17 @@
-"""v3.6.0: SERVICES AD VIDEO - roz 1 service, har brand ka ALAG version (owner 23 Nov 2026).
+"""v3.8.0: SERVICES AD VIDEO (owner 24 Nov 2026) - "Koi bhi digital kaam — ho jayega".
 
-Kaise:
-  - Raat 01:30 ke baad (VM khali ho tab - koi video 'making' na ho) aaj ka 1 kaam chunta hai (rate list se, sabse kam chala hua).
-  - 4 brand x alag LOOK (8 rang) x alag HOOK (10) x alag LAYOUT (phone baayen/daayen) - zindagi bhar ka record
-    (data/services/video_history.jsonl): ek hi kaam + look + hook + layout kabhi dobara nahi, kisi bhi channel par.
-  - Bade brand jaisa ad: 0-3s jhatka (hook), 3-8s phone mein asli jaisa app/site chalta hua, 8-13s 3D price (bazaar rate kata),
-    13-17s 3 fayde tick, 17-20s CTA + sabhisaab.com/services-list. Awaaz = wahi brand ki awaaz (tts.py). Owner ka naam/awaaz nahi.
-  - Bani video PURANE raaste se jaati hai: pipeline job (manzoori ke button, 'Abhi daalo', jawab na mile to slot par apne aap)
-    -> YouTube + FB + IG + Threads + Pinterest + Telegram + Dailymotion (har platform ki apni seema ke andar).
-  - Ad video par 'AI se bana' nahi likhte (owner); asli insaan/chehra nahi banate (nakli chehra = policy khatra).
+Kya badla (v3.7.0 se):
+  - Ek video = 6 alag kaam (2 madad/form, 1 mobile-computer madad, 3 banana) -> dekhne wale ko lage "koi bhi kaam ho jata hai".
+    Har kaam ka asli rate (rate list se), bazaar rate kata hua, ek fayda, aur chhoti asli/namoona screen.
+  - Roz 4 ALAG video, IST 05:00 · 07:00 · 18:00 · 20:00 (har slot ek brand, brand roz badalta). Purana brand schedule nahi chheda.
+  - Har video ka rang/hook/layout/kaam-set alag - zindagi bhar ka record (data/services/video_history.jsonl), dohrav nahi.
+  - Season: kisi sarkari last date (svc.season_due, sirf .gov.in/.nic.in source) se 7 din pehle us din ki video usi kaam se shuru.
+  - Sale: hafte ki sachchi sale (svc.offer) ho to asli rakam + asli khatam date.
+  - Screen par: "Hindi mein likhiye, jaise ghar mein bolte hain" + referral "dost ke bill ka 10% aapka".
+  - PUBLISH SE PEHLE 5 ROUND AUDIT (audit_video): 1 tathya (rate/date) 2 niyam/mana shabd 3 dikhawat (har text frame ke andar,
+    aapas mein na chadhe, kaali frame nahi, toota akshar nahi) 4 awaaz (hai, lambai, chup nahi) 5 owner ✅ (purana manzoori raasta).
+    1-4 mein ek bhi fail = video RUKI, owner ko wajah.
+  - Ad par 'AI' / 'insaan' / owner ka naam kabhi nahi. Instagram par link/DM bulawa nahi (sirf "comment mein kaam likhiye").
 Chalu/band: 'services video chalu' / 'services video band'. Namoona: 'services video namoona'.
 """
 import datetime
@@ -16,6 +19,7 @@ import json
 import math
 import pathlib
 import random
+import re
 import subprocess
 import time
 
@@ -28,10 +32,19 @@ from .log import log
 DIR = DATA / "services"
 OUT = DATA / "services_video"
 ASSETS = pathlib.Path(__file__).with_name("assets")
-DUR = 20.0
+SHOTS = ASSETS / "svc"
 SITE_TXT = "sabhisaab.com/services-list"
+TAG1, TAG2 = "कोई भी डिजिटल काम", "हो जाएगा"
+SLOTS = ["05:00", "07:00", "18:00", "20:00"]
+CODES = {"deals": "LABH10", "sunonatak": "NATAK10", "money": "MONEY10", "pahadi": "PAHADI10"}   # svc.price ke brand code (kis brand se kaam aaya)          # owner 24 Nov: services video jaane ka samay (IST)
+N_KAAM = 6
+T_HOOK, T_TAG, T_K = 2.6, 2.0, 2.7                   # hook, tagline, har kaam
+T_LIST0 = T_HOOK + T_TAG                             # 4.6
+T_HINDI = T_LIST0 + N_KAAM * T_K                     # 20.8
+T_CTA = T_HINDI + 3.4                                # 24.2
+DUR = T_CTA + 4.6                                    # 28.8
 
-LOOKS = {   # v3.7.0 saaf, ujla (bade app-brand ad jaisa): bg upar, bg neeche, brand rang, gehra rang
+LOOKS = {   # saaf, ujla: bg upar, bg neeche, brand rang, gehra rang
     "mint":    ("#F2FBF8", "#D7F3EA", "#0F766E", "#0B3B36"),
     "sky":     ("#F3F7FF", "#DCE7FF", "#2F54EB", "#14245C"),
     "peach":   ("#FFF6EF", "#FFE1CC", "#E8590C", "#5A2307"),
@@ -40,51 +53,48 @@ LOOKS = {   # v3.7.0 saaf, ujla (bade app-brand ad jaisa): bg upar, bg neeche, b
     "lilac":   ("#F7F3FF", "#E6DBFF", "#6741D9", "#2B1A66"),
     "teal":    ("#EFFBFC", "#CFF2F5", "#0C8599", "#073B44"),
     "pahad":   ("#F1F8FB", "#D6EAF2", "#1D5A6B", "#0B2A33"),
+    "coral":   ("#FFF5F3", "#FFDCD5", "#D9480F", "#4D1A06"),
+    "forest":  ("#F2FAF3", "#D3EFD8", "#2B8A3E", "#0E3317"),
+    "indigo":  ("#F4F5FF", "#DADDFF", "#4263EB", "#1B2154"),
+    "plum":    ("#FCF4FB", "#F3D9EE", "#A61E4D", "#45102A"),
 }
-HOOKS = [  # (chhota kicker, bolne ke liye)
+HOOKS = [  # (screen kicker, bolne ke liye) - sach, bina nakli jaldi
     ("सच बताइए…", "सच बताइए,"),
-    ("बस {pv} रुपये", "सिर्फ़ {pv} रुपये में"),
-    ("दुकानदार ध्यान दें", "दुकानदार भाई ध्यान दीजिए,"),
-    ("90% लोग यहीं चूकते हैं", "नब्बे प्रतिशत लोग यहीं चूकते हैं,"),
-    ("2-3 दिन में तैयार", "दो तीन दिन में तैयार,"),
-    ("ग्राहक खुद आएंगे", "ग्राहक खुद आपको ढूंढेंगे,"),
-    ("अब सब फ़ोन पर", "अब सब कुछ आपके फ़ोन पर,"),
-    ("रात 2 बजे भी", "रात दो बजे भी,"),
-    ("महंगी एजेंसी नहीं", "महंगी एजेंसी की ज़रूरत नहीं,"),
-    ("पहले डेमो, फिर पैसा", "पहले डेमो देखिए, फिर पैसा दीजिए,"),
+    ("एक मिनट रुकिए", "एक मिनट रुकिए,"),
+    ("ये आपके लिए है", "ये आपके लिए है,"),
+    ("शर्म की बात नहीं", "इसमें शर्म की कोई बात नहीं,"),
+    ("घर बैठे", "घर बैठे,"),
+    ("छोटा हो या बड़ा", "काम छोटा हो या बड़ा,"),
+    ("₹10 से शुरू", "सिर्फ़ दस रुपये से शुरू,"),
+    ("आपकी भाषा में", "आपकी अपनी भाषा में,"),
+    ("पहले बात, फिर काम", "पहले बात, फिर काम,"),
+    ("मोबाइल हो या कंप्यूटर", "मोबाइल हो या कंप्यूटर,"),
 ]
-# kaam ke hisaab se: (sawal line 1, line 2, hal, phone screen, 3 fayde)
-CATCOPY = {
-    "web":    ("दुकान अभी भी", "सिर्फ़ ऑफ़लाइन?", "आपकी अपनी वेबसाइट", "site", ["आपके नाम पर", "WhatsApp ऑर्डर", "मोबाइल पर तेज़"]),
-    "soft":   ("बिल अभी भी", "हाथ से बनाते हैं?", "अपना GST बिल ऐप", "bill", ["बिल तुरंत", "स्टॉक + उधार", "फ़ोन + कंप्यूटर"]),
-    "bot":    ("रात 2 बजे", "ग्राहक का मैसेज?", "24x7 जवाब देने वाला बॉट", "bot", ["24x7 जवाब", "ऑर्डर अलर्ट", "रोज़ की रिपोर्ट"]),
-    "trade":  ("अपनी स्ट्रैटेजी", "पैसा लगाने से पहले?", "बैकटेस्ट + अलर्ट", "trade", ["आपकी स्ट्रैटेजी", "आपका अकाउंट", "पहले टेस्ट"]),
-    "calc":   ("वेबसाइट पर", "अपना कैलकुलेटर?", "आपके ब्रांड का टूल", "calc", ["आपका लोगो", "लीड फ़ॉर्म", "वेबसाइट पर"]),
-    "design": ("पोस्ट और रील", "रोज़ कौन बनाए?", "ब्रांड जैसा डिज़ाइन", "list", ["बिना शूट", "हर प्लेटफ़ॉर्म", "आपके रंग"]),
-    "ecom":   ("ऑनलाइन ऑर्डर", "लेना है?", "अपनी ऑनलाइन दुकान", "menu", ["UPI पेमेंट", "WhatsApp ऑर्डर", "कम COD"]),
-    "docs":   ("Excel में", "घंटों का काम?", "मिनटों में हिसाब", "bill", ["बिना ग़लती", "Excel / PDF", "रोज़ की रिपोर्ट"]),
-    "setup":  ("सर्वर, डोमेन,", "होस्टिंग उलझन?", "हम सेट कर देंगे", "list", ["आपके अकाउंट पर", "पासवर्ड आपका", "स्क्रीन पर समझाएं"]),
-    "guide":  ("ख़ुद सीखना", "चाहते हैं?", "स्क्रीन-शेयर पर सीखें", "list", ["आपकी भाषा", "आपका समय", "हर सवाल का जवाब"]),
-    "fix":    ("वेबसाइट या फ़ॉर्म", "काम नहीं कर रहा?", "हम ठीक कर देंगे", "list", ["उसी दिन", "पहले जाँच", "फिर पैसा"]),
-    "care":   ("वेबसाइट की", "देखभाल कौन करे?", "महीने का केयर प्लान", "site", ["कभी भी बंद", "बैकअप", "छोटे बदलाव"]),
-    "micro":  ("छोटा काम", "बड़ी दिक्कत?", "हम कर देंगे", "list", ["उसी दिन", "छोटी फ़ीस", "सीधे WhatsApp"]),
+# kaam: (screen naam, chhota group, dard-sawal line1, line2, ek fayda, screen key, bolne ka naam)
+KAAM = {
+    "m-resume":  ("रिज़्यूमे", "बनाना", "नौकरी के लिए", "रिज़्यूमे चाहिए?", "उसी दिन PDF", "resume", "रिज़्यूमे"),
+    "m-form":    ("ऑनलाइन फ़ॉर्म मदद", "मदद", "ऑनलाइन फ़ॉर्म", "भरना मुश्किल लगता है?", "OTP आप ही डालें", "form", "ऑनलाइन फ़ॉर्म में मदद"),
+    "m-scholar": ("स्कॉलरशिप फ़ॉर्म", "मदद", "स्कॉलरशिप का फ़ॉर्म", "समझ नहीं आता?", "डॉक्यूमेंट लिस्ट साथ", "form", "स्कॉलरशिप फ़ॉर्म"),
+    "m-yojana":  ("किसान / पेंशन आवेदन", "मदद", "योजना का आवेदन", "कैसे करें?", "आप सामने, हम साथ", "form", "योजना के आवेदन में मदद"),
+    "m-exam":    ("परीक्षा / नौकरी फ़ॉर्म", "मदद", "नौकरी का फ़ॉर्म", "फ़ोटो साइज़ में अटका?", "फ़ोटो-साइन सही साइज़", "form", "नौकरी फ़ॉर्म"),
+    "m-docs":    ("फ़ोटो-साइन साइज़", "मदद", "फ़ोटो का साइज़", "रिजेक्ट हो जाता है?", "सही KB, सही साइज़", "docs", "फ़ोटो साइन साइज़"),
+    "m-itr1":    ("ITR-1 मदद", "मदद", "ITR भरना है", "पर डर लगता है?", "आप लॉगिन, हम साथ", "itr", "आई टी आर वन में मदद"),
+    "m-mobile":  ("मोबाइल / कंप्यूटर मदद", "मोबाइल-कंप्यूटर", "फ़ोन की सेटिंग", "उलझ गई है?", "कॉल या स्क्रीन-शेयर", "phone", "मोबाइल और कंप्यूटर मदद"),
+    "m-study":   ("प्रोजेक्ट / PPT", "बनाना", "कॉलेज प्रोजेक्ट", "कल जमा करना है?", "साफ़ डिज़ाइन", "ppt", "प्रोजेक्ट और पी पी टी"),
+    "m-letter":  ("आवेदन / पत्र", "बनाना", "आवेदन पत्र", "लिखना नहीं आता?", "सही भाषा", "letter", "आवेदन पत्र"),
+    "m-biodata": ("शादी बायोडाटा", "बनाना", "शादी का बायोडाटा", "सुंदर चाहिए?", "सुंदर डिज़ाइन", "resume", "शादी बायोडाटा"),
+    "m-typing":  ("हिंदी / इंग्लिश टाइपिंग", "बनाना", "हाथ का लिखा", "टाइप करवाना है?", "साफ़ टाइपिंग", "letter", "टाइपिंग"),
+    "s-bill":    ("GST बिल ऐप", "बनाना", "बिल अभी भी", "हाथ से बनाते हैं?", "बिल तुरंत", "bill", "जी एस टी बिल ऐप"),
+    "s-khata":   ("उधार खाता ऐप", "बनाना", "उधार अभी भी", "कॉपी में?", "हर ग्राहक का बाकी", "khata", "उधार खाता ऐप"),
+    "s-stock":   ("स्टॉक ऐप", "बनाना", "माल कब ख़त्म", "पता नहीं चलता?", "कम माल = अलर्ट", "stock", "स्टॉक ऐप"),
+    "w-1page":   ("दुकान की वेबसाइट", "बनाना", "दुकान अभी भी", "सिर्फ़ ऑफ़लाइन?", "आपके नाम पर", "site", "दुकान की वेबसाइट"),
+    "w-book":    ("बुकिंग पेज", "बनाना", "बुकिंग के लिए", "दिन भर फ़ोन?", "24 घंटे बुकिंग", "book", "बुकिंग पेज"),
+    "w-menu":    ("QR मेन्यू", "बनाना", "मेन्यू कार्ड", "पुराना हो गया?", "QR से ऑर्डर", "menu", "क्यू आर मेन्यू"),
+    "d-logo":    ("लोगो", "बनाना", "दुकान का", "लोगो नहीं है?", "आपके रंग", "list", "लोगो"),
+    "b-wa":      ("WhatsApp ऑटो-जवाब", "बनाना", "ग्राहक के मैसेज", "छूट जाते हैं?", "अपने आप जवाब", "bot", "व्हाट्सऐप ऑटो जवाब"),
+    "c-calc":    ("अपना कैलकुलेटर", "बनाना", "वेबसाइट पर", "अपना टूल?", "आपका लोगो", "calc", "अपना कैलकुलेटर"),
 }
-ITEMCOPY = {   # khaas kaam ke apne shabd
-    "m-resume":  ("नौकरी के लिए", "रिज़्यूमे चाहिए?", "रिज़्यूमे सिर्फ़ ₹10", "resume", ["साफ़ फ़ॉर्मेट", "ग़लती ठीक", "PDF उसी दिन"]),
-    "m-resume2": ("रिज़्यूमे से", "इंटरव्यू नहीं आता?", "प्रो रिज़्यूमे + LinkedIn", "resume", ["प्रो डिज़ाइन", "LinkedIn बायो", "उसी दिन"]),
-    "m-form":    ("ऑनलाइन फ़ॉर्म", "भरने में दिक्कत?", "हम मदद करेंगे", "list", ["नौकरी / एडमिशन", "OTP आप डालें", "डॉक्यूमेंट नहीं रखते"]),
-    "s-khata":   ("उधार अभी भी", "कॉपी में?", "उधार खाता ऐप", "khata", ["हर ग्राहक का बाकी", "रिमाइंडर", "फ़ोन पर"]),
-    "s-stock":   ("माल कब ख़त्म", "पता नहीं चलता?", "स्टॉक अलर्ट ऐप", "stock", ["कम माल = अलर्ट", "रोज़ का हिसाब", "फ़ोन पर"]),
-    "w-book":    ("बुकिंग के लिए", "दिन भर फ़ोन?", "ऑनलाइन बुकिंग पेज", "book", ["ख़ाली स्लॉट", "WhatsApp कन्फ़र्म", "24x7"]),
-    "w-menu":    ("मेन्यू कार्ड", "पुराना हो गया?", "QR मेन्यू + ऑर्डर", "menu", ["QR स्कैन", "सीधा ऑर्डर", "रेट बदलना आसान"]),
-    "m-any":     ("कोई भी", "कंप्यूटर का काम?", "लिखिए, हम करेंगे", "list", ["छोटा या बड़ा", "लिखित क़ीमत", "पहले डेमो"]),
-}
-SHOTS = pathlib.Path(__file__).with_name("assets") / "svc"
-
-
-def copy_for(item):
-    return ITEMCOPY.get(item["id"]) or CATCOPY.get(item["cat"]) or CATCOPY["micro"]
-
+GROUP_NEED = {"मदद": 2, "मोबाइल-कंप्यूटर": 1, "बनाना": 3}
 
 # ---------------------------------------------------------------- record (lifetime)
 def _hist():
@@ -105,48 +115,90 @@ def _hist_add(row):
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
-def pick_day(seed=None):
-    """Aaj ka kaam (kam chala hua, 30 din mein nahi) + 4 brand ke liye 4 alag (look, hook, layout) - zindagi bhar naya."""
+def _key(row):
+    return (tuple(sorted(row.get("set") or [row.get("item")])), row.get("look"), row.get("hook"), row.get("lay"))
+
+
+def pick_day(seed=None, day=None):
+    """Aaj ke 4 video: har brand ka apna 6-kaam set + look + hook + layout + slot. Zindagi bhar koi (set,look,hook,lay) dohra nahi.
+    -> plan {brand: {"set": [ids], "look", "hook", "lay", "slot", "lead": id|None, "season": {...}|None}}"""
     from . import svc
-    R = svc.rates()
+    R = svc.rates()["by"]
+    rnd = random.Random(seed if seed is not None else time.time())
+    day = day or str(datetime.date.today())
     H_ = _hist()
-    used = {(h["item"], h["look"], h["hook"], h["lay"]) for h in H_}
+    used = {_key(h) for h in H_}
     cnt = {}
-    recent = set()
-    cut = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
     for h in H_:
-        cnt[h["item"]] = cnt.get(h["item"], 0) + 1
-        if h.get("day", "") >= cut:
-            recent.add(h["item"])
-    rnd = random.Random(seed or time.time())
-    pool = [i for i in R["items"] if i["id"] not in recent and i["cat"] not in ("care",)] or R["items"]
-    pool.sort(key=lambda i: (cnt.get(i["id"], 0), rnd.random()))
-    item = pool[0]
-    combos = [(lk, hk, ly) for lk in LOOKS for hk in range(len(HOOKS)) for ly in ("L", "R")
-              if (item["id"], lk, hk, ly) not in used]
-    rnd.shuffle(combos)
-    out, seen_l, seen_h = {}, set(), set()
-    for b in BRANDS:
-        pref = "pahad" if b == "pahadi" else None
-        c = next((x for x in combos if x[0] not in seen_l and x[1] not in seen_h and (not pref or x[0] == pref)), None) \
-            or next((x for x in combos if x[0] not in seen_l and x[1] not in seen_h), None) or (combos[0] if combos else None)
-        if not c:
-            continue
-        combos.remove(c)
-        seen_l.add(c[0])
-        seen_h.add(c[1])
-        out[b] = {"look": c[0], "hook": c[1], "lay": c[2]}
-    return item, out
+        for i in h.get("set") or [h.get("item")]:
+            cnt[i] = cnt.get(i, 0) + 1
+    pool = {g: [k for k, v in KAAM.items() if v[1] == g and k in R] for g in GROUP_NEED}
+    try:
+        season = svc.season_due(7, day)
+    except Exception:
+        season = []
+    try:
+        sale = svc.offer(day)["sale"]["item"]
+    except Exception:
+        sale = None
+    brands = list(BRANDS)
+    k_ = (datetime.date.fromisoformat(day).toordinal()) % len(brands)
+    order = brands[k_:] + brands[:k_]                    # har din brand ka slot badle
+    plan, looks_today, hooks_today = {}, set(), set()
+    for bi, b in enumerate(order):
+        for _try in range(400):
+            s_ = []
+            lead = None
+            if season and bi == 0 and season[0]["item"] in KAAM:
+                lead = season[0]["item"]
+                s_.append(lead)
+            if sale in KAAM and sale not in s_ and rnd.random() < .5:
+                s_.append(sale)
+            for g, n in GROUP_NEED.items():
+                have = sum(1 for x in s_ if KAAM[x][1] == g)
+                c_ = [x for x in pool[g] if x not in s_]
+                c_.sort(key=lambda x: (cnt.get(x, 0) + rnd.random() * 3))
+                s_ += c_[:max(0, n - have)]
+            if "m-resume" not in s_ and rnd.random() < .6:      # ₹10 resume aksar dikhe
+                s_[-1] = "m-resume"
+            s_ = list(dict.fromkeys(s_))[:N_KAAM]
+            while len(s_) < N_KAAM:
+                extra = [x for x in KAAM if x in R and x not in s_]
+                s_.append(rnd.choice(extra))
+            if not lead:
+                rnd.shuffle(s_)
+            lk = rnd.choice([x for x in LOOKS if x not in looks_today] or list(LOOKS))
+            if b == "pahadi" and "pahad" not in looks_today and rnd.random() < .5:
+                lk = "pahad"
+            hk = rnd.choice([x for x in range(len(HOOKS)) if x not in hooks_today] or list(range(len(HOOKS))))
+            ly = rnd.choice("LR")
+            row = {"set": s_, "look": lk, "hook": hk, "lay": ly}
+            if _key(row) not in used:
+                break
+        looks_today.add(lk)
+        hooks_today.add(hk)
+        used.add(_key(row))
+        row.update(slot=SLOTS[bi % len(SLOTS)], lead=lead, season=season[0] if lead else None)
+        plan[b] = row
+    return plan
 
 
 # ---------------------------------------------------------------- drawing helpers
+_FONT = {}
+
+
 def _font(size, weight="ExtraBold"):
-    f = ImageFont.truetype(str(ASSETS / "Baloo2.ttf"), size, layout_engine=ImageFont.Layout.RAQM)
-    try:
-        f.set_variation_by_name(weight)
-    except Exception:
-        pass
-    return f
+    k = (size, weight)
+    if k not in _FONT:
+        f = ImageFont.truetype(str(ASSETS / "Baloo2.ttf"), size, layout_engine=ImageFont.Layout.RAQM)
+        try:
+            f.set_variation_by_name(weight)
+        except Exception:
+            pass
+        if len(_FONT) > 300:
+            _FONT.clear()
+        _FONT[k] = f
+    return _FONT[k]
 
 
 def _hex(c):
@@ -172,10 +224,22 @@ def _tick(d, cx, cy, r, color=(20, 20, 20)):
 
 def _fit(text, size, maxw, weight="ExtraBold"):
     f = _font(size, weight)
-    while size > 30 and f.getlength(text) > maxw:
+    while size > 28 and f.getlength(text) > maxw:
         size -= 4
         f = _font(size, weight)
     return f
+
+
+class Canvas:
+    """Har text ka dabba yaad rakhta hai - audit round 3 (frame ke bahar / aapas mein chadha) isi se."""
+    def __init__(self, im):
+        self.im, self.boxes = im, []
+        self.d = ImageDraw.Draw(im)
+
+    def text(self, xy, s, font, fill, anchor="mm", tag=""):
+        self.d = ImageDraw.Draw(self.im)
+        self.d.text(xy, s, font=font, fill=fill, anchor=anchor)
+        self.boxes.append((self.d.textbbox(xy, s, font=font, anchor=anchor), s, tag))
 
 
 def _bg(look):
@@ -187,7 +251,7 @@ def _bg(look):
     im = g.resize((W, H)).convert("RGBA")
     d = ImageDraw.Draw(im)
     dot = tuple(max(0, c - 22) for c in bot)
-    for y in range(40, H, 56):                       # halki bindi-jaali (saaf premium look)
+    for y in range(40, H, 56):
         for x in range(40, W, 56):
             d.ellipse((x - 2, y - 2, x + 2, y + 2), fill=(*dot, 90))
     return im
@@ -197,9 +261,8 @@ _SH = {}
 
 
 def _card(im, box, r=40, fill=(255, 255, 255), shadow=26):
-    """Safed card + naram parchhai (parchhai size ke hisaab se cache - tez)."""
     x0, y0, x1, y1 = (int(v) for v in box)
-    w, h = x1 - x0, y1 - y0
+    w, h = max(1, x1 - x0), max(1, y1 - y0)
     key = (w, h, r, shadow)
     sh = _SH.get(key)
     if sh is None:
@@ -207,7 +270,7 @@ def _card(im, box, r=40, fill=(255, 255, 255), shadow=26):
         sh = Image.new("RGBA", (w + 2 * pad, h + 2 * pad), (0, 0, 0, 0))
         ImageDraw.Draw(sh).rounded_rectangle((pad, pad + 14, pad + w, pad + h + 14), r, fill=(0, 0, 0, shadow * 3))
         sh = sh.filter(ImageFilter.GaussianBlur(22))
-        if len(_SH) > 200:
+        if len(_SH) > 300:
             _SH.clear()
         _SH[key] = sh
     px, py = x0 - 50, y0 - 50
@@ -216,13 +279,63 @@ def _card(im, box, r=40, fill=(255, 255, 255), shadow=26):
     ImageDraw.Draw(im).rounded_rectangle((x0, y0, x1, y1), r, fill=fill)
 
 
-def _phone_shot(key, t_scroll, ph_w=560):
-    """Asli demo ka screenshot phone frame mein, dheere scroll hota hua."""
+def _mock(key, w=520):
+    """Jin kaam ka asli screenshot nahi (form, ITR, phone, PPT, patra, docs) - saaf NAMOONA screen (koi sarkari logo/naam nahi)."""
+    f_h, f_b, f_s = _font(34), _font(28, "SemiBold"), _font(24, "Medium")
+    im = Image.new("RGB", (w, 1000), (248, 250, 251))
+    d = ImageDraw.Draw(im)
+    d.rectangle((0, 0, w, 96), fill=(15, 118, 110))
+    title = {"form": "आवेदन फ़ॉर्म (नमूना)", "itr": "टैक्स सारांश (नमूना)", "phone": "फ़ोन सेटिंग", "ppt": "प्रोजेक्ट स्लाइड",
+             "letter": "आवेदन पत्र", "docs": "फ़ोटो / साइन"}.get(key, "नमूना")
+    d.text((24, 48), title, font=f_h, fill=(255, 255, 255), anchor="lm")
+    y = 130
+    if key == "form":
+        for lab, val in [("नाम", "रमेश कुमार"), ("जन्म तिथि", "12-05-2004"), ("मोबाइल", "98•••••210"), ("पता", "गाँव / शहर"),
+                         ("फ़ोटो", "ठीक · 45 KB"), ("हस्ताक्षर", "ठीक · 18 KB")]:
+            d.text((24, y), lab, font=f_s, fill=(90, 100, 110), anchor="lm")
+            d.rounded_rectangle((24, y + 18, w - 24, y + 82), 12, fill=(255, 255, 255), outline=(210, 220, 225), width=2)
+            d.text((44, y + 50), val, font=f_b, fill=(30, 40, 50), anchor="lm")
+            y += 120
+        d.rounded_rectangle((24, y + 6, w - 24, y + 76), 14, fill=(15, 118, 110))
+        d.text((w // 2, y + 41), "जमा करें (OTP आप डालें)", font=f_b, fill=(255, 255, 255), anchor="mm")
+    elif key == "itr":
+        for lab, val in [("कुल आय", "₹4,80,000"), ("कटौती (80C)", "₹50,000"), ("कर योग्य आय", "₹4,30,000"),
+                         ("TDS कटा", "₹0"), ("देय कर", "₹0"), ("स्थिति", "जाँच के बाद जमा")]:
+            d.rounded_rectangle((24, y, w - 24, y + 96), 14, fill=(255, 255, 255), outline=(220, 228, 232), width=2)
+            d.text((44, y + 48), lab, font=f_s, fill=(90, 100, 110), anchor="lm")
+            d.text((w - 44, y + 48), val, font=f_b, fill=(30, 40, 50), anchor="rm")
+            y += 116
+    elif key == "phone":
+        for lab, on in [("Wi-Fi", 1), ("मोबाइल डेटा", 1), ("UPI ऐप", 1), ("ईमेल खाता", 1), ("बैकअप", 0), ("स्टोरेज साफ़", 1)]:
+            d.rounded_rectangle((24, y, w - 24, y + 96), 14, fill=(255, 255, 255))
+            d.text((44, y + 48), lab, font=f_b, fill=(30, 40, 50), anchor="lm")
+            cx = w - 90
+            d.rounded_rectangle((cx - 40, y + 30, cx + 40, y + 66), 18, fill=(15, 118, 110) if on else (200, 205, 210))
+            d.ellipse((cx + (4 if on else -36), y + 32, cx + (36 if on else -4), y + 64), fill=(255, 255, 255))
+            y += 112
+    elif key == "ppt":
+        for i in range(3):
+            d.rounded_rectangle((24, y, w - 24, y + 250), 16, fill=(255, 255, 255), outline=(220, 228, 232), width=2)
+            d.rectangle((24, y, w - 24, y + 56), fill=(47, 84, 235))
+            d.text((44, y + 28), f"स्लाइड {i + 1}", font=f_b, fill=(255, 255, 255), anchor="lm")
+            for j in range(3):
+                d.rounded_rectangle((44, y + 82 + j * 50, w - 44 - j * 60, y + 104 + j * 50), 8, fill=(226, 232, 240))
+            y += 280
+    else:   # letter / docs
+        d.text((24, y), "सेवा में,", font=f_b, fill=(30, 40, 50), anchor="lm")
+        y += 60
+        for j in range(12):
+            d.rounded_rectangle((24, y, w - 24 - (j % 3) * 70, y + 20), 8, fill=(226, 232, 240))
+            y += 50
+    return im
+
+
+def _phone_shot(key, t_scroll, ph_w=470):
     sw = ph_w - 36
     shot = _SH.get(("shot", key, sw))
     if shot is None:
         f = SHOTS / f"{key}.jpg"
-        shot = Image.open(f).convert("RGB") if f.exists() else Image.new("RGB", (520, 900), (245, 247, 248))
+        shot = Image.open(f).convert("RGB") if f.exists() else _mock(key)
         shot = shot.resize((sw, int(shot.height * sw / shot.width)), Image.LANCZOS)
         _SH[("shot", key, sw)] = shot
     sh_h = int(ph_w * 1.9) - 36
@@ -231,151 +344,343 @@ def _phone_shot(key, t_scroll, ph_w=560):
     view.paste(shot.crop((0, off, sw, min(shot.height, off + sh_h))), (0, 0))
     ph = Image.new("RGBA", (ph_w + 80, int(ph_w * 1.9) + 80), (0, 0, 0, 0))
     sd = Image.new("RGBA", ph.size, (0, 0, 0, 0))
-    ImageDraw.Draw(sd).rounded_rectangle((40, 58, ph_w + 40, int(ph_w * 1.9) + 58), 64, fill=(0, 0, 0, 110))
+    ImageDraw.Draw(sd).rounded_rectangle((40, 58, ph_w + 40, int(ph_w * 1.9) + 58), 60, fill=(0, 0, 0, 110))
     ph.alpha_composite(sd.filter(ImageFilter.GaussianBlur(24)))
     d = ImageDraw.Draw(ph)
-    d.rounded_rectangle((40, 40, ph_w + 40, int(ph_w * 1.9) + 40), 64, fill=(20, 22, 26))
+    d.rounded_rectangle((40, 40, ph_w + 40, int(ph_w * 1.9) + 40), 60, fill=(20, 22, 26))
     m = Image.new("L", view.size, 0)
-    ImageDraw.Draw(m).rounded_rectangle((0, 0, *view.size), 46, fill=255)
+    ImageDraw.Draw(m).rounded_rectangle((0, 0, *view.size), 42, fill=255)
     ph.paste(view, (58, 58), m)
-    d.rounded_rectangle((40 + ph_w // 2 - 70, 70, 40 + ph_w // 2 + 70, 92), 11, fill=(20, 22, 26))
+    d.rounded_rectangle((40 + ph_w // 2 - 60, 68, 40 + ph_w // 2 + 60, 88), 10, fill=(20, 22, 26))
     return ph
 
 
-def _marker(im, xy, text, font, brand, dark):
-    """Highlight-marker wala shabd (bade ad jaisa)."""
-    d = ImageDraw.Draw(im)
+def _marker(cv, xy, text, font, brand, tag=""):
+    d = ImageDraw.Draw(cv.im)
     bx = d.textbbox(xy, text, font=font, anchor="mm")
     pad = 18
     d.rounded_rectangle((bx[0] - pad, bx[1] - pad // 2, bx[2] + pad, bx[3] + pad // 2), 18, fill=brand)
-    d.text(xy, text, font=font, fill=(255, 255, 255), anchor="mm")
+    cv.text(xy, text, font, (255, 255, 255), tag=tag)
+
+
+def _chips(im, cv, rows, y0, cur, br, dk, k=1.0):
+    """Neeche 6 kaam ki patti (2x3) - dekhne wale ko ek saath dikhe 'kitne tarah ke kaam'. cur = abhi wala (rang mein)."""
+    cw, ch, gap = 300, 96, 24
+    x_start = (W - (3 * cw + 2 * gap)) // 2
+    for n, r in enumerate(rows):
+        col, row = n % 3, n // 2 if False else n // 3
+        x0 = x_start + col * (cw + gap)
+        yy = y0 + row * (ch + gap) + int((1 - k) * 300)
+        on = n == cur
+        _card(im, (x0, yy, x0 + cw, yy + ch), 30, fill=br if on else (255, 255, 255), shadow=10)
+        nm = r["name"]
+        cv.text((x0 + cw // 2, yy + 34), nm, _fit(nm, 30, cw - 30, "SemiBold"), (255, 255, 255) if on else dk,
+                tag=("~" if k < .999 else "") + f"chip{n}")
+        pr = _rs(r["price"]) + " से"
+        cv.text((x0 + cw // 2, yy + 70), pr, _font(28, "ExtraBold"), (255, 255, 255) if on else br,
+                tag=("~" if k < .999 else "") + f"chipp{n}")
+
+
+def _rs(n):
+    s = f"{int(n):,}"
+    if int(n) >= 100000:                      # bharatiya ginti (1,00,000)
+        x = str(int(n))
+        s = re.sub(r"(\d)(?=(\d\d)+\d$)", r"\1,", x[:-3]) + "," + x[-3:]
+    return "₹" + s
+
+
+def _price_of(iid, R, sale):
+    it = R[iid]
+    if sale and sale.get("item") == iid:
+        return sale["now"], it["price"]
+    return it["price"], None
+
+
+def ctx_for(v, brand, day=None):
+    """Video ka saara likha/bola (audit isi ko jaanchta hai)."""
+    from . import svc
+    R = svc.rates()["by"]
+    try:
+        o = svc.offer(day)
+        sale = o["sale"] if o["sale"]["start"] <= (day or str(datetime.date.today())) <= o["sale"]["end"] else None
+    except Exception:
+        sale = None
+    lead = v["set"][0]
+    k = KAAM[lead]
+    hook = HOOKS[v["hook"]]
+    q1, q2 = k[2], k[3]
+    season = v.get("season")
+    if season:
+        d_ = datetime.date.fromisoformat(season["date"])
+        q1, q2 = f"{k[0]} की आख़िरी तारीख़", f"{d_.day}/{d_.month}/{d_.year}"
+    rows = []
+    for iid in v["set"]:
+        p_, old = _price_of(iid, R, sale)
+        rows.append({"id": iid, "name": KAAM[iid][0], "group": KAAM[iid][1], "ben": KAAM[iid][4], "shot": KAAM[iid][5],
+                     "say": KAAM[iid][6], "price": p_, "was": old, "market": R[iid]["market"][0], "sale_end": sale["end"] if old else ""})
+    say = (f"{hook[1]} {q1} {q2} {TAG1}, {TAG2}। " +
+           "। ".join(f"{r['say']}, {r['price']} रुपये से" for r in rows) +
+           "। हिंदी में लिखिए, जैसे घर में बोलते हैं, इंग्लिश ज़रूरी नहीं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका। "
+           "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम स्लैश सर्विसेज़ लिस्ट।")
+    return {"day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": hook[0], "q1": q1, "q2": q2, "rows": rows, "say": say,
+            "season": season, "sale": sale}
 
 
 # ---------------------------------------------------------------- one frame
-def frame(item, v, t, brand, cache):
-    look, lay = v["look"], v["lay"]
+def frame(cx_, t, cache, reg=None):
+    """cx_ = ctx_for(...). reg = list -> is frame ke text dabbe (audit ke liye)."""
+    look, lay = cx_["look"], cx_["lay"]
     c1, c2, br, dk = (_hex(c) for c in LOOKS[look])
-    q1, q2, sol, shot, ben = copy_for(item)
     if "bg" not in cache:
         cache["bg"] = _bg(look)
     im = cache["bg"].copy()
-    d = ImageDraw.Draw(im)
+    cv = Canvas(im)
     side = 1 if lay == "R" else -1
-    kick = HOOKS[v["hook"]][0].format(pv=f"{item['price']:,}")
-    # upar: brand chip + progress patti (har frame)
+    d = ImageDraw.Draw(im)
     d.rounded_rectangle((60, 70, 60 + int((W - 120) * min(1, t / DUR)), 78), 4, fill=br)
-    # S1 0-2.8: sawal
-    if t < 2.8:
-        k = _back(t / .55)
-        f_k = _font(52, "SemiBold")
-        d.text((W // 2, 620), kick, font=f_k, fill=br, anchor="mm")
-        f = _fit(max(q1, q2, key=len), int(132 * max(.25, k)), W - 120)
-        d.text((W // 2, 800), q1, font=f, fill=dk, anchor="mm")
-        _marker(im, (W // 2, 970), q2, f, br, dk)
-        if t > 1.2:
+    # S0 hook
+    if t < T_HOOK:
+        k = _back(t / .5)
+        cv.text((W // 2, 600), cx_["kick"], _font(54, "SemiBold"), br, tag="kick")
+        f = _fit(max(cx_["q1"], cx_["q2"], key=len), int(120 * max(.3, k)), W - 160)
+        cv.text((W // 2, 790), cx_["q1"], f, dk, tag="q1")
+        _marker(cv, (W // 2, 960), cx_["q2"], f, br, tag="q2")
+        if t > 1.1:
             d = ImageDraw.Draw(im)
-            d.polygon([(W // 2 - 40, 1150), (W // 2 + 40, 1150), (W // 2, 1210)], fill=br)
-    # S2 2.6-8.2: hal + asli phone
-    if 2.6 <= t < 16.6:
-        k = _ease((t - 2.6) / .6)
-        f_s = _fit(sol, 92, W - 120)
-        ytxt = 300 if t < 8.0 else 300
-        d.text((W // 2, ytxt), sol, font=f_s, fill=dk, anchor="mm")
-        chip = "असली डेमो · sabhisaab.com"
-        fc = _font(34, "SemiBold")
-        cw = fc.getlength(chip) + 60
-        d.rounded_rectangle((W // 2 - cw // 2, 380, W // 2 + cw // 2, 440), 30, fill=(255, 255, 255))
-        d.text((W // 2, 410), chip, font=fc, fill=br, anchor="mm")
-        key = ("ph", int((t - 2.6) * 6))
+            d.polygon([(W // 2 - 36, 1150), (W // 2 + 36, 1150), (W // 2, 1205)], fill=br)
+    # S1 tagline
+    elif t < T_LIST0:
+        k = _back((t - T_HOOK) / .5)
+        f = _fit(TAG1, int(124 * max(.3, k)), W - 140)
+        cv.text((W // 2, 760), TAG1, f, dk, tag="tag1")
+        _marker(cv, (W // 2, 930), TAG2, f, br, tag="tag2")
+        chip = "₹10 से शुरू  ·  मदद · बनाना · मोबाइल-कंप्यूटर"
+        fc = _fit(chip, 40, W - 200, "SemiBold")
+        cw = fc.getlength(chip) + 70
+        _card(im, (W // 2 - cw // 2, 1100, W // 2 + cw // 2, 1180), 40, shadow=12)
+        cv.text((W // 2, 1140), chip, fc, br, tag="chip")
+        _chips(im, cv, cx_["rows"], 1300, -1, br, dk, _ease((t - T_HOOK - .3) / .5))
+    # S2 kaam list
+    elif t < T_HINDI:
+        i = min(N_KAAM - 1, int((t - T_LIST0) // T_K))
+        r = cx_["rows"][i]
+        lt = (t - T_LIST0) - i * T_K
+        sd = side if i % 2 == 0 else -side
+        k = _ease(lt / .4)
+        cv.text((W // 2, 210), f"काम {i + 1} / {N_KAAM}  ·  {r['group']}", _font(40, "SemiBold"), br, tag="num")
+        cv.text((W // 2, 310), r["name"], _fit(r["name"], 92, W - 140), dk, tag="name")
+        key = ("ph", r["shot"], int(lt * 5))
         ph = cache.get(key)
         if ph is None:
-            ph = _phone_shot(shot, min(1, max(0, (t - 3.4) / 4.6)))
-            cache.clear() if len(cache) > 40 else None
-            cache["bg"] = cache.get("bg") or _bg(look)
+            ph = _phone_shot(r["shot"], min(1, max(0, (lt - .5) / 2.0)))
+            if len(cache) > 60:
+                bg = cache["bg"]
+                cache.clear()
+                cache["bg"] = bg
             cache[key] = ph
-        sc = .98 if t < 8.0 else .98 - .24 * _ease((t - 8.0) / .6)
-        phs = ph.resize((int(ph.width * sc), int(ph.height * sc)), Image.BILINEAR)
-        cx = W // 2 if t < 8.0 else int(W // 2 + side * 240 * _ease((t - 8.0) / .6))
-        y0 = 480 + int((1 - k) * 900)
-        if t >= 8.0:
-            y0 = int(480 + 380 * _ease((t - 8.0) / .6))  # 860 tak
-        im.alpha_composite(phs, (cx - phs.width // 2, y0))
-        d = ImageDraw.Draw(im)
-    # S3 8-16.6: daam card (phone ke bagal mein)
-    if 8.0 <= t < 16.6:
-        k = _back((t - 8.0) / .6)
-        cx = W // 2 - side * 250
-        x0, x1 = cx - 230, cx + 230
+        px = W // 2 + sd * 230 - ph.width // 2 + int((1 - k) * sd * 700)
+        im.alpha_composite(ph, (px, 420))
+        ccx = W // 2 - sd * 255
+        x0, x1 = ccx - 215, ccx + 215
         _card(im, (x0, 560, x1, 900), 44)
-        d = ImageDraw.Draw(im)
-        d.text((cx, 620), "सिर्फ़", font=_font(44, "SemiBold"), fill=dk, anchor="mm")
-        fp = _fit(f"₹{item['price']:,}", int(150 * max(.2, k)), 420)
-        d.text((cx, 720), f"₹{item['price']:,}", font=fp, fill=br, anchor="mm")
-        d.text((cx, 820), "से शुरू", font=_font(44, "SemiBold"), fill=dk, anchor="mm")
-        if t > 8.9:
-            mk = f"बाज़ार में ₹{item['market'][0]:,}+"
-            fm = _font(38, "SemiBold")
-            d.text((cx, 950), mk, font=fm, fill=(120, 120, 120), anchor="mm")
-            bx = d.textbbox((cx, 950), mk, font=fm, anchor="mm")
-            d.line((bx[0], (bx[1] + bx[3]) // 2, bx[0] + (bx[2] - bx[0]) * _ease((t - 8.9) / .5), (bx[1] + bx[3]) // 2),
-                   fill=(224, 49, 49), width=6)
-        # S4 fayde (daam ke neeche)
-        for i, b in enumerate(ben):
-            kk = _ease((t - 11.0 - i * .45) / .45)
+        cv.text((ccx, 620), "सिर्फ़", _font(42, "SemiBold"), dk, tag="p1")
+        cv.text((ccx, 720), _rs(r["price"]), _fit(_rs(r["price"]), int(130 * max(.3, _back(lt / .5))), 390), br, tag="price")
+        cv.text((ccx, 820), "से शुरू", _font(42, "SemiBold"), dk, tag="p2")
+        old = f"बाज़ार {_rs(r['market'])}+" if not r["was"] else f"पहले {_rs(r['was'])}"
+        fm = _fit(old, 38, 400, "SemiBold")
+        cv.text((ccx, 950), old, fm, (120, 120, 120), tag="old")
+        bx = ImageDraw.Draw(im).textbbox((ccx, 950), old, font=fm, anchor="mm")
+        ImageDraw.Draw(im).line((bx[0], (bx[1] + bx[3]) // 2, bx[0] + (bx[2] - bx[0]) * _ease((lt - .5) / .4),
+                                 (bx[1] + bx[3]) // 2), fill=(224, 49, 49), width=6)
+        kk = _ease((lt - .7) / .4)
+        if kk > 0:
+            _card(im, (x0, 1030, x1, 1140), 52, shadow=14)
+            d = ImageDraw.Draw(im)
+            d.ellipse((x0 + 16, 1046, x0 + 94, 1124), fill=br)
+            _tick(d, x0 + 55, 1085, 24, (255, 255, 255))
+            cv.text((x0 + 112, 1085), r["ben"], _fit(r["ben"], 40, x1 - x0 - 130, "SemiBold"), dk, anchor="lm", tag="ben")
+        _chips(im, cv, cx_["rows"], 1420, i, br, dk)
+        if r["was"]:
+            se = datetime.date.fromisoformat(r["sale_end"])
+            cv.text((ccx, 1200), f"इस हफ़्ते · {se.day}/{se.month} तक", _font(36, "SemiBold"), (224, 49, 49), tag="sale")
+    # S3 bhasha + referral
+    elif t < T_CTA:
+        lt = t - T_HINDI
+        for j, (a, b) in enumerate([("हिंदी में लिखिए,", "जैसे घर में बोलते हैं"), ("English ज़रूरी नहीं", "शर्म की कोई बात नहीं"),
+                                    ("दोस्त को भेजिए —", "उसके बिल का 10% आपका")]):
+            kk = _ease((lt - j * .5) / .45)
             if kk <= 0:
                 continue
-            yb = 1040 + i * 132
-            xa = x0 + int((1 - kk) * -side * 500)
-            _card(im, (xa, yb, xa + 460, yb + 104), 52, shadow=14)
-            d = ImageDraw.Draw(im)
-            d.ellipse((xa + 16, yb + 16, xa + 88, yb + 88), fill=br)
-            _tick(d, xa + 52, yb + 52, 22, (255, 255, 255))
-            d.text((xa + 108, yb + 52), b, font=_fit(b, 44, 330, "SemiBold"), fill=dk, anchor="lm")
-        nm = item["name"] if len(item["name"]) < 44 else item["name"][:42] + "…"
-        d.text((W // 2, 1790), nm, font=_fit(nm, 40, W - 140, "Medium"), fill=dk, anchor="mm")
-    # S5 16.4-20: CTA (brand rang par safed)
-    if t >= 16.4:
-        k = _ease((t - 16.4) / .45)
-        ov = Image.new("RGBA", (W, H), (*br, int(255 * k)))
-        im.alpha_composite(ov)
-        d = ImageDraw.Draw(im)
-        kb = _back((t - 16.5) / .6)
-        d.text((W // 2, 560), BRANDS[brand]["name"], font=_font(54, "SemiBold"), fill=(255, 255, 255), anchor="mm")
-        d.text((W // 2, 720), "अपना काम लिखिए", font=_font(int(120 * max(.2, kb))), fill=(255, 255, 255), anchor="mm")
-        d.text((W // 2, 850), "लिस्ट में नहीं? कोई भी काम — बताइए", font=_font(50, "SemiBold"), fill=(255, 255, 255), anchor="mm")
-        pul = 1 + .035 * math.sin(t * 7)
-        bw, bh = int(900 * pul), int(140 * pul)
-        _card(im, (W // 2 - bw // 2, 980, W // 2 + bw // 2, 980 + bh), 70, shadow=30)
-        d = ImageDraw.Draw(im)
-        d.text((W // 2, 980 + bh // 2), SITE_TXT, font=_font(56), fill=br, anchor="mm")
-        d.text((W // 2, 1230), "पहले डेमो  ·  2 बदलाव  ·  आपके नाम पर", font=_font(44, "SemiBold"),
-               fill=(255, 255, 255), anchor="mm")
-        d.text((W // 2, 1330), f"रिज़्यूमे ₹10 से  ·  फ़ॉर्म मदद ₹49", font=_font(44, "SemiBold"), fill=(255, 255, 255), anchor="mm")
-    d.text((W // 2, H - 60), BRANDS[brand]["name"] + " · Services", font=_font(34, "SemiBold"),
-           fill=(255, 255, 255) if t >= 16.6 else dk, anchor="mm")
+            y0 = 520 + j * 330
+            xo = int((1 - kk) * (900 if j % 2 else -900))
+            _card(im, (110 + xo, y0, W - 110 + xo, y0 + 250), 50, fill=(255, 255, 255) if j < 2 else br)
+            col = dk if j < 2 else (255, 255, 255)
+            mv = "~" if kk < .999 else ""                # andar aate hue (animation) - audit bahar-jaanch nahi karta
+            cv.text((W // 2 + xo, y0 + 85), a, _fit(a, 66, W - 300), col, tag=f"{mv}h{j}a")
+            cv.text((W // 2 + xo, y0 + 170), b, _fit(b, 52, W - 300, "SemiBold"), br if j < 2 else (255, 255, 255), tag=f"{mv}h{j}b")
+    # S4 CTA
+    else:
+        k = _ease((t - T_CTA) / .45)
+        im.alpha_composite(Image.new("RGBA", (W, H), (*br, int(255 * k))))
+        kb = _back((t - T_CTA - .1) / .6)
+        cv.text((W // 2, 520), BRANDS[cx_["brand"]]["name"], _font(52, "SemiBold"), (255, 255, 255), tag="bn")
+        cv.text((W // 2, 680), TAG1, _fit(TAG1, int(112 * max(.3, kb)), W - 140), (255, 255, 255), tag="c1")
+        cv.text((W // 2, 810), "— " + TAG2 + " —", _fit(TAG2, int(96 * max(.3, kb)), W - 200), (255, 255, 255), tag="c2")
+        pul = 1 + .03 * math.sin(t * 7)
+        bw, bh = int(880 * pul), int(136 * pul)
+        _card(im, (W // 2 - bw // 2, 950, W // 2 + bw // 2, 950 + bh), 68, shadow=30)
+        cv.text((W // 2, 950 + bh // 2), SITE_TXT, _fit(SITE_TXT, 56, bw - 80), br, tag="site")
+        cv.text((W // 2, 1200), "कमेंट में अपना काम लिखिए", _font(54, "SemiBold"), (255, 255, 255), tag="cm")
+        cv.text((W // 2, 1300), "रिज़्यूमे ₹10  ·  फ़ॉर्म मदद ₹49  ·  मोबाइल मदद ₹49", _fit("रिज़्यूमे ₹10  ·  फ़ॉर्म मदद ₹49  ·  मोबाइल मदद ₹49", 42, W - 140, "SemiBold"),
+                (255, 255, 255), tag="lst")
+        cv.text((W // 2, 1400), "पहले बात  ·  फिर रेट  ·  फिर काम", _font(42, "SemiBold"), (255, 255, 255), tag="steps")
+        code = CODES.get(cx_["brand"])
+        if code:
+            cl = f"कोड {code} = 10% तक छूट"
+            fc_ = _font(44)
+            cw_ = fc_.getlength(cl) + 70
+            ImageDraw.Draw(im).rounded_rectangle((W // 2 - cw_ // 2, 1480, W // 2 + cw_ // 2, 1570), 45, outline=(255, 255, 255), width=4)
+            cv.text((W // 2, 1525), cl, fc_, (255, 255, 255), tag="code")
+    cv.text((W // 2, H - 70), BRANDS[cx_["brand"]]["name"] + " · Services", _font(34, "SemiBold"),
+            (255, 255, 255) if t >= T_CTA + .3 else dk, tag="foot")
+    if reg is not None:
+        reg.extend(cv.boxes)
     return im.convert("RGB")
 
 
+# ---------------------------------------------------------------- 5 round audit
+BAN = [r"\bAI\b", r"एआई", r"artificial", r"chat ?gpt", r"gemini", r"insaan", r"इंसान", r"guarantee", r"गारंटी", r"पक्का रिफ़ंड",
+       r"pakka refund", r"refund pakka", r"सिर्फ़ आज", r"sirf aaj", r"आख़िरी मौका", r"last chance", r"slot bache", r"स्लॉट बचे",
+       r"manoj", r"मनोज", r"pandey", r"पांडे", r"सरकारी विभाग", r"government official", r"\bDM\b", r"link (comment|maango)",
+       r"comment link", r"100% (pakka|guaranteed)", r"approve (pakka|guaranteed)", r"selection pakka"]
+
+
+def _glyph_ok(text):
+    try:
+        from fontTools.ttLib import TTFont
+        if "cmap" not in _FONT:
+            _FONT["cmap"] = TTFont(str(ASSETS / "Baloo2.ttf")).getBestCmap()
+        cm = _FONT["cmap"]
+        return [c for c in text if not c.isspace() and ord(c) not in cm and ord(c) not in (0x200C, 0x200D)]
+    except Exception:
+        return []
+
+
+def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
+    """-> (ok, report_lines). Round 1-4 (5 = owner ✅ manzoori). Koi bhi ❌ = publish nahi."""
+    from . import svc
+    R = svc.rates()["by"]
+    bad, good = [], []
+    # 1 TATHYA
+    try:
+        o = svc.offer(cx_.get("day"))
+    except Exception:
+        o = {"sale": {}}
+    for r in cx_["rows"]:
+        it = R.get(r["id"])
+        if not it:
+            bad.append(f"1 tathya: {r['id']} rate list mein nahi")
+            continue
+        okp = r["price"] == it["price"] or (r["was"] and o["sale"].get("item") == r["id"] and r["price"] == o["sale"]["now"]
+                                            and r["price"] >= it["floor"])
+        if not okp:
+            bad.append(f"1 tathya: {r['name']} ₹{r['price']} ≠ rate list ₹{it['price']}")
+        if r["market"] != it["market"][0]:
+            bad.append(f"1 tathya: {r['name']} bazaar rate galat")
+        q = None if (r["was"] or cx_.get("day") != str(datetime.date.today())) else svc.price(it)
+        if q and q["final"] > r["price"] and not o.get("fest"):
+            bad.append(f"1 tathya: {r['name']} dikhaya ₹{r['price']} par quote ₹{q['final']} banega")
+    if cx_.get("season"):
+        s_ = cx_["season"]
+        ok_s = any(x.get("date") == s_.get("date") and x.get("source") == s_.get("source") for x in svc.season_list())
+        if not ok_s or not re.search(r"\.(gov|nic)\.in(/|$)", s_.get("source", "")):
+            bad.append("1 tathya: season ki date sarkari source se pakki nahi")
+    if not bad:
+        good.append("1 tathya ✅ har rate rate-list se, bazaar rate sahi" + (", season date sarkari link se" if cx_.get("season") else ""))
+    # 2 NIYAM
+    texts = [cx_["kick"], cx_["q1"], cx_["q2"], cx_["say"]] + [r["name"] + " " + r["ben"] for r in cx_["rows"]]
+    if meta:
+        texts += [meta.get("title", ""), meta.get("description", "")]
+    hit = sorted({p for p in BAN for s in texts if re.search(p, s, re.I)})
+    if hit:
+        bad.append("2 niyam: mana shabd: " + ", ".join(hit))
+    if meta and len(meta.get("title", "")) > 100:
+        bad.append("2 niyam: title 100 se lamba")
+    if any(r["id"].startswith("m-itr") and r["price"] < 299 for r in cx_["rows"]):
+        bad.append("2 niyam: ITR ka rate ₹299 se kam dikha")
+    if not hit and not [b for b in bad if b.startswith("2")]:
+        good.append("2 niyam ✅ mana shabd nahi (AI/guarantee/nakli jaldi/owner naam/DM)")
+    # 3 DIKHAWAT
+    vis = []
+    cache = {}
+    for t10 in range(0, int(DUR * 10), 3):
+        t = t10 / 10
+        reg = []
+        fr = frame(cx_, t, cache, reg)
+        if t10 % 15 == 0:
+            st = fr.convert("L").resize((54, 96))
+            px = list(st.getdata())
+            if sum(px) / len(px) < 15:
+                vis.append(f"{t:.1f}s kaali frame")
+        for (b, s, tag) in reg:
+            if not tag.startswith("~") and (b[0] < 30 or b[2] > W - 30 or b[1] < 40 or b[3] > H - 30):
+                vis.append(f"{t:.1f}s '{s[:18]}' frame ke bahar")
+            miss = _glyph_ok(s)
+            if miss:
+                vis.append(f"'{s[:18]}' toota akshar {''.join(miss[:3])}")
+        sb = [(b, s) for (b, s, tag) in reg if not tag.startswith("~")]
+        for a_ in range(len(sb)):
+            for b_ in range(a_ + 1, len(sb)):
+                A, B = sb[a_][0], sb[b_][0]
+                ix = min(A[2], B[2]) - max(A[0], B[0])
+                iy = min(A[3], B[3]) - max(A[1], B[1])
+                if ix > 8 and iy > 8:
+                    vis.append(f"{t:.1f}s '{sb[a_][1][:14]}' aur '{sb[b_][1][:14]}' chadhe")
+    vis = list(dict.fromkeys(vis))
+    if vis:
+        bad += ["3 dikhawat: " + x for x in vis[:8]]
+    else:
+        good.append(f"3 dikhawat ✅ {int(DUR * 10) // 3} frame: text frame ke andar, chadha nahi, kaali frame nahi, akshar poore")
+    # 4 AWAAZ
+    if mp4:
+        try:
+            pr = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type:format=duration", "-of", "json", str(mp4)],
+                                capture_output=True, text=True, timeout=60)
+            j = json.loads(pr.stdout or "{}")
+            kinds = [s_.get("codec_type") for s_ in j.get("streams", [])]
+            dur = float(j.get("format", {}).get("duration", 0))
+            if "audio" not in kinds:
+                bad.append("4 awaaz: video mein awaaz nahi")
+            if dur < DUR - 1:
+                bad.append(f"4 awaaz: video chhoti ({dur:.1f}s)")
+            vd = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(mp4), "-af", "volumedetect", "-f", "null", "-"],
+                                capture_output=True, text=True, timeout=120).stderr
+            m = re.search(r"mean_volume: (-?[\d.]+) dB", vd)
+            if m and float(m.group(1)) < -40:
+                bad.append(f"4 awaaz: bahut dheemi ({m.group(1)} dB)")
+            if voice_dur is not None and voice_dur < 8:
+                bad.append("4 awaaz: bolne wali awaaz bani hi nahi")
+            if not [b for b in bad if b.startswith("4")]:
+                good.append(f"4 awaaz ✅ {dur:.1f}s, awaaz {m.group(1) if m else '?'} dB")
+        except Exception as e:
+            bad.append(f"4 awaaz: jaanch nahi ho paayi ({str(e)[:60]})")
+    good.append("5 owner ✅ - neeche button (bina aapki haan ke slot tak ruki rahegi, phir purane niyam se)")
+    return (not bad), (["❌ " + b for b in bad] + good)
+
+
 # ---------------------------------------------------------------- audio + video
-def voice_text(item, v):
-    q1, q2, sol, _, ben = copy_for(item)
-    hk = HOOKS[v["hook"]][1].format(pv=item["price"])
-    return (f"{hk} {q1} {q2} {sol}. सिर्फ़ {item['price']} रुपये से शुरू। {ben[0]}, {ben[1]}, {ben[2]}। "
-            f"लिस्ट में नहीं है तो कोई भी काम लिखिए। सब हिसाब डॉट कॉम स्लैश सर्विसेज़ लिस्ट।")
-
-
-def render_variant(item, v, brand, out_dir):
+def render(cx_, out_dir):
     out_dir = pathlib.Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     wav = out_dir / "voice.wav"
     try:
         from . import tts
-        vdur = tts.synth(voice_text(item, v), str(wav), 0, 1)
+        vdur = tts.synth(cx_["say"], str(wav), 0, 1)
     except Exception as e:
         log(f"svcvideo tts: {e}")
         vdur = 0
         wav = None
-    dur = max(DUR, vdur + 1.5)
+    dur = max(DUR, (vdur or 0) + 1.2)
     n = int(dur * FPS)
     mp4 = out_dir / "video.mp4"
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
@@ -387,11 +692,12 @@ def render_variant(item, v, brand, out_dir):
             "-movflags", "+faststart", "-t", f"{dur:.2f}", str(mp4)]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     cache, thumbs = {}, []
-    want = {int(1.5 * FPS): "t1.jpg", int(10.5 * FPS): "t2.jpg", int((dur - 1.5) * FPS): "t3.jpg"}
+    want = {int(1.4 * FPS): "t1.jpg", int((T_LIST0 + 1.6) * FPS): "t2.jpg", int((dur - 1.5) * FPS): "t3.jpg"}
+    scale = (dur - T_LIST0) / (DUR - T_LIST0)        # lambi awaaz = kaam aur CTA barabar lambe (sync)
     for i in range(n):
         t = i / FPS
-        tl = t if t < 16.8 else 16.8 + (t - 16.8) * (DUR - 16.8) / max(.01, dur - 16.8)   # lambi awaaz = CTA lamba
-        fr = frame(item, v, min(tl, DUR - .01), brand, cache)
+        tl = t if t < T_LIST0 else T_LIST0 + (t - T_LIST0) / scale
+        fr = frame(cx_, min(tl, DUR - .01), cache)
         if i in want:
             fr.save(out_dir / want[i], quality=92)
             thumbs.append(str(out_dir / want[i]))
@@ -399,85 +705,109 @@ def render_variant(item, v, brand, out_dir):
     p.stdin.close()
     if p.wait() != 0:
         raise RuntimeError("ffmpeg fail")
-    return str(mp4), sorted(thumbs), dur
+    return str(mp4), sorted(thumbs), dur, vdur
 
 
-def meta_for(item, v, brand, video, thumbs, dur):
-    hook_s = HOOKS[v["hook"]][0].format(n=item["name"], p=f"{item['price']:,}")
-    title = f"{hook_s} | {item['name'][:48]} ₹{item['price']:,} se"[:95]
-    risk = ("\n⚠️ Sirf aapki apni strategy ka code - koi tip/signal/munafe ka vaada nahi. Bot aapke account par aap chalate hain."
-            if item.get("risk") == "Y" else "")
-    desc = (f"{item['name']} - ₹{item['price']:,} se shuru (bazaar mein ₹{item['market'][0]:,}+).\n"
-            f"✓ Pehle demo, phir payment  ✓ 2 badlav shaamil  ✓ Code aur account aapke naam\n"
-            f"List mein nahi? Apna CUSTOM kaam likhiye - website, billing app, bot, calculator, design, ₹10 ke chhote kaam bhi.\n"
-            f"Rate list + live demo: {SITE_TXT}{risk}\n{BRANDS[brand]['tags']} #SabHisaabServices")
+def meta_for(cx_, brand, video, thumbs, dur):
+    names = ", ".join(r["name"] for r in cx_["rows"][:4])
+    title = f"{TAG1} — {TAG2} | {cx_['rows'][0]['name']} {_rs(cx_['rows'][0]['price'])} se"[:95]
+    rows = "\n".join(f"• {r['name']}: {_rs(r['price'])} se" + (f" (is hafte, {r['sale_end']} tak)" if r["was"] else "")
+                     for r in cx_["rows"])
+    madad = any(r["group"] == "मदद" for r in cx_["rows"])
+    desc = (f"Koi bhi digital kaam — ho jayega. Hindi mein likhiye, jaise ghar mein bolte hain.\n{rows}\n"
+            f"Pehle baat, phir likhit rate, phir kaam. Dost ko bhejiye - uske bill ka 10% aapka (₹300+ bill par).\n"
+            + ("Form madad: OTP/password sirf aap daalte hain; sarkari fees portal par aap khud bharte hain. "
+               "Hum sarkari vibhag nahi hain - sirf madad karte hain.\n" if madad else "")
+            + (f"Code {CODES[brand]} = 10% tak chhoot (har kaam ki nichli seema ke andar).\n" if brand in CODES else "")
+            + f"Comment mein apna kaam likhiye · Rate list: {SITE_TXT}\n{BRANDS[brand]['tags']} #SabHisaabServices")
     return {"video": video, "thumbs": thumbs, "duration": dur, "title": title, "description": desc, "brand": brand,
-            "page": "/services-list", "format": "short", "tags": ["sabhisaab services", item["name"], "website banwaye",
-                                                                 "billing app", "dukaan online"],
-            "design": "services_ad", "svc_item": item["id"], "svc_look": v["look"], "svc_hook": v["hook"],
-            "svc_lay": v["lay"], "topic": item["name"]}
+            "page": "/services-list", "format": "short", "tags": ["sabhisaab services", "online form madad", "resume", names[:60]],
+            "design": "services_ad", "svc_set": [r["id"] for r in cx_["rows"]], "svc_item": cx_["rows"][0]["id"],
+            "svc_look": cx_["look"], "topic": names}
 
 
 # ---------------------------------------------------------------- daily job (purane pipeline ke raaste)
-def _slot(brand):
+def _slot_dt(hhmm, day):
     from . import pipeline
-    sl = [s.strip() for s in str(pipeline.schedule().get(brand, "")).split(",") if s.strip()]
-    if len(sl) >= 2:
-        a = [int(x) for x in sl[0].split(":")]
-        b = [int(x) for x in sl[1].split(":")]
-        m = ((a[0] * 60 + a[1]) + (b[0] * 60 + b[1])) // 2
-    else:
-        m = 15 * 60
-    m = 15 * 60 if m < 10 * 60 else m
-    return pipeline.now().replace(hour=m // 60, minute=(m % 60) // 5 * 5, second=0, microsecond=0)
+    h_, m_ = (int(x) for x in hhmm.split(":"))
+    n = pipeline.now()
+    d = n.replace(year=day.year, month=day.month, day=day.day, hour=h_, minute=m_, second=0, microsecond=0)
+    return d
 
 
-def make_day(sample=False, only=None):
-    """Aaj ka kaam -> 4 brand ka alag video -> pipeline job (manzoori / slot par apne aap). sample=True: sirf dikhana."""
+def make_day(sample=False, only=None, day=None):
+    """Aaj ke 4 video (4 slot) -> 5 round audit -> pass = pipeline job (manzoori/slot), fail = ruki + wajah owner ko."""
     from . import pipeline, tg
-    item, plan = pick_day()
+    dd = datetime.date.fromisoformat(day) if day else pipeline.now().date()
+    plan = pick_day(day=str(dd))
     made = []
     for brand, v in plan.items():
         if only and brand != only:
             continue
-        jid = f"svc{brand[:2]}{datetime.datetime.now().strftime('%m%d%H%M')}"
+        jid = f"svc{brand[:2]}{datetime.datetime.now().strftime('%m%d%H%M%S')}"
         out = OUT / jid
         try:
-            video, thumbs, dur = render_variant(item, v, brand, out)
+            cx_ = ctx_for(v, brand, str(dd))
+            video, thumbs, dur, vdur = render(cx_, out)
+            meta = meta_for(cx_, brand, video, thumbs, dur)
+            ok, rep = audit_video(cx_, meta, video, vdur)
         except Exception as e:
             log(f"svcvideo {brand}: {e}")
-            tg.alert("yellow", f"🎬 Services video ({BRANDS[brand]['name']}) nahi bani: {str(e)[:120]}")
+            tg.alert("yellow", f"🎬 Services video ({BRANDS[brand]['name']}) nahi bani: {str(e)[:160]}")
             continue
-        meta = meta_for(item, v, brand, video, thumbs, dur)
         (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
+        (out / "audit.txt").write_text("\n".join(rep), encoding="utf-8")
+        _append_audit(jid, brand, ok, rep)
+        if not ok:
+            tg.alert("red", f"⛔ Services video ({BRANDS[brand]['name']}) AUDIT FAIL - publish NAHI hogi:\n" + "\n".join(rep[:10]))
+            continue
         if not sample:
-            _hist_add({"day": str(datetime.date.today()), "item": item["id"], "look": v["look"], "hook": v["hook"],
-                       "lay": v["lay"], "brand": brand, "jid": jid})
-        slot = _slot(brand)
-        if slot < pipeline.now():
-            slot += datetime.timedelta(days=1) if not sample else datetime.timedelta(0)
+            _hist_add({"day": str(dd), "set": v["set"], "item": v["set"][0], "look": v["look"], "hook": v["hook"],
+                       "lay": v["lay"], "brand": brand, "slot": v["slot"], "jid": jid})
+        slot = _slot_dt(v["slot"], dd)
+        if slot < pipeline.now() and not sample:
+            slot = pipeline.now() + datetime.timedelta(minutes=20)
         pipeline.save_job(jid, {"brand": brand, "status": "waiting", "slot": slot.isoformat(),
                                 "created": pipeline.now().isoformat(),
                                 "reason": "test video" if sample else "roz ka schedule", "meta": str(out),
-                                "title": meta["title"], "topic_key": f"svc:{item['id']}:{v['look']}:{v['hook']}",
+                                "title": meta["title"], "topic_key": f"svc:{'-'.join(v['set'])}:{v['look']}:{v['hook']}",
                                 "topic_kind": "services", "style": "services_ad"})
-        pipeline._send_for_approval(jid, meta, [("✅", "services ad: rate list se, nakli daava nahi")])
+        pipeline._send_for_approval(jid, meta, [("✅", r[2:] if r.startswith("1") else r) for r in rep if "✅" in r][:5])
         made.append(jid)
-    return item, made
+    return plan, made
+
+
+def _append_audit(jid, brand, ok, rep):
+    DIR.mkdir(parents=True, exist_ok=True)
+    with open(DIR / "video_audit.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps({"t": datetime.datetime.now().isoformat(timespec="seconds"), "jid": jid, "brand": brand, "ok": ok,
+                            "rep": rep}, ensure_ascii=False) + "\n")
 
 
 def tick(run):
-    """bot.scheduler se: raat 01:30-05:00 ke beech, koi doosri video 'making' na ho tab, din mein ek baar."""
+    """Raat 01:30-04:30 (05:00 wala slot pehle): koi video 'making' na ho tab, din mein ek baar - 4 video."""
     if not state.get("svc_video_on"):
         return
     from . import pipeline
     n = pipeline.now()
     d = str(n.date())
-    if state.get("svc_video_day") == d or not ("01:30" <= n.strftime("%H:%M") <= "05:00"):
+    if state.get("svc_video_day") == d or not ("01:30" <= n.strftime("%H:%M") <= "04:30"):
         return
     if any(j.get("status") == "making" for j in pipeline.jobs().values()):
-        return                                   # VM busy - agle chakkar mein
+        return
     state.put("svc_video_day", d)
+    if (state.get("svc_holiday_until") or "") >= d:              # chhutti mode: naya kaam mat bulao
+        return
+    try:                                                        # kaam ki line lambi = aaj video nahi (jhootha vaada nahi)
+        from . import svc as _S
+        open_ = sum(1 for lid in _S.leads() if (_S.lead_state(lid).get("status") in ("accepted", "paid", "working")))
+        if open_ >= int(state.get("svc_cap") or 8):
+            from . import tg
+            tg.say(f"⏸ Aaj services video nahi bani: {open_} kaam chal rahe hain (seema {state.get('svc_cap') or 8}). "
+                   "Kaam kam hote hi kal se apne aap. Seema badlein: 'services seema 12'")
+            return
+    except Exception as e:
+        log(f"svc cap: {e}")
     run(make_day)
 
 
@@ -486,22 +816,35 @@ def on_text(t, run):
     tl = t.lower().strip()
     if tl == "services video chalu":
         state.put("svc_video_on", True)
-        mu = pipeline.max_uploads()
-        if mu < 14:
-            state.put("max_uploads", 14)          # roz 8 purani + 4 services (+2 jagah) - owner ka hukum, isi command se
-        return tg.say("✅ Services video CHALU: roz raat 01:30 ke baad (VM khali ho tab) 4 brand ke 4 alag video, namoona "
-                      "Telegram par, jawab na mila to apne slot par apne aap. Upload seema 14/din. Band: 'services video band'.")
+        if pipeline.max_uploads() < 14:
+            state.put("max_uploads", 14)
+        return tg.say("✅ Services video CHALU: roz raat 01:30 ke baad 4 alag video (6-6 kaam), 5 round audit, phir "
+                      "IST 05:00 · 07:00 · 18:00 · 20:00 par (har slot alag brand). Fail = ruki + wajah. Band: 'services video band'.")
+    m = re.match(r"services chhutti (\d+)$", tl)
+    if m:
+        till = (datetime.date.today() + datetime.timedelta(days=int(m.group(1)))).isoformat()
+        state.put("svc_holiday_until", till)
+        return tg.say(f"🏖 Chhutti {till} tak: services video ruki. Naye lead phir bhi aayenge (form chalu) - unhe sachcha jawab "
+                      f"dein ki {till} ke baad kaam hoga. Wapas: 'services chhutti 0'")
+    m = re.match(r"services seema (\d+)$", tl)
+    if m:
+        state.put("svc_cap", int(m.group(1)))
+        return tg.say(f"✔ Ek saath max {m.group(1)} kaam - isse zyada chal rahe hon to us din services video nahi banegi.")
     if tl == "services video band":
         state.put("svc_video_on", False)
         return tg.say("⏸ Services video band.")
     if tl in ("services video namoona", "services video sample"):
-        tg.say("🎬 Services namoona ban raha hai (Pahadi brand, 2-4 min)... ye kahin post nahi hoga jab tak aap button na dabayein.")
+        tg.say("🎬 Services namoona ban raha hai (Pahadi brand, 3-5 min, audit ke saath)... button dabaye bina kahin post nahi hoga.")
         run(lambda: make_day(sample=True, only="pahadi"))
         return True
     if tl in ("services video report", "services video haal"):
         H_ = _hist()
-        last = H_[-8:]
-        return tg.say(f"🎬 Services video: kul {len(H_)} bani (zindagi bhar ka record, dohrav 0)\n" +
-                      "\n".join(f"{h['day']} {h['brand']}: {h['item']} · {h['look']} · hook {h['hook']}" for h in last)
-                      + "\nViews/lead: 'services report 7' (code/source ke saath)")
+        A = []
+        f = DIR / "video_audit.jsonl"
+        if f.exists():
+            A = [json.loads(x) for x in f.read_text(encoding="utf-8").splitlines()[-20:] if x.strip()]
+        fails = sum(1 for a in A if not a.get("ok"))
+        return tg.say(f"🎬 Services video: kul {len(H_)} bani (zindagi bhar dohrav 0) · pichhle {len(A)} audit mein {fails} ruki\n" +
+                      "\n".join(f"{h['day']} {h.get('slot', '')} {h['brand']}: {', '.join(h.get('set') or [h.get('item', '')])[:60]}"
+                                for h in H_[-8:]) + "\nViews/lead: 'services report 7'")
     return None

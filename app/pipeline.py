@@ -774,6 +774,19 @@ def _stories(brand, meta, vpath):
     """Nayi video ki khabar: FB story (card) + IG story (video, 60s tak) + roz 1 FB photo-post. Fail ho to bas note."""
     from . import meta as M
     res = []
+    if meta.get("design") == "services_ad":      # v3.8.0: services video ki story - kaam wali frame, 'jawab socho' wala text NAHI
+        try:
+            th = [x for x in (meta.get("thumbs") or []) if str(x).endswith("t2.jpg")] or list(meta.get("thumbs") or [])
+            if th:
+                res.append(M.fb_photo_story(brand, th[0]))
+        except Exception as e:
+            res.append(f"FB story nahi ({str(e)[:60]})")
+        try:
+            if meta.get("duration", 99) <= 60:
+                res.append(M.ig_video_story(brand, vpath))
+        except Exception as e:
+            res.append(f"IG story nahi ({str(e)[:60]})")
+        return ", ".join(res)
     try:
         card = _story_card(brand, meta)
         res.append(M.fb_photo_story(brand, card))
