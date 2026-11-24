@@ -717,15 +717,20 @@ def ensure_site_cfg():
     c = _cfg()
     if not c.get("url"):
         return False
-    if not c.get("pk") or not c.get("v382"):
-        tg.say("🔧 Services worker v3.8.2 (form ki jaanch + log + Telegram jaanch) chadha raha hoon...")
+    wv = re.search(r"sabhisaab-leads v([\d.]+)", JS).group(1)      # v3.8.5: worker file ka version badla = turant naya worker
+    if not c.get("pk") or c.get("wv") != wv:
+        tg.say(f"🔧 Services worker v{wv} chadha raha hoon (form, page, jaanch)...")
         c["v380"] = c["v381"] = c["v382"] = 1
         for lid, L in leads().items():                  # v3.8.1 wale purane worker par jaanch ne asli 'Bot jaanch' lead bana diye - band
             if L.get("name") == "Bot jaanch" and lead_state(lid).get("status") not in ("lost", "closed"):
                 _event(lid, status="lost", by="bot", why="jaanch lead")
                 _push(lid, status="lost")
         _save_cfg(c)
-        return deploy()
+        r_ = deploy()                                   # fail = exception, wv nahi likha -> 30 min baad dobara
+        c2 = _cfg()
+        c2["wv"] = wv
+        _save_cfg(c2)
+        return r_
     if not _write_site_files(c):
         return False
     state.put("site_undeployed", True)
@@ -951,8 +956,10 @@ def tick(run):
             if bad:
                 tg.alert("red", "🛡 Services raat ki jaanch:\n" + "\n".join(bad))
         run(_na)
-    if state.get("svc_cfg_day4") != d and _cfg().get("url"):        # v3.5.1: website par form ka pata khaali na rahe
+    if (state.get("svc_cfg_day4") != d or _cfg().get("wv") != re.search(r"sabhisaab-leads v([\d.]+)", JS).group(1)) \
+            and _cfg().get("url") and time.time() - state.get("svc_cfg_try", 0) > 1800:        # v3.5.1: website par form ka pata khaali na rahe
         state.put("svc_cfg_day4", d)
+        state.put("svc_cfg_try", time.time())
         run(ensure_site_cfg)
     if n.strftime("%H:%M") >= "09:10" and state.get("svc_st_day") != d and _cfg().get("url"):     # roz subah form ki jaanch
         state.put("svc_st_day", d)
