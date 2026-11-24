@@ -246,3 +246,6 @@ Audit report `data/services/video_audit.jsonl` mein hamesha.
 Sec 5-10, 12 (1,2,5,6,7,9 bot mein; 3,4,8 aage), 14, 15 (time/brand/comment/bhasha), 16, 17 - code mein. Test: bot 80, page 39, worker 22, proxy 1.
 Aage (owner/API ki seema): IG story question sticker + Highlights (API nahi - owner khud), Google Business Profile (owner), FB private reply
 (owner ki dohri pushti ke baad), auto receipt PDF, documents checklist, hook A/B (views data ke baad), mahine ka "top kaam" video.
+
+## 19. v3.8.1 (24 Nov 2026)
+Documents/attachment (sawal-form + files + WhatsApp vikalp), sahayak (FAQ + seemit AI), gupt page function (deploy fix), video audit 6 round. Sec 12 #1 (kaam pehchan + documents list) aur #2 (checklist) ab live.

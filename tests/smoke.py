@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents featureaudit localask svc svcvideo svccomment").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents featureaudit localask svc svcvideo svccomment svc_intake").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -1305,7 +1305,7 @@ try:
     _said80.clear(); _S50.reminders()
     check(not any("SHV4" in t for t, _ in _said80), "yaad ek hi baar")
     check(_S50.on_text("services upi galat", lambda f: f()) is None, "galat UPI ID nahi maani")
-    _sf80 = _S50._site_files({"url": "https://w.example", "pk": "PKX"})
+    _sf80 = _S50._site_files({"url": "https://w.example", "pk": "PKX"}); _sf80["site/q.html"] = _sf80["functions/q.js"]
     check("window.SVC_API='/api'" in _sf80["site/svc-cfg.js"] and "w.example" in _sf80["site/svc-cfg.js"], "website: pehle /api, phir seedha worker")
     check("PKX" in _sf80["functions/api/[[path]].js"] and "PKX" not in _sf80["site/svc-cfg.js"], "gupt PK sirf proxy mein, public file mein nahi")
     check('noindex' in _sf80["site/q.html"] and 'googletagmanager' not in _sf80["site/q.html"], "gupt page: noindex + analytics nahi (key leak nahi)")
@@ -1359,6 +1359,16 @@ try:
         check(_SC81.handle("yt", "pahadi", {"id": "c2", "text": "kya hal hai bhai", "video": "VIDSVC123"}) and _said80, "samajh na aaye = owner ko Telegram")
     finally:
         _SC81.svc_media_ids = _ids81
+    # v3.8.1: sawal-form + gupt page function + 6th round
+    from app import svc_intake as _IN81
+    check(_IN81.kind_for("m-resume") == "resume" and _IN81.kind_for("m-itr1") == "itr" and _IN81.kind_for("w-1page", "web") == "web"
+          and _IN81.kind_for("custom") == "any", "har kaam ka sahi sawal-form")
+    check("Aadhaar" in _IN81.js() and "window.SVC_INTAKE" in _IN81.js(), "sawal-form website ke liye + Aadhaar/OTP chetavni")
+    _sf81 = _S50._site_files({"url": "https://w.example", "pk": "PKX"})
+    check("site/q.html" not in _sf81 and "functions/q.js" in _sf81 and "noindex" in _sf81["functions/q.js"],
+          "gupt page ab function se (site/ mein .html nahi - website audit nahi rukta)")
+    check("site/svc-intake.js" in _sf81, "sawal-form file website ko")
+    check(any(r.startswith("6 aakarshan ✅") for r in _V60.audit_video(_cx60)[1]), "6th round: contrast + chhota hook + bada pehla text")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

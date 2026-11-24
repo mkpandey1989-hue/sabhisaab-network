@@ -90,8 +90,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 <h1 style="margin-top:14px">Aapka kaam</h1>
 <p class="muted">Ye page sirf aapke liye hai — link kisi ko na dein. Koi bhi digital kaam — ho jayega.</p>
 <div id="app"><div class="box">Load ho raha hai…</div></div>
+<div id="qhelp"></div>
 </div></main>
 <script src="/svc-cfg.js"></script>
+<script src="/svc-intake.js"></script>
+<script src="/svc-kit.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 (function(){
@@ -121,6 +124,11 @@ if(s.pay&&['accepted','paid','working'].indexOf(s.status)>=0&&+s.pay.am>0){
 h+='<div class="box"><b>Payment — '+rs(s.pay.am)+'</b><p class="muted">Kisi bhi UPI app (PhonePe, GPay, Paytm, BHIM) se. Rakam pehle se bhari hai.</p><div id="qr"></div>'+
 '<a class="big" href="'+upi(s.pay)+'">UPI app se pay karein</a><p class="muted">Pay karne ke baad hum bank mein dekh kar yahan "Paisa mila" kar denge (thoda samay lag sakta hai). Screenshot zaroori nahi.</p></div>'}
 if(s.status==='working')h+='<div class="box"><b>Kaam chalu hai 🛠</b>'+(s.due?'<p>Taiyaar hone ki tarikh: '+esc(s.due)+'</p>':'')+'</div>';
+if(['new','talk','rate','accepted','paid','working'].indexOf(s.status)>=0&&window.SVCKIT){h+='<div class="box"><b>📝 Kaam ki details aur files</b>'+(s.details?' <span class="muted">✔ '+s.details+' jaankari mil chuki</span>':'')+
+'<p class="muted">Jitna pata ho likhiye/bhejiye — photo, PDF, Word, voice note sab chalega. Baaki hum baat karke pooch lenge.</p><div id="qi"></div><button class="big alt" id="qsave" type="button">Details bhejein</button>'+
+'<div id="qf">'+SVCKIT.fileInput()+'</div><button class="big" id="qup" type="button">File bhejein</button><p class="muted" id="qmsg"></p>'+
+((s.files&&s.files.length)?'<p class="muted">Pahunchi: '+s.files.map(function(f){return esc(f.name)}).join(', ')+'</p>':'')+
+'<a class="big alt" target="_blank" rel="noopener" href="'+wa('Mera number '+s.id+' - files/jaankari bhej raha hoon')+'">Bahut files hain? WhatsApp par bhejiye</a></div>'}
 if(s.status==='delivered'&&!s.rated){h+='<div class="box"><b>Kaam taiyaar ✔</b>'+(s.deliver?'<p>'+esc(s.deliver)+'</p>':'')+'<p>Kaisa laga? Star dijiye:</p><div class="stars" id="st">'+[1,2,3,4,5].map(function(n){return '<button data-n="'+n+'" aria-label="'+n+' star">★</button>'}).join('')+'</div>'+
 '<textarea id="rv" rows="3" maxlength="500" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit" placeholder="Do shabd (Hindi mein chalega)"></textarea>'+
 '<label class="muted"><input type="checkbox" id="show"> Mera pehla naam aur ye baat website par dikha sakte hain</label><br>'+
@@ -131,6 +139,11 @@ if(s.status==='lost'||s.status==='closed')h+='<div class="box">Ye kaam band hai.
 var sh='https://wa.me/?text='+encodeURIComponent('Koi bhi digital kaam — ho jayega (resume ₹10 se, Hindi mein likho). Mera code '+s.ref+' daalo, pehle kaam par 10% off: https://sabhisaab.com/services-list?code='+s.ref);
 h+='<div class="box"><b>Dost ko bhejiye</b><p class="muted">Code <b>'+esc(s.ref)+'</b> se dost ko pehle kaam par 10% off — aapko uske chukaye bill ka 10% bonus (₹300+ bill par, max ₹500, agle kaam mein, 90 din tak).</p><a class="big alt" target="_blank" rel="noopener" href="'+sh+'">WhatsApp par share karein</a></div>';
 A.innerHTML=h;
+if(window.SVCKIT&&document.getElementById('qi')){SVCKIT.fields(document.getElementById('qi'),SVCKIT.kind(s.item||'custom'));
+var qm=document.getElementById('qmsg');document.getElementById('qsave').onclick=function(){var v=SVCKIT.values(document.getElementById('qi'));if(!Object.keys(v).length){qm.textContent='Pehle kuch likhiye';return}
+qm.textContent='Bhej rahe hain…';post('/q/info',{id:ID,k:K,fields:v}).then(function(x){S=x;qm.textContent='✔ Details pahunch gayi'}).catch(function(e){qm.textContent=e.message})};
+document.getElementById('qup').onclick=function(){var fl=document.querySelector('#qf input[type=file]').files;if(!fl.length){qm.textContent='Pehle file chunein';return}
+SVCKIT.upload(ID,K,fl,function(i,n){qm.textContent='File '+(i+1)+'/'+n+' bhej rahe hain…'}).then(function(r){qm.textContent='✔ '+r.ok+' file pahunchi'+(r.bad.length?' · nahi gayi: '+r.bad.join(', '):'');load()})}}
 var y=document.getElementById('yes');if(y)y.onclick=function(){y.disabled=true;y.textContent='…';post('/q/ok',{id:ID,k:K}).then(draw).catch(function(e){alert(e.message);y.disabled=false})};
 if(s.pay&&document.getElementById('qr')){(function mk(n){if(window.QRCode){new QRCode(document.getElementById('qr'),{text:upi(s.pay),width:220,height:220})}else if(n<40)setTimeout(function(){mk(n+1)},150)})(0)}
 var st=document.getElementById('st'),N=0;if(st)st.onclick=function(e){var n=+e.target.getAttribute('data-n');if(!n)return;N=n;[].forEach.call(st.children,function(b){b.className=+b.getAttribute('data-n')<=n?'on':''})};
@@ -138,7 +151,7 @@ var sd=document.getElementById('send');if(sd)sd.onclick=function(){if(!N){alert(
 }
 function load(){if(!ID||!K){A.innerHTML='<div class="err">Link adhoora hai. Form bhejne ke baad mila poora link kholein, ya <a href="/services-list">naya kaam likhein</a>.</div>';return}
 call('/q?id='+encodeURIComponent(ID)+'&k='+encodeURIComponent(K)).then(draw).catch(function(e){A.innerHTML='<div class="err">'+esc(e.hard?e.message:'Network dheema hai - thodi der baad page dobara kholein.')+'</div>'})}
-load();setInterval(function(){if(document.visibilityState==='visible'&&S&&['new','talk','rate','accepted','paid','working'].indexOf(S.status)>=0)call('/q?id='+encodeURIComponent(ID)+'&k='+encodeURIComponent(K)).then(function(s){if(s.status!==S.status||(s.pay&&!S.pay))draw(s)}).catch(function(){})},30000);
+load();if(window.SVCKIT)SVCKIT.help(document.getElementById('qhelp'),'Mera number '+ID+' - madad chahiye');setInterval(function(){if(document.visibilityState==='visible'&&S&&['new','talk','rate','accepted','paid','working'].indexOf(S.status)>=0)call('/q?id='+encodeURIComponent(ID)+'&k='+encodeURIComponent(K)).then(function(s){if(s.status!==S.status||(s.pay&&!S.pay))draw(s)}).catch(function(){})},30000);
 })();
 </script>
 <footer>

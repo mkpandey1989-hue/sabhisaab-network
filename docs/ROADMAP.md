@@ -2340,3 +2340,18 @@ Owner: "Telegram par message nahi aata, WhatsApp khulta hai... quotation/QR nahi
   mana/samajh nahi = jawab nahi, owner ko sujhaya jawab + button. Purani video ka system waisa hi.
 - STORY: services video ki FB story = kaam wali frame, IG story = video ('jawab socho' text nahi).
 - Instagram: comment→DM kisi brand par NAHI (sunonatak 2 baar band; docs/SERVICES_PLAN.md sec 16).
+
+## v3.8.1 (24 Nov 2026) - documents/details, sahayak, deploy fix, 6th audit round
+Owner screenshot: website v5 ZIP "Audit fail - deploy roka" (q.html: 800 shabd/GA4/schema...). Wajah: v3.8.0 gupt page site/q.html tha aur
+website audit.py ka patch ZIP ke 'git pull --autostash' se hat gaya. PAKKA HAL: gupt page ab Pages Function functions/q.js (site/ mein .html
+nahi) - website audit ko chhedna hi nahi; bot purana site/q.html mita deta hai. (audit patch hataya.)
+- Har kaam ka SAWAL-FORM (app/svc_intake.py -> site/svc-intake.js): resume (naam, padhai, anubhav, skill, naukri), biodata, form madad
+  (portal, last date, samay), photo-sign size, ITR (aay, saal, samay), mobile madad (dikkat, device), project, patra, website/app, koi bhi.
+  Aadhaar/PAN/bank/OTP/password kabhi nahi - worker aise number pakad kar rokta hai.
+- FILES: photo/PDF/Word/Excel/voice note (10 tak, 8 MB; badi photo phone mein hi 1600px) -> worker KV 30 din + seedha owner ke Telegram
+  (sendDocument). 'deliver SH..' par server se mitti. Zyada files = "WhatsApp par bhejiye" (number bhara).
+- SAHAYAK ("Koi dikkat? Poochiye") list page + gupt page: pehle tay FAQ (rate, file, payment, samay, OTP, bharosa, refund, bhasha),
+  na mile to Workers AI (seemit prompt, guarantee/100% wala jawab roka), ghante mein 20 sawal/IP, har jawab ke saath WhatsApp.
+- site/svc-kit.js (bot bhi likhta hai): sawal-form, upload (progress), sahayak - list page aur gupt page dono.
+- Video audit round 6 AAKARSHAN: contrast (text 7:1, brand 3.5:1, CTA safed 4.5:1), hook <= 8 shabd, pehla text >= 90px.
+  7 kamzor rang gehre kiye (peach, lemon, teal, coral, forest, indigo, rose).

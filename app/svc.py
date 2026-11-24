@@ -357,7 +357,7 @@ def draft(lid, override=None, note=""):
     hello = _wa(L["phone"], f"Namaste {L.get('name', '')} ji 🙏 Sab Hisaab se. Aapka kaam mila ({lid}). "
                             f"Thoda samajhna tha - abhi baat kar sakte hain?" + (f"\nAapka page: {link}" if link else ""))
     head = (f"🛎 KAAM {lid}-v{ver}{' ⚡URGENT' if L.get('urgent') else ''}\n👤 {L.get('name')}  📞 +{L.get('phone')}\n"
-            f"💬 {L.get('message', '')[:600]}\n🏷 Code: {L.get('code') or '-'} | Budget: {L.get('budget') or '-'} | Src: {L.get('src') or '-'}")
+            f"💬 {L.get('message', '')[:600]}\n" + "".join(f"• {k}: {v[:200]}\n" for k, v in (L.get("fields") or {}).items()) + "🏷 Code: {L.get('code') or '-'} | Budget: {L.get('budget') or '-'} | Src: {L.get('src') or '-'}")
     talk = [("💬 WhatsApp", hello), ("📞 Uthaya", f"sv:cu:{lid}"), ("📵 Nahi", f"sv:cn:{lid}"), ("⏰ Baad", f"sv:cb:{lid}")]
     if red:
         _event(lid, ver=ver, status="red", red=red)
@@ -419,7 +419,7 @@ def send_rate(lid, by="owner"):
         return f"⛔ {lid}: abhi '{st.get('status')}' - pehle quote banayein (quote {lid} <rupaye>)."
     c = _cfg()
     patch = {"quote": {k: q.get(k) for k in ("name", "final", "advance", "days", "base", "off", "valid", "note")},
-             "status": "rate", "pay_amt": q.get("advance") or q.get("final")}
+             "status": "rate", "pay_amt": q.get("advance") or q.get("final"), "item": q.get("item", "")}
     if c.get("upi"):
         patch["upi"] = c["upi"]
     pushed = _push(lid, **patch)
@@ -427,6 +427,24 @@ def send_rate(lid, by="owner"):
     warn = "" if c.get("upi") else "\n⚠️ UPI ID set nahi - QR nahi dikhega. Likhein: services upi <aapki-upi@bank>"
     return (f"📤 {lid}: ₹{q['final']} customer ke page par {'chala gaya ✅' if pushed else 'queue mein (5 min mein)'}.{warn}\n"
             f"Customer ko batane ke liye tap (message bhara hua):\n{wa_link(lid)}")
+
+
+def files_delete(lid):
+    """v3.8.1: kaam ke baad customer ke documents worker se mitao (privacy: 'hum document kaam ke baad nahi rakhte')."""
+    c = _cfg()
+    if not c.get("url"):
+        return 0
+    try:
+        r = requests.post(f"{c['url']}/{c['key']}/fdel", json={"id": lid}, timeout=(8, 30))
+        n = (r.json() or {}).get("n", 0)
+        if n:
+            audit("files_deleted", id=lid, n=n)
+            from . import tg
+            tg.say(f"🗑 {lid}: customer ki {n} file server se mita di. Telegram chat mein aayi copy bhi kaam ke baad mita dijiye.")
+        return n
+    except Exception as e:
+        log(f"svc fdel {lid}: {e}")
+        return 0
 
 
 def set_stage(lid, stage, **extra):
@@ -573,9 +591,16 @@ def deploy():
         {"type": "plain_text", "name": "TG_CHAT", "text": str(tg._chat())},
         {"type": "secret_text", "name": "PK", "text": c.setdefault("pk", secrets.token_urlsafe(24))},
         {"type": "kv_namespace", "name": "KV", "namespace_id": c["kv"]}]}
-    files = {"metadata": (None, json.dumps(meta), "application/json"),
-             "worker.js": ("worker.js", JS.encode(), "application/javascript+module")}
-    relay._api("PUT", f"/accounts/{acc}/workers/scripts/{NAME}", tok, files=files)
+    meta_ai = dict(meta, bindings=meta["bindings"] + [{"type": "ai", "name": "AI"}])    # v3.8.1: sahayak (Workers AI, free seema)
+    try:
+        relay._api("PUT", f"/accounts/{acc}/workers/scripts/{NAME}", tok,
+                   files={"metadata": (None, json.dumps(meta_ai), "application/json"),
+                          "worker.js": ("worker.js", JS.encode(), "application/javascript+module")})
+    except Exception as e:                                   # AI binding na mile to bina AI (FAQ sahayak phir bhi chalega)
+        log(f"svc worker AI binding: {e}")
+        relay._api("PUT", f"/accounts/{acc}/workers/scripts/{NAME}", tok,
+                   files={"metadata": (None, json.dumps(meta), "application/json"),
+                          "worker.js": ("worker.js", JS.encode(), "application/javascript+module")})
     try:
         relay._api("POST", f"/accounts/{acc}/workers/scripts/{NAME}/subdomain", tok, json={"enabled": True})
     except Exception as e:
@@ -600,8 +625,15 @@ def _site_files(c):
         o = offer()
     except Exception:
         o = {}
-    return {"site/svc-cfg.js": cfg, "functions/api/[[path]].js": FN_JS % (c["url"], c.get("pk", "")), "site/q.html": q,
-            "site/svc-offer.js": "window.SVC_OFFER=" + json.dumps(o, ensure_ascii=False) + ";\n"}
+    from . import svc_intake
+    # v3.8.1: gupt page ab Pages Function (functions/q.js) se - site/ mein .html nahi, isliye website audit/SEO jaanch se alag
+    # (v3.8.0 mein site/q.html tha - ZIP ke 'git pull' ne audit patch hata diya aur deploy ruka).
+    fn_q = ("// v3.8.1 bot ne banaya - customer ka gupt page /q (noindex, no-store)\nconst HTML = " + json.dumps(q, ensure_ascii=False) +
+            ";\nexport async function onRequest() {\n  return new Response(HTML, {headers: {'content-type': 'text/html; charset=utf-8', "
+            "'x-robots-tag': 'noindex, nofollow', 'cache-control': 'no-store', 'referrer-policy': 'no-referrer'}});\n}\n")
+    return {"site/svc-cfg.js": cfg, "functions/api/[[path]].js": FN_JS % (c["url"], c.get("pk", "")), "functions/q.js": fn_q,
+            "site/svc-offer.js": "window.SVC_OFFER=" + json.dumps(o, ensure_ascii=False) + ";\n", "site/svc-intake.js": svc_intake.js(),
+            "site/svc-kit.js": (__import__("pathlib").Path(__file__).parent / "assets" / "svc" / "svc-kit.js").read_text(encoding="utf-8")}
 
 
 def _write_site_files(c):
@@ -616,8 +648,11 @@ def _write_site_files(c):
             gi.write_text(g.rstrip("\n") + "\n# v3.8.0 services proxy (gupt key) - GitHub par nahi\nfunctions/\n")
     except Exception as e:
         log(f"svc gitignore: {e}")
-    _patch_audit()
     changed = False
+    old_q = website.DIR / "site" / "q.html"                 # v3.8.0 wali file hatao (ab function se)
+    if old_q.exists():
+        old_q.unlink()
+        changed = True
     for rel, body in _site_files(c).items():
         f = website.DIR / rel
         f.parent.mkdir(parents=True, exist_ok=True)
@@ -627,37 +662,23 @@ def _write_site_files(c):
     return changed
 
 
-def _patch_audit():
-    """v3.8.0: /q customer ka gupt (noindex) page hai - SEO/inbound-link jaanch se bahar (warna deploy rukta)."""
-    from . import website
-    f = website.DIR / "scripts" / "audit.py"
-    try:
-        a = f.read_text(encoding="utf-8")
-        b = a.replace('SKIP_SEO = {"404.html"}', 'SKIP_SEO = {"404.html", "q.html"}').replace(
-            'if p in ("404", "googleb9a1fd91a1579ee6"): continue', 'if p in ("404", "googleb9a1fd91a1579ee6", "q"): continue')
-        if b != a:
-            f.write_text(b, encoding="utf-8")
-            audit("audit_patch_q")
-    except Exception as e:
-        log(f"svc audit patch: {e}")
-
-
 def ensure_site_cfg():
     """v3.5.1/v3.8.0: website ZIP ne svc-cfg.js ya proxy mita diya ho to dobara likho + deploy."""
     from . import tg, website
     c = _cfg()
     if not c.get("url"):
         return False
-    if not c.get("pk") or not c.get("v380"):
-        tg.say("🔧 Services worker v3.8.0 (gupt page + /api raasta) chadha raha hoon...")
-        c["v380"] = 1
+    if not c.get("pk") or not c.get("v381"):
+        tg.say("🔧 Services worker v3.8.1 (gupt page function + file/details + sahayak) chadha raha hoon...")
+        c["v380"] = c["v381"] = 1
         _save_cfg(c)
         return deploy()
     if not _write_site_files(c):
         return False
     state.put("site_undeployed", True)
     audit("site_cfg_fix")
-    tg.say("🔧 Website ke form ka raasta (svc-cfg/api) dobara likha, deploy: " + str(website.deploy()))
+    r_ = website.deploy()
+    tg.say("🔧 Website ke form ka raasta (svc-cfg/api/gupt page) dobara likha. Deploy: " + (str(r_) if r_ else "line mein (3 min mein apne aap)"))
     return True
 
 
@@ -833,8 +854,8 @@ def tick(run):
             if bad:
                 tg.alert("red", "🛡 Services raat ki jaanch:\n" + "\n".join(bad))
         run(_na)
-    if state.get("svc_cfg_day2") != d and _cfg().get("url"):        # v3.5.1: website par form ka pata khaali na rahe
-        state.put("svc_cfg_day2", d)
+    if state.get("svc_cfg_day3") != d and _cfg().get("url"):        # v3.5.1: website par form ka pata khaali na rahe
+        state.put("svc_cfg_day3", d)
         run(ensure_site_cfg)
     if n.strftime("%H:%M") >= "21:45" and state.get("svc_rep_day") != d and _cfg().get("url"):
         state.put("svc_rep_day", d)
@@ -1036,6 +1057,7 @@ def on_text_crm(t, run):
         if lid not in leads():
             return tg.say(f"❓ {lid} nahi mila")
         set_stage(lid, "delivered", deliver_note=m.group(2)[:300])
+        run(lambda: files_delete(lid))
         L = leads()[lid]
         msg = (f"Namaste {L.get('name', '')} ji 🙏 aapka kaam ({lid}) taiyaar hai. Ek baar dekh kar apne page par "
                f"star de dijiye - isse doosron ko bharosa milta hai:\n{page_link(lid)}")

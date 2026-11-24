@@ -124,7 +124,9 @@ BODY = """<body>
 <div class="bld"><form id="fm">
 <div class="two"><input name="name" required maxlength="80" placeholder="Naam *"><input name="phone" required inputmode="tel" placeholder="Mobile number *"></div>
 <input name="service" id="svc" placeholder="Kaam (list se chunein ya likhein)">
-<textarea name="message" required rows="4" maxlength="3000" placeholder="Kya chahiye, kaisa chahiye? Hinglish chalega. Jaise: meri kirana dukaan hai, website chahiye jisme saman list aur WhatsApp order ho."></textarea>
+<div id="intake"></div>
+<div id="fwrap"></div>
+<textarea name="message" required rows="3" maxlength="3000" placeholder="Kya chahiye? Hindi mein likhiye, jaise ghar mein bolte hain. Jaise: naukri ke liye resume chahiye / scholarship form bharna hai / phone mein UPI nahi chal raha"></textarea>
 <div class="two"><input name="budget" inputmode="numeric" placeholder="Budget ₹ (optional)"><input name="code" id="code" placeholder="Code (reel / dost se)" style="text-transform:uppercase"></div>
 <label style="font-size:.85rem"><input type="checkbox" name="urgent" style="width:auto"> Jaldi chahiye (urgent +50%)</label><br>
 <label style="font-size:.85rem"><input type="checkbox" name="care" style="width:auto"> Har mahine dekhbhal bhi chahiye</label>
@@ -133,7 +135,7 @@ BODY = """<body>
 <div class="sum" id="sum">Kaam chunein to andaza yahan dikhega.</div>
 <label style="font-size:.8rem;color:var(--muted)"><input type="checkbox" name="consent" required style="width:auto"> Main sahmat hoon ki meri jaankari sirf is kaam ke liye istemaal ho (90 din baad mita di jaati hai). <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></label>
 <button class="cta" type="submit" style="border:none;width:100%;cursor:pointer">Bhejiye ✔</button>
-</form><div class="okm" id="ok"></div></div>
+</form><div class="okm" id="ok"></div><div id="help"></div></div>
 
 """ + TABLE + """
 <h2>Kaise kaam hota hai</h2>
@@ -149,6 +151,8 @@ BODY = """<body>
 
 JS = """<script src="/svc-cfg.js"></script>
 <script src="/svc-offer.js"></script>
+<script src="/svc-intake.js"></script>
+<script src="/svc-kit.js"></script>
 <script>
 var CATS=__CATS__,IT=__ITEMS__,cur='all',$=function(i){return document.getElementById(i)};
 var Q=new URLSearchParams(location.search);if(Q.get('code'))$('code').value=Q.get('code').toUpperCase();
@@ -158,14 +162,15 @@ function draw(){var q=$('q').value.toLowerCase().trim(),h='';IT.forEach(function
 if(q&&(i.name+' '+CATS[i.cat].title).toLowerCase().indexOf(q)<0&&!q.split(/\\s+/).every(function(w){return (i.name+' '+i.id).toLowerCase().indexOf(w)>=0}))return;
 h+='<div class="card"><small>'+CATS[i.cat].title+'</small><b>'+i.name+'</b><span><span class="pr">'+rs(i.price)+' se</span> <span class="mk">'+rs(i.market[0])+'+</span></span><small>⏱ '+i.days+'</small>'+(i.risk==='Y'?'<span class="y">Sharton ke saath</span>':'')+'<button onclick="pick(\\''+i.id+'\\')">Ye chahiye</button></div>'});
 var any='<div class="card" style="border:2px dashed var(--brand)"><small>Kuch bhi</small><b>Koi bhi kaam — list mein nahi? Apne shabdon mein likhiye</b><span class="pr">Baat karke</span><small>Website, app, form, Excel, bot, design, setup… jo bhi ho</small><button onclick="anyKaam()">Apna kaam likho</button></div>';$('list').innerHTML=any+h}
-function anyKaam(){$('svc').value='Koi bhi kaam (custom)';$('sum').innerHTML='<b>Koi bhi kaam</b><br>Neeche apni zaroorat likhiye — hum padh kar likhit quote bhejenge.';location.hash='form';$('fm').querySelector('textarea').focus();ev('any','c')}
+function anyKaam(){$('svc').value='Koi bhi kaam (custom)';$('sum').innerHTML='<b>Koi bhi kaam</b><br>Neeche apni zaroorat likhiye — hum padh kar likhit quote bhejenge.';location.hash='form';kit('custom');$('fm').querySelector('textarea').focus();ev('any','c')}
 var cb='<button data-c="all" class="on">Sab</button>';for(var k in CATS)cb+='<button data-c="'+k+'">'+CATS[k].title+'</button>';$('cats').innerHTML=cb;
 $('cats').onclick=function(e){var c=e.target.getAttribute('data-c');if(!c)return;cur=c;[].forEach.call($('cats').children,function(b){b.className=b.getAttribute('data-c')===c?'on':''});draw()};
 $('q').oninput=draw;
-function pick(id){var i=IT.filter(function(x){return x.id===id})[0];$('svc').value=i.name;$('sum').innerHTML='<b>'+i.name+'</b><br>Shuruaati rate '+rs(i.price)+' · '+i.days+'<br><small>Final likhit quote kaam dekh kar.</small>';location.hash='form';ev('pick-'+i.cat,'c')}
+function pick(id){var i=IT.filter(function(x){return x.id===id})[0];$('svc').value=i.name;$('sum').innerHTML='<b>'+i.name+'</b><br>Shuruaati rate '+rs(i.price)+' · '+i.days+'<br><small>Final likhit quote kaam dekh kar.</small>';location.hash='form';kit(i.id);ev('pick-'+i.cat,'c')}
 function tot(){var t=+$('bt').value,n=[$('bt').selectedOptions[0].text];[].forEach.call(document.querySelectorAll('#bld input:checked'),function(c){t+=+c.value;n.push(c.getAttribute('data-n'))});$('tot').textContent=rs(t);return [t,n]}
 $('bld').addEventListener('change',tot);
-function useCustom(){var r=tot();$('svc').value='Custom: '+r[1].join(' + ');$('extras').value=r[1].join(', ');$('sum').innerHTML='<b>Custom kaam</b><br>Andaza '+rs(r[0])+'<br><small>Final likhit quote kaam dekh kar.</small>';location.hash='form';ev('custom','c')}
+function useCustom(){var r=tot();$('svc').value='Custom: '+r[1].join(' + ');$('extras').value=r[1].join(', ');$('sum').innerHTML='<b>Custom kaam</b><br>Andaza '+rs(r[0])+'<br><small>Final likhit quote kaam dekh kar.</small>';location.hash='form';kit('w-1page');ev('custom','c')}
+function kit(id){if(!window.SVCKIT)return;SVCKIT.fields($('intake'),SVCKIT.kind(id));$('fwrap').innerHTML=SVCKIT.fileInput()}
 function api(path,body,ms){var bases=[window.SVC_API||'/api'];if(window.SVC_API2)bases.push(window.SVC_API2);var i=0;
 return new Promise(function(ok,no){(function go(){var c=window.AbortController?new AbortController():null,t=setTimeout(function(){c&&c.abort()},ms||10000);
 fetch(bases[i]+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:c?c.signal:undefined}).then(function(r){clearTimeout(t);return r.json().then(function(j){if(!r.ok){var e=new Error(j.error||'galti');e.hard=r.status>=400&&r.status<500;throw e}return j})}).then(ok).catch(function(e){clearTimeout(t);if(!e.hard&&++i<bases.length)return go();no(e)})})()})}
@@ -176,10 +181,10 @@ var sh='https://wa.me/?text='+encodeURIComponent('Koi bhi digital kaam — ho ja
 $('fm').style.display='none';$('ok').style.display='block';$('ok').innerHTML='<b>✔ Aapka kaam mil gaya! Number: '+j.id+'</b><br>Hum jaldi call/WhatsApp karke kaam samjhenge. Rate aur payment aapke <b>apne page</b> par aayega:<br><a class="cta" style="display:inline-block;margin:8px 0" href="'+u+'">Mera page kholein</a><br><small>Is page ko save/bookmark kar lijiye — sirf aapke liye hai.</small><br>Dost ko bhejiye: <a href="'+sh+'" target="_blank" rel="noopener">Share karein</a> — code <b>'+j.ref+'</b> se dost ko 10% off, aapko uske bill ka 10% bonus.';ev('form','c')}
 $('fm').onsubmit=function(e){e.preventDefault();var b=e.target.querySelector('button[type=submit]'),d=Object.fromEntries(new FormData(e.target));
 d.urgent=!!d.urgent;d.care=!!d.care;d.consent=!!d.consent;d.src=Q.get('utm_source')||document.referrer.slice(0,100);d.page='services-list';
-d.cid=d.cid||(Date.now().toString(36)+Math.random().toString(36).slice(2,8));
+d.cid=d.cid||(Date.now().toString(36)+Math.random().toString(36).slice(2,8));if(window.SVCKIT)d.fields=SVCKIT.values($('intake'));var FL=($('fwrap').querySelector('input[type=file]')||{}).files||[];
 var wa='https://wa.me/'+(window.SVC_WA||'919917436371')+'?text='+encodeURIComponent('Namaste, kaam: '+(d.service||'')+' | '+d.message+' | '+d.name);
 b.disabled=true;b.textContent='Bhej rahe hain…';
-api('/lead',d,10000).then(function(j){done(j,d)}).catch(function(x){b.disabled=false;b.textContent='Bhejiye ✔';
+api('/lead',d,10000).then(function(j){done(j,d);if(FL.length&&window.SVCKIT){var o=$('ok');o.insertAdjacentHTML('beforeend','<p id="fprog">📎 File bhej rahe hain…</p>');SVCKIT.upload(j.id,j.k,FL,function(i,n,nm){$('fprog').textContent='📎 File '+(i+1)+'/'+n+' bhej rahe hain…'}).then(function(r){$('fprog').innerHTML='📎 '+r.ok+' file pahunch gayi'+(r.bad.length?' · nahi gayi: '+r.bad.join(', ')+' — apne page se ya <a href="https://wa.me/'+(window.SVC_WA||'919917436371')+'?text='+encodeURIComponent('Mera number '+j.id+' - files bhej raha hoon')+'">WhatsApp</a> par bhejiye':'')})}}).catch(function(x){b.disabled=false;b.textContent='Bhejiye ✔';
 if(x.hard){alert(x.message);return}
 qsave(d);$('ok').style.display='block';$('ok').innerHTML='<b>Network dheema hai.</b> Aapka sandesh is phone mein surakshit hai — net aate hi apne aap chala jayega (page khula rakhein ya dobara kholein). Chahein to abhi <a href="'+wa+'">WhatsApp par bhejein</a>.'})};
 window.addEventListener('online',qflush);setTimeout(qflush,1500);
@@ -189,6 +194,7 @@ var t0=Date.now();ev('list','v');document.addEventListener('visibilitychange',fu
 if(o.sale.start<=d&&d<=o.sale.end)h+='<div class="sum" style="background:#FEF3C7"><b>🏷 Is hafte ('+o.sale.start.slice(8)+'–'+o.sale.end.slice(8)+'):</b> '+o.sale.name+' — <s>'+rs(o.sale.price)+'</s> <b>'+rs(o.sale.now)+'</b> se ('+o.sale.end+' tak) <button data-i="'+o.sale.item+'" onclick="pick(this.getAttribute(&quot;data-i&quot;))" style="border:none;background:var(--brand);color:#fff;border-radius:8px;padding:4px 10px">Ye chahiye</button></div>';
 if(o.fest&&o.fest.start<=d&&d<=o.fest.end)h+='<div class="sum" style="background:#FCE7F3"><b>🎉 '+o.fest.name_hi+' offer:</b> '+o.fest.end+' tak har kaam par '+o.fest.pct+'% tak chhoot (har kaam ki nichli seema ke andar).</div>';
 document.getElementById('offer').innerHTML=h})();
+if(window.SVCKIT){kit('custom');SVCKIT.help($('help'),'Namaste, services ke baare mein poochna hai')}
 $('waf').addEventListener('click',function(){ev('wa','c')});draw();if(Q.get('svc')&&IT.some(function(x){return x.id===Q.get('svc')}))pick(Q.get('svc'));
 </script>"""
 JS = JS.replace("__CATS__", json.dumps(cats, ensure_ascii=False)).replace("__ITEMS__", json.dumps(items, ensure_ascii=False))

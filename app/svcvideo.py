@@ -47,15 +47,15 @@ DUR = T_CTA + 4.6                                    # 28.8
 LOOKS = {   # saaf, ujla: bg upar, bg neeche, brand rang, gehra rang
     "mint":    ("#F2FBF8", "#D7F3EA", "#0F766E", "#0B3B36"),
     "sky":     ("#F3F7FF", "#DCE7FF", "#2F54EB", "#14245C"),
-    "peach":   ("#FFF6EF", "#FFE1CC", "#E8590C", "#5A2307"),
-    "lemon":   ("#FFFBEA", "#FFF0B3", "#B7791F", "#4A3208"),
-    "rose":    ("#FFF3F6", "#FFD9E3", "#C2255C", "#5C0F2B"),
+    "peach":   ("#FFF6EF", "#FFE1CC", "#B8400B", "#5A2307"),
+    "lemon":   ("#FFFBEA", "#FFF0B3", "#8A5A12", "#4A3208"),
+    "rose":    ("#FFF3F6", "#FFD9E3", "#B01F52", "#5C0F2B"),
     "lilac":   ("#F7F3FF", "#E6DBFF", "#6741D9", "#2B1A66"),
-    "teal":    ("#EFFBFC", "#CFF2F5", "#0C8599", "#073B44"),
+    "teal":    ("#EFFBFC", "#CFF2F5", "#0B6B7A", "#073B44"),
     "pahad":   ("#F1F8FB", "#D6EAF2", "#1D5A6B", "#0B2A33"),
-    "coral":   ("#FFF5F3", "#FFDCD5", "#D9480F", "#4D1A06"),
-    "forest":  ("#F2FAF3", "#D3EFD8", "#2B8A3E", "#0E3317"),
-    "indigo":  ("#F4F5FF", "#DADDFF", "#4263EB", "#1B2154"),
+    "coral":   ("#FFF5F3", "#FFDCD5", "#A8380A", "#4D1A06"),
+    "forest":  ("#F2FAF3", "#D3EFD8", "#1F6E30", "#0E3317"),
+    "indigo":  ("#F4F5FF", "#DADDFF", "#3049C9", "#1B2154"),
     "plum":    ("#FCF4FB", "#F3D9EE", "#A61E4D", "#45102A"),
 }
 HOOKS = [  # (screen kicker, bolne ke liye) - sach, bina nakli jaldi
@@ -664,6 +664,32 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
                 good.append(f"4 awaaz ✅ {dur:.1f}s, awaaz {m.group(1) if m else '?'} dB")
         except Exception as e:
             bad.append(f"4 awaaz: jaanch nahi ho paayi ({str(e)[:60]})")
+    # 6 AAKARSHAN (padhne/dikhne layak): rang ka contrast + hook chhota + pehle 1 sec mein bada text
+    def _lum(c):
+        r_ = [(x / 255) / 12.92 if x / 255 <= .03928 else (((x / 255) + .055) / 1.055) ** 2.4 for x in c]
+        return .2126 * r_[0] + .7152 * r_[1] + .0722 * r_[2]
+    def _cr(a, b):
+        a, b = _lum(a), _lum(b)
+        return (max(a, b) + .05) / (min(a, b) + .05)
+    t_, b_, br_, dk_ = (_hex(c) for c in LOOKS[cx_["look"]])
+    six = []
+    if _cr(dk_, b_) < 7:
+        six.append(f"gehra text kam saaf ({_cr(dk_, b_):.1f})")
+    if _cr(br_, b_) < 3.5:
+        six.append(f"brand rang ka text kam saaf ({_cr(br_, b_):.1f})")
+    if _cr((255, 255, 255), br_) < 4.5:
+        six.append(f"CTA par safed text kam saaf ({_cr((255, 255, 255), br_):.1f})")
+    if len((cx_["q1"] + " " + cx_["q2"]).split()) > 8:
+        six.append("hook 8 shabd se lamba (scroll rokne ke liye chhota chahiye)")
+    reg = []
+    frame(cx_, 0.8, {}, reg)
+    big = max([b[3] - b[1] for (b, s_, tg_) in reg if tg_ in ("q1", "q2")] or [0])
+    if big < 90:
+        six.append(f"pehle second ka text chhota ({big}px)")
+    if six:
+        bad += ["6 aakarshan: " + x for x in six]
+    else:
+        good.append(f"6 aakarshan ✅ contrast {_cr(dk_, b_):.0f}:1, hook {len((cx_['q1'] + ' ' + cx_['q2']).split())} shabd, pehla text {big}px")
     good.append("5 owner ✅ - neeche button (bina aapki haan ke slot tak ruki rahegi, phir purane niyam se)")
     return (not bad), (["❌ " + b for b in bad] + good)
 

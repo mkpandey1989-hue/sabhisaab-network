@@ -125,3 +125,4 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Har paid lead par bank app mein paisa dekh kar hi "paid" dabana.
 - 2026-11-24 (owner): [Owner] v3.8.0 install kram: (1) bot ZIP sabhinet-v3.8.0 (2) bot mein: services upi <aapki UPI ID> (3) website ZIP website-v5-services (4) services video namoona (5) form se ek test kaam bhejein -> Telegram card + gupt page check (6) sab theek to: services video chalu
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
+- 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip

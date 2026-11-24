@@ -1,4 +1,4 @@
-// sabhisaab-leads v3.8.0 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
+// sabhisaab-leads v3.8.1 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
 // VM band ho to bhi lead surakshit. Customer ko Telegram/WhatsApp ki zaroorat nahi.
 // Rasta: sabhisaab.com/api/* (Pages Function, same-origin) -> yahan. Purana seedha workers.dev bhi chalta hai.
 const ORIG = ['https://sabhisaab.com', 'https://www.sabhisaab.com'];
@@ -34,7 +34,44 @@ function pub(st) {
       off: q.off, valid: q.valid, note: q.note || ''} : null,
     pay: showPay && st.upi ? {upi: st.upi, pn: 'Sab Hisaab', am: st.pay_amt || q.advance || q.final, tn: st.id} : null,
     paid: st.paid || 0, due: st.due || '', hist: (st.hist || []).slice(-20).map(h => ({t: h.t, s: h.s})),
-    rated: !!st.stars, deliver: st.deliver_note || ''};
+    rated: !!st.stars, deliver: st.deliver_note || '', files: (st.files || []).map(f => ({name: f.name, size: f.size})),
+    details: Object.keys(st.fields || {}).length, item: st.item || ''};
+}
+function cleanFields(f) {
+  const o = {}; if (!f || typeof f !== 'object') return o;
+  for (const k of Object.keys(f).slice(0, 20)) { const v = clean(f[k], 1500); if (v) o[clean(k, 20).replace(/[^a-z0-9_]/gi, '')] = v; }
+  return o;
+}
+const SECRET = /(\b\d{4}\s?\d{4}\s?\d{4}\b)|(\b[A-Z]{5}\d{4}[A-Z]\b)|(otp\s*[:=]?\s*\d{4,8})|(password|pin)\s*[:=]/i;
+const FILE_OK = /^(image\/|audio\/|application\/pdf|text\/plain|application\/(msword|vnd\.openxmlformats|vnd\.ms-excel))/;
+async function tgFile(env, name, type, buf, caption) {
+  try {
+    const fd = new FormData(); fd.append('chat_id', env.TG_CHAT); fd.append('caption', caption.slice(0, 1000));
+    fd.append('document', new Blob([buf], {type: type || 'application/octet-stream'}), name);
+    await fetch('https://api.telegram.org/bot' + env.TG_TOKEN + '/sendDocument', {method: 'POST', body: fd});
+  } catch (e) {}
+}
+const FAQ = [
+  [/(kitne|kitna|rate|price|charge|fees|paise|कितने|रेट)/i, 'Rate kaam ke hisaab se - resume ₹10, form madad ₹49, mobile madad ₹49 se shuru. Pehle hum kaam samajhte hain, phir aapke isi page par likhit rate aata hai. Haan dabane ke baad hi payment.'],
+  [/(file|photo|document|attach|bhej|upload|pdf|फ़ाइल|फोटो|भेज)/i, 'Isi page par "Details aur files" mein photo/PDF/voice note daal dijiye (10 tak, 8 MB tak). Zyada ho to "WhatsApp par bhejein" dabaiye - number apne aap likha jayega.'],
+  [/(pay|payment|upi|qr|paisa|paise de|भुगतान|पेमेंट)/i, 'Rate aane ke baad "Haan" dabaiye - wahin UPI QR aur Pay button khulega, rakam bhari hui. Screenshot zaroori nahi; hum bank mein dekh kar page par "Paisa mila" kar dete hain.'],
+  [/(kab|kitne din|time|samay|jaldi|कब|समय)/i, 'Chhote kaam aksar usi din. Bade kaam ka samay rate ke saath likha aata hai. Jaldi ho to form mein "urgent" chunein.'],
+  [/(otp|password|aadhaar|aadhar|pan|bank)/i, 'OTP, password, Aadhaar/PAN/bank number hum kabhi nahi maangte. Form mein zaroorat ho to aap khud daalenge, hum screen/call par saath batayenge.'],
+  [/(fraud|fake|bharosa|asli|dhokha|फ्रॉड|भरोसा)/i, 'Pehle baat, phir likhit rate, chhote kaam par hi poora advance; bade kaam par demo dekh kar baaki payment. Password/OTP kabhi nahi maangte. Shaq ho to pehle WhatsApp par baat kar lijiye.'],
+  [/(refund|wapas|cancel|वापस)/i, 'Kaam shuru hone se pehle cancel = poora advance wapas. Baaki niyam Terms page par saaf likhe hain.'],
+  [/(english|hindi|bhasha|likhna nahi|भाषा|हिंदी)/i, 'Bilkul Hindi mein likhiye, jaise ghar mein bolte hain - English zaroori nahi. Voice note bhi bhej sakte hain.']];
+async function helpAnswer(env, q) {
+  for (const [re, a] of FAQ) if (re.test(q)) return a;
+  if (env.AI) {
+    try {
+      const r = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {max_tokens: 160, messages: [
+        {role: 'system', content: 'Tum Sab Hisaab services ke vinamra sahayak ho. Hinglish mein 2-3 chhoti line. Sirf ye sach: kaam - resume ₹10, online form madad ₹49, ITR-1 madad ₹299, mobile/computer madad ₹49, website/app/design; pehle baat phir likhit rate; OTP/password/Aadhaar kabhi nahi maangte. Koi naya rate, guarantee ya vaada mat do. Pata na ho to kaho: WhatsApp par poochiye.'},
+        {role: 'user', content: q.slice(0, 400)}]});
+      const t = String((r && r.response) || '').replace(/[<>]/g, '').trim();
+      if (t && !/guarantee|गारंटी|100%|pakka/i.test(t)) return t.slice(0, 400) + ' (Pakka jawab: WhatsApp par poochiye)';
+    } catch (e) {}
+  }
+  return 'Ye sawal hum khud dekh kar batayenge - neeche "WhatsApp par poochiye" dabaiye, ya apna number aur kaam form mein likh dijiye.';
 }
 function hist(st, s) { st.hist = st.hist || []; st.hist.push({t: new Date().toISOString(), s}); }
 
@@ -57,13 +94,14 @@ export default {
       const name = clean(d.name, 80), phone = clean(d.phone, 16).replace(/[^0-9+]/g, ''), msg = clean(d.message, 3000);
       if (!name || phone.replace(/\D/g, '').length < 10 || msg.length < 3) return j({error: 'naam, mobile number aur kaam likhiye'}, 400, H);
       if (!d.consent) return j({error: 'sahmati ka dabba chunein'}, 400, H);
+      if ([msg, ...Object.values(cleanFields(d.fields))].some(v => SECRET.test(v))) return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H);
       const t = Date.now(); const id = 'SH' + new Date(t + 19800000).toISOString().slice(2, 10).replace(/-/g, '') +
         Math.random().toString(36).slice(2, 6).toUpperCase();
       const k = rnd(16);
       const lead = {id, k, ref: 'REF-' + id.slice(-4), t: new Date(t).toISOString(), name, phone, message: msg,
         service: clean(d.service, 160), budget: clean(d.budget, 12), code: clean(d.code, 20).toUpperCase(),
         urgent: !!d.urgent, care: !!d.care, extras: clean(d.extras, 600), src: clean(d.src, 120), page: clean(d.page, 80),
-        ip: ip.slice(0, 64), via: clean(d.via, 20)};
+        ip: ip.slice(0, 64), via: clean(d.via, 20), fields: cleanFields(d.fields)};
       await env.KV.put('lead:' + t + ':' + id, JSON.stringify(lead), {expirationTtl: 90 * 86400});
       const st = {...lead, status: 'new', hist: []}; hist(st, 'new'); await putSt(env, st);
       const out = {id, ref: lead.ref, k};
@@ -87,6 +125,40 @@ export default {
       st.status = 'accepted'; hist(st, 'accepted'); await putSt(env, st);
       await tg(env, '✅ ' + st.id + ' customer ne rate MAAN liya (₹' + (st.quote || {}).final + '). Ab QR uske page par dikh raha hai. Paisa aaye to bank app dekh kar: paid ' + st.id + ' <rupaye>');
       return j(pub(st), 200, H);
+    }
+    if (path === '/q/info' && req.method === 'POST') {                  // kaam ki details (sawal-form) baad mein bhi
+      let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
+      const st = await getSt(env, clean(d.id, 20));
+      if (!st || st.k !== d.k) return j({error: 'link galat'}, 404, H);
+      const f = cleanFields(d.fields);
+      if (Object.values(f).some(v => SECRET.test(v))) return j({error: 'Aadhaar/PAN/OTP/password jaisa number mat likhiye - hum kabhi nahi maangte. Use hata kar bhejiye.'}, 400, H);
+      st.fields = {...(st.fields || {}), ...f}; await putSt(env, st);
+      await tg(env, '📝 ' + st.id + ' ne details bheji:\n' + Object.entries(f).map(([k, v]) => k + ': ' + v).join('\n').slice(0, 3000));
+      return j(pub(st), 200, H);
+    }
+    if (path === '/q/file' && req.method === 'POST') {                  // photo/PDF/voice - seedha owner ke Telegram + 30 din KV
+      let fd; try { fd = await req.formData(); } catch (e) { return j({error: 'file nahi mili'}, 400, H); }
+      const st = await getSt(env, clean(fd.get('id'), 20));
+      if (!st || st.k !== fd.get('k')) return j({error: 'link galat'}, 404, H);
+      const file = fd.get('file');
+      if (!file || typeof file === 'string') return j({error: 'file nahi mili'}, 400, H);
+      st.files = st.files || [];
+      if (st.files.length >= 10) return j({error: '10 file ho gayi - baaki WhatsApp par bhejiye'}, 400, H);
+      if (file.size > 8 * 1024 * 1024) return j({error: 'file 8 MB se badi - WhatsApp par bhejiye'}, 400, H);
+      const type = file.type || '', name = clean(file.name || 'file', 80).replace(/[^\w.\- ]/g, '_');
+      if (!FILE_OK.test(type) && !/\.(pdf|docx?|xlsx?|txt|jpe?g|png|webp|heic|m4a|mp3|ogg|opus|aac|wav)$/i.test(name)) return j({error: 'ye file type nahi chalega - photo/PDF/Word/voice bhejiye'}, 400, H);
+      const buf = await file.arrayBuffer(); const n = st.files.length + 1;
+      await env.KV.put('f:' + st.id + ':' + n, buf, {expirationTtl: 30 * 86400, metadata: {name, type}});
+      st.files.push({n, name, size: file.size, type, t: new Date().toISOString()}); await putSt(env, st);
+      await tgFile(env, name, type, buf, '📎 ' + st.id + ' (' + (st.name || '') + ') file ' + n + ': ' + name);
+      return j(pub(st), 200, H);
+    }
+    if (path === '/help' && req.method === 'POST') {                    // sahayak: pehle FAQ, phir (ho to) Workers AI
+      let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
+      const ip = ipOf(req, env), rk = 'rh:' + ip, n = +(await env.KV.get(rk) || 0);
+      if (n >= 20) return j({a: 'Bahut sawal ho gaye - WhatsApp par poochiye 🙏'}, 200, H);
+      await env.KV.put(rk, String(n + 1), {expirationTtl: 3600});
+      return j({a: await helpAnswer(env, clean(d.q, 400))}, 200, H);
     }
     if (path === '/q/rate' && req.method === 'POST') {                  // delivery ke baad star
       let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
@@ -131,10 +203,22 @@ export default {
       const st = await getSt(env, clean(d.id, 20));
       if (!st) return j({error: 'nahi mila'}, 404);
       const P = d.patch || {};
-      for (const key of ['quote', 'upi', 'pay_amt', 'paid', 'due', 'deliver_note', 'note']) if (key in P) st[key] = P[key];
+      for (const key of ['quote', 'upi', 'pay_amt', 'paid', 'due', 'deliver_note', 'note', 'item']) if (key in P) st[key] = P[key];
       if (P.status && STAGES.includes(P.status) && P.status !== st.status) { st.status = P.status; hist(st, P.status); }
       await putSt(env, st);
       return j({ok: true, status: st.status});
+    }
+    if (p[2] === 'file' && req.method === 'GET') {
+      const r = await env.KV.getWithMetadata('f:' + clean(u.searchParams.get('id'), 20) + ':' + (+u.searchParams.get('n') || 0), {type: 'arrayBuffer'});
+      if (!r || !r.value) return new Response('nahi', {status: 404});
+      return new Response(r.value, {headers: {'content-type': (r.metadata || {}).type || 'application/octet-stream', 'x-name': encodeURIComponent((r.metadata || {}).name || 'file')}});
+    }
+    if (p[2] === 'fdel' && req.method === 'POST') {                    // kaam ke baad documents mitao (privacy)
+      let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400); }
+      const id = clean(d.id, 20); const L = await env.KV.list({prefix: 'f:' + id + ':'});
+      for (const key of L.keys) await env.KV.delete(key.name);
+      const st = await getSt(env, id); if (st) { st.files_deleted = (st.files || []).length; st.files = []; await putSt(env, st); }
+      return j({ok: true, n: L.keys.length});
     }
     if (p[2] === 'stats') {
       const L = await env.KV.list({prefix: 'ev:' + (u.searchParams.get('day') || day()), limit: 1000}); const o = {};
