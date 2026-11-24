@@ -1955,6 +1955,64 @@ def t392_sitemap(t, day=None):
     return t
 
 
+_MH393 = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def t393_date(t, day=None):
+    """v3.9.3 (owner: 'mobile par page ki date nahi aa rahi'): services-list/demo par h1 ke neeche dikhne wali tareekh (baaki page jaisi)."""
+    d = day or datetime.date.today()
+    tm = f'<time datetime="{d.isoformat()}">{d.day} {_MH393[d.month - 1]} {d.year}</time>'
+    if 'class="upd"' in t:
+        return re.sub(r'<time datetime="[^"]*">[^<]*</time>', tm, t, count=1)
+    m = re.search(r"</h1>", t)
+    if not m:
+        return t
+    t = t[:m.end()] + f'\n<p class="upd">Aakhri update: {tm} · shuruaati daam · <a href="/terms#rate" style="color:#fff">shartein</a></p>' + t[m.end():]
+    return re.sub(r'"dateModified": ?"[^"]*"', f'"dateModified": "{d.isoformat()}"', t)
+
+
+def svc393_apply():
+    """Ek baar (state sitepatch_v393): rate list nayi (tareekh ke saath) + demo par tareekh + sitemap lastmod. Audit gate."""
+    if state.get("sitepatch_v393") or not state.get("sitepatch_v392"):
+        return ""
+    try:
+        sync()
+    except Exception as e:
+        log(f"s393 sync: {e}")
+    import pathlib as _pl
+    root = DIR / "site"
+    files = {}
+    src = _pl.Path(__file__).parent / "sitepatch393" / "services-list.html"
+    if src.exists():
+        files["site/services-list.html"] = t393_date(t392_footer(src.read_text(encoding="utf-8")))
+    dm = root / "services-demo.html"
+    if dm.exists():
+        a = dm.read_text(encoding="utf-8")
+        b = t393_date(a)
+        if a != b:
+            files["site/services-demo.html"] = b
+    sm = root / "sitemap.xml"
+    if sm.exists():
+        a = sm.read_text(encoding="utf-8")
+        b = t392_sitemap(a)
+        if a != b:
+            files["site/sitemap.xml"] = b
+    if not files:
+        state.put("sitepatch_v393", True)
+        return ""
+    z = DATA / "s393.zip"
+    with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zz:
+        for p_, t in files.items():
+            zz.writestr(p_, t.encode("utf-8"))
+    r = apply_zip(z, force=False, deploy_in=1)
+    z.unlink(missing_ok=True)
+    if str(r).startswith("✅") or str(r).startswith("ℹ️"):
+        state.put("sitepatch_v393", True)
+        return ("🗂 Website: rate list + demo page par ab tareekh dikhti hai (mobile par bhi), sitemap taaza. "
+                "Services list/demo Google mein abhi nahi - 20 min baad '🔎 Indexing link' se Request indexing.")
+    return f"🗂 Services page tareekh wala badlav audit mein ruka (kuch live nahi): {str(r)[:300]}"
+
+
 def svc392_files():
     """{site/raasta: bytes} - jo badalna hai (sirf badle hue)."""
     import pathlib as _pl

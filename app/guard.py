@@ -130,9 +130,40 @@ def cleanup() -> str:
         if _older_than(p, LOG_DAYS * 86400):
             freed += _size(p)
             p.unlink(missing_ok=True)
+    try:                                  # v3.9.3 (owner: "purana kachra saaf karte raho, VM saaf rahe")
+        freed += _old_media()
+    except Exception as e:
+        log(f"safai media: {e}")
     msg = f"🧹 Safai: {freed / 1e6:.1f} MB khaali"
     log(msg)
     return msg
+
+
+def _old_media() -> int:
+    """Post ho chuki video ki BADI file (mp4/wav) 10 din baad, IG-safe copy 1 din baad, services ki radd/fail video 3 din baad.
+    meta.json + thumbnail rehte hain (ginti/itihaas ke liye). Line mein lagi (waiting/approved) video kabhi nahi."""
+    from .config import POSTED, DATA
+    from . import state as _st
+    live = set()
+    for j in (_st.get("jobs") or {}).values():
+        if j.get("status") in ("waiting", "approved", "queued", "uploading", "making", "sample"):
+            live.add(str(j.get("meta", "")))
+    freed = 0
+    now_ = time.time()
+    for f in POSTED.rglob("*"):
+        if not f.is_file() or str(f.parent) in live:
+            continue
+        age = now_ - f.stat().st_mtime
+        if (f.name.endswith("_igsafe.mp4") and age > 86400) or (f.suffix in (".mp4", ".wav", ".mov") and age > 10 * 86400):
+            freed += f.stat().st_size
+            f.unlink(missing_ok=True)
+    out = DATA / "services_video"
+    if out.exists():
+        for d in out.iterdir():
+            if d.is_dir() and str(d) not in live and now_ - d.stat().st_mtime > 3 * 86400:
+                freed += _size(d)
+                shutil.rmtree(d, ignore_errors=True)
+    return freed
 
 
 def _size(p) -> int:

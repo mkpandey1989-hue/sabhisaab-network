@@ -76,6 +76,7 @@ def missing_today():
     for j in pipeline.jobs().values():
         if j.get("style") == "services_ad" and str(j.get("created", ""))[:10] == d and j.get("reason") == "roz ka schedule":
             have.add(j.get("brand"))
+    have |= set(((state.get("svc_taken") or {}).get(d) or {}).keys())     # v3.9.3: owner ka namoona = us brand ka aaj ka slot
     out = []
     try:
         plan = svcvideo.pick_day(day=d)

@@ -126,6 +126,7 @@ BODY = """<body>
 <main><div class="wrapw">
 <div class="crumb"><a href="/">Home</a> &rsaquo; <a href="/services">Services</a> &rsaquo; Rate list</div>
 <div class="hero"><h1>Koi bhi digital kaam — ho jayega</h1>
+<p class="upd">Rate list: <time datetime="__TODAY__">__TODAY_H__</time> · shuruaati daam · likhit quote 7 din maanya · <a href="/terms#rate" style="color:#fff">shartein</a></p>
 <p><b>Hindi mein likhiye, jaise ghar mein bolte hain</b> — English zaroori nahi, sharm ki koi baat nahi.</p>
 <p>Resume ₹10 · Form bharne mein madad ₹49 · Mobile/computer madad ₹49 · Bill · Website — <b>₹10 se shuru</b></p>
 <span class="pill">🗂 1000+ kaam ki list</span><span class="pill">📄 Resume sirf ₹10</span><span class="pill">📝 Online form bharne mein madad ₹49</span><span class="pill">✔ Market se kam rate</span><span class="pill">✔ Pehle demo, phir payment</span><span class="pill">✔ 2 badlav shaamil</span><span class="pill">✔ Code aur account aapke naam</span></div>
@@ -277,5 +278,8 @@ page = (head_clean + style + EXTRA_CSS + f'<script type="application/ld+json">{j
         BODY + foot.replace('<script src="/install-app.js" defer></script>', JS + '\n<script src="/install-app.js" defer></script>'))
 page = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{TITLE}">', page)
 page = page.replace('content="https://sabhisaab.com/services">', 'content="https://sabhisaab.com/services-list">')
+_td = __import__("datetime").date.today()
+_MH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+page = page.replace("__TODAY__", _td.isoformat()).replace("__TODAY_H__", f"{_td.day} {_MH[_td.month - 1]} {_td.year}")   # v3.9.3: mobile par bhi tareekh
 open(out, "w", encoding="utf-8").write(page)
 print("ok", len(page))

@@ -36,6 +36,45 @@ SHOTS = ASSETS / "svc"
 SITE_TXT = "sabhisaab.com/services-list"
 TAG1, TAG2 = "कोई भी डिजिटल काम", "हो जाएगा"
 TNC_TXT = "* शर्तें लागू · पूरी शर्तें: sabhisaab.com/terms"
+# v3.9.3 (owner 24 Nov: "sabse badi takat - ₹10 se shuru, koi bhi digital kaam ho jayega; video shuru hote hi, phir ghoom-fir kar
+# wahi aaye, har baar alag shabd"). (sticker, bada 1, bada 2 [marker], chhoti line, awaaz). {p}/{ps} = rate-list ka SACH wala
+# "% tak kam" (usp_pct). 'Limited time / 90% discount' NAHI: offer lambe chalenge (CCPA dark pattern) aur 90% sirf ₹10 Resume par
+# sach hai - "शुरुआती दाम" sach hai (kaam badhne par rate badal sakte hain - terms#rate).
+USP = [
+    ("₹10 से शुरू", "कोई भी डिजिटल काम", "हो जाएगा", "बाज़ार से {p}% तक कम · शुरुआती दाम",
+     "दस रुपये से शुरू। कोई भी डिजिटल काम, हो जाएगा। बाज़ार से {ps} प्रतिशत तक कम।"),
+    ("शुरुआती दाम", "₹10 से शुरू", "हर डिजिटल काम", "फॉर्म से वेबसाइट तक · 1000+ काम",
+     "शुरुआती दाम। दस रुपये से शुरू, हर डिजिटल काम। फॉर्म से वेबसाइट तक, हज़ार से ज़्यादा काम।"),
+    ("1000+ काम", "कोई भी डिजिटल काम", "₹10 से शुरू", "बाज़ार से {p}% तक कम",
+     "हज़ार से ज़्यादा काम। कोई भी डिजिटल काम, दस रुपये से शुरू। बाज़ार से {ps} प्रतिशत तक कम।"),
+    ("छोटा हो या बड़ा", "हर डिजिटल काम", "₹10 से शुरू", "पहले बात · फिर लिखित रेट",
+     "काम छोटा हो या बड़ा, हर डिजिटल काम, दस रुपये से शुरू। पहले बात, फिर लिखित रेट।"),
+    ("बस बताइए", "कोई भी डिजिटल काम", "हो जाएगा", "₹10 से शुरू · बाज़ार से {p}% तक कम",
+     "बस बताइए, कोई भी डिजिटल काम हो जाएगा। दस रुपये से शुरू, बाज़ार से {ps} प्रतिशत तक कम।"),
+    ("घर बैठे", "₹10 से शुरू", "कोई भी डिजिटल काम", "हिंदी में लिखिए · बाज़ार से {p}% तक कम",
+     "घर बैठे, दस रुपये से शुरू, कोई भी डिजिटल काम। बाज़ार से {ps} प्रतिशत तक कम।"),
+]
+# beech-beech mein yaad (har kaam par neeche patti, alag shabd) + awaaz mein ek baar beech mein
+RIBBON = ["₹10 से शुरू · कोई भी डिजिटल काम", "कोई भी डिजिटल काम — हो जाएगा", "बाज़ार से {p}% तक कम · शुरुआती दाम",
+          "फॉर्म से वेबसाइट तक · ₹10 से शुरू", "1000+ काम · एक ही जगह", "पहले बात · फिर लिखित रेट"]
+REMIND = ["याद रखिए, कोई भी डिजिटल काम, दस रुपये से शुरू।", "छोटा हो या बड़ा, हर डिजिटल काम हो जाएगा।",
+          "शुरुआती दाम, बाज़ार से {ps} प्रतिशत तक कम।", "फॉर्म से वेबसाइट तक, सब एक जगह, दस रुपये से शुरू।"]
+NUM_HI = {30: "तीस", 40: "चालीस", 50: "पचास", 60: "साठ", 70: "सत्तर", 80: "अस्सी", 90: "नब्बे"}
+
+
+def usp_pct():
+    """Rate-list ka SACH '% tak kam': sabse bada 10 ka kadam jahan kam se kam 10% public kaam (sarkari-form chhod kar) itne ya zyada sasta.
+    (Sirf 1 kaam 90% par = '90% tak' kehna gumraah karna; ASCI 'up to' niyam.) Aaj ~70."""
+    try:
+        from . import svc
+        it = [i for i in svc.rates()["items"] if not i.get("hide") and not i.get("nostrike") and i["market"][0] > 0]
+        sv = [(1 - i["price"] / i["market"][0]) * 100 for i in it]
+        for th in (90, 80, 70, 60, 50, 40, 30):
+            if sum(1 for x in sv if x >= th) >= .1 * len(sv):
+                return th
+    except Exception as e:
+        log(f"usp_pct: {e}")
+    return 0
 SLOTS = ["05:00", "07:00", "18:00", "20:00"]
 CODES = {"deals": "LABH10", "sunonatak": "NATAK10", "money": "MONEY10", "pahadi": "PAHADI10"}   # svc.price ke brand code (kis brand se kaam aaya)          # owner 24 Nov: services video jaane ka samay (IST)
 N_KAAM = 6
@@ -242,6 +281,9 @@ KAAM.update({
 })
 
 
+TASK_CATS = {"cloud", "devops", "data", "domain", "smart", "docs", "design", "content", "micro", "guide", "fix", "care", "daftar", "app"}
+
+
 def _auto_kaam():
     """v3.9.2: rate list ke 1000+ kaam -> video ke liye (screen par kaam ka naam, awaaz mein dabbe ka Hindi naam).
     novideo/hide (SEBI order-bot, sarkari pehchaan-patra, kanooni draft) video mein kabhi nahi."""
@@ -261,7 +303,8 @@ def _auto_kaam():
         if not v:
             continue
         scr = re.sub(r"\s*\(.*?\)", "", i["name"]).strip(" -")
-        KAAM[i["id"]] = (scr, v[0], v[2], v[3], v[4], v[1], v[5])
+        shot = "task" if i["cat"] in TASK_CATS else v[1]        # v3.9.3: screen kaam se mele
+        KAAM[i["id"]] = (scr, v[0], v[2], v[3], v[4], shot, v[5])
 
 
 _auto_kaam()
@@ -494,8 +537,48 @@ def _card(im, box, r=40, fill=(255, 255, 255), shadow=26):
     ImageDraw.Draw(im).rounded_rectangle((x0, y0, x1, y1), r, fill=fill)
 
 
+def _task_mock(name, price, w=520):
+    """v3.9.3: 1000+ kaam mein har kaam ka asli screen nahi - sachchi baat-cheet jaisa namoona: grahak ne kaam likha -> 'ho jayega'.
+    (Pehle 'Email spam theek' par website ka screen aata tha - mel nahi.)"""
+    f_h, f_b, f_s = _font(32), _font(30, "SemiBold"), _font(24, "Medium")
+    im = Image.new("RGB", (w, 1000), (236, 242, 240))
+    d = ImageDraw.Draw(im)
+    d.rectangle((0, 0, w, 96), fill=(15, 118, 110))
+    d.text((24, 48), "Services · बातचीत", font=f_h, fill=(255, 255, 255), anchor="lm")
+
+    def wrap(t, f, mw):
+        out, cur = [], ""
+        for x in t.split():
+            if f.getlength((cur + " " + x).strip()) > mw and cur:
+                out.append(cur)
+                cur = x
+            else:
+                cur = (cur + " " + x).strip()
+        return out + ([cur] if cur else [])
+
+    def bubble(y, lines, right, fill, col, f):
+        bw = max(f.getlength(l) for l in lines) + 48
+        x0 = w - 24 - bw if right else 24
+        bh = 26 + 44 * len(lines)
+        d.rounded_rectangle((x0, y, x0 + bw, y + bh), 24, fill=fill)
+        for j, l in enumerate(lines):
+            d.text((x0 + 24, y + 36 + 44 * j), l, font=f, fill=col, anchor="lm")
+        return y + bh + 26
+    y = 140
+    y = bubble(y, ["मुझे ये काम चाहिए:"] + wrap(name, f_b, w - 150)[:3], True, (220, 248, 198), (30, 40, 50), f_b)
+    y = bubble(y, ["हो जाएगा।", f"₹{price:,} से शुरू", "पहले बात, फिर लिखित रेट"], False, (255, 255, 255), (30, 40, 50), f_b)
+    y = bubble(y, ["ठीक है, कब तक?"], True, (220, 248, 198), (30, 40, 50), f_b)
+    y = bubble(y, ["समय भी लिख कर बताएँगे"], False, (255, 255, 255), (30, 40, 50), f_b)
+    d.rounded_rectangle((24, y + 10, w - 24, y + 80), 14, fill=(15, 118, 110))
+    d.text((w // 2, y + 45), "कमेंट में अपना काम लिखिए", font=f_s, fill=(255, 255, 255), anchor="mm")
+    return im
+
+
 def _mock(key, w=520):
     """Jin kaam ka asli screenshot nahi (form, ITR, phone, PPT, patra, docs) - saaf NAMOONA screen (koi sarkari logo/naam nahi)."""
+    if key.startswith("task|"):
+        _k, nm_, pr_ = key.split("|", 2)
+        return _task_mock(nm_, int(pr_), w)
     f_h, f_b, f_s = _font(34), _font(28, "SemiBold"), _font(24, "Medium")
     im = Image.new("RGB", (w, 1000), (248, 250, 251))
     d = ImageDraw.Draw(im)
@@ -710,8 +793,8 @@ def ctx_for(v, brand, day=None):
     say_hook = f"{hook[1]} {q1} {q2}"
     kick = hook[0]
     if mode == 0 and pct >= 30:
-        kick, q1, q2 = "डिजिटल काम", "बाज़ार से", f"{pct}% तक सस्ता"
-        say_hook = f"डिजिटल काम, बाज़ार से {pct} प्रतिशत तक सस्ता"
+        kick, q1, q2 = "डिजिटल काम", "बाज़ार से", f"{pct}% तक कम"
+        say_hook = f"डिजिटल काम, बाज़ार से {NUM_HI.get(pct, pct)} प्रतिशत तक कम"
     elif mode == 1 and lm > lp and not R[lead].get("nostrike") and _fit(k[0], 120, W - 160).size >= 100:   # lamba naam = chhota text (6th round)
         kick, q1, q2 = f"बाज़ार में {_rs(lm)}+", k[0], f"सिर्फ़ {_rs(lp)}"
         say_hook = f"बाज़ार में {lm} रुपये से ऊपर, यहाँ {k[6]}, सिर्फ़ {lp} रुपये"
@@ -728,12 +811,24 @@ def ctx_for(v, brand, day=None):
         p_, old = _price_of(iid, R, sale)
         rows.append({"id": iid, "name": KAAM[iid][0], "group": KAAM[iid][1], "ben": KAAM[iid][4], "shot": KAAM[iid][5],
                      "say": KAAM[iid][6], "price": p_, "was": old, "market": R[iid]["market"][0], "ns": bool(R[iid].get("nostrike")), "sale_end": sale["end"] if old else ""})
+    upct = usp_pct()                                # v3.9.3: owner ki sabse badi baat - shuru ke turant baad + beech mein + aakhir
+    bi = list(BRANDS).index(brand) if brand in BRANDS else 0
+    dn = datetime.date.fromisoformat(day).toordinal() if day else datetime.date.today().toordinal()
+    okU = [u for u in USP if upct >= 50 or "{p" not in "".join(u)]
+    u = okU[(dn + bi + int(v.get("hook") or 0)) % len(okU)]
+    fm_ = lambda x: x.replace("{ps}", NUM_HI.get(upct, str(upct))).replace("{p}", str(upct))
+    usp = {"stk": fm_(u[0]), "b1": fm_(u[1]), "b2": fm_(u[2]), "ln": fm_(u[3]), "say": fm_(u[4])}
+    rib = [fm_(x) for x in RIBBON if upct >= 50 or "{p" not in x]
+    rib = rib[(dn + bi) % len(rib):] + rib[:(dn + bi) % len(rib)]
+    rem = [fm_(x) for x in REMIND if upct >= 50 or "{p" not in x]
+    remind = rem[(dn + bi * 3) % len(rem)]
     code_say = {"LABH10": "लाभ टेन", "NATAK10": "नाटक टेन", "MONEY10": "मनी टेन", "PAHADI10": "पहाड़ी टेन"}.get(CODES.get(brand, ""), "")
     # v3.8.7 (owner: "pura bol nahi raha, kitne se shuru"): screen par jo bada likha hai wo sab bola jaye
-    segs = [("hook", say_hook), ("tag", f"{TAG1}, {TAG2}। दस रुपये से शुरू।")] + \
-           [(f"k{i}", f"{r['say']}, {r['price']} रुपये से शुरू।" + (" इस हफ्ते सस्ता।" if r["was"] else "")) for i, r in enumerate(rows)] + \
+    segs = [("hook", say_hook), ("tag", usp["say"])] + \
+           [(f"k{i}", f"{r['say']}, {r['price']} रुपये से शुरू।" + (" इस हफ्ते सस्ता।" if r["was"] else "") + (f" {remind}" if i == 2 else ""))
+            for i, r in enumerate(rows)] + \
            [("hindi", "हिंदी में लिखिए, जैसे घर में बोलते हैं। इंग्लिश जरूरी नहीं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका।"),
-            ("cta", (f"बाजार से {pct} प्रतिशत तक सस्ता। " if pct >= 30 and not say_hook.startswith("डिजिटल काम, बाज़ार से") else "") + "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम पर देखिए।"
+            ("cta", "दस रुपये से शुरू, कोई भी डिजिटल काम। " + "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम पर देखिए।"
              + (f" कोड {code_say} से दस प्रतिशत तक छूट।" if code_say else ""))]
     say = (f"{hook[1]} {q1} {q2} {TAG1}, {TAG2}। " +
            "। ".join(f"{r['say']}, {r['price']} रुपये से" for r in rows) +
@@ -741,9 +836,10 @@ def ctx_for(v, brand, day=None):
            "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम स्लैश सर्विसेज़ लिस्ट।")
     short = {"cta": "कमेंट में अपना काम लिखिए।" + (f" कोड {code_say}।" if code_say else ""),       # 58s se lambi ho to yahi chhota rup
              "hindi": "हिंदी में लिखिए, इंग्लिश जरूरी नहीं। दोस्त को भेजिए, दस प्रतिशत आपका।",
-             "tag": f"{TAG1}, {TAG2}।"}
+             "tag": usp["say"].split("।")[0] + "।"}
     return {"segs": segs, "short": short, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": kick, "q1": q1, "q2": q2, "pct": pct, "rows": rows, "say": say,
-            "season": season, "sale": sale, "set": list(v.get("set") or []), "hook": v.get("hook")}
+            "season": season, "sale": sale, "set": list(v.get("set") or []), "hook": v.get("hook"),
+            "usp": usp, "upct": upct, "rib": rib}
 
 
 # ---------------------------------------------------------------- one frame
@@ -765,8 +861,14 @@ def frame(cx_, t, cache, reg=None):
         _logo_draw(im, cx_["brand"], 60, 100, 64)
         cv.text((140, 132), BRANDS[cx_["brand"]]["name"], _font(30, "SemiBold"), dk, anchor="lm", tag="lgname")
     # S0 hook
+    U = cx_.get("usp") or {"stk": "₹10 से शुरू", "b1": TAG1, "b2": TAG2, "ln": "₹10 से शुरू"}
     if t < T_HOOK_:
-        k = _back(t / .5)
+        k = max(.82, _back(t / .5))                 # v3.9.3: pehla frame hi poora (feed mein yahi dikhta hai)
+        pill = "कोई भी डिजिटल काम · हो जाएगा" if "₹10" in cx_["kick"] + cx_["q1"] else "₹10 से शुरू · कोई भी डिजिटल काम"
+        fp_ = _fit(pill, 40, W - 260, "SemiBold")
+        pw_ = fp_.getlength(pill) + 70
+        ImageDraw.Draw(im).rounded_rectangle((W // 2 - pw_ // 2, 400, W // 2 + pw_ // 2, 476), 38, fill=br)
+        cv.text((W // 2, 438), pill, fp_, (255, 255, 255), tag="upill")
         cv.text((W // 2, 600), cx_["kick"], _font(54, "SemiBold"), br, tag="kick")
         f = _fit(max(cx_["q1"], cx_["q2"], key=len), int(120 * max(.3, k)), W - 160)
         cv.text((W // 2, 790), cx_["q1"], f, dk, tag="q1")
@@ -779,10 +881,14 @@ def frame(cx_, t, cache, reg=None):
     # S1 tagline
     elif t < T_LIST0_:
         k = _back((t - T_HOOK_) / .5)
-        f = _fit(TAG1, int(124 * max(.3, k)), W - 140)
-        cv.text((W // 2, 760), TAG1, f, dk, tag="tag1")
-        _marker(cv, (W // 2, 930), TAG2, f, br, tag="tag2")
-        chip = "₹10 से शुरू  ·  मदद · बनाना · मोबाइल-कंप्यूटर"
+        fs_ = _fit(U["stk"], int(64 * max(.5, k)), W - 300)
+        sw_ = fs_.getlength(U["stk"]) + 90
+        ImageDraw.Draw(im).rounded_rectangle((W // 2 - sw_ // 2, 540, W // 2 + sw_ // 2, 640), 50, fill=(224, 49, 49))
+        cv.text((W // 2, 590), U["stk"], fs_, (255, 255, 255), tag="ustk")
+        f = _fit(max(U["b1"], U["b2"], key=len), int(118 * max(.3, k)), W - 140)
+        cv.text((W // 2, 760), U["b1"], f, dk, tag="tag1")
+        _marker(cv, (W // 2, 930), U["b2"], f, br, tag="tag2")
+        chip = U["ln"]
         fc = _fit(chip, 40, W - 200, "SemiBold")
         cw = fc.getlength(chip) + 70
         _card(im, (W // 2 - cw // 2, 1100, W // 2 + cw // 2, 1180), 40, shadow=12)
@@ -797,10 +903,11 @@ def frame(cx_, t, cache, reg=None):
         k = _ease(lt / .4)
         cv.text((W // 2, 210), f"काम {i + 1} / {N_KAAM}  ·  {r['group']}", _font(40, "SemiBold"), br, tag="num")
         cv.text((W // 2, 310), r["name"], _fit(r["name"], 92, W - 140), dk, tag="name")
-        key = ("ph", r["shot"], int(lt * 5))
+        shot_ = f"task|{r['name']}|{r['price']}" if r["shot"] == "task" else r["shot"]
+        key = ("ph", shot_, int(lt * 5))
         ph = cache.get(key)
         if ph is None:
-            ph = _phone_shot(r["shot"], min(1, max(0, (lt - .5) / 2.0)))
+            ph = _phone_shot(shot_, min(1, max(0, (lt - .5) / 2.0)))
             if len(cache) > 60:
                 bg = cache["bg"]
                 cache.clear()
@@ -829,6 +936,11 @@ def frame(cx_, t, cache, reg=None):
             _tick(d, x0 + 55, 1085, 24, (255, 255, 255))
             cv.text((x0 + 112, 1085), r["ben"], _fit(r["ben"], 40, x1 - x0 - 130, "SemiBold"), dk, anchor="lm", tag="ben")
         _chips(im, cv, cx_["rows"], 1420, i, br, dk)
+        rb = (cx_.get("rib") or ["₹10 से शुरू · कोई भी डिजिटल काम"])[i % max(1, len(cx_.get("rib") or [1]))]
+        frb = _fit(rb, 40, W - 240, "SemiBold")
+        rw_ = frb.getlength(rb) + 80
+        ImageDraw.Draw(im).rounded_rectangle((W // 2 - rw_ // 2, 1642, W // 2 + rw_ // 2, 1718), 38, fill=br)
+        cv.text((W // 2, 1680), rb, frb, (255, 255, 255), tag="rib")       # v3.9.3: har kaam par yaad (alag shabd)
         if r["was"]:
             se = datetime.date.fromisoformat(r["sale_end"])
             cv.text((ccx, 1200), f"इस हफ़्ते · {se.day}/{se.month} तक", _font(36, "SemiBold"), (224, 49, 49), tag="sale")
@@ -856,8 +968,8 @@ def frame(cx_, t, cache, reg=None):
         cv.text((W // 2 + 40, 346), BRANDS[cx_["brand"]]["name"], _fit(BRANDS[cx_["brand"]]["name"], 52, 480, "SemiBold"), (255, 255, 255), tag="bn")
         cv.text((W // 2, 490), TAG1, _fit(TAG1, int(108 * max(.3, kb)), W - 140), (255, 255, 255), tag="c1")
         cv.text((W // 2, 610), "— " + TAG2 + " —", _fit(TAG2, int(92 * max(.3, kb)), W - 200), (255, 255, 255), tag="c2")
-        if cx_.get("pct", 0) >= 30:
-            cv.text((W // 2, 712), f"बाज़ार से {cx_['pct']}% तक सस्ता", _font(50), (255, 236, 153), tag="pct")
+        _cl = (f"₹10 से शुरू · बाज़ार से {cx_['upct']}% तक कम" if cx_.get("upct", 0) >= 50 else "₹10 से शुरू · शुरुआती दाम")
+        cv.text((W // 2, 712), _cl, _fit(_cl, 50, W - 160), (255, 236, 153), tag="pct")
         pul = 1 + .03 * math.sin(t * 7)
         bw, bh = int(860 * pul), int(124 * pul)
         _card(im, (W // 2 - bw // 2, 790, W // 2 + bw // 2, 790 + bh), 62, shadow=30)
@@ -943,7 +1055,10 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
     if not bad:
         good.append("1 tathya ✅ har rate rate-list se, bazaar rate sahi" + (", season date sarkari link se" if cx_.get("season") else ""))
     # 2 NIYAM
-    texts = [cx_["kick"], cx_["q1"], cx_["q2"], cx_["say"]] + [r["name"] + " " + r["ben"] for r in cx_["rows"]]
+    texts = [cx_["kick"], cx_["q1"], cx_["q2"], cx_["say"]] + [r["name"] + " " + r["ben"] for r in cx_["rows"]] + \
+        list((cx_.get("usp") or {}).values()) + list(cx_.get("rib") or []) + [x[1] for x in cx_.get("segs") or []]
+    if cx_.get("upct") and cx_["upct"] > usp_pct():
+        bad.append(f"1 tathya: '{cx_['upct']}% tak kam' rate-list se saabit nahi ({usp_pct()}%)")
     if meta:
         texts += [meta.get("title", ""), meta.get("description", "")]
     hit = sorted({p for p in BAN for s in texts if re.search(p, s, re.I)})
@@ -994,6 +1109,13 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
                                 capture_output=True, text=True, timeout=60)
             j = json.loads(pr.stdout or "{}")
             kinds = [s_.get("codec_type") for s_ in j.get("streams", [])]
+            try:                                   # v3.9.3: IG 48k se upar ki awaaz mana karta hai (ProcessingFailedError)
+                ar_ = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries", "stream=sample_rate", "-of",
+                                      "csv=p=0", str(mp4)], capture_output=True, text=True, timeout=60).stdout.strip()
+                if ar_ and int(ar_) > 48000:
+                    bad.append(f"4 awaaz: {ar_} Hz (Instagram 48000 tak leta hai)")
+            except Exception:
+                pass
             dur = float(j.get("format", {}).get("duration", 0))
             if "audio" not in kinds:
                 bad.append("4 awaaz: video mein awaaz nahi")
@@ -1129,7 +1251,8 @@ def render(cx_, out_dir):
             log(f"svcvideo full wav: {e}")
             full = None
     if full:
-        cmd += ["-i", str(full), "-map", "0:v", "-map", "1:a", "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "160k"]
+        cmd += ["-i", str(full), "-map", "0:v", "-map", "1:a", "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "160k",
+                "-ar", "48000", "-ac", "2"]          # v3.9.3: loudnorm awaaz ko 96k kar deta tha -> IG 'ProcessingFailedError'; IG = 48k
     elif wavs:
         keys = [k for k, _ in segs if k in wavs]
         for k in keys:
@@ -1140,7 +1263,7 @@ def render(cx_, out_dir):
             parts.append(f"[{j + 1}:a]aresample=24000,aformat=channel_layouts=mono,apad=whole_dur={sl:.3f},atrim=0:{sl:.3f}[a{j}]")
         mix = "".join(f"[a{j}]" for j in range(len(keys)))
         cmd += ["-filter_complex", ";".join(parts) + f";{mix}concat=n={len(keys)}:v=0:a=1,apad,atrim=0:{dur:.2f},"
-                f"loudnorm=I=-14:TP=-1.5[a]", "-map", "0:v", "-map", "[a]", "-c:a", "aac", "-b:a", "160k"]
+                f"loudnorm=I=-14:TP=-1.5[a]", "-map", "0:v", "-map", "[a]", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2"]
     cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-threads", "2",
             "-movflags", "+faststart", "-t", f"{dur:.2f}", str(mp4)]
     flog = open(out_dir / "ffmpeg.log", "w")
@@ -1239,6 +1362,8 @@ def _make_day(sample=False, only=None, day=None, brands=None):
             continue
         if brands and brand not in brands:
             continue
+        if not sample and brand in ((state.get("svc_taken") or {}).get(str(dd)) or {}):
+            continue                                      # v3.9.3: aaj is brand ka namoona ja chuka = slot bhara
         if not sample and not only and not day:              # v3.8.7: der se bani to sirf aage wale slot (beete slot ki video nahi)
             try:
                 if _slot_dt(v["slot"], dd) < pipeline.now() + datetime.timedelta(minutes=25):
@@ -1469,10 +1594,87 @@ def on_text(t, run):
     return None
 
 
+PLAT_SHARE = {"pinterest": 2, "dailymotion": 2}    # v3.9.3: seema wale platform par roz itni jagah services ke liye pehle (spam nahi)
+
+
+def left_today():
+    """Aaj ki kitni services video abhi jaani baaki (bani+line mein + abhi banni)."""
+    from . import pipeline
+    d = str(pipeline.now().date())
+    n = sum(1 for j, x in pipeline.jobs().items() if str(j).startswith("svc") and str(x.get("slot", ""))[:10] == d
+            and x.get("status") in ("waiting", "approved", "queued", "uploading"))
+    try:
+        from . import svcdoctor
+        n += len(svcdoctor.missing_today()) if video_on() else 0
+    except Exception:
+        pass
+    return n
+
+
+def plat_used(pf):
+    from . import pipeline
+    return int(((state.get("svc_plat_ct") or {}).get(str(pipeline.now().date())) or {}).get(pf, 0))
+
+
+def plat_mark(pf):
+    from . import pipeline
+    d = str(pipeline.now().date())
+    state.update("svc_plat_ct", lambda t_: {k: v for k, v in {**(t_ or {}), d: {**((t_ or {}).get(d) or {}),
+                                                                            pf: int(((t_ or {}).get(d) or {}).get(pf, 0)) + 1}}.items()
+                                          if k >= str(datetime.date.today() - datetime.timedelta(days=7))}, {})
+
+
+def reserve(pf):
+    """Roz ki seema mein services ke liye kitni jagah rakhni (normal video isse pehle ruk jaaye)."""
+    if not video_on():
+        return 0
+    return max(0, min(PLAT_SHARE.get(pf, 0) - plat_used(pf), left_today()))
+
+
+def sample_takes_slot(jid, job):
+    """v3.9.3 (owner 24 Nov: namoona aur 20:00 wali dono Pahadi par 4 min ke farak se gayi): owner ne services namoona daala = wo
+    us brand ka AAJ ka services slot hai. Aaj ki baaki (abhi tak na gayi) roz wali services video radd, slot khaali; ginti mein juda.
+    Namoona par koi button na dabaya = kuch nahi (ignore)."""
+    from . import pipeline
+    brand = job.get("brand")
+    d = str(pipeline.now().date())
+    gone = []
+    for j2, x in list(pipeline.jobs().items()):
+        if j2 == jid or not str(j2).startswith("svc") or x.get("brand") != brand or x.get("reason") != "roz ka schedule":
+            continue
+        if x.get("status") not in ("waiting", "approved") or str(x.get("slot", ""))[:10] != d:
+            continue
+        x["status"] = "rejected"
+        x["rejected_at"] = pipeline.now().isoformat(timespec="seconds")
+        x["why"] = f"namoona {jid} ne slot liya"
+        pipeline.save_job(j2, x)
+        try:
+            pipeline._undo_youtube(j2, x)
+        except Exception as e:
+            log(f"svc slot undo yt: {e}")
+        try:
+            import shutil as _sh
+            _sh.rmtree(x.get("meta", ""), ignore_errors=True)
+        except Exception:
+            pass
+        gone.append(str(x.get("slot", ""))[11:16])
+    state.update("svc_taken", lambda t_: {k: v for k, v in {**(t_ or {}), d: {**((t_ or {}).get(d) or {}), brand: jid}}.items()
+                                          if k >= str(datetime.date.today() - datetime.timedelta(days=7))}, {})
+    try:                                                  # rotation ki ginti mein bhi (agla din naye kaam)
+        m_ = json.loads((pathlib.Path(job["meta"]) / "meta.json").read_text(encoding="utf-8"))
+        if m_.get("svc_set"):
+            _hist_add({"day": d, "set": m_["svc_set"], "item": m_["svc_set"][0], "look": m_.get("svc_look", ""), "hook": -1, "lay": "",
+                       "brand": brand, "slot": "namoona", "jid": jid})
+    except Exception as e:
+        log(f"svc namoona hist: {e}")
+    return (f"\n🗓 Ye {BRANDS.get(brand, {}).get('name', brand)} ka aaj ka services slot gina gaya"
+            + (f" - {', '.join(gone)} wali video radd (dohri nahi jayegi)." if gone else " - aaj is brand ki aur services video nahi banegi."))
+
+
 def namoona(brand, run):
     from . import tg
-    tg.say(f"🎬 {BRANDS[brand]['name']} ka services namoona ban raha hai (3-5 min, 6 round audit). Aane par '🚀 Abhi daalo' dabate hi "
-           "turant post hoga; bina button kahin nahi jayega.")
+    tg.say(f"🎬 {BRANDS[brand]['name']} ka services namoona ban raha hai (3-5 min, 6 round audit). Aane par koi bhi Thumb dabate hi "
+           "TURANT post hoga aur wahi us brand ka aaj ka services slot ginega (dohri video nahi). Kuch na dabaya = kahin nahi jayegi.")
     run(lambda: make_day(sample=True, only=brand))
     return True
 

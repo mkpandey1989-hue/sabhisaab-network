@@ -209,7 +209,8 @@ def post_instagram(brand, video_path, caption):
             cap = caption[:2100]
             if attempt == 2:                      # v2.0.6: teesri koshish chhote, saade caption ke saath
                 first = [l for l in caption.splitlines() if l.strip() and "link bio" not in l.lower()][:2]
-                cap = IG_LINK_LINE + "\n\n" + "\n".join(first)[:300] + "\nIs video ki awaaz AI se bani hai."
+                cap = IG_LINK_LINE + "\n\n" + "\n".join(first)[:300] + (
+                    "" if "#SabHisaabServices" in caption else "\nIs video ki awaaz AI se bani hai.")   # v3.9.3: services par 'AI' shabd nahi (owner)
             cid = _ig_container(b, tok, vp, media_type="REELS", caption=cap, share_to_feed="true",
                                 thumb_offset="200")      # cover = shuru ka (thumbnail wala) frame
             break

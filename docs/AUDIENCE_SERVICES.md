@@ -15,6 +15,7 @@ Rate badle to yahan bhi badaliye (bot ki rate list hi asli hai: sabhisaab.com/se
 **v3.9.2 naye dabbe (1000+ kaam, sab "se shuru"):** sarkari bharti form madad ₹49 · yojana/praman patra guide ₹49 · school-college form ₹49 ·
 buzurgon ke liye UPI/phone madad ₹59-129 · RTI/shikayat/claim draft ₹99 · 30 min sikhiye ₹199-249 · Excel/Sheet ₹399 · domain/email ₹399 ·
 server/VM setup ₹699 · design ₹499 · SEO/content ₹699 · bot ₹1,199 · calculator ₹1,499 · business software ₹4,499 · app ₹4,499 se.
+Sabse badi baat (har jagah pehle): **"₹10 se shuru — koi bhi digital kaam ho jayega"** + "bazaar se 70% tak kam · shuruaati daam" (90% nahi - sirf ek kaam par sach).
 Har jagah neeche: **"* Sharten laagu"** (poori: sabhisaab.com/terms#rate). "Limited time / jaldi karein / sirf aaj" KABHI nahi - offer lambe chalenge.
 Sarkari kaam: "Hum sarkari vibhag nahi, sirf madad - naukri/yojana milne ka vaada nahi." Paid ads mein sarkari/trading/tech-support madad NAHI (docs/MARKET_RATES.md).
 

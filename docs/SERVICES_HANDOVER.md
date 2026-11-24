@@ -1,4 +1,4 @@
-# SERVICES HANDOVER — koi bhi AI / developer services par kaam se PEHLE ye padhe (v3.9.2, 24 Nov 2026)
+# SERVICES HANDOVER — koi bhi AI / developer services par kaam se PEHLE ye padhe (v3.9.3, 24 Nov 2026)
 
 Owner: Manoj bhai (Hinglish, mobile + Telegram). Ek-ek baat poochne ke bajaye poora kaam ek saath, test karke, ek ZIP.
 Ye file = services ka shuru se ab tak + aage ka plan + KYA KARNA / KYA KABHI NAHI. Saath mein: `docs/SERVICES_PLAN.md` (sections 0-21),
@@ -40,6 +40,11 @@ customer ke gupt page par 'Haan' + UPI QR → kaam → rasid → bahi-khata. Roz
 ## 4. Roz ki services video (kaise chalti hai)
 - Default CHALU (`services video band` se band). Raat 01:30 ke baad `make_day`: 4 brand, slot 05:00 · 07:00 · 18:00 · 20:00 IST (har din brand ghoomte, brand ki apni roz wali video se 75 min door). Raat chhooti to din mein 19:30 tak bache slot.
 - **Kaam ka chunav (v3.9.2):** saare 1017 video-layak kaam har channel par (category-wise nahi, audience mix hai; naye kaam `_auto_kaam` se - screen par kaam ka naam, awaaz mein dabbe ka Hindi naam). Sabse kam dikha kaam hamesha pehle, ek din 4 brand mein koi kaam dohra nahi, ek video mein ek kism ke max 2, madad + ₹99 tak wala na aaye to aakhri ko badlo, pehla kaam sabse sasta/bada bazaar-farak (hook). ~2 mahine mein poori list (test: 56 din mein 1017/1017).
+- **v3.9.3 sabse badi baat baar-baar:** 0 sec se hi patti "₹10 से शुरू · कोई भी डिजिटल काम"; hook ke turant baad USP scene (6 tarah: ₹10 से शुरू / शुरुआती दाम / 1000+ काम / बाज़ार से X% तक कम - brand+din ke hisaab se alag); har kaam par neeche alag USP patti (`RIBBON`); kaam 3 par awaaz mein yaad (`REMIND`); CTA par phir. X = `usp_pct()` (rate list ka SACH: jahan 10%+ kaam utne saste - aaj 70). **"Limited time" aur "90% discount" NAHI** - 90% sirf ₹10 Resume par sach, aur offer lambe chalenge (CCPA dark pattern); "शुरुआती दाम" sach hai (terms#rate).
+- Naye 1000 kaam ka screen: `task` namoona (grahak ne kaam likha -> 'हो जाएगा, ₹X से') - jahan dabbe ka screen mel nahi khata (fix/care/cloud/daftar...).
+- Awaaz 48 kHz stereo (loudnorm 96k bana deta tha -> IG ProcessingFailedError). Audit round 4 jaanchta hai.
+- Owner ka **namoona** + koi Thumb = TURANT post + us brand ka AAJ ka services slot (baaki roz wali radd, YouTube se bhi; doctor dobara nahi banata). Kuch na dabaya = kuch nahi.
+- Pinterest (roz ~10-12) / Dailymotion (roz 3) ki seema mein services ki 2-2 jagah pehle rakhi (`svcvideo.reserve`) - normal video kam.
 - Har frame par neeche: **"* शर्तें लागू · पूरी शर्तें: sabhisaab.com/terms"** (ASCI/CCPA). Kati keemat sirf jab bazaar sach mein mehenga (sarkari form par nahi). Description mein 'Sharten laagu' line (bina link - IG safe).
 - Har video: 6 kaam, alag rang (12 LOOKS), hook (12), layout L/R; (set, rang, hook, layout) zindagi bhar dohra nahi. Season (sirf .gov.in/.nic.in tareekh) aur hafte ki sale asli.
 - Awaaz: har scene alag (Kokoro), screen ka bada likha sab bola: "... रुपये से शुरू", site, comment, brand code. 58s se lambi = chhota rup.
@@ -47,6 +52,12 @@ customer ke gupt page par 'Haan' + UPI QR → kaam → rasid → bahi-khata. Roz
 - Pass -> Telegram par preview + thumbnail; jawab na mile to slot se 20 min pehle autopilot (thumbnail 1/2/3 ghoom kar).
 - Platform: YT Short, FB Reel + story, IG Reel + story (Suno Natak IG par NAHI - 2 baar ban), Threads, Pinterest, Dailymotion, Telegram. Alag FB photo-post nahi.
 - Trading tool wale kaam: "टिप/सिग्नल नहीं", description mein jokhim line; "profit/मुनाफ़ा/पक्की कमाई" audit rokta hai.
+
+## 4b. Services PAGE-POST + MASTER SCHEDULE (v3.9.3)
+- `app/svcpost.py`: har brand ke FB page par roz 1 photo-post (1080x1350: ₹10 se shuru + 6 kaam + link services-list utm + sharten laagu), us brand ke shaam ke best ghante par (asli views), reel se 40 min door. Samay ek baar tay = PAKKA (`svc_post_times`), badlav 'post samay pahadi 19:30' + dohri pushti. IG par nahi (link mana). Purani 'sawal photo-post' ek din chhod kar (feed bhari nahi).
+- `app/master.py`: '🗓 Master schedule' button (main + services menu) - har brand: sawal reel, services reel (aaj/kal), page-post, story/channel, roz ke baaki kaam. 'video kab hai' wale sawal par bhi.
+- Raat 00:20-04:30 aaj ki saari sawal reel ban kar line mein (pehle 3 ghante pehle banti thi) - `state night_make` False = purana tareeka.
+- Roz safai (`guard._old_media`): post ho chuki video ki mp4 10 din baad, IG-safe copy 1 din, services ki radd video 3 din (meta/thumbnail rehte).
 
 ## 5. KABHI NAHI (services)
 - "Limited time / सीमित समय / जल्दी करें / only today / offer khatam" - offer lambe chalenge (CCPA dark patterns). Audit rokta hai.

@@ -1412,7 +1412,7 @@ try:
     # v3.8.7: poori awaaz + manual kaam + bahi-khata + rasid + comment samajh + schedule na ruke
     _cx87 = _V60.ctx_for(_pl60["money"], "money", "2026-11-24")
     _sg87 = dict(_cx87["segs"])
-    check(all(_sg87[f"k{i}"].count("से शुरू") == 1 for i in range(6)), "awaaz: har kaam ke saath '... रुपये से शुरू'")
+    check(all(f"{_cx87['rows'][i]['price']} रुपये से शुरू" in _sg87[f"k{i}"] for i in range(6)), "awaaz: har kaam ke saath '... रुपये से शुरू'")
     check("कमेंट में अपना काम लिखिए" in _sg87["cta"] and "सब हिसाब डॉट कॉम" in _sg87["cta"] and "मनी टेन" in _sg87["cta"], "awaaz CTA poora: comment + site + brand code")
     check("जैसे घर में बोलते हैं" in _sg87["hindi"] and "इंग्लिश जरूरी नहीं" in _sg87["hindi"], "awaaz: Hindi mein likhiye poora")
     check(_V60.MAX_DUR <= 58 and set(_cx87["short"]) == {"cta", "hindi", "tag"}, "58s se lambi ho to chhota rup taiyaar (IG 60s)")
@@ -1551,6 +1551,62 @@ try:
     check(_C91.understand("tradingview jaisa chart chahiye").get("item") == "t-chart" and _C91.understand("mujhe signal chahiye")["intent"] == "red",
           "comment: chart = chart dashboard, signal = mana")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
+    # ---------------- v3.9.3: USP (₹10 + koi bhi kaam) baar-baar, sach wala %, IG awaaz, namoona = slot, page-post, master, dedupe
+    from app import svcvideo as _V93, svcpost as _P93, master as _M93, pipeline as _PL93, website as _W93
+    _u93 = _V93.usp_pct()
+    check(50 <= _u93 <= 80, f"'% tak kam' rate-list se saabit ({_u93}%, 90% sirf ek kaam par = dawa nahi)")
+    _cx93 = _V93.ctx_for({"set": ["m-resume", "na-ssc-form-madad", "cl-password-login-band-karke-se", "se-upi-safe-setup",
+                                  "we-packers-movers-website", "m-form"], "look": "mint", "hook": 3, "lay": "L", "slot": "18:00"}, "pahadi",
+                         "2026-12-02")
+    _tg93 = dict(_cx93["segs"]).get("tag", "")
+    check("दस रुपये" in _tg93 or "डिजिटल काम" in _tg93, f"shuru ke turant baad (tag) USP bola: {_tg93[:60]}")
+    check(any("दस रुपये" in x or "डिजिटल" in x or "प्रतिशत" in x for k, x in _cx93["segs"] if k == "k2"), "beech mein (kaam 3) USP yaad")
+    check(len(_cx93["rib"]) >= 4 and all(not __import__("re").search(p_, " ".join(_cx93["rib"]), __import__("re").I) for p_ in _V93.BAN),
+          "har kaam par neeche alag USP patti, mana shabd nahi")
+    _usps93 = {_V93.ctx_for({"set": _cx93["set"], "look": "mint", "hook": 3, "lay": "L", "slot": "18:00"}, b_, "2026-12-02")["usp"]["say"]
+               for b_ in ("pahadi", "money", "deals", "sunonatak")}
+    check(len(_usps93) >= 3, f"4 brand par USP ki likhawat alag ({len(_usps93)})")
+    check(not any(__import__("re").search(p_, " ".join(u[4] for u in _V93.USP), __import__("re").I) for p_ in _V93.BAN)
+          and "limited" not in str(_V93.USP).lower(), "USP mein 'limited time/jaldi' nahi (CCPA)")
+    _fr93 = []
+    _V93.frame(_cx93, 0.0, {}, _fr93)
+    check(any(t_ == "upill" for _b, _s, t_ in _fr93) and any(t_ == "q1" for _b, _s, t_ in _fr93), "pehla frame (0 sec) hi poora: USP + hook")
+    check("task" in {_V93.KAAM[k][5] for k in _V93.KAAM if k.startswith(("fx-", "cl-", "df-"))}, "1000+ kaam: screen kaam se mele (baat-cheet namoona)")
+    check(_V93._mock("task|Email spam theek|499").size[0] == 520, "task namoona screen banta hai")
+    _srcv93 = open(_V93.__file__, encoding="utf-8").read()
+    check('"-ar", "48000"' in _srcv93 and "Instagram 48000" in _srcv93, "video awaaz 48k (IG ProcessingFailedError) + audit jaanch")
+    # namoona = slot
+    _oj93 = dict(_PL93.jobs())
+    try:
+        _d93 = str(_PL93.now().date())
+        _sl93 = (_PL93.now() + __import__("datetime").timedelta(hours=2)).isoformat()
+        _PL93.save_job("svcpa_sched93", {"brand": "pahadi", "status": "waiting", "slot": _sl93, "reason": "roz ka schedule", "meta": "/tmp/nx93"})
+        _PL93.save_job("svcpa_samp93", {"brand": "pahadi", "status": "waiting", "slot": _sl93, "reason": "test video", "meta": "/tmp/nx93b"})
+        _r93 = _PL93.approve("svcpa_samp93", 2)
+        check("abhi" in _r93 and _PL93.jobs()["svcpa_sched93"]["status"] == "rejected" and _PL93.jobs()["svcpa_samp93"].get("now"),
+              "services namoona = turant post + aaj ka slot radd (dohri nahi)")
+        from app import svcdoctor as _D93
+        check("pahadi" not in _D93.missing_today(), "doctor namoona wale brand ki video dobara nahi banata")
+    finally:
+        __import__("app.state", fromlist=["x"]).put("jobs", _oj93)
+        __import__("app.state", fromlist=["x"]).put("svc_taken", {})
+    check(_V93.reserve("pinterest") >= 0 and _V93.PLAT_SHARE["pinterest"] == 2, "Pinterest/Dailymotion seema mein services ki jagah")
+    _pp93 = __import__("pathlib").Path(__import__("tempfile").mkdtemp()) / "p.jpg"
+    _it93, _bad93 = _P93.card("money", "2026-12-02", _pp93)
+    _cap93, _hit93 = _P93.caption("money", "2026-12-02", _it93)
+    check(not _bad93 and not _hit93 and _pp93.exists(), f"services page-post chitra + caption saaf ({_bad93 or _hit93})")
+    check(__import__("app.svc", fromlist=["x"]).rates()["by"][_it93[0]]["price"] <= 10 and "utm_source=facebook" in _cap93
+          and "शर्तें लागू" in _cap93, "post: pehla ₹10 kaam, link (FB), sharten laagu")
+    _tm93 = _P93.times()
+    check(len(set(_tm93.values())) == len(_tm93), f"har brand ki post alag samay {_tm93}")
+    check("MASTER SCHEDULE" in _M93.text() and "Services page-post" in _M93.text(), "🗓 Master schedule button ka jawab")
+    check(_W93.t393_date("<h1>X</h1><p>a</p>").count("<time datetime=") == 1, "services page par dikhne wali tareekh")
+    # dohra lead
+    _L93 = {"id": "SHDUP1", "t": "2026-12-02T10:00:00+05:30", "name": "Test", "phone": "9876543210", "message": "Abhi chahiye resume", "src": "t"}
+    _S50.ingest(dict(_L93))
+    _n93 = len(_S50.leads())
+    _S50.ingest(dict(_L93, id="SHDUP2", t="2026-12-02T10:01:00+05:30"))
+    check(len(_S50.leads()) == _n93, "wahi number + wahi kaam 30 min mein = ek hi card (5 card nahi)")
 finally:
     _TG50.say = _osay80
     _S50._cfg = _ocfg80

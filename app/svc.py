@@ -321,6 +321,15 @@ def ingest(raw):
     if raw.get("name") == "Bot jaanch" and str(raw.get("phone", "")).endswith("9999999999"):
         return None                                   # form ki apne aap jaanch - asli kaam nahi
     raw["phone"] = _clean_phone(raw.get("phone"))
+    try:                                              # v3.9.3 (chat 24 Nov: 'Abhi chahiye' 5 card 1 min mein): wahi number + wahi
+        t0 = datetime.datetime.fromisoformat(str(raw.get("t") or now().isoformat())[:19])     # likhawat 30 min mein = ek hi kaam
+        for oid, o in list(leads().items())[-40:]:
+            if (o.get("phone") == raw["phone"] and raw["phone"] and (o.get("message") or "").strip() == (raw.get("message") or "").strip()
+                    and abs((t0 - datetime.datetime.fromisoformat(str(o.get("t"))[:19])).total_seconds()) < 1800):
+                audit("lead_dup", id=lid, same=oid)
+                return None
+    except Exception as e:
+        log(f"svc dedupe: {e}")
     _append("leads.jsonl", raw)
     audit("lead", id=lid, src=raw.get("src", ""), code=raw.get("code", ""))
     _bahi(lid, "manual" if str(raw.get("src", "")).startswith("manual") else "lead")
@@ -1169,6 +1178,7 @@ SVC_ROWS = [["📊 Aaj ka services hisaab", "📂 Khule kaam", "📒 Bahi-khata"
             ["🎬 Services namoona", "▶️ Services video chalu", "⏸ Services video band"],
             ["🧪 Form jaanch", "💬 Services comment", "🔊 Awaaz jaanch"],
             ["📅 Season list", "🏖 Services chhutti", "❓ Services madad"],
+            ["🗓 Master schedule", "🖼 Services post namoona"],
             ["⬅️ Main menu"]]
 SVC_LABELS = [x for r in SVC_ROWS for x in r] + ["🧾 Services"]
 SVC_HELP = """🧾 SERVICES - sab kuch (likh kar bhi chalega)

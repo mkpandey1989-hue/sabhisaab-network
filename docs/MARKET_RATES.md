@@ -47,6 +47,10 @@ Rate badalne se pehle ye file + `app/scripts/svc_more_items.py` (CATS) + `svc_ge
 | Crypto | ❌ (ASCI VDA niyam - bhaari disclaimer) | ❌ |
 - YouTube "paid promotion" dabba: apne brand ki apni video par zaroori nahi.
 
+## 5a. '90% discount' kyun nahi (24 Nov jaanch)
+- Rate list mein bazaar se 90%+ kam sirf 1 kaam (₹10 Resume) hai; 80%+ = 12, 70%+ = 198 (20%), 60%+ = 884. ASCI ke 'up to' niyam mein sabse bada % kaafi kaamon par lagu hona chahiye - isliye video/post par **`usp_pct()`** = sabse bada 10 ka kadam jahan kam se kam 10% kaam utne saste (aaj **70%**). Rate badlenge to apne aap badlega.
+- 'Discount' shabd nahi - hamara pehle ka koi ooncha rate nahi tha (jhootha 'pehle/ab' mana). 'बाज़ार से X% तक कम' + 'शुरुआती दाम' (sach: kaam badhne par rate badal sakte hain, terms#rate).
+
 ## 5. Shabd (future-proof, galat vaada nahi)
 - ✅ "₹49 se शुरू", "* शर्तें लागू · पूरी शर्तें: sabhisaab.com/terms" (har frame par neeche, wahi bhasha, padhne layak - ASCI/CCPA).
 - ✅ Sale: sirf asli tareekh ke saath ("इस हफ़्ते · 30/11 तक").

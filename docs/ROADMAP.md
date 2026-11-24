@@ -2500,3 +2500,19 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
   JS se banta tha, Google ko list nahi dikhti thi), OfferCatalog schema, FAQ (offer kab tak, sarkari madad, trading), title "1000+";
   terms par "8A. Rate, chhoot aur offer ki shartein" (#rate); har page footer mein 'Rate List (1000+ kaam)'; homepage par list + demo link;
   sitemap priority list 0.7 / demo 0.6 + lastmod. Site audit 362 page PASS, 412px overflow nahi.
+
+## v3.9.3 (24 Nov 2026) - ₹10 + "koi bhi digital kaam" baar-baar, page-post, master schedule, namoona = slot
+- Video: 0 sec se USP patti, hook ke turant baad USP scene (6 likhawat, brand/din se alag), har kaam par alag USP patti, kaam 3 par awaaz
+  mein yaad, CTA par phir. "% tak kam" = `usp_pct()` (rate list ka sach, aaj 70) - "90% discount"/"limited time" nahi (ASCI/CCPA, wajah
+  MARKET_RATES 5a). Naye kaam ka screen `task` (baat-cheet) - 'Email spam theek' par website screen nahi. Pehla frame poora.
+- IG fail ki jad: loudnorm awaaz 96 kHz -> ab 48k stereo + audit round 4 jaanch; teesri koshish ke caption mein services par 'AI' line nahi.
+- Owner ka services namoona = turant post + us brand ka aaj ka slot (roz wali radd, YouTube undo, doctor dobara nahi). 24 Nov ko Pahadi
+  par 19:56 namoona + 20:00 roz wali dono gayi thi.
+- Pinterest/Dailymotion seema mein services ki 2-2 jagah pehle (normal video kam). Raat 00:20-04:30 aaj ki saari reel pehle ban jaati.
+- `svcpost.py`: FB page par roz 1 services photo-post/brand (link + utm), asli views ke shaam ke ghante par, pakka samay (dohri pushti se
+  badlav); sawal photo-post ek din chhod kar. `master.py`: 🗓 Master schedule button (main + services menu).
+- Website (bot ek baar `svc393_apply`): services-list/demo par dikhne wali tareekh (mobile par 'date nahi' - baaki page par thi, in do par
+  nahi thi) + dateModified + sitemap lastmod. Services list/demo index nahi = naye (patch 24 Nov 19:01 laga), footer link 361 page se;
+  Request indexing owner kare.
+- Chat ke mudde: ek hi number + likhawat 30 min mein = ek card (5 card aaye the); /jawab chadhaav ek saath do (auto-doctor + roz) ->
+  'jawab.zip nahi mili' -> lock + alag file; Gemini 503 + Cloudflare se kaam = 🟡 (pehle 🔴); roz safai: posted mp4 10 din, IG-safe 1 din.

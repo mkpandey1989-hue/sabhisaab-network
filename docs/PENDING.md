@@ -127,8 +127,12 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
 
-## Services - owner ke pending kaam (24 Nov 2026, v3.9.2 ke baad) - sab ek jagah
-- [Owner] Install: SIRF bot sabhinet-v3.9.2 (website ZIP nahi; v3.8.8-v3.9.1 isi mein). ~6 min mein '🗂 Website: rate list ab 1000+ kaam' sandesh
+## Services - owner ke pending kaam (24 Nov 2026, v3.9.3 ke baad) - sab ek jagah
+- [Owner] Install: SIRF bot sabhinet-v3.9.3 (v3.9.2 lag chuka). ~7 min mein '🗂 Website: rate list + demo page par ab tareekh' sandesh.
+- [Owner, 1 min] '🗓 Master schedule' dabakar samay dekh lein - kuch badalna ho to 'post samay pahadi 19:30' / 'schedule pahadi 09:30,18:00' (dohri pushti).
+- [Owner, faisla] '90% discount' / 'limited time' NAHI likha - wajah docs/MARKET_RATES.md 5a. Asli tareekh wali sale chahiye to 'services sale ...' (shuru-khatam tareekh ke saath).
+- [AI, 2 din baad] services page-post ke click (utm_campaign=<brand>_svc) GA4 mein dekhna; IG reel ab 48k awaaz se - fail aaye to HEALTH dekhna.
+- [Purana] Install: SIRF bot sabhinet-v3.9.2 (website ZIP nahi; v3.8.8-v3.9.1 isi mein). ~6 min mein '🗂 Website: rate list ab 1000+ kaam' sandesh
   (list Google ko dikhne wali HTML, terms#rate, har page footer 'Rate List', sitemap).
 - [Owner, 2 min] Wo sandesh aane ke 20 min baad Search Console -> URL inspection -> https://sabhisaab.com/services-list -> Request indexing;
   phir https://sabhisaab.com/services-demo -> Request indexing. ('ho gaya services index')

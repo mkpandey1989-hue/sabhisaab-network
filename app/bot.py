@@ -25,7 +25,7 @@ SITEWORK = queue.Queue()    # v3.4.40: website deploy / GitHub copy alag line - 
 KB = tg.reply_keyboard([
     ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal"],
     ["🧪 Namoona", "🎨 24 Look", "💬 Comment haal"],      # v2.3.3: owner - sample/look/comment saamne
-    ["⚙️ Channel setup", "🧾 Services"],                   # v2.7.2: channel-wise line-wise setting + FINAL · v3.8.8: services ka alag menu
+    ["⚙️ Channel setup", "🧾 Services", "🗓 Master schedule"],   # v3.9.3: sab reel/post/story ka samay ek jagah · v2.7.2: channel-wise line-wise setting + FINAL · v3.8.8: services ka alag menu
     ["🩺 Sab theek?", "⏸ Pause", "▶️ Resume"],
     ["⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"],
 ])
@@ -157,6 +157,11 @@ def scheduler():
                 _SVV.tick(run)
             except Exception as _e_svv:
                 log(f"svcvideo tick: {_e_svv}")
+            try:                                         # v3.9.3: services page-post (FB, pakke samay par, roz 1/brand)
+                from . import svcpost as _SVP
+                _SVP.tick(run)
+            except Exception as _e_svp:
+                log(f"svcpost tick: {_e_svp}")
             if time.time() - last_reap > 900:                # v2.3.0: sirf apna atka ffmpeg (40 min+) band
                 last_reap = time.time()
                 try:
@@ -694,6 +699,15 @@ def scheduler():
                     if r_:
                         tg.say(r_)
                 run(_mf)
+            if (state.get("sitepatch_v392") and not state.get("sitepatch_v393") and time.time() - STARTED > 420
+                    and time.time() - (state.get("s393_try") or 0) > 3 * 3600):
+                state.put("s393_try", time.time())         # v3.9.3: services page par tareekh (mobile)
+                def _s393():
+                    from . import website as _W393
+                    r_ = _W393.svc393_apply()
+                    if r_:
+                        tg.say(r_)
+                run(_s393)
             if (state.get("mfix_v389") and not state.get("sitepatch_v392") and time.time() - STARTED > 360
                     and time.time() - (state.get("s392_try") or 0) > 3 * 3600):
                 state.put("s392_try", time.time())         # v3.9.2: 1000+ kaam rate list + terms#rate + footer link + sitemap (ek baar)
@@ -1044,8 +1058,11 @@ def health_text():
     gm, ge = state.get("gemini_last_model", "-"), state.get("gemini_last_error", "")
     _mk = brain._models()[:4]
     lines = [f"🩺 Sab theek? (v{VER}, chalu {up} min)",
-             f"{'✅' if os.environ.get('GEMINI_API_KEY') and not ge and _mk else '🔴'} Gemini: {gm}"
-             + (f" | galti: {str(ge)[:120]}" if ge and str(ge) != "None" else ""),
+             (f"{'✅' if os.environ.get('GEMINI_API_KEY') and not ge and _mk else '🔴'} Gemini: {gm}"
+              + (f" | galti: {str(ge)[:120]}" if ge and str(ge) != "None" else "")
+              if not (ge and str(gm).startswith("cloudflare") and re.search(r"503|429|high demand|overload|quota|RESOURCE", str(ge), re.I))
+              # v3.9.3: Gemini thodi der busy (503/429) + Cloudflare AI se kaam chal raha = bot theek hai -> 🟡 (pehle 🔴 se dar lagta tha)
+              else f"🟡 Gemini abhi busy (Google ki taraf se 503/seema) - kaam Cloudflare AI se chal raha hai, apne aap wapas Gemini par"),
              ("🧠 Model kram: " + " > ".join(f"{m}{'✅' if (state.get('gemini_status') or {}).get(m) == 'ok' else ('⚠️' if (state.get('gemini_status') or {}).get(m) else '')}"
                                            for m in _mk)) if _mk else
              "🧠 Model kram: saare Gemini model abhi free seema par (roz ke sawal phir bhi chalte hain) - 'gemini haal'",   # v3.4.40: pehle khaali
@@ -1295,7 +1312,7 @@ NORM.update({"sabthik": "🩺 Sab theek?", "sabthikhai": "🩺 Sab theek?", "sab
              "videobanao": "🎬 Abhi video", "pending": "⏳ Pending", "login": "/login"})
 
 
-KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup", "🧾 Services",
+KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup", "🧾 Services", "🗓 Master schedule",
              "🩺 Sab theek?", "⏸ Pause", "▶️ Resume", "⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"]
 RISKY_BTN = {"❌ Mat daalo", "⏸ Pause", "🗑 Post hatao", "🚀 Website deploy", "🧹 Deep Safai", "🧹 GitHub safai", "✅ Thumb 1 se daalo"}
 
@@ -1354,6 +1371,12 @@ def on_text(text):
     if t not in BUTTONS and not t.startswith("/"):
         t = NORM.get(_norm(t), t)        # bina emoji / chhote-bade akshar bhi chalega
     t = PRO.get(t, t)
+    try:                                       # v3.9.3: master schedule + services page-post
+        from . import master as _MST
+        if _MST.on_text(t, run):
+            return True
+    except Exception as _e_mst:
+        log(f"master: {_e_mst}")
     try:                                       # v3.6.0: services video (chalu/band/namoona/report)
         from . import svcvideo as _SVV
         _r_svv = _SVV.on_text(t, run)
@@ -2258,6 +2281,11 @@ def on_text(text):
                       tg.inline([[("✅✅ Haan, lagao", "s37:y"), ("❌ Nahi", "s37:n")]]))
     if (re.search(r"\b(kab|schedule|shedule|timing|samay)\b", tl) and re.search(r"(reel|video|sawal|swal|question|post|math|gk|paheli)", tl)) \
             or t in ("🗓 Schedule", "/schedule"):
+        try:                                          # v3.9.3: poora master schedule (reel + services + post + story)
+            from . import master as _MST2
+            return tg.say(schedule_text() + "\n\n" + _MST2.text())
+        except Exception as _e_m2:
+            log(f"master text: {_e_m2}")
         return tg.say(schedule_text())                # v2.3.6: AI andaaza nahi - asli schedule
     if t in ("🧊 Apna 3D", "/3d") or tl in ("3d haal", "3d", "apna 3d", "3d status"):
         from . import blender3d as _B3
@@ -3272,6 +3300,9 @@ def on_callback(cb):
     data = cb.get("data", "")
     tg.answer(cb["id"])
     kind, _, rest = data.partition(":")
+    if kind == "mst":                              # v3.9.3: services post samay (dohri pushti)
+        from . import master as _MST
+        return _MST.on_cb(data)
     if kind == "sv":                               # v3.5.0: services quote buttons
         from . import svc as _SVC
         return run(lambda: _SVC.on_callback(rest))

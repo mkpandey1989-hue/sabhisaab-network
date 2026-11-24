@@ -1116,7 +1116,18 @@ def coverage_check(n=25):
 JW_ERRK = "jawab publish: website audit/ZIP mein ruka"
 
 
+import threading as _thr
+_PUB_LOCK = _thr.Lock()
+
+
 def publish_site(force=False):
+    """v3.9.3: ek samay mein ek hi chadhaav (auto-doctor + roz wala saath chale to ek ne doosre ki jawab.zip mita di thi:
+    'No such file .../data/jawab.zip' - chat 24 Nov 19:45)."""
+    with _PUB_LOCK:
+        return _publish_site(force)
+
+
+def _publish_site(force=False):
     """Badla ho to /jawab -> website. v2.5.2: audit asli gate (force=False) - fail ho to page repo mein nahi rehta,
     poora error Telegram par aur state mein (jawab_last_error). Owner ki ek baar ki dohri pushti zaroori."""
     if not state.get("jawab_site_on"):
@@ -1138,7 +1149,7 @@ def publish_site(force=False):
     sm = _sitemap_with_jawab()
 
     def _zip(with_index):
-        z = DATA / "jawab.zip"
+        z = DATA / f"jawab_{_thr.get_ident()}.zip"
         with zipfile.ZipFile(z, "w") as zz:
             zz.writestr("site/jawab.html", page)
             try:

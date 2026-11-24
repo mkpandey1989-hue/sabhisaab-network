@@ -595,10 +595,18 @@ def approve(jid, thumb, now_flag=False):
     job = jobs().get(jid)
     if not job or job["status"] not in ("waiting", "approved"):
         return "Ye video ab manzoori mein nahi hai."
+    extra = ""
+    if str(jid).startswith("svc") and job.get("reason") == "test video":
+        now_flag = True                           # v3.9.3 (owner): services namoona = turant, aur aaj ka slot usi ka
+        try:
+            from . import svcvideo as _SVn
+            extra = _SVn.sample_takes_slot(jid, job)
+        except Exception as e:
+            log(f"svc namoona slot: {e}")
     job.update(status="approved", thumb=int(thumb), now=now_flag)
     save_job(jid, job)
     when = "abhi" if now_flag else datetime.datetime.fromisoformat(job["slot"]).strftime("%H:%M par")
-    return f"👍 Thumb {thumb} chuna. Upload {when}."
+    return f"👍 Thumb {thumb} chuna. Upload {when}." + extra
 
 
 def reject(jid):
@@ -771,6 +779,12 @@ def _fb_photo_daily(brand, meta):
     day = str(now().date())
     if not state.get("fb_photo_daily", True) or (state.get("fb_photo_day") or {}).get(brand) == day:
         return ""
+    try:                                          # v3.9.3: services page-post chalu = sawal photo-post ek din chhod kar (feed bhari nahi)
+        from . import svcpost as _SVPf
+        if not _SVPf.fb_photo_today(brand):
+            return ""
+    except Exception:
+        pass
     th = (meta.get("thumbs") or [None])[0]
     if not th:
         return ""
@@ -1131,6 +1145,19 @@ def upload(jid, pre=False):
                 raise RuntimeError("Pinterest token nahi")
             if PI.waiting():
                 raise _Wait("⏸ Standard login/manzoori ke baad (bot roz 11 baje khud jaanchta hai)")
+            _svc_pin = meta.get("design") == "services_ad"
+            if not _svc_pin:                      # v3.9.3 (owner): seema mein services video pehle - normal video ki jagah kam
+                try:
+                    from . import svcvideo as _SVr
+                    _pp = state.get("pin_pace") or {}
+                    _used = int(_pp.get("total", 0)) if _pp.get("date") == str(datetime.date.today()) else 0
+                    _rs = _SVr.reserve("pinterest")
+                    if _rs and _used >= PI.day_cap() - _rs:
+                        raise _Wait(f"⏸ Pinterest: aaj ki bachi {_rs} jagah services video ke liye rakhi (services pehle, spam-seema ke andar)")
+                except _Wait:
+                    raise
+                except Exception as e:
+                    log(f"pin reserve: {e}")
             link = f"{SITE}{meta.get('page', '/')}?utm_source=pinterest&utm_medium=pin&utm_campaign={brand}"
             from . import answers as _ANSL
             if meta.get("answer_offsite") and _ANSL.live():   # v2.5.0: pin dabate hi seedha us sawal ka jawab (website)
@@ -1151,6 +1178,12 @@ def upload(jid, pre=False):
                 u_ = PI.post_pin(brand, pin_img if pin_img.exists() else thumb, meta["title"], meta.get("description", ""), link,
                                  section=PI.section_for(brand, meta.get("puzzle_kind", "")))   # v3.0.0: sawal-type ka khana
                 ids["pinterest"] = u_.split("/pin/")[-1].split("/")[0]
+                if meta.get("design") == "services_ad":
+                    try:
+                        from . import svcvideo as _SVm
+                        _SVm.plat_mark("pinterest")
+                    except Exception:
+                        pass
                 return u_
             _locked_post(brand, "pinterest", _sig(meta), done, errs, _pi)
         except _Wait as w:
@@ -1161,12 +1194,28 @@ def upload(jid, pre=False):
         try:                                      # v3.4.8: Dailymotion (Partner, private key) - roz max N, galti main kaam nahi rokti
             from . import dailymotion as _DM
             if _DM.on():
-                if not _DM.can_post_today():
+                _dm_rs = 0
+                if meta.get("design") != "services_ad":      # v3.9.3: services pehle (normal ke liye jagah kam)
+                    try:
+                        from . import svcvideo as _SVd
+                        _dm_rs = _SVd.reserve("dailymotion")
+                    except Exception:
+                        _dm_rs = 0
+                _dm_used = int((state.get("dm_log") or {}).get(str(datetime.date.today()), 0))
+                if _dm_rs and _dm_used >= _DM.per_day() - _dm_rs:
+                    waits["dailymotion"] = f"⏸ Dailymotion: aaj ki bachi {_dm_rs} jagah services video ke liye rakhi (services pehle)"
+                elif not _DM.can_post_today():
                     waits["dailymotion"] = f"⏸ aaj ki Dailymotion seema ({_DM.per_day()}) poori - baaki video sirf baaki platform par"
                 else:
                     def _dm():
                         u_, x_ = _DM.upload(vpath, meta)
                         ids["dailymotion"] = x_
+                        if meta.get("design") == "services_ad":
+                            try:
+                                from . import svcvideo as _SVm2
+                                _SVm2.plat_mark("dailymotion")
+                            except Exception:
+                                pass
                         return u_
                     _e_dm = {}
                     _locked_post(brand, "dailymotion", _sig(meta), done, _e_dm, _dm)
@@ -1313,7 +1362,9 @@ def tick(run, run_up=None):
             key = f"{today}:{brand}:{hhmm}"
             if made.get(key):
                 continue
-            if slot - datetime.timedelta(hours=PREPARE_HOURS) <= t < slot + datetime.timedelta(hours=2):
+            _night = (state.get("night_make", True) and "00:20" <= t.strftime("%H:%M") <= "04:30" and t < slot)
+            # v3.9.3 (owner): raat mein hi aaj ki saari video bana kar rakho (ek line mein, ek-ek karke) - din mein slot kabhi khaali na rahe
+            if (slot - datetime.timedelta(hours=PREPARE_HOURS) <= t or _night) and t < slot + datetime.timedelta(hours=2):
                 state.update("made_today", lambda d, k=key: {**{a: b for a, b in (d or {}).items() if a[:10] >= today}, k: 1}, {})
                 made[key] = 1
                 from .config import QUIZ_SLOT
