@@ -127,8 +127,17 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
 
-## Services - owner ke pending kaam (24 Nov 2026, v3.9.1 ke baad) - sab ek jagah
-- [Owner] Install: SIRF bot sabhinet-v3.9.1 (website ZIP nahi; v3.8.8-v3.9.0 isi mein). 4-5 min mein '📱 Website' sandesh (saare page ka mobile fix).
+## Services - owner ke pending kaam (24 Nov 2026, v3.9.2 ke baad) - sab ek jagah
+- [Owner] Install: SIRF bot sabhinet-v3.9.2 (website ZIP nahi; v3.8.8-v3.9.1 isi mein). ~6 min mein '🗂 Website: rate list ab 1000+ kaam' sandesh
+  (list Google ko dikhne wali HTML, terms#rate, har page footer 'Rate List', sitemap).
+- [Owner, 2 min] Wo sandesh aane ke 20 min baad Search Console -> URL inspection -> https://sabhisaab.com/services-list -> Request indexing;
+  phir https://sabhisaab.com/services-demo -> Request indexing. ('ho gaya services index')
+- [Owner, marzi] Aapki 1050 kaam wali list 17.40 ("Website quick r") par kat gayi thi - 18-21 dabbe (Sikhana, Theek karna, Har mahine, Local/Pahadi)
+  hum ne khud likhe. Poori list bhejni ho to .txt file ki tarah bhejiye - AI `svc_more_items.ADD` badal dega.
+- [Owner, faisla] Order lagane wala trading bot (t-algo, crypto bot) site/video se chhupa (SEBI 4 Feb 2025: algo provider ko exchange-empanelment).
+  Wapas chahiye to pehle broker ke empanelled algo-provider program ki jaankari; tab tak sirf alert/chart/backtest/paper-trading.
+- [Owner] Paid ads (Google/Meta) chalayein to sirf website/app/design/Excel/bot wale kaam - sarkari form, trading, phone-repair madad NAHI
+  (docs/MARKET_RATES.md section 4).
 - [Owner] Ek namoona: 🧾 Services -> 🎬 Services namoona (naye kaam + sasta shuru dekhne ke liye).
 - [AI] Pehle 2 hafte: kaun se kaam/hook se lead aaye (services 7 din) - SERVICES_HANDOVER.md section 8.
 - [Owner] Kuch likhna nahi - services video roz apne aap (aaj 17:00 se pehle lagi to aaj 18:00/20:00 wale slot se). Pehli video

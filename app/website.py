@@ -1883,6 +1883,145 @@ def mobile_fix_apply():
     return f"📱 Website mobile sudhaar audit mein ruka (kuch live nahi): {str(r)[:300]}"
 
 
+# ---------------------------------------------------------------- v3.9.2: 1000+ kaam + indexing + 'sharten laagu'
+T392_RATE = """<h2 id="rate">8A. Rate, chhoot aur offer ki shartein</h2>
+<p>Hamari video, post aur website par likha <b>"* shartein laagu"</b> inhi shartein ki taraf ishara hai:</p>
+<ul>
+<li><b>"₹X se shuru":</b> ye kaam ke sabse saade roop ka shuruaati rate hai. Asli rate aapka kaam dekh kar <b>likhit quote</b> mein aata hai (7 din maanya). Likhit quote ke baad rakam nahi badhti, jab tak aap kaam ka scope na badlein.</li>
+<li><b>Bazaar (market) rate:</b> tulna ke liye 2026 mein freelancer aur chhoti agency ke aam rate ka hamara andaza hai; har shehar aur vyakti ka rate alag ho sakta hai. "X% tak sasta" sirf wahan likhte hain jahan asli farak itna hai. Sarkari form/yojana madad jaise kaam par "sasta" ka dawa nahi karte.</li>
+<li><b>Offer aur sale:</b> hum "seemit samay", "aakhri mauka" ya "jaldi karein" jaisa dabav nahi banate. List ke rate aage bhi isi tarah chalenge; badlenge to rate list par nayi tareekh ke saath, aur pehle diye likhit quote par asar nahi. Hafte ki sale ya tyohar offer ki shuru aur khatam ki tareekh saaf likhi hoti hai.</li>
+<li><b>Chhoot:</b> brand code / referral / care chhoot "tak" hai, har kaam ki nichli seema (floor) se neeche nahi, aur sab milakar 25% se zyada nahi.</li>
+<li><b>Sarkari form, bharti, yojana, praman patra, school-college form:</b> sirf madad aur guide. Hum sarkari vibhag ya agent nahi hain; naukri, chayan, yojana ka labh ya praman patra milne ka koi vaada nahi. Nakli ya badla hua document kabhi nahi banate, Aadhaar/PAN mein khud badlav nahi karte. OTP/password aap daalte hain; sarkari fees portal par aap khud bharte hain (hamare charge se alag).</li>
+<li><b>Shikayat, RTI, claim, kiraynama jaise draft:</b> sirf format aur draft; ye vakeel ki kanooni salah nahi hai.</li>
+<li><b>Sikhana / screen-share / buzurgon ki madad:</b> tay samay ka session, control aapke haath mein; hardware repair ya ghar aakar kaam nahi.</li>
+<li><b>Trading tool:</b> broker par apne aap order lagane wala bot (algo) hum nahi banate - SEBI ke 2025 niyam mein ye kaam exchange se manzoor algo provider hi kar sakte hain. Indicator, alert, chart, backtest, journal, calculator aur paper-trading (bina asli paisa) jaise tool sirf aapke apne niyam/data par; tip, signal ya kamai ka vaada nahi.</li>
+<li><b>Mahine wale (care) plan:</b> kabhi bhi band; charge sirf chalne tak.</li>
+</ul>
+
+"""
+T392_TRADE_OLD = ("Bot aapke apne broker account, static IP aur server par aap chalate hain; SEBI aur broker ke niyam maanna aapki zimmedari hai.")
+T392_TRADE_NEW = ("Broker par apne aap order lagane wala bot hum nahi banate (SEBI algo niyam 2025). Alert, chart, backtest jaise tool aapke apne "
+                  "account/data par; SEBI aur broker ke niyam maanna aapki zimmedari hai.")
+S392_FAQ_OLD = "Nahi. Main kisi ka sarkari form ya ITR khud nahi bharta, aur kisi ka Aadhaar/OTP nahi sambhalta. Iske liye CA ya CSC center se sampark karein."
+S392_FAQ_NEW = ("Aapki jagah khud nahi bharte, aur Aadhaar/OTP kabhi nahi sambhalte. Aap khud login karke bharte hain, hum saath baith kar "
+                "(screen-share ya aapke saamne) madad karte hain. Kathin ITR case CA ko bhejte hain.")
+
+
+def t392_terms(t):
+    if 'id="rate"' in t:
+        return t
+    m = re.search(r"<h2>9\.", t)
+    if not m:
+        return t
+    t = t[:m.start()] + T392_RATE + t[m.start():]
+    return t.replace(T392_TRADE_OLD, T392_TRADE_NEW)
+
+
+def t392_services(t):
+    return t.replace("100+ kaam,", "1000+ kaam,").replace(S392_FAQ_OLD, S392_FAQ_NEW)
+
+
+def t392_footer(t):
+    """Har page ke footer mein /services ke baad 'Rate List' (andar ka link = Google ko page milta hai)."""
+    i = t.rfind("<footer")
+    if i < 0 or 'href="/services-list"' in t[i:]:
+        return t
+    a = '<a href="/services">Services</a>'
+    j = t.find(a, i)
+    if j < 0:
+        return t
+    j += len(a)
+    return t[:j] + '<a href="/services-list">Rate List (1000+ kaam)</a>' + t[j:]
+
+
+def t392_home(t):
+    a = 'Kya-kya kaam hota hai, dekhein &rarr;</a>'
+    if a not in t or 'href="/services-demo"' in t:
+        return t
+    return t.replace(a, a + ' · <a href="/services-list" style="color:#0F766E;font-weight:600">1000+ kaam ki rate list</a> · '
+                     '<a href="/services-demo" style="color:#0F766E;font-weight:600">chalte demo</a>', 1)
+
+
+def t392_sitemap(t, day=None):
+    day = day or str(datetime.date.today())
+    for u, pr in (("services-list", "0.7"), ("services-demo", "0.6"), ("services", None), ("terms", None)):
+        m = re.search(r"<url>\s*<loc>https://sabhisaab\.com/" + u + r"</loc>.*?</url>", t, flags=re.S)
+        if not m:
+            continue
+        blk = re.sub(r"<lastmod>[^<]*</lastmod>", f"<lastmod>{day}</lastmod>", m.group(0))
+        if pr:
+            blk = re.sub(r"<priority>[^<]*</priority>", f"<priority>{pr}</priority>", blk)
+        t = t[:m.start()] + blk + t[m.end():]
+    return t
+
+
+def svc392_files():
+    """{site/raasta: bytes} - jo badalna hai (sirf badle hue)."""
+    import pathlib as _pl
+    out, foot_only = {}, set()
+    root = DIR / "site"
+    src = _pl.Path(__file__).parent / "sitepatch392"
+    for f in sorted(src.glob("*.html")) if src.exists() else []:
+        out[f"site/{f.name}"] = f.read_text(encoding="utf-8")
+    for f in sorted(root.rglob("*.html")):
+        rel = str(f.relative_to(DIR))
+        try:
+            t0 = out.get(rel) or f.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        t = t0
+        if f.name == "terms.html":
+            t = t392_terms(t)
+        elif f.name == "services.html":
+            t = t392_services(t)
+        elif rel == "site/index.html":
+            t = t392_home(t)
+        t1 = t
+        t = t392_footer(t)
+        if rel in out or t1 != t0:
+            out[rel] = t
+        elif t != t0:
+            out[rel] = t
+            foot_only.add(rel)
+    sm = root / "sitemap.xml"
+    if sm.exists():
+        a = sm.read_text(encoding="utf-8")
+        b = t392_sitemap(a)
+        if a != b:
+            out["site/sitemap.xml"] = b
+    return out, foot_only
+
+
+def svc392_apply():
+    """Ek baar (state sitepatch_v392): 1000+ kaam wali rate list (Google ko dikhne wali HTML) + terms#rate + footer link + sitemap. Audit gate."""
+    if state.get("sitepatch_v392"):
+        return ""
+    try:
+        sync()
+    except Exception as e:
+        log(f"s392 sync: {e}")
+    files, foot_only = svc392_files()
+    if not files:
+        state.put("sitepatch_v392", True)
+        return ""
+    z = DATA / "s392.zip"
+    with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zz:
+        for p_, t in files.items():
+            zz.writestr(p_, t.encode("utf-8") if isinstance(t, str) else t)
+    r = apply_zip(z, force=False, deploy_in=1)
+    z.unlink(missing_ok=True)
+    try:                                   # sirf footer link badla -> IndexNow ka faltu ping nahi
+        state.put("site_changed", [p_ for p_ in (state.get("site_changed") or []) if p_ not in foot_only])
+    except Exception as e:
+        log(f"s392 site_changed: {e}")
+    if str(r).startswith("✅") or str(r).startswith("ℹ️"):
+        state.put("sitepatch_v392", True)
+        return (f"🗂 Website: rate list ab 1000+ kaam (har kaam Google ko dikhne wali HTML mein), terms par 'rate/offer ki shartein', "
+                f"{len(foot_only)} page ke footer mein 'Rate List' link, sitemap taaza. Audit paas, 1 min mein live.\n"
+                "👉 Search Console mein /services-list aur /services-demo ka 'Request indexing' ek baar dabaiye.")
+    return f"🗂 Rate list (1000+ kaam) audit mein ruki (kuch live nahi): {str(r)[:300]}"
+
+
 def sitepatch_apply():
     """app/sitepatch/*.html -> site/ (audit gate) + unhi page ki sitemap lastmod aaj. Ek baar (state sitepatch_v292)."""
     import pathlib as _pl

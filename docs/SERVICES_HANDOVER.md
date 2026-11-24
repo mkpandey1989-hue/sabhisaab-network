@@ -1,4 +1,4 @@
-# SERVICES HANDOVER — koi bhi AI / developer services par kaam se PEHLE ye padhe (v3.9.1, 24 Nov 2026)
+# SERVICES HANDOVER — koi bhi AI / developer services par kaam se PEHLE ye padhe (v3.9.2, 24 Nov 2026)
 
 Owner: Manoj bhai (Hinglish, mobile + Telegram). Ek-ek baat poochne ke bajaye poora kaam ek saath, test karke, ek ZIP.
 Ye file = services ka shuru se ab tak + aage ka plan + KYA KARNA / KYA KABHI NAHI. Saath mein: `docs/SERVICES_PLAN.md` (sections 0-21),
@@ -8,17 +8,17 @@ Ye file = services ka shuru se ab tak + aage ka plan + KYA KARNA / KYA KABHI NAH
 
 ## 1. Ye kya hai (ek line)
 sabhisaab.com par "Koi bhi digital kaam — ho jayega" (₹10 se shuru) — form madad, resume, mobile madad, ITR madad, website, app, bot,
-trading TOOLS (signal nahi) ... 112 kaam. Customer Hindi mein likhta hai → bot Telegram par owner ko → owner baat karke rate →
+trading TOOLS (signal nahi), sarkari form/bharti/yojana madad, server/cloud, Excel, design ... **1030 kaam** (2 chhupe: SEBI order-bot). Customer Hindi mein likhta hai → bot Telegram par owner ko → owner baat karke rate →
 customer ke gupt page par 'Haan' + UPI QR → kaam → rasid → bahi-khata. Roz 4 services video sab platform par.
 
 ## 2. Kaun sa hissa kahan (architecture)
 | Hissa | File | Kaam |
 |---|---|---|
-| Rate list (asli) | `app/svc_rates.json` (generator `app/scripts/svc_gen_rates.py`) | 112 kaam: price, floor, max, market, kw; RED (mana) list; discount niyam. **sha jaanch** - haath se mat badlo, generator chalao |
+| Rate list (asli) | `app/svc_rates.json` (generator `app/scripts/svc_gen_rates.py`) | 1030 kaam (112 purane + `svc_more_items.py` se 918 naye, 27 dabbe): price, floor, max, market, kw, `hide`/`novideo`/`nostrike`/`new`; RED (mana) list; discount niyam. Daam ka aadhar: `docs/MARKET_RATES.md`. **sha jaanch** - haath se mat badlo, generator chalao |
 | Cloudflare worker | `app/svc_worker.js` (`sabhisaab-leads vX`) | /lead (jaanch: honeypot, 6/ghanta, phone 10 ank, bekaar likhawat, Aadhaar/OTP chhupa), /q gupt page data, /q/ok, /q/info, /q/file, /q/rate, /help (FAQ + Workers AI), /find (tracker), /ev, /clog; admin /{KEY}/pull,set,add,log,file,fdel,stats,ping. KV free 1000 likhna/din -> `sput` |
 | Website se worker | Pages Functions `functions/api/[[path]].js` (proxy, PK secret), `functions/q.js` (gupt page, noindex) | bot likhta hai, `.gitignore` - GitHub par NAHI |
 | Website files (bot likhta) | `site/svc-cfg.js`, `svc-offer.js`, `svc-intake.js`, `svc-kit.js` | kit = form jaanch/label/upload/help; `svc_kit_v` badle to usi din likhe |
-| Services page | `site/services-list.html` (generator `app/scripts/svc_gen_list_page.py`), `/services` (AdSense wala - kam chhedo) | form + tracker + intake |
+| Services page | `site/services-list.html` (generator `app/scripts/svc_gen_list_page.py`; v3.9.2 se har kaam HTML mein - 27 `<details>` dabbe, Google ko dikhta; bot ek baar `website.svc392_apply` se lagata hai: list + terms#rate + har page footer 'Rate List' link + sitemap), `/services` (AdSense wala - kam chhedo) | form + tracker + intake |
 | Gupt page | `app/assets/svc/q.html` (generator `svc_gen_q_page.py`) | rate, Haan, QR, details/file, rating, status |
 | Bot - CRM/lead | `app/svc.py` | ingest, card, rate, paid (rasid), deliver, refund, referral, offer/sale, reminders, report, today_report (23:58), manual, bahi, backup, night_audit (90 din), nl (likha sawal), Services menu |
 | Bot - video | `app/svcvideo.py` | pick_day (rotation), ctx_for (likha/bola), render (frame + Kokoro + ffmpeg), audit_video (6 round), make_day, tick |
@@ -39,7 +39,8 @@ customer ke gupt page par 'Haan' + UPI QR → kaam → rasid → bahi-khata. Roz
 
 ## 4. Roz ki services video (kaise chalti hai)
 - Default CHALU (`services video band` se band). Raat 01:30 ke baad `make_day`: 4 brand, slot 05:00 · 07:00 · 18:00 · 20:00 IST (har din brand ghoomte, brand ki apni roz wali video se 75 min door). Raat chhooti to din mein 19:30 tak bache slot.
-- **Kaam ka chunav (v3.9.1):** saare 112 kaam har channel par (category-wise nahi, audience mix hai). Sabse kam dikha kaam pehle (zindagi bhar ginti), ek din 4 brand mein koi kaam dohra nahi, ek video mein ek kism ke max 2, kam se kam 1 madad + 1 sasta (₹99 tak), pehla kaam sabse sasta/bada bazaar-farak (hook). ~6 din mein poori list.
+- **Kaam ka chunav (v3.9.2):** saare 1017 video-layak kaam har channel par (category-wise nahi, audience mix hai; naye kaam `_auto_kaam` se - screen par kaam ka naam, awaaz mein dabbe ka Hindi naam). Sabse kam dikha kaam hamesha pehle, ek din 4 brand mein koi kaam dohra nahi, ek video mein ek kism ke max 2, madad + ₹99 tak wala na aaye to aakhri ko badlo, pehla kaam sabse sasta/bada bazaar-farak (hook). ~2 mahine mein poori list (test: 56 din mein 1017/1017).
+- Har frame par neeche: **"* शर्तें लागू · पूरी शर्तें: sabhisaab.com/terms"** (ASCI/CCPA). Kati keemat sirf jab bazaar sach mein mehenga (sarkari form par nahi). Description mein 'Sharten laagu' line (bina link - IG safe).
 - Har video: 6 kaam, alag rang (12 LOOKS), hook (12), layout L/R; (set, rang, hook, layout) zindagi bhar dohra nahi. Season (sirf .gov.in/.nic.in tareekh) aur hafte ki sale asli.
 - Awaaz: har scene alag (Kokoro), screen ka bada likha sab bola: "... रुपये से शुरू", site, comment, brand code. 58s se lambi = chhota rup.
 - Audit 6 round (tathya/rate, mana shabd, frame, awaaz, aakarshan, owner). Fail = naya set (3 baar); sirf awaaz ki galti = "awaaz bimaar" -> doctor.
@@ -48,6 +49,8 @@ customer ke gupt page par 'Haan' + UPI QR → kaam → rasid → bahi-khata. Roz
 - Trading tool wale kaam: "टिप/सिग्नल नहीं", description mein jokhim line; "profit/मुनाफ़ा/पक्की कमाई" audit rokta hai.
 
 ## 5. KABHI NAHI (services)
+- "Limited time / सीमित समय / जल्दी करें / only today / offer khatam" - offer lambe chalenge (CCPA dark patterns). Audit rokta hai.
+- Broker par apne aap order lagane wala bot (SEBI 2025) - t-algo/t-crypto `hide`. Sarkari kaam mein naukri/yojana/praman patra ka vaada ya nakli document.
 - Owner ka naam/awaaz/chehra kisi video/post mein. UPI QR (owner ka naam) sirf customer ke gupt page par.
 - "AI se bana" / "insaan" wording ads/services mein. "Guarantee", "100% pakka", "sirf aaj", nakli jaldi.
 - Cold DM, bulk/WhatsApp spam, comment->DM (koi brand), IG caption/comment mein link.
@@ -80,4 +83,6 @@ services shabd X = Y · services awaaz sudhar X = Y · services doctor · servic
 4. Mahine ka "sabse zyada maange gaye kaam" video (asli lead ginti se).
 5. Customer review (sirf asli, kaam ke baad) -> /reviews page par; Google Business Profile.
 6. AdSense review ke baad hi /services par badlav.
-7. Har naya kaam: rate generator + KAAM (svcvideo) + intake SPEC + test - teeno saath, warna video/comment/form mein mel nahi.
+7. Har naya kaam: `svc_more_items.py` (ADD/CATS) -> `python3 app/scripts/svc_gen_rates.py app/svc_rates.json` -> `svc_gen_list_page.py` (sitepatch) -> test. Video KAAM apne aap (dabbe ki `v`), intake dabbe se (`svc_intake.kind_for`).
+8. (Owner) Search Console: /services-list aur /services-demo 'Request indexing' (site patch lagne ke baad). Owner ki poori list (18-21 dabbe) aaye to ADD badlo.
+9. 2 hafte baad: kaun se naye dabbe se lead aaye (svc report) -> kamzor dabbe ka video hissa kam.

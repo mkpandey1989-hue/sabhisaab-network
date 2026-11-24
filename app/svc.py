@@ -146,7 +146,12 @@ def classify(text, picked=""):
                 return [i], None
     sc = []
     for i in R["items"]:
-        s = len(w & set(i["kw"])) * 2 + len(w & _words(i["name"]))
+        if i.get("hide"):                                   # v3.9.2: SEBI - order lagane wale bot public quote mein nahi
+            continue
+        if i.get("new"):                                    # v3.9.2: naye kaam ke kw = naam ke shabd (dohri ginti nahi) -> purane khaas kaam aage
+            s = len(w & set(i["kw"])) * 2
+        else:
+            s = len(w & set(i["kw"])) * 2 + len(w & _words(i["name"]))
         if s >= 2:
             sc.append((s, i))
     sc.sort(key=lambda x: -x[0])

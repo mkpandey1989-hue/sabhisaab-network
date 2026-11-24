@@ -1,4 +1,4 @@
-/* Sab Hisaab services kit v3.8.8 - har kaam ka sawal-form, file/photo/voice bhejna (photo apne aap chhoti), sahayak.
+/* Sab Hisaab services kit v3.9.2 - har kaam ka sawal-form, file/photo/voice bhejna (photo apne aap chhoti), sahayak.
    Pages: /services-list aur gupt page /q. Koi bahari library nahi. */
 (function () {
   var K = window.SVCKIT = {};

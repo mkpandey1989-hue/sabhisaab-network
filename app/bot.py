@@ -694,6 +694,15 @@ def scheduler():
                     if r_:
                         tg.say(r_)
                 run(_mf)
+            if (state.get("mfix_v389") and not state.get("sitepatch_v392") and time.time() - STARTED > 360
+                    and time.time() - (state.get("s392_try") or 0) > 3 * 3600):
+                state.put("s392_try", time.time())         # v3.9.2: 1000+ kaam rate list + terms#rate + footer link + sitemap (ek baar)
+                def _s392():
+                    from . import website as _W392
+                    r_ = _W392.svc392_apply()
+                    if r_:
+                        tg.say(r_)
+                run(_s392)
             if not state.get("ownermode_v312") and time.time() - STARTED > 300 and state.get("ownermode_try") != day:
                 state.put("ownermode_try", day)            # v3.1.2: owner ki apni visit Analytics mein na gini jaaye - code ek baar har page par
                 def _om():

@@ -2484,3 +2484,19 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
   Rate list version 2026-11-24.2 (sirf kw badle, koi daam nahi).
 - docs/SERVICES_HANDOVER.md (doosre AI ke liye poora), AI_START mein link.
 
+
+## v3.9.2 (24 Nov 2026) - 1000+ kaam (rate jaanch ke saath), "* sharten laagu", Google indexing
+- Owner ki 1050 kaam wali list (21 dabbe x 50; paste 17.40 par kati) + 5 naye dabbe (sarkari bharti, yojana/praman patra, school-college form,
+  daftar-kaam RTI/shikayat/claim, buzurg/gaon) -> `app/scripts/svc_more_items.py` + `svc_more_src.json`. Rate list 2026-11-24.3: **1030 kaam**
+  (112 purane same rate + 918 naye), 27 dabbe. Dohra (purane se milta, ek naam do dabbe), 1-click PDF kaam, "AI" naam -> hataye/badle.
+- Daam: floor ₹360/ghanta kabhi neeche nahi; bazaar ke kam se kam rate ka ~20-45%; research + niyam `docs/MARKET_RATES.md` (CCPA saboot).
+- SEBI 4 Feb 2025: order lagane wale bot (t-algo, t-crypto + list ke order/stop-loss/square-off/broker API) `hide` - site/video/quote mein nahi.
+  Sarkari pehchaan-patra guide, kanooni draft, KYC/claim `novideo`. Sarkari form par "sasta" ka dawa nahi (`nostrike`, CSC ₹25+GST).
+- Video: 1017 kaam ghoomte (`_auto_kaam`), har frame neeche "* शर्तें लागू · पूरी शर्तें: sabhisaab.com/terms" (ASCI/CCPA), kati keemat sirf
+  sach mein mehenge par, lamba naam patti mein kat kar (_short), lambe naam par 'bazaar' hook nahi (6th round). BAN: limited time/सीमित समय/
+  जल्दी करें/only today/offer khatam (CCPA dark patterns - offer lambe chalenge). Rotation: kam dikha hamesha pehle (56 din mein sab).
+- Comment/quote: naye kaam ka score sirf kw (purane khaas kaam aage), `hide` kaam quote nahi. Intake: naye dabbe -> form/mobile/letter/web.
+- Website (bot ek baar `website.svc392_apply`, audit gate, badi ZIP nahi): services-list har kaam HTML mein (27 `<details>` dabbe - pehle
+  JS se banta tha, Google ko list nahi dikhti thi), OfferCatalog schema, FAQ (offer kab tak, sarkari madad, trading), title "1000+";
+  terms par "8A. Rate, chhoot aur offer ki shartein" (#rate); har page footer mein 'Rate List (1000+ kaam)'; homepage par list + demo link;
+  sitemap priority list 0.7 / demo 0.6 + lastmod. Site audit 362 page PASS, 412px overflow nahi.

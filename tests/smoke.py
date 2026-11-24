@@ -1526,12 +1526,14 @@ try:
     check("instagram" in _P90.SVC_PLATFORM_OFF.get("sunonatak", []), "Suno Natak Instagram par services video nahi (2 baar ban)")
     # v3.9.1: saare 112 kaam har channel par ghoomein (category-wise nahi), ek din dohra nahi, shuru mein sasta
     _R91 = _S50.rates()["by"]
-    check(set(_V90.KAAM) == set(_R91), "rate-list ke saare kaam video mein (112)")
+    _R91 = {k: v for k, v in _R91.items() if not v.get("novideo") and not v.get("hide")}     # v3.9.2: 1000+ (SEBI/sarkari-ID wale nahi)
+    check(set(_V90.KAAM) == set(_R91) and len(_R91) > 1000 and "t-algo" not in _V90.KAAM, f"rate-list ke saare video-layak kaam video mein ({len(_R91)})")
     _od91 = _V90.DIR
     try:
         _V90.DIR = __import__("pathlib").Path(__import__("tempfile").mkdtemp())
         _seen91, _dd91, _rep91 = set(), __import__("datetime").date(2026, 12, 1), 0
-        for _i91 in range(8):
+        _nd91 = len(_R91) // 20 + 6          # 4 video x 6 kaam; madad/₹99 wale chhote dabbe jaldi ghoomte (~2 mahine mein sab)
+        for _i91 in range(_nd91):
             _p91 = _V90.pick_day(seed=_i91, day=str(_dd91))
             _all91 = [x for v in _p91.values() for x in v["set"]]
             _rep91 += len(_all91) - len(set(_all91))
@@ -1542,7 +1544,7 @@ try:
                     check(_R91[_v91["set"][0]]["price"] <= 499, f"{_b91}: pehla kaam sasta (₹{_R91[_v91['set'][0]]['price']})")
             _dd91 += __import__("datetime").timedelta(days=1)
         check(_rep91 == 0, "ek din 4 brand par koi kaam dohra nahi")
-        check(len(_seen91) == len(_R91), f"8 din mein saare kaam dikhe ({len(_seen91)}/{len(_R91)})")
+        check(len(_seen91) == len(_R91), f"{_nd91} din mein saare kaam dikhe ({len(_seen91)}/{len(_R91)})")
     finally:
         _V90.DIR = _od91
     from app import svccomment as _C91

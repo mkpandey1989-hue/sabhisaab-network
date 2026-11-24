@@ -3,7 +3,10 @@ Niyam: floor = ghante x Rs300 x 1.2 (kabhi isse neeche nahi). price >= floor. Ma
 risk: G=seedha, Y=sharton ke saath, R=nahi (list mein nahi aata, sirf matcher mana karne ke liye)."""
 import hashlib
 import json
+import pathlib
 import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 HOUR = 300
 BUF = 1.2
@@ -166,6 +169,10 @@ RED = [("Google Maps / data scraping, kisi ka phone-email nikalna", "scrap|scrap
        ("Haath/hardware repair ya ghar aakar kaam", "mobile repair|phone repair|screen badal|battery badal|ghar aakar|ghar aa kar|ghar pe aao|hardware repair")]
 
 
+HIDE = {"t-algo", "t-crypto"}
+NOVID = {"u-broker"}
+
+
 def build():
     items, bad = [], []
     for (i, c, n, p, lo, hi, h, d, r, kw) in R:
@@ -176,8 +183,24 @@ def build():
                       "market": [lo, hi], "hours": h, "days": d, "risk": r, "kw": kw.split()})
     if bad:
         sys.exit("FLOOR GALTI:\n" + "\n".join(bad))
-    body = {"version": "2026-11-24.2", "hour_rate": HOUR, "buffer": BUF,
-            "cats": {k: {"title": v[0], "sub": v[1]} for k, v in C.items()},
+    # v3.9.2: SEBI (4 Feb 2025) - broker par apne aap order lagane wala bot = empanelled algo provider ka kaam -> site/video/quote se chhupa
+    for it in items:
+        if it["id"] in HIDE:
+            it["hide"] = 1
+            it["novideo"] = 1
+        if it["id"] in NOVID:
+            it["novideo"] = 1
+    import svc_more_items as M                                  # v3.9.2: 1000+ naye kaam (owner list 24 Nov)
+    items += M.items([r[2] for r in R])
+    ids = [i["id"] for i in items]
+    if len(ids) != len(set(ids)):
+        sys.exit("ID dohra")
+    cats = {k: {"title": v[0], "sub": v[1]} for k, v in C.items()}
+    for k, v in M.cats().items():
+        cats.setdefault(k, {"title": v["title"], "sub": v["sub"]})
+        cats[k]["v"] = v["v"]
+    body = {"version": "2026-11-24.3", "hour_rate": HOUR, "buffer": BUF,
+            "cats": cats,
             "items": items, "red": [{"name": a, "kw": b.split("|")} for a, b in RED],
             "discount": {"brand": 10, "ref": 10, "care": 5, "max": 25, "small_cap_under": 300, "small_cap": 50, "urgent": 50}}
     raw = json.dumps(body, ensure_ascii=False, sort_keys=True)

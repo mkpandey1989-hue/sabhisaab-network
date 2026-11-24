@@ -1,4 +1,4 @@
-# Services — audience ke liye taiyaar likhawat (24 Nov 2026, v3.9.0)
+# Services — audience ke liye taiyaar likhawat (24 Nov 2026, v3.9.2 - 1000+ kaam)
 
 Bas copy karke lagaiye. Niyam (sab platform par):
 - "AI se bana" / "insaan" jaisa kuch nahi likhna. "Guarantee", "100% pakka", "turant sarkari kaam" nahi.
@@ -11,6 +11,14 @@ Rate (rate-list se, 24 Nov): Resume ₹10 · typing ₹19/page · photo-sign siz
 mobile/computer madad ₹49 · shaadi biodata ₹49 · scholarship / PM Kisan / pension madad ₹99 · project/PPT ₹99 ·
 ITR-1 madad ₹299 · ITR-2/4 madad ₹699 · visiting card/mini site ₹999 · 1-page dukaan website ₹2,999.
 Rate badle to yahan bhi badaliye (bot ki rate list hi asli hai: sabhisaab.com/services-list).
+
+**v3.9.2 naye dabbe (1000+ kaam, sab "se shuru"):** sarkari bharti form madad ₹49 · yojana/praman patra guide ₹49 · school-college form ₹49 ·
+buzurgon ke liye UPI/phone madad ₹59-129 · RTI/shikayat/claim draft ₹99 · 30 min sikhiye ₹199-249 · Excel/Sheet ₹399 · domain/email ₹399 ·
+server/VM setup ₹699 · design ₹499 · SEO/content ₹699 · bot ₹1,199 · calculator ₹1,499 · business software ₹4,499 · app ₹4,499 se.
+Har jagah neeche: **"* Sharten laagu"** (poori: sabhisaab.com/terms#rate). "Limited time / jaldi karein / sirf aaj" KABHI nahi - offer lambe chalenge.
+Sarkari kaam: "Hum sarkari vibhag nahi, sirf madad - naukri/yojana milne ka vaada nahi." Paid ads mein sarkari/trading/tech-support madad NAHI (docs/MARKET_RATES.md).
+
+**Bio mein ek line jod sakte hain:** `1000+ digital kaam ki rate list 👇 (shartein laagu)`
 
 ---
 

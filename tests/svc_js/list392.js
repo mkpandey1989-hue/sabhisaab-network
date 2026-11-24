@@ -1,0 +1,16 @@
+const {JSDOM}=require('jsdom');const fs=require('fs');
+let h=fs.readFileSync('/home/claude/netdoc2/app/sitepatch392/services-list.html','utf8');
+h=h.replace(/<script src="[^"]*"[^>]*><\/script>/g,'');
+const errs=[];const dom=new JSDOM(h,{runScripts:'dangerously',url:'https://sabhisaab.com/services-list?svc=na-ssc-form-madad',beforeParse(w){w.navigator.sendBeacon=()=>1;w.fetch=()=>Promise.reject(new Error('x'));w.Element.prototype.scrollIntoView=()=>{};w.addEventListener('error',e=>errs.push(e.message))}});
+const w=dom.window,d=w.document;let ok=0,bad=0;const c=(x,m)=>{x?ok++:(bad++,console.log('FAIL',m))};
+c(errs.length===0,'js errors '+errs);
+c(d.getElementById('svc').value.startsWith('SSC form'),'?svc= pick '+d.getElementById('svc').value);
+const q=d.getElementById('q');q.value='ssc';q.dispatchEvent(new w.Event('input'));
+const vis=[...d.querySelectorAll('#list .it')].filter(e=>!e.classList.contains('hid'));c(vis.length>=1&&vis.length<5,'search ssc '+vis.length);
+c(d.getElementById('c-naukri').open,'naukri section opened');
+q.value='zzzqqq';q.dispatchEvent(new w.Event('input'));c(d.getElementById('nf').style.display==='','not found msg');
+q.value='';q.dispatchEvent(new w.Event('input'));c([...d.querySelectorAll('#list .it.hid')].length===0,'reset all visible');
+d.querySelector('#cats button[data-c="cloud"]').click();c([...d.querySelectorAll('#list .sec:not(.hid)')].length===1,'cat filter');
+d.querySelector('#c-cloud [data-pick]').click();c(d.getElementById('svc').value.length>3,'pick via button');
+c(d.querySelector('#cats button').textContent.includes('1033'),'Sab count');
+console.log('ok',ok,'bad',bad);

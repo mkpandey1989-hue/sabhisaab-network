@@ -1,6 +1,6 @@
 # AI_START - koi bhi AI / developer SABSE PEHLE ye padhe
 
-> **SERVICES (24 Nov 2026, v3.9.1): `docs/SERVICES_HANDOVER.md` - services ka poora kaam (architecture, customer ka safar, roz ki video, KABHI NAHI, test/ZIP ka tareeka, aage ka plan). Services par kuch bhi karne se pehle.**
+> **SERVICES (24 Nov 2026, v3.9.2 - 1030 kaam): `docs/SERVICES_HANDOVER.md` - services ka poora kaam (architecture, customer ka safar, roz ki video, KABHI NAHI, test/ZIP ka tareeka, aage ka plan). Rate/ads niyam: `docs/MARKET_RATES.md`. Services par kuch bhi karne se pehle.**
 
 > **SABSE PEHLE (23 Nov 2026): `docs/LESSONS_NEVER.md` - jo galtiyan ho chuki, KABHI dobara nahi.**
 

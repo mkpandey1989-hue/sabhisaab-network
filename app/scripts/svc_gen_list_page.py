@@ -11,16 +11,39 @@ R = json.load(open(rates_f, encoding="utf-8"))
 head = S[:S.index("<style>")]
 style = S[S.index("<style>"):S.index("</style>") + 8]
 foot = S[S.index("<footer>"):]
-TITLE = "Services Rate List: 100+ Kaam ₹10 Se | Sab Hisaab"
-DESC = ("Website, billing app, calculator, bot, trading tool, design aur chhote kaam - 100+ kaam ki rate list ₹10 se. "
-        "Market se kam rate, likhit quote, 2 badlav shaamil.")
+TITLE = "Services Rate List: 1000+ Digital Kaam ₹10 Se | Sab Hisaab"
+DESC = ("1000+ digital kaam ki rate list ₹10 se: resume, form madad, website, app, Excel, bot, server, design, SEO. "
+        "Likhit quote, 2 badlav shaamil.")
 head = re.sub(r"<title>.*?</title>", f"<title>{TITLE}</title>", head, flags=re.S)
 head = re.sub(r'(<meta name="description" content=")[^"]*', r"\g<1>" + DESC, head)
 head = head.replace('href="https://sabhisaab.com/services"', 'href="https://sabhisaab.com/services-list"')
 head = re.sub(r'(name="twitter:title" content=")[^"]*', r"\g<1>" + TITLE, head)
 
-items = [{k: i[k] for k in ("id", "cat", "name", "price", "market", "days", "risk")} for i in R["items"]]
-cats = R["cats"]
+items = [i for i in R["items"] if not i.get("hide")]          # v3.9.2: SEBI order-bot chhupa
+cats = {k: v for k, v in R["cats"].items() if any(i["cat"] == k for i in items)}
+ORDER = ["micro", "naukri", "yojana", "padhai", "senior", "daftar", "guide", "docs", "excel", "web", "local", "design", "content", "ecom",
+         "calc", "soft", "app", "bot", "smart", "domain", "cloud", "devops", "data", "setup", "fix", "care", "trade"]
+ORDER += [k for k in cats if k not in ORDER]
+
+
+def _card(i):
+    """v3.9.2: SEO ke liye har kaam HTML mein (pehle JS se banta tha - Google ko list nahi dikhti thi)."""
+    mk = (f' <s class="mk">₹{i["market"][0]:,}+</s>' if i["market"][0] > i["price"] and not i.get("nostrike") else "")
+    y = '<span class="y">Sharton ke saath</span>' if i["risk"] == "Y" else ""
+    return (f'<li class="it" data-i="{i["id"]}" data-c="{i["cat"]}" data-p="{i["price"]}" data-d="{html.escape(i["days"])}">'
+            f'<b>{html.escape(i["name"])}</b><span class="pr">₹{i["price"]:,} se</span>{mk}{y}'
+            f'<button type="button" data-pick="{i["id"]}">Ye chahiye</button></li>')
+
+
+SECS = ""
+for n_, k in enumerate(ORDER):
+    its = sorted((i for i in items if i["cat"] == k), key=lambda x: (x["price"], x["name"]))
+    if not its:
+        continue
+    SECS += (f'<details class="sec" id="c-{k}"{" open" if n_ < 3 else ""}><summary class="sh"><h2>{html.escape(cats[k]["title"])}</h2>'
+             f'<span>{len(its)} kaam · ₹{its[0]["price"]:,} se · {html.escape(cats[k]["sub"])}</span></summary>'
+             f'<ul class="il">{"".join(_card(i) for i in its)}</ul></details>')
+N_ALL = len(items)
 DEMOS = [("dukaan-site", "1-page dukaan website", "/", "Aisi tez, mobile par saaf site aapke naam par"),
          ("gst-bill", "GST calculator → billing app", "/gst-calculator", "Isi se aapka GST bill app banta hai"),
          ("emi", "Branded EMI calculator", "/emi-calculator", "Aapke logo aur WhatsApp button ke saath"),
@@ -39,7 +62,7 @@ demo_html = "".join(
 
 
 TOP = ["m-resume","m-form","w-1page","w-5page","w-shop","w-book","w-gmb","c-calc","c-quote","s-bill","s-stock","s-khata","s-pos",
-       "b-wa","b-tg","b-faq","t-pine","t-back","t-algo","d-logo","d-reels30","e-store","p-extract","u-vm","f-site","k-care"]
+       "b-wa","b-tg","b-faq","t-pine","t-back","t-chart","d-logo","d-reels30","e-store","p-extract","u-vm","f-site","k-care"]
 by = {i["id"]: i for i in R["items"]}
 rows = "".join(f"<tr><td>{html.escape(by[k]['name'])}</td><td>₹{by[k]['market'][0]:,}–{by[k]['market'][1]:,}</td><td><b>₹{by[k]['price']:,}</b></td><td>{by[k]['days']}</td></tr>" for k in TOP)
 TABLE = ("<h2>Market rate vs hamara rate</h2><p>Neeche ke aankde bazaar mein freelancer aur chhoti agency ke aam rate se tulna hai (2026). "
@@ -50,7 +73,9 @@ FAQ = [("Rate 'se' kyun likha hai?", "Har kaam alag hota hai. Likha hua rate shu
        ("Advance kitna dena hota hai?", "₹10 se ₹199 wale chhote kaam par poora payment pehle. Baaki kaam par lagbhag 30% advance, phir demo dekh kar baaki. Final file, code aur account poora payment hone ke baad milta hai."),
        ("Code aur account kiske naam hoga?", "Aapke naam. Website, domain, hosting, payment gateway, bot - sab aapke apne account par banta hai. Hum aapka password nahi lete; zaroorat ho to aap access dete hain aur kaam ke baad hata dete hain."),
        ("Care plan band karna ho to?", "Care plan har mahine ka hai, kabhi bhi band kar sakte hain. Charge sirf tab tak lagta hai jab tak service chal rahi hai. Hum kabhi service band karein to 30 din pehle batayenge aur saara code aur access aapko de denge."),
-       ("Trading bot banate ho?", "Sirf aapki apni strategy ka code - backtest, indicator, alert, paper-trading aur bot jo aapke apne broker account, static IP aur server par aap khud chalate hain (SEBI ka algo niyam). Hum tip, signal ya profit ka vaada nahi dete aur kisi ka account nahi chalate."),
+       ("Trading bot banate ho?", "Sirf aapki apni strategy ke tool - backtest, indicator, alert, chart, journal, risk calculator aur paper-trading (bina asli paisa). Broker par apne aap order lagane wala bot (algo) hum nahi banate - SEBI ke 2025 niyam mein ye kaam exchange se manzoor algo provider hi kar sakte hain. Hum tip, signal ya profit ka vaada nahi dete aur kisi ka account nahi chalate."),
+       ("Offer kab tak hai? 'Seemit samay' to nahi?", "Hum jhootha 'seemit samay' ya 'jaldi karein' nahi likhte. List ke rate 'se shuru' hain aur aage bhi isi tarah chalenge; badlenge to is page par nayi tareekh ke saath. Hafte ki sale ya tyohar offer ho to uski shuru aur khatam ki tareekh saaf likhi hoti hai. Likhit quote 7 din maanya hai."),
+       ("Sarkari form, yojana ya bharti mein aap kya karte ho?", "Sirf madad aur guide - form samjhana, documents ki suchi, photo-sign ka sahi size, aapke saamne bharna. Hum sarkari vibhag ya agent nahi hain; naukri, yojana ya praman patra milne ka koi vaada nahi. Nakli document kabhi nahi banate. OTP/password aap daalte hain, sarkari fees portal par aap khud bharte hain."),
        ("Online form bharne mein madad kaise hoti hai?", "Aap apni jaankari aur document khud dete hain; hum form bharne mein madad karte hain (screen-share ya aapke saamne). OTP aur password sirf aap daalte hain - hum kabhi nahi maangte. Portal ki sarkari fees aap seedha portal par bharte hain; hamara charge sirf madad ka hai. Hum sarkari agent nahi hain, aur aapke document apne paas nahi rakhte."),
        ("Kaun sa kaam nahi lete?", "Data scraping, kisi ka phone/email nikalna, bulk ya spam message, nakli review/followers, hacking, kisi ki site ki copy, betting aur loan app. Ye kanoon aur platform niyam ke khilaf hain."),
        ("Referral code kaise chalta hai?", "Form bhejne par aapko ek REF code milta hai. Dost us code se kaam karwaye to dost ko pehle kaam par 10% chhoot milti hai, aur dost ke chukaye bill ka 10% aapko bonus milta hai (₹300 se bade bill par, ek baar mein max ₹500). Bonus dost ka payment hone ke 7 din baad pakka hota hai, agle paid kaam ke bill ka max 10% kaat sakta hai aur 90 din tak chalta hai. Ek hi phone/device se apna hi code nahi chalta, aur bonus nakad nahi milta.")]
@@ -64,6 +89,13 @@ EXTRA_CSS = """<style>
 #q{width:100%;padding:14px 16px;border:2px solid var(--brand);border-radius:14px;font-size:16px;margin:8px 0 10px}
 .cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.cats button{border:1px solid var(--line);background:#fff;border-radius:100px;padding:6px 12px;font:inherit;font-size:.82rem;cursor:pointer}
 .cats button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.sec{background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 10px;padding:0 12px}.sec>summary{cursor:pointer;padding:12px 0;list-style:none}
+.sec>summary::-webkit-details-marker{display:none}.sec>summary h2{display:inline;font-size:1.05rem;margin:0}.sec>summary span{display:block;font-size:.8rem;color:var(--muted)}
+.sec>summary:after{content:"▾ kholein";float:right;font-size:.75rem;color:var(--brand);margin-top:-30px}.sec[open]>summary:after{content:"▴"}
+.il{list-style:none;margin:0 0 10px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.it{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.it b{flex:1 1 100%;font-size:.92rem;line-height:1.35}.it button{margin-left:auto;border:none;background:var(--brand);color:#fff;border-radius:9px;padding:6px 10px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.it.hid,.sec.hid{display:none}.tnc{font-size:.82rem;color:var(--muted);background:#F8FAFC;border-radius:10px;padding:10px;margin-top:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;flex-direction:column;gap:3px}
 .card small{color:var(--muted);font-size:.75rem}.card b{font-size:.95rem;line-height:1.35}
@@ -96,12 +128,15 @@ BODY = """<body>
 <div class="hero"><h1>Koi bhi digital kaam — ho jayega</h1>
 <p><b>Hindi mein likhiye, jaise ghar mein bolte hain</b> — English zaroori nahi, sharm ki koi baat nahi.</p>
 <p>Resume ₹10 · Form bharne mein madad ₹49 · Mobile/computer madad ₹49 · Bill · Website — <b>₹10 se shuru</b></p>
-<span class="pill">📄 Resume sirf ₹10</span><span class="pill">📝 Online form bharne mein madad ₹49</span><span class="pill">✔ Market se kam rate</span><span class="pill">✔ Pehle demo, phir payment</span><span class="pill">✔ 2 badlav shaamil</span><span class="pill">✔ Code aur account aapke naam</span></div>
+<span class="pill">🗂 1000+ kaam ki list</span><span class="pill">📄 Resume sirf ₹10</span><span class="pill">📝 Online form bharne mein madad ₹49</span><span class="pill">✔ Market se kam rate</span><span class="pill">✔ Pehle demo, phir payment</span><span class="pill">✔ 2 badlav shaamil</span><span class="pill">✔ Code aur account aapke naam</span></div>
 
 <div id="offer"></div>
 <input id="q" placeholder="Kya kaam hai? jaise: dukaan website, GST bill, bot, logo, excel…" aria-label="Kaam khojein">
 <div class="cats" id="cats"></div>
-<div class="grid" id="list"></div>
+<div class="card" style="border:2px dashed var(--brand);margin-bottom:10px"><small>Kuch bhi</small><b>Koi bhi kaam — list mein nahi? Apne shabdon mein likhiye</b><span class="pr">Baat karke</span><button type="button" onclick="anyKaam()">Apna kaam likho</button></div>
+<p id="nf" style="display:none">Is shabd se kaam nahi mila — <a href="#form" onclick="anyKaam()">apne shabdon mein likhiye</a>, hum samajh lenge.</p>
+<div id="list">""" + SECS + """</div>
+<p class="tnc" id="sharten"><b>* Sharten laagu:</b> list ke rate "se shuru" hain — kaam dekh kar likhit quote milta hai (7 din maanya). Market rate 2026 ke aam freelancer/agency rate ka andaza hai, tulna ke liye. Sarkari kaam mein sirf madad, koi vaada nahi. Poori sharten: <a href="/terms#rate">Terms — rate, chhoot aur offer</a>.</p>
 <p style="font-size:.85rem;color:var(--muted);margin-top:8px">List mein nahi? <a href="#custom">Apna custom kaam banaiye</a> ya neeche seedha likhiye. Rate "se" hai — aapka kaam dekh kar likhit quote milta hai.</p>
 
 <h2 id="demo">Live demo — khud chala kar dekhiye</h2>
@@ -154,7 +189,7 @@ BODY = """<body>
 <li>Baaki payment ke baad <b>final file, code aur account aapke naam</b></li></ol>
 <div class="box"><b>Care plan:</b> har mahine ka plan hai — kabhi bhi band kar sakte hain. Charge sirf tab tak jab tak service chal rahi hai. Agar hum kabhi service band karein to 30 din pehle batayenge aur saara code/access aapko de denge.</div>
 """ + FAQ_HTML + """
-<div class="disc">⚠️ Trading tool sirf aapki apni strategy ka code hai — hum SEBI-registered advisor nahi, koi tip/signal/profit ka vaada nahi. Bot aapke apne account/server par aap chalate hain. Ye page aam jaankari hai; tax/kanooni faisle ke liye CA/vakil se salah lein.</div>
+<div class="disc">⚠️ Trading tool sirf aapki apni strategy ka code hai — hum SEBI-registered advisor nahi, koi tip/signal/profit ka vaada nahi. Broker par apne aap order lagane wala bot hum nahi banate (SEBI algo niyam 2025). Ye page aam jaankari hai; tax/kanooni faisle ke liye CA/vakil se salah lein.</div>
 </div></main>
 <div class="cbar"><span>Seedha baat:</span><a id="waf" class="cb-wa" href="https://wa.me/919917436371?text=Namaste%2C%20mujhe%20ek%20kaam%20karwana%20hai" rel="nofollow noopener" target="_blank">WhatsApp</a><a id="tgf" class="cb-tg" href="#" rel="nofollow noopener" target="_blank" style="display:none">Telegram</a></div>
 """
@@ -164,17 +199,18 @@ JS = """<script src="/svc-cfg.js"></script>
 <script src="/svc-intake.js"></script>
 <script src="/svc-kit.js"></script>
 <script>
-var CATS=__CATS__,IT=__ITEMS__,cur='all',$=function(i){return document.getElementById(i)};
+var CATS=__CATS__,cur='all',$=function(i){return document.getElementById(i)};
+var IT=[].map.call(document.querySelectorAll('#list .it'),function(e){return {id:e.getAttribute('data-i'),cat:e.getAttribute('data-c'),name:e.querySelector('b').textContent,price:+e.getAttribute('data-p'),days:e.getAttribute('data-d'),el:e}});
 var Q=new URLSearchParams(location.search);if(Q.get('code'))$('code').value=Q.get('code').toUpperCase();
 function rs(n){return '₹'+Number(n).toLocaleString('en-IN')}
 function ev(d,t,n){try{if(window.SVC_API)navigator.sendBeacon?navigator.sendBeacon(window.SVC_API+'/ev',new Blob([JSON.stringify({d:d,t:t,n:n||0})],{type:'text/plain'})):0}catch(e){}}
-function draw(){var q=$('q').value.toLowerCase().trim(),h='';IT.forEach(function(i){if(cur!=='all'&&i.cat!==cur)return;
-if(q&&(i.name+' '+CATS[i.cat].title).toLowerCase().indexOf(q)<0&&!q.split(/\\s+/).every(function(w){return (i.name+' '+i.id).toLowerCase().indexOf(w)>=0}))return;
-h+='<div class="card"><small>'+CATS[i.cat].title+'</small><b>'+i.name+'</b><span><span class="pr">'+rs(i.price)+' se</span> <span class="mk">'+rs(i.market[0])+'+</span></span><small>⏱ '+i.days+'</small>'+(i.risk==='Y'?'<span class="y">Sharton ke saath</span>':'')+'<button onclick="pick(\\''+i.id+'\\')">Ye chahiye</button></div>'});
-var any='<div class="card" style="border:2px dashed var(--brand)"><small>Kuch bhi</small><b>Koi bhi kaam — list mein nahi? Apne shabdon mein likhiye</b><span class="pr">Baat karke</span><small>Website, app, form, Excel, bot, design, setup… jo bhi ho</small><button onclick="anyKaam()">Apna kaam likho</button></div>';$('list').innerHTML=any+h}
+function draw(){var q=$('q').value.toLowerCase().trim(),ws=q?q.split(/\\s+/):[],seen={},tot=0;IT.forEach(function(i){var t=(i.name+' '+CATS[i.cat].title+' '+i.id).toLowerCase();
+var ok=(cur==='all'||i.cat===cur)&&(!q||t.indexOf(q)>=0||ws.every(function(w){return t.indexOf(w)>=0}));i.el.classList.toggle('hid',!ok);if(ok){seen[i.cat]=1;tot++}});
+[].forEach.call(document.querySelectorAll('#list .sec'),function(d){var c=d.id.slice(2);d.classList.toggle('hid',!seen[c]);if(q||cur!=='all')d.open=!!seen[c]});$('nf').style.display=tot?'none':''}
 function anyKaam(){$('svc').value='Koi bhi kaam (custom)';$('sum').innerHTML='<b>Koi bhi kaam</b><br>Neeche apni zaroorat likhiye — hum padh kar likhit quote bhejenge.';location.hash='form';kit('custom');$('fm').querySelector('textarea').focus();ev('any','c')}
-var cb='<button data-c="all" class="on">Sab</button>';for(var k in CATS)cb+='<button data-c="'+k+'">'+CATS[k].title+'</button>';$('cats').innerHTML=cb;
-$('cats').onclick=function(e){var c=e.target.getAttribute('data-c');if(!c)return;cur=c;[].forEach.call($('cats').children,function(b){b.className=b.getAttribute('data-c')===c?'on':''});draw()};
+var cb='<button data-c="all" class="on">Sab (__N__)</button>';for(var k in CATS)cb+='<button data-c="'+k+'">'+CATS[k].title+'</button>';$('cats').innerHTML=cb;
+$('cats').onclick=function(e){var c=e.target.getAttribute('data-c');if(!c)return;cur=c;[].forEach.call($('cats').children,function(b){b.className=b.getAttribute('data-c')===c?'on':''});draw();if(c!=='all'){var d=$('c-'+c);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}}};
+$('list').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-pick]');if(b)pick(b.getAttribute('data-pick'))});
 $('q').oninput=draw;
 function pick(id){var i=IT.filter(function(x){return x.id===id})[0];$('svc').value=i.name;$('sum').innerHTML='<b>'+i.name+'</b><br>Shuruaati rate '+rs(i.price)+' · '+i.days+'<br><small>Final likhit quote kaam dekh kar.</small>';location.hash='form';kit(i.id);ev('pick-'+i.cat,'c')}
 function tot(){var t=+$('bt').value,n=[$('bt').selectedOptions[0].text];[].forEach.call(document.querySelectorAll('#bld input:checked'),function(c){t+=+c.value;n.push(c.getAttribute('data-n'))});$('tot').textContent=rs(t);return [t,n]}
@@ -216,7 +252,14 @@ $('findb').onsubmit=function(e){e.preventDefault();var id=$('fid').value.trim().
 $('fmsg').textContent='Dhoondh rahe hain…';api('/find',{id:id,last4:l4},10000).then(function(j){location.href='/q?id='+j.id+'&k='+j.k}).catch(function(e){$('fmsg').textContent=e.message})};
 $('waf').addEventListener('click',function(){ev('wa','c')});draw();if(Q.get('svc')&&IT.some(function(x){return x.id===Q.get('svc')}))pick(Q.get('svc'));
 </script>"""
-JS = JS.replace("__CATS__", json.dumps(cats, ensure_ascii=False)).replace("__ITEMS__", json.dumps(items, ensure_ascii=False))
+JS = JS.replace("__CATS__", json.dumps({k: {"title": v["title"]} for k, v in cats.items()}, ensure_ascii=False)).replace("__N__", str(N_ALL))
+CATALOG = {"@context": "https://schema.org", "@type": "Service", "name": "Sab Hisaab digital kaam", "areaServed": "IN", "url": "https://sabhisaab.com/services-list",
+           "provider": {"@type": "Organization", "name": "Sab Hisaab", "url": "https://sabhisaab.com/"},
+           "hasOfferCatalog": {"@type": "OfferCatalog", "name": f"{N_ALL} kaam ki rate list", "itemListElement": [
+               {"@type": "OfferCatalog", "name": cats[k]["title"], "url": f"https://sabhisaab.com/services-list#c-{k}",
+                "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": i["name"]}, "priceCurrency": "INR",
+                                     "price": i["price"]} for i in sorted((i for i in items if i["cat"] == k), key=lambda x: x["price"])[:5]]}
+               for k in ORDER if any(i["cat"] == k for i in items)]}}
 
 art = {"@context": "https://schema.org", "@type": "Article", "headline": TITLE, "author": {"@type": "Organization", "name": "Sab Hisaab"},
        "publisher": {"@type": "Organization", "name": "Sab Hisaab"}, "datePublished": "2026-11-23", "dateModified": __import__("datetime").date.today().isoformat(),
@@ -230,7 +273,7 @@ ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElem
     {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://sabhisaab.com/services"},
     {"@type": "ListItem", "position": 3, "name": "Rate list", "item": "https://sabhisaab.com/services-list"}]}
 head_clean = re.sub(r'<script type="application/ld\+json">.*?</script>\s*', "", head, flags=re.S)
-page = (head_clean + style + EXTRA_CSS + f'<script type="application/ld+json">{json.dumps(ld)}</script><script type="application/ld+json">{json.dumps(art, ensure_ascii=False)}</script><script type="application/ld+json">{json.dumps(faqld, ensure_ascii=False)}</script>' + OG + '\n</head>\n' +
+page = (head_clean + style + EXTRA_CSS + f'<script type="application/ld+json">{json.dumps(ld)}</script><script type="application/ld+json">{json.dumps(art, ensure_ascii=False)}</script><script type="application/ld+json">{json.dumps(faqld, ensure_ascii=False)}</script><script type="application/ld+json">{json.dumps(CATALOG, ensure_ascii=False)}</script>' + OG + '\n</head>\n' +
         BODY + foot.replace('<script src="/install-app.js" defer></script>', JS + '\n<script src="/install-app.js" defer></script>'))
 page = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{TITLE}">', page)
 page = page.replace('content="https://sabhisaab.com/services">', 'content="https://sabhisaab.com/services-list">')

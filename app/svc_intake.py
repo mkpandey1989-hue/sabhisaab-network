@@ -67,7 +67,14 @@ def kind_for(item_id, cat=""):
             return k
     if item_id in ("", "any", "custom"):
         return "any"
-    return "web" if cat in ("web", "soft", "calc", "bot", "ecom", "design", "docs", "trade", "setup", "fix", "content") else "any"
+    if cat in ("naukri", "yojana", "padhai"):          # v3.9.2 naye dabbe
+        return "form"
+    if cat in ("senior", "guide"):
+        return "mobile"
+    if cat == "daftar":
+        return "letter"
+    return "web" if cat in ("web", "soft", "calc", "bot", "ecom", "design", "docs", "trade", "setup", "fix", "content", "cloud", "devops",
+                            "data", "domain", "smart", "excel", "app", "local", "care") else "any"
 
 
 # v3.8.8 (owner: "kuch kami hai to system bole pura bharo"): har kaam ka EK sabse zaroori sawal - khaali ho to wahi field ke neeche
