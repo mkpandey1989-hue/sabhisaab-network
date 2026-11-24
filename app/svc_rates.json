@@ -1,0 +1,2263 @@
+{
+ "version": "2026-11-23.1",
+ "hour_rate": 300,
+ "buffer": 1.2,
+ "cats": {
+  "micro": {
+   "title": "⚡ Chhote kaam (₹10 se)",
+   "sub": "Same din, 100% advance"
+  },
+  "web": {
+   "title": "🌐 Website aur online dukaan",
+   "sub": "Aapke naam par, tez, mobile par saaf"
+  },
+  "calc": {
+   "title": "🧮 Calculator aur tools",
+   "sub": "188 tool banane ka anubhav"
+  },
+  "soft": {
+   "title": "🧾 Business software (billing, stock, khata)",
+   "sub": "Tally/billing app jaisa, aapke hisaab se"
+  },
+  "bot": {
+   "title": "🤖 Bot aur automation",
+   "sub": "WhatsApp/Telegram/Sheet - kaam apne aap"
+  },
+  "trade": {
+   "title": "📈 Trading tools (aapki apni strategy)",
+   "sub": "Tip/signal nahi - sirf aapke rules ka code"
+  },
+  "design": {
+   "title": "🎬 Video, design aur reels",
+   "sub": "Brand jaisa look, bina shoot"
+  },
+  "content": {
+   "title": "✍️ Content aur SEO",
+   "sub": "Google par dikhne ki taiyari"
+  },
+  "ecom": {
+   "title": "🛒 E-commerce setup",
+   "sub": "Order, payment, shipping"
+  },
+  "docs": {
+   "title": "📄 Excel, PDF aur documents",
+   "sub": "Ghanton ka kaam minuton mein"
+  },
+  "setup": {
+   "title": "🛠️ Setup aur install",
+   "sub": "VM, domain, hosting, broker API - aapke account par"
+  },
+  "guide": {
+   "title": "🎓 Sikhana / guide (screen-share)",
+   "sub": "Aap khud karein, hum saath batayein"
+  },
+  "fix": {
+   "title": "🔧 Theek karna (repair)",
+   "sub": "Jo toota hai, wo chalu"
+  },
+  "care": {
+   "title": "🔁 Har mahine dekhbhal",
+   "sub": "Kabhi bhi band, sirf chalne tak charge"
+  }
+ },
+ "items": [
+  {
+   "id": "m-resume",
+   "cat": "micro",
+   "name": "Resume (taiyaar format mein, ₹10)",
+   "price": 10,
+   "floor": 10,
+   "max": 40,
+   "market": [
+    100,
+    1500
+   ],
+   "hours": 0.03,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "resume",
+    "cv",
+    "biodata",
+    "naukri",
+    "job"
+   ]
+  },
+  {
+   "id": "m-form",
+   "cat": "micro",
+   "name": "Online form bharne mein madad (naukri, admission, scholarship, yojana)",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    50,
+    200
+   ],
+   "hours": 0.12,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "form",
+    "bharna",
+    "online",
+    "form",
+    "apply",
+    "aavedan",
+    "admission",
+    "scholarship",
+    "yojana",
+    "registration"
+   ]
+  },
+  {
+   "id": "m-letter",
+   "cat": "micro",
+   "name": "Application / letter / notice / shikayat patra",
+   "price": 29,
+   "floor": 10,
+   "max": 116,
+   "market": [
+    100,
+    500
+   ],
+   "hours": 0.08,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "application",
+    "letter",
+    "notice",
+    "patra",
+    "shikayat"
+   ]
+  },
+  {
+   "id": "m-biodata",
+   "cat": "micro",
+   "name": "Shaadi biodata design",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    200,
+    1500
+   ],
+   "hours": 0.12,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "biodata",
+    "shaadi"
+   ]
+  },
+  {
+   "id": "m-formula",
+   "cat": "micro",
+   "name": "Excel/Sheet formula theek karna",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    100,
+    500
+   ],
+   "hours": 0.12,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "excel",
+    "formula",
+    "sheet"
+   ]
+  },
+  {
+   "id": "m-maps",
+   "cat": "micro",
+   "name": "Google Maps par dukaan check + sujhav",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    200,
+    1000
+   ],
+   "hours": 0.12,
+   "days": "Same din",
+   "risk": "G",
+   "kw": [
+    "google",
+    "maps",
+    "location"
+   ]
+  },
+  {
+   "id": "m-bill",
+   "cat": "micro",
+   "name": "Bill / quotation format (Excel/Word)",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    300,
+    1500
+   ],
+   "hours": 0.25,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "bill",
+    "quotation",
+    "format"
+   ]
+  },
+  {
+   "id": "m-rate",
+   "cat": "micro",
+   "name": "Rate card / price list design",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    300,
+    1500
+   ],
+   "hours": 0.25,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "rate",
+    "card",
+    "price",
+    "list"
+   ]
+  },
+  {
+   "id": "m-gform",
+   "cat": "micro",
+   "name": "Google Form banana (registration, feedback)",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    300,
+    1500
+   ],
+   "hours": 0.25,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "google",
+    "form"
+   ]
+  },
+  {
+   "id": "m-thumb",
+   "cat": "micro",
+   "name": "1 thumbnail",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    300,
+    1500
+   ],
+   "hours": 0.25,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "thumbnail"
+   ]
+  },
+  {
+   "id": "m-poster",
+   "cat": "micro",
+   "name": "1 poster / banner",
+   "price": 99,
+   "floor": 90,
+   "max": 396,
+   "market": [
+    300,
+    2000
+   ],
+   "hours": 0.25,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "poster",
+    "banner"
+   ]
+  },
+  {
+   "id": "m-resume2",
+   "cat": "micro",
+   "name": "Resume pro design + LinkedIn bio",
+   "price": 149,
+   "floor": 140,
+   "max": 596,
+   "market": [
+    500,
+    3000
+   ],
+   "hours": 0.4,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "resume",
+    "pro",
+    "design",
+    "linkedin"
+   ]
+  },
+  {
+   "id": "m-invite",
+   "cat": "micro",
+   "name": "Digital shaadi / event card",
+   "price": 149,
+   "floor": 140,
+   "max": 596,
+   "market": [
+    500,
+    3000
+   ],
+   "hours": 0.4,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "invite",
+    "card",
+    "shaadi",
+    "event"
+   ]
+  },
+  {
+   "id": "m-any",
+   "cat": "micro",
+   "name": "Koi bhi chhota computer / phone ka kaam (likh kar batayein)",
+   "price": 49,
+   "floor": 10,
+   "max": 196,
+   "market": [
+    100,
+    1000
+   ],
+   "hours": 0.12,
+   "days": "Baat karke",
+   "risk": "G",
+   "kw": [
+    "koi",
+    "bhi",
+    "kuch",
+    "bhi",
+    "chhota",
+    "kaam",
+    "help",
+    "madad",
+    "computer",
+    "phone"
+   ]
+  },
+  {
+   "id": "w-card",
+   "cat": "web",
+   "name": "Digital visiting card / mini site",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    2000,
+    6000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "visiting",
+    "card",
+    "digital",
+    "card"
+   ]
+  },
+  {
+   "id": "w-1page",
+   "cat": "web",
+   "name": "1-page dukaan / clinic / coaching website + WhatsApp button",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    10000,
+    25000
+   ],
+   "hours": 7,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "website",
+    "site",
+    "dukaan",
+    "shop",
+    "1",
+    "page",
+    "landing"
+   ]
+  },
+  {
+   "id": "w-land",
+   "cat": "web",
+   "name": "Ad landing page",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 6,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "landing",
+    "page",
+    "ad"
+   ]
+  },
+  {
+   "id": "w-5page",
+   "cat": "web",
+   "name": "5-page business website (SEO ready)",
+   "price": 7999,
+   "floor": 6480,
+   "max": 31996,
+   "market": [
+    30000,
+    80000
+   ],
+   "hours": 18,
+   "days": "5-7 din",
+   "risk": "G",
+   "kw": [
+    "business",
+    "website",
+    "5",
+    "page"
+   ]
+  },
+  {
+   "id": "w-bi",
+   "cat": "web",
+   "name": "Hindi + English website",
+   "price": 9999,
+   "floor": 7920,
+   "max": 39996,
+   "market": [
+    35000,
+    90000
+   ],
+   "hours": 22,
+   "days": "7 din",
+   "risk": "G",
+   "kw": [
+    "hindi",
+    "english",
+    "bilingual"
+   ]
+  },
+  {
+   "id": "w-shop",
+   "cat": "web",
+   "name": "Online dukaan: product list + WhatsApp/UPI order",
+   "price": 4999,
+   "floor": 4320,
+   "max": 19996,
+   "market": [
+    15000,
+    50000
+   ],
+   "hours": 12,
+   "days": "4-5 din",
+   "risk": "G",
+   "kw": [
+    "online",
+    "dukaan",
+    "store",
+    "catalogue",
+    "order"
+   ]
+  },
+  {
+   "id": "w-book",
+   "cat": "web",
+   "name": "Booking / appointment page (salon, clinic, homestay, taxi)",
+   "price": 3999,
+   "floor": 3240,
+   "max": 15996,
+   "market": [
+    10000,
+    30000
+   ],
+   "hours": 9,
+   "days": "3-4 din",
+   "risk": "G",
+   "kw": [
+    "booking",
+    "appointment",
+    "homestay",
+    "taxi"
+   ]
+  },
+  {
+   "id": "w-port",
+   "cat": "web",
+   "name": "Portfolio / resume website",
+   "price": 1999,
+   "floor": 1800,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "portfolio",
+    "resume",
+    "website"
+   ]
+  },
+  {
+   "id": "w-temple",
+   "cat": "web",
+   "name": "Mandir / samiti page + daan raseed",
+   "price": 3499,
+   "floor": 2880,
+   "max": 13996,
+   "market": [
+    8000,
+    25000
+   ],
+   "hours": 8,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "mandir",
+    "samiti",
+    "daan"
+   ]
+  },
+  {
+   "id": "w-school",
+   "cat": "web",
+   "name": "School / coaching site + result / admit card",
+   "price": 6999,
+   "floor": 5760,
+   "max": 27996,
+   "market": [
+    25000,
+    70000
+   ],
+   "hours": 16,
+   "days": "5-7 din",
+   "risk": "G",
+   "kw": [
+    "school",
+    "coaching",
+    "result",
+    "admit"
+   ]
+  },
+  {
+   "id": "w-wed",
+   "cat": "web",
+   "name": "Shaadi invite website",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "shaadi",
+    "wedding",
+    "invite"
+   ]
+  },
+  {
+   "id": "w-menu",
+   "cat": "web",
+   "name": "Restaurant QR menu + order",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    8000,
+    25000
+   ],
+   "hours": 7,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "restaurant",
+    "menu",
+    "qr",
+    "order"
+   ]
+  },
+  {
+   "id": "w-gmb",
+   "cat": "web",
+   "name": "Google Business Profile setup + local SEO",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    2000,
+    6000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "google",
+    "business",
+    "gmb",
+    "maps"
+   ]
+  },
+  {
+   "id": "w-pwa",
+   "cat": "web",
+   "name": "Website ko Android app (PWA) banana",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    8000,
+    30000
+   ],
+   "hours": 6,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "app",
+    "android",
+    "pwa"
+   ]
+  },
+  {
+   "id": "c-calc",
+   "cat": "calc",
+   "name": "Branded calculator (EMI/SIP/GST/solar/koi bhi formula)",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "calculator",
+    "emi",
+    "sip",
+    "gst",
+    "solar"
+   ]
+  },
+  {
+   "id": "c-quote",
+   "cat": "calc",
+   "name": "Quotation / estimate PDF app",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    8000,
+    25000
+   ],
+   "hours": 7,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "quotation",
+    "estimate",
+    "pdf",
+    "app"
+   ]
+  },
+  {
+   "id": "c-quiz",
+   "cat": "calc",
+   "name": "Eligibility checker / quiz (lead ke liye)",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 4.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "quiz",
+    "eligibility",
+    "checker"
+   ]
+  },
+  {
+   "id": "c-widget",
+   "cat": "calc",
+   "name": "Website mein lagne wala widget",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "widget",
+    "embed"
+   ]
+  },
+  {
+   "id": "c-excelweb",
+   "cat": "calc",
+   "name": "Excel sheet ko web tool banana",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    8000,
+    25000
+   ],
+   "hours": 6,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "excel",
+    "web",
+    "tool"
+   ]
+  },
+  {
+   "id": "c-pack",
+   "cat": "calc",
+   "name": "Package / price builder (customer khud chune)",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    6000,
+    20000
+   ],
+   "hours": 6,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "package",
+    "builder",
+    "price"
+   ]
+  },
+  {
+   "id": "c-ext",
+   "cat": "calc",
+   "name": "Chrome extension (roz ka kaam 1 click)",
+   "price": 3999,
+   "floor": 3240,
+   "max": 15996,
+   "market": [
+    10000,
+    40000
+   ],
+   "hours": 9,
+   "days": "3-4 din",
+   "risk": "G",
+   "kw": [
+    "chrome",
+    "extension"
+   ]
+  },
+  {
+   "id": "s-bill",
+   "cat": "soft",
+   "name": "GST billing / invoice app (phone + PC)",
+   "price": 3999,
+   "floor": 3240,
+   "max": 15996,
+   "market": [
+    8000,
+    30000
+   ],
+   "hours": 9,
+   "days": "3-4 din",
+   "risk": "G",
+   "kw": [
+    "billing",
+    "gst",
+    "invoice",
+    "bill",
+    "app",
+    "tally"
+   ]
+  },
+  {
+   "id": "s-stock",
+   "cat": "soft",
+   "name": "Stock / inventory + low-stock alert",
+   "price": 4999,
+   "floor": 4320,
+   "max": 19996,
+   "market": [
+    10000,
+    40000
+   ],
+   "hours": 12,
+   "days": "4-5 din",
+   "risk": "G",
+   "kw": [
+    "stock",
+    "inventory",
+    "maal"
+   ]
+  },
+  {
+   "id": "s-khata",
+   "cat": "soft",
+   "name": "Khata / udhaar ledger app",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    6000,
+    20000
+   ],
+   "hours": 7,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "khata",
+    "udhaar",
+    "ledger"
+   ]
+  },
+  {
+   "id": "s-salary",
+   "cat": "soft",
+   "name": "Staff attendance + salary app",
+   "price": 3999,
+   "floor": 3240,
+   "max": 15996,
+   "market": [
+    8000,
+    30000
+   ],
+   "hours": 9,
+   "days": "3-4 din",
+   "risk": "G",
+   "kw": [
+    "salary",
+    "attendance",
+    "staff"
+   ]
+  },
+  {
+   "id": "s-pos",
+   "cat": "soft",
+   "name": "Dukaan POS (bill + stock + roz ka hisaab)",
+   "price": 7999,
+   "floor": 6480,
+   "max": 31996,
+   "market": [
+    25000,
+    80000
+   ],
+   "hours": 18,
+   "days": "7 din",
+   "risk": "G",
+   "kw": [
+    "pos",
+    "counter",
+    "billing",
+    "software"
+   ]
+  },
+  {
+   "id": "s-society",
+   "cat": "soft",
+   "name": "Society / PG maintenance hisaab",
+   "price": 3499,
+   "floor": 2880,
+   "max": 13996,
+   "market": [
+    8000,
+    30000
+   ],
+   "hours": 8,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "society",
+    "maintenance",
+    "pg"
+   ]
+  },
+  {
+   "id": "s-fee",
+   "cat": "soft",
+   "name": "School / coaching fee tracker",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    8000,
+    30000
+   ],
+   "hours": 7,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "fee",
+    "tracker",
+    "school",
+    "coaching"
+   ]
+  },
+  {
+   "id": "s-crm",
+   "cat": "soft",
+   "name": "Chhota CRM (lead, follow-up, Sheet)",
+   "price": 4999,
+   "floor": 4320,
+   "max": 19996,
+   "market": [
+    15000,
+    50000
+   ],
+   "hours": 12,
+   "days": "4-5 din",
+   "risk": "G",
+   "kw": [
+    "crm",
+    "lead",
+    "follow"
+   ]
+  },
+  {
+   "id": "s-tallyx",
+   "cat": "soft",
+   "name": "Tally / Busy data → Excel / dashboard",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    8000,
+    30000
+   ],
+   "hours": 7,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "tally",
+    "busy",
+    "export",
+    "dashboard"
+   ]
+  },
+  {
+   "id": "s-custom",
+   "cat": "soft",
+   "name": "Pura custom software (aapke hisaab se)",
+   "price": 14999,
+   "floor": 14400,
+   "max": 59996,
+   "market": [
+    50000,
+    300000
+   ],
+   "hours": 40,
+   "days": "10-20 din",
+   "risk": "G",
+   "kw": [
+    "custom",
+    "software",
+    "app",
+    "erp"
+   ]
+  },
+  {
+   "id": "s-einv",
+   "cat": "soft",
+   "name": "E-invoice / e-way bill jodna (GSP ke through)",
+   "price": 9999,
+   "floor": 8640,
+   "max": 39996,
+   "market": [
+    25000,
+    80000
+   ],
+   "hours": 24,
+   "days": "7-10 din",
+   "risk": "Y",
+   "kw": [
+    "e-invoice",
+    "eway",
+    "bill",
+    "gsp"
+   ]
+  },
+  {
+   "id": "b-wa",
+   "cat": "bot",
+   "name": "WhatsApp Business auto-reply + catalogue",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "whatsapp",
+    "auto",
+    "reply",
+    "catalogue"
+   ]
+  },
+  {
+   "id": "b-faq",
+   "cat": "bot",
+   "name": "24x7 FAQ chatbot (aapki price list par)",
+   "price": 3999,
+   "floor": 3240,
+   "max": 15996,
+   "market": [
+    10000,
+    30000
+   ],
+   "hours": 9,
+   "days": "3-4 din",
+   "risk": "G",
+   "kw": [
+    "chatbot",
+    "faq"
+   ]
+  },
+  {
+   "id": "b-tg",
+   "cat": "bot",
+   "name": "Telegram alert / order bot",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    8000,
+    25000
+   ],
+   "hours": 6,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "telegram",
+    "bot",
+    "alert"
+   ]
+  },
+  {
+   "id": "b-sheet",
+   "cat": "bot",
+   "name": "Form → Google Sheet → turant alert",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "form",
+    "sheet",
+    "alert",
+    "lead"
+   ]
+  },
+  {
+   "id": "b-remind",
+   "cat": "bot",
+   "name": "Fee / renewal reminder (apne customers ko)",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 6,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "reminder",
+    "fee",
+    "renewal"
+   ]
+  },
+  {
+   "id": "b-report",
+   "cat": "bot",
+   "name": "Roz ki bikri / lead report bot",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    6000,
+    20000
+   ],
+   "hours": 6,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "daily",
+    "report",
+    "summary"
+   ]
+  },
+  {
+   "id": "b-igdm",
+   "cat": "bot",
+   "name": "Instagram comment → DM (Meta niyam ke andar)",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    4000,
+    12000
+   ],
+   "hours": 4.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "instagram",
+    "comment",
+    "dm"
+   ]
+  },
+  {
+   "id": "b-review",
+   "cat": "bot",
+   "name": "Google review link sabko (achha-bura dono)",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "review",
+    "google"
+   ]
+  },
+  {
+   "id": "b-voicein",
+   "cat": "bot",
+   "name": "Inbound call booking bot (sirf aane wali call)",
+   "price": 7999,
+   "floor": 6480,
+   "max": 31996,
+   "market": [
+    15000,
+    40000
+   ],
+   "hours": 18,
+   "days": "7 din",
+   "risk": "Y",
+   "kw": [
+    "call",
+    "voice",
+    "receptionist"
+   ]
+  },
+  {
+   "id": "t-pine",
+   "cat": "trade",
+   "name": "PineScript indicator (aapke rules)",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    15000
+   ],
+   "hours": 3.5,
+   "days": "2 din",
+   "risk": "Y",
+   "kw": [
+    "pinescript",
+    "indicator",
+    "tradingview"
+   ]
+  },
+  {
+   "id": "t-back",
+   "cat": "trade",
+   "name": "Strategy backtest report",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    5000,
+    20000
+   ],
+   "hours": 4.5,
+   "days": "2-3 din",
+   "risk": "Y",
+   "kw": [
+    "backtest",
+    "strategy"
+   ]
+  },
+  {
+   "id": "t-alert",
+   "cat": "trade",
+   "name": "TradingView alert → Telegram",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 4.5,
+   "days": "2 din",
+   "risk": "Y",
+   "kw": [
+    "tradingview",
+    "alert",
+    "telegram"
+   ]
+  },
+  {
+   "id": "t-journal",
+   "cat": "trade",
+   "name": "Trade journal + P&L sheet",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    8000
+   ],
+   "hours": 3.5,
+   "days": "2 din",
+   "risk": "Y",
+   "kw": [
+    "journal",
+    "pnl",
+    "trade"
+   ]
+  },
+  {
+   "id": "t-paper",
+   "cat": "trade",
+   "name": "Paper-trading bot (bina asli paisa)",
+   "price": 3999,
+   "floor": 3240,
+   "max": 15996,
+   "market": [
+    10000,
+    30000
+   ],
+   "hours": 9,
+   "days": "4-5 din",
+   "risk": "Y",
+   "kw": [
+    "paper",
+    "trading"
+   ]
+  },
+  {
+   "id": "t-algo",
+   "cat": "trade",
+   "name": "Aapki strategy ka bot - AAPKE account/static IP par",
+   "price": 5999,
+   "floor": 5040,
+   "max": 23996,
+   "market": [
+    15000,
+    50000
+   ],
+   "hours": 14,
+   "days": "7 din",
+   "risk": "Y",
+   "kw": [
+    "algo",
+    "bot",
+    "broker",
+    "api",
+    "dhan",
+    "fyers",
+    "zerodha",
+    "angel",
+    "delta",
+    "strategy"
+   ]
+  },
+  {
+   "id": "t-chart",
+   "cat": "trade",
+   "name": "Personal chart / OI dashboard (aapke broker data se, login ke peeche)",
+   "price": 4999,
+   "floor": 4320,
+   "max": 19996,
+   "market": [
+    10000,
+    40000
+   ],
+   "hours": 12,
+   "days": "5 din",
+   "risk": "Y",
+   "kw": [
+    "chart",
+    "oi",
+    "pcr",
+    "dashboard",
+    "scanner"
+   ]
+  },
+  {
+   "id": "t-crypto",
+   "cat": "trade",
+   "name": "Crypto (Delta/Binance) strategy bot - aapke account par",
+   "price": 5999,
+   "floor": 5040,
+   "max": 23996,
+   "market": [
+    15000,
+    50000
+   ],
+   "hours": 14,
+   "days": "7 din",
+   "risk": "Y",
+   "kw": [
+    "crypto",
+    "delta",
+    "binance",
+    "bot"
+   ]
+  },
+  {
+   "id": "d-logo",
+   "cat": "design",
+   "name": "Logo + brand kit",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    15000
+   ],
+   "hours": 2.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "logo",
+    "brand",
+    "kit"
+   ]
+  },
+  {
+   "id": "d-post30",
+   "cat": "design",
+   "name": "30 din ke festival / offer post",
+   "price": 1999,
+   "floor": 1800,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 5,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "festival",
+    "post",
+    "social"
+   ]
+  },
+  {
+   "id": "d-thumb10",
+   "cat": "design",
+   "name": "10 thumbnail pack",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "thumbnail",
+    "pack"
+   ]
+  },
+  {
+   "id": "d-promo",
+   "cat": "design",
+   "name": "Product photo se promo video",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    5000,
+    20000
+   ],
+   "hours": 3.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "promo",
+    "video",
+    "product"
+   ]
+  },
+  {
+   "id": "d-reels30",
+   "cat": "design",
+   "name": "30 reels pack (script + video)",
+   "price": 4999,
+   "floor": 4320,
+   "max": 19996,
+   "market": [
+    15000,
+    50000
+   ],
+   "hours": 12,
+   "days": "5-7 din",
+   "risk": "G",
+   "kw": [
+    "reels",
+    "pack",
+    "video"
+   ]
+  },
+  {
+   "id": "d-shorts",
+   "cat": "design",
+   "name": "Lambi video → 15 shorts + caption",
+   "price": 2999,
+   "floor": 2520,
+   "max": 11996,
+   "market": [
+    8000,
+    25000
+   ],
+   "hours": 7,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "shorts",
+    "clip",
+    "caption"
+   ]
+  },
+  {
+   "id": "d-photo",
+   "cat": "design",
+   "name": "Studio jaisi product photo (10)",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "product",
+    "photo",
+    "studio"
+   ]
+  },
+  {
+   "id": "d-script",
+   "cat": "design",
+   "name": "30 reel script + hook",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "script",
+    "hook",
+    "reel"
+   ]
+  },
+  {
+   "id": "x-blog5",
+   "cat": "content",
+   "name": "5 SEO blog (insaan ka edit)",
+   "price": 1999,
+   "floor": 1800,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 5,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "blog",
+    "seo",
+    "article"
+   ]
+  },
+  {
+   "id": "x-audit",
+   "cat": "content",
+   "name": "Website SEO / AdSense readiness audit",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "seo",
+    "audit",
+    "adsense"
+   ]
+  },
+  {
+   "id": "x-gsc",
+   "cat": "content",
+   "name": "Search Console + sitemap + schema setup",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    8000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "search",
+    "console",
+    "sitemap",
+    "schema"
+   ]
+  },
+  {
+   "id": "x-ebook",
+   "cat": "content",
+   "name": "E-book / guide PDF",
+   "price": 1999,
+   "floor": 1800,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 5,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "ebook",
+    "guide",
+    "pdf"
+   ]
+  },
+  {
+   "id": "e-store",
+   "cat": "ecom",
+   "name": "Online store setup (mobile par)",
+   "price": 5999,
+   "floor": 5040,
+   "max": 23996,
+   "market": [
+    15000,
+    50000
+   ],
+   "hours": 14,
+   "days": "5 din",
+   "risk": "G",
+   "kw": [
+    "store",
+    "shopify",
+    "woocommerce",
+    "online"
+   ]
+  },
+  {
+   "id": "e-pay",
+   "cat": "ecom",
+   "name": "Razorpay / Cashfree / UPI gateway (aapke account mein)",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "payment",
+    "gateway",
+    "razorpay",
+    "cashfree"
+   ]
+  },
+  {
+   "id": "e-ship",
+   "cat": "ecom",
+   "name": "Shiprocket / courier setup",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    8000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "shiprocket",
+    "courier",
+    "shipping"
+   ]
+  },
+  {
+   "id": "e-cod",
+   "cat": "ecom",
+   "name": "Order confirmation bot (COD kam)",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 6,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "cod",
+    "order",
+    "confirm"
+   ]
+  },
+  {
+   "id": "e-desc",
+   "cat": "ecom",
+   "name": "50 product description",
+   "price": 1999,
+   "floor": 1800,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 5,
+   "days": "3 din",
+   "risk": "G",
+   "kw": [
+    "product",
+    "description",
+    "listing"
+   ]
+  },
+  {
+   "id": "e-margin",
+   "cat": "ecom",
+   "name": "Marketplace profit / fees sheet",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    2000,
+    6000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "margin",
+    "profit",
+    "amazon",
+    "flipkart",
+    "meesho"
+   ]
+  },
+  {
+   "id": "e-pixel",
+   "cat": "ecom",
+   "name": "Meta Pixel + CAPI + GA4",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    4000,
+    12000
+   ],
+   "hours": 4.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "pixel",
+    "capi",
+    "ga4",
+    "tracking"
+   ]
+  },
+  {
+   "id": "p-extract",
+   "cat": "docs",
+   "name": "PDF bill / statement → Excel",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    4000,
+    15000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "pdf",
+    "excel",
+    "extract",
+    "statement"
+   ]
+  },
+  {
+   "id": "p-proposal",
+   "cat": "docs",
+   "name": "Proposal / quotation PDF generator",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    5000,
+    15000
+   ],
+   "hours": 4.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "proposal",
+    "pdf"
+   ]
+  },
+  {
+   "id": "p-deck",
+   "cat": "docs",
+   "name": "Company profile / pitch deck",
+   "price": 1999,
+   "floor": 1800,
+   "max": 7996,
+   "market": [
+    5000,
+    20000
+   ],
+   "hours": 5,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "deck",
+    "profile",
+    "presentation"
+   ]
+  },
+  {
+   "id": "p-cert",
+   "cat": "docs",
+   "name": "Form → certificate PDF apne aap",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3.5,
+   "days": "2 din",
+   "risk": "G",
+   "kw": [
+    "certificate"
+   ]
+  },
+  {
+   "id": "p-dash",
+   "cat": "docs",
+   "name": "Google Sheet / Excel dashboard",
+   "price": 1999,
+   "floor": 1620,
+   "max": 7996,
+   "market": [
+    5000,
+    20000
+   ],
+   "hours": 4.5,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "dashboard",
+    "sheet",
+    "excel"
+   ]
+  },
+  {
+   "id": "p-cv",
+   "cat": "docs",
+   "name": "ATS resume + LinkedIn (naukri ke liye poora)",
+   "price": 499,
+   "floor": 430,
+   "max": 1996,
+   "market": [
+    1500,
+    5000
+   ],
+   "hours": 1.2,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "ats",
+    "resume",
+    "linkedin"
+   ]
+  },
+  {
+   "id": "p-sheetapp",
+   "cat": "docs",
+   "name": "Google Sheet se app banana",
+   "price": 2499,
+   "floor": 2160,
+   "max": 9996,
+   "market": [
+    6000,
+    20000
+   ],
+   "hours": 6,
+   "days": "2-3 din",
+   "risk": "G",
+   "kw": [
+    "sheet",
+    "app",
+    "appsheet"
+   ]
+  },
+  {
+   "id": "u-domain",
+   "cat": "setup",
+   "name": "Domain + free hosting setup",
+   "price": 299,
+   "floor": 250,
+   "max": 1196,
+   "market": [
+    1000,
+    3000
+   ],
+   "hours": 0.7,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "domain",
+    "hosting"
+   ]
+  },
+  {
+   "id": "u-vm",
+   "cat": "setup",
+   "name": "VM / server install (aapke account par)",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "vm",
+    "server",
+    "install",
+    "oracle",
+    "aws",
+    "vps"
+   ]
+  },
+  {
+   "id": "u-broker",
+   "cat": "setup",
+   "name": "Broker API + static IP setup (aapke account par)",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    3000,
+    8000
+   ],
+   "hours": 2.5,
+   "days": "1 din",
+   "risk": "Y",
+   "kw": [
+    "broker",
+    "api",
+    "static",
+    "ip"
+   ]
+  },
+  {
+   "id": "u-email",
+   "cat": "setup",
+   "name": "Business email + domain jodna",
+   "price": 499,
+   "floor": 430,
+   "max": 1996,
+   "market": [
+    1500,
+    5000
+   ],
+   "hours": 1.2,
+   "days": "1 din",
+   "risk": "G",
+   "kw": [
+    "business",
+    "email"
+   ]
+  },
+  {
+   "id": "u-move",
+   "cat": "setup",
+   "name": "Website Cloudflare par shift (hosting kharcha bachao)",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    8000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "hosting",
+    "shift",
+    "migrate",
+    "cloudflare"
+   ]
+  },
+  {
+   "id": "g-hour",
+   "cat": "guide",
+   "name": "1 ghanta screen-share guide (Meet/AnyDesk)",
+   "price": 499,
+   "floor": 360,
+   "max": 1996,
+   "market": [
+    800,
+    2500
+   ],
+   "hours": 1,
+   "days": "Tay samay",
+   "risk": "G",
+   "kw": [
+    "guide",
+    "sikhana",
+    "screen",
+    "share",
+    "help"
+   ]
+  },
+  {
+   "id": "g-botself",
+   "cat": "guide",
+   "name": "Apna bot khud chalana sikhiye (3 session)",
+   "price": 1299,
+   "floor": 1080,
+   "max": 5196,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3,
+   "days": "1 hafta",
+   "risk": "G",
+   "kw": [
+    "bot",
+    "sikhna",
+    "training"
+   ]
+  },
+  {
+   "id": "f-site",
+   "cat": "fix",
+   "name": "Website / form / page theek karna",
+   "price": 499,
+   "floor": 430,
+   "max": 1996,
+   "market": [
+    1000,
+    5000
+   ],
+   "hours": 1.2,
+   "days": "Same/1 din",
+   "risk": "G",
+   "kw": [
+    "fix",
+    "repair",
+    "error",
+    "website",
+    "broken"
+   ]
+  },
+  {
+   "id": "f-speed",
+   "cat": "fix",
+   "name": "Website speed + mobile theek",
+   "price": 1499,
+   "floor": 1260,
+   "max": 5996,
+   "market": [
+    3000,
+    10000
+   ],
+   "hours": 3.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "speed",
+    "slow",
+    "mobile"
+   ]
+  },
+  {
+   "id": "f-index",
+   "cat": "fix",
+   "name": "Google index nahi ho raha - jaanch + theek",
+   "price": 999,
+   "floor": 900,
+   "max": 3996,
+   "market": [
+    2000,
+    8000
+   ],
+   "hours": 2.5,
+   "days": "1-2 din",
+   "risk": "G",
+   "kw": [
+    "index",
+    "google",
+    "not",
+    "indexed"
+   ]
+  },
+  {
+   "id": "f-bot",
+   "cat": "fix",
+   "name": "Bot / script error theek",
+   "price": 499,
+   "floor": 430,
+   "max": 1996,
+   "market": [
+    1000,
+    5000
+   ],
+   "hours": 1.2,
+   "days": "Same/1 din",
+   "risk": "G",
+   "kw": [
+    "bot",
+    "error",
+    "script",
+    "fix"
+   ]
+  },
+  {
+   "id": "k-basic",
+   "cat": "care",
+   "name": "Basic: uptime check + backup (mahina)",
+   "price": 149,
+   "floor": 140,
+   "max": 596,
+   "market": [
+    500,
+    1500
+   ],
+   "hours": 0.4,
+   "days": "Har mahina",
+   "risk": "G",
+   "kw": [
+    "maintenance",
+    "care",
+    "basic"
+   ]
+  },
+  {
+   "id": "k-care",
+   "cat": "care",
+   "name": "Care: + 3 chhote badlav (mahina)",
+   "price": 349,
+   "floor": 320,
+   "max": 1396,
+   "market": [
+    1000,
+    3000
+   ],
+   "hours": 0.9,
+   "days": "Har mahina",
+   "risk": "G",
+   "kw": [
+    "maintenance",
+    "care"
+   ]
+  },
+  {
+   "id": "k-pro",
+   "cat": "care",
+   "name": "Pro: + 8 badlav + report (mahina)",
+   "price": 749,
+   "floor": 720,
+   "max": 2996,
+   "market": [
+    2000,
+    6000
+   ],
+   "hours": 2,
+   "days": "Har mahina",
+   "risk": "G",
+   "kw": [
+    "maintenance",
+    "pro"
+   ]
+  }
+ ],
+ "red": [
+  {
+   "name": "Google Maps / data scraping, kisi ka phone-email nikalna",
+   "kw": [
+    "scrap",
+    "scraping",
+    "scraper",
+    "data nikal",
+    "number nikal",
+    "email nikal",
+    "phone list",
+    "lead list kharid"
+   ]
+  },
+  {
+   "name": "Cold email / bulk WhatsApp / spam",
+   "kw": [
+    "bulk whatsapp",
+    "bulk sms",
+    "bulk message",
+    "cold email",
+    "mass message",
+    "spam"
+   ]
+  },
+  {
+   "name": "Nakli review / followers / likes",
+   "kw": [
+    "fake review",
+    "nakli review",
+    "followers badha",
+    "followers kharid",
+    "likes kharid",
+    "fake followers"
+   ]
+  },
+  {
+   "name": "Trading tip / signal / kisi ka account chalana",
+   "kw": [
+    "signal do",
+    "signal bech",
+    "tip do",
+    "mera account chalao",
+    "account chala do",
+    "profit guarantee",
+    "pakka profit"
+   ]
+  },
+  {
+   "name": "Hacking / copy site / betting / loan app",
+   "kw": [
+    "hack",
+    "hacking",
+    "password tod",
+    "clone kar",
+    "copy kar do site",
+    "betting",
+    "satta",
+    "gambling",
+    "loan app",
+    "casino"
+   ]
+  },
+  {
+   "name": "Bina consent outbound AI call",
+   "kw": [
+    "outbound call",
+    "robocall",
+    "auto call kar",
+    "cold call"
+   ]
+  }
+ ],
+ "discount": {
+  "brand": 10,
+  "ref": 10,
+  "care": 5,
+  "max": 25,
+  "small_cap_under": 300,
+  "small_cap": 50,
+  "urgent": 50
+ },
+ "sha": "336500408cef27cb"
+}

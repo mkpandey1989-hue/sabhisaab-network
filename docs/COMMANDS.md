@@ -1,0 +1,61 @@
+# COMMANDS - aap kya likhein → bot kaun si report dega (v3.4.42, 23 Nov 2026)
+
+Ye naksha aapki 30 din ki asli chat (461 alag sandesh) ko bot par chala kar banaya. Spelling galat ho to bhi chalega
+(bakance, libk, ink, linkk, indixing, vedio, shedule, jabab, dayari, "ho gya", "What's post").
+Neeche wale sawal AI (Gemini) ke bina, asli data se aate hain - Gemini ki free seema khatam ho tab bhi.
+
+| Aap likhte hain (jaise) | Bot deta hai |
+|---|---|
+| aaj kitni video gayi / abhi tak kitni video gyi / 9.30 wali ban gayi? | Aaj ki har video: samay, channel, haal (✅/⏳), YouTube link, platform + aage ke samay |
+| video schedule / aaj kon kon se video jayegi / math ke sawal kab aayenge | Aaj ka pakka schedule (har channel 2 sawal-reel, ban chuki / banegi) |
+| indexing / 📑 Indexing / indexing balance / pending indexing / kitne page index nahi / google pending url | EK suchi: Live sitemap = Index ✅ + Index nahi (wajah) + Naye (Google jaanch baaki), har page ka POORA link |
+| indexing link | Aaj ke Google 'Request indexing' link; naya link na ho to wahi latest pending suchi |
+| almora wala page kyu index nahi | Sirf us page ka doctor: asli wajah (content milaan, umar, andar ke link) |
+| aaj ke naye page | Pichhle 3 din ke naye live page (poore link) |
+| bing kyu nahi / bing ka system | Bing ki asli ginti + wajah + bot kya bhej raha + Bing report |
+| aaj kaun se page bheje / bing ko kitne link bheje | Bing API + IndexNow ka aaj/kal ka haal |
+| link se traffic / traffic / website traffic / 🌐 Link se traffic | TABLE: kahan se (FB, IG, LinkedIn...) × Aaj/Kal/7 din + brand-wise + 30 din graph |
+| link se traffic table format | Sirf table (graph nahi) |
+| instagram se kitna traffic / facebook se koi aaye? | Wahi table, upar us platform ki line |
+| log kitni der ruke / analytics mein 0 time kyu | GA4 ausat samay + raaste ke hisaab se + 0 sec ki wajah |
+| facebook views / instagram views | Us platform ki aakhri video ke views |
+| views / total views | Saari video ke views + 7 din scoreboard |
+| followers / subscribers / 📈 Poora haal | Har brand × platform followers, views, likes |
+| kitni video gayi aur views kitne | Dono (aaj ki video + views) |
+| /jawab / jawab website par lagi? / jawab page thik karo | Aakhri 8 jawab: ✅ live / ⏳ nahi; atka ho to bot khud dobara chadhata hai |
+| comment ka jawab diya? / comment bot kya kar raha | Comment bot ka tareeka + aaj ka comment haal |
+| gemini / gemini ka kaun sa model | Har Gemini model: chal raha / seema kab tak / Cloudflare dimaag |
+| bot bhai / kya haal / zinda ho / koi dikkat | Chhota sach: chalu kab se, aaj video, manzoori, abhi kya chal raha, galti |
+| 🩺 Sab theek? / health | Poori jaanch (har login, platform, website, Gemini) |
+| channel status / threads par error kya | Har platform ki jaanch (Sab theek?) |
+| telegram ko kya hua / raasta kyu badla | Telegram raaste ka haal (seedha / Cloudflare / ntfy) |
+| vm / disk kitna bhara | RAM, disk, load, trading service |
+| audit / vm audit / audit deep | Poore VM ka audit |
+| website audit | Website ka audit (page, link, schema) |
+| auto doctor | Abhi poori khud-jaanch + khud-sudhaar (roz 05:40 + har 2 ghante chupchaap) |
+| master audit / niyam | Aapke saare pakke niyam ki jaanch |
+| diary / din bhar kya kiya | Aaj ka poora hisaab |
+| mera kaam / ⏳ Pending | Aapke haath ke kaam / manzoori wali video |
+| whatsapp post / pahadi fb group post / instagram post / new swal de do | Reel ka ASLI sawal (jawab website par live) - copy-layak |
+| ho gaya <shabd> / ho gya <shabd> | Kaam-suchi se hata |
+| backup password | Password (1 min mein khud mitega) |
+
+AI (Gemini) chahiye: naya topic par video ("pahadi ki video X par banao"), naya niyam ("aage se aisa karna"),
+lamba sawal/salah. Gemini band ho to bot saaf batata hai aur upar wale hukum sujhata hai; "video banao" par brand chunne ka
+button deta hai.
+
+## Services desk (v3.5.0)
+| Aap likhte hain | Bot deta hai |
+|---|---|
+| services chalu | Lead worker banata/naya karta hai + website ko pata deta hai (deploy) |
+| services band | Desk rokta hai (worker mein lead phir bhi surakshit) |
+| services report / services report 7 | Lead, paid ₹, kahan se (code/source), demo ginti |
+| quote SH261123AB 4999 dukaan site | Naya version quote (guard ke saath) - phir ✅ button |
+| paid SH261123AB 2999 | Payment ledger mein (bank app mein dekh kar likhein) + referral jaanch |
+| lead SH261123AB | Us lead ka poora JSON + haal |
+| rate gst billing | Rate list se: hamara rate, floor, market |
+| refund SH261123AB 999 | Refund ledger mein + referral credit radd |
+| services video chalu / band | Roz raat 4 brand ke alag services ad video (manzoori/slot purane jaisa) |
+| services video namoona | Abhi ek namoona (Pahadi) - button dabaye bina post nahi |
+| services video report | Bani video ka record (dohrav 0) |
+| (apne aap) Instagram account band mila | Us brand ka IG upload + comment ruk jaata, khulte hi apne aap chalu |
