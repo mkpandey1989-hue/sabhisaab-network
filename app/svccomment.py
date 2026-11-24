@@ -150,20 +150,35 @@ def reply_for(platform, u, text):
     return None
 
 
-def handle(platform, b, c):
-    """growth._handle_comment se pehle: services video ka comment ho to yahan. True = sambhal liya."""
+STRONG = re.compile(r"(chahiye|chaiye|chahie|banwana|banvana|karwana|karvana|krwana|bharwana|bana do|bana doge|kar doge|kar sakte|"
+                    r"kr skte|madad chahiye|help chahiye|चाहिए|बनवाना|करवाना|भरवाना|बना दो|कर दोगे)", re.I)
+
+
+def sawal_kaam(c):
+    """v3.9.4: SAWAL reel par bhi koi saaf kaam maange ('resume chahiye', 'form bharwana hai') -> services jaisa samjho.
+    Quiz ka jawab ('C', 'सी', 'D🔥') kabhi nahi."""
+    t = (c.get("text") or "").strip()
+    if len(t) < 8 or not STRONG.search(t):
+        return False
+    u = understand(t)
+    return u.get("intent") == "kaam" and bool(u.get("item")) and u.get("conf", 0) >= .85
+
+
+def handle(platform, b, c, force=False):
+    """growth._handle_comment se pehle: services video/post ka comment (ya force = sawal reel par saaf kaam) ho to yahan."""
     from . import tg
-    if not is_svc(c):
+    if not force and not is_svc(c):
         return False
     txt = c.get("text") or ""
     u = understand(txt)
     rep = reply_for(platform, u, txt) if u.get("conf", 0) >= .75 else None
-    _log({"pf": platform, "b": b, "id": c["id"], "text": txt[:300], "u": u, "auto": bool(rep)})
+    _log({"pf": platform, "b": b, "id": c["id"], "text": txt[:300], "u": u, "auto": bool(rep), "who": c.get("author", "")[:40],
+          "on": "sawal" if force else "services"})
     if rep and state.get("auto_reply", True):
         at = time.time() + random.randint(7 * 60, 45 * 60)
         state.update("reply_queue", lambda q: (q or []) + [{"at": at, "pf": platform, "b": b, "id": c.get("parent") or c["id"],
                                                             "text": rep[:600], "who": c.get("author", "")}], [])
-        if u["intent"] == "kaam":
+        if u["intent"] == "kaam" and state.get("svc_comment_ping"):     # v3.9.4: default chup - '📥 Leads' mein dikhta hai
             tg.say(f"🛎 Services comment ({platform.upper()} {BRANDS[b]['name']}): \"{txt[:200]}\"\n→ samjha: {u.get('item')} · "
                    f"jawab {int((at - time.time()) / 60)} min mein: {rep[:200]}")
         return True

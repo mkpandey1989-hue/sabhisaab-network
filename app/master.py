@@ -26,7 +26,10 @@ def text():
     sch = pipeline.schedule()
     pt = svcpost.times()
     taken = (state.get("svc_taken") or {}).get(d) or {}
-    L = [f"🗓 MASTER SCHEDULE (IST) · 🔒 pakka {SINCE} se - badlav sirf aapki dohri pushti se", ""]
+    lk = state.get("sched_lock") or {}
+    L = [f"🗓 MASTER SCHEDULE (IST) · 🔒 pakka" + (f" ({str(lk.get('t', ''))[:10]} se)" if lk.get("t") else "")
+         + " - badlav sirf aapki dohri pushti se; update/restart se kabhi nahi",
+         ("Har brand roz 2 reel: 1 sawal + 1 services. " if pipeline.one_sawal() else "") + "Post/story neeche.", ""]
     for b in BRANDS:
         reels = [x.strip() for x in str(sch.get(b, "")).split(",") if x.strip()]
         s1, s2 = _svc_slot(b, d), _svc_slot(b, d2)
@@ -46,7 +49,9 @@ def text():
           "🛡 Spam se bachav: FB par brand ki roz max 1 services post; sawal photo-post ek din chhod kar; IG caption mein link nahi;",
           "   Pinterest roz ki seema (ek link par max 2) + Dailymotion seema - pehle services, normal video ki jagah kam.",
           "",
-          "Badalna: 'schedule pahadi 09:30,18:00' (reel) · 'post samay pahadi 19:30' (services post) - dono dohri pushti se.",
+          "🧪 Aap koi reel bina schedule bhejo (namoona/abhi video): Thumb dabate hi bot poochhega 'aaj ki reel ki jagah gine ya extra?'",
+          "   - jawab ke baad hi turant jaati hai; jawab na diya = nahi jaati, schedule waise hi chalta.",
+          "Badalna: 'schedule pahadi 18:00' (reel) · 'post samay pahadi 19:30' (services post) - dono dohri pushti se.",
           "Band/chalu: 'services post band' / 'services post chalu'."]
     return "\n".join(L)
 

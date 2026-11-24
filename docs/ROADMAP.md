@@ -2516,3 +2516,18 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
   Request indexing owner kare.
 - Chat ke mudde: ek hi number + likhawat 30 min mein = ek card (5 card aaye the); /jawab chadhaav ek saath do (auto-doctor + roz) ->
   'jawab.zip nahi mili' -> lock + alag file; Gemini 503 + Cloudflare se kaam = 🟡 (pehle 🔴); roz safai: posted mp4 10 din, IG-safe 1 din.
+
+## v3.9.4 (25 Nov 2026) - 1 sawal + 1 services reel, schedule ka taala, bina-schedule reel ka sawal, 📥 Leads, comment/DM lead
+- Owner (25 Nov 04:21): har brand roz 2 hi reel = 1 sawal + 1 services. `pipeline.migrate_one_sawal` EK BAAR: dono sawal-samay mein se
+  asli views wala (warna shaam wala) rakha - Pahadi 18:00, Money 20:30, Deals 21:30, Suno 19:30 (VM par views se tay). `one_sawal` = puzzle
+  slot apne aap nahi judta; ek sawal reel din badal kar Gemini sawal / jaancha puzzle. Hata samay = aaj ki line wali video radd (YouTube se bhi).
+- Schedule ka TAALA: `set_schedule` hi ek raasta (saare pakke button) -> `sched_lock`; `sched_guard` har start + har ghante - bina pushti
+  badla mila to taale wala wapas + owner ko. Update/restart se schedule nahi tootta.
+- Bina schedule ki reel (namoona, abhi video, aapki video/photo se reel, puzzle maanga): Thumb dabate hi "aaj ki reel ki jagah gine / extra /
+  mat bhejo" - jawab ke baad hi turant; jawab nahi = kahin nahi jaati (schedule chalta). 'Haan' = aaj ki agli usi kism ki reel radd.
+- 📥 Leads (main + services menu, 'leads' likh kar): kul/aaj/7 din, kahan se, brand-wise, haal, ABHI KARNA (purana pehle, har ek par button:
+  WhatsApp / baat hui / rate card / 🔇 band bina sandesh), comment/DM wale bina number (⏰ 24 ghante+), DM ijaazat. 🛎 comment sandesh ab chup.
+- Comment: services photo-post ke comment bhi services; sawal reel par saaf kaam ('resume chahiye') bhi services (quiz jawab nahi).
+  Naye kaam ke kw se aam shabd hataye ('kya hal hai' Email-spam kaam ban raha tha); 'email spam mein jata' ab mana-kaam nahi.
+- DM (Messenger + IG): jisne khud likha, 24 ghante ke andar, thread par 24 ghante mein 1 jawab; number likha = apne aap lead card.
+  Ijaazat (pages_messaging / instagram_manage_messages) na ho to 24 ghante ruk kar Leads mein 'dm ijaazat'. 'dm band/chalu'.

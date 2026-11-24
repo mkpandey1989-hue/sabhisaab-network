@@ -2673,7 +2673,6 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "banana",
     "cloud",
     "free",
     "oracle"
@@ -2696,7 +2695,6 @@
    "risk": "Y",
    "kw": [
     "aws",
-    "ec2",
     "launch",
     "server"
    ],
@@ -2880,9 +2878,7 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "key",
-    "login",
-    "ssh"
+    "login"
    ],
    "new": 1
   },
@@ -2901,9 +2897,6 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "band",
-    "karke",
-    "karna",
     "login",
     "password",
     "secure"
@@ -2925,7 +2918,6 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "naya",
     "sudo",
     "user"
    ],
@@ -2947,8 +2939,7 @@
    "risk": "Y",
    "kw": [
     "firewall",
-    "rules",
-    "ufw"
+    "rules"
    ],
    "new": 1
   },
@@ -2969,7 +2960,6 @@
    "kw": [
     "iptables",
     "kholna",
-    "list",
     "oracle",
     "ports",
     "security"
@@ -3033,7 +3023,6 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "ist",
     "sync",
     "time",
     "timezone"
@@ -3076,7 +3065,6 @@
    "risk": "Y",
    "kw": [
     "app",
-    "chalana",
     "compose",
     "docker"
    ],
@@ -3161,7 +3149,6 @@
    "kw": [
     "encrypt",
     "free",
-    "let",
     "ssl"
    ],
    "new": 1
@@ -3266,8 +3253,7 @@
    "kw": [
     "app",
     "deploy",
-    "laravel",
-    "php"
+    "laravel"
    ],
    "new": 1
   },
@@ -3328,7 +3314,6 @@
    "risk": "Y",
    "kw": [
     "host",
-    "n8n",
     "self"
    ],
    "new": 1
@@ -3348,7 +3333,6 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "apna",
     "drive",
     "install",
     "nextcloud"
@@ -3372,7 +3356,6 @@
    "kw": [
     "browser",
     "code",
-    "mein",
     "server"
    ],
    "new": 1
@@ -3434,7 +3417,6 @@
    "kw": [
     "24x7",
     "bot",
-    "chalana",
     "script",
     "service",
     "systemd"
@@ -3458,8 +3440,7 @@
    "kw": [
     "24x7",
     "app",
-    "node",
-    "pm2"
+    "node"
    ],
    "new": 1
   },
@@ -3540,7 +3521,6 @@
    "kw": [
     "bill",
     "cloud",
-    "kam",
     "karne",
     "salah"
    ],
@@ -3584,7 +3564,6 @@
    "kw": [
     "account",
     "cloud",
-    "mfa",
     "step"
    ],
    "new": 1
@@ -3604,8 +3583,6 @@
    "days": "1-2 din",
    "risk": "Y",
    "kw": [
-    "iam",
-    "karna",
     "permissions",
     "saaf",
     "user"
@@ -3628,7 +3605,6 @@
    "risk": "Y",
    "kw": [
     "free",
-    "guide",
     "limit",
     "tier"
    ],
@@ -3650,9 +3626,6 @@
    "risk": "Y",
    "kw": [
     "chunne",
-    "cpu",
-    "mein",
-    "ram",
     "size"
    ],
    "new": 1
@@ -3674,7 +3647,6 @@
    "kw": [
     "app",
     "domain",
-    "kai",
     "ports"
    ],
    "new": 1
@@ -3797,7 +3769,6 @@
    "risk": "Y",
    "kw": [
     "branch",
-    "git",
     "workflow"
    ],
    "new": 1
@@ -3879,7 +3850,6 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "env",
     "rakhna",
     "safe",
     "secrets"
@@ -3962,9 +3932,7 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "karna",
     "policy",
-    "ssh",
     "tight"
    ],
    "new": 1
@@ -4005,7 +3973,6 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "apne",
     "malware",
     "scan",
     "server"
@@ -4027,7 +3994,6 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "log",
     "rotate"
    ],
    "new": 1
@@ -4068,10 +4034,8 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "cpu",
     "disk",
     "health",
-    "ram",
     "script",
     "server"
    ],
@@ -4198,8 +4162,7 @@
    "risk": "Y",
    "kw": [
     "dashboard",
-    "dekhne",
-    "log"
+    "dekhne"
    ],
    "new": 1
   },
@@ -4218,10 +4181,8 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "basic",
     "cloudflare",
-    "rules",
-    "waf"
+    "rules"
    ],
    "new": 1
   },
@@ -4284,9 +4245,7 @@
    "kw": [
     "access",
     "cloudflare",
-    "login",
-    "page",
-    "wala"
+    "login"
    ],
    "new": 1
   },
@@ -4449,9 +4408,7 @@
    "risk": "Y",
    "kw": [
     "access",
-    "apne",
     "safe",
-    "tak",
     "wireguard"
    ],
    "new": 1
@@ -4490,7 +4447,6 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "basic",
     "load",
     "test"
    ],
@@ -4641,8 +4597,7 @@
    "kw": [
     "docker",
     "halki",
-    "image",
-    "karna"
+    "image"
    ],
    "new": 1
   },
@@ -4681,9 +4636,7 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "basic",
     "demo",
-    "k3s",
     "kubernetes"
    ],
    "new": 1
@@ -4703,7 +4656,6 @@
    "days": "1-3 din",
    "risk": "Y",
    "kw": [
-    "basic",
     "script",
     "terraform"
    ],
@@ -4767,7 +4719,6 @@
    "kw": [
     "audit",
     "pdf",
-    "report",
     "server"
    ],
    "new": 1
@@ -5067,7 +5018,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "csv",
     "database",
     "import"
    ],
@@ -5088,8 +5038,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "backup",
-    "roz"
+    "backup"
    ],
    "new": 1
   },
@@ -5419,7 +5368,6 @@
    "risk": "G",
    "kw": [
     "api",
-    "basic",
     "graphql"
    ],
    "new": 1
@@ -5460,7 +5408,6 @@
    "risk": "G",
    "kw": [
     "api",
-    "key",
     "system"
    ],
    "new": 1
@@ -5542,10 +5489,8 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "banana",
     "database",
-    "google",
-    "sheet"
+    "google"
    ],
    "new": 1
   },
@@ -5666,8 +5611,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "database",
-    "log"
+    "database"
    ],
    "new": 1
   },
@@ -5687,7 +5631,6 @@
    "risk": "G",
    "kw": [
     "audit",
-    "log",
     "table"
    ],
    "new": 1
@@ -5729,8 +5672,7 @@
    "risk": "G",
    "kw": [
     "data",
-    "import",
-    "tool"
+    "import"
    ],
    "new": 1
   },
@@ -5769,8 +5711,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "report",
-    "roz",
     "telegram"
    ],
    "new": 1
@@ -5814,8 +5754,7 @@
    "risk": "Y",
    "kw": [
     "domain",
-    "kharidne",
-    "mein"
+    "kharidne"
    ],
    "new": 1
   },
@@ -5894,9 +5833,7 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "non",
-    "redirect",
-    "www"
+    "redirect"
    ],
    "new": 1
   },
@@ -6123,8 +6060,7 @@
    "kw": [
     "deploy",
     "upload",
-    "website",
-    "zip"
+    "website"
    ],
    "new": 1
   },
@@ -6186,7 +6122,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apne",
     "domain",
     "email"
    ],
@@ -6208,8 +6143,7 @@
    "risk": "Y",
    "kw": [
     "dkim",
-    "dmarc",
-    "spf"
+    "dmarc"
    ],
    "new": 1
   },
@@ -6271,7 +6205,6 @@
    "kw": [
     "contact",
     "email",
-    "form",
     "smtp"
    ],
    "new": 1
@@ -6315,9 +6248,7 @@
     "jisne",
     "join",
     "kiya",
-    "newsletter",
-    "sirf",
-    "tool"
+    "newsletter"
    ],
    "new": 1
   },
@@ -6485,8 +6416,7 @@
    "kw": [
     "booking",
     "calendar",
-    "google",
-    "page"
+    "google"
    ],
    "new": 1
   },
@@ -6734,7 +6664,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "check",
     "dns",
     "domain",
     "health"
@@ -6777,7 +6706,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "page",
     "status"
    ],
    "new": 1
@@ -6817,7 +6745,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "page",
     "policy",
     "privacy",
     "terms"
@@ -6951,7 +6878,6 @@
    "risk": "G",
    "kw": [
     "customer",
-    "draft",
     "helper",
     "reply"
    ],
@@ -7057,8 +6983,7 @@
    "risk": "G",
    "kw": [
     "resume",
-    "sudhar",
-    "tool"
+    "sudhar"
    ],
    "new": 1
   },
@@ -7141,9 +7066,7 @@
    "risk": "G",
    "kw": [
     "hindi",
-    "speech",
-    "text",
-    "tool"
+    "speech"
    ],
    "new": 1
   },
@@ -7163,8 +7086,7 @@
    "risk": "G",
    "kw": [
     "hindi",
-    "speech",
-    "text"
+    "speech"
    ],
    "new": 1
   },
@@ -7206,8 +7128,7 @@
    "risk": "G",
    "kw": [
     "document",
-    "summary",
-    "tool"
+    "summary"
    ],
    "new": 1
   },
@@ -7272,8 +7193,7 @@
    "kw": [
     "english",
     "hindi",
-    "ocr",
-    "tool"
+    "ocr"
    ],
    "new": 1
   },
@@ -7458,7 +7378,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "draft",
     "helper",
     "letter",
     "notice"
@@ -7481,7 +7400,6 @@
    "risk": "G",
    "kw": [
     "bharne",
-    "form",
     "helper"
    ],
    "new": 1
@@ -7523,8 +7441,7 @@
    "risk": "G",
    "kw": [
     "formula",
-    "helper",
-    "sheet"
+    "helper"
    ],
    "new": 1
   },
@@ -7543,7 +7460,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "report",
     "writer"
    ],
    "new": 1
@@ -7606,7 +7522,6 @@
    "risk": "G",
    "kw": [
     "chhatni",
-    "form",
     "lead"
    ],
    "new": 1
@@ -7626,7 +7541,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "banana",
     "library",
     "prompt"
    ],
@@ -7668,7 +7582,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "n8n",
     "workflow"
    ],
    "new": 1
@@ -7710,8 +7623,6 @@
    "risk": "G",
    "kw": [
     "agent",
-    "kaam",
-    "roz",
     "smart"
    ],
    "new": 1
@@ -7794,9 +7705,7 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "apne",
     "documents",
-    "mein",
     "search",
     "smart"
    ],
@@ -7819,7 +7728,6 @@
    "kw": [
     "base",
     "knowledge",
-    "liye",
     "team"
    ],
    "new": 1
@@ -7839,10 +7747,8 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "apne",
     "comment",
-    "moderate",
-    "page"
+    "moderate"
    ],
    "new": 1
   },
@@ -7861,10 +7767,8 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "alt",
     "caption",
-    "image",
-    "text"
+    "image"
    ],
    "new": 1
   },
@@ -8113,7 +8017,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "banana",
     "bot",
     "telegram"
    ],
@@ -8136,7 +8039,6 @@
    "kw": [
     "auto",
     "channel",
-    "post",
     "telegram"
    ],
    "new": 1
@@ -8308,10 +8210,8 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "apne",
     "digest",
     "news",
-    "roz",
     "sources"
    ],
    "new": 1
@@ -8377,7 +8277,6 @@
    "risk": "G",
    "kw": [
     "instagram",
-    "post",
     "scheduler"
    ],
    "new": 1
@@ -8398,7 +8297,6 @@
    "risk": "G",
    "kw": [
     "facebook",
-    "page",
     "scheduler"
    ],
    "new": 1
@@ -8461,7 +8359,6 @@
    "risk": "G",
    "kw": [
     "linkedin",
-    "post",
     "scheduler"
    ],
    "new": 1
@@ -8481,7 +8378,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "pin",
     "pinterest",
     "scheduler"
    ],
@@ -8525,7 +8421,6 @@
    "kw": [
     "alert",
     "google",
-    "sheet",
     "telegram"
    ],
    "new": 1
@@ -8545,7 +8440,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "form",
     "notification",
     "whatsapp"
    ],
@@ -8566,9 +8460,7 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "form",
-    "google",
-    "sheet"
+    "google"
    ],
    "new": 1
   },
@@ -8587,9 +8479,7 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "email",
-    "form",
-    "sheet"
+    "email"
    ],
    "new": 1
   },
@@ -8608,9 +8498,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "aap",
-    "apne",
-    "baad",
     "payment",
     "receipt"
    ],
@@ -8631,8 +8518,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "aap",
-    "apne",
     "invoice",
     "order"
    ],
@@ -8653,7 +8538,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "apne",
     "birthday",
     "bot",
     "customers",
@@ -8676,7 +8560,6 @@
    "days": "2-3 din",
    "risk": "G",
    "kw": [
-    "opt",
     "scheduler",
     "tyohar",
     "wish"
@@ -8720,8 +8603,7 @@
    "risk": "G",
    "kw": [
     "bot",
-    "feedback",
-    "form"
+    "feedback"
    ],
    "new": 1
   },
@@ -8784,8 +8666,7 @@
    "risk": "G",
    "kw": [
     "bot",
-    "hafte",
-    "report"
+    "hafte"
    ],
    "new": 1
   },
@@ -8805,7 +8686,6 @@
    "risk": "G",
    "kw": [
     "alert",
-    "apne",
     "bot",
     "price",
     "product"
@@ -8829,7 +8709,6 @@
    "kw": [
     "alert",
     "bot",
-    "kam",
     "stock"
    ],
    "new": 1
@@ -8871,8 +8750,7 @@
    "kw": [
     "awaaz",
     "bot",
-    "command",
-    "wala"
+    "command"
    ],
    "new": 1
   },
@@ -8954,7 +8832,6 @@
    "risk": "G",
    "kw": [
     "consultant",
-    "tax",
     "website"
    ],
    "new": 1
@@ -9036,7 +8913,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "gym",
     "website"
    ],
    "new": 1
@@ -9098,7 +8974,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "spa",
     "website"
    ],
    "new": 1
@@ -9288,7 +9163,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "cab",
     "service",
     "taxi",
     "website"
@@ -9562,7 +9436,6 @@
    "risk": "G",
    "kw": [
     "kirana",
-    "online",
     "website"
    ],
    "new": 1
@@ -9603,9 +9476,7 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "pet",
     "shop",
-    "vet",
     "website"
    ],
    "new": 1
@@ -9690,8 +9561,6 @@
    "risk": "G",
    "kw": [
     "daan",
-    "ngo",
-    "page",
     "website"
    ],
    "new": 1
@@ -9711,7 +9580,6 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "rwa",
     "society",
     "website"
    ],
@@ -9733,7 +9601,6 @@
    "risk": "G",
    "kw": [
     "landing",
-    "page",
     "startup",
     "website"
    ],
@@ -9755,7 +9622,6 @@
    "risk": "G",
    "kw": [
     "landing",
-    "page",
     "saas",
     "website"
    ],
@@ -9778,7 +9644,6 @@
    "kw": [
     "app",
     "download",
-    "page",
     "website"
    ],
    "new": 1
@@ -9799,7 +9664,6 @@
    "risk": "G",
    "kw": [
     "event",
-    "page",
     "registration",
     "seminar",
     "website"
@@ -9888,7 +9752,6 @@
    "kw": [
     "board",
     "chhota",
-    "job",
     "website"
    ],
    "new": 1
@@ -9908,9 +9771,7 @@
    "days": "2-4 din",
    "risk": "G",
    "kw": [
-    "bio",
     "link",
-    "page",
     "website"
    ],
    "new": 1
@@ -9931,7 +9792,6 @@
    "risk": "G",
    "kw": [
     "calculator",
-    "sip",
     "step"
    ],
    "new": 1
@@ -9971,8 +9831,7 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "calculator",
-    "swp"
+    "calculator"
    ],
    "new": 1
   },
@@ -9991,8 +9850,7 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "calculator",
-    "ppf"
+    "calculator"
    ],
    "new": 1
   },
@@ -10049,8 +9907,7 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "calculator",
-    "nps"
+    "calculator"
    ],
    "new": 1
   },
@@ -10110,8 +9967,7 @@
    "risk": "G",
    "kw": [
     "calculator",
-    "income",
-    "tax"
+    "income"
    ],
    "new": 1
   },
@@ -10130,8 +9986,7 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "calculator",
-    "hra"
+    "calculator"
    ],
    "new": 1
   },
@@ -10170,8 +10025,7 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "calculator",
-    "tds"
+    "calculator"
    ],
    "new": 1
   },
@@ -10212,8 +10066,7 @@
    "risk": "G",
    "kw": [
     "breakup",
-    "calculator",
-    "ctc"
+    "calculator"
    ],
    "new": 1
   },
@@ -10255,7 +10108,6 @@
    "risk": "G",
    "kw": [
     "calculator",
-    "car",
     "loan"
    ],
    "new": 1
@@ -10424,8 +10276,7 @@
    "risk": "G",
    "kw": [
     "calculator",
-    "interest",
-    "simple"
+    "interest"
    ],
    "new": 1
   },
@@ -10506,8 +10357,7 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "calculator",
-    "roi"
+    "calculator"
    ],
    "new": 1
   },
@@ -10650,7 +10500,6 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "bmi",
     "calculator"
    ],
    "new": 1
@@ -10690,7 +10539,6 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "age",
     "calculator",
     "umar"
    ],
@@ -10885,7 +10733,6 @@
    "days": "2 din",
    "risk": "G",
    "kw": [
-    "buy",
     "calculator",
     "rent"
    ],
@@ -11241,7 +11088,6 @@
    "risk": "G",
    "kw": [
     "hospital",
-    "opd",
     "software"
    ],
    "new": 1
@@ -11281,8 +11127,6 @@
    "days": "4-7 din",
    "risk": "G",
    "kw": [
-    "lab",
-    "report",
     "software"
    ],
    "new": 1
@@ -11344,7 +11188,6 @@
    "days": "4-7 din",
    "risk": "G",
    "kw": [
-    "gym",
     "membership",
     "software"
    ],
@@ -11449,7 +11292,6 @@
    "days": "4-7 din",
    "risk": "G",
    "kw": [
-    "kot",
     "order",
     "restaurant",
     "software"
@@ -11514,7 +11356,6 @@
    "risk": "G",
    "kw": [
     "card",
-    "job",
     "repair",
     "software"
    ],
@@ -11556,7 +11397,6 @@
    "days": "4-7 din",
    "risk": "G",
    "kw": [
-    "amc",
     "software",
     "tracker"
    ],
@@ -12258,9 +12098,7 @@
    "risk": "G",
    "kw": [
     "app",
-    "boy",
-    "delivery",
-    "simple"
+    "delivery"
    ],
    "new": 1
   },
@@ -12608,8 +12446,6 @@
    "days": "5-10 din",
    "risk": "G",
    "kw": [
-    "exe",
-    "tool",
     "windows"
    ],
    "new": 1
@@ -12651,9 +12487,7 @@
    "risk": "G",
    "kw": [
     "api",
-    "app",
-    "mein",
-    "saath"
+    "app"
    ],
    "new": 1
   },
@@ -12713,8 +12547,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "auto",
-    "report"
+    "auto"
    ],
    "new": 1
   },
@@ -12733,8 +12566,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "macro",
-    "vba"
+    "macro"
    ],
    "new": 1
   },
@@ -12774,8 +12606,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "automation",
-    "sheet"
+    "automation"
    ],
    "new": 1
   },
@@ -12875,7 +12706,6 @@
    "risk": "G",
    "kw": [
     "file",
-    "kai",
     "merge"
    ],
    "new": 1
@@ -12957,8 +12787,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "salary",
-    "sheet"
+    "salary"
    ],
    "new": 1
   },
@@ -12977,8 +12806,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "gst",
-    "sheet"
+    "gst"
    ],
    "new": 1
   },
@@ -13117,8 +12945,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "inventory",
-    "sheet"
+    "inventory"
    ],
    "new": 1
   },
@@ -13277,8 +13104,7 @@
    "risk": "G",
    "kw": [
     "quiz",
-    "result",
-    "sheet"
+    "result"
    ],
    "new": 1
   },
@@ -13298,8 +13124,7 @@
    "risk": "G",
    "kw": [
     "comparison",
-    "rate",
-    "sheet"
+    "rate"
    ],
    "new": 1
   },
@@ -13318,7 +13143,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "list",
     "price"
    ],
    "new": 1
@@ -13339,8 +13163,7 @@
    "risk": "G",
    "kw": [
     "nafa",
-    "nuksaan",
-    "sheet"
+    "nuksaan"
    ],
    "new": 1
   },
@@ -13360,8 +13183,7 @@
    "risk": "G",
    "kw": [
     "cash",
-    "flow",
-    "sheet"
+    "flow"
    ],
    "new": 1
   },
@@ -13422,7 +13244,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "apne",
     "holdings",
     "portfolio",
     "tracker"
@@ -13444,9 +13265,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "planner",
-    "sheet",
-    "tax"
+    "planner"
    ],
    "new": 1
   },
@@ -13485,8 +13304,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "gaadi",
-    "log"
+    "gaadi"
    ],
    "new": 1
   },
@@ -13505,7 +13323,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "hisaab",
     "kheti"
    ],
    "new": 1
@@ -13525,8 +13342,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "doodh",
-    "hisaab"
+    "doodh"
    ],
    "new": 1
   },
@@ -13605,8 +13421,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "bharna",
-    "form",
     "pdf"
    ],
    "new": 1
@@ -13626,7 +13440,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "banana",
     "fillable",
     "pdf"
    ],
@@ -13669,8 +13482,7 @@
    "kw": [
     "ocr",
     "pdf",
-    "scanned",
-    "text"
+    "scanned"
    ],
    "new": 1
   },
@@ -13852,8 +13664,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "draft",
-    "format",
     "kiraynama"
    ],
    "new": 1,
@@ -13874,8 +13684,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "affidavit",
-    "format"
+    "affidavit"
    ],
    "new": 1,
    "novideo": 1
@@ -13894,10 +13703,7 @@
    "hours": 0.25,
    "days": "1 din",
    "risk": "G",
-   "kw": [
-    "format",
-    "noc"
-   ],
+   "kw": [],
    "new": 1
   },
   {
@@ -13955,11 +13761,8 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "draft",
-    "format",
     "legal",
-    "notice",
-    "sirf"
+    "notice"
    ],
    "new": 1,
    "novideo": 1
@@ -14018,7 +13821,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "list",
     "pdf",
     "price"
    ],
@@ -14138,8 +13940,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "project",
-    "report"
+    "project"
    ],
    "new": 1
   },
@@ -14179,8 +13980,7 @@
    "risk": "G",
    "kw": [
     "loan",
-    "project",
-    "report"
+    "project"
    ],
    "new": 1
   },
@@ -14220,8 +14020,7 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "document",
-    "sop"
+    "document"
    ],
    "new": 1
   },
@@ -14280,7 +14079,6 @@
    "days": "1 din",
    "risk": "G",
    "kw": [
-    "format",
     "meeting",
     "minutes"
    ],
@@ -14301,8 +14099,7 @@
    "days": "1-2 din",
    "risk": "G",
    "kw": [
-    "brand",
-    "kit"
+    "brand"
    ],
    "new": 1
   },
@@ -14381,7 +14178,6 @@
    "risk": "G",
    "kw": [
     "pack",
-    "post",
     "social"
    ],
    "new": 1
@@ -14401,7 +14197,6 @@
    "days": "1-2 din",
    "risk": "G",
    "kw": [
-    "posts",
     "tyohar"
    ],
    "new": 1
@@ -15041,8 +14836,7 @@
    "risk": "G",
    "kw": [
     "design",
-    "gift",
-    "mug"
+    "gift"
    ],
    "new": 1
   },
@@ -15100,7 +14894,6 @@
    "days": "1-2 din",
    "risk": "G",
    "kw": [
-    "ppt",
     "redesign"
    ],
    "new": 1
@@ -15200,9 +14993,7 @@
    "hours": 1,
    "days": "1-2 din",
    "risk": "G",
-   "kw": [
-    "gif"
-   ],
+   "kw": [],
    "new": 1
   },
   {
@@ -15301,7 +15092,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "page",
     "seo"
    ],
    "new": 1
@@ -15383,7 +15173,6 @@
    "risk": "G",
    "kw": [
     "business",
-    "posts",
     "profile"
    ],
    "new": 1
@@ -15567,8 +15356,7 @@
    "risk": "G",
    "kw": [
     "copy",
-    "landing",
-    "page"
+    "landing"
    ],
    "new": 1
   },
@@ -15688,8 +15476,7 @@
    "risk": "G",
    "kw": [
     "calendar",
-    "content",
-    "din"
+    "content"
    ],
    "new": 1
   },
@@ -15709,8 +15496,7 @@
    "risk": "G",
    "kw": [
     "calendar",
-    "content",
-    "din"
+    "content"
    ],
    "new": 1
   },
@@ -15749,7 +15535,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "ideas",
     "reel"
    ],
    "new": 1
@@ -15829,8 +15614,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "about",
-    "page"
+    "about"
    ],
    "new": 1
   },
@@ -15870,7 +15654,6 @@
    "risk": "G",
    "kw": [
     "asli",
-    "page",
     "testimonials"
    ],
    "new": 1
@@ -16072,9 +15855,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "alt",
-    "image",
-    "text"
+    "image"
    ],
    "new": 1
   },
@@ -16093,8 +15874,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "liye",
-    "page",
     "seo",
     "speed"
    ],
@@ -16155,10 +15934,7 @@
    "hours": 1.5,
    "days": "1-3 din",
    "risk": "G",
-   "kw": [
-    "ads",
-    "txt"
-   ],
+   "kw": [],
    "new": 1
   },
   {
@@ -16177,7 +15953,6 @@
    "risk": "G",
    "kw": [
     "analytics",
-    "ga4",
     "google"
    ],
    "new": 1
@@ -16197,8 +15972,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "manager",
-    "tag"
+    "manager"
    ],
    "new": 1
   },
@@ -16218,7 +15992,6 @@
    "risk": "G",
    "kw": [
     "mahine",
-    "report",
     "seo"
    ],
    "new": 1
@@ -16279,7 +16052,6 @@
    "risk": "G",
    "kw": [
     "custom",
-    "simple",
     "store"
    ],
    "new": 1
@@ -16338,7 +16110,6 @@
    "risk": "G",
    "kw": [
     "link",
-    "page",
     "payment",
     "upi"
    ],
@@ -16361,8 +16132,7 @@
    "kw": [
     "comparison",
     "courier",
-    "rate",
-    "sheet"
+    "rate"
    ],
    "new": 1
   },
@@ -16505,8 +16275,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "catalogue",
-    "sheet"
+    "catalogue"
    ],
    "new": 1
   },
@@ -16526,7 +16295,6 @@
    "risk": "G",
    "kw": [
     "inventory",
-    "sheet",
     "sync"
    ],
    "new": 1
@@ -16568,8 +16336,7 @@
    "risk": "G",
    "kw": [
     "commerce",
-    "gst",
-    "guide"
+    "gst"
    ],
    "new": 1
   },
@@ -16651,7 +16418,6 @@
    "kw": [
     "abandoned",
     "cart",
-    "opt",
     "reminder"
    ],
    "new": 1
@@ -16713,7 +16479,6 @@
    "kw": [
     "asli",
     "collect",
-    "karna",
     "review"
    ],
    "new": 1
@@ -16752,9 +16517,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "booking",
-    "page",
-    "pre"
+    "booking"
    ],
    "new": 1
   },
@@ -16773,7 +16536,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "box",
     "subscription"
    ],
    "new": 1
@@ -16833,8 +16595,6 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "aap",
-    "apne",
     "invoice"
    ],
    "new": 1
@@ -16895,7 +16655,6 @@
    "risk": "G",
    "kw": [
     "dropship",
-    "sheet",
     "supplier"
    ],
    "new": 1
@@ -16916,7 +16675,6 @@
    "risk": "G",
    "kw": [
     "commerce",
-    "ga4",
     "tracking"
    ],
    "new": 1
@@ -17080,7 +16838,6 @@
    "risk": "G",
    "kw": [
     "alert",
-    "kam",
     "stock"
    ],
    "new": 1
@@ -17100,8 +16857,7 @@
    "days": "1-3 din",
    "risk": "G",
    "kw": [
-    "reorder",
-    "sheet"
+    "reorder"
    ],
    "new": 1
   },
@@ -17121,7 +16877,6 @@
    "risk": "G",
    "kw": [
     "courier",
-    "ndr",
     "tracker"
    ],
    "new": 1
@@ -17182,7 +16937,6 @@
    "risk": "Y",
    "kw": [
     "backtest",
-    "kai",
     "saal"
    ],
    "new": 1
@@ -17224,8 +16978,7 @@
    "risk": "Y",
    "kw": [
     "backtest",
-    "pdf",
-    "report"
+    "pdf"
    ],
    "new": 1
   },
@@ -17370,8 +17123,7 @@
    "kw": [
     "payoff",
     "straddle",
-    "strangle",
-    "tool"
+    "strangle"
    ],
    "new": 1
   },
@@ -17412,10 +17164,7 @@
    "hours": 3,
    "days": "2-4 din",
    "risk": "Y",
-   "kw": [
-    "report",
-    "roz"
-   ],
+   "kw": [],
    "new": 1
   },
   {
@@ -17433,7 +17182,6 @@
    "days": "2-4 din",
    "risk": "Y",
    "kw": [
-    "aapke",
     "candle",
     "pattern",
     "rules",
@@ -17456,7 +17204,6 @@
    "days": "2-4 din",
    "risk": "Y",
    "kw": [
-    "aapke",
     "indicator",
     "rules",
     "scanner"
@@ -17499,7 +17246,6 @@
    "risk": "Y",
    "kw": [
     "down",
-    "gap",
     "scanner"
    ],
    "new": 1
@@ -17542,9 +17288,7 @@
    "days": "2-4 din",
    "risk": "Y",
    "kw": [
-    "data",
-    "mein",
-    "sheet"
+    "data"
    ],
    "new": 1
   },
@@ -17604,8 +17348,7 @@
    "days": "2-4 din",
    "risk": "Y",
    "kw": [
-    "drawdown",
-    "report"
+    "drawdown"
    ],
    "new": 1
   },
@@ -17625,9 +17368,7 @@
    "risk": "Y",
    "kw": [
     "expectancy",
-    "rate",
-    "report",
-    "win"
+    "rate"
    ],
    "new": 1
   },
@@ -17645,10 +17386,7 @@
    "hours": 3,
    "days": "2-4 din",
    "risk": "Y",
-   "kw": [
-    "sheet",
-    "tax"
-   ],
+   "kw": [],
    "new": 1
   },
   {
@@ -17726,7 +17464,6 @@
    "days": "2-4 din",
    "risk": "Y",
    "kw": [
-    "sip",
     "tracker"
    ],
    "new": 1
@@ -17747,7 +17484,6 @@
    "risk": "Y",
    "kw": [
     "backup",
-    "log",
     "trade"
    ],
    "new": 1
@@ -17787,7 +17523,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "draft",
     "email"
    ],
    "new": 1
@@ -17807,7 +17542,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "draft",
     "message",
     "whatsapp"
    ],
@@ -17848,7 +17582,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "bio",
     "instagram"
    ],
    "new": 1
@@ -17869,7 +17602,6 @@
    "risk": "G",
    "kw": [
     "business",
-    "ideas",
     "name"
    ],
    "new": 1
@@ -17910,7 +17642,6 @@
    "risk": "G",
    "kw": [
     "domain",
-    "ideas",
     "name"
    ],
    "new": 1
@@ -17930,7 +17661,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "apni",
     "original",
     "quote",
     "shayari"
@@ -17973,7 +17703,6 @@
    "risk": "G",
    "kw": [
     "birthday",
-    "text",
     "wish"
    ],
    "new": 1
@@ -17994,8 +17723,7 @@
    "risk": "G",
    "kw": [
     "card",
-    "shaadi",
-    "text"
+    "shaadi"
    ],
    "new": 1
   },
@@ -18015,8 +17743,7 @@
    "risk": "G",
    "kw": [
     "festival",
-    "greeting",
-    "text"
+    "greeting"
    ],
    "new": 1
   },
@@ -18035,7 +17762,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "ideas",
     "name",
     "product"
    ],
@@ -18058,7 +17784,6 @@
    "kw": [
     "english",
     "hindi",
-    "page",
     "translation"
    ],
    "new": 1
@@ -18078,7 +17803,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "page",
     "proofreading"
    ],
    "new": 1
@@ -18118,8 +17842,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "attendance",
-    "sheet"
+    "attendance"
    ],
    "new": 1
   },
@@ -18322,7 +18045,6 @@
    "risk": "G",
    "kw": [
     "card",
-    "text",
     "visiting"
    ],
    "new": 1
@@ -18343,7 +18065,6 @@
    "risk": "G",
    "kw": [
     "business",
-    "check",
     "google",
     "profile"
    ],
@@ -18386,7 +18107,6 @@
    "risk": "G",
    "kw": [
     "alert",
-    "form",
     "google",
     "whatsapp"
    ],
@@ -18429,7 +18149,6 @@
    "risk": "G",
    "kw": [
     "notice",
-    "page",
     "suchna"
    ],
    "new": 1
@@ -18451,7 +18170,6 @@
    "kw": [
     "english",
     "hindi",
-    "page",
     "typing"
    ],
    "new": 1
@@ -18471,8 +18189,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "form",
-    "liye",
     "photo",
     "size"
    ],
@@ -18514,8 +18230,7 @@
    "risk": "G",
    "kw": [
     "chhota",
-    "poster",
-    "text"
+    "poster"
    ],
    "new": 1
   },
@@ -18534,8 +18249,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "bill",
-    "format"
+    "bill"
    ],
    "new": 1
   },
@@ -18555,8 +18269,7 @@
    "risk": "G",
    "kw": [
     "chhoti",
-    "excel",
-    "sheet"
+    "excel"
    ],
    "new": 1
   },
@@ -18575,8 +18288,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "excel",
-    "min"
+    "excel"
    ],
    "new": 1
   },
@@ -18595,9 +18307,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "google",
-    "min",
-    "sheet"
+    "google"
    ],
    "new": 1
   },
@@ -18616,8 +18326,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "canva",
-    "min"
+    "canva"
    ],
    "new": 1
   },
@@ -18636,8 +18345,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "chalana",
-    "min",
     "smartphone"
    ],
    "new": 1
@@ -18657,7 +18364,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "min",
     "safe",
     "tareeke",
     "upi"
@@ -18681,8 +18387,7 @@
    "kw": [
     "drive",
     "email",
-    "google",
-    "min"
+    "google"
    ],
    "new": 1
   },
@@ -18701,8 +18406,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "karna",
-    "khud",
     "update",
     "website"
    ],
@@ -18723,7 +18426,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "chalana",
     "wordpress"
    ],
    "new": 1
@@ -18744,7 +18446,6 @@
    "risk": "G",
    "kw": [
     "bot",
-    "chalana",
     "telegram"
    ],
    "new": 1
@@ -18764,7 +18465,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "chalana",
     "server"
    ],
    "new": 1
@@ -18785,7 +18485,6 @@
    "risk": "G",
    "kw": [
     "business",
-    "chalana",
     "google",
     "profile"
    ],
@@ -18826,7 +18525,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "banana",
     "phone",
     "reels"
    ],
@@ -18846,12 +18544,7 @@
    "hours": 0.5,
    "days": "Same din",
    "risk": "G",
-   "kw": [
-    "bharna",
-    "form",
-    "khud",
-    "online"
-   ],
+   "kw": [],
    "new": 1
   },
   {
@@ -18869,10 +18562,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "chalana",
     "chart",
-    "sirf",
-    "tool",
     "tradingview"
    ],
    "new": 1
@@ -18892,7 +18582,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "basic",
     "ghanta",
     "python"
    ],
@@ -18933,7 +18622,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "chalana",
     "meet",
     "zoom"
    ],
@@ -18975,11 +18663,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "apni",
-    "dukaan",
-    "hisaab",
-    "mein",
-    "sheet"
+    "dukaan"
    ],
    "new": 1
   },
@@ -19018,9 +18702,7 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "baad",
     "hack",
-    "karna",
     "saaf",
     "website"
    ],
@@ -19044,7 +18726,6 @@
     "aata",
     "contact",
     "email",
-    "form",
     "nahi"
    ],
    "new": 1
@@ -19065,9 +18746,6 @@
    "risk": "Y",
    "kw": [
     "email",
-    "hai",
-    "jata",
-    "mein",
     "spam"
    ],
    "new": 1
@@ -19088,8 +18766,7 @@
    "risk": "Y",
    "kw": [
     "analytics",
-    "google",
-    "tag"
+    "google"
    ],
    "new": 1
   },
@@ -19151,7 +18828,6 @@
    "risk": "Y",
    "kw": [
     "button",
-    "kaam",
     "karta",
     "nahi",
     "whatsapp"
@@ -19217,8 +18893,7 @@
    "kw": [
     "error",
     "google",
-    "script",
-    "sheet"
+    "script"
    ],
    "new": 1
   },
@@ -19237,7 +18912,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "band",
     "bot",
     "telegram"
    ],
@@ -19258,7 +18932,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "chalu",
     "down",
     "server",
     "wapas"
@@ -19322,7 +18995,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "aapka",
     "app",
     "code",
     "crash"
@@ -19346,7 +19018,6 @@
    "kw": [
     "connect",
     "error",
-    "page",
     "pinterest"
    ],
    "new": 1
@@ -19434,9 +19105,7 @@
    "days": "Har mahina",
    "risk": "G",
    "kw": [
-    "basic",
     "care",
-    "mahina",
     "website"
    ],
    "new": 1
@@ -19458,7 +19127,6 @@
    "kw": [
     "badlav",
     "care",
-    "mahina",
     "website"
    ],
    "new": 1
@@ -19479,8 +19147,6 @@
    "risk": "G",
    "kw": [
     "care",
-    "mahina",
-    "post",
     "social"
    ],
    "new": 1
@@ -19501,9 +19167,7 @@
    "risk": "G",
    "kw": [
     "business",
-    "google",
-    "mahina",
-    "posts"
+    "google"
    ],
    "new": 1
   },
@@ -19523,8 +19187,7 @@
    "risk": "G",
    "kw": [
     "bot",
-    "care",
-    "mahina"
+    "care"
    ],
    "new": 1
   },
@@ -19544,7 +19207,6 @@
    "risk": "G",
    "kw": [
     "care",
-    "mahina",
     "server"
    ],
    "new": 1
@@ -19565,8 +19227,7 @@
    "risk": "G",
    "kw": [
     "backup",
-    "care",
-    "mahina"
+    "care"
    ],
    "new": 1
   },
@@ -19586,8 +19247,6 @@
    "risk": "G",
    "kw": [
     "care",
-    "mahina",
-    "report",
     "seo"
    ],
    "new": 1
@@ -19608,10 +19267,7 @@
    "risk": "G",
    "kw": [
     "care",
-    "excel",
-    "mahina",
-    "report",
-    "sheet"
+    "excel"
    ],
    "new": 1
   },
@@ -19631,8 +19287,6 @@
    "risk": "G",
    "kw": [
     "care",
-    "mahina",
-    "online",
     "store"
    ],
    "new": 1
@@ -19654,8 +19308,6 @@
    "kw": [
     "care",
     "channel",
-    "mahina",
-    "post",
     "telegram"
    ],
    "new": 1
@@ -19675,11 +19327,7 @@
    "days": "Har mahina",
    "risk": "G",
    "kw": [
-    "aapka",
     "care",
-    "mahina",
-    "sirf",
-    "tool",
     "trading"
    ],
    "new": 1
@@ -19722,8 +19370,7 @@
    "risk": "G",
    "kw": [
     "booking",
-    "homestay",
-    "page"
+    "homestay"
    ],
    "new": 1
   },
@@ -19743,7 +19390,6 @@
    "risk": "G",
    "kw": [
     "catalogue",
-    "online",
     "pahadi",
     "product",
     "whatsapp"
@@ -19789,7 +19435,6 @@
    "kw": [
     "char",
     "dham",
-    "guide",
     "registration",
     "yatra"
    ],
@@ -19810,8 +19455,6 @@
    "days": "1-2 din",
    "risk": "G",
    "kw": [
-    "cab",
-    "page",
     "service",
     "taxi"
    ],
@@ -19896,11 +19539,8 @@
    "days": "1-2 din",
    "risk": "G",
    "kw": [
-    "aapke",
     "bhav",
-    "liye",
-    "mandi",
-    "sheet"
+    "mandi"
    ],
    "new": 1
   },
@@ -19943,9 +19583,7 @@
    "risk": "G",
    "kw": [
     "gaon",
-    "hisaab",
-    "samiti",
-    "sheet"
+    "samiti"
    ],
    "new": 1
   },
@@ -19987,7 +19625,6 @@
    "risk": "G",
    "kw": [
     "package",
-    "page",
     "tour",
     "trekking"
    ],
@@ -20031,7 +19668,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "form",
     "ssc"
    ],
    "new": 1,
@@ -20052,7 +19688,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "form",
     "railway",
     "rrb"
    ],
@@ -20075,7 +19710,6 @@
    "risk": "Y",
    "kw": [
     "bharti",
-    "form",
     "police"
    ],
    "new": 1,
@@ -20097,8 +19731,7 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "agniveer",
-    "form"
+    "agniveer"
    ],
    "new": 1,
    "nostrike": 1
@@ -20119,7 +19752,6 @@
    "risk": "Y",
    "kw": [
     "ctet",
-    "form",
     "tet"
    ],
    "new": 1,
@@ -20141,7 +19773,6 @@
    "risk": "Y",
    "kw": [
     "bank",
-    "form",
     "ibps",
     "sbi"
    ],
@@ -20164,8 +19795,7 @@
    "risk": "Y",
    "kw": [
     "anganwadi",
-    "bharti",
-    "form"
+    "bharti"
    ],
    "new": 1,
    "nostrike": 1
@@ -20185,7 +19815,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "form",
     "ukpsc",
     "uksssc"
    ],
@@ -20208,9 +19837,6 @@
    "risk": "Y",
    "kw": [
     "bharti",
-    "bhi",
-    "form",
-    "kisi",
     "rajya"
    ],
    "new": 1,
@@ -20256,8 +19882,7 @@
    "kw": [
     "bharti",
     "checklist",
-    "documents",
-    "hisaab"
+    "documents"
    ],
    "new": 1,
    "nostrike": 1
@@ -20277,8 +19902,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "fee",
-    "guide",
     "payment"
    ],
    "new": 1,
@@ -20322,7 +19945,6 @@
    "risk": "Y",
    "kw": [
     "dekhne",
-    "mein",
     "result"
    ],
    "new": 1,
@@ -20344,7 +19966,6 @@
    "risk": "Y",
    "kw": [
     "correction",
-    "guide",
     "window"
    ],
    "new": 1,
@@ -20365,11 +19986,8 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "aapke",
     "bharti",
     "hindi",
-    "liye",
-    "roz",
     "summary"
    ],
    "new": 1,
@@ -20390,10 +20008,8 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "aapke",
     "bharti",
     "kaun",
-    "liye",
     "suchi"
    ],
    "new": 1,
@@ -20415,8 +20031,6 @@
    "risk": "Y",
    "kw": [
     "answer",
-    "draft",
-    "key",
     "objection"
    ],
    "new": 1,
@@ -20460,7 +20074,6 @@
    "risk": "Y",
    "kw": [
     "interview",
-    "min",
     "taiyari"
    ],
    "new": 1,
@@ -20481,7 +20094,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "guide",
     "taiyari",
     "test",
     "typing"
@@ -20505,7 +20117,6 @@
    "risk": "Y",
    "kw": [
     "bharti",
-    "hisaab",
     "photo",
     "signature",
     "size"
@@ -20551,8 +20162,7 @@
    "risk": "Y",
    "kw": [
     "ayushman",
-    "card",
-    "guide"
+    "card"
    ],
    "new": 1,
    "novideo": 1,
@@ -20573,9 +20183,7 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
     "card",
-    "guide",
     "ration"
    ],
    "new": 1,
@@ -20596,9 +20204,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "aay",
-    "apply",
-    "guide",
     "patra",
     "praman"
    ],
@@ -20620,8 +20225,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
-    "guide",
     "jati",
     "patra",
     "praman"
@@ -20645,8 +20248,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
-    "guide",
     "niwas",
     "patra",
     "praman"
@@ -20669,9 +20270,7 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
     "divyang",
-    "guide",
     "pension",
     "vidhwa",
     "vridha"
@@ -20695,7 +20294,6 @@
    "risk": "Y",
    "kw": [
     "card",
-    "guide",
     "shram"
    ],
    "new": 1,
@@ -20717,7 +20315,6 @@
    "risk": "Y",
    "kw": [
     "card",
-    "guide",
     "labour"
    ],
    "new": 1,
@@ -20738,7 +20335,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
     "nsp",
     "rajya",
     "scholarship"
@@ -20764,7 +20360,6 @@
     "card",
     "credit",
     "documents",
-    "guide",
     "kcc",
     "kisan"
    ],
@@ -20786,9 +20381,7 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
     "card",
-    "guide",
     "pan"
    ],
    "new": 1,
@@ -20810,8 +20403,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
-    "guide",
     "sudhar",
     "voter"
    ],
@@ -20834,8 +20425,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
-    "guide",
     "passport"
    ],
    "new": 1,
@@ -20857,11 +20446,8 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
     "driving",
-    "guide",
-    "licence",
-    "online"
+    "licence"
    ],
    "new": 1,
    "novideo": 1,
@@ -20882,7 +20468,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "guide",
     "janm",
     "mrityu",
     "patra",
@@ -20907,7 +20492,6 @@
    "risk": "Y",
    "kw": [
     "dakhil",
-    "guide",
     "kharij",
     "khatauni"
    ],
@@ -20973,7 +20557,6 @@
    "kw": [
     "documents",
     "gst",
-    "guide",
     "registration"
    ],
    "new": 1,
@@ -20996,8 +20579,7 @@
    "kw": [
     "mudra",
     "pmegp",
-    "project",
-    "report"
+    "project"
    ],
    "new": 1,
    "nostrike": 1
@@ -21017,11 +20599,8 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "apply",
     "bijli",
     "connection",
-    "guide",
-    "online",
     "paani"
    ],
    "new": 1,
@@ -21043,7 +20622,6 @@
    "risk": "G",
    "kw": [
     "admission",
-    "form",
     "school"
    ],
    "new": 1,
@@ -21064,9 +20642,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "admission",
-    "form",
-    "rte"
+    "admission"
    ],
    "new": 1,
    "nostrike": 1
@@ -21088,7 +20664,6 @@
    "kw": [
     "board",
     "candidate",
-    "form",
     "private"
    ],
    "new": 1,
@@ -21110,7 +20685,6 @@
    "risk": "G",
    "kw": [
     "exam",
-    "form",
     "university"
    ],
    "new": 1,
@@ -21131,8 +20705,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "evaluation",
-    "form"
+    "evaluation"
    ],
    "new": 1,
    "nostrike": 1
@@ -21217,8 +20790,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "cuet",
-    "form"
+    "cuet"
    ],
    "new": 1,
    "nostrike": 1
@@ -21238,7 +20810,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "form",
     "jee",
     "neet"
    ],
@@ -21262,8 +20833,7 @@
    "kw": [
     "choice",
     "counselling",
-    "filling",
-    "guide"
+    "filling"
    ],
    "new": 1,
    "nostrike": 1
@@ -21283,7 +20853,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "form",
     "hostel"
    ],
    "new": 1,
@@ -21306,7 +20875,6 @@
    "kw": [
     "documents",
     "education",
-    "guide",
     "loan"
    ],
    "new": 1,
@@ -21371,8 +20939,7 @@
    "risk": "G",
    "kw": [
     "class",
-    "exam",
-    "online"
+    "exam"
    ],
    "new": 1,
    "nostrike": 1
@@ -21393,7 +20960,6 @@
    "risk": "Y",
    "kw": [
     "application",
-    "draft",
     "rti"
    ],
    "new": 1
@@ -21415,8 +20981,6 @@
    "kw": [
     "consumer",
     "daakhil",
-    "draft",
-    "guide",
     "shikayat"
    ],
    "new": 1
@@ -21437,8 +21001,6 @@
    "risk": "Y",
    "kw": [
     "bank",
-    "draft",
-    "rbi",
     "shikayat"
    ],
    "new": 1
@@ -21461,7 +21023,6 @@
     "1930",
     "cyber",
     "fraud",
-    "guide",
     "shikayat"
    ],
    "new": 1
@@ -21483,7 +21044,6 @@
    "kw": [
     "claim",
     "documents",
-    "guide",
     "insurance"
    ],
    "new": 1,
@@ -21505,8 +21065,7 @@
    "risk": "Y",
    "kw": [
     "claim",
-    "epf",
-    "guide"
+    "epf"
    ],
    "new": 1
   },
@@ -21525,11 +21084,8 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "aap",
     "bharein",
-    "guide",
-    "itr",
-    "khud"
+    "itr"
    ],
    "new": 1
   },
@@ -21548,7 +21104,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "format",
     "police",
     "shikayat"
    ],
@@ -21570,7 +21125,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "format",
     "jaanch",
     "karwayein",
     "kiraynama",
@@ -21595,8 +21149,7 @@
    "risk": "Y",
    "kw": [
     "document",
-    "duplicate",
-    "guide"
+    "duplicate"
    ],
    "new": 1,
    "novideo": 1
@@ -21618,7 +21171,6 @@
    "kw": [
     "bijli",
     "bill",
-    "draft",
     "shikayat"
    ],
    "new": 1
@@ -21638,9 +21190,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "draft",
-    "gas",
-    "lpg",
     "shikayat"
    ],
    "new": 1
@@ -21660,7 +21209,6 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "draft",
     "nagar",
     "nigam",
     "shikayat"
@@ -21682,10 +21230,8 @@
    "days": "Same din",
    "risk": "Y",
    "kw": [
-    "guide",
     "railway",
-    "refund",
-    "tdr"
+    "refund"
    ],
    "new": 1
   },
@@ -21724,7 +21270,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "naya",
     "smartphone"
    ],
    "new": 1
@@ -21768,7 +21313,6 @@
    "risk": "G",
    "kw": [
     "bank",
-    "guide",
     "kyc"
    ],
    "new": 1,
@@ -21837,7 +21381,6 @@
     "bachav",
     "call",
     "fraud",
-    "guide",
     "scam"
    ],
    "new": 1
@@ -21880,7 +21423,6 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "dekhna",
     "pension",
     "status"
    ],
@@ -21901,9 +21443,7 @@
    "days": "Same din",
    "risk": "G",
    "kw": [
-    "bharna",
     "bill",
-    "online",
     "sikhana"
    ],
    "new": 1
@@ -21925,9 +21465,7 @@
    "kw": [
     "appointment",
     "dawai",
-    "doctor",
-    "guide",
-    "online"
+    "doctor"
    ],
    "new": 1
   },
@@ -21977,7 +21515,10 @@
     "bulk message",
     "cold email",
     "mass message",
-    "spam"
+    "spam bhej",
+    "spam karna",
+    "spam karwa",
+    "spam message"
    ]
   },
   {
@@ -22076,5 +21617,5 @@
   "small_cap": 50,
   "urgent": 50
  },
- "sha": "7663975ac61ceedf"
+ "sha": "156cc28a4215a899"
 }

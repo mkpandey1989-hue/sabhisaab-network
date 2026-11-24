@@ -1111,6 +1111,16 @@ def today_report(day=None):
     cm = [c for c in _read("comments.jsonl") if str(c.get("t", ""))[:10] == d]
     if cm:
         lines.append(f"💬 Comment: {len(cm)} (bot ne jawab {sum(1 for c in cm if c.get('auto'))}, aapko {sum(1 for c in cm if not c.get('auto'))})")
+    dm = [x for x in _read("dm.jsonl") if str(x.get("t", ""))[:10] == d]
+    if dm:
+        lines.append(f"📨 DM: {len(dm)} (number mila = lead {sum(1 for x in dm if x.get('lead'))}, bot ne jawab {sum(1 for x in dm if x.get('replied'))})")
+    try:
+        from . import leadbox as _LBr
+        _sl = _LBr.soft_leads()
+        if _sl:
+            lines.append(f"⏰ Comment/DM wale (number nahi): {len(_sl)} - '📥 Leads' mein")
+    except Exception:
+        pass
     try:
         if state.get("svc_tts_bad"):
             lines.append("🩺 Doctor: services awaaz abhi theek ho rahi hai ('services doctor')")
@@ -1173,7 +1183,7 @@ def tick(run):
 
 
 # ---------------- v3.8.8: Telegram - main menu mein ek "🧾 Services", andar sirf services ke button ----------------
-SVC_ROWS = [["📊 Aaj ka services hisaab", "📂 Khule kaam", "📒 Bahi-khata"],
+SVC_ROWS = [["📥 Leads"], ["📊 Aaj ka services hisaab", "📂 Khule kaam", "📒 Bahi-khata"],
             ["✍ Manual kaam likho", "🧾 Services 7 din", "🩺 Services doctor"],
             ["🎬 Services namoona", "▶️ Services video chalu", "⏸ Services video band"],
             ["🧪 Form jaanch", "💬 Services comment", "🔊 Awaaz jaanch"],

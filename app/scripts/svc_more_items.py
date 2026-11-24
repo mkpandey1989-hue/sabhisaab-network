@@ -181,6 +181,16 @@ PFX = {"cloud": "cl", "devops": "dv", "data": "db", "domain": "dm", "smart": "sm
 SUFFIX = {"web": " website", "calc": " calculator", "soft": " software"}
 
 
+# v3.9.4: aam bolchaal ke shabd kw mein nahi ('kya hal hai bhai' -> 'Email spam mein jata hai' ban gaya tha)
+STOP = {"aur", "par", "the", "and", "madad", "setup", "sikhiye", "theek", "hai", "mein", "jata", "jaata", "karna", "karke", "kaam", "wala",
+        "wali", "wale", "banana", "apna", "apne", "apni", "aapka", "aapke", "kaise", "kya", "kab", "liye", "sath", "saath", "hota", "hoti",
+        "khud", "baad", "band", "naya", "nayi", "chalu", "page", "online", "list", "form", "report", "sheet", "tool", "basic", "simple",
+        "mahina", "kisi", "bhi", "sirf", "aapki", "ke", "ki", "se", "ko", "for", "with", "your", "from", "into", "chalana", "dekhna", "bharna",
+        "karein", "jaise", "tarah", "sabse", "hisaab", "check", "guide", "draft", "format", "apply", "ideas", "text", "post", "posts"}
+ACR = {"gst", "itr", "pdf", "seo", "ssc", "upi", "kyc", "rti", "epf", "api", "app", "bot", "vm", "dns", "ssl", "pan", "tet", "jee", "nsp",
+       "kcc", "ocr", "crm", "erp", "pos", "faq", "rrb", "cue", "nda", "ias", "sbi", "aws", "gcp", "vps", "ftp", "cdn", "qr", "otp", "olx"}
+
+
 def _nice(p):
     steps = [10, 15, 19, 29, 39, 49, 59, 69, 79, 99, 129, 149, 199, 249, 299, 349, 399, 449, 499, 599, 699, 799, 899, 999, 1199, 1299, 1499,
              1799, 1999, 2499, 2999, 3499, 3999, 4499, 4999, 5999, 6999, 7999, 8999, 9999, 12999, 14999, 19999, 24999, 29999]
@@ -234,7 +244,7 @@ def items(existing):
         while iid in seen:
             iid += "x"
         seen.add(iid)
-        kw = sorted(set(w for w in re.findall(r"[a-z0-9]{3,}", low) if w not in ("aur", "par", "the", "and", "madad", "setup", "sikhiye", "theek")))
+        kw = sorted(set(w for w in re.findall(r"[a-z0-9]{3,}", low) if w not in STOP and (len(w) >= 4 or w in ACR)))
         it = {"id": iid, "cat": cat, "name": name, "price": price, "floor": floor, "max": price * 4, "market": [lo, hi], "hours": h,
               "days": T[6], "risk": T[7], "kw": kw, "new": 1}
         if re.search(NOVIDEO, low):

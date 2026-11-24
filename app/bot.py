@@ -25,7 +25,8 @@ SITEWORK = queue.Queue()    # v3.4.40: website deploy / GitHub copy alag line - 
 KB = tg.reply_keyboard([
     ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal"],
     ["🧪 Namoona", "🎨 24 Look", "💬 Comment haal"],      # v2.3.3: owner - sample/look/comment saamne
-    ["⚙️ Channel setup", "🧾 Services", "🗓 Master schedule"],   # v3.9.3: sab reel/post/story ka samay ek jagah · v2.7.2: channel-wise line-wise setting + FINAL · v3.8.8: services ka alag menu
+    ["📥 Leads", "🧾 Services", "🗓 Master schedule"],          # v3.9.4: Leads = sab kaam ek jagah · v3.9.3 master · v2.7.2
+    ["⚙️ Channel setup"],                                    # v2.7.2: channel-wise setting · v3.8.8: services ka alag menu
     ["🩺 Sab theek?", "⏸ Pause", "▶️ Resume"],
     ["⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"],
 ])
@@ -144,9 +145,26 @@ def worker():
 def scheduler():
     last_clean = 0
     last_reap = 0
+    last_guard = 0
     while True:
         try:
+            if time.time() - last_guard > 3600:          # v3.9.4: schedule ka taala - pehle (tick se pehle) har ghante
+                last_guard = time.time()
+                try:
+                    _m94 = pipeline.migrate_one_sawal()
+                    if _m94:
+                        tg.say(_m94)
+                    _g94 = pipeline.sched_guard()
+                    if _g94:
+                        tg.alert("yellow", _g94)
+                except Exception as _e_g:
+                    log(f"sched guard: {_e_g}")
             pipeline.tick(run, run_up)
+            try:                                         # v3.9.4: 📥 Leads - DM (Messenger/IG) + comment lead yaad
+                from . import leadbox as _LBX
+                _LBX.tick(run)
+            except Exception as _e_lb:
+                log(f"leadbox tick: {_e_lb}")
             try:                                         # v3.5.0: services desk (5 min sync, ghante backup, raat audit)
                 from . import svc as _SVC
                 _SVC.tick(run)
@@ -1312,7 +1330,7 @@ NORM.update({"sabthik": "🩺 Sab theek?", "sabthikhai": "🩺 Sab theek?", "sab
              "videobanao": "🎬 Abhi video", "pending": "⏳ Pending", "login": "/login"})
 
 
-KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup", "🧾 Services", "🗓 Master schedule",
+KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup", "🧾 Services", "🗓 Master schedule", "📥 Leads",
              "🩺 Sab theek?", "⏸ Pause", "▶️ Resume", "⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"]
 RISKY_BTN = {"❌ Mat daalo", "⏸ Pause", "🗑 Post hatao", "🚀 Website deploy", "🧹 Deep Safai", "🧹 GitHub safai", "✅ Thumb 1 se daalo"}
 
@@ -1371,6 +1389,12 @@ def on_text(text):
     if t not in BUTTONS and not t.startswith("/"):
         t = NORM.get(_norm(t), t)        # bina emoji / chhote-bade akshar bhi chalega
     t = PRO.get(t, t)
+    try:                                       # v3.9.4: 📥 Leads + DM hukum
+        from . import leadbox as _LBT
+        if _LBT.on_text(t, run):
+            return True
+    except Exception as _e_lbt:
+        log(f"leadbox: {_e_lbt}")
     try:                                       # v3.9.3: master schedule + services page-post
         from . import master as _MST
         if _MST.on_text(t, run):
@@ -2679,19 +2703,21 @@ def schedule_text():
     today = str(t.date())
     made = state.get("made_today") or {}
     hist = [h for h in (state.get("history") or []) if h.get("date") == today]
-    L = [f"🗓 AAJ ({today}) KA PAKKA SCHEDULE - har channel 2 SAWAL wali reel (3 ghante pehle banti, aapko Thumb ke saath aati):"]
+    L = [f"🗓 AAJ ({today}) KA PAKKA SCHEDULE - "
+         + ("har channel 1 SAWAL reel + 1 SERVICES reel (raat mein ban kar line mein):" if pipeline.one_sawal()
+            else "har channel 2 SAWAL wali reel (3 ghante pehle banti, aapko Thumb ke saath aati):")]
     for b, slots in pipeline.schedule().items():
         sl = [x.strip() for x in str(slots).split(",") if x.strip()]
         parts = []
         for hm in sl:
-            kind = "jaancha puzzle/GK/24-look" if (QUIZ_SLOT.get(b) == hm or (len(sl) > 1 and hm == sl[-1])) else "naya Gemini sawal (din-format)"
+            kind = "jaancha puzzle/GK/24-look" if pipeline.puzzle_slot(b, hm, t.date()) else "naya Gemini sawal (din-format)"
             st = "✅ ban chuki/line mein" if made.get(f"{today}:{b}:{hm}") else ("⏳ " + ("abhi banegi" if hm > t.strftime("%H:%M") else "samay nikal gaya"))
             parts.append(f"{hm} {kind} ({st})")
         L.append(f"• {BRANDS[b]['name']}: " + " | ".join(parts))
     L.append(f"Aaj upload ho chuke: {len(hist)} | Aaj ka format: " + ", ".join(
         f"{BRANDS[b]['name'].split()[0]}={(style_for(b).split('(')[1].split(')')[0] if '(' in style_for(b) else style_for(b)[:20]) or '-'}"
         for b in BRANDS))
-    L.append("Samay badalna: '⏰ Best time' ya 'schedule money 12:30,20:30' (dohri pushti).")
+    L.append("Samay badalna: 'schedule money 20:30' (dohri pushti) - bina pushti update/restart se kabhi nahi badlega 🔒.")
     _ = ANDAAZ
     return "\n".join(L)
 
@@ -2929,7 +2955,7 @@ def do_intent(key, stage):
         return tg.say("⏳ Kaam line mein laga diya" + (" (charon brand, ek ke baad ek)" if b == "all" else "") + ".")
     if a == "set_schedule":
         val = ",".join(f"{int(x.split(':')[0]):02d}:{int(x.split(':')[1]):02d}" for x in it["time"].split(","))
-        state.update("schedule", lambda d: {**(d or {}), b: val}, {})
+        pipeline.set_schedule({b: val}, "owner (pakka)")
         diary.add("setting", f"{BRANDS[b]['name']} roz {val}")
         return tg.say(f"✅ {BRANDS[b]['name']} ab roz {val} par. Yaad rakh liya.")
     if a == "platform":
@@ -3300,6 +3326,12 @@ def on_callback(cb):
     data = cb.get("data", "")
     tg.answer(cb["id"])
     kind, _, rest = data.partition(":")
+    if kind == "cnt":                              # v3.9.4: bina schedule ki reel - aaj ke schedule mein gine?
+        a_, _, j_ = rest.partition(":")
+        return tg.say(pipeline.count_answer(j_, a_))
+    if kind == "lb":                               # v3.9.4: 📥 Leads (ek jagah sab)
+        from . import leadbox as _LB
+        return _LB.on_cb(rest, run)
     if kind == "mst":                              # v3.9.3: services post samay (dohri pushti)
         from . import master as _MST
         return _MST.on_cb(data)
@@ -3547,7 +3579,7 @@ def on_callback(cb):
         tm = state.get("sched_all_pending")
         state.put("sched_all_pending", None)
         if rest == "y" and tm:
-            state.update("schedule", lambda d: {**(d or {}), **{b: tm for b in BRANDS}}, {})
+            pipeline.set_schedule({b: tm for b in BRANDS}, "sab channel ek samay (pakka)")
             return tg.say(f"✅ Charon channel ab roz {tm} (alag-alag sawal).")
         return tg.say("👍 Kuch nahi badla.")
     if kind == "s41":                              # v2.5.0: jawab website page (dohri pushti)
@@ -3657,7 +3689,7 @@ def on_callback(cb):
         sp = state.get("sched_pending")
         state.put("sched_pending", None)
         if rest == "y" and sp:
-            state.update("schedule", lambda d: {**(d or {}), sp[0]: sp[1]}, {})
+            pipeline.set_schedule({sp[0]: sp[1]}, "owner dohri pushti")
             return tg.say(f"✅ {BRANDS[sp[0]]['name']}: ab roz {sp[1]}")
         return tg.say("👍 Kuch nahi badla.")
     if kind == "s36":                              # v2.3.6: naya rang haan/naa
@@ -3710,7 +3742,7 @@ def on_callback(cb):
         if op == "BT":
             prop = state.get("best_time_pending") or {}
             if prop:
-                state.update("schedule", lambda d: {**(d or {}), **prop}, {})
+                pipeline.set_schedule(prop, "best time (dohri pushti)")
                 state.put("best_time_pending", None)
                 return tg.say("✅ Naya samay laga: " + " | ".join(f"{BRANDS[k]['name'].split()[0]} {v}" for k, v in prop.items()))
         return tg.say("👍 Kuch nahi badla.")

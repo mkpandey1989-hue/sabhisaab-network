@@ -20,9 +20,110 @@ BRAND_BTNS = [[("🎭 Suno Natak", "mk:sunonatak"), ("💰 Money", "mk:money")],
               [("🛍 Labh Lo Deals", "mk:deals"), ("🏔 Pahadi", "mk:pahadi")]]
 
 
+def one_sawal():
+    """v3.9.4 (owner 25 Nov): har brand roz 2 hi reel - 1 sawal + 1 services. Sawal-slot ka doosra (puzzle) samay apne aap NAHI judta."""
+    return bool(state.get("one_sawal"))
+
+
+def puzzle_slot(brand, hhmm, day=None):
+    """Ye sawal-slot jaancha puzzle/GK hai? (ek sawal-reel ho to din badal kar: ek din Gemini sawal, ek din jaancha puzzle)."""
+    sl = [x.strip() for x in str(schedule().get(brand, "")).split(",") if x.strip()]
+    if one_sawal() and len(sl) <= 1:
+        d = day or now().date()
+        return (d.toordinal() + (list(BRANDS).index(brand) if brand in BRANDS else 0)) % 2 == 0
+    from .config import QUIZ_SLOT
+    return state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hhmm or (len(sl) > 1 and hhmm == sl[-1]))
+
+
+def sched_snapshot():
+    return {"schedule": dict(state.get("schedule") or {}), "one_sawal": one_sawal()}
+
+
+def set_schedule(patch, why=""):
+    """v3.9.4: schedule badalne ka EK hi raasta (sab pakke button isi se) -> taala (sched_lock) bhi naya + jo slot hata uski aaj ki
+    abhi-na-gayi video radd. Update/restart/kisi aur code se schedule kabhi nahi badlega (sched_guard wapas laata hai)."""
+    state.update("schedule", lambda d: {**(d or {}), **patch}, {})
+    state.put("sched_lock", {**sched_snapshot(), "t": now().isoformat(timespec="minutes"), "why": why[:80]})
+    try:
+        from . import diary
+        diary.add("setting", f"schedule: {patch} ({why})")
+    except Exception:
+        pass
+    return sync_jobs()
+
+
+def sync_jobs():
+    """Jo samay ab schedule mein nahi, uski aaj ki line mein lagi (abhi na gayi) roz wali sawal video radd (YouTube se bhi)."""
+    sch, t, gone = schedule(), now(), []
+    for jid, j in list(jobs().items()):
+        if str(jid).startswith("svc") or j.get("reason") != "roz ka schedule" or j.get("status") not in ("waiting", "approved"):
+            continue
+        try:
+            sl = datetime.datetime.fromisoformat(j["slot"])
+        except Exception:
+            continue
+        if sl <= t or sl.strftime("%H:%M") in [x.strip() for x in str(sch.get(j.get("brand"), "")).split(",")]:
+            continue
+        j["status"] = "rejected"
+        j["why"] = "schedule se samay hata"
+        save_job(jid, j)
+        try:
+            _undo_youtube(jid, j)
+        except Exception as e:
+            log(f"sync_jobs yt: {e}")
+        gone.append(f"{BRANDS.get(j.get('brand'), {}).get('name', j.get('brand'))} {sl.strftime('%H:%M')}")
+    return gone
+
+
+def sched_guard():
+    """Har start + har ghante: schedule taale (sched_lock) jaisa hi hai? Nahi to taale wala wapas + owner ko batao."""
+    lk = state.get("sched_lock")
+    if not lk:
+        state.put("sched_lock", {**sched_snapshot(), "t": now().isoformat(timespec="minutes"), "why": "pehla taala"})
+        return ""
+    if dict(state.get("schedule") or {}) != dict(lk.get("schedule") or {}) or one_sawal() != bool(lk.get("one_sawal")):
+        state.put("schedule", dict(lk.get("schedule") or {}))
+        state.put("one_sawal", bool(lk.get("one_sawal")))
+        return "🔒 Schedule badla hua mila (bina aapki pushti) - pakka wala wapas laga diya: " + ", ".join(
+            f"{BRANDS[b]['name'].split()[0]} {v}" for b, v in (lk.get("schedule") or {}).items() if b in BRANDS)
+    return ""
+
+
+def migrate_one_sawal():
+    """v3.9.4 EK BAAR (owner 25 Nov 04:21: 'ek old sawal wali reel band - har brand 2 hi reel, 1 services + 1 simple'):
+    dono sawal-samay mein se wo rakho jiske asli views behtar (warna shaam wala), doosra hatao. Phir kabhi apne aap nahi chalta."""
+    if state.get("sched_v394"):
+        return ""
+    sch = schedule()
+    keep = {}
+    try:
+        from .studio import best_hours
+    except Exception:
+        best_hours = None
+    for b in BRANDS:
+        sl = [x.strip() for x in str(sch.get(b, "")).split(",") if x.strip()]
+        if len(sl) <= 1:
+            keep[b] = sl[0] if sl else "19:00"
+            continue
+        sc = {}
+        try:
+            sc = best_hours(b)[1] if best_hours else {}
+        except Exception:
+            sc = {}
+        keep[b] = max(sl, key=lambda x: (sc.get(int(x[:2]), 0), x))
+    state.put("one_sawal", True)
+    gone = set_schedule(keep, "owner: 1 sawal + 1 services reel")
+    state.put("sched_v394", now().isoformat(timespec="minutes"))
+    return ("🗓 Naya pakka schedule (aapke kehne par): har brand roz 2 reel = 1 sawal + 1 services.\n"
+            + "\n".join(f"• {BRANDS[b]['name']}: sawal reel {keep[b]}" for b in BRANDS)
+            + "\nServices reel ka samay '🗓 Master schedule' mein (har din ghoomta). Post/story pehle jaise."
+            + (f"\nAaj ki hati hui reel radd: {', '.join(gone)}" if gone else "")
+            + "\n🔒 Ab ye update/restart se nahi badlega - badlav sirf 'schedule <brand> HH:MM' + dohri pushti se.")
+
+
 def schedule():
     sch = {**SCHEDULE, **(state.get("schedule") or {})}
-    if state.get("quiz_slot_on", True):           # v2.3.1: owner ne pehle ek hi samay rakha ho to bhi doosra sawal-slot
+    if state.get("quiz_slot_on", True) and not one_sawal():   # v2.3.1: owner ne pehle ek hi samay rakha ho to bhi doosra sawal-slot
         from .config import QUIZ_SLOT
         for b, q in QUIZ_SLOT.items():
             if b in sch and len([x for x in str(sch[b]).split(",") if x.strip()]) < 2 and q not in str(sch[b]):
@@ -596,17 +697,83 @@ def approve(jid, thumb, now_flag=False):
     if not job or job["status"] not in ("waiting", "approved"):
         return "Ye video ab manzoori mein nahi hai."
     extra = ""
-    if str(jid).startswith("svc") and job.get("reason") == "test video":
-        now_flag = True                           # v3.9.3 (owner): services namoona = turant, aur aaj ka slot usi ka
-        try:
-            from . import svcvideo as _SVn
-            extra = _SVn.sample_takes_slot(jid, job)
-        except Exception as e:
-            log(f"svc namoona slot: {e}")
+    if is_manual(job) and not job.get("count_ans"):
+        # v3.9.4 (owner 25 Nov): bina schedule ki reel (namoona/abhi video/aapki video) -> pehle poochho "aaj ke schedule mein gine?"
+        # Jawab na mila = ye video kahin NAHI jaati, schedule waise hi chalta.
+        job["pending_thumb"] = int(thumb)
+        save_job(jid, job)
+        kind = "services" if str(jid).startswith("svc") else "sawal"
+        tg.say(f"🗓 {jid} ({BRANDS.get(job.get('brand'), {}).get('name', '')}) - Thumb {thumb} chuna. Pehle bataiye:\n"
+               f"Ye video aaj ke schedule ki {kind} reel ki JAGAH gine (aaj ki {kind} reel nahi jaayegi) ya EXTRA?\n"
+               "Jawab ke baad hi turant post hogi. Jawab na diya = kahin nahi jaayegi, schedule waise hi chalega.",
+               tg.inline([[(f"✅ Haan, aaj ki {kind} reel gino", f"cnt:y:{jid}")], [("➕ Nahi, extra bhejo", f"cnt:n:{jid}")],
+                          [("❌ Mat bhejo", f"cnt:x:{jid}")]]))
+        return f"⏳ {jid}: jawab ka intezaar (abhi post nahi)."
+    if job.get("count_ans"):
+        now_flag = True
     job.update(status="approved", thumb=int(thumb), now=now_flag)
     save_job(jid, job)
     when = "abhi" if now_flag else datetime.datetime.fromisoformat(job["slot"]).strftime("%H:%M par")
     return f"👍 Thumb {thumb} chuna. Upload {when}." + extra
+
+
+AUTO_REASONS = ("roz ka schedule", "hafte ki lambi video", "schedule")
+
+
+def is_manual(job):
+    """Bina schedule wali chhoti reel (owner ne banwayi/bheji) - lambi/wide/namoona-studio nahi."""
+    r = str(job.get("reason") or "")
+    return bool(r) and r not in AUTO_REASONS and not any(w in r for w in ("lambi", "wide", "sample video"))
+
+
+def count_answer(jid, ans):
+    """'cnt:y|n|x:<jid>' - y = aaj ki usi kism ki reel radd (slot usi ka), n = extra, x = mat bhejo."""
+    job = jobs().get(jid)
+    if not job or job.get("status") not in ("waiting",):
+        return f"❓ {jid} ab line mein nahi (pehle hi gayi/radd)."
+    if ans == "x":
+        return reject(jid)
+    extra = ""
+    if ans == "y":
+        try:
+            if str(jid).startswith("svc"):
+                from . import svcvideo as _SVn
+                extra = _SVn.sample_takes_slot(jid, job)
+            else:
+                extra = _sawal_takes_slot(jid, job)
+        except Exception as e:
+            log(f"count slot: {e}")
+    job = jobs()[jid]
+    job["count_ans"] = ans
+    save_job(jid, job)
+    return approve(jid, int(job.get("pending_thumb") or 1), True) + (extra if ans == "y" else "\n➕ Extra - aaj ka schedule waise hi.")
+
+
+def _sawal_takes_slot(jid, job):
+    """Aaj ki agli (abhi na gayi) sawal reel radd; abhi bani na ho to banegi hi nahi."""
+    b, t = job.get("brand"), now()
+    d = str(t.date())
+    for j2, x in sorted(jobs().items(), key=lambda kv: str(kv[1].get("slot", ""))):
+        if j2 == jid or str(j2).startswith("svc") or x.get("brand") != b or x.get("reason") != "roz ka schedule":
+            continue
+        if x.get("status") not in ("waiting", "approved", "making") or str(x.get("slot", ""))[:10] != d:
+            continue
+        if datetime.datetime.fromisoformat(x["slot"]) <= t:
+            continue
+        x["status"] = "rejected"
+        x["why"] = f"{jid} ne slot liya"
+        save_job(j2, x)
+        try:
+            _undo_youtube(j2, x)
+        except Exception as e:
+            log(f"sawal slot undo: {e}")
+        return f"\n🗓 Aaj ki {x['slot'][11:16]} wali sawal reel radd - ye usi ki jagah gini gayi."
+    for hh in [x.strip() for x in str(schedule().get(b, "")).split(",") if x.strip()]:
+        if f"{d}T{hh}" > t.isoformat()[:16]:
+            key = f"{d}:{b}:{hh}"
+            state.update("made_today", lambda m, k=key: {**(m or {}), k: 1}, {})
+            return f"\n🗓 Aaj ki {hh} wali sawal reel ab nahi banegi - ye usi ki jagah."
+    return "\n🗓 Aaj ki sawal reel pehle hi ja chuki thi - ye extra gini gayi."
 
 
 def reject(jid):
@@ -1379,7 +1546,7 @@ def tick(run, run_up=None):
                 if _qp_on and _ev_plan and hhmm == _sl[0] and not blocked_topic(brand, _ev_plan):
                     # v2.9.0: tyohaar/khaas din ka plan (calendar ne 2+ website se pakka kiya) - us din pehla slot usi vishay ka sawal
                     run(prepare, brand, slot.isoformat(), "roz ka schedule")
-                elif _qp_on or _topic_off(brand) or (state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hhmm or (len(_sl) > 1 and hhmm == _sl[-1]))):
+                elif _qp_on or _topic_off(brand) or puzzle_slot(brand, hhmm, t.date()):
                     # v2.3.1/2.3.3: doosra (aakhri) slot = jaancha hua puzzle/GK / 24-look elite paheli
                     run(prepare, brand, slot.isoformat(), "roz ka schedule", None, "short", "__puzzle__")
                 else:
@@ -1595,10 +1762,7 @@ REPLACE_MIN_LEAD = 25      # slot mein isse kam minute bache to nayi nahi (banne
 def _was_puzzle_slot(brand, slot_dt):
     """Roz ke schedule mein aakhri slot = sawal/puzzle wali reel (tick jaisa hi niyam)."""
     try:
-        sl = [x.strip() for x in str(schedule().get(brand, "")).split(",") if x.strip()]
-        from .config import QUIZ_SLOT
-        hh = slot_dt.strftime("%H:%M")
-        return state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hh or (len(sl) > 1 and hh == sl[-1]))
+        return puzzle_slot(brand, slot_dt.strftime("%H:%M"), slot_dt.date())
     except Exception:
         return False
 

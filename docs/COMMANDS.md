@@ -90,6 +90,9 @@ button deta hai.
 | SH261124APJ1 (sirf number likho) | Us kaam ka haal: stage, rate, mila, page |
 | services doctor | Doctor ka haal (awaaz, aaj ki video, form) - har 5 min apne aap ilaaj |
 | services instagram sunonatak chalu / band | Services video us brand ke Instagram par (Suno Natak default band) |
+| 📥 Leads (button) / 'leads' | v3.9.4: sab lead ek jagah - kul/aaj/7 din, brand-wise, ABHI KARNA + button, comment/DM wale |
+| dm ijaazat / dm band / dm chalu | v3.9.4: Messenger/IG DM ka apne-aap jawab (sirf jisne khud likha, 24 ghante) |
+| (bina schedule reel par Thumb) | v3.9.4: bot poochhta - aaj ki reel ki jagah gine / extra / mat bhejo; jawab ke bina nahi jaati |
 | 🗓 Master schedule (button) / 'master schedule' | v3.9.3: har brand ki sawal reel, services reel (aaj/kal), page-post, story - sab samay ek jagah |
 | services post band / chalu | v3.9.3: FB par roz 1 services photo-post (har brand) band/chalu |
 | post samay pahadi 19:30 | v3.9.3: services post ka pakka samay badlo (✅ -> ✅✅ dohri pushti) |

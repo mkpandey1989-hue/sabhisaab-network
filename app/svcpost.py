@@ -199,6 +199,7 @@ def post_one(brand, force=False):
     try:
         pid = M.post_fb_photo(brand, str(p), cap)
         url = f"https://www.facebook.com/{pid}"
+        state.update("svc_media_ids", lambda L: ((L or []) + [str(pid)])[-300:], [])   # v3.9.4: is post ke comment = services comment
         _log(brand, d, items, url)
         return f"✅ {BRANDS[brand]['name']}: services post FB par {url}"
     except Exception as e:

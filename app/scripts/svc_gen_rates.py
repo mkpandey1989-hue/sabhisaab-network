@@ -160,7 +160,7 @@ R = [
 ]
 
 RED = [("Google Maps / data scraping, kisi ka phone-email nikalna", "scrap|scraping|scraper|data nikal|number nikal|email nikal|phone list|lead list kharid"),
-       ("Cold email / bulk WhatsApp / spam", "bulk whatsapp|bulk sms|bulk message|cold email|mass message|spam"),
+       ("Cold email / bulk WhatsApp / spam", "bulk whatsapp|bulk sms|bulk message|cold email|mass message|spam bhej|spam karna|spam karwa|spam message"),
        ("Nakli review / followers / likes", "fake review|nakli review|followers badha|followers kharid|likes kharid|fake followers"),
        ("Trading tip / signal / kisi ka account chalana", "signal do|signal bech|signal chahiye|signal dena|signal milega|tip do|tip chahiye|tips chahiye|call do|kaunsa share|konsa share|share batao|stock batao|kya khareedu|kya kharidu|mera account chalao|account chala do|profit guarantee|pakka profit|सिग्नल|टिप दो"),
        ("Hacking / copy site / betting / loan app", "hack|hacking|password tod|clone kar|copy kar do site|betting|satta|gambling|loan app|casino"),

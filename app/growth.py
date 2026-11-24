@@ -334,6 +334,8 @@ def _handle_comment(platform, b, c):
         from . import svccomment as _SVCC
         if _SVCC.handle(platform, b, c):
             return
+        if _SVCC.sawal_kaam(c) and _SVCC.handle(platform, b, c, force=True):    # v3.9.4: sawal reel par saaf kaam maanga
+            return
     except Exception as e_s:
         log(f"svccomment: {e_s}")
     qe = None

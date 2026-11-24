@@ -1,4 +1,4 @@
-# SERVICES HANDOVER — koi bhi AI / developer services par kaam se PEHLE ye padhe (v3.9.3, 24 Nov 2026)
+# SERVICES HANDOVER — koi bhi AI / developer services par kaam se PEHLE ye padhe (v3.9.4, 25 Nov 2026)
 
 Owner: Manoj bhai (Hinglish, mobile + Telegram). Ek-ek baat poochne ke bajaye poora kaam ek saath, test karke, ek ZIP.
 Ye file = services ka shuru se ab tak + aage ka plan + KYA KARNA / KYA KABHI NAHI. Saath mein: `docs/SERVICES_PLAN.md` (sections 0-21),
@@ -52,6 +52,10 @@ customer ke gupt page par 'Haan' + UPI QR → kaam → rasid → bahi-khata. Roz
 - Pass -> Telegram par preview + thumbnail; jawab na mile to slot se 20 min pehle autopilot (thumbnail 1/2/3 ghoom kar).
 - Platform: YT Short, FB Reel + story, IG Reel + story (Suno Natak IG par NAHI - 2 baar ban), Threads, Pinterest, Dailymotion, Telegram. Alag FB photo-post nahi.
 - Trading tool wale kaam: "टिप/सिग्नल नहीं", description mein jokhim line; "profit/मुनाफ़ा/पक्की कमाई" audit rokta hai.
+
+## 4a. Schedule (v3.9.4) + 📥 Leads
+- Har brand roz 2 reel: 1 sawal (`one_sawal`) + 1 services. Schedule sirf `pipeline.set_schedule` se badlo (taala `sched_lock`; `sched_guard` wapas laata). Bina schedule reel = 'gine/extra' sawal (`count_answer`).
+- `app/leadbox.py`: 📥 Leads dashboard (sab ek message), comment/DM soft-lead, DM poll + 24h jawab, number = `manual_add`.
 
 ## 4b. Services PAGE-POST + MASTER SCHEDULE (v3.9.3)
 - `app/svcpost.py`: har brand ke FB page par roz 1 photo-post (1080x1350: ₹10 se shuru + 6 kaam + link services-list utm + sharten laagu), us brand ke shaam ke best ghante par (asli views), reel se 40 min door. Samay ek baar tay = PAKKA (`svc_post_times`), badlav 'post samay pahadi 19:30' + dohri pushti. IG par nahi (link mana). Purani 'sawal photo-post' ek din chhod kar (feed bhari nahi).

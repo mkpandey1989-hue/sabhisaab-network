@@ -1582,9 +1582,10 @@ try:
         _sl93 = (_PL93.now() + __import__("datetime").timedelta(hours=2)).isoformat()
         _PL93.save_job("svcpa_sched93", {"brand": "pahadi", "status": "waiting", "slot": _sl93, "reason": "roz ka schedule", "meta": "/tmp/nx93"})
         _PL93.save_job("svcpa_samp93", {"brand": "pahadi", "status": "waiting", "slot": _sl93, "reason": "test video", "meta": "/tmp/nx93b"})
-        _r93 = _PL93.approve("svcpa_samp93", 2)
+        _PL93.approve("svcpa_samp93", 2)                  # v3.9.4: pehle sawal 'gine?' -> Haan
+        _r93 = _PL93.count_answer("svcpa_samp93", "y")
         check("abhi" in _r93 and _PL93.jobs()["svcpa_sched93"]["status"] == "rejected" and _PL93.jobs()["svcpa_samp93"].get("now"),
-              "services namoona = turant post + aaj ka slot radd (dohri nahi)")
+              "services namoona = 'Haan gino' par turant post + aaj ka slot radd (dohri nahi)")
         from app import svcdoctor as _D93
         check("pahadi" not in _D93.missing_today(), "doctor namoona wale brand ki video dobara nahi banata")
     finally:
@@ -1607,6 +1608,54 @@ try:
     _n93 = len(_S50.leads())
     _S50.ingest(dict(_L93, id="SHDUP2", t="2026-12-02T10:01:00+05:30"))
     check(len(_S50.leads()) == _n93, "wahi number + wahi kaam 30 min mein = ek hi card (5 card nahi)")
+    # ---------------- v3.9.4: 1 sawal + 1 services, schedule ka taala, bina-schedule reel ka sawal, 📥 Leads, comment/DM
+    from app import state as _ST94, leadbox as _LB94, svccomment as _SC94
+    _os94 = {k: _ST94.get(k) for k in ("schedule", "one_sawal", "sched_lock", "sched_v394", "jobs", "made_today")}
+    try:
+        _ST94.put("schedule", {"pahadi": "09:30,18:00", "money": "12:30,20:30", "deals": "16:00,21:30", "sunonatak": "19:30,13:30"})
+        for k_ in ("one_sawal", "sched_lock", "sched_v394"):
+            _ST94.put(k_, None)
+        _fut94 = (_PL93.now() + __import__("datetime").timedelta(minutes=5)).replace(hour=23, minute=59)
+        _PL93.save_job("pah_old94", {"brand": "pahadi", "status": "waiting", "reason": "roz ka schedule",
+                                     "slot": _fut94.replace(hour=23, minute=58).isoformat(), "meta": "/tmp/x94"})
+        _msg94 = _PL93.migrate_one_sawal()
+        _sc94 = _PL93.schedule()
+        check(all(len([x for x in str(_sc94[b_]).split(",") if x.strip()]) == 1 for b_ in __import__("app.config", fromlist=["x"]).BRANDS) and _PL93.one_sawal(),
+              f"har brand 1 sawal reel ({_sc94})")
+        check("1 sawal + 1 services" in _msg94 and _PL93.migrate_one_sawal() == "", "badlav ek hi baar (dobara nahi chalta)")
+        check(_PL93.jobs()["pah_old94"]["status"] == "rejected", "hata hua samay = uski line wali video radd")
+        _ST94.put("schedule", {**_ST94.get("schedule"), "money": "12:30,20:30"})
+        check(_PL93.sched_guard().startswith("🔒") and len(_PL93.schedule()["money"].split(",")) == 1,
+              "bina pushti badla schedule = taala wapas laata hai")
+        check(_PL93.sched_guard() == "", "taala theek ho to chup")
+        _pz94 = {_PL93.puzzle_slot("money", _PL93.schedule()["money"], __import__("datetime").date(2026, 12, d_)) for d_ in (1, 2)}
+        check(_pz94 == {True, False}, "ek sawal reel: din badal kar Gemini sawal / jaancha puzzle")
+        # bina schedule ki reel
+        _sl94 = (_PL93.now() + __import__("datetime").timedelta(hours=1)).isoformat()
+        _PL93.save_job("mon_sched94", {"brand": "money", "status": "waiting", "reason": "roz ka schedule", "slot": _sl94, "meta": "/tmp/y94"})
+        _PL93.save_job("mon_abhi94", {"brand": "money", "status": "waiting", "reason": "abhi video", "slot": _sl94, "meta": "/tmp/z94"})
+        _r94 = _PL93.approve("mon_abhi94", 1, True)
+        check("intezaar" in _r94 and _PL93.jobs()["mon_abhi94"]["status"] == "waiting", "bina schedule reel: Thumb par pehle sawal, post NAHI")
+        _r94b = _PL93.count_answer("mon_abhi94", "y")
+        check(_PL93.jobs()["mon_abhi94"]["status"] == "approved" and _PL93.jobs()["mon_sched94"]["status"] == "rejected" and "radd" in _r94b,
+              "'Haan gino' = turant + aaj ki sawal reel radd")
+        _PL93.save_job("mon_ex94", {"brand": "money", "status": "waiting", "reason": "aapki video se reel", "slot": _sl94, "meta": "/tmp/w94"})
+        _PL93.approve("mon_ex94", 2)
+        check("Extra" in _PL93.count_answer("mon_ex94", "n") and _PL93.jobs()["mon_ex94"]["status"] == "approved", "'extra' = turant, schedule same")
+        check(not _PL93.is_manual({"reason": "roz ka schedule"}) and _PL93.is_manual({"reason": "test video"}), "schedule wali reel par sawal nahi")
+    finally:
+        for k_, v_ in _os94.items():
+            _ST94.put(k_, v_)
+    check(_SC94.sawal_kaam({"text": "mujhe resume chahiye jaldi"}) and not _SC94.sawal_kaam({"text": "C"})
+          and not _SC94.sawal_kaam({"text": "D 🔥 sahi hai"}), "sawal reel par saaf kaam = services, quiz jawab nahi")
+    _S50._append("comments.jsonl", {"t": _S50.now().isoformat(timespec="seconds"), "pf": "fb", "b": "pahadi", "id": "c94x",
+                                    "text": "website banwana hai", "u": {"intent": "kaam", "item": "w-1page"}, "auto": True, "who": "Ramu"})
+    _txt94, _kb94 = _LB94.text_and_kb()
+    check("📥 LEADS" in _txt94 and "ABHI KARNA" in _txt94 or "Koi khula" in _txt94, "📥 Leads ek message mein")
+    check("Ramu" in _txt94 and any("lb:cd:" in b_["callback_data"] for r_ in _kb94["inline_keyboard"] for b_ in r_),
+          "comment wala (number nahi) Leads mein + 'ho gaya' button")
+    check(_LB94.PHONE.search("mera no 98765 43210 hai").group(1).replace(" ", "") == "9876543210", "DM mein number pehchana")
+    check("📥 Leads" in str(_S50.SVC_ROWS), "services menu mein 📥 Leads")
 finally:
     _TG50.say = _osay80
     _S50._cfg = _ocfg80

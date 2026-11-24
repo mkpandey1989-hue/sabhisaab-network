@@ -502,6 +502,9 @@ def best_time_text():
         hd = int(h_day[:2]) + (i % 2)           # channel aapas mein na takrayein
         he = int(h_eve[:2]) + (i % 3 == 2)
         prop[b] = f"{min(hd, 15):02d}:{['30', '00', '45', '15'][i]},{min(he, 22):02d}:{['00', '30', '15', '45'][i]}"
+        from .pipeline import one_sawal
+        if one_sawal():                               # v3.9.4: 1 sawal reel (+1 services) - sirf shaam ka samay
+            prop[b] = f"{min(he, 22):02d}:{['00', '30', '15', '45'][i]}"
         lines.append(f"• {BRANDS[b]['name']}: abhi {sch.get(b)} → sujhav {prop[b]} (doosra = paheli/3D reel)")
     state.put("best_time_pending", prop)
     lines.append("\n'✅ Ye samay lagao' dabane par dohri pushti; phir bot roz isi par (aap kabhi bhi badal sakte ho).")
