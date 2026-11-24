@@ -127,6 +127,20 @@ function fill(w) {
   r = page("q.html", "https://sabhisaab.com/q?id=SH9&k=abc", (u, o) => { if (o && o.method === "POST") { posted = JSON.parse(o.body); return res(200, { ...st, status: "feedback", rated: true }); } return res(200, st); }, "");
   await wait(60); const d = r.dom.window.document; d.querySelector('#st button[data-n="5"]').click(); d.getElementById("smp").checked = true; d.getElementById("send").click(); await wait(60);
   ok(posted && posted.stars === 5 && posted.sample === true && posted.show === false, "rating + ijazat sahi gayi");
+  // v3.8.8: kaam ka zaroori sawal khaali = "ye zaroor likhiye", bheja nahi
+  { let c3 = [];
+    const r7 = page("services-list.html", "https://sabhisaab.com/services-list", (u) => { c3.push(u); return res(200, { id: "SH261124ABCD", ref: "R", k: "k" }); }, "window.SVC_API='/api';");
+    await wait(50); const w7 = r7.dom.window, d7 = w7.document;
+    w7.pick("m-itr1"); await wait(10); const f7 = fill(w7);
+    f7.dispatchEvent(new w7.Event("submit", { cancelable: true })); await wait(40);
+    const aay = d7.querySelector('#intake [data-k="aay"]');
+    ok(c3.filter(u => u.endsWith("/lead")).length === 0 && /zaroor/.test(aay.nextElementSibling.textContent), "ITR: aay khaali -> 'ye zaroor likhiye', bheja nahi");
+    aay.value = "salary";
+    f7.dispatchEvent(new w7.Event("submit", { cancelable: true })); await wait(60);
+    ok(c3.filter(u => u.endsWith("/lead")).length === 1, "aay likhte hi gaya");
+    w7.pick("m-resume"); await wait(10);
+    ok(d7.querySelector('#intake [data-k="naam"]').value === "Ramesh", "resume ka naam upar wale naam se apne aap");
+  }
   // v3.8.7: adhura/galat number, bekaar sandesh - pyaar se Hindi mein wahi field ke neeche, bheja nahi
   {
     let c2 = [];

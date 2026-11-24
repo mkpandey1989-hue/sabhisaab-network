@@ -70,10 +70,17 @@ def kind_for(item_id, cat=""):
     return "web" if cat in ("web", "soft", "calc", "bot", "ecom", "design", "docs", "trade", "setup", "fix", "content") else "any"
 
 
+# v3.8.8 (owner: "kuch kami hai to system bole pura bharo"): har kaam ka EK sabse zaroori sawal - khaali ho to wahi field ke neeche
+# Hindi mein "ye zaroor likhiye". Baaki sab marzi par (jitna pata ho).
+REQ = {"resume": "naam", "biodata": "naam", "form": "portal", "docs": "size", "itr": "aay", "mobile": "dikkat", "study": "vishay",
+       "letter": "kisko", "web": "dhanda"}          # "any" mein upar wala "Kya chahiye" hi kaafi
+
+
 def js():
     """Website ke liye window.SVC_INTAKE (svc-intake.js)."""
     from . import svc
     by = {i["id"]: kind_for(i["id"], i["cat"]) for i in svc.rates()["items"]}
-    out = {"spec": {k: {"title": v["title"], "ask": [list(a) for a in v["ask"]], "ready": v["ready"]} for k, v in SPEC.items()},
+    out = {"spec": {k: {"title": v["title"], "ask": [list(a) for a in v["ask"]], "ready": v["ready"], "req": [REQ.get(k)] if REQ.get(k) else []}
+                    for k, v in SPEC.items()},
            "by": by, "never": NEVER, "files": FILE_RULES}
     return "window.SVC_INTAKE=" + json.dumps(out, ensure_ascii=False) + ";\n"

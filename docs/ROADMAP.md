@@ -2431,3 +2431,21 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
   ("madad kar denge, pehle baat"); "nahi chal raha/dikkat/kharab" = kaam ki maang.
 - Bug: naye kaam card par Code/Budget/Src ki jagah {L.get(...)} likha aa raha tha (f-string) - theek.
 
+## v3.8.8 (24 Nov 2026) - "doctor baithao", saaf quote, roz ka hisaab, alag Services menu
+- Audit fail ki jaanch: 14:08 par awaaz -91 dB (bilkul chup), baad mein -46 dB - yaani video mein bolne wali awaaz pahunchi hi nahi,
+  aur naye kaam-set se dobara banana bekaar tha. Ilaaj: (1) har hisse ki awaaz bante hi jaanch (khaali = model dobara load, phir alag
+  process mein); (2) poori awaaz numpy se ek wav, ffmpeg mein sirf ek awaaz (purana 10-input filter-graph hataya); (3) Kokoro par
+  taala (do video saath banein to awaaz na bigde); (4) sirf awaaz ki galti par naya set nahi - "awaaz bimaar" ek sandesh.
+- SERVICES DOCTOR (app/svcdoctor.py) har 5 min: awaaz bimaar ho to alag process mein jaanch -> theek hote hi bachi video + namoona
+  khud; aaj ki jo video nahi bani aur slot aage hai use banata (brand par din mein max 2); form worker har 30 min ping, 2 fail =
+  dobara chadhao; atka "video ban rahi" nishan 90 min baad hatao. Sandesh sirf badlaav par. 'services doctor' = haal.
+- Customer quote message: "pehle ₹855" (advance) se ulajhan -> "Shuru mein (advance) ₹855 · Baaki ₹1,994 kaam poora hone par";
+  kaam number, bazaar rate, "2 badlav" sirf banane wale kaam mein, referral ki ₹300+ shart, tareekh dd-mm-yyyy. Gupt page par bhi.
+- Roz 23:58 "Aaj ka services hisaab" (naye customer kahan se, baat, rate, haan, mana, sale ₹, deliver, mahina, shuru se, khule kaam,
+  video, comment). Kabhi bhi: 'aaj kitne customer aaye' / 'aaj ki sale' / 'kal ki sale' / 'is mahine ki sale'.
+- Telegram: main menu mein ek "🧾 Services" -> andar sirf services ke 16 button + "⬅️ Main menu". Likha hua services sawal
+  (aaj/kal/hafta/mahina, khule kaam, SH number) localask se pehle samjha jata hai; doosre sawal (YouTube paisa, aaj ka haal) nahi phanste.
+- Form: har kaam ka ek zaroori sawal (resume=naam, form=kaun sa form, ITR=aay kahan se, mobile=dikkat...) khaali ho to "ye zaroor
+  likhiye"; resume ka naam upar wale naam se apne aap; resume par mobile adhura ho to bataata hai. /services ka mobile header + footer
+  412px par theek (pehle 526px - page chhota dikhta tha).
+

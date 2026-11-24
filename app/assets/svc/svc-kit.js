@@ -1,4 +1,4 @@
-/* Sab Hisaab services kit v3.8.7 - har kaam ka sawal-form, file/photo/voice bhejna (photo apne aap chhoti), sahayak.
+/* Sab Hisaab services kit v3.8.8 - har kaam ka sawal-form, file/photo/voice bhejna (photo apne aap chhoti), sahayak.
    Pages: /services-list aur gupt page /q. Koi bahari library nahi. */
 (function () {
   var K = window.SVCKIT = {};
@@ -22,14 +22,35 @@
   K.fields = function (el, kind) {
     var I = window.SVC_INTAKE; if (!I || !el) return;
     var s = I.spec[kind] || I.spec.any, h = '<div class="kit-q"><b>' + esc(s.title) + '</b> <small>(jitna pata ho utna — baaki baat karke)</small>';
+    var req = s.req || [];
     s.ask.forEach(function (a) {
       if (a[2] === 'f') return;
-      h += '<label class="kit-l">' + esc(a[1]) + (a[3] ? ' <small>' + esc(a[3]) + '</small>' : '') + '</label>' +
-        (a[2] === 'a' ? '<textarea data-k="' + a[0] + '" rows="2" maxlength="1500"></textarea>' : '<input data-k="' + a[0] + '" maxlength="300">');
+      var r = req.indexOf(a[0]) >= 0, ph = '';
+      h += '<label class="kit-l">' + esc(a[1]) + (r ? ' <b style="color:#B91C1C">*</b>' : '') + (a[3] ? ' <small>' + esc(a[3]) + '</small>' : '') + '</label>' +
+        (a[2] === 'a' ? '<textarea data-k="' + a[0] + '"' + (r ? ' data-req="1"' : '') + ph + ' rows="2" maxlength="1500"></textarea>'
+                      : '<input data-k="' + a[0] + '"' + (r ? ' data-req="1"' : '') + ph + ' maxlength="300">') + '<div class="kit-err"></div>';
     });
     if (s.ready && s.ready.length) h += '<div class="kit-r">Taiyaar rakhiye: ' + s.ready.map(esc).join(' · ') + '</div>';
     h += '<div class="kit-n">🔒 ' + esc(I.never) + '</div></div>';
     el.innerHTML = h;
+  };
+  /* v3.8.8: kaam ke sawal - zaroori khaali / bekaar likhawat / adhura number par wahi field ke neeche Hindi mein. Pehla galat lautata hai. */
+  K.check = function (el) {
+    var bad = null; if (!el) return null;
+    [].forEach.call(el.querySelectorAll('[data-k]'), function (x) {
+      if (x.getAttribute('data-k') === 'naam' && !x.value.trim()) { var nm = document.querySelector('form [name=name]'); if (nm && nm.value.trim()) x.value = nm.value.trim(); }
+      var v = x.value.trim(), m = '', e = x.nextElementSibling;
+      if (x.getAttribute('data-req') && !v) m = 'Ye zaroor likhiye — isi se kaam samajh aayega';
+      else if (v && v.length >= 2 && K.junk(v, 2) && !/\d/.test(v)) m = 'Thoda saaf likhiye';
+      else if (v && x.getAttribute('data-k') === 'contact' && v.indexOf('@') < 0 && (v.match(/\d/g) || []).length >= 5) {
+        var p = K.phone(v); if (!p.ok) m = p.msg;
+      }
+      if (e && e.className === 'kit-err') e.textContent = m;
+      x.classList.toggle('kit-bad', !!m);
+      if (m && !bad) bad = x;
+      if (!x.getAttribute('data-kit')) { x.setAttribute('data-kit', '1'); x.addEventListener('input', function () { if (x.classList.contains('kit-bad')) K.check(el); }); }
+    });
+    return bad;
   };
   K.values = function (el) {
     var o = {}; if (!el) return o;
@@ -160,6 +181,7 @@
         ce.textContent = 'Aage badhne ke liye sahmati par ✔ lagaiye'; if (!bad) bad = cons;
         cons.onchange = function () { if (cons.checked) ce.textContent = ''; };
       }
+      [].forEach.call(form.querySelectorAll('.kit-q'), function (q) { var b = K.check(q.parentNode); if (b && !bad) bad = b; });
       if (bad) { try { bad.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} setTimeout(function () { bad.focus(); }, 250); return false; }
       return true;
     };

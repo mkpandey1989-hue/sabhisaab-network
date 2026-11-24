@@ -72,7 +72,7 @@ if(s.status==='new'||s.status==='talk'){h+='<div class="box"><b>Kaam mil gaya �
 var q=s.quote;
 if(q&&['rate','accepted','paid','working','delivered','feedback'].indexOf(s.status)>=0){
 h+='<div class="box"><b>'+esc(q.name)+'</b><div class="amt">'+rs(q.final)+'</div>'+(q.off?'<span class="mk">'+rs(q.base)+'</span> ':'')+
-'<div class="muted">Pehle: '+rs(q.advance)+' · Samay: '+esc(q.days)+' · 2 badlav shaamil · final file poore payment ke baad'+(q.valid?' · '+esc(q.valid)+' tak valid':'')+'</div>'+(q.note?'<p>'+esc(q.note)+'</p>':'');
+'<div class="muted">'+((q.advance>0&&q.advance<q.final)?'Shuru mein (advance): <b>'+rs(q.advance)+'</b> · Baaki '+rs(q.final-q.advance)+' kaam poora hone par':'Payment: '+rs(q.final)+' kaam shuru karne se pehle')+'<br>Samay: '+esc(q.days)+(q.rev===false?'':' · 2 badlav shaamil')+' · final file poore payment ke baad'+(q.valid?' · rate '+esc(String(q.valid).split('-').reverse().join('-'))+' tak':'')+'</div>'+(q.note?'<p>'+esc(q.note)+'</p>':'');
 if(s.status==='rate')h+='<button class="big" id="yes">Haan, theek hai — aage badhein</button><a class="big alt" href="'+wa('Mera number '+s.id+' - rate par baat karni hai')+'">Kuch poochna hai</a>';
 h+='</div>'}
 if(s.pay&&['accepted','paid','working'].indexOf(s.status)>=0&&+s.pay.am>0){
@@ -95,7 +95,7 @@ var sh='https://wa.me/?text='+encodeURIComponent('Koi bhi digital kaam — ho ja
 h+='<div class="box"><b>Dost ko bhejiye</b><p class="muted">Code <b>'+esc(s.ref)+'</b> se dost ko pehle kaam par 10% off — aapko uske chukaye bill ka 10% bonus (₹300+ bill par, max ₹500, agle kaam mein, 90 din tak).</p><a class="big alt" target="_blank" rel="noopener" href="'+sh+'">WhatsApp par share karein</a></div>';
 A.innerHTML=h;
 if(window.SVCKIT&&document.getElementById('qi')){SVCKIT.fields(document.getElementById('qi'),SVCKIT.kind(s.item||'custom'));
-var qm=document.getElementById('qmsg');document.getElementById('qsave').onclick=function(){var v=SVCKIT.values(document.getElementById('qi'));if(!Object.keys(v).length){qm.textContent='Pehle kuch likhiye';return}
+var qm=document.getElementById('qmsg');document.getElementById('qsave').onclick=function(){var qb=SVCKIT.check&&SVCKIT.check(document.getElementById('qi'));if(qb){qm.textContent='Laal nishan wali jagah poori bhariye';try{qb.scrollIntoView({block:'center'})}catch(e){}qb.focus();return}var v=SVCKIT.values(document.getElementById('qi'));if(!Object.keys(v).length){qm.textContent='Pehle kuch likhiye';return}
 qm.textContent='Bhej rahe hain…';post('/q/info',{id:ID,k:K,fields:v}).then(function(x){S=x;qm.textContent='✔ Details pahunch gayi'}).catch(function(e){qm.textContent=e.message})};
 document.getElementById('qup').onclick=function(){var fl=document.querySelector('#qf input[type=file]').files;if(!fl.length){qm.textContent='Pehle file chunein';return}
 SVCKIT.upload(ID,K,fl,function(i,n){qm.textContent='File '+(i+1)+'/'+n+' bhej rahe hain…'}).then(function(r){qm.textContent='✔ '+r.ok+' file pahunchi'+(r.bad.length?' · nahi gayi: '+r.bad.join(', '):'');load()})}}

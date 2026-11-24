@@ -25,7 +25,7 @@ SITEWORK = queue.Queue()    # v3.4.40: website deploy / GitHub copy alag line - 
 KB = tg.reply_keyboard([
     ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal"],
     ["🧪 Namoona", "🎨 24 Look", "💬 Comment haal"],      # v2.3.3: owner - sample/look/comment saamne
-    ["⚙️ Channel setup"],                                  # v2.7.2: channel-wise line-wise setting + FINAL
+    ["⚙️ Channel setup", "🧾 Services"],                   # v2.7.2: channel-wise line-wise setting + FINAL · v3.8.8: services ka alag menu
     ["🩺 Sab theek?", "⏸ Pause", "▶️ Resume"],
     ["⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"],
 ])
@@ -1278,19 +1278,38 @@ NORM.update({"sabthik": "🩺 Sab theek?", "sabthikhai": "🩺 Sab theek?", "sab
              "videobanao": "🎬 Abhi video", "pending": "⏳ Pending", "login": "/login"})
 
 
-KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup",
+KB_LABELS = ["🎬 Abhi video", "⏳ Pending", "📊 Aaj ka haal", "🧪 Namoona", "🎨 24 Look", "💬 Comment haal", "⚙️ Channel setup", "🧾 Services",
              "🩺 Sab theek?", "⏸ Pause", "▶️ Resume", "⏰ Best time", "👑 Pro 50 Deck", "📖 Poora menu"]
 RISKY_BTN = {"❌ Mat daalo", "⏸ Pause", "🗑 Post hatao", "🚀 Website deploy", "🧹 Deep Safai", "🧹 GitHub safai", "✅ Thumb 1 se daalo"}
 
 
 def all_labels():
-    out = list(dict.fromkeys(KB_LABELS + BUTTONS + [x for r in MENU_ROWS for x in r] + list(PRO)))
+    try:
+        from .svc import SVC_LABELS as _SL
+    except Exception:
+        _SL = []
+    out = list(dict.fromkeys(KB_LABELS + BUTTONS + [x for r in MENU_ROWS for x in r] + list(PRO) + _SL))
     return out
 
 
 def on_text(text):
-    if text.startswith("__fz__"):                  # v2.7.2: fuzzy se sudhra hua command (ek hi baar)
+    _was_fz = text.startswith("__fz__")
+    if _was_fz:                                    # v2.7.2: fuzzy se sudhra hua command (ek hi baar)
         text = text[6:]
+    if text.strip() == "⬅️ Main menu":             # v3.8.8: services menu se wapas
+        return tg.say("📖 Main menu", KB)
+    if not text.startswith("__la__"):              # v3.8.8: services ka likha sawal/button - localask/fuzzy se PEHLE
+        try:
+            from . import svc as _SVN
+            _rn = _SVN.nl(text, run)
+            if isinstance(_rn, str) and _rn.startswith("ALIAS:"):
+                text = _rn[6:]
+            elif _rn is not None:
+                return True
+        except Exception as _e_svn:
+            log(f"svc nl: {_e_svn}")
+    if _was_fz:
+        pass
     elif not text.startswith("__la__"):            # v3.4.34: button ka naam galat spelling / awaaz se -> wahi button
         try:                                       # v3.4.42: pehle roz ke sawal (asli data) - fuzzy 'website traffic' ko 'Website draft'
             if text.strip() not in all_labels():   # bana deta tha. Pakke hukum/button localask khud chhod deta hai.

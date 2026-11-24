@@ -15,7 +15,7 @@ def check(cond, msg):
 MODS = ("bot pipeline youtube website siteknow upgrader kb seodiary tasks relay backup vmaudit studio weekplan design puzzles "
         "sfx vault_web web_widgets elite_audit blender3d qbank ops media_tools answers canary adsense sitescan ypp watchdog "
         "ytcomment privacy_patch factwatch policywatch kwfix hubvideo hooks setupwiz qplan votes karaoke webstory abtest "
-        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents featureaudit localask svc svcvideo svccomment svc_intake").split()
+        "toolpin ideas push quizbot hindifix finalgate ownermode learn audit pagequeue linkedin reach sawalpost intents featureaudit localask svc svcvideo svccomment svc_intake svcdoctor tts_once").split()
 for m in MODS:
     try:
         importlib.import_module("app." + m)
@@ -1439,6 +1439,51 @@ try:
     check("madad" in _r87 and "ho jayega" not in _r87 and "http" not in _r87, "comment: madad wale kaam mein nateeja ka vaada nahi, IG par link nahi")
     _wj87 = open(_S50.__file__.replace("svc.py", "svc_worker.js"), encoding="utf-8").read()
     check("function phoneNorm" in _wj87 and "function junk" in _wj87 and "p[2] === 'add'" in _wj87, "worker: number saaf/adhura, bekaar likhawat, manual kaam ka page")
+    # v3.8.8: doctor + saaf quote + aaj ka hisaab + services menu + awaaz ka khud ilaaj
+    _m88 = _S50.customer_msg(_lid87) if _S50.lead_state(_lid87).get("quote") else ""
+    _S50.leads()[_lid87]
+    from app import svc as _SV88, svcdoctor as _D88, tts as _T88
+    _L88 = _SV88.manual_add("Mohan", "9876543212", "website chahiye dukaan ke liye", "wa")
+    _SV88._event(_L88, status="rate", quote={"name": "1-page website", "final": 2849, "advance": 855, "days": "2-3 din",
+                                              "valid": "2026-12-01", "item": "w-1page", "market": 8000})
+    _cm88 = _SV88.customer_msg(_L88)
+    check("pehle ₹" not in _cm88 and "Shuru mein (advance): ₹855" in _cm88 and "Baaki ₹1,994" in _cm88 and _L88 in _cm88 and "01-12-2026" in _cm88,
+          "quote message saaf: advance/baaki alag, kaam number, tareekh")
+    check("₹300+" in _cm88, "referral ki shart (₹300+) message mein")
+    _tr88 = _SV88.today_report()
+    check("Naye customer" in _tr88 and "Sale" in _tr88 and "WhatsApp" in _tr88, "aaj ka hisaab: customer (kahan se), sale")
+    _said88 = []
+    _osay88 = _TG50.say
+    _TG50.say = lambda t_, kb=None: _said88.append(t_) or True
+    try:
+        check(_SV88.nl("aaj kitne customer aaye", lambda f: f()) and "Aaj ka services hisaab" in _said88[-1], "likha sawal: 'aaj kitne customer aaye'")
+        check(_SV88.nl("YouTube se kitna paisa aaya", lambda f: f()) is None and _SV88.nl("aaj ka haal", lambda f: f()) is None,
+              "doosre sawal services mein nahi phanse")
+        check(_SV88.nl("🧾 Services", lambda f: f()) and _SV88.nl("🎬 Services namoona", lambda f: f()) == "ALIAS:services video namoona",
+              "Services menu + button -> purana hukum")
+        check(_SV88.nl(_L88.lower(), lambda f: f()) and _L88 in _said88[-1], "SH number likho = us kaam ka haal")
+    finally:
+        _TG50.say = _osay88
+    check("🧾 Services" in _SV88.SVC_LABELS and len(_SV88.SVC_LABELS) >= 16, "services ke button alag menu mein")
+    _T88b = _T88.TTS_ENGINE
+    try:
+        _T88.TTS_ENGINE = "kokoro"
+        _o_s, _o_sp = _T88.synth, _T88._subprocess_synth
+        _T88.synth = lambda tx, out, a=0, b=5, hold=0: (_T88._silent(tx, out), 2.0)[1]
+        _T88._subprocess_synth = lambda tx, out, a, b: (_T88._silent(tx, out), 2.0)[1]
+        try:
+            _T88.synth_checked("नमस्ते", __import__("tempfile").mktemp(suffix=".wav"))
+            check(False, "khaali awaaz = TTSDead (3 tareeke ke baad)")
+        except _T88.TTSDead:
+            check(True, "khaali awaaz = TTSDead (3 tareeke ke baad)")
+        _T88.synth, _T88._subprocess_synth = _o_s, _o_sp
+    finally:
+        _T88.TTS_ENGINE = _T88b
+    check(isinstance(_D88.report(), str) and "Awaaz" in _D88.report(), "services doctor report")
+    state.put("svc_tts_bad", {"t": 0, "why": "test", "brand": "money", "sample": False})
+    _ok88, _msg88 = _D88.check_video(None, fix=False)
+    check(not _ok88 or "band" in _msg88, "doctor: awaaz bimaar ho to video nahi banata (intezaar)")
+    state.put("svc_tts_bad", None)
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

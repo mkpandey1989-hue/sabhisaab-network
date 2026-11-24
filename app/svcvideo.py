@@ -853,6 +853,9 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
                 bad.append(f"4 awaaz: vakyon ke beech ruk nahi ({sd.count('silence_start')} jagah) - ek saans mein bol raha")
             if not [b for b in bad if b.startswith("4")]:
                 good.append(f"4 awaaz ✅ {dur:.1f}s, awaaz {m.group(1) if m else '?'} dB")
+            elif cx_.get("voice_diag"):                                 # v3.8.8: kis hisse ki awaaz kitni thi (doctor/Claude ke liye)
+                bad.append(f"4 awaaz (jaanch ke liye): wav peak {cx_.get('voice_peak')} | " +
+                           ", ".join(f"{k}:{v[0]}" for k, v in cx_["voice_diag"].items()))
         except Exception as e:
             bad.append(f"4 awaaz: jaanch nahi ho paayi ({str(e)[:60]})")
     # 6 AAKARSHAN (padhne/dikhne layak): rang ka contrast + hook chhota + pehle 1 sec mein bada text
@@ -892,25 +895,26 @@ def render(cx_, out_dir):
     out_dir = pathlib.Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     segs = cx_["segs"]
-    lens, wavs = {}, {}
-    try:
-        from . import tts
-        for i, (key, txt) in enumerate(segs):
-            w_ = out_dir / f"v_{key}.wav"
-            lens[key] = tts.synth(say_clean(txt), str(w_), 1 if i else 0, len(segs))     # sirf hook thoda josh se, baaki saaf raftaar
-            wavs[key] = w_
-    except Exception as e:
-        log(f"svcvideo tts: {e}")
-        lens, wavs = {}, {}
+    lens, wavs, diag = {}, {}, {}
+    from . import tts
+    # v3.8.8: har hisse ki awaaz bante hi jaanch (khaali/dheemi = model dobara / alag process); phir bhi nahi = TTSDead (video nahi banti,
+    # doctor 5 min mein dobara jaanchta hai). Pehle galti chupchaap 'bina awaaz' video bana deti thi -> audit 3 baar fail.
+    for i, (key, txt) in enumerate(segs):
+        w_ = out_dir / f"v_{key}.wav"
+        lens[key], how, pk = tts.synth_checked(say_clean(txt), str(w_), 1 if i else 0, len(segs))   # sirf hook thoda josh se
+        wavs[key] = w_
+        diag[key] = (round(pk, 2), how)
+    cx_["voice_diag"] = diag
     try:                                            # v3.8.7: Instagram story/Reel 60s ke andar - lambi ho to pehle CTA, phir hindi, phir tag chhota
-        from . import tts
         for key in ("cta", "hindi", "tag"):
             if not lens or make_tl(lens)["dur"] <= MAX_DUR:
                 break
             txt = (cx_.get("short") or {}).get(key)
             if txt and key in wavs:
-                lens[key] = tts.synth(say_clean(txt), str(wavs[key]), 1, len(segs))
+                lens[key] = tts.synth_checked(say_clean(txt), str(wavs[key]), 1, len(segs))[0]
                 cx_["segs"] = segs = [(k, txt if k == key else t) for k, t in segs]
+    except tts.TTSDead:
+        raise
     except Exception as e:
         log(f"svcvideo short: {e}")
     cx_["tl"] = tl = make_tl(lens)
@@ -921,7 +925,33 @@ def render(cx_, out_dir):
     mp4 = out_dir / "video.mp4"
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
            "-i", "-"]
-    if wavs:
+    full = None
+    if wavs:                                        # v3.8.8: poori awaaz numpy se ek hi wav mein (ffmpeg filter-graph ka jokhim nahi)
+        try:
+            import numpy as np
+            import soundfile as sf
+            chunks = []
+            for k in [k for k, _ in segs if k in wavs]:
+                a, sr_ = sf.read(str(wavs[k]), dtype="float32")
+                if a.ndim > 1:
+                    a = a.mean(axis=1)
+                if sr_ != 24000:
+                    raise ValueError(f"sr {sr_}")
+                sl = int(round((tl[k][1] - tl[k][0]) * 24000))
+                a = a[:sl]
+                chunks.append(np.pad(a, (0, sl - len(a))))
+            allv = np.concatenate(chunks)
+            tot = int(dur * 24000)
+            allv = np.pad(allv[:tot], (0, max(0, tot - len(allv))))
+            full = out_dir / "voice_full.wav"
+            sf.write(str(full), allv, 24000)
+            cx_["voice_peak"] = round(float(np.max(np.abs(allv))), 3)
+        except Exception as e:
+            log(f"svcvideo full wav: {e}")
+            full = None
+    if full:
+        cmd += ["-i", str(full), "-map", "0:v", "-map", "1:a", "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "160k"]
+    elif wavs:
         keys = [k for k, _ in segs if k in wavs]
         for k in keys:
             cmd += ["-i", str(wavs[k])]
@@ -946,6 +976,11 @@ def render(cx_, out_dir):
     p.stdin.close()
     if p.wait() != 0:
         raise RuntimeError("ffmpeg fail")
+    if full:
+        try:
+            full.unlink()
+        except Exception:
+            pass
     for w_ in wavs.values():
         try:
             w_.unlink()
@@ -982,14 +1017,29 @@ def _slot_dt(hhmm, day):
     return d
 
 
-def make_day(sample=False, only=None, day=None):
+def _voice_only(rep):
+    bad = [r for r in rep if r.startswith("❌")]
+    return bool(bad) and all("awaaz" in r for r in bad)
+
+
+def make_day(sample=False, only=None, day=None, brands=None):
     """Aaj ke 4 video (4 slot) -> 5 round audit -> pass = pipeline job (manzoori/slot), fail = ruki + wajah owner ko."""
-    from . import pipeline, tg
+    state.put("svc_making", time.time())
+    try:
+        return _make_day(sample, only, day, brands)
+    finally:
+        state.put("svc_making", 0)
+
+
+def _make_day(sample=False, only=None, day=None, brands=None):
+    from . import pipeline, tg, tts
     dd = datetime.date.fromisoformat(day) if day else pipeline.now().date()
     plan = pick_day(day=str(dd))
     made = []
     for brand, v in plan.items():
         if only and brand != only:
+            continue
+        if brands and brand not in brands:
             continue
         if not sample and not only and not day:              # v3.8.7: der se bani to sirf aage wale slot (beete slot ki video nahi)
             try:
@@ -1004,6 +1054,9 @@ def make_day(sample=False, only=None, day=None):
             video, thumbs, dur, vdur = render(cx_, out)
             meta = meta_for(cx_, brand, video, thumbs, dur)
             ok, rep = audit_video(cx_, meta, video, vdur)
+        except tts.TTSDead as e:                       # v3.8.8: awaaz engine bimaar - naye set se dobara banana bekaar; doctor ilaaj karega
+            _tts_sick(str(e), brand, sample)
+            break
         except Exception as e:
             log(f"svcvideo {brand}: {e}")
             tg.alert("yellow", f"🎬 Services video ({BRANDS[brand]['name']}) nahi bani: {str(e)[:160]}")
@@ -1012,15 +1065,24 @@ def make_day(sample=False, only=None, day=None):
         (out / "audit.txt").write_text("\n".join(rep), encoding="utf-8")
         _append_audit(jid, brand, ok, rep)
         tries = 1
+        sick = False
         while not ok and tries < 3:                     # v3.8.7: schedule na ruke - naya kaam-set/rang/hook le kar dobara (max 3)
-            tg.say(f"🔁 Services video ({BRANDS[brand]['name']}) audit mein ruki ({[r for r in rep if r.startswith('❌')][:2]}) - "
-                   f"naye set se dobara bana raha hoon ({tries + 1}/3)")
+            if _voice_only(rep):                        # v3.8.8: sirf awaaz ki galti = engine ki bimaari, naya set bekaar
+                _tts_sick("; ".join(r for r in rep if r.startswith("❌"))[:200] + f" | hisse: {cx_.get('voice_diag')}", brand, sample)
+                sick = True
+                break
+            tg.say(f"🔁 Services video ({BRANDS[brand]['name']}) audit mein ruki - naye set se dobara ({tries + 1}/3):\n"
+                   + "\n".join(r for r in rep if r.startswith("❌"))[:600])
             v = pick_day(seed=int(time.time()) + tries, day=str(dd))[brand] | {"slot": v["slot"]}
             try:
                 cx_ = ctx_for(v, brand, str(dd))
                 video, thumbs, dur, vdur = render(cx_, out)
                 meta = meta_for(cx_, brand, video, thumbs, dur)
                 ok, rep = audit_video(cx_, meta, video, vdur)
+            except tts.TTSDead as e:
+                _tts_sick(str(e), brand, sample)
+                sick = True
+                break
             except Exception as e:
                 rep = [f"❌ {str(e)[:120]}"]
                 ok = False
@@ -1028,8 +1090,11 @@ def make_day(sample=False, only=None, day=None):
             (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
             (out / "audit.txt").write_text("\n".join(rep), encoding="utf-8")
             _append_audit(jid, brand, ok, rep)
+        if sick:
+            break
         if not ok:
-            tg.alert("red", f"⛔ Services video ({BRANDS[brand]['name']}) 3 baar AUDIT FAIL - is slot mein publish NAHI:\n" + "\n".join(rep[:10]))
+            tg.alert("red", f"⛔ Services video ({BRANDS[brand]['name']}) 3 baar AUDIT FAIL - is slot mein publish NAHI:\n" + "\n".join(rep[:10])
+                     + "\n🩺 Doctor 5 min mein dekhega; slot bacha ho to ek baar aur banayega.")
             continue
         if not sample:
             _hist_add({"day": str(dd), "set": v["set"], "item": v["set"][0], "look": v["look"], "hook": v["hook"],
@@ -1045,6 +1110,19 @@ def make_day(sample=False, only=None, day=None):
         pipeline._send_for_approval(jid, meta, [("✅", r[2:] if r.startswith("1") else r) for r in rep if "✅" in r][:5])
         made.append(jid)
     return plan, made
+
+
+def _tts_sick(why, brand, sample):
+    """Awaaz engine bimaar: ek hi sandesh (har video par nahi), doctor har 5 min jaanch kar theek hote hi bachi video banata hai."""
+    from . import tg
+    log(f"svcvideo TTS bimaar: {why}")
+    first = not state.get("svc_tts_bad")
+    state.put("svc_tts_bad", {"t": time.time(), "why": why[:300], "brand": brand, "sample": bool(sample)})
+    if first:
+        tg.alert("red", f"🩺 Services video ki AWAAZ nahi ban rahi ({BRANDS[brand]['name']}).\nWajah: {why[:300]}\n"
+                        "Bot ne 3 tareeke aazmaaye (seedha, model dobara, alag process). Doctor har 5 min jaanch raha hai - theek hote hi "
+                        "bachi video apne aap banegi" + (" aur namoona bhi" if sample else "") + ". Aapko kuch nahi karna. "
+                        "('services doctor' = abhi ka haal)")
 
 
 def _append_audit(jid, brand, ok, rep):

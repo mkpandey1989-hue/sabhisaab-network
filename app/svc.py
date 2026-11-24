@@ -454,7 +454,7 @@ def draft(lid, override=None, note=""):
         q["final"] -= use
         q["credit_use"] = use
         q["advance"] = min(q["advance"], q["final"])
-    q.update({"item": it["id"], "name": it["name"], "days": it.get("days", "baat karke"), "risk": it.get("risk", "G"),
+    q.update({"item": it["id"], "name": it["name"], "days": it.get("days", "baat karke"), "risk": it.get("risk", "G"), "rev": _revisions_ok(it["id"]),
               "valid": (now() + datetime.timedelta(days=7)).strftime("%Y-%m-%d"), "market": it.get("market")})
     _event(lid, ver=ver, status="draft", quote=q)
     alt = "\n".join(f"   • {i['name']} ₹{i['price']}" for i in items[1:]) if len(items) > 1 else ""
@@ -467,15 +467,51 @@ def draft(lid, override=None, note=""):
     return tg.say(txt, _kb([talk, [(f"✅ ₹{q['final']} customer ke page par bhejo", f"sv:ok:{lid}"), ("❌ Mana", f"sv:no:{lid}")]]))
 
 
+def _revisions_ok(item_id):
+    """'2 badlav' sirf banane wale kaam mein (resume, design, website...) - form/mobile madad mein nahi."""
+    it = (rates().get("by") or {}).get(item_id) or {}
+    if it.get("cat") in ("setup", "fix", "care", "guide"):
+        return False
+    try:
+        from .svcvideo import KAAM
+        if KAAM.get(item_id, ("", ""))[1] in ("मदद", "मोबाइल-कंप्यूटर"):
+            return False
+    except Exception:
+        pass
+    return True
+
+
 def customer_msg(lid):
+    """v3.8.8: saaf message - 'pehle ₹855' (jo advance tha) se log ulajhte the; ab kul, shuru mein, baaki alag-alag."""
     L = leads()[lid]
     st = lead_state(lid)
     q = st.get("quote") or {}
-    return (f"Namaste {L.get('name', '')} ji 🙏\nSab Hisaab - aapka kaam: {q.get('name')}\n"
-            f"Kul: ₹{q.get('final')} (pehle ₹{q.get('advance')}) · Samay: {q.get('days')} · 2 badlav shaamil\n"
-            f"Rate dekhein aur 'Haan' dabayein - wahin payment ka QR khulega:\n{page_link(lid)}\n"
-            f"Quote {q.get('valid')} tak valid. Dost ko code {L.get('ref', '')} dein - unhe 10% off, "
-            f"aapko unke bill ka 10% bonus.")
+    fin, adv = int(q.get("final") or 0), int(q.get("advance") or 0)
+    try:
+        valid = datetime.date.fromisoformat(q.get("valid")).strftime("%d-%m-%Y")
+    except Exception:
+        valid = q.get("valid") or "7 din"
+    mk = q.get("market")
+    try:
+        mk = int(min(mk)) if isinstance(mk, (list, tuple)) else int(mk or 0)
+    except Exception:
+        mk = 0
+    lines = [f"Namaste {L.get('name', '')} ji 🙏",
+             f"Sab Hisaab — aapka kaam number: {lid}",
+             f"Kaam: {q.get('name')}",
+             f"Kul rate: ₹{fin:,}" + (f" (bazaar mein aam taur par ₹{int(mk):,}+)" if mk and int(mk) > fin else "")
+             + (f" · ₹{q['credit_use']} bonus kata" if q.get("credit_use") else "")]
+    if 0 < adv < fin:
+        lines.append(f"Shuru mein (advance): ₹{adv:,} · Baaki ₹{fin - adv:,} kaam poora hone par")
+    else:
+        lines.append(f"Payment: ₹{fin:,} kaam shuru karne se pehle")
+    lines.append(f"Samay: {q.get('days')}" + (" · 2 badlav shaamil" if _revisions_ok(q.get("item")) else ""))
+    lines += ["", "👉 Rate theek lage to is page par 'Haan' dabaiye — wahin payment ka QR khulega:", page_link(lid),
+              "Isi page par apne kaam ki details/photo bhej sakte hain aur kaam ka haal dekh sakte hain.", "",
+              f"Ye rate {valid} tak.",
+              f"Dost ko code {L.get('ref', '')} dijiye — unhe 10% tak chhoot, aapko unke bill ka 10% bonus (₹300+ ke bill par, agle kaam mein).",
+              "Koi sawal ho to isi WhatsApp par likhiye 🙏"]
+    return "\n".join(lines)
 
 
 def wa_link(lid):
@@ -1013,6 +1049,53 @@ def report(days=1):
     return "\n".join(lines)
 
 
+def today_report(day=None):
+    """v3.8.8: aaj (IST tareekh) ka seedha hisaab - roz 23:58 apne aap + 'services aaj' / 'aaj kitne customer aaye' par."""
+    d = day or str(now().date())
+    L = [x for x in leads().values() if str(x.get("t", ""))[:10] == d and not str(x.get("phone", "")).endswith("9999999999")]
+    E = [e for e in _read("events.jsonl") if str(e.get("t", ""))[:10] == d]
+    C = [c for c in _read("calls.jsonl") if str(c.get("t", ""))[:10] == d]
+    P = [p_ for p_ in _read("payments.jsonl") if str(p_.get("t", ""))[:10] == d]
+    st_ = lambda k: len({e["id"] for e in E if e.get("status") == k})
+    src = {}
+    for x in L:
+        c_ = (x.get("code") or "").upper()
+        k = ("video " + c_) if c_ in ("LABH10", "NATAK10", "MONEY10", "PAHADI10") else ("dost ka code" if c_.startswith("REF-") else
+             {"manual-call": "phone", "manual-wa": "WhatsApp", "manual-dukaan": "dukaan"}.get(x.get("src", ""), "website"))
+        src[k] = src.get(k, 0) + 1
+    paid = sum(int(p_.get("amt") or 0) for p_ in P if int(p_.get("amt") or 0) > 0)
+    refund = -sum(int(p_.get("amt") or 0) for p_ in P if int(p_.get("amt") or 0) < 0)
+    mon = str(d)[:7]
+    PM = [p_ for p_ in _read("payments.jsonl") if str(p_.get("t", ""))[:7] == mon]
+    lines = [f"📊 Aaj ka services hisaab — {d[8:10]}-{d[5:7]}-{d[:4]}",
+             f"👥 Naye customer: {len(L)}" + (" (" + ", ".join(f"{k} {v}" for k, v in sorted(src.items(), key=lambda z: -z[1])) + ")" if src else ""),
+             f"📞 Baat: {len({c['id'] for c in C})} · 🧾 Rate bheje: {st_('rate')} · 👍 Haan: {st_('accepted')} · ❌ Mana: {st_('lost')}",
+             f"💰 Sale (aaj mila): ₹{paid:,} ({len([p_ for p_ in P if int(p_.get('amt') or 0) > 0])} payment)" + (f" · refund ₹{refund:,}" if refund else ""),
+             f"📦 Kaam diya (deliver): {st_('delivered')}",
+             f"🗓 Is mahine: ₹{sum(int(p_.get('amt') or 0) for p_ in PM):,} · {len({p_.get('id') for p_ in PM})} kaam"]
+    try:
+        bh = _read("bahi.jsonl")
+        tot = sum(int(r.get("paid") or 0) for r in bh if r.get("e") == "paid") - sum(int(r.get("amt") or 0) for r in bh if r.get("e") == "refund")
+        lines.append(f"📒 Shuru se ab tak: ₹{tot:,}")
+    except Exception:
+        pass
+    op = [lid for lid in leads() if lead_state(lid).get("status") in ("new", "talk", "rate", "accepted", "paid", "working")]
+    due = [lid for lid in op if str(lead_state(lid).get("due") or "")[:10] <= d and lead_state(lid).get("due")]
+    lines.append(f"📂 Khule kaam: {len(op)}" + (f" · ⏰ aaj/beete due: {', '.join(due[:6])}" if due else ""))
+    va = [v for v in _read("video_audit.jsonl") if str(v.get("t", ""))[:10] == d]
+    if va:
+        lines.append(f"🎬 Services video: {sum(1 for v in va if v.get('ok'))} audit pass, {sum(1 for v in va if not v.get('ok'))} ruki")
+    cm = [c for c in _read("comments.jsonl") if str(c.get("t", ""))[:10] == d]
+    if cm:
+        lines.append(f"💬 Comment: {len(cm)} (bot ne jawab {sum(1 for c in cm if c.get('auto'))}, aapko {sum(1 for c in cm if not c.get('auto'))})")
+    try:
+        if state.get("svc_tts_bad"):
+            lines.append("🩺 Doctor: services awaaz abhi theek ho rahi hai ('services doctor')")
+    except Exception:
+        pass
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------- bot hooks
 def tick(run):
     """bot.scheduler har chakkar mein bulata hai. Sasta: sirf samay dekh kar."""
@@ -1026,6 +1109,11 @@ def tick(run):
     if t - state.get("svc_rem_at", 0) > 300:              # v3.8.0: yaad dilana + atka hua page-update dobara
         state.put("svc_rem_at", t)
         run(lambda: (_flush_push(), reminders()))
+    try:                                         # v3.8.8: services doctor - har 5 min jaanch, bimaar ho tabhi ilaaj
+        from . import svcdoctor
+        svcdoctor.tick(run)
+    except Exception as e:
+        log(f"svcdoctor tick: {e}")
     try:                                         # v3.7.0: Instagram account band/khula jaanch (din mein ek baar)
         from . import igguard
         igguard.tick(run)
@@ -1055,9 +1143,96 @@ def tick(run):
             if r_.startswith("🔴"):
                 tg.alert("red", r_)
         run(_st)
-    if n.strftime("%H:%M") >= "21:45" and state.get("svc_rep_day") != d and _cfg().get("url"):
+    if n.strftime("%H:%M") >= "23:58" and state.get("svc_rep_day") != d:      # v3.8.8: owner - roz raat 11:59 aaj ka hisaab
         state.put("svc_rep_day", d)
-        run(lambda: tg.say(report(1)))
+        run(lambda: tg.say(today_report(d)))
+
+
+# ---------------- v3.8.8: Telegram - main menu mein ek "🧾 Services", andar sirf services ke button ----------------
+SVC_ROWS = [["📊 Aaj ka services hisaab", "📂 Khule kaam", "📒 Bahi-khata"],
+            ["✍ Manual kaam likho", "🧾 Services 7 din", "🩺 Services doctor"],
+            ["🎬 Services namoona", "▶️ Services video chalu", "⏸ Services video band"],
+            ["🧪 Form jaanch", "💬 Services comment", "🔊 Awaaz jaanch"],
+            ["📅 Season list", "🏖 Services chhutti", "❓ Services madad"],
+            ["⬅️ Main menu"]]
+SVC_LABELS = [x for r in SVC_ROWS for x in r] + ["🧾 Services"]
+SVC_HELP = """🧾 SERVICES - sab kuch (likh kar bhi chalega)
+• Aaj ka hisaab: 'aaj kitne customer aaye' / 'aaj ki sale' (roz raat 11:58 apne aap)
+• Kal / hafta / mahina: 'kal ka hisaab', 'services 7 din', 'is mahine ki sale'
+• Khule kaam: 'khule kaam' / 'crm'  ·  Ek kaam: 'SH261124APJ1' ya 'lead SH...'
+• Phone/WhatsApp/dukaan wala kaam: manual call Ramesh 98XXXXXXXX resume banana hai
+• Baat likho: baat SH... kal 5 baje call  ·  Bahi: bahi / bahi SH... / bahi 3210
+• Rate: quote SH... 499 naam  ·  Paisa: paid SH... 499 (rasid bhi)  ·  Kaam diya: deliver SH...
+• Stage badlo: SH... working (talk/rate/accepted/paid/delivered/closed/lost)
+• Video: services video namoona / chalu / band · services chhutti 2 · services seema hatao
+• Shabd: services shabd X = Y · Awaaz: services awaaz sudhar X = Y
+• Doctor: 'services doctor' (har 5 min apne aap jaanch + ilaaj)"""
+
+
+def svc_kb():
+    from . import tg
+    return tg.reply_keyboard(SVC_ROWS)
+
+
+def lead_brief(lid):
+    L = leads().get(lid)
+    if not L:
+        return f"❓ {lid} nahi mila"
+    st = lead_state(lid)
+    q = st.get("quote") or {}
+    paid = sum(int(p_.get("amt") or 0) for p_ in _read("payments.jsonl") if p_.get("id") == lid)
+    return (f"🧾 {lid} — {L.get('name', '')} ({str(L.get('phone', ''))[-4:] and '…' + str(L.get('phone', ''))[-4:]})\n"
+            f"Kaam: {(L.get('service') or L.get('message') or '')[:120]}\nStage: {st.get('status', 'new')}"
+            + (f" · Rate ₹{q.get('final')}" if q.get("final") else "") + (f" · Mila ₹{paid}" if paid else "")
+            + (f" · Due {st.get('due')}" if st.get("due") else "") + f"\nPage: {page_link(lid)}")
+
+
+def nl(text, run):
+    """Likha hua services sawal samjho (localask/fuzzy se PEHLE). Sirf saaf services wale vakya - baaki ko chhod do (None)."""
+    from . import tg
+    t = (text or "").strip()
+    tl = t.lower()
+    if t == "🧾 Services" or tl in ("services", "service", "services menu", "service menu", "/services"):
+        return tg.say("🧾 Services — neeche sirf services ke button. Likh kar bhi pooch sakte hain (❓ Services madad).", svc_kb())
+    if t == "⬅️ Main menu":
+        return None                                       # bot apna main menu dikhaye
+    m = re.fullmatch(r"(?:lead\s+)?(sh\d{6}[a-z0-9]{4})(?:\s+(?:ka|ki)\s+(?:haal|status|kya hua)\??)?", tl)
+    if m:
+        return tg.say(lead_brief(m.group(1).upper()))
+    simple = {"📊 Aaj ka services hisaab": lambda: today_report(), "📂 Khule kaam": crm_list, "📒 Bahi-khata": lambda: bahi_text(),
+              "🧾 Services 7 din": lambda: report(7), "❓ Services madad": lambda: SVC_HELP,
+              "✍ Manual kaam likho": lambda: "✍ Phone/WhatsApp/dukaan par aaya kaam aise likhiye:\nmanual call Ramesh 9876543210 PM Kisan form bharna hai\n"
+                                            "(call / wa / dukaan) - CRM, customer ka page aur bahi teeno mein darj.",
+              "🏖 Services chhutti": lambda: "Chhutti: 'services chhutti 2' (2 din services video nahi) · wapas: 'services chhutti 0'"}
+    if t in simple:
+        return tg.say(simple[t]())
+    if t == "🩺 Services doctor" or tl in ("services doctor", "service doctor", "doctor services"):
+        from . import svcdoctor
+        return tg.say(svcdoctor.report())
+    if t == "💬 Services comment":
+        cm = _read("comments.jsonl")[-10:]
+        return tg.say("💬 Services video ke aakhri comment:\n" + ("\n".join(
+            f"{c.get('t', '')[5:16]} {c.get('platform', '')}: {str(c.get('text', ''))[:60]} → {'bot ne jawab' if c.get('auto') else 'aapko bheja'}"
+            for c in cm) or "Abhi koi nahi"))
+    alias = {"🎬 Services namoona": "services video namoona", "▶️ Services video chalu": "services video chalu",
+             "⏸ Services video band": "services video band", "🧪 Form jaanch": "services form jaanch",
+             "🔊 Awaaz jaanch": "services awaaz jaanch", "📅 Season list": "season list"}
+    if t in alias:
+        return "ALIAS:" + alias[t]
+    # likha hua sawal (Hinglish/Hindi)
+    if not re.search(r"customer|grahak|ग्राहक|\bsales?\b|\bsel\b|\border|\bleads?\b|services?\b|सर्विस|बिक्री|kitne kaam aaye", tl):
+        return None
+    if re.search(r"kal (ka|ki|ke) (hisaab|sale|customer|order)|kal kitne|yesterday|कल (का|की|के)", tl):
+        return tg.say(today_report(str(now().date() - datetime.timedelta(days=1))))
+    if re.search(r"mahin|month|महीन", tl):
+        return tg.say(report(30))
+    if re.search(r"hafte|hafta|week|7 din|सप्ताह|हफ्ते", tl):
+        return tg.say(report(7))
+    if re.search(r"aaj|today|आज|abhi tak", tl) or re.search(r"kitne customer|kitni sale|kitna paisa|hisaab", tl):
+        return tg.say(today_report())
+    if re.search(r"khule|baaki|pending|chal rahe|crm", tl):
+        return tg.say(crm_list())
+    return None
 
 
 def on_text(t, run):

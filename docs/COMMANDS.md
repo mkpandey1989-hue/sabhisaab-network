@@ -85,4 +85,8 @@ button deta hai.
 | baat SH.. kal 5 baje call | Baat ka record (bahi mein "baat hui" hamesha; note 90 din) |
 | bahi · bahi SH.. · bahi 3210 | Zindagi bhar ka kaam/paise ka hisaab (number ya mobile ke aakhri 4 ank se) |
 | paid SH.. 99 | Ab saath mein rasid ka bhara WhatsApp (tap = bhejo) |
+| 🧾 Services (main menu) | Sirf services ke button: aaj ka hisaab, khule kaam, bahi, manual kaam, 7 din, doctor, namoona, video chalu/band, form jaanch, comment, awaaz, season, chhutti, madad |
+| aaj kitne customer aaye · aaj ki sale · kal ki sale · is mahine ki sale | Seedha hisaab (roz 23:58 apne aap bhi) |
+| SH261124APJ1 (sirf number likho) | Us kaam ka haal: stage, rate, mila, page |
+| services doctor | Doctor ka haal (awaaz, aaj ki video, form) - har 5 min apne aap ilaaj |
 
