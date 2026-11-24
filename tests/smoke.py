@@ -1185,7 +1185,7 @@ try:
     check(_S50.lead_state("SHT1").get("status") == "draft" and _said50 and _said50[-1][1], "lead -> quote draft + owner button")
     check(_S50.ingest({"id": "SHT1", "name": "x", "phone": "1"}) is None, "dohra lead chhoda")
     _S50.on_callback("ok:SHT1")
-    check("wa.me/919876543210" in _said50[-1][0] and _S50.lead_state("SHT1")["status"] == "sent", "✅ -> WhatsApp link bhara hua")
+    check("wa.me/919876543210" in _said50[-1][0] and _S50.lead_state("SHT1")["status"] in ("sent", "rate"), "✅ -> WhatsApp link bhara hua")
     _S50.ingest({"id": "SHT2", "ref": "REF-SHT2", "t": "2026-11-23T11:00:00", "name": "Shyam", "phone": "9876543210",
                  "message": "logo chahiye", "code": "REF-SHT1", "ip": "2.2.2.2"})
     check("NAHI" in _S50.mark_paid("SHT2", 999), "referral fraud: same phone = credit nahi")
@@ -1247,5 +1247,68 @@ check(_S50.classify("scholarship ka online form bharna hai")[0][0]["id"] == "m-f
 check(_S50.rates()["by"]["m-resume"]["price"] == 10, "resume ₹10")
 _fr70 = _V60.frame(_S50.rates()["by"]["m-resume"], {"look": "mint", "hook": 1, "lay": "R"}, 13.0, "pahadi", {})
 check(_fr70.getpixel((5, 400))[0] > 200, "nayi services video ujli (saaf) look")
+
+# ---------------- v3.8.0: form kabhi na atke + gupt page + CRM + referral 10% (owner 24 Nov) ----------------
+import tempfile as _tf80, pathlib as _pl80, datetime as _dt80
+_S50.DIR = _pl80.Path(_tf80.mkdtemp()) / "services"
+_said80 = []
+_osay80 = _TG50.say
+_TG50.say = lambda text, kb=None: _said80.append((text, kb)) or {"ok": True}
+_ocfg80 = _S50._cfg
+_S50._cfg = lambda: {}
+try:
+    check(_S50.ref_credit(10) == 0 and _S50.ref_credit(299) == 0, "referral: ₹10 resume / ₹300 se kam bill = 0 bonus (nuksan nahi)")
+    check(_S50.ref_credit(1000) == 100 and _S50.ref_credit(50000) == 500, "referral: bill ka 10%, max ₹500")
+    _now80 = _S50.now().isoformat()
+    _S50.ingest({"id": "SHV1", "k": "kk1", "ref": "REF-SHV1", "t": _now80, "name": "Asha", "phone": "9000000001",
+                 "message": "resume banana hai", "service": "", "code": "", "ip": "4.4.4.4"})
+    _kb80 = _said80[-1][1]["inline_keyboard"]
+    _flat80 = [b for row in _kb80 for b in row]
+    check(any(b.get("url", "").startswith("https://wa.me/919000000001") for b in _flat80), "naye kaam par WhatsApp button (bhara message)")
+    check(any(b.get("callback_data") == "sv:cn:SHV1" for b in _flat80), "call log button (nahi uthaya)")
+    check("sabhisaab.com/q?id=SHV1&k=kk1" in _S50.page_link("SHV1"), "customer ka gupt page link")
+    _S50.on_callback("cn:SHV1")
+    check(_S50._read("calls.jsonl")[-1]["r"] == "nahi uthaya", "call log likha")
+    _r80 = _S50.send_rate("SHV1")
+    check(_S50.lead_state("SHV1")["status"] == "rate" and "q%3Fid%3DSHV1" in _r80 or "q?id=SHV1" in _r80, "ek click: rate customer page par + WhatsApp link")
+    check("UPI ID set nahi" in _r80, "UPI na ho to saaf chetavni")
+    check(_S50._read("push_queue.jsonl"), "worker na mila to page-update queue mein (khota nahi)")
+    check("⛔" in _S50.send_rate("SHV1"), "dobara bhejna roka (pehle naya quote)")
+    _S50.on_text("crm SHV1 amount 149", lambda f: f())
+    check(_S50.lead_state("SHV1")["quote"]["final"] == 149, "owner override: rakam badli (log ke saath)")
+    _S50.on_text("SHV1 working", lambda f: f())
+    check(_S50.lead_state("SHV1")["status"] == "working", "owner override: stage badla")
+    check("SHV1" in _S50.crm_list(), "crm list mein khula kaam")
+    # referral poora: SHV2 ne SHV1 ka code diya, 1000 diya -> 100 bonus wait; 7 din baad given; agle bill par max 10%
+    _S50.ingest({"id": "SHV2", "k": "kk2", "ref": "REF-SHV2", "t": _now80, "name": "Bina", "phone": "9000000002",
+                 "message": "dukaan ki website chahiye", "code": "REF-SHV1", "ip": "5.5.5.5"})
+    check("₹100 bonus" in _S50.mark_paid("SHV2", 1000), "dost ke ₹1000 par ₹100 bonus (7 din baad)")
+    _rows80 = _S50._read("referral.jsonl"); _rows80[-1]["due"] = "2000-01-01"
+    _S50._p("referral.jsonl").write_text("".join(__import__("json").dumps(r) + "\n" for r in _rows80))
+    _S50.night_audit()
+    check(_S50.credits_for("919000000001")[0] == 100, "7 din baad bonus pakka")
+    _S50.ingest({"id": "SHV3", "k": "kk3", "ref": "REF-SHV3", "t": _now80, "name": "Asha", "phone": "9000000001",
+                 "message": "logo chahiye", "code": "", "ip": "4.4.4.4"})
+    _q80 = _S50.lead_state("SHV3")["quote"]
+    check(0 < _q80.get("credit_use", 0) <= round((_q80["final"] + _q80["credit_use"]) * .10) and _q80["final"] >= _S50.rates()["by"][_q80["item"]]["floor"], "bonus agle bill ka max 10% hi kaata, floor se neeche nahi, kaam free nahi")
+    _S50.mark_paid("SHV3", _q80["final"])
+    check(_S50.credits_for("919000000001")[0] < 100, "istemaal hua bonus band")
+    _old80 = (_S50.now() - _dt80.timedelta(minutes=10)).isoformat()
+    _S50.ingest({"id": "SHV4", "k": "kk4", "ref": "REF-SHV4", "t": _old80, "name": "Dev", "phone": "9000000004",
+                 "message": "form bharna hai", "code": "", "ip": "6.6.6.6"})
+    _said80.clear(); _S50.reminders()
+    check(any("SHV4" in t and "5 min" in t for t, _ in _said80), "5 min tak baat nahi -> yaad")
+    _said80.clear(); _S50.reminders()
+    check(not any("SHV4" in t for t, _ in _said80), "yaad ek hi baar")
+    check(_S50.on_text("services upi galat", lambda f: f()) is None, "galat UPI ID nahi maani")
+    _sf80 = _S50._site_files({"url": "https://w.example", "pk": "PKX"})
+    check("window.SVC_API='/api'" in _sf80["site/svc-cfg.js"] and "w.example" in _sf80["site/svc-cfg.js"], "website: pehle /api, phir seedha worker")
+    check("PKX" in _sf80["functions/api/[[path]].js"] and "PKX" not in _sf80["site/svc-cfg.js"], "gupt PK sirf proxy mein, public file mein nahi")
+    check('noindex' in _sf80["site/q.html"] and 'googletagmanager' not in _sf80["site/q.html"], "gupt page: noindex + analytics nahi (key leak nahi)")
+    check("AI" not in _S50.customer_msg("SHV3") and "insaan" not in _S50.customer_msg("SHV3").lower(), "customer message mein AI/insaan shabd nahi")
+    check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
+finally:
+    _TG50.say = _osay80
+    _S50._cfg = _ocfg80
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)
