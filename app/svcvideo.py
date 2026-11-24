@@ -46,6 +46,21 @@ DUR = T_CTA + 4.6                                    # 28.8 (bina awaaz ka defau
 GAP = 0.35                                           # v3.8.2: har vakya ke baad saans (pehle poora script ek saans mein, tez)
 
 
+SAY_FIX = {"रिज़्यूमे": "रिज्यूम", "रिज्यूमे": "रिज्यूम", "सर्विसेज़": "सर्विसेज", "ज़रूरी": "जरूरी", "फ़ॉर्म": "फॉर्म",
+           "फ़ोन": "फोन", "फ़ोटो": "फोटो", "ज़": "ज", "फ़": "फ"}
+
+
+def say_clean(text):
+    """v3.8.3: bolne ke liye saaf Hindi - nukta (़) hatao, angrezi shabd ki aam Hindi boli (resume -> रिज्यूम),
+    owner ke sudhar (services awaaz sudhar X = Y) sabse upar."""
+    t = str(text or "")
+    for a, b in (state.get("svc_say_fix") or {}).items():
+        t = t.replace(a, b)
+    for a, b in SAY_FIX.items():
+        t = t.replace(a, b)
+    return t.replace("\u093c", "")
+
+
 def make_tl(d=None):
     """Scene ka samay. d = har hisse ki awaaz ki lambai {hook, tag, k0..k5, hindi, cta}. Scene kabhi awaaz se chhota nahi."""
     d = d or {}
@@ -740,7 +755,7 @@ def render(cx_, out_dir):
         from . import tts
         for i, (key, txt) in enumerate(segs):
             w_ = out_dir / f"v_{key}.wav"
-            lens[key] = tts.synth(txt, str(w_), 1 if i else 0, len(segs))     # sirf hook thoda josh se, baaki saaf raftaar
+            lens[key] = tts.synth(say_clean(txt), str(w_), 1 if i else 0, len(segs))     # sirf hook thoda josh se, baaki saaf raftaar
             wavs[key] = w_
     except Exception as e:
         log(f"svcvideo tts: {e}")
@@ -908,6 +923,36 @@ def on_text(t, run):
     if m:
         state.put("svc_cap", int(m.group(1)))
         return tg.say(f"✔ Ek saath max {m.group(1)} kaam - isse zyada chal rahe hon to us din services video nahi banegi.")
+    m = re.match(r"services awaaz sudhar (.+?)\s*=\s*(.+)$", t.strip(), re.I)
+    if m:
+        fx = dict(state.get("svc_say_fix") or {})
+        fx[m.group(1).strip()] = m.group(2).strip()
+        state.put("svc_say_fix", fx)
+        return tg.say(f"✔ Ab video mein '{m.group(1).strip()}' ki jagah '{m.group(2).strip()}' bola jayega. Sunne ke liye: services awaaz jaanch")
+    if tl in ("services awaaz jaanch", "services voice test"):
+        def _aj():
+            import numpy as np
+            import soundfile as sf
+            from . import tts
+            words = [v[6] for v in KAAM.values()] + [f"{TAG1}, {TAG2}", "हिंदी में लिखिए, जैसे घर में बोलते हैं",
+                                                     "कमेंट में अपना काम लिखिए। सब हिसाब डॉट कॉम, स्लैश सर्विसेज़ लिस्ट"]
+            out, parts = OUT / "awaaz_jaanch", []
+            out.mkdir(parents=True, exist_ok=True)
+            for n_, w_ in enumerate(words):
+                f_ = out / f"{n_}.wav"
+                tts.synth(say_clean(w_), str(f_), 1, 2)
+                a_, sr_ = sf.read(str(f_), dtype="float32")
+                parts += [a_ if a_.ndim == 1 else a_.mean(axis=1), np.zeros(int(sr_ * .9), dtype="float32")]
+            sf.write(str(out / "sab.wav"), np.concatenate(parts), sr_)
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(out / "sab.wav"), "-c:a", "libmp3lame", "-q:a", "4",
+                            str(out / "awaaz_jaanch.mp3")], check=True)
+            with open(out / "awaaz_jaanch.mp3", "rb") as fh:
+                tg.call("sendAudio", {"chat_id": tg._chat(), "caption": "🔊 Services video ke shabd (isi kram mein):\n" +
+                                      "\n".join(f"{i + 1}. {w}" for i, w in enumerate(words))[:1000]}, files={"audio": fh})
+            tg.say("Koi shabd galat bola gaya? Likhiye: services awaaz sudhar रिज्यूम = रेज़्यूमे  (baayen jo likha hai, daayen jaisa bolna hai)")
+        tg.say("🔊 Shabd bol kar bhej raha hoon (1-2 min)...")
+        run(_aj)
+        return True
     if tl == "services video band":
         state.put("svc_video_on", False)
         return tg.say("⏸ Services video band.")

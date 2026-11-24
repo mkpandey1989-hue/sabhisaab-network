@@ -2371,3 +2371,11 @@ Owner: "Telegram par abhi bhi message nahi" + namoona video ki awaaz.
   data ho to lead bachta hai. Galti ab alert nahi, form ke neeche saaf likhi + WhatsApp. Card banane mein galti = saada sandesh (lead na khoye).
 - MOBILE: services pages 412px phone par 526px chaude the (footer links bina space + cookie button) - page chhota/zoom dikhta. Services
   pages par theek. (Baaki site ke kai pages par yahi footer dikkat - owner ki haan ke baad.)
+
+## v3.8.3 (24 Nov 2026) - form jaanch ka galat laal alert, saaf Hindi awaaz
+- Owner screenshot: "FORM KA RAASTA TOOTA" - par dono raaste 200 aur Telegram par 'Naya kaam ... Bot jaanch' aaya = form → Telegram
+  THEEK. Galti meri: VM par worker v3.8.1 hi tha (v3.8.2 ka redeploy flag aur din-ki-chabi nahi badli), isliye test-mode/tgtest/log
+  nahi mile. Ab: flag v382 + chabi svc_cfg_day4 (install ke turant baad naya worker), purane worker ka jawab (id) bhi 'theek',
+  404 = "naya worker chadh raha hai". Jaanch wale 'Bot jaanch' lead apne aap band, aage bante hi nahi.
+- AWAAZ: bolne se pehle say_clean(): nukta hatao (ज़→ज, फ़→फ), रिज़्यूमे→रिज्यूम, सर्विसेज़→सर्विसेज. Owner ke sudhar:
+  'services awaaz sudhar X = Y' (state svc_say_fix). 'services awaaz jaanch' = saare shabd bol kar MP3 Telegram par.

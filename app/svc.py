@@ -275,6 +275,8 @@ def ingest(raw):
     lid = raw.get("id")
     if not lid or lid in leads():
         return None
+    if raw.get("name") == "Bot jaanch" and str(raw.get("phone", "")).endswith("9999999999"):
+        return None                                   # form ki apne aap jaanch - asli kaam nahi
     raw["phone"] = _clean_phone(raw.get("phone"))
     _append("leads.jsonl", raw)
     audit("lead", id=lid, src=raw.get("src", ""), code=raw.get("code", ""))
@@ -677,8 +679,9 @@ def selftest():
         try:
             r = requests.post(url, json={**body, "via": nm}, headers={"origin": SITE}, timeout=(8, 20))
             j = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
-            good = r.status_code == 200 and j.get("test")
-            out.append(f"{'✅' if good else '❌'} {nm}: {r.status_code} {'' if good else (j.get('error') or r.text[:120])}")
+            good = r.status_code == 200 and (j.get("test") or j.get("id"))
+            out.append(f"{'✅' if good else '❌'} {nm}: {r.status_code}" + ("" if good else f" {(j.get('error') or r.text[:120])}") +
+                       (" (purana worker - jaanch lead bana, bot use band kar dega)" if good and not j.get("test") else ""))
             ok = ok and bool(good)
         except Exception as e:
             out.append(f"❌ {nm}: {str(e)[:120]}")
@@ -688,8 +691,11 @@ def selftest():
         out.append(("✅" if tt.get("ok") else "❌") + " worker → Telegram" + ("" if tt.get("ok") else f": {tt.get('err', '')[:100]}"))
         ok = ok and bool(tt.get("ok"))
     except Exception as e:
-        out.append(f"❌ worker → Telegram: {str(e)[:100]}")
-        ok = False
+        if "404" in str(e):
+            out.append("⏳ worker → Telegram: naya worker abhi chadh raha hai (purane mein ye jaanch nahi) - 'services form jaanch' 5 min baad")
+        else:
+            out.append(f"❌ worker → Telegram: {str(e)[:100]}")
+            ok = False
     try:
         lg = (_api_get("log") or {}).get("log", [])[-40:]
         cnt = {}
@@ -700,7 +706,7 @@ def selftest():
         if errs:
             out.append("Aakhri rukawat: " + "; ".join(f"{x['t'][5:16]} {x['k']} {x.get('w', '')[:60]}" for x in errs))
     except Exception as e:
-        out.append(f"log nahi mila ({str(e)[:60]})")
+        out.append("log: naya worker chadhne ke baad milega" if "404" in str(e) else f"log nahi mila ({str(e)[:60]})")
     state.put("svc_selftest", {"ok": ok, "t": now().isoformat(timespec="minutes")})
     return ("✅ Form ka raasta theek" if ok else "🔴 FORM KA RAASTA TOOTA") + "\n" + "\n".join(out)
 
@@ -711,9 +717,13 @@ def ensure_site_cfg():
     c = _cfg()
     if not c.get("url"):
         return False
-    if not c.get("pk") or not c.get("v381"):
-        tg.say("🔧 Services worker v3.8.1 (gupt page function + file/details + sahayak) chadha raha hoon...")
-        c["v380"] = c["v381"] = 1
+    if not c.get("pk") or not c.get("v382"):
+        tg.say("🔧 Services worker v3.8.2 (form ki jaanch + log + Telegram jaanch) chadha raha hoon...")
+        c["v380"] = c["v381"] = c["v382"] = 1
+        for lid, L in leads().items():                  # v3.8.1 wale purane worker par jaanch ne asli 'Bot jaanch' lead bana diye - band
+            if L.get("name") == "Bot jaanch" and lead_state(lid).get("status") not in ("lost", "closed"):
+                _event(lid, status="lost", by="bot", why="jaanch lead")
+                _push(lid, status="lost")
         _save_cfg(c)
         return deploy()
     if not _write_site_files(c):
@@ -904,8 +914,8 @@ def tick(run):
             if bad:
                 tg.alert("red", "🛡 Services raat ki jaanch:\n" + "\n".join(bad))
         run(_na)
-    if state.get("svc_cfg_day3") != d and _cfg().get("url"):        # v3.5.1: website par form ka pata khaali na rahe
-        state.put("svc_cfg_day3", d)
+    if state.get("svc_cfg_day4") != d and _cfg().get("url"):        # v3.5.1: website par form ka pata khaali na rahe
+        state.put("svc_cfg_day4", d)
         run(ensure_site_cfg)
     if n.strftime("%H:%M") >= "09:10" and state.get("svc_st_day") != d and _cfg().get("url"):     # roz subah form ki jaanch
         state.put("svc_st_day", d)
