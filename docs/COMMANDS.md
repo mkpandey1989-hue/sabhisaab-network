@@ -89,4 +89,6 @@ button deta hai.
 | aaj kitne customer aaye · aaj ki sale · kal ki sale · is mahine ki sale | Seedha hisaab (roz 23:58 apne aap bhi) |
 | SH261124APJ1 (sirf number likho) | Us kaam ka haal: stage, rate, mila, page |
 | services doctor | Doctor ka haal (awaaz, aaj ki video, form) - har 5 min apne aap ilaaj |
+| services instagram sunonatak chalu / band | Services video us brand ke Instagram par (Suno Natak default band) |
+| services video band / services video chalu | Roz ki services video (v3.9.0 se default chalu) |
 

@@ -1503,6 +1503,27 @@ try:
         _W89.DIR = _od89
     check("p[2] === 'add'" in _wj87 and (__import__("pathlib").Path(_W89.__file__).parent / "sitepatch388" / "services-list.html").exists(),
           "services page bot ke saath (alag website ZIP nahi)")
+    # v3.9.0: services video roz (default chalu), har video ki apni pehchaan, thumbnail ghoome, Suno Natak IG par services nahi
+    from app import pipeline as _P90, svcvideo as _V90
+    _osv90 = state.get("svc_video_on")
+    state.put("svc_video_on", None)
+    check(_V90.video_on() and _P90.max_uploads() >= 14, "services video default CHALU (upload seema 14)")
+    state.put("svc_video_on", _osv90)
+    _pl90 = _V90.pick_day(seed=5, day="2026-11-26")
+    _sg90 = {_P90._sig(_V90.meta_for(_V90.ctx_for(_pl90[b], b, "2026-11-26"), b, "v.mp4", [], 50)) for b in _pl90}
+    check(len(_sg90) == 4 and _P90._sig({"scenes": []}) not in _sg90, "har services video ki alag pehchaan (pehle sab ek jaisi = 'pehle ja chuki')")
+    _rot90 = state.get("thumb_rot")
+    state.put("thumb_rot", {})
+    _ometa90 = _P90._meta
+    _P90._meta = lambda job: {"thumbs": [__file__, __file__, __file__]}
+    try:
+        _seq90 = [_P90.auto_thumb("svcmo1", {"brand": "money"}) for _ in range(6)]
+        _day90 = {_P90.auto_thumb("svc" + b, {"brand": b}) for b in ("sunonatak", "money", "deals")}
+    finally:
+        _P90._meta = _ometa90
+        state.put("thumb_rot", _rot90)
+    check(sorted(set(_seq90)) == [1, 2, 3] and _seq90[:3] != _seq90[1:4] and len(_day90) == 3, "thumbnail 1/2/3 ghoomta, ek din alag brand par alag")
+    check("instagram" in _P90.SVC_PLATFORM_OFF.get("sunonatak", []), "Suno Natak Instagram par services video nahi (2 baar ban)")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

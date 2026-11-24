@@ -103,7 +103,8 @@ def fill_missing():
 
 def check_video(run=None, fix=True):
     from . import pipeline
-    if not state.get("svc_video_on"):
+    from .svcvideo import video_on
+    if not video_on():
         return True, "services video band hai (owner)"
     n = _now()
     d = str(n.date())

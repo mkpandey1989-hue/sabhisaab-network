@@ -2459,3 +2459,17 @@ sab samajhte hain), grid/hook "Resume ₹10"; awaaz mein "नौकरी का
 - Aage ke liye: har aane wali website ZIP ke page par fix apne aap (_apply_zip). Services page (services.html, services-list) bot ke saath
   (app/sitepatch388) - alag website ZIP ki zaroorat nahi. Naya svc-kit (form jaanch) usi din likha jaata hai (svc_kit_v).
 
+## v3.9.0 (24 Nov 2026) - services video roz apne aap, har platform niyam se
+- Services video ab DEFAULT CHALU (pehle 'services video chalu' likhna padta tha - owner ne kabhi likha nahi tha, isliye roz wali
+  bani hi nahi). Band: 'services video band'. Upload seema apne aap 14.
+- BADI GALTI theek: services meta mein 'scenes' nahi the -> har services video ki pehchaan (sig) ek jaisi -> pehli ke baad har video
+  "pehle ja chuki" maan kar ruk jaati. Title bhi roz milta-julta (0.81 > 0.8). Ab har video ki apni pehchaan; nakal-jaanch svcvideo ka
+  zindagi-bhar register karta hai.
+- Thumbnail: autopilot ab har brand ki apni ginti se 1/2/3 ghumata hai (ek din alag brand par alag number). Pehle hamesha Thumb 1.
+- Platform niyam: YouTube Short, FB Reel + FB story, IG Reel + IG story, Threads, Pinterest, Dailymotion, Telegram - jaise baaki video.
+  Suno Natak Instagram par services NAHI (2 baar band ho chuka) - 'services instagram sunonatak chalu' se khulega. Alag FB photo-post
+  nahi (dohra = spam jaisa).
+- Audit: "vakyon ke beech ruk" ab seedhe awaaz-track se ginta hai (music/effect se dhoka nahi); ffmpeg ki galti ffmpeg.log mein;
+  video chhoti bane to log mein wajah.
+- docs/AUDIENCE_SERVICES.md - bio, pin post, pinned comment, WhatsApp status, Google Business, aam sawal ke jawab.
+

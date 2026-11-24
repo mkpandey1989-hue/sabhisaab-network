@@ -127,8 +127,13 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
 
-## Services - owner ke pending kaam (24 Nov 2026, v3.8.9 ke baad) - sab ek jagah
-- [Owner] Install: SIRF bot sabhinet-v3.8.9 (website ZIP nahi chahiye - bot 4-5 min baad khud saare page ka mobile fix + services page lagata hai, sandesh '📱 Website: ...' aayega)
+## Services - owner ke pending kaam (24 Nov 2026, v3.9.0 ke baad) - sab ek jagah
+- [Owner] Install: SIRF bot sabhinet-v3.9.0 (website ZIP nahi). 4-5 min mein '📱 Website' sandesh (saare page ka mobile fix).
+- [Owner] Kuch likhna nahi - services video roz apne aap (aaj 17:00 se pehle lagi to aaj 18:00/20:00 wale slot se). Pehli video
+  Telegram par aayegi; jawab na diya to slot par khud (thumbnail 1/2/3 ghoom kar).
+- [Owner] docs/AUDIENCE_SERVICES.md se: Instagram bio (4 brand), FB page Intro + pin post, YouTube channel description, Threads bio,
+  Telegram channel pin, WhatsApp status (sirf apne contacts). YouTube services video par 1 comment khud pin karna (API pin nahi karta).
+- [Owner] Google Business Profile (address chhupa, service area) - description AUDIENCE_SERVICES.md mein.
   (3) apne phone se /services-list par adhura number daal kar dekhiye (Hindi mein rokega), phir sahi number se test kaam bhejiye -> Telegram par "Naya kaam" + 5 min mein card (4) 'services form jaanch'
 - [Owner] Telegram button chahiye to: services telegram <aapka_username> (bina @). Na ho to sirf WhatsApp dikhega.
 - [Owner] 'services video namoona' -> brand chuniye -> video dekhiye; theek ho to 'services video chalu'.

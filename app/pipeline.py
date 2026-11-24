@@ -30,6 +30,9 @@ def schedule():
     return sch
 
 
+SVC_PLATFORM_OFF = {"sunonatak": ["instagram", "story_ig"]}      # v3.9.0: 'services instagram sunonatak chalu' se khulega
+
+
 def max_uploads():
     return int(state.get("max_uploads") or MAX_UPLOADS_DAY)
 
@@ -568,6 +571,26 @@ def new_thumbs(jid):
     tg.say("Kaun sa daalein?", job_buttons(jid))
 
 
+def auto_thumb(jid, job):
+    """v3.9.0 (owner: "thumbnail kabhi 1 kabhi 2 kabhi 3 system wise, sare combination, brand par alag"): har brand ki apni ginti
+    (har video par agla), aur brand ke hisaab se shuru alag - ek hi din 4 brand par ek jaisa number nahi. Jitne thumbnail bane utne mein ghoomta."""
+    try:
+        n = len([t for t in (_meta(job).get("thumbs") or []) if os.path.exists(t)]) or 1
+    except Exception:
+        n = 1
+    if n < 2:
+        return 1
+    brand = job.get("brand", "")
+    kind = "svc" if str(jid).startswith("svc") else "main"
+    rot = state.get("thumb_rot") or {}
+    key = f"{brand}:{kind}"
+    off = {"sunonatak": 0, "money": 1, "deals": 2, "pahadi": 0}.get(brand, 0) + (1 if kind == "svc" else 0)
+    c = int(rot.get(key, 0))
+    rot[key] = c + 1
+    state.put("thumb_rot", rot)
+    return (c + off) % n + 1
+
+
 def approve(jid, thumb, now_flag=False):
     job = jobs().get(jid)
     if not job or job["status"] not in ("waiting", "approved"):
@@ -782,7 +805,9 @@ def _stories(brand, meta, vpath):
         except Exception as e:
             res.append(f"FB story nahi ({str(e)[:60]})")
         try:
-            if meta.get("duration", 99) <= 60:
+            if "story_ig" in (state.get("svc_platform_off") or SVC_PLATFORM_OFF).get(brand, []):
+                res.append("IG story: is brand par services nahi (jokhim)")
+            elif meta.get("duration", 99) <= 60:
                 res.append(M.ig_video_story(brand, vpath))
         except Exception as e:
             res.append(f"IG story nahi ({str(e)[:60]})")
@@ -897,7 +922,9 @@ def upload(jid, pre=False):
                "dobara 'waiting' / Pending mein nahi aayegi.")
         return
     meta = check_link(_m0)
-    if "youtube" not in job.get("done", {}):
+    _svc = meta.get("design") == "services_ad"     # v3.9.0: services video ka title roz milta-julta hota hai ("Koi bhi digital kaam -
+    # ho jayega | ...") - uski nakal-jaanch svcvideo ka zindagi-bhar register (kaam-set+rang+hook+layout) karta hai, yahan title se nahi
+    if "youtube" not in job.get("done", {}) and not _svc:
         dup = (duplicate(brand, "\x00" + meta.get("puzzle_hash", ""), sig=_sig(meta)) if meta.get("puzzle_hash")
                else duplicate(brand, meta["title"], sig=_sig(meta)))
         if not dup and youtube.has_login(brand) and not meta.get("puzzle_hash"):   # jaanch 3 (puzzle: sawal-hash hi kaafi)
@@ -935,6 +962,11 @@ def upload(jid, pre=False):
     ids = dict(job.get("ids", {}))
     for pf in (state.get("platform_off") or {}).get(brand, []):     # aapne is brand ke liye ye platform band kiya
         done.setdefault(pf, "band (aapki setting)")
+    if _svc:                                      # v3.9.0: services (apne kaam ka prachaar) - jis brand ka Instagram pehle band ho chuka,
+        for b_, pfs in (state.get("svc_platform_off") or SVC_PLATFORM_OFF).items():     # wahan Instagram reel/story nahi (jokhim)
+            if b_ == brand:
+                for pf in pfs:
+                    done.setdefault(pf, "services: is brand par jokhim (Instagram 2 baar band) - nahi daala")
     errs = {}
     waits = {}                                    # v2.1.1: jaanboojh kar ruka (❌ nahi), jaise Pinterest manzoori
     job["status"] = "uploading"
@@ -1305,8 +1337,9 @@ def tick(run, run_up=None):
         slot = datetime.datetime.fromisoformat(job["slot"])
         auto_ok = job.get("reason") in ("roz ka schedule", "hafte ki lambi video", "schedule")   # aapki/test video kabhi khud nahi
         if job["status"] == "waiting" and auto_on() and auto_ok and t >= slot - datetime.timedelta(minutes=20):
-            approve(jid, 1)       # autopilot: 3 audit paas -> slot se 20 min pehle khud manzoor (theek samay par post)
-            tg.alert("green", f"🤖 {jid}: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se {job['slot'][11:16]} par jayegi.")
+            th_ = auto_thumb(jid, job)
+            approve(jid, th_)     # autopilot: 3 audit paas -> slot se 20 min pehle khud manzoor (theek samay par post)
+            tg.alert("green", f"🤖 {jid}: aapka jawab nahi aaya, 3 audit paas hain - Thumb {th_} se {job['slot'][11:16]} par jayegi.")
             job = jobs()[jid]
         run_up = run_up or run
         if (job["status"] == "approved" and not job.get("now") and "youtube" not in job.get("done", {})

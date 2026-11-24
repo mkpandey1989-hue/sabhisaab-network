@@ -580,7 +580,7 @@ def ctx_for(v, brand, day=None):
              "hindi": "हिंदी में लिखिए, इंग्लिश जरूरी नहीं। दोस्त को भेजिए, दस प्रतिशत आपका।",
              "tag": f"{TAG1}, {TAG2}।"}
     return {"segs": segs, "short": short, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": kick, "q1": q1, "q2": q2, "pct": pct, "rows": rows, "say": say,
-            "season": season, "sale": sale}
+            "season": season, "sale": sale, "set": list(v.get("set") or []), "hook": v.get("hook")}
 
 
 # ---------------------------------------------------------------- one frame
@@ -828,7 +828,7 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
             if "audio" not in kinds:
                 bad.append("4 awaaz: video mein awaaz nahi")
             if dur < DUR_ - 1:
-                bad.append(f"4 awaaz: video chhoti ({dur:.1f}s)")
+                bad.append(f"4 awaaz: video chhoti ({dur:.1f}s, honi thi {DUR_:.1f}s)")
             if dur > 60:
                 bad.append(f"4 awaaz: video {dur:.1f}s - 60s se lambi (Instagram story nahi jaayegi)")
             vd = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(mp4), "-af", "volumedetect", "-f", "null", "-"],
@@ -849,8 +849,10 @@ def audit_video(cx_, meta=None, mp4=None, voice_dur=None):
                     bad.append(f"4 awaaz: '{k_}' bahut tez ({wps:.1f} shabd/sec)")
             sd = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(mp4), "-af", "silencedetect=noise=-35dB:d=0.25", "-f", "null", "-"],
                                 capture_output=True, text=True, timeout=120).stderr
-            if cx_.get("lens") and sd.count("silence_start") < 5:
-                bad.append(f"4 awaaz: vakyon ke beech ruk nahi ({sd.count('silence_start')} jagah) - ek saans mein bol raha")
+            nps = cx_.get("pauses")                                  # v3.9.0: seedhe awaaz se gini chuppi (music/effect se dhoka nahi)
+            npc = nps if nps is not None else sd.count("silence_start")
+            if cx_.get("lens") and npc < 5:
+                bad.append(f"4 awaaz: vakyon ke beech ruk nahi ({npc} jagah) - ek saans mein bol raha")
             if not [b for b in bad if b.startswith("4")]:
                 good.append(f"4 awaaz ✅ {dur:.1f}s, awaaz {m.group(1) if m else '?'} dB")
             elif cx_.get("voice_diag"):                                 # v3.8.8: kis hisse ki awaaz kitni thi (doctor/Claude ke liye)
@@ -946,6 +948,13 @@ def render(cx_, out_dir):
             full = out_dir / "voice_full.wav"
             sf.write(str(full), allv, 24000)
             cx_["voice_peak"] = round(float(np.max(np.abs(allv))), 3)
+            q_ = np.abs(allv) < 0.02                     # v3.9.0: vakyon ke beech ki chuppi seedhe awaaz se gino (0.2s+)
+            runs, cur = 0, 0
+            for blk in np.pad(q_, (0, (-len(q_)) % 240), constant_values=True).reshape(-1, 240).all(axis=1):
+                cur = cur + 1 if blk else 0
+                if cur == 20:                            # 20 x 10ms = 0.2s
+                    runs += 1
+            cx_["pauses"] = runs
         except Exception as e:
             log(f"svcvideo full wav: {e}")
             full = None
@@ -964,7 +973,8 @@ def render(cx_, out_dir):
                 f"loudnorm=I=-14:TP=-1.5[a]", "-map", "0:v", "-map", "[a]", "-c:a", "aac", "-b:a", "160k"]
     cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-threads", "2",
             "-movflags", "+faststart", "-t", f"{dur:.2f}", str(mp4)]
-    p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+    flog = open(out_dir / "ffmpeg.log", "w")
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stderr=flog)
     cache, thumbs = {}, []
     want = {int(1.4 * FPS): "t1.jpg", int((tl["k0"][0] + 1.6) * FPS): "t2.jpg", int((dur - 1.5) * FPS): "t3.jpg"}
     for i in range(n):
@@ -974,8 +984,19 @@ def render(cx_, out_dir):
             thumbs.append(str(out_dir / want[i]))
         p.stdin.write(fr.tobytes())
     p.stdin.close()
-    if p.wait() != 0:
-        raise RuntimeError("ffmpeg fail")
+    rc_ = p.wait()
+    flog.close()
+    if rc_ != 0:
+        raise RuntimeError("ffmpeg fail: " + (out_dir / "ffmpeg.log").read_text(errors="ignore")[-200:])
+    try:                                            # v3.9.0: bani video poori lambi hai? (15 Nov 52.4s wali chhoti video ki jaanch)
+        pr_ = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(mp4)],
+                             capture_output=True, text=True, timeout=60)
+        got = float((pr_.stdout or "0").strip() or 0)
+        cx_["mp4_dur"] = got
+        if got and got < dur - 1:
+            log(f"svcvideo: video chhoti bani {got:.1f}/{dur:.1f}s - " + (out_dir / "ffmpeg.log").read_text(errors="ignore")[-300:])
+    except Exception:
+        pass
     if full:
         try:
             full.unlink()
@@ -1002,7 +1023,10 @@ def meta_for(cx_, brand, video, thumbs, dur):
             + (f"Code {CODES[brand]} = 10% tak chhoot (har kaam ki nichli seema ke andar).\n" if brand in CODES else "")
             + f"Comment mein apna kaam likhiye · Rate list: {SITE_TXT}\n{BRANDS[brand]['tags']} #SabHisaabServices")
     title, desc = fix_words(title), fix_words(desc)
-    return {"video": video, "thumbs": thumbs, "duration": dur, "title": title, "description": desc, "brand": brand,
+    # v3.9.0: pipeline ki "dohri video" jaanch scenes se sig banati hai - services meta mein scenes nahi the = har services video ka
+    # sig ek jaisa (khaali) -> pehli ke baad har video "pehle ja chuki" maan kar ruk jaati. Ab har video ki apni pehchaan.
+    scenes = [{"show": f"svc|{cx_.get('day')}|{brand}|{'-'.join(cx_.get('set') or [])}|{cx_.get('look')}|{cx_.get('hook')}|{cx_.get('lay')}"}]
+    return {"scenes": scenes, "video": video, "thumbs": thumbs, "duration": dur, "title": title, "description": desc, "brand": brand,
             "page": "/services-list", "format": "short", "tags": ["sabhisaab services", "online form madad", "resume", names[:60]],
             "design": "services_ad", "svc_set": [r["id"] for r in cx_["rows"]], "svc_item": cx_["rows"][0]["id"],
             "svc_look": cx_["look"], "topic": names}
@@ -1132,9 +1156,24 @@ def _append_audit(jid, brand, ok, rep):
                             "rep": rep}, ensure_ascii=False) + "\n")
 
 
+def video_on():
+    """v3.9.0 (owner: "kisi bhi condition par daily services video waise hi daale jaise aur video"): default CHALU; sirf
+    'services video band' se band. Chalu ho to upload seema 14 (8 roz + 4 services + Ravivaar lambi)."""
+    v = state.get("svc_video_on")
+    on = True if v is None else bool(v)
+    if on:
+        try:
+            from . import pipeline
+            if pipeline.max_uploads() < 14:
+                state.put("max_uploads", 14)
+        except Exception:
+            pass
+    return on
+
+
 def tick(run):
     """Raat 01:30-04:30 (05:00 wala slot pehle): koi video 'making' na ho tab, din mein ek baar - 4 video."""
-    if not state.get("svc_video_on"):
+    if not video_on():
         return
     from . import pipeline
     n = pipeline.now()
@@ -1223,6 +1262,16 @@ def on_text(t, run):
         tg.say("🔊 Shabd bol kar bhej raha hoon (1-2 min)...")
         run(_aj)
         return True
+    m = re.match(r"services instagram (\w+) (chalu|band)$", tl)
+    if m:                                       # v3.9.0: services video kis brand ke Instagram par (Suno Natak default band - 2 baar ban)
+        from .pipeline import SVC_PLATFORM_OFF
+        cur = {k: list(v) for k, v in (state.get("svc_platform_off") or SVC_PLATFORM_OFF).items()}
+        b_ = m.group(1)
+        if b_ not in BRANDS:
+            return tg.say("Brand: " + ", ".join(BRANDS))
+        cur[b_] = [] if m.group(2) == "chalu" else ["instagram", "story_ig"]
+        state.put("svc_platform_off", cur)
+        return tg.say(f"✔ {BRANDS[b_]['name']}: services video Instagram par {m.group(2).upper()}.")
     if tl == "services video band":
         state.put("svc_video_on", False)
         return tg.say("⏸ Services video band.")
