@@ -1,4 +1,4 @@
-// sabhisaab-leads v3.8.2 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
+// sabhisaab-leads v3.8.4 - website form -> KV (JSON) + Telegram + customer ka gupt status page (CRM).
 // VM band ho to bhi lead surakshit. Customer ko Telegram/WhatsApp ki zaroorat nahi.
 // Rasta: sabhisaab.com/api/* (Pages Function, same-origin) -> yahan. Purana seedha workers.dev bhi chalta hai.
 const ORIG = ['https://sabhisaab.com', 'https://www.sabhisaab.com'];
@@ -128,6 +128,17 @@ export default {
         (lead.service || '') + '\n' + msg.slice(0, 300) + '\n(poora card + button 5 min mein bot bhejega)');
       await lg(env, hp ? 'ok_hp' : 'ok', id);
       return j(out, 200, H);
+    }
+    if (path === '/find' && req.method === 'POST') {                   // link kho gaya: number + mobile ke aakhri 4 ank -> apna page
+      let d; try { d = await req.json(); } catch (e) { return j({error: 'data galat'}, 400, H); }
+      const ip = ipOf(req, env), rk = 'rf:' + ip, n = +(await env.KV.get(rk) || 0);
+      if (n >= 10) return j({error: 'bahut koshish - 1 ghante baad, ya WhatsApp par poochiye'}, 429, H);
+      await env.KV.put(rk, String(n + 1), {expirationTtl: 3600});
+      const st = await getSt(env, clean(d.id, 20).toUpperCase());
+      const l4 = clean(d.last4, 4).replace(/\D/g, '');
+      if (!st || l4.length !== 4 || !String(st.phone || '').replace(/\D/g, '').endsWith(l4)) { await lg(env, 'find_fail', ''); return j({error: 'Number ya mobile ke aakhri 4 ank nahi mile'}, 404, H); }
+      await lg(env, 'find_ok', st.id);
+      return j({id: st.id, k: st.k}, 200, H);
     }
     if (path === '/clog' && req.method === 'POST') {                   // browser mein galti (bina naam/number) - jaanch ke liye
       let d; try { d = await req.json(); } catch (e) { return j({}, 200, H); }

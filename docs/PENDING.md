@@ -126,3 +126,18 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] v3.8.0 install kram: (1) bot ZIP sabhinet-v3.8.0 (2) bot mein: services upi <aapki UPI ID> (3) website ZIP website-v5-services (4) services video namoona (5) form se ek test kaam bhejein -> Telegram card + gupt page check (6) sab theek to: services video chalu
 - 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
 - 2026-11-24 (owner): [Owner] v3.8.1: website v5 ZIP mat bhejiye (purani). Pehle bot ZIP sabhinet-v3.8.1 -> "Services worker v3.8.1 ... chadha raha hoon" ke 2-3 min baad website-v6-services.zip
+
+## Services - owner ke pending kaam (24 Nov 2026, v3.8.4 ke baad) - sab ek jagah
+- [Owner] Install kram: (1) bot sabhinet-v3.8.4 (2) 2-3 min baad website-v8-services.zip (_headers ke saath - form ki asli wajah ka hal)
+  (3) apne phone se /services-list par ek test kaam bhejiye -> Telegram par "Naya kaam" + 5 min mein card (4) 'services form jaanch'
+- [Owner] Telegram button chahiye to: services telegram <aapka_username> (bina @). Na ho to sirf WhatsApp dikhega.
+- [Owner] 'services video namoona' -> brand chuniye -> video dekhiye; theek ho to 'services video chalu'.
+- [Owner] Brand logo galat/purana lage to Facebook page ki profile photo badaliye (bot wahi leta hai) ya data/brand_logo/<brand>.png rakhiye.
+- [Owner] Awaaz: 'services awaaz jaanch' -> jo shabd galat lage: services awaaz sudhar <likha> = <bolna>.
+- [Owner] AdSense: "Low value content" - Request review abhi MAT. Pehle 2 hafte roz click (GSC). Baaki site ke footer ki mobile chaudai
+  (about, emi jaise pages 412px par 526px) owner ki haan ke baad theek karni hai.
+- [Owner] Instagram: story question sticker + Highlights "Kaam" khud (API nahi). Comment->DM kisi brand par nahi (sec 16).
+- [Owner] Google Business Profile banana (service area, address chhupa) - asli review ke liye.
+- [Owner] Suno Natak IG 2 baar band ho chuka - 60 din dheere; DM nahi.
+- [Owner] Har payment bank app mein dekh kar hi 'paid SH.. rakam'. Kaam ke baad 'deliver SH..' (customer file server se mitti) +
+  Telegram chat mein aayi file khud mitaiye.

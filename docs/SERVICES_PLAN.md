@@ -249,3 +249,7 @@ Aage (owner/API ki seema): IG story question sticker + Highlights (API nahi - ow
 
 ## 19. v3.8.1 (24 Nov 2026)
 Documents/attachment (sawal-form + files + WhatsApp vikalp), sahayak (FAQ + seemit AI), gupt page function (deploy fix), video audit 6 round. Sec 12 #1 (kaam pehchan + documents list) aur #2 (checklist) ab live.
+
+## 20. v3.8.4 (24 Nov 2026)
+Form ki asli wajah (CSP) mili aur theek; video: sasta hook (sach), brand logo, 9 kaam grid, chhoti awaaz; namoona brand chunaav;
+WhatsApp + Telegram seedha baat; apna haal dhoondo; saal-bhar backup (privacy ke saath). Owner pending: docs/PENDING.md "Services" section.

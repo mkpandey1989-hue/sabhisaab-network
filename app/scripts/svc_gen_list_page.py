@@ -83,7 +83,9 @@ EXTRA_CSS = """<style>
 .sum{background:#ECFDF5;border-radius:12px;padding:12px;margin:8px 0;font-size:.92rem}
 .okm{display:none;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:12px;padding:14px}
 footer .wrap{overflow-wrap:anywhere}footer .wrap a{display:inline-block;margin:2px 7px}#shConsent{max-width:100vw;box-sizing:border-box}#shConsent button{white-space:normal;max-width:100%}html,body{max-width:100%;overflow-x:hidden}
-.waf{position:fixed;right:14px;bottom:84px;background:#25D366;color:#fff;border-radius:100px;padding:12px 16px;font-weight:700;text-decoration:none;box-shadow:0 4px 14px #0003;z-index:60}
+.cbar{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:100px;padding:6px 8px 6px 14px;box-shadow:0 6px 20px #0002;z-index:60;font-size:.85rem;max-width:94vw}
+.cbar a{color:#fff;border-radius:100px;padding:9px 14px;font-weight:700;text-decoration:none}.cb-wa{background:#25D366}.cb-tg{background:#229ED9}
+.findb{background:#fff;border:1px dashed var(--brand);border-radius:14px;padding:12px;margin:10px 0}.findb input{width:46%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:16px;margin:4px 1%}.findb button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600}
 </style>"""
 
 BODY = """<body>
@@ -122,6 +124,9 @@ BODY = """<body>
 </div>
 
 <h2 id="form">Apna kaam likhiye</h2>
+<div class="findb" id="findb"><b>Pehle se kaam diya hai? Apna haal dekhiye</b><br><span id="lastk"></span>
+<input id="fid" placeholder="Kaam number (SH...)" autocomplete="off"><input id="fl4" placeholder="Mobile ke aakhri 4 ank" inputmode="numeric" maxlength="4">
+<button type="button" id="fbtn">Dekhein</button> <small id="fmsg"></small></div>
 <div class="bld"><form id="fm">
 <div class="two"><input name="name" required maxlength="80" placeholder="Naam *"><input name="phone" required inputmode="tel" placeholder="Mobile number *"></div>
 <input name="service" id="svc" placeholder="Kaam (list se chunein ya likhein)">
@@ -147,7 +152,7 @@ BODY = """<body>
 """ + FAQ_HTML + """
 <div class="disc">⚠️ Trading tool sirf aapki apni strategy ka code hai — hum SEBI-registered advisor nahi, koi tip/signal/profit ka vaada nahi. Bot aapke apne account/server par aap chalate hain. Ye page aam jaankari hai; tax/kanooni faisle ke liye CA/vakil se salah lein.</div>
 </div></main>
-<a class="waf" id="waf" href="https://wa.me/919917436371" rel="nofollow noopener">WhatsApp</a>
+<div class="cbar"><span>Seedha baat:</span><a id="waf" class="cb-wa" href="https://wa.me/919917436371?text=Namaste%2C%20mujhe%20ek%20kaam%20karwana%20hai" rel="nofollow noopener" target="_blank">WhatsApp</a><a id="tgf" class="cb-tg" href="#" rel="nofollow noopener" target="_blank" style="display:none">Telegram</a></div>
 """
 
 JS = """<script src="/svc-cfg.js"></script>
@@ -181,7 +186,7 @@ function qsave(d){try{var a=JSON.parse(localStorage.getItem('svcq')||'[]');a.pus
 function qflush(){try{var a=JSON.parse(localStorage.getItem('svcq')||'[]');if(!a.length)return;localStorage.setItem('svcq','[]');a.forEach(function(d){api('/lead',d,15000).then(function(j){done(j,d)}).catch(function(e){if(!e.hard)qsave(d)})})}catch(e){}}
 function done(j,d){var u='/q?id='+j.id+'&k='+j.k;try{localStorage.setItem('svclast',u)}catch(e){}
 var sh='https://wa.me/?text='+encodeURIComponent('Koi bhi digital kaam — ho jayega (resume ₹10 se). Mera code '+j.ref+' daalo, pehle kaam par 10% off: https://sabhisaab.com/services-list?code='+j.ref);
-$('fm').style.display='none';$('ok').style.display='block';$('ok').innerHTML='<b>✔ Aapka kaam mil gaya! Number: '+j.id+'</b><br>Hum jaldi call/WhatsApp karke kaam samjhenge. Rate aur payment aapke <b>apne page</b> par aayega:<br><a class="cta" style="display:inline-block;margin:8px 0" href="'+u+'">Mera page kholein</a><br><small>Is page ko save/bookmark kar lijiye — sirf aapke liye hai.</small><br>Dost ko bhejiye: <a href="'+sh+'" target="_blank" rel="noopener">Share karein</a> — code <b>'+j.ref+'</b> se dost ko 10% off, aapko uske bill ka 10% bonus.';ev('form','c')}
+$('fm').style.display='none';$('ok').style.display='block';$('ok').innerHTML='<b>✔ Aapka kaam mil gaya! Number: '+j.id+'</b><br>Hum jaldi call/WhatsApp karke kaam samjhenge. Rate aur payment aapke <b>apne page</b> par aayega:<br><a class="cta" style="display:inline-block;margin:8px 0" href="'+u+'">Mera page kholein</a><br><small>Is page ko save/bookmark kar lijiye — sirf aapke liye hai.</small><br><a class="cb-wa" style="display:inline-block;color:#fff;border-radius:100px;padding:8px 14px;text-decoration:none;margin:4px 0" target="_blank" rel="noopener" href="https://wa.me/'+(window.SVC_WA||'919917436371')+'?text='+encodeURIComponent('Namaste, maine kaam bheja hai. Number: '+j.id)+'">WhatsApp par bhi batayein</a> '+(window.SVC_TG?'<a class="cb-tg" style="display:inline-block;color:#fff;border-radius:100px;padding:8px 14px;text-decoration:none" target="_blank" rel="noopener" href="https://t.me/'+window.SVC_TG+'">Telegram par baat</a>':'')+'<br>Dost ko bhejiye: <a href="'+sh+'" target="_blank" rel="noopener">Share karein</a> — code <b>'+j.ref+'</b> se dost ko 10% off, aapko uske bill ka 10% bonus.';ev('form','c')}
 $('fm').onsubmit=function(e){e.preventDefault();var b=e.target.querySelector('button[type=submit]'),d=Object.fromEntries(new FormData(e.target));
 d.urgent=!!d.urgent;d.care=!!d.care;d.consent=!!d.consent;d.src=Q.get('utm_source')||document.referrer.slice(0,100);d.page='services-list';
 d.cid=d.cid||(Date.now().toString(36)+Math.random().toString(36).slice(2,8));if(window.SVCKIT)d.fields=SVCKIT.values($('intake'));var FL=($('fwrap').querySelector('input[type=file]')||{}).files||[];
@@ -199,6 +204,10 @@ if(o.sale.start<=d&&d<=o.sale.end)h+='<div class="sum" style="background:#FEF3C7
 if(o.fest&&o.fest.start<=d&&d<=o.fest.end)h+='<div class="sum" style="background:#FCE7F3"><b>🎉 '+o.fest.name_hi+' offer:</b> '+o.fest.end+' tak har kaam par '+o.fest.pct+'% tak chhoot (har kaam ki nichli seema ke andar).</div>';
 document.getElementById('offer').innerHTML=h})();
 if(window.SVCKIT){kit('custom');SVCKIT.help($('help'),'Namaste, services ke baare mein poochna hai')}
+if(window.SVC_TG){$('tgf').href='https://t.me/'+window.SVC_TG;$('tgf').style.display=''}
+try{var LU=localStorage.getItem('svclast');if(LU)$('lastk').innerHTML='Is phone se bheja kaam: <a href="'+LU+'">Mera page kholein</a><br>'}catch(e){}
+$('fbtn').onclick=function(){var id=$('fid').value.trim(),l4=$('fl4').value.trim();if(!id||l4.length!==4){$('fmsg').textContent='Number aur 4 ank likhiye';return}
+$('fmsg').textContent='…';api('/find',{id:id,last4:l4},10000).then(function(j){location.href='/q?id='+j.id+'&k='+j.k}).catch(function(e){$('fmsg').textContent=e.message})};
 $('waf').addEventListener('click',function(){ev('wa','c')});draw();if(Q.get('svc')&&IT.some(function(x){return x.id===Q.get('svc')}))pick(Q.get('svc'));
 </script>"""
 JS = JS.replace("__CATS__", json.dumps(cats, ensure_ascii=False)).replace("__ITEMS__", json.dumps(items, ensure_ascii=False))

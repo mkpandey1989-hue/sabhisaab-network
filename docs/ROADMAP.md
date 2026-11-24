@@ -2379,3 +2379,19 @@ Owner: "Telegram par abhi bhi message nahi" + namoona video ki awaaz.
   404 = "naya worker chadh raha hai". Jaanch wale 'Bot jaanch' lead apne aap band, aage bante hi nahi.
 - AWAAZ: bolne se pehle say_clean(): nukta hatao (ज़→ज, फ़→फ), रिज़्यूमे→रिज्यूम, सर्विसेज़→सर्विसेज. Owner ke sudhar:
   'services awaaz sudhar X = Y' (state svc_say_fix). 'services awaaz jaanch' = saare shabd bol kar MP3 Telegram par.
+
+## v3.8.4 (24 Nov 2026) - ASLI WAJAH mili (form), sasta hook, brand logo, kaam grid, status dhoondo, saal-bhar backup
+- FORM KI ASLI WAJAH (v3.5 se): website ke _headers CSP 'connect-src' mein sabhisaab-leads...workers.dev tha hi NAHI - browser har
+  fetch rokta tha -> form "WhatsApp" par girta. (Asli Chromium + live CSP se pakka kiya.) v3.8.0 se form /api (self) par hai - CSP
+  allow; ab workers.dev bhi CSP mein (fallback ke liye). Website v8 ZIP mein _headers.
+- Video: namoona 48.9s tha (har hissa lamba bola). Ab chhoti awaaz ("रिज्यूम, दस रुपये"), hook 4 tarah roz badalta: "बाज़ार से X% तक
+  सस्ता" (X = 6 kaam mein sabse bada ASLI farak, 10 ke kadam, max 90), "बाज़ार में ₹100+ / रिज़्यूमे सिर्फ़ ₹10", "₹10 se shuru",
+  ya dard-sawal. Hook ke neeche 6 kaam ki patti. End: brand logo + naam + "X% tak sasta" + 9 kaam ka grid (rate ke saath) + code.
+- Brand LOGO: har frame upar-baayen + CTA. Asli logo = Facebook page ki profile photo (data/brand_logo/<brand>.png, din mein ek
+  koshish), na mile to brand rang ka gol nishaan (initials).
+- 'services video namoona' ab brand poochta hai (4 button) -> usi brand ka naam/logo; '🚀 Abhi daalo' = turant post.
+- Website: neeche "Seedha baat: WhatsApp | Telegram" patti (Telegram: 'services telegram <username>'), form ke baad dono button,
+  "Pehle se kaam diya? Apna haal dekhiye" (number + mobile ke aakhri 4 ank -> gupt page; worker /find, ghante mein 10 koshish),
+  isi phone ka pichhla kaam ka link. Gupt page par bhi Telegram button.
+- Backup: roz services-YYYYMMDD.tar.gz 400 din (data/services_year, chmod 700/600). 90 din se purane lead ka naam/phone/IP/sandesh
+  us copy mein nahi (privacy niyam) - baaki poora hisaab saal bhar.

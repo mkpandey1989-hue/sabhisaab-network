@@ -66,4 +66,6 @@ const n0=[...store.keys()].filter(x=>x.startsWith('lead:')).length;
 [s,j]=await R('/api/lead',{method:'POST',body:{...lead,cid:'',test:'adm',via:'site'},h:{'cf-connecting-ip':'9.9.9.9'}}); ok(j.test&&[...store.keys()].filter(x=>x.startsWith('lead:')).length===n0,'self-test: jaanch hui, lead/Telegram nahi bana');
 await R('/api/clog',{method:'POST',body:{w:'TypeError x'}});
 [s,j]=await R('/adm/log'); ok(j.log.some(x=>x.k==='client')&&j.log.some(x=>x.k==='selftest')&&j.log.some(x=>x.k==='ratelimit'),'form log: har koshish ka kaaran');
+[s,j]=await R('/api/find',{method:'POST',body:{id:id.toLowerCase(),last4:'3210'}}); ok(s===200&&j.k===k,'link kho gaya: number + aakhri 4 ank se page mila');
+[s,j]=await R('/api/find',{method:'POST',body:{id,last4:'1111'}}); ok(s===404&&!j.k,'galat ank = page nahi');
 console.log(fails?'\nFAILED '+fails:'\nSAB WORKER TEST PASS'); process.exit(fails?1:0);

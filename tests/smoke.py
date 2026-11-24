@@ -1375,6 +1375,21 @@ try:
           "scene ki lambai awaaz se kabhi chhoti nahi (awaaz-screen saath)")
     check(len(_cx60["segs"]) == 10 and _cx60["segs"][0][0] == "hook" and _cx60["segs"][-1][0] == "cta", "har scene ki apni awaaz (10 hisse)")
     check(callable(_S50.selftest) and "Bot jaanch" in open(_S50.__file__, encoding="utf-8").read(), "form ki apne aap jaanch (test lead save nahi)")
+    # v3.8.4: sasta hook (sach), brand logo, namoona brand, saal-bhar backup
+    _R84 = _S50.rates()["by"]
+    _cx84 = _V60.ctx_for({"set": ["m-resume", "m-form", "m-scholar", "m-mobile", "s-bill", "m-itr1"], "look": "mint", "hook": 0, "lay": "L"}, "money", "2026-11-24")
+    _true84 = max(int((1 - _R84[i]["price"] / _R84[i]["market"][0]) * 100) for i in ["m-resume", "m-form", "m-scholar", "m-mobile", "s-bill", "m-itr1"])
+    check(_cx84["q2"].startswith(str(_cx84["pct"])) and _cx84["pct"] <= _true84, "hook 'bazaar se X% tak sasta' - X asli farak se zyada kabhi nahi")
+    check(_V60._logo_img("money", 64).size == (64, 64), "brand logo (ya brand rang ka nishaan) bana")
+    _said80.clear(); _V60.on_text("services video namoona", lambda f: None)
+    check(_said80 and "sv:vn:" in str(_said80[-1][1]), "namoona: pehle brand poochta hai")
+    _obak84 = _S50.BAK
+    _S50.BAK = _S50.DIR.parent / "services_bak"          # temp - VM ki asli saal-bhar copy ko test na chhue
+    try:
+        _yb84 = _S50.backup_daily()
+    finally:
+        _S50.BAK = _obak84
+    check(_yb84 and oct(_yb84.stat().st_mode)[-3:] == "600", "saal-bhar ki roz ki copy (sirf owner padh sake)")
     check(_S50.audit_ok()[0], "v3.8.0 audit chain sahi")
 finally:
     _TG50.say = _osay80

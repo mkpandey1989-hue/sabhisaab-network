@@ -68,7 +68,7 @@ function draw(s){S=s;var i=s.stages.indexOf(s.status),h='';
 h+='<div class="box"><b>Number: '+esc(s.id)+'</b> · '+esc(s.name)+' ji<div class="steps">';
 ['new','talk','rate','accepted','working','delivered'].forEach(function(k){var j=s.stages.indexOf(k);h+='<span class="'+(k===s.status?'c':(j<i?'d':''))+'">'+NAMES[k]+'</span>'});
 h+='</div><div class="muted">Aapka kaam: '+esc(s.service||s.msg)+'</div></div>';
-if(s.status==='new'||s.status==='talk'){h+='<div class="box"><b>Kaam mil gaya ✔</b><p>Hum call/WhatsApp karke kaam samjhenge, phir rate isi page par aayega. Jaldi ho to:</p><a class="big alt" href="'+wa('Namaste, mera number '+s.id+' hai')+'">WhatsApp par likhein</a></div>'}
+if(s.status==='new'||s.status==='talk'){h+='<div class="box"><b>Kaam mil gaya ✔</b><p>Hum call/WhatsApp karke kaam samjhenge, phir rate isi page par aayega. Jaldi ho to:</p><a class="big alt" href="'+wa('Namaste, mera number '+s.id+' hai')+'">WhatsApp par likhein</a>'+(window.SVC_TG?'<a class="big alt" target="_blank" rel="noopener" href="https://t.me/'+window.SVC_TG+'">Telegram par likhein</a>':'')+'</div>'}
 var q=s.quote;
 if(q&&['rate','accepted','paid','working','delivered','feedback'].indexOf(s.status)>=0){
 h+='<div class="box"><b>'+esc(q.name)+'</b><div class="amt">'+rs(q.final)+'</div>'+(q.off?'<span class="mk">'+rs(q.base)+'</span> ':'')+

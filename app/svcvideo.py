@@ -409,6 +409,65 @@ def _chips(im, cv, rows, y0, cur, br, dk, k=1.0):
                 tag=("~" if k < .999 else "") + f"chipp{n}")
 
 
+LOGO_DIR = DATA / "brand_logo"
+
+
+def _logo_img(brand, size):
+    """Brand ka asli logo: Facebook page ki profile photo (ek baar le kar rakh li) - na mile to brand rang ka gol nishaan."""
+    key = ("logo", brand, size)
+    if key in _SH:
+        return _SH[key]
+    f = LOGO_DIR / f"{brand}.png"
+    im = None
+    if f.exists():
+        try:
+            im = Image.open(f).convert("RGBA")
+        except Exception:
+            im = None
+    if im is None and state.get(f"logo_try_{brand}") != str(datetime.date.today()):     # din mein ek koshish
+        state.put(f"logo_try_{brand}", str(datetime.date.today()))
+        try:
+            import requests
+            from . import meta as M
+            b = M.brand_info(brand)
+            if b and b.get("page_id"):
+                j = requests.get(f"https://graph.facebook.com/v19.0/{b['page_id']}/picture",
+                                 params={"redirect": "false", "type": "large", "access_token": b["page_token"]}, timeout=20).json()
+                url = (j.get("data") or {}).get("url")
+                if url:
+                    raw = requests.get(url, timeout=30).content
+                    LOGO_DIR.mkdir(parents=True, exist_ok=True)
+                    import io
+                    Image.open(io.BytesIO(raw)).convert("RGBA").save(f)
+                    im = Image.open(f).convert("RGBA")
+        except Exception as e:
+            log(f"logo {brand}: {e}")
+    if im is None:
+        bg_ = _hex(BRANDS[brand]["bg"][1])
+        ac_ = _hex(BRANDS[brand]["accent"])
+        im = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+        d_ = ImageDraw.Draw(im)
+        d_.ellipse((0, 0, 255, 255), fill=bg_)
+        ini = "".join(w[0] for w in BRANDS[brand]["name"].split()[:2]).upper()
+        d_.text((128, 132), ini, font=_font(120), fill=ac_, anchor="mm")
+    im = im.resize((size, size), Image.LANCZOS)
+    m = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(m).ellipse((0, 0, size - 1, size - 1), fill=255)
+    out = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    out.paste(im, (0, 0), m)
+    _SH[key] = out
+    return out
+
+
+def _logo_draw(im, brand, x, y, size):
+    try:
+        lg = _logo_img(brand, size)
+        ImageDraw.Draw(im).ellipse((x - 4, y - 4, x + size + 4, y + size + 4), fill=(255, 255, 255))
+        im.alpha_composite(lg, (x, y))
+    except Exception as e:
+        log(f"logo draw: {e}")
+
+
 def _rs(n):
     s = f"{int(n):,}"
     if int(n) >= 100000:                      # bharatiya ginti (1,00,000)
@@ -437,24 +496,44 @@ def ctx_for(v, brand, day=None):
     k = KAAM[lead]
     hook = HOOKS[v["hook"]]
     q1, q2 = k[2], k[3]
+    # v3.8.4: shuru mein "sasta" dikhe (owner) - SACH: bazaar ke kam rate se hamara rate, '% tak' (sabse bada asli farak, 10 ke kadam, max 90)
+    pct = 0
+    for iid in v["set"]:
+        it = R[iid]
+        pct = max(pct, int((1 - it["price"] / max(1, it["market"][0])) * 100))
+    pct = min(90, pct // 10 * 10)
+    mode = v["hook"] % 4
+    lp, lm = R[lead]["price"], R[lead]["market"][0]
+    say_hook = f"{hook[1]} {q1} {q2}"
+    kick = hook[0]
+    if mode == 0 and pct >= 30:
+        kick, q1, q2 = "डिजिटल काम", "बाज़ार से", f"{pct}% तक सस्ता"
+        say_hook = f"डिजिटल काम, बाज़ार से {pct} प्रतिशत तक सस्ता"
+    elif mode == 1 and lm > lp:
+        kick, q1, q2 = f"बाज़ार में {_rs(lm)}+", k[0], f"सिर्फ़ {_rs(lp)}"
+        say_hook = f"बाज़ार में {lm} रुपये से ऊपर, यहाँ {k[6]}, सिर्फ़ {lp} रुपये"
+    elif mode == 2:
+        kick, q1, q2 = "₹10 से शुरू", "रिज़्यूमे ₹10", "फ़ॉर्म मदद ₹49"
+        say_hook = "दस रुपये से शुरू। रिज़्यूम दस रुपये, फ़ॉर्म मदद उनचास रुपये"
     season = v.get("season")
     if season:
         d_ = datetime.date.fromisoformat(season["date"])
         q1, q2 = f"{k[0]} की आख़िरी तारीख़", f"{d_.day}/{d_.month}/{d_.year}"
+        kick, say_hook = hook[0], f"{k[6]} की आख़िरी तारीख़ पास है"
     rows = []
     for iid in v["set"]:
         p_, old = _price_of(iid, R, sale)
         rows.append({"id": iid, "name": KAAM[iid][0], "group": KAAM[iid][1], "ben": KAAM[iid][4], "shot": KAAM[iid][5],
                      "say": KAAM[iid][6], "price": p_, "was": old, "market": R[iid]["market"][0], "sale_end": sale["end"] if old else ""})
-    segs = [("hook", f"{hook[1]} {q1} {q2}"), ("tag", f"{TAG1}, {TAG2}।")] + \
-           [(f"k{i}", f"{r['say']}, {r['price']} रुपये से।") for i, r in enumerate(rows)] + \
-           [("hindi", "हिंदी में लिखिए, जैसे घर में बोलते हैं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका।"),
-            ("cta", "कमेंट में अपना काम लिखिए। या सब हिसाब डॉट कॉम, स्लैश सर्विसेज़ लिस्ट।")]
+    segs = [("hook", say_hook), ("tag", f"{TAG1}, {TAG2}।")] + \
+           [(f"k{i}", f"{r['say']}, {r['price']} रुपये।") for i, r in enumerate(rows)] + \
+           [("hindi", "हिंदी में लिखिए। दोस्त को भेजिए, दस प्रतिशत आपका।"),
+            ("cta", "कमेंट में अपना काम लिखिए।")]
     say = (f"{hook[1]} {q1} {q2} {TAG1}, {TAG2}। " +
            "। ".join(f"{r['say']}, {r['price']} रुपये से" for r in rows) +
            "। हिंदी में लिखिए, जैसे घर में बोलते हैं, इंग्लिश ज़रूरी नहीं। दोस्त को भेजिए, उसके बिल का दस प्रतिशत आपका। "
            "कमेंट में अपना काम लिखिए, या सब हिसाब डॉट कॉम स्लैश सर्विसेज़ लिस्ट।")
-    return {"segs": segs, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": hook[0], "q1": q1, "q2": q2, "rows": rows, "say": say,
+    return {"segs": segs, "tl": make_tl(), "day": day or str(datetime.date.today()), "brand": brand, "look": v["look"], "lay": v["lay"], "kick": kick, "q1": q1, "q2": q2, "pct": pct, "rows": rows, "say": say,
             "season": season, "sale": sale}
 
 
@@ -473,6 +552,9 @@ def frame(cx_, t, cache, reg=None):
     DUR_, T_HOOK_, T_LIST0_ = tl["dur"], tl["hook"][1], tl["tag"][1]
     T_HINDI_, T_CTA_ = tl["hindi"][0], tl["cta"][0]
     d.rounded_rectangle((60, 70, 60 + int((W - 120) * min(1, t / DUR_)), 78), 4, fill=br)
+    if t < T_CTA_:                                   # brand ka logo (har frame, upar baayen)
+        _logo_draw(im, cx_["brand"], 60, 100, 64)
+        cv.text((140, 132), BRANDS[cx_["brand"]]["name"], _font(30, "SemiBold"), dk, anchor="lm", tag="lgname")
     # S0 hook
     if t < T_HOOK_:
         k = _back(t / .5)
@@ -483,6 +565,8 @@ def frame(cx_, t, cache, reg=None):
         if t > 1.1:
             d = ImageDraw.Draw(im)
             d.polygon([(W // 2 - 36, 1150), (W // 2 + 36, 1150), (W // 2, 1205)], fill=br)
+        if t > .7:                                         # neeche 6 kaam ki jhalak (khaali jagah nahi)
+            _chips(im, cv, cx_["rows"], 1300, -1, br, dk, _ease((t - .7) / .5))
     # S1 tagline
     elif t < T_LIST0_:
         k = _back((t - T_HOOK_) / .5)
@@ -558,24 +642,34 @@ def frame(cx_, t, cache, reg=None):
         k = _ease((t - T_CTA_) / .45)
         im.alpha_composite(Image.new("RGBA", (W, H), (*br, int(255 * k))))
         kb = _back((t - T_CTA_ - .1) / .6)
-        cv.text((W // 2, 520), BRANDS[cx_["brand"]]["name"], _font(52, "SemiBold"), (255, 255, 255), tag="bn")
-        cv.text((W // 2, 680), TAG1, _fit(TAG1, int(112 * max(.3, kb)), W - 140), (255, 255, 255), tag="c1")
-        cv.text((W // 2, 810), "— " + TAG2 + " —", _fit(TAG2, int(96 * max(.3, kb)), W - 200), (255, 255, 255), tag="c2")
+        _logo_draw(im, cx_["brand"], W // 2 - 300, 300, 92)
+        cv.text((W // 2 + 40, 346), BRANDS[cx_["brand"]]["name"], _fit(BRANDS[cx_["brand"]]["name"], 52, 480, "SemiBold"), (255, 255, 255), tag="bn")
+        cv.text((W // 2, 490), TAG1, _fit(TAG1, int(108 * max(.3, kb)), W - 140), (255, 255, 255), tag="c1")
+        cv.text((W // 2, 610), "— " + TAG2 + " —", _fit(TAG2, int(92 * max(.3, kb)), W - 200), (255, 255, 255), tag="c2")
+        if cx_.get("pct", 0) >= 30:
+            cv.text((W // 2, 712), f"बाज़ार से {cx_['pct']}% तक सस्ता", _font(50), (255, 236, 153), tag="pct")
         pul = 1 + .03 * math.sin(t * 7)
-        bw, bh = int(880 * pul), int(136 * pul)
-        _card(im, (W // 2 - bw // 2, 950, W // 2 + bw // 2, 950 + bh), 68, shadow=30)
-        cv.text((W // 2, 950 + bh // 2), SITE_TXT, _fit(SITE_TXT, 56, bw - 80), br, tag="site")
-        cv.text((W // 2, 1200), "कमेंट में अपना काम लिखिए", _font(54, "SemiBold"), (255, 255, 255), tag="cm")
-        cv.text((W // 2, 1300), "रिज़्यूमे ₹10  ·  फ़ॉर्म मदद ₹49  ·  मोबाइल मदद ₹49", _fit("रिज़्यूमे ₹10  ·  फ़ॉर्म मदद ₹49  ·  मोबाइल मदद ₹49", 42, W - 140, "SemiBold"),
-                (255, 255, 255), tag="lst")
-        cv.text((W // 2, 1400), "पहले बात  ·  फिर रेट  ·  फिर काम", _font(42, "SemiBold"), (255, 255, 255), tag="steps")
+        bw, bh = int(860 * pul), int(124 * pul)
+        _card(im, (W // 2 - bw // 2, 790, W // 2 + bw // 2, 790 + bh), 62, shadow=30)
+        cv.text((W // 2, 790 + bh // 2), SITE_TXT, _fit(SITE_TXT, 54, bw - 80), br, tag="site")
+        cv.text((W // 2, 990), "कमेंट में अपना काम लिखिए", _font(50, "SemiBold"), (255, 255, 255), tag="cm")
+        grid = [("रिज़्यूमे", 10), ("फ़ॉर्म मदद", 49), ("मोबाइल मदद", 49), ("फ़ोटो-साइन", 29), ("ITR-1 मदद", 299),
+                ("स्कॉलरशिप", 99), ("बायोडाटा", 49), ("प्रोजेक्ट/PPT", 99), ("वेबसाइट", 2999)]
+        gw, gh, gg = 300, 104, 18
+        gx0 = (W - (3 * gw + 2 * gg)) // 2
+        for n_, (nm_, pr_) in enumerate(grid):
+            gx, gy = gx0 + (n_ % 3) * (gw + gg), 1060 + (n_ // 3) * (gh + gg)
+            ImageDraw.Draw(im).rounded_rectangle((gx, gy, gx + gw, gy + gh), 26, fill=(255, 255, 255))
+            cv.text((gx + gw // 2, gy + 36), nm_, _fit(nm_, 32, gw - 30, "SemiBold"), dk, tag=f"g{n_}")
+            cv.text((gx + gw // 2, gy + 74), _rs(pr_) + " से", _font(30), br, tag=f"gp{n_}")
+        cv.text((W // 2, 1450), "पहले बात  ·  फिर रेट  ·  फिर काम", _font(40, "SemiBold"), (255, 255, 255), tag="steps")
         code = CODES.get(cx_["brand"])
         if code:
             cl = f"कोड {code} = 10% तक छूट"
-            fc_ = _font(44)
+            fc_ = _font(42)
             cw_ = fc_.getlength(cl) + 70
-            ImageDraw.Draw(im).rounded_rectangle((W // 2 - cw_ // 2, 1480, W // 2 + cw_ // 2, 1570), 45, outline=(255, 255, 255), width=4)
-            cv.text((W // 2, 1525), cl, fc_, (255, 255, 255), tag="code")
+            ImageDraw.Draw(im).rounded_rectangle((W // 2 - cw_ // 2, 1510, W // 2 + cw_ // 2, 1596), 43, outline=(255, 255, 255), width=4)
+            cv.text((W // 2, 1553), cl, fc_, (255, 255, 255), tag="code")
     cv.text((W // 2, H - 70), BRANDS[cx_["brand"]]["name"] + " · Services", _font(34, "SemiBold"),
             (255, 255, 255) if t >= T_CTA_ + .3 else dk, tag="foot")
     if reg is not None:
@@ -957,9 +1051,12 @@ def on_text(t, run):
         state.put("svc_video_on", False)
         return tg.say("⏸ Services video band.")
     if tl in ("services video namoona", "services video sample"):
-        tg.say("🎬 Services namoona ban raha hai (Pahadi brand, 3-5 min, audit ke saath)... button dabaye bina kahin post nahi hoga.")
-        run(lambda: make_day(sample=True, only="pahadi"))
-        return True
+        return tg.say("🎬 Kis brand ka services namoona banaun? (usi brand ka naam + logo lagega; button dabaye bina kahin post nahi)",
+                      tg.inline([[(BRANDS[b]["name"], f"sv:vn:{b}") for b in list(BRANDS)[:2]],
+                                 [(BRANDS[b]["name"], f"sv:vn:{b}") for b in list(BRANDS)[2:]]]))
+    m = re.match(r"services video namoona (\w+)$", tl)
+    if m and m.group(1) in BRANDS:
+        return namoona(m.group(1), run)
     if tl in ("services video report", "services video haal"):
         H_ = _hist()
         A = []
@@ -971,3 +1068,12 @@ def on_text(t, run):
                       "\n".join(f"{h['day']} {h.get('slot', '')} {h['brand']}: {', '.join(h.get('set') or [h.get('item', '')])[:60]}"
                                 for h in H_[-8:]) + "\nViews/lead: 'services report 7'")
     return None
+
+
+def namoona(brand, run):
+    from . import tg
+    tg.say(f"🎬 {BRANDS[brand]['name']} ka services namoona ban raha hai (3-5 min, 6 round audit). Aane par '🚀 Abhi daalo' dabate hi "
+           "turant post hoga; bina button kahin nahi jayega.")
+    run(lambda: make_day(sample=True, only=brand))
+    return True
+

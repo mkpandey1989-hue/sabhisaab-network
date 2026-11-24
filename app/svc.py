@@ -624,7 +624,7 @@ def deploy():
 def _site_files(c):
     """v3.8.0: website ko pata - (1) svc-cfg.js: pehle same-origin /api, atke to seedha worker;
     (2) functions/api/[[path]].js (Pages Function, gupt PK ke saath - GitHub par NAHI jaata)."""
-    cfg = (f"window.SVC_API='/api';window.SVC_API2='{c['url']}';window.SVC_WA='{WA_OWNER}';"
+    cfg = (f"window.SVC_API='/api';window.SVC_API2='{c['url']}';window.SVC_WA='{WA_OWNER}';window.SVC_TG='{c.get('tg', '')}';"
            f"window.SVC_UPI_ON={1 if c.get('upi') else 0};\n")
     q = (__import__("pathlib").Path(__file__).parent / "assets" / "svc" / "q.html").read_text(encoding="utf-8")
     try:
@@ -777,6 +777,43 @@ def demo_stats(day=None):
 
 
 # ---------------------------------------------------------------- backup / audit / report
+def backup_daily():
+    """v3.8.4 (owner: 'pura saal ka data VM par high security se'): roz ek tar.gz, 400 din tak, sirf owner padh sake (chmod 600).
+    Privacy niyam (90 din) ke hisaab se: naam/phone/IP/sandesh 90 din ke baad saal-bhar wali copy mein NAHI -
+    us copy mein kaam ka hisaab (id, tarikh, kaam, source, code, stage, payment, referral, audit, video record) poora rehta hai."""
+    import tarfile, io, os
+    if not DIR.exists():
+        return None
+    YB = BAK.parent / "services_year"
+    YB.mkdir(parents=True, exist_ok=True)
+    os.chmod(YB, 0o700)
+    day = now().strftime("%Y%m%d")
+    out = YB / f"services-{day}.tar.gz"
+    if out.exists():
+        return out
+    cut = (now() - datetime.timedelta(days=KEEP_LEAD_DAYS)).isoformat()
+    with tarfile.open(out, "w:gz") as tf:
+        for f in DIR.iterdir():
+            if not f.is_file() or f.suffix not in (".jsonl", ".json"):
+                continue
+            if f.name == "leads.jsonl":
+                rows = []
+                for x in _read("leads.jsonl"):
+                    if x.get("t", "") < cut:
+                        x = {k: x.get(k) for k in ("id", "t", "service", "src", "code", "page", "urgent", "care", "ref")}
+                    rows.append(json.dumps(x, ensure_ascii=False))
+                raw = ("\n".join(rows) + "\n").encode()
+                ti = tarfile.TarInfo("leads.jsonl")
+                ti.size = len(raw)
+                tf.addfile(ti, io.BytesIO(raw))
+            else:
+                tf.add(f, arcname=f.name)
+    os.chmod(out, 0o600)
+    for old_ in sorted(YB.glob("services-*.tar.gz"))[:-400]:
+        old_.unlink(missing_ok=True)
+    return out
+
+
 def backup():
     if not DIR.exists():
         return
@@ -904,7 +941,7 @@ def tick(run):
         log(f"igguard tick: {e}")
     if t - state.get("svc_bak_at", 0) > 3600:
         state.put("svc_bak_at", t)
-        run(backup)
+        run(lambda: (backup(), backup_daily()))
     n = now()
     d = str(n.date())
     if n.strftime("%H:%M") >= "23:20" and state.get("svc_audit_day") != d:
@@ -976,9 +1013,12 @@ def on_text(t, run):
     return None
 
 
-def on_callback(rest):
+def on_callback(rest, run=None):
     from . import tg
     act, _, lid = rest.partition(":")
+    if act == "vn":                                  # v3.8.4: namoona - brand chuna
+        from . import svcvideo
+        return svcvideo.namoona(lid, run or (lambda f: threading.Thread(target=f, daemon=True).start()))
     if lid not in leads():
         return tg.say(f"❓ {lid} nahi mila")
     if act == "ok":
@@ -1088,6 +1128,19 @@ def on_text_crm(t, run):
         L = season_list()
         return tg.say("📅 Season (last date):\n" + ("\n".join(f"• {x['date']} {x['name']} → {x['item']}" for x in L) or "khaali") +
                       "\nJodna: season add 2026-12-31 | NSP scholarship last date | m-scholar | https://scholarships.gov.in/")
+    m = re.match(r"services telegram @?([a-z0-9_]{5,32})$", tl)
+    if m:
+        c = _cfg()
+        c["tg"] = m.group(1)
+        _save_cfg(c)
+        run(ensure_site_cfg)
+        return tg.say(f"✅ Website par 'Telegram' button: t.me/{m.group(1)} (customer seedha aapko message karega). Hatane ke liye: services telegram hatao")
+    if tl == "services telegram hatao":
+        c = _cfg()
+        c.pop("tg", None)
+        _save_cfg(c)
+        run(ensure_site_cfg)
+        return tg.say("✔ Telegram button hata diya")
     if tl in ("services form jaanch", "form jaanch", "services form test"):
         run(lambda: tg.say(selftest()))
         return True
