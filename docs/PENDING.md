@@ -123,3 +123,5 @@ Niyam: 🤖 wale kaam bot API se khud jaanchta hai aur ho jaate hi yahan se hata
 - 2026-11-24 (owner): [Owner] Google Business Profile banana (service area, address chhupa) — asli Google review ke liye (guide milegi).
 - 2026-11-24 (owner): [Owner] Suno Natak IG wapas chalu (24 Nov) — app mein ek baar login karke check; 2-3 din dheere (1-2 post/din).
 - 2026-11-24 (owner): [Owner] Har paid lead par bank app mein paisa dekh kar hi "paid" dabana.
+- 2026-11-24 (owner): [Owner] v3.8.0 install kram: (1) bot ZIP sabhinet-v3.8.0 (2) bot mein: services upi <aapki UPI ID> (3) website ZIP website-v5-services (4) services video namoona (5) form se ek test kaam bhejein -> Telegram card + gupt page check (6) sab theek to: services video chalu
+- 2026-11-24 (owner): [Owner] Instagram (4 brand): Story banate waqt "Question" sticker ("Kaunsa kaam chahiye?") + Highlights "Kaam" mein services video - API se nahi hota, khud
