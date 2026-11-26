@@ -462,6 +462,12 @@ def alert(level, text, kb=None):
             _st.put("alert_seen", dict(list(seen.items())[-300:]))
         except Exception:
             pass
+    if level in ("red", "yellow") and "AUTO-DOCTOR" not in text:   # v3.9.6: galti aate hi auto-doctor ko jagao
+        try:
+            from . import autodoctor as _adk
+            _adk.kick(text)
+        except Exception:
+            pass
     hr = _d.datetime.now(_d.timezone(_d.timedelta(hours=5, minutes=30))).hour
     quiet = level == "green" or (level == "yellow" and (hr >= 23 or hr < 7))   # raat ko sirf laal alert awaaz ke saath
     data = {"chat_id": _chat(), "text": f"{icon} {text}"[:4000], "disable_web_page_preview": "true",

@@ -1627,6 +1627,10 @@ def slot_doctor(run, run_up=None, t=None):
     return fixes
 
 
+NIGHT_START = "23:30"      # v3.9.6 owner: raat 23:30 - 04:30 render
+NIGHT_END = "04:30"
+
+
 def tick(run, run_up=None):
     """Har minute: schedule ke hisaab se video banao / upload karo. run(fn,*a) = worker queue."""
     if state.get("paused"):
@@ -1644,14 +1648,21 @@ def tick(run, run_up=None):
     t = now()
     today = str(t.date())
     made = state.get("made_today", {})
-    for brand, slots in schedule().items():
+    # v3.9.6 (owner 26 Nov: "raat 11:30 se subah 4:30 tak poori video bana le, din mein VM khaali rakhe"):
+    # 23:30-23:59 = KAL ke slot ki video (kal ki tareekh ki key), 00:00-04:30 = aaj ki. Din mein sirf aapaat (slot doctor).
+    _hm = t.strftime("%H:%M")
+    _days = [t.date()]
+    if state.get("night_make", True) and _hm >= NIGHT_START:
+        _days = [t.date() + datetime.timedelta(days=1)]
+    for _dd in _days:
+      for brand, slots in schedule().items():
         for hhmm in [s.strip() for s in str(slots).split(",") if s.strip()]:
             h, m = map(int, hhmm.split(":"))
-            slot = t.replace(hour=h, minute=m, second=0, microsecond=0)
-            key = f"{today}:{brand}:{hhmm}"
+            slot = datetime.datetime.combine(_dd, datetime.time(h, m), tzinfo=t.tzinfo)
+            key = f"{_dd}:{brand}:{hhmm}"
             if made.get(key):
                 continue
-            _night = (state.get("night_make", True) and "00:20" <= t.strftime("%H:%M") <= "04:30" and t < slot)
+            _night = (state.get("night_make", True) and (_hm >= NIGHT_START or _hm <= NIGHT_END) and t < slot)
             # v3.9.3 (owner): raat mein hi aaj ki saari video bana kar rakho (ek line mein, ek-ek karke) - din mein slot kabhi khaali na rahe
             if (slot - datetime.timedelta(hours=PREPARE_HOURS) <= t or _night) and t < slot + datetime.timedelta(hours=2):
                 state.update("made_today", lambda d, k=key: {**{a: b for a, b in (d or {}).items() if a[:10] >= today}, k: 1}, {})
@@ -1664,11 +1675,11 @@ def tick(run, run_up=None):
                     _qp_on = _QP.is_on()
                 except Exception:
                     pass
-                _ev_plan = (state.get("plan") or {}).get(str(t.date()), {}).get(brand)
+                _ev_plan = (state.get("plan") or {}).get(str(_dd), {}).get(brand)
                 if _qp_on and _ev_plan and hhmm == _sl[0] and not blocked_topic(brand, _ev_plan):
                     # v2.9.0: tyohaar/khaas din ka plan (calendar ne 2+ website se pakka kiya) - us din pehla slot usi vishay ka sawal
                     run(prepare, brand, slot.isoformat(), "roz ka schedule")
-                elif _qp_on or _topic_off(brand) or puzzle_slot(brand, hhmm, t.date()):
+                elif _qp_on or _topic_off(brand) or puzzle_slot(brand, hhmm, _dd):
                     # v2.3.1/2.3.3: doosra (aakhri) slot = jaancha hua puzzle/GK / 24-look elite paheli
                     run(prepare, brand, slot.isoformat(), "roz ka schedule", None, "short", "__puzzle__")
                 else:

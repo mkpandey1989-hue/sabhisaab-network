@@ -1823,7 +1823,16 @@ MFIX_CSS = (MFIX_TAG + "@media(max-width:600px){.hnav{display:flex;flex-wrap:wra
             "#shConsent{max-width:100vw;box-sizing:border-box}#shConsent button{white-space:normal;max-width:100%}")
 
 
+def _is_amp(html):
+    h = html[:400]
+    return ("<html ⚡" in h or "<html amp" in h or "amp-boilerplate" in html)
+
+
 def mobile_fix_text(html):
+    # v3.9.6: AMP Web Story mein <style amp-boilerplate> EXACT hona chahiye. Pehle ye CSS usi mein ghus gaya ->
+    # Search Console "Web Story is invalid". AMP page par CSS kabhi nahi; pehle se ghusa ho to hata do.
+    if _is_amp(html):
+        return html.replace(MFIX_CSS, "")
     if MFIX_TAG in html or "max-width:62vw" in html or "</style>" not in html:
         return html
     i = html.index("</style>")
@@ -2111,3 +2120,110 @@ def sitepatch_apply():
         state.put("sitepatch_v292", True)
         return "🌐 Website: privacy/terms/about mein 'Hamare official channel' + notification/quiz bot ki baat live (audit pass)."
     return f"🌐 Website sudhaar audit mein ruka (kuch live nahi): {str(r)[:200]}"
+
+
+
+# ---------------- v3.9.6 (26 Nov 2026, owner: "services-demo, services-list, AMP error, pauri page index nahi - bariki se jaancho") ----------------
+# 1) AMP Web Story invalid: mobile CSS (/*m412*/) <style amp-boilerplate> ke andar ghus gaya tha -> hatao.
+# 2) /uttarakhand Mega Hub ki 13 zile ki table mein EK BHI link nahi tha (Haridwar gayab, editor ka note page par chhapa) ->
+#    har zile ke saare 7 page ke link. Isse sanskriti-tyohar / zila-prashasan page ko hub se link milta hai (index ke liye zaroori).
+# 3) services/services-list: SVCKIT.enhance purani cache JS par TypeError -> guard; services-list par svc-kit 2 baar load -> ek.
+# 4) scripts/daily.py news(): purani state mein bool value -> TypeError (roz 3 baar DHYAN) -> sirf string tareekh.
+UK_G = [("uttarkashi", "Uttarkashi"), ("chamoli", "Chamoli"), ("rudraprayag", "Rudraprayag"), ("tehri-garhwal", "Tehri Garhwal"),
+        ("dehradun", "Dehradun"), ("pauri-garhwal", "Pauri Garhwal"), ("haridwar", "Haridwar")]
+UK_K = [("almora", "Almora"), ("bageshwar", "Bageshwar"), ("champawat", "Champawat"), ("nainital", "Nainital"),
+        ("pithoragarh", "Pithoragarh"), ("udham-singh-nagar", "Udham Singh Nagar")]
+UK_T = [("uttarakhand", "Poora guide"), ("ghumne-ki-jagah", "Ghumne ki jagah"), ("itihas-mandir", "Itihas-Mandir"),
+        ("sanskriti-tyohar", "Sanskriti-Tyohar"), ("pahadi-khana", "Pahadi khana"), ("kaise-pahunche", "Kaise pahunche"),
+        ("zila-prashasan", "Zila prashasan")]
+
+
+def amp_clean(t):
+    if not _is_amp(t):
+        return t
+    return re.sub(r"/\*m412\*/.*?(?=</style>)", "", t, count=1, flags=re.S)
+
+
+def uk_hub_table(t, root):
+    a = t.find('<h3 id="13-zile">')
+    b = t.find('<h3 id="related-guides-aur-tools-sab-hisaab">')
+    if a < 0 or b < a:
+        return t
+
+    def row(s, n):
+        L = [f'<a href="/{s}-{k}">{lab}</a>' for k, lab in UK_T if (root / f"{s}-{k}.html").exists()]
+        return f"<tr><td><strong>{n}</strong></td><td>{' · '.join(L)}</td></tr>"
+
+    def tbl(h, L):
+        return (f'<h3>{h}</h3><div class="tw"><table class="tb"><thead><tr><th>Zila</th><th>Pages</th></tr></thead><tbody>'
+                + "".join(row(s, n) for s, n in L) + "</tbody></table></div>")
+    new = ('<h3 id="13-zile">13 Zile - har zile ke saare page</h3>\n' + tbl("Garhwal Mandal (7 zile)", UK_G) + "\n"
+           + tbl("Kumaon Mandal (6 zile)", UK_K) + "\n")
+    return t[:a] + new + t[b:]
+
+
+def svckit_guard(t):
+    t = t.replace("if(f&&window.SVCKIT)SVCKIT.enhance", "if(f&&window.SVCKIT&&SVCKIT.enhance)SVCKIT.enhance")
+    t = t.replace("}});SVCKIT.enhance($('findb'", "}});if(SVCKIT.enhance)SVCKIT.enhance($('findb'")
+    for x in ('<script src="/svc-cfg.js" defer></script>', '<script src="/svc-kit.js" defer></script>'):
+        if t.count(x) == 1 and t.count(x.replace(" defer", "")) == 1:
+            t = t.replace(x, "", 1)
+    return t
+
+
+def daily_fix(t):
+    old = "    new_seen = {k: v for k, v in new_seen.items() if v >= cut}"
+    if old in t:
+        t = t.replace(old, "    new_seen = {k: v for k, v in new_seen.items() if isinstance(v, str) and v >= cut}")
+    old2 = "    out, new_seen = [], dict(seen)"
+    if old2 in t:
+        t = t.replace(old2, "    seen = seen if isinstance(seen, dict) else {}\n"
+                            "    out, new_seen = [], {k: (v if isinstance(v, str) else dstr(today())) for k, v in seen.items()}")
+    return t
+
+
+def site396_files():
+    root = DIR / "site"
+    out = {}
+
+    def put(rel, fn, *a):
+        f = DIR / rel
+        if not f.exists():
+            return
+        x = f.read_text(encoding="utf-8")
+        y = fn(x, *a)
+        if y != x:
+            out[rel] = y
+    for f in sorted((root / "stories").glob("*.html")) if (root / "stories").exists() else []:
+        put(str(f.relative_to(DIR)), amp_clean)
+    put("site/uttarakhand.html", uk_hub_table, root)
+    put("site/services.html", svckit_guard)
+    put("site/services-list.html", svckit_guard)
+    put("scripts/daily.py", daily_fix)
+    return out
+
+
+def site396_apply():
+    """Ek baar (state sitepatch_v396) - audit gate se. Badle stories + hub ko IndexNow/Bing par bhejna theek (content badla)."""
+    if state.get("sitepatch_v396"):
+        return ""
+    try:
+        sync()
+    except Exception as e:
+        log(f"s396 sync: {e}")
+    files = site396_files()
+    if not files:
+        state.put("sitepatch_v396", True)
+        return ""
+    z = DATA / "s396.zip"
+    with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zz:
+        for p_, t in files.items():
+            zz.writestr(p_, t.encode("utf-8"))
+    r = apply_zip(z, force=False, deploy_in=1)
+    z.unlink(missing_ok=True)
+    if str(r).startswith("✅") or str(r).startswith("ℹ️"):
+        state.put("sitepatch_v396", True)
+        n_st = sum(1 for p_ in files if "/stories/" in p_)
+        return (f"🗂 Website sudhaar (v3.9.6) live: {n_st} Web Story ka AMP error hataya, /uttarakhand hub par 13 zile x 7 page ke link, "
+                "services form ki JS galti, roz ki report ka crash. Aapko kuch nahi karna - Google 2-14 din mein dobara jaanchega.")
+    return f"🗂 v3.9.6 website sudhaar audit mein ruka (kuch live nahi): {str(r)[:300]}"

@@ -78,3 +78,8 @@ Saboot aur poora haal: docs/AUDIT_23NOV2026.md, docs/ROADMAP.md (v3.4.40-v3.4.43
     jab bot sach mein kuch na kar sake.
 37. **Bonus/referral ka koi ank kahin haath se nahi** - `app/bonus.py` ek srot; website/gupt page/video sab wahin se. Referral ka record
     (referral.jsonl) zindagi bhar; bonus baaki ho to code-wale ka naam/number 90-din safai se bacha.
+38. **AMP page (Web Story) mein koi bhi CSS/JS "sab page par" wala patch kabhi nahi** - `<style amp-boilerplate>` EXACT hona chahiye.
+    v3.8.9 ka mobile CSS usme ghusa = 11 story "Web Story is invalid" (26 Nov). Ab `website._is_amp` se AMP page chhoda jaata hai.
+39. **Hub page par editor ka note / bina link ki suchi kabhi nahi** - /uttarakhand ki 13 zile table mein 0 link the (Haridwar gayab,
+    "In links ko tab tak active na karein" page par chhapa). Naya page bane to hub se link zaroor (warna Google ko "referring page: none").
+40. **Auto-doctor ki "jaanch khud fail" owner ka kaam nahi** - pehle `autodoctor.heal()` + ek baar dobara; tab bhi na ho to 🤖 bot-kaam.

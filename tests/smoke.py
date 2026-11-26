@@ -1752,5 +1752,52 @@ check(_S95.ref_credit(1000) == 100 and _S95.ref_credit(299) == 0 and _S95.ref_cr
 import re as _re95  # noqa: E402
 _lq95 = open(_S95.__file__.replace("svc.py", "assets/svc/q.html"), encoding="utf-8").read()
 check("__BONUS_PAGE__" in _lq95 and "s.bonus" in _lq95, "gupt page: bonus text ek srot + customer ka bonus dikhta")
+
+# ---- v3.9.6: AMP story, UK hub link, SVCKIT guard, daily.py crash, raqm, auto-doctor turant, raat 23:30 ----
+from app import website as _W96, autodoctor as _AD96, raqmsafe as _RS96, state as _ST96, pipeline as _PL96  # noqa: E402
+_amp96 = ('<html ⚡ lang="hi"><head><style amp-boilerplate>body{x}' + _W96.MFIX_CSS + '</style><style amp-custom>a{}</style></head></html>')
+check(_W96.MFIX_TAG not in _W96.amp_clean(_amp96) and "<style amp-boilerplate>body{x}</style>" in _W96.amp_clean(_amp96),
+      "AMP story: boilerplate se mobile CSS hata (Web Story invalid ka ilaaj)")
+check(_W96.mobile_fix_text(_amp96.replace(_W96.MFIX_CSS, "")) == _amp96.replace(_W96.MFIX_CSS, ""), "mobile fix AMP page par kabhi nahi lagta")
+check(_W96.MFIX_TAG in _W96.mobile_fix_text("<html><style>a{}</style></html>"), "mobile fix aam page par lagta hai")
+import pathlib as _pl96, tempfile as _tf96  # noqa: E402
+_r96 = _pl96.Path(_tf96.mkdtemp())
+for _d96 in ("pauri-garhwal", "haridwar", "almora"):
+    (_r96 / f"{_d96}-sanskriti-tyohar.html").write_text("x")
+_hub96 = '<h3 id="13-zile">13 Zile</h3><table>Pauri</table><p>In links ko tab tak active na karein</p><h3 id="related-guides-aur-tools-sab-hisaab">R</h3>'
+_o96 = _W96.uk_hub_table(_hub96, _r96)
+check('href="/pauri-garhwal-sanskriti-tyohar"' in _o96 and 'href="/haridwar-sanskriti-tyohar"' in _o96 and "tab tak active" not in _o96
+      and 'href="/chamoli-sanskriti-tyohar"' not in _o96, "UK hub: 13 zile ki table mein sirf live page ke link, editor note hata")
+check("SVCKIT.enhance)SVCKIT.enhance" in _W96.svckit_guard("if(f&&window.SVCKIT)SVCKIT.enhance(f,{})"), "services form: SVCKIT.enhance guard")
+_dy96 = _W96.daily_fix("    out, new_seen = [], dict(seen)\n    new_seen = {k: v for k, v in new_seen.items() if v >= cut}\n")
+check("isinstance(v, str) and v >= cut" in _dy96, "daily.py news(): bool/str TypeError ka ilaaj")
+from PIL import ImageFont as _IF96  # noqa: E402
+_RS96.install()
+check(getattr(_IF96.FreeTypeFont.getlength, "_raqmsafe", False) and _RS96.clean("ab😀️") == "ab", "raqm_layout galti: font naap surakshit")
+_ok96 = _ST96.get("ad_kick"), _ST96.get("ad_kick_done"), _ST96.get("ad_kick_run")
+_ST96.put("ad_kick_done", 0); _ST96.put("ad_kick_run", 0)
+_AD96.kick("test galti")
+_k96 = _ST96.get("ad_kick") or {}
+_ST96.put("ad_kick", {**_k96, "t": _k96.get("t", 0) - 400})
+check(_AD96.kick_due(), "auto-doctor: galti ke 3 min baad khud jaagta hai")
+_ST96.put("ad_kick_run", __import__("time").time())
+check(not _AD96.kick_due(), "auto-doctor: do daur ke beech 20 min (loop nahi)")
+check("raqmsafe" in " ".join(_AD96.heal("raqm_layout() failed")), "auto-doctor heal: raqm")
+_ST96.put("ad_kick", _ok96[0] or {}); _ST96.put("ad_kick_done", _ok96[1] or 0); _ST96.put("ad_kick_run", _ok96[2] or 0)
+check(_PL96.NIGHT_START == "23:30" and _PL96.NIGHT_END == "04:30", "raat render: 23:30 - 04:30")
+
+import glob as _gl97  # noqa: E402
+_bad97 = [f for f in ("app/answers.py", "app/puzzles.py", "app/design.py", "app/sharekit.py", "app/sawalpost.py", "app/hooks.py")
+          if __import__("re").search(r'"[^"\n]*कमेंट में[^"\n]*(लिखिए|लिखें)', "\n".join(
+              l for l in open(f, encoding="utf-8") if not l.lstrip().startswith(("#", "_FILLER"))))]
+check(not _bad97, f"sawal reel/post: 'कमेंट में ... लिखिए' kahin nahi (Meta engagement-bait) {_bad97}")
+from app import tasks as _TK97  # noqa: E402
+_ot97 = (_ST96.get("todo"), _ST96.get("mig_396"))
+_ST96.put("todo", [{"x": "[Owner, 2 min] Website ZIP (privacy + services-demo, 25 Nov) bot ko bhejo"}]); _ST96.put("mig_396", False)
+_TK97._mig_396()
+_x97 = [o.get("x", "") for o in _ST96.get("todo") or []]
+check(not any("Website ZIP (privacy" in x for x in _x97) and any(o.get("auto") == "amp_ok" for o in _ST96.get("todo") or []),
+      "PENDING: privacy ZIP hata (pehle se live), AMP kaam bot khud jaanchta (amp_ok)")
+_ST96.put("todo", _ot97[0] or []); _ST96.put("mig_396", _ot97[1] or False)
 print(f"\nSMOKE {'PASS' if not BAD else 'FAIL'}: {len(OK)} ✅, {len(BAD)} ❌")
 sys.exit(1 if BAD else 0)

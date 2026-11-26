@@ -770,7 +770,7 @@ def generate_puzzle(kind: str = "auto", brand: str = "sunonatak", _depth: int = 
             scenes = [
                 {"show": f"{lab} (Code #{reel_code}): {q_stem}", "say": f"{lab}। {q_stem}"},
                 {"show": f"सवाल: {q_stem}", "say": "चार विकल्प देखिए और पाँच सेकंड में जवाब सोचिए।"},
-                {"show": "5 सेकंड... सोचिए! जवाब कमेंट में लिखिए", "say": "पाँच सेकंड, सोचिए, और अपना जवाब कमेंट में लिखिए।"},
+                {"show": "5 सेकंड... सोचिए! जवाब मन में तय कीजिए", "say": "पाँच सेकंड, सोचिए, और अपना जवाब मन में तय कीजिए।"},
                 {"show": f"✅ सही जवाब: {ans}! {item['exp'][:70]}", "say": f"सही जवाब है, {ans}। {item['exp']}"},
                 {"show": ("ऐसे ही दिमागी पहेली रोज़ - फॉलो करें! https://sabhisaab.com/" if kind == "elite24" else
                           "ऐसे ही पहाड़ी सवाल रोज़ - फॉलो करें! फ्री टूल: https://sabhisaab.com/"),

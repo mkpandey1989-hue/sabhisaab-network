@@ -395,3 +395,23 @@ def _on_text2(tl):
         state.put("idx_on", tl.endswith("chalu"))
         return tg.say("🔎 Roz 11:40 ki indexing suchi: " + ("CHALU" if tl.endswith("chalu") else "BAND"))
     return None
+
+
+def amp_pass(u):
+    """v3.9.6: Web Story ka AMP haal Google se (URL Inspection API ampResult). True = PASS, False = abhi galti, None = pata nahi."""
+    import requests
+    from . import website
+    try:
+        tk = website._gcreds("https://www.googleapis.com/auth/webmasters.readonly")
+        j = requests.post("https://searchconsole.googleapis.com/v1/urlInspection/index:inspect", timeout=60,
+                          headers={"Authorization": f"Bearer {tk}"},
+                          json={"inspectionUrl": u, "siteUrl": PROP, "languageCode": "en"}).json()
+        a = (j.get("inspectionResult") or {}).get("ampResult") or {}
+        if not a:
+            return None
+        state.put("amp_last", {"t": str(datetime.datetime.now())[:16], "verdict": a.get("verdict"),
+                               "issues": [i.get("issueMessage", "")[:80] for i in a.get("issues") or []][:3]})
+        return a.get("verdict") == "PASS"
+    except Exception as e:
+        log(f"amp inspect: {e}")
+        return None

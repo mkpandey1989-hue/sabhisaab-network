@@ -331,6 +331,13 @@ def scheduler():
                             if r_:
                                 tg.say(r_)
                         run(_adr)
+                    elif _AD.kick_due():                        # v3.9.6: galti aate hi (3 min baad) khud jaanch + ilaaj, bina pushti
+                        def _adk():
+                            r_ = _AD.kick_run()
+                            if r_:
+                                tg.alert("green", r_)
+                        SITEWORK.put((_adk, ()))
+                        state.put("ad_kick_run", time.time())
                     elif _AD.due_quick(nowt):                   # v3.4.42: har 2 ghante (alag SITE line - video render ke peeche nahi)
                         state.put("ad_quick_at", time.time())
                         def _adq():
@@ -726,6 +733,15 @@ def scheduler():
                     if r_:
                         tg.say(r_)
                 run(_s393)
+            if (not state.get("sitepatch_v396") and time.time() - STARTED > 120
+                    and time.time() - (state.get("s396_try") or 0) > 3 * 3600):
+                state.put("s396_try", time.time())         # v3.9.6: AMP story + UK hub link + SVCKIT + daily.py crash (ek baar)
+                def _s396():
+                    from . import website as _W396
+                    r_ = _W396.site396_apply()
+                    if r_:
+                        tg.say(r_)
+                run(_s396)
             if (state.get("mfix_v389") and not state.get("sitepatch_v392") and time.time() - STARTED > 360
                     and time.time() - (state.get("s392_try") or 0) > 3 * 3600):
                 state.put("s392_try", time.time())         # v3.9.2: 1000+ kaam rate list + terms#rate + footer link + sitemap (ek baar)

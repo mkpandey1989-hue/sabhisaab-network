@@ -33,9 +33,16 @@ def run(manual=False, quiet=False):
     def chk(name, fn):
         try:
             fn()
-        except Exception as e:
+        except Exception as e:                 # v3.9.6: owner ko kaam nahi - pehle khud ilaaj + ek baar dobara jaanch
             log(f"autodoctor {name}: {e}")
-            need.append(f"{name}: jaanch khud fail ({str(e)[:80]}) - 'Sab theek?' dabayein, na sudhre to Claude ko screenshot")
+            h = heal(str(e))
+            try:
+                if not h:
+                    raise e
+                fn()
+                fixed.append(f"{name}: jaanch gir rahi thi ({str(e)[:60]}) → {'; '.join(h)} → ab theek")
+            except Exception as e2:
+                botwork.append(f"{name}: jaanch fail ({str(e2)[:80]}) - bot har 2 ghante khud dobara; 3 din na sudhre to ESCALATE (Claude)")
 
     # 0) v3.4.27: jin video ki file mit chuki (purana data/stock) - unhe 'kharab' (roz 'AAPKA KAAM' mein faltu na aayein)
     def broken():
@@ -251,6 +258,116 @@ def run(manual=False, quiet=False):
         L += [f"• {x}" for x in botwork]
     L.append(f"\n✅ Theek: {', '.join(ok)}" if ok else "")
     return "\n".join(x for x in L if x)
+
+
+# ---------------- v3.9.6 (owner 26 Nov: "autodoctor ko power do - jaise hi error aaye turant khud start ho, bina approval") ----------------
+# kick(): har laal/peeli galti (tg.alert) + WORK line ki har galti par. Loop 3 min baad chhoti jaanch + heal() chalata hai.
+# Seema: din mein max 12 turant-daur, do daur ke beech 20 min (loop nahi). Sirf jaane-pehchaane SURAKSHIT ilaaj; trading kabhi nahi.
+KICK_GAP = 20 * 60
+KICK_MAX_DAY = 12
+
+
+def kick(why=""):
+    try:
+        k = state.get("ad_kick") or {}
+        if time.time() - float(k.get("t") or 0) < 60:
+            return
+        state.put("ad_kick", {"t": time.time(), "why": str(why)[:300]})
+    except Exception:
+        pass
+
+
+def kick_due():
+    k = state.get("ad_kick") or {}
+    t = float(k.get("t") or 0)
+    if not t or not state.get("ad_on", True) or state.get("paused"):
+        return False
+    if t <= float(state.get("ad_kick_done") or 0):
+        return False
+    if time.time() - t < 180 or time.time() - float(state.get("ad_kick_run") or 0) < KICK_GAP:
+        return False
+    d = state.get("ad_kick_day") or {}
+    today = str(datetime.date.today())
+    return d.get("d") != today or d.get("n", 0) < KICK_MAX_DAY
+
+
+def _stale_locks(max_age=300):
+    """Git ki atki lock (index.lock 'Another git process seems to be running') - 5 min se purani = mara hua process."""
+    import pathlib
+    out = []
+    roots = [pathlib.Path(DATA) / "site_repo", pathlib.Path(DATA).parent, pathlib.Path(DATA)]
+    for r in roots:
+        g = r / ".git"
+        if not g.exists():
+            continue
+        for f in list(g.glob("*.lock")) + list(g.glob("refs/**/*.lock")):
+            try:
+                if time.time() - f.stat().st_mtime > max_age:
+                    f.unlink()
+                    out.append(f"{r.name}/.git/{f.name}")
+            except Exception:
+                pass
+    return out
+
+
+def heal(err):
+    """Galti ka text -> jaane-pehchaane surakshit ilaaj. Lautata hai: kya kiya (list)."""
+    e = str(err or "").lower()
+    done = []
+    try:
+        if "lock" in e or "another git process" in e or "git" in e:
+            L = _stale_locks()
+            if L:
+                done.append("atki git lock hatayi (" + ", ".join(L[:3]) + ")")
+        if "no such file or directory" in e and "/data/" in e:
+            import re as _re
+            m = _re.search(r"'(/home/[^']+)'", str(err))
+            if m:
+                import pathlib
+                pth = pathlib.Path(m.group(1))
+                if str(pth).startswith(str(DATA)):
+                    (pth if not pth.suffix else pth.parent).mkdir(parents=True, exist_ok=True)
+                    done.append(f"gayab folder banaya ({pth.parent.name})")
+        if "changes in working directory" in e or "would be overwritten" in e or "unstaged changes" in e:
+            from . import website
+            try:
+                website._git("stash", "-q", timeout=60)
+                done.append("website repo ki adhuri state alag rakhi (git stash)")
+            except Exception:
+                pass
+        if "no space left" in e or "disk" in e and "full" in e:
+            from . import studio
+            n = studio.cleanup(days=1)
+            done.append(f"disk bhari thi - {n} purane render mitaye")
+        if "daily.py" in e or "seen_news" in e:
+            from . import website
+            r = website.site396_apply()
+            if r:
+                done.append("website roz-report ka crash sudhaar lagaya")
+        if "raqm" in e:
+            from . import raqmsafe
+            raqmsafe.install()
+            done.append("font engine surakshit mode (raqmsafe) chalu")
+        # ffmpeg/prepare: pipeline.slot_doctor har 5 min khaali slot khud dobara banata hai (v3.9.5) - yahan dohra nahi
+    except Exception as ex:
+        log(f"autodoctor heal: {ex}")
+    return done
+
+
+def kick_run():
+    """Turant-daur: heal(galti) + chhoti jaanch. Sirf kuch theek kiya/naya ho to khabar."""
+    k = state.get("ad_kick") or {}
+    state.put("ad_kick_run", time.time())
+    state.put("ad_kick_done", float(k.get("t") or time.time()))
+    today = str(datetime.date.today())
+    d = state.get("ad_kick_day") or {}
+    state.put("ad_kick_day", {"d": today, "n": (d.get("n", 0) if d.get("d") == today else 0) + 1})
+    h = heal(k.get("why", ""))
+    r = run(quiet=True)
+    if h:
+        head = "🩺⚡ AUTO-DOCTOR (galti aate hi khud chala): " + (k.get("why", "")[:90].replace("\n", " ")) + "\n🔧 " + "\n🔧 ".join(h)
+        return head + ("\n\n" + r if r else "")
+    return r
 
 
 QUICK_EVERY = 2 * 3600       # v3.4.42 (owner 23 Nov: 'kabhi bhi kuch galat ho khud turant theek kare'): roz ki badi jaanch ke alawa

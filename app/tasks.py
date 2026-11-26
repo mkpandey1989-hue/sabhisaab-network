@@ -1642,7 +1642,40 @@ def _mig_395():
         _dirty()
 
 
+SEED_V396 = [           # v3.9.6 (26 Nov 2026): AMP - bot khud jaanchta hai (URL Inspection API ampResult), PASS hote hi hat jaata hai
+    ("(Marzi, 1 min) Search Console → AMP → 'Web Story is invalid' → VALIDATE FIX. Zaroori NAHI: bot ne 11 story theek kar di, "
+     "Google apne aap dobara jaanchta hai; bot roz API se dekhta hai aur theek dikhte hi ye line khud hata dega", None, "amp_ok",
+     "Bot khud hatayega. Chahein to: 'ho gaya amp fix'"),
+]
+
+
+def _amp_ok():
+    from . import idxlink
+    return idxlink.amp_pass("https://sabhisaab.com/stories/uk-bageshwar-zila-kahani")
+
+
+AUTO["amp_ok"] = _amp_ok
+
+
+def _mig_396():
+    if state.get("mig_396"):
+        return
+    state.put("mig_396", True)
+    import datetime as _d
+    have = {o.get("x") for o in state.get("todo") or []}
+    day = str(_d.date.today())
+    add = [{"x": t, "t": day, "how": h, **({"auto": k} if k else {})} for t, a, k, h in SEED_V396 if t not in have]
+    # 25 Nov ka privacy + services-demo website par bot pehle hi laga chuka (GitHub commit 25 Nov) - owner ka kaam nahi
+    state.update("todo", lambda l: [o for o in (l or []) if not str(o.get("x", "")).startswith(
+        "[Owner, 2 min] Website ZIP (privacy + services-demo")] + add, [])
+    _dirty()
+
+
 def seed_todo():
+    try:
+        _mig_396()
+    except Exception:
+        pass
     try:
         _mig_395()
     except Exception as e:

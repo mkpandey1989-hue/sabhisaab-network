@@ -1038,7 +1038,7 @@ def thumbnail(script, out_path, variant=0):
             _text_glow(img, ((tw - T.width(ln, sz)) / 2, yy), ln, sz, (255, 230, 60) if i == 0 else (255, 255, 255),
                        (a1 if i == 0 else a2) + (255,), radius=10)
             yy += int(sz * 1.22)
-        cta = "जवाब कमेंट में लिखिए!" if script.get("puzzle_options") else "पूरा सच जानिए!"   # v3.3.5: sahi jawab website par hai, comment mein nahi
+        cta = "जवाब सोचिए!" if script.get("puzzle_options") else "पूरा सच जानिए!"   # v3.3.5: sahi jawab website par hai, comment mein nahi
         _text_glow(img, ((tw - T.width(cta, 54)) / 2, 560), cta, 54, (255, 230, 60), a2 + (255,), radius=12)
     else:                                            # bada 5s timer baayein + sawal + A/B/C
         _timer(img, 260, 330, 190, 5, a2)

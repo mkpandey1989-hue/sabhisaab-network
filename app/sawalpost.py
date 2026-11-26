@@ -48,7 +48,7 @@ SKIP_WORDS = ("kitn", "gayi", "gyi", "gaya", "hatao", "delete", "band", "chalu",
 EXACT_OTHER = ("group post", "group post do", "aaj ka group post", "group post band", "group post chalu", "linkedin post",
                "linkedin post karo", "welcome post", "mauka post", "fb link post band", "fb link post chalu")
 OPENERS = ["🧠 दिमाग लगाइए - पहली बार में सही बता पाएँगे?", "🤔 ज़रा सोचिए, जवाब क्या होगा?", "🎯 आज का सवाल - 10 सेकंड में जवाब दीजिए!",
-           "🔥 जल्दबाज़ी मत कीजिए - एक बार और पढ़कर जवाब दीजिए!", "📝 आज की पहेली - कमेंट में अपना जवाब लिखिए", "💡 सोचो, समझो, फिर बताओ!"]
+           "🔥 जल्दबाज़ी मत कीजिए - एक बार और पढ़कर जवाब दीजिए!", "📝 आज की पहेली - पहले खुद हल कीजिए", "💡 सोचो, समझो, फिर बताओ!"]
 # v3.4.40: '99% लोग पहली बार में गलत' (nakli aankda - owner + YouTube/Meta niti) hataya
 RX = re.compile(r"(s[ae]?wa+l|sval|swal|quiz|paheli|पहेली|सवाल).{0,25}\bpost\b|\bpost\b.{0,12}(s[ae]?wa+l|swal|quiz)|"
                 r"^(ek |1 |aur |ek aur |naya |nayi |new )?post (do|de|dedo|de do|dena|bhejo|chahiye|banao)\b|^(ek |1 )?aur post\b")
@@ -264,7 +264,7 @@ def fmt(e, plat):
             pass
         return [("👥 FACEBOOK GROUP - 3 line (See more se pehle sab dikhega). Post karte waqt neeche bana LINK CARD ka ❌ MAT "
                  "dabana - wo poora card clickable hai. Har group mein alag sawal maango.",
-                 f"🧠 {q}\n{opl}\n👇 सही जवाब: {lk}\n✍️ अपना जवाब कमेंट में लिखिए"),
+                 f"🧠 {q}\n{opl}\n👇 सही जवाब: {lk}\n🤔 पहले खुद सोचिए, फिर जवाब देखिए"),
                 ("💬 Jis group mein LINK MANA ho: post mein upar ki sirf pehli 2 line (sawal + vikalp) daalo, aur ye apne PEHLE "
                  "COMMENT mein (comment ka link bhi click hota hai):",
                  f"✅ सही जवाब और आसान तरीका यहाँ: {lk}")]
@@ -282,13 +282,13 @@ def fmt(e, plat):
         return [("🟠 REDDIT - 1) TITLE dabbe mein (link nahi)", f"🧠 {q}"),
                  ("🟠 REDDIT - 2) BODY / text dabbe mein. Naye account se link wali post hat sakti hai - karma 100+ hone tak "
                   "link wali 2 line hata do aur link sirf comment mein, jab koi poochhe.",
-                  f"{_ops(e)}\n\nपहले कमेंट में अपना जवाब लिखिए 👇\nसही जवाब + तरीका: {link(e, 'reddit', 'post')}")]
+                  f"{_ops(e)}\n\nपहले खुद हल कीजिए 👇\nसही जवाब + तरीका: {link(e, 'reddit', 'post')}")]
     if plat == "instagram":
         st = link(e, "instagram", "story")
         return [("📸 INSTAGRAM reel/post CAPTION (caption ka link click nahi hota - isliye bio/highlight)",
-                 f"🧠 {q}\n\n{_ops(e)}\n\n💬 कमेंट में अपना जवाब लिखिए!\n✅ सही जवाब: प्रोफ़ाइल पर '✅ जवाब' हाइलाइट या bio का लिंक 👆\n\n"
+                 f"🧠 {q}\n\n{_ops(e)}\n\n🤔 पहले खुद सोचिए!\n✅ सही जवाब: प्रोफ़ाइल पर '✅ जवाब' हाइलाइट या bio का लिंक 👆\n\n"
                  "#PahadiHisaab #SabHisaab #Quiz #GK #Uttarakhand" if e.get("brand") == "pahadi" else
-                 f"🧠 {q}\n\n{_ops(e)}\n\n💬 कमेंट में अपना जवाब लिखिए!\n✅ सही जवाब: प्रोफ़ाइल पर '✅ जवाब' हाइलाइट या bio का लिंक 👆\n\n"
+                 f"🧠 {q}\n\n{_ops(e)}\n\n🤔 पहले खुद सोचिए!\n✅ सही जवाब: प्रोफ़ाइल पर '✅ जवाब' हाइलाइट या bio का लिंक 👆\n\n"
                  "#SabHisaab #Quiz #Puzzle #GK"),
                 ("📸 INSTAGRAM STORY - upar wali photo lagao → sticker 🙂 → LINK → ye link paste → text: सही जवाब देखें 👆", st)]
     return [("📱", post_text(e))]

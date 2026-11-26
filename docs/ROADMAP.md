@@ -2568,3 +2568,19 @@ bonus ek srot, IG ProcessingFailedError pakka theek + auto-doctor turant, schedu
 - Docs: 🔖 audit stamp (AI_START, ROADMAP, MASTER, LESSONS, SERVICES_HANDOVER, HANDOVER, HANDOVER_OWNER, COMMANDS, OWNER_RULES),
   `docs/LAST_AUDIT.md` (naya), LESSONS 34-37.
 - NAHI chheda: schedule/taala, sawal reel ka format (uska "कमेंट में जवाब" owner ka - faisla baaki), rate list (sha), trading, chowkidar.
+
+## v3.9.6 (26 Nov 2026, Claude) - index jaanch + auto-doctor turant + raat 23:30 render
+Owner: "services-demo, services-list, AMP error, pauri page index nahi - bariki se jaancho; bot ki galti permanent fix; autodoctor ko
+power - galti aate hi khud, bina approval; raat 11:30-4:30 video, din mein VM khaali; spam/privacy jaanch".
+- AMP: `website.amp_clean` + `mobile_fix_text` AMP chhodta hai. 11 story theek (`site396_apply`, ek baar, audit gate).
+- /uttarakhand hub: 13 zile x 7 page ki linked table (`uk_hub_table`) - sanskriti/prashasan page ko hub se link.
+- services/services-list: `SVCKIT.enhance` guard, services-list par svc-kit/svc-cfg dohra load hataya.
+- scripts/daily.py `news()` bool/str TypeError (roz 2-3 DHYAN) - `daily_fix`.
+- `app/raqmsafe.py`: raqm_layout() galti par text saaf → BASIC engine (video kabhi nahi rukti). `app/__init__` mein lagta hai.
+- Auto-doctor: `kick()` (har laal/peeli alert) → 3 min baad `kick_run()` = `heal()` + chhoti jaanch; din max 12, 20 min gap.
+  `heal`: atki git lock, gayab data folder, adhuri git state (stash), disk, daily.py, raqm. `chk` fail ab owner ko nahi - khud dobara.
+- Raat render `pipeline.NIGHT_START/END` = 23:30-04:30 (23:30 ke baad KAL ke slot). Din mein sirf aapaat (slot doctor / chhooti raat).
+- Pauri/services page: koi technical rok nahi (index, canonical, sitemap theek; 5-shabd milan 5-7%). Sirf naye (24-25 Nov) - Google ka samay.
+- NAHI chheda: sawal reel ka "कमेंट में जवाब" (owner ka faisla), schedule taala, trading, chowkidar.
+- (26 Nov 08:29, owner haan) Sawal reel/post se "कमेंट में जवाब लिखिए" hataya (Meta engagement-bait). AMP auto-check `amp_ok`,
+  site396 install ke 2 min baad. Privacy 25 Nov pehle se live -> PENDING se hata.

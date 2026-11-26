@@ -133,7 +133,7 @@ def quiz_group_text():
     q = re.sub(r"\s*#\S+", "", _txt(e.get("q")))
     ops = "  ".join(f"{'ABCD'[i]}) {_txt(o)}" for i, o in enumerate((e.get("opts") or [])[:4]))
     link = answer_url(e.get("aid") or e.get("code"), "facebook_group", e.get("brand"))
-    return f"🧠 {q}\n{ops}\n👇 सही जवाब: {link}\n✍️ अपना जवाब कमेंट में लिखिए"
+    return f"🧠 {q}\n{ops}\n👇 सही जवाब: {link}\n🤔 पहले खुद सोचिए, फिर जवाब देखिए"
 
 
 # ---------------------------------------------------------------- 3) Quora

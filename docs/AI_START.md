@@ -1,6 +1,6 @@
 # AI_START - koi bhi AI / developer SABSE PEHLE ye padhe
 
-> 🔖 **AAKHRI AUDIT: 25 Nov 2026 (v3.9.5, Claude)** — SABSE PEHLE `docs/LAST_AUDIT.md` padho (kya kami mili, kya theek kiya, kya baaki, kya KABHI NAHI). Poora saboot: `docs/AUDIT_25NOV2026.md`. Naya audit karo to isi stamp ki tareekh + LAST_AUDIT.md badlo.
+> 🔖 **AAKHRI AUDIT: 26 Nov 2026 (v3.9.6, Claude)** — SABSE PEHLE `docs/LAST_AUDIT.md` padho (kya kami mili, kya theek kiya, kya baaki, kya KABHI NAHI). Poora saboot: `docs/AUDIT_25NOV2026.md`. Naya audit karo to isi stamp ki tareekh + LAST_AUDIT.md badlo.
 
 > **25 Nov 2026 (v3.9.5): `docs/AUDIT_25NOV2026.md` - senior audit (privacy sach, spam jokhim, 3 naye page ka index, chat ke mudde). LESSONS_NEVER 29-33.**
 
