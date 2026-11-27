@@ -103,7 +103,19 @@ def do_bot(b, tok, force):
     if MARK in cur:
         say(f"ℹ️ {b['name']}: naya version pehle se laga hai - nahi chheda"); return True
     if b["market"] and market_time():
-        say(f"⏸️ {b['name']}: bazaar ka time (09:00-15:30) - nahi chheda. 15:30 ke baad dobara chalao."); return False
+        live = False
+        try: live = open(os.path.join(b["dir"], "live_mode.txt"), encoding="utf-8").read().strip().upper() == "LIVE"
+        except Exception: live = False
+        if "--abhi" not in sys.argv:
+            say(f"⏸️ {b['name']}: bazaar ka time (09:00-15:30) - nahi chheda. 15:30 ke baad dobara chalao "
+                f"(PAPER ho aur trade na ho to abhi: --abhi)."); return False
+        if live:
+            say(f"⛔ {b['name']}: bot LIVE mode mein hai - bazaar ke time restart NAHI (asli paisa). 15:30 ke baad chalao."); return False
+        busy, why = bot_busy(b)
+        if busy is not False:
+            say(f"⏸️ {b['name']}: {why if busy is None else 'bot abhi ' + why + ' hai'} - bazaar ke time pakka hona chahiye "
+                f"ki trade nahi hai. Nahi chheda."); return False
+        say(f"ℹ️ {b['name']}: PAPER + koi trade nahi ({why}) - aapke kehne pe bazaar ke time laga raha (~3 sec restart).")
     if True:
         busy, why = bot_busy(b)
         if busy or (busy is None and not force):
