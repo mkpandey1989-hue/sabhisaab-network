@@ -8,6 +8,7 @@ TRADE RULE SAME (1 trade/din, SL candle-LOW, risk/lock/kill wahi, 10s button win
   band candle timestamp se pakki, VM ghadi check, 4 TF (1/5/15/30; 30m = do 15m, 9:15 se).
   +  nifty-live.service: roz ka token SIRF 8:45 cron banata hai; restart pe sirf tab jab token 23 ghante
      purana ho (yaani 8:45 wala fail hua) -> bazaar ke time restart pe naya token kabhi nahi.
+     RestartSec 5 -> 2 (bot band hone ke baad 2 sec mein wapas).
 
 Kya karta hai (sab check ke baad, warna KUCH NAHI badalta):
  1) Bazaar ka time (Som-Shukra 09:00-15:30) -> kuch nahi, baad mein chalao.
@@ -90,31 +91,38 @@ def masked(text):
 
 
 def fix_unit():
+    """16: token sirf 8:45 (restart pe sirf 23 ghante purana ho tab) + RestartSec 5 -> 2 (restart jaldi)."""
     try:
         u = open(UNIT).read()
     except Exception:
-        say("⚠️ nifty-live.service nahi mili - token wala fix (16) nahi laga"); return False
-    if NEW_PRE in u:
-        say("ℹ️ Service pehle se theek (token sirf 8:45 / 23 ghante wala check)"); return True
-    if V1_PRE in u:
-        OLD = V1_PRE
-    elif OLD_PRE in u:
-        OLD = OLD_PRE
-    else:
-        say("⚠️ Service mein purani ExecStartPre line nahi mili - fix 16 nahi laga (baaki sab chalega)"); return False
-    if not os.path.exists(os.path.join(HOME, "dhan_token.txt")):
-        say("⚠️ ~/dhan_token.txt nahi mili - fix 16 nahi laga"); return False
+        say("⚠️ nifty-live.service nahi mili - service fix nahi laga (bot ka baaki sab chalega)"); return False
+    new_u = u
+    if NEW_PRE not in new_u:
+        if not os.path.exists(os.path.join(HOME, "dhan_token.txt")):
+            say("⚠️ ~/dhan_token.txt nahi mili - token wala fix nahi laga")
+        elif V1_PRE in new_u:
+            new_u = new_u.replace(V1_PRE, NEW_PRE)
+        elif OLD_PRE in new_u:
+            new_u = new_u.replace(OLD_PRE, NEW_PRE)
+        else:
+            say("⚠️ Service mein purani ExecStartPre line nahi mili - token wala fix nahi laga")
+    new_u = re.sub(r"^RestartSec=5$", "RestartSec=2", new_u, flags=re.M)
+    if new_u == u:
+        say("ℹ️ Service pehle se theek"); return True
     bk = os.path.join(HOME, "unit_backups"); os.makedirs(bk, exist_ok=True)
     stamp = time.strftime("%Y%m%d_%H%M%S")
     subprocess.run(["sudo", "cp", "-a", UNIT, f"{bk}/nifty-live.service.{stamp}"], check=False)
     tmp = f"/tmp/nifty-live.service.{stamp}"
-    open(tmp, "w").write(u.replace(OLD, NEW_PRE))
+    open(tmp, "w").write(new_u)
     r = subprocess.run(["sudo", "cp", tmp, UNIT])
     subprocess.run(["sudo", "systemctl", "daemon-reload"])
-    ok = r.returncode == 0 and NEW_PRE in open(UNIT).read()
-    say("✅ Service fix: roz ka token sirf 8:45 cron banayega; restart pe sirf tab jab 23 ghante purana ho. "
-        f"Backup: {bk}/nifty-live.service.{stamp}" if ok else "⚠️ Service fix nahi laga - purani line hi hai")
-    return ok
+    now_u = open(UNIT).read()
+    if r.returncode == 0 and now_u == new_u:
+        say("✅ Service fix: roz ka token sirf 8:45 cron banayega (restart pe sirf tab jab 23 ghante purana ho)"
+            + (" | restart wait 5s -> 2s" if "RestartSec=2" in now_u else "") + f". Backup: {bk}/nifty-live.service.{stamp}")
+        return True
+    say("⚠️ Service fix nahi laga - purani service hi chal rahi hai (bot ka baaki sab chalega)")
+    return False
 
 
 def main():
@@ -184,9 +192,14 @@ def main():
               open(os.path.join(HOME, ".control_last.json"), "w", encoding="utf-8"), ensure_ascii=False)
     say(f"✅ File badli. Backup: {bk}/{bname}")
     subprocess.run(["sudo", "systemctl", "restart", "nifty-live"])
-    say("🔄 nifty-live restart... 25 sec check")
-    time.sleep(25)
+    say("🔄 nifty-live restart... 20 sec check (bot baar baar gir to nahi raha)")
+    def _pid():
+        return subprocess.run(["systemctl", "show", "nifty-live", "-p", "MainPID", "--value"],
+                              capture_output=True, text=True).stdout.strip()
+    time.sleep(8); p1 = _pid(); time.sleep(12); p2 = _pid()
     st = subprocess.run(["systemctl", "is-active", "nifty-live"], capture_output=True, text=True).stdout.strip()
+    if st == "active" and (p1 != p2 or p2 in ("", "0")):
+        st = "baar-baar restart"
     if st != "active":
         shutil.copy2(os.path.join(bk, bname), BOT + ".new"); os.replace(BOT + ".new", BOT)
         try: os.remove(os.path.join(HOME, ".deploy_pending.json"))
