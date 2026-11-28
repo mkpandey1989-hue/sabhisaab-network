@@ -1,0 +1,1508 @@
+# CHAT - owner (👤) aur bot (🤖) ki baat, 30 din, naya upar. Token/password/secret/phone/email/@handle chhupe.
+Commenter ke comment yahan kabhi nahi (privacy policy). AI: galat/adhoore jawab yahin se pakdo, fix ZIP do.
+
+- 2026-11-28 20:10 🤖 🟢 🤖 mon4d254: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 20:30 par jayegi.
+- 2026-11-28 20:00 🤖 💡 Is hafte comment se seekh (naam kabhi nahi): / • Ruchi: Viewers sabse zyada MCQ quiz (A/B/C/D options), paheliyon (thand, rishte-naate), sankhya wale sawalon (20, 8, 49) aur rajyon se jude GK (jaise Uttarakhand ka 9 November 2000 aur Chholiya nritya) mein  / • Naye vishay: Bharat ke rajyon ka sthapana diwas aur lok nritya (GK); Rishte-naate aur rozmarra ki cheezon par paheliyan; Tarkik ganit aur sankhyaon ke chhote sawal / • Log puchh/galat samajh rahe: Log alag-alag MCQ options (A, B, C, D) aur rajyon ki sthapana tarikhon (jaise 9 November 2000 aur 15 November) mein ulajh kar alag-alag jawab de rahe hain; saath hi kuch log motivational videos banane
+- 2026-11-28 19:48 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 403 URL | Bing ki ginti 402 canary ✅
+- 2026-11-28 19:40 🤖 🟢 ⏰ svcpa1128053112: YouTube par 20:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-28 19:40 🤖 🟢 📤 Suno Natak: ऐसी कौन सी चीज़ है जो पैदा होने पर हमेशा 4 पैरों पर, जवा #Shorts / ✅ youtube: https://youtu.be/F8-ii08Bk3I / ✅ facebook: https://www.facebook.com/reel/1183654004186017 / ✅ instagram: https://www.instagram.com/reel/DgSa7JwRkXa/ / ✅ threads: https://www.threads.com/@***/post/DgSbFiiCLjI / ✅ telegram: https://t.me/sabhisaab/345 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post https://www.facebook.com/1309806728893856_122115252447537412, IG story / ✅ answer: jawab Telegram + website (kod #2283) / pinterest: ⏸ Pinterest: aaj ki bachi 1 jagah services video ke liye rakhi (services pehle, spam-seema ke andar) / dailymotion: ⏸ Dailymotion: aaj ki bachi 1 jagah services video ke liye rakhi (services pehle) / 🔗 Website: https://sabhisaab.com/jawab#c2283
+- 2026-11-28 19:40 🤖 🟢 🤖 svcpa1128053112: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 20:00 par jayegi.
+- 2026-11-28 19:15 🤖 🔎 Quora par ye sawal khojein (ya naya poochhein): Kya yeh sach hai? /  / — JAWAB (copy) — / Itihaskaar is lok-katha ko sahi ya galat siddh nahi karte. Itna zaroor hai ki Almora naam ki purani sthaniya pehchan, Chand rajaon ke samay se pehle, “Khagmara Kot” jaise kilon aur Rajapur jaise naamon ke saath bhi jodi jati hai, jiski charcha Almora: Panwar & Chand Kingdoms aur Almora: Purane Garh / Kot, Baoli aur Khandhar Mahal me ki jayegi. /  / पूरा हिसाब / कैलकुलेटर (Almora: Tehsil, Block, Vidhan Sabha aur Codes): https://sabhisaab.com/almora-zila-prashasan?utm_source=quora&utm_medium=share&utm_campaign=answer /  / 💡 Upar apne shabdon mein 1 line jod dein (jaise apna anubhav) - Quora aise jawab zyada dikhata hai.
+- 2026-11-28 19:15 🤖 ❓ QUORA - is link par sawal dhoondho (na mile to yahi sawal khud poochho, phir jawab do): / https://www.quora.com/search?q=Kya%20yeh%20sach%20hai%3F
+- 2026-11-28 19:15 🤖 🧠 ₹100 की चीज़ 20% महंगी होकर फिर 20% सस्ती हुई, अब दाम कितना है? / A) ₹100  B) ₹98  C) ₹96  D) ₹104 / 👇 सही जवाब: https://sabhisaab.com/jawab?utm_source=facebook_group&utm_campaign=deals&utm_content=c5640#c5640 / 🤔 पहले खुद सोचिए, फिर जवाब देखिए
+- 2026-11-28 19:15 🤖 👥 DUSRE KE FACEBOOK GROUP (GK / exam / pahadi groups - aap member ho, admin nahi). Facebook niyam: din mein 2-3 group se zyada nahi, ek hi text ek saath sab group mein nahi, group ke 'Rules' padhein; jahan link mana ho wahan link hata kar 'jawab comment mein' likhein. Admin manzoori maange to intezaar karein - baar-baar post = spam.
+- 2026-11-28 19:15 🤖 🏔️ Bageshwar GK, UKPSC Taiyari aur Career Guide /  / Bageshwar GK aur career: Kausani, Kanda aur Saryu — UKPSC-UKSSSC taiyari, school-college, ITI, fauj bharti aur abhyas prashn. /  / ✔️ Bageshwar: UKPSC, PCS aur UKSSSC ke liye 100 Ek-Line GK Tathya / ✔️ Bageshwar: Is Zile se Pichhle Saalon ke Sawal (PYQ) / ✔️ First in Bageshwar (Pratham Vyaktitva aur Sthan) /  / 🔗 Link bio mein - Sab Hisaab / #Uttarakhand #Hindi
+- 2026-11-28 19:15 🤖 📸 INSTAGRAM / MOJ / SHARECHAT - wahi banner + ye chhota text (yahan caption ka link click nahi hota)
+- 2026-11-28 19:15 🤖 🏔️ Bageshwar GK, UKPSC Taiyari aur Career Guide /  / Bageshwar GK aur career: Kausani, Kanda aur Saryu — UKPSC-UKSSSC taiyari, school-college, ITI, fauj bharti aur abhyas prashn. /  / Is page par: / ✔️ Bageshwar: UKPSC, PCS aur UKSSSC ke liye 100 Ek-Line GK Tathya / ✔️ Bageshwar: Is Zile se Pichhle Saalon ke Sawal (PYQ) / ✔️ First in Bageshwar (Pratham Vyaktitva aur Sthan) / ✔️ Bageshwar par Pramukh Kitabein aur Shodh / ✔️ Bageshwar: Coaching, Pustakalay aur Reading Room /  / Poori jaankari (free, bina login): https://sabhisaab.com/bageshwar-gk-exam-career?utm_source=fbgroup&utm_medium=social&utm_campaign=group_uk /  / Kaam ka laga to save rakhiye - zaroorat par kaam aayega 🙏 / #Uttarakhand #PahadiJankari #Hindi
+- 2026-11-28 19:15 🤖 👥 FACEBOOK GROUP / WHATSAPP / THREADS - upar wali BANNER photo lagao, phir ye text (link click hota hai)
+- 2026-11-28 19:15 🤖 🧠 आज का सवाल /  / शादी में ढोल के साथ बजने वाला पहाड़ी नगाड़ा? /  / A) मशकबीन / B) दमाऊ / C) हुड़का / D) बांसुरी /  / 👇 सही जवाब + तरीका: / https://sabhisaab.com/jawab?utm_source=whatsapp_status&utm_medium=answer&utm_campaign=pahadi&utm_content=c2386#c2386
+- 2026-11-28 19:15 🤖 📱 WHATSAPP STATUS (lamba dabao → Copy → Status par paste; saath mein aaj ki video ka screenshot lagayein)
+- 2026-11-28 19:15 🤖 🧰 AAJ KI SHARE KIT - 5 minute. Har sandesh alag hai: lamba dabao → Copy → wahan paste.
+- 2026-11-28 19:15 🤖 Manoj bhai, kis brand ke liye video banani/upload karni hai? (Suno Natak, Sab Hisaab Money, Labh Lo Deals, ya Pahadi Hisaab) / Kis brand ke liye?
+- 2026-11-28 19:13 👤 Ek video upload karo
+- 2026-11-28 19:10 🤖 🟢 ⏰ sun0e3b7: YouTube par 19:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-28 19:10 🤖 🟢 🤖 sun0e3b7: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 19:30 par jayegi.
+- 2026-11-28 18:45 🤖 📣 Aaj ka Uttarakhand page share: https://sabhisaab.com/chamoli-itihas-mandir → FB, Threads, Telegram
+- 2026-11-28 18:33 🤖 🎬 Dailymotion: svcde1128051730 ab chali gayi (dobara koshish 1) ✅ https://www.dailymotion.com/video/xc0rncy
+- 2026-11-28 18:30 🤖 💼 LinkedIn shaam ki post (free tool) gayi ✅ / https://www.linkedin.com/feed/update/urn:li:share:7532428132805558274/
+- 2026-11-28 18:13 👤 💬 Comment haal
+- 2026-11-28 18:04 🤖 🟢 📤 Labh Lo Deals: कोई भी डिजिटल काम — हो जाएगा | Experience letter ₹129 se / ✅ youtube: https://youtu.be/FqjFgur5XEA / ✅ facebook: https://www.facebook.com/reel/2355615988525835 / ✅ instagram: https://www.instagram.com/reel/DgSQoH4Oxll/ / ✅ threads: https://www.threads.com/@***/post/DgSQwaWiEX4 / ✅ telegram: https://t.me/sabhisaab/343 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: 🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-28 17:40 🤖 🟢 ⏰ svcde1128051730: YouTube par 18:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-28 17:40 🤖 🟢 🤖 svcde1128051730: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 18:00 par jayegi.
+- 2026-11-28 17:37 🤖 📥 LEADS — 28-11-2026 17:37 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-28 17:37 🤖 ✅ Ho gaya - Leads se hata.
+- 2026-11-28 17:37 🤖 📥 LEADS — 28-11-2026 17:37 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 2 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 1 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 1 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 💬 Comment/DM - kaam poocha, number abhi nahi (2): / • comment Suno YT · @***: "Mujhe bot banvana hai" · bot ne jawab diya · 23 ghante / • comment Labh IG · ritupandey8262: "Mujhe bot banvana" · bot ne jawab diya · 23 ghante / (⏰ = 24 ghante se form nahi bhara; number mile to 'manual naam 98xxxxxxxx kaam') /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-28 17:37 👤 📥 Leads
+- 2026-11-28 17:37 👤 📥 Leads
+- 2026-11-28 17:36 🤖 ⚙️ Kis channel ki setting dekhni/pakki karni hai? (✅ = FINAL ho chuka)
+- 2026-11-28 17:36 👤 ⚙️ Channel setup
+- 2026-11-28 17:02 🤖 🩺 Sab theek? (v3.9.7, chalu 3327 min) / ✅ Gemini: gemini-3.6-flash / 🧠 Model kram: gemini-4-argon > gemini-4-carbon > gemini-4-neon > gemini-3.6-flash✅ / ✅ YouTube client file (TV) / ✅ Suno Natak login (Suno Natak) / ✅ Sab Hisaab Money login (Sab Hisaab Money) / ✅ Labh Lo Deals login (Labh Lo Deals ) / ✅ Pahadi Hisaab login (Pahadi Hisaab ) / ✅ Suno Natak FB + IG @*** / ✅ Sab Hisaab Money FB + IG @*** / ✅ Labh Lo Deals FB + IG @*** / ✅ Pahadi Hisaab FB + IG @*** / ✅ Suno Natak Threads @*** / ✅ Sab Hisaab Money Threads @*** / ✅ Labh Lo Deals Threads @*** / ✅ Pahadi Hisaab Threads @*** / 📊 Analytics: Suno ✅, Sab ✅, Labh ✅, Pahadi ✅ / ✅ Pinterest: production | login ✅ | LIVE public / ✅ LinkedIn: roz post CHALU | aaj ✅ gayi / ✅ Website deploy (Cloudflare): VM se seedha | GitHub copy ✅ / ✅ /jawab page live / ✅ Google (GSC + GA4): service account ✅ | index jaanch: 2026-11-28 / ✅ Bing: API key ✅ | sitemap live 403 / Bing 402 | aaj URL bheje: haan / ✅ IndexNow: kul 141 URL bheje (key site par public) / ✅ 🎬 Dailymotion: @*** | roz 3 video | aaj gayi: 1 | CHALU | 7 din views: 0 / 🔎 Google indexing link: aakhri 2026-11-28 (8 link) | roz 11:40 (sitemap ke baad) | abhi: 'indexing link' / ✅ AdSense: *** juda | review Google ke paas (approval mail ka intezaar) / ✅ Tracking fix ((not set) ilaaj): laga | owner-mode: ✅ / 🩺 Auto-doctor: aakhri 28 Nov 15:41 | khud theek 0 | aapka kaam 0 / ▶️ Chal raha | Auto-upload: ON / 📋 Kaam line mein: 0 | abhi chal raha: kuch nahi
+- 2026-11-28 17:02 👤 🩺 Sab theek?
+- 2026-11-28 17:01 🤖 🎬 AAJ (28 Nov, abhi 17:01): 2 video ja chuki, 5 line mein (upload ginti 2) / • 07:00 Sab Hisaab Money ✅: कोई भी डिजिटल काम — हो जाएगा | Shayari / quote ₹29 se /    https://youtu.be/P2Ziqz5LXQQ /    Platform: youtube, facebook, instagram, threads, pinterest, telegram / • 09:30 Pahadi Hisaab ✅: शादी में ढोल के साथ बजने वाला पहाड़ी नगाड़ा? #Shorts /    https://youtu.be/s9nwGoCGfX4 /    Platform: youtube, facebook, instagram, threads, pinterest, telegram / • 18:00 Labh Lo Deals ⏳ manzoori: कोई भी डिजिटल काम — हो जाएगा | Experience letter ₹129 se / • 19:30 Suno Natak ⏳ manzoori: ऐसी कौन सी चीज़ है जो पैदा होने पर हमेशा 4 पैरों पर, जवा #Sh / • 20:00 Pahadi Hisaab ⏳ manzoori: कोई भी डिजिटल काम — हो जाएगा | Domain expiry reminder ₹399 s / • 20:30 Sab Hisaab Money ⏳ manzoori: यदि किसी वर्ग (Square) की हर भुजा को दोगुना कर दें, तो उ #Sh / • 21:30 Labh Lo Deals ⏳ manzoori: 'दूरदर्शी' का सही अर्थ? #Shorts / ⏰ Aage aaj: 19:30 Suno Natak, 20:30 Sab Hisaab Money, 21:30 Labh Lo Deals
+- 2026-11-28 17:01 👤 Aaj total kitni video upload huyi hai
+- 2026-11-28 17:00 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-28, abhi tak - adhoora): 5 log / • Kal (poora): 34 log / • Pichhle 7 din: 324 | usse pehle 7 din: 264 (+22%) / • 👥 FB GROUP link se: aaj 0 | 7 din 3 / • Aaj kahan se: Seedha 2, LinkedIn 2, Facebook 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-28 17:00 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      1   26   242 / LinkedIn      2    5    31 / Seedha        2    1    20 / Threads       0    2    14 / Baaki         0    0     7 / Instagram     0    0     3 / Bing          0    0     2 / FB Group      0    0     2 / Anjaan        0    0     1 / Google        0    0     1 / -------------------------- / KUL (asli)    5   34   323</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     47   39   69   32   55 / LinkedIn      1    6    6    0   18 / Seedha        0    0    0    0   20 / Threads       1    0    6    0    7 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Anjaan        0    0    0    0    1 / Google        0    0    0    0    1</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-28 17:00 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-28 17:00 👤 Link se traffic
+- 2026-11-28 16:31 🤖 📥 LEADS — 28-11-2026 16:31 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 2 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 1 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 1 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 💬 Comment/DM - kaam poocha, number abhi nahi (2): / • comment Suno YT · @***: "Mujhe bot banvana hai" · bot ne jawab diya · 22 ghante / • comment Labh IG · ritupandey8262: "Mujhe bot banvana" · bot ne jawab diya · 22 ghante / (⏰ = 24 ghante se form nahi bhara; number mile to 'manual naam 98xxxxxxxx kaam') /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-28 16:31 👤 📥 Leads
+- 2026-11-28 13:46 🤖 📥 LEADS — 28-11-2026 13:46 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 2 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 1 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 1 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 💬 Comment/DM - kaam poocha, number abhi nahi (2): / • comment Suno YT · @***: "Mujhe bot banvana hai" · bot ne jawab diya · 20 ghante / • comment Labh IG · ritupandey8262: "Mujhe bot banvana" · bot ne jawab diya · 20 ghante / (⏰ = 24 ghante se form nahi bhara; number mile to 'manual naam 98xxxxxxxx kaam') /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-28 13:46 👤 📥 Leads
+- 2026-11-28 12:50 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-28, abhi tak - adhoora): 5 log / • Kal (poora): 34 log / • Pichhle 7 din: 324 | usse pehle 7 din: 264 (+22%) / • 👥 FB GROUP link se: aaj 0 | 7 din 3 / • Aaj kahan se: Seedha 2, LinkedIn 2, Facebook 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-28 12:50 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      1   26   242 / LinkedIn      2    5    31 / Seedha        2    1    20 / Threads       0    2    14 / Baaki         0    0     7 / Instagram     0    0     3 / Bing          0    0     2 / FB Group      0    0     2 / Anjaan        0    0     1 / Google        0    0     1 / -------------------------- / KUL (asli)    5   34   323</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     47   39   69   32   55 / LinkedIn      1    6    6    0   18 / Seedha        0    0    0    0   20 / Threads       1    0    6    0    7 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Anjaan        0    0    0    0    1 / Google        0    0    0    0    1</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-28 12:50 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-28 12:50 👤 traffic
+- 2026-11-28 12:42 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: 1 badle URL bheje ✅ 🗺 Bing sitemap: live 403 URL | Bing ki ginti 402 canary ✅
+- 2026-11-28 12:42 🤖 📖 Web Story LIVE + sitemap mein: https://sabhisaab.com/stories/deals-quiz-2026-w48 / (Bing ko bot ne bhej diya. Google ka link 11:40 ki '🔎 GOOGLE INDEXING' suchi mein aayega - abhi kuch nahi karna)
+- 2026-11-28 11:41 🤖 🔎 <b>GOOGLE INDEXING - aaj Request karne wale (8 page) - jo SACH MEIN index nahi</b> / 📊 Kul page (sitemap): <b>402</b> | Google index ✅ <b>385</b> | baaki ⏳ <b>17</b> / Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi. / Google roz ~10 Request leta hai: upar se 10 aaj, baaki kal (yahi suchi kal chhoti hoke aayegi). /  / 1. <code>https://sabhisaab.com/nainital-zameen-nali-kheti</code> /     <i>naya page</i> / 2. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ko pata hi nahi</i> / 3. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 4. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 8. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> /  / ⏳ Baaki 9 page aaj suchi mein nahi: inpar aap pichhle 7 din mein Request kar chuke, ya Google ne abhi taaza jaanch mein index bataya (roz ki ginti kal badlegi). Inka aaj aapka koi kaam nahi. Sab ka haal: 'kitne page index nahi' /  / <b>Kaise (har page 1 minute):</b> / 1) Upar ka link <b>dabao</b> → copy ho ja
+- 2026-11-28 09:46 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 402 URL | Bing ki ginti 402 | ✅ barabar canary ✅
+- 2026-11-28 09:38 🤖 🟢 📤 Pahadi Hisaab: शादी में ढोल के साथ बजने वाला पहाड़ी नगाड़ा? #Shorts / ✅ youtube: https://youtu.be/s9nwGoCGfX4 / ✅ facebook: https://www.facebook.com/reel/1154626010302407 / ✅ instagram: https://www.instagram.com/reel/DgRWQCqhl1X/ / ✅ threads: https://www.threads.com/@***/post/DgRWTyDiFUA / ✅ pinterest: https://www.pinterest.com/pin/237916792811989144/ / ✅ telegram: https://t.me/sabhisaab/342 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #2386) / dailymotion: ⏸ Dailymotion: aaj ki bachi 2 jagah services video ke liye rakhi (services pehle) / 🔗 Website: https://sabhisaab.com/jawab#c2386
+- 2026-11-28 09:15 🤖 🟢 💼 ✅ LinkedIn (Sab Hisaab Page) par post bani - sawal #3683 (Sab Hisaab Money) / https://www.linkedin.com/feed/update/urn:li:share:7532288464692776960/
+- 2026-11-28 09:10 🤖 🟢 ⏰ pah407cf: YouTube par 09:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-28 09:10 🤖 🟢 🤖 pah407cf: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 09:30 par jayegi.
+- 2026-11-28 08:31 🤖 🟢 📰 Aaj ki kaam ki khabar (source ke saath, aapki manzoori se): / • Sab Hisaab Money: EPFO नियमों के अनुसार PF ट्रस्ट अब शेयर बाजार में 15% तक पैसा निवेश कर सकते हैं। यह फैसला नए निवेश नियमों और सीमाओं के तहत लागू हुआ है। source: Upstox /   https://news.google.com/rss/articles/CBMi7AFBVV95cUxOQmtTLWZtbHVxNzN3UUJPbUwtZGRCMUhqRkZVQXFaZWdmanBRMzN2M3MyTEZGd3BRS1h0bVlDOFlkMmFjWTR1a25PNWpGcjJQWmVlX1Jfc3VGeTNFLXlQYTZUVmo5clRXbmUxalR3c291YXFaUVFkTlEwaWE2S3ZUZEJla1VwbUEzSG94Zm42b2hBYkE5ME5CNWc2RjAwQVVUalVkblJicm1YUmZkdVdLTWRMV01mTEoycDlib2xIajJGV0lIX3F3TFQ3YUIySWV2c2dTbXlhWFp4QXNETUpVR2xhd3kzdkNYcDZNUA?oc=5 / • Pahadi Hisaab: उत्तराखंड सरकार ने भरण-पोषण अनुदान योजना का नाम बदलकर 'मुख्यमंत्री एकल नारी सम्मान योजना' कर दिया है ताकि एकल महिलाओं को सम्मानजनक पहचान मिले। source: Jagran /   https://news.google.com/rss/articles/CBMiyAFBVV95cUxObF9ROU9ldFkyc3YtQzVOdWVkOExZRXVXcWlUdTVoWmgwYUk4dS1tVEhBMHVjYnhxVXlZNTl0SWllMkk3SlBSOVdVRlc5R01vN09GWDRKQkk4eXV6QWFJQkNUQW0zZ0piS3djMncwVDFtZ0pIVUljN0pjZzJEd0RPWTFHbC1oS3oxbWVKTWtnRmF4LUMyNGhncnE0cUFYQVNzdURKb3BfRS1icnd1UExXblZhcVYzQXJhMnFwMjBEN3pQc3o5X2dPdA?oc=5 / • Sab Hisaab Money: 1 दिसंबर से SBI क्रेडिट कार्ड और आधार समेत कई जरूरी नियमों में बदलाव होने जा रहे हैं। इन नए नियमों का सीधा असर आम उपभोक्ताओं पर पड़ेगा। source: Jagran /   https://news.google.com/rss/articles/CBMipgFBVV95cUxNR1dNRmRGUmxVUHpwVXlXWEtMdG5qZU1GOXdqNWI3em96STBSYVlVV2t6VTB5bWY1VkhzSXBvcjQyLW9MS1dYZ3Mza0tUWGk1dXhaSUpMOVl4UHFESzBYU0hNajI4c1NwYWZPYmlLdWZiTmJ6MWdVTEFyWGVrblp4YTZGbDRIWW1wbmVxSW
+- 2026-11-28 08:00 🤖 🅱️ BING - roz ki report (Google report ke saath) / • Bing index mein (Bing ki ginti): 90 (+9 pichhli baar se) / • Kal Bing ne crawl kiye: 21 | crawl error: 0 / • 🗺 Bing sitemap: live 402 URL | Bing ki ginti 402 | ✅ barabar / • Site ke page: 391 | Bing search mein dikh chuke (pakka index): 16 / • Bing ne crawl kiye: 70 | kabhi crawl nahi: 313 | jaanch baaki: 8 / • Bing search (14 din, Bing hafte-wari deta hai): 19 baar dikha, 3 click / • Aaj 06:40 Bing ko bheje: 34 (quota 100, hamari seema 50) - naya Uttarakhand page (queue): 8, Bing ne kabhi crawl nahi kiya: 26 / • Kul Bing API se bheje: 381 alag page (ek page 14/30 din mein ek baar) / • Bing ne kya bola (2026-11-28): ✅ manzoor (HTTP 200) - 34 URL / • 🏔️ Uttarakhand: kul 264 | live 120 | Bing ko bheje 112 | Bing search mein dikhe 0 | live par index ka saboot nahi 120 | queue mein baaki 144 / 🔎 Google index (Uttarakhand): 112/120 live page index mein | Google ne jaanche 112 / 🔎 Poori website: 385/394 URL index mein /    Har page ki wajah: '🩺 Website doctor' / 📈 Google search (28 din): 41 Uttarakhand page dikhe, 80 baar dikhe, 3 click /    Sabse zyada: /    • https://sabhisaab.com/haridwar-uttarakhand - 10 baar dikha /    • https://sabhisaab.com/uttarakhand - 6 baar dikha /    • https://sabhisaab.com/champawat-ghumne-ki-jagah - 3 baar dikha / • Abhi Bing index ka saboot nahi: 375 page - bot roz quota ka aadha (max 50) baari se bhejta hai (pehle naye Uttarakhand page, phir Google-index-nahi, Bing-crawl-nahi, naye/badle, crawl-hue-par-index-nahi). / ℹ️ 'Pakka index' = 
+- 2026-11-28 07:33 🤖 🎬 Dailymotion: svcmo1128050415 ab chali gayi (dobara koshish 1) ✅ https://www.dailymotion.com/video/xc0nd8u
+- 2026-11-28 07:30 🤖 🟢 🗓 2026-11-28 | शनिवार | मार्गशीर्ष कृष्ण पक्ष चतुर्थी | Vikram Samvat 2083 / 📅 2026-11-28: koi pakka (verify kiya) khaas din nahi mila.
+- 2026-11-28 07:14 🤖 🏔️ Aaj 8 naya page LIVE (Uttarakhand) - live sitemap mein pakka ✅: / 1. https://sabhisaab.com/bageshwar-gk-exam-career / 2. https://sabhisaab.com/champawat-gk-exam-career / 3. https://sabhisaab.com/uttarakhand-pahadi-shabdkosh / 4. https://sabhisaab.com/kumaoni-garhwali-shabdkosh / 5. https://sabhisaab.com/dehradun-zameen-nali-kheti / 6. https://sabhisaab.com/nainital-zameen-nali-kheti / 7. https://sabhisaab.com/haridwar-zameen-nali-kheti / 8. https://sabhisaab.com/rudraprayag-zameen-nali-kheti /  / 👉 Google 'Request indexing' ke link aaj 11:40 ki ek hi suchi '🔎 GOOGLE INDEXING' mein (sabse upar). Abhi kuch nahi karna. / Bing + IndexNow + Google sitemap: bot ne khud bhej diya. /  / Baaki 144 page, roz 8 = ~18 din. 'queue haal' se poora haal.
+- 2026-11-28 07:11 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: 8 badle URL bheje ✅ 🗺 Bing sitemap: live 402 URL | Bing ki ginti 394 | ✅ Bing ko sitemap dobara bheja (deploy ke baad) canary ✅
+- 2026-11-28 07:10 🤖 🟡 DHYAN 🌐 Website mein badlaav pakda: / 🆕 Naye page (video topic mein apne aap): /bageshwar-gk-exam-career, /champawat-gk-exam-career, /dehradun-zameen-nali-kheti, /haridwar-zameen-nali-kheti, /kumaoni-garhwali-shabdkosh, /nainital-zameen-nali-kheti, /rudraprayag-zameen-nali-kheti, /uttarakhand-pahadi-shabdkosh
+- 2026-11-28 07:03 🤖 🟢 📤 Sab Hisaab Money: कोई भी डिजिटल काम — हो जाएगा | Shayari / quote ₹29 se / ✅ youtube: https://youtu.be/P2Ziqz5LXQQ / ✅ facebook: https://www.facebook.com/reel/1119910130919394 / ✅ instagram: https://www.instagram.com/reel/DgRFGlJh-8r/ / ✅ threads: https://www.threads.com/@***/post/DgRFOouigrT / ✅ pinterest: https://www.pinterest.com/pin/237916792811987623/ / ✅ telegram: https://t.me/sabhisaab/341 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / dailymotion: 🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-28 06:49 🤖 🅱️ BING - roz ki report (Google report ke saath) / • Bing index mein (Bing ki ginti): 85 (+4 pichhli baar se) / • Kal Bing ne crawl kiye: 21 | crawl error: 0 / • 🗺 Bing sitemap: live 394 URL | Bing ki ginti 394 | ✅ barabar / • Site ke page: 383 | Bing search mein dikh chuke (pakka index): 16 / • Bing ne crawl kiye: 70 | kabhi crawl nahi: 313 | jaanch baaki: 0 / • Bing search (14 din, Bing hafte-wari deta hai): 19 baar dikha, 3 click / • Aaj 06:40 Bing ko bheje: 34 (quota 100, hamari seema 50) - naya Uttarakhand page (queue): 8, Bing ne kabhi crawl nahi kiya: 26 / • Kul Bing API se bheje: 381 alag page (ek page 14/30 din mein ek baar) / • Bing ne kya bola (2026-11-28): ✅ manzoor (HTTP 200) - 34 URL / • 🏔️ Uttarakhand: kul 264 | live 120 | Bing ko bheje 112 | Bing search mein dikhe 0 | live par index ka saboot nahi 120 | queue mein baaki 144 / 🔎 Google index (Uttarakhand): 111/120 live page index mein | Google ne jaanche 112 /    Abhi index nahi (1): pauri-garhwal-sanskriti-tyohar / 🔎 Poori website: 384/394 URL index mein /    Har page ki wajah: '🩺 Website doctor' / 📈 Google search (28 din): 41 Uttarakhand page dikhe, 80 baar dikhe, 3 click /    Sabse zyada: /    • https://sabhisaab.com/haridwar-uttarakhand - 10 baar dikha /    • https://sabhisaab.com/uttarakhand - 6 baar dikha /    • https://sabhisaab.com/champawat-ghumne-ki-jagah - 3 baar dikha / • Abhi Bing index ka saboot nahi: 367 page - bot roz quota ka aadha (max 50) baari se bhejta hai (pehle naye Uttarakhand page, phir Google-index-nahi, Bing-crawl-nahi, nay
+- 2026-11-28 06:43 🤖 🅱️ Bing ka taaza haal la raha hoon...
+- 2026-11-28 06:43 👤 Bing indexing
+- 2026-11-28 06:42 🤖 📊 YouTube Analytics (asli, pichhle 28 din): / • Suno Natak: 65 video, avg dekhi gayi 35% (scroll-away anumaan ~65%) /    ▶️ Bfl4ux0Y-1I: 259 views, 40% dekhi, 1 likes, CTR 0.0% (3 impr.) /    ▶️ kvZZ1c86mcY: 217 views, 36% dekhi, 0 likes, CTR 0.0% (5 impr.) /    ▶️ rJjKL8jbST4: 136 views, 50% dekhi, 0 likes, CTR 0.0% (13 impr.) / • Sab Hisaab Money: 58 video, avg dekhi gayi 69% (scroll-away anumaan ~31%) /    ▶️ lIMI4hLG-4g: 261 views, 54% dekhi, 1 likes, CTR 4.26% (47 impr.) /    ▶️ adAr9cdLIuM: 132 views, 42% dekhi, 0 likes, CTR 1.92% (104 impr.) /    ▶️ rELfx6smo9A: 107 views, 73% dekhi, 0 likes, CTR 1.23% (81 impr.) / • Labh Lo Deals: 58 video, avg dekhi gayi 60% (scroll-away anumaan ~40%) /    ▶️ 7diWEFvmmEg: 146 views, 38% dekhi, 0 likes, CTR 16.67% (24 impr.) /    ▶️ edE3qU8YrT8: 129 views, 61% dekhi, 2 likes, CTR 0.0% (105 impr.) /    ▶️ TlCdv-aNGtQ: 121 views, 52% dekhi, 1 likes, CTR 3.58% (307 impr.) / • Pahadi Hisaab: 58 video, avg dekhi gayi 49% (scroll-away anumaan ~51%) /    ▶️ qOkeMkRUU9I: 183 views, 47% dekhi, 1 likes, CTR 11.11% (45 impr.) /    ▶️ qlUsawSGWp8: 174 views, 58% dekhi, 1 likes /    ▶️ sqUpdSk9dBo: 154 views, 47% dekhi, 1 likes, CTR 0.0% (4 impr.)
+- 2026-11-28 06:40 🤖 🟢 ⏰ svcmo1128050415: YouTube par 07:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-28 06:40 🤖 🟢 🤖 svcmo1128050415: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 07:00 par jayegi.
+- 2026-11-28 06:39 🤖 🔎 <b>GOOGLE INDEXING - aaj Request karne wale (7 page) - jo SACH MEIN index nahi</b> / 📊 Kul page (sitemap): <b>394</b> | Google index ✅ <b>384</b> | baaki ⏳ <b>10</b> / Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi. / Google roz ~10 Request leta hai: upar se 10 aaj, baaki kal (yahi suchi kal chhoti hoke aayegi). /  / 1. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ko pata hi nahi</i> / 2. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ko pata hi nahi</i> / 3. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 4. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> /  / ⏳ Baaki 3 page aaj suchi mein nahi: inpar aap pichhle 7 din mein Request kar chuke, ya Google ne abhi taaza jaanch mein index bataya (roz ki ginti kal badlegi). Inka aaj aapka koi kaam nahi. Sab ka haal: 'kitne page index nahi' /  / <b>Kaise (har page 1 minute):</b> / 1) Upar ka link <b>dabao</b> → copy ho jayega / 2) Search Console kholo: https://search.google.com/search-console → upar <b>'Inspect any UR
+- 2026-11-28 06:37 🤖 🔤 Samjha: '📊 Analytics'
+- 2026-11-28 06:37 🤖 🔎 <b>GOOGLE INDEXING</b> (live sitemap = 394 page) / ✅ Index: <b>385</b> | ❌ Google ne index nahi kiya: <b>9</b> | 🆕 Naye (Google ki jaanch baaki): <b>0</b> / Google ki aakhri roz ki jaanch: 2026-11-27 /  / ❌ <b>Index NAHI (wajah ke saath):</b> / 1. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ko pata hi nahi</i> / 2. <code>https://sabhisaab.com/services-list</code> /     <i>Google ko pata hi nahi</i> / 3. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ko pata hi nahi</i> / 4. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ne dekha, index nahi kiya</i> / 8. <code>https://sabhisaab.com/services-demo</code> /     <i>Google ne dekha, index nahi kiya</i> / 9. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> /  / Google 'Request indexing' ke link roz 11:40 ki suchi mein (din mein max 10). Abhi chahiye: <b>indexing link</b>
+- 2026-11-28 06:37 👤 Analytics
+- 2026-11-28 06:36 🤖 🔎 Pehle Google ko live sitemap bhej raha hoon, phir har page Google se taaza jaanch kar suchi deta hoon (1-3 min)...
+- 2026-11-28 06:36 👤 Indexing link
+- 2026-11-28 06:36 👤 Indexing taaza
+- 2026-11-28 06:35 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-28, abhi tak - adhoora): 1 log / • Kal (poora): 34 log / • Pichhle 7 din: 320 | usse pehle 7 din: 264 (+21%) / • 👥 FB GROUP link se: aaj 0 | 7 din 3 / • Aaj kahan se: Seedha 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-28 06:35 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      0   26   241 / LinkedIn      0    5    29 / Seedha        1    1    19 / Threads       0    2    14 / Baaki         0    0     7 / Instagram     0    0     3 / Bing          0    0     2 / FB Group      0    0     2 / Anjaan        0    0     1 / Google        0    0     1 / -------------------------- / KUL (asli)    1   34   319</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     46   39   69   32   55 / LinkedIn      1    4    6    0   18 / Seedha        0    0    0    0   19 / Threads       1    0    6    0    7 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Anjaan        0    0    0    0    1 / Google        0    0    0    0    1</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-28 06:35 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-28 06:35 👤 Link se traffic
+- 2026-11-28 06:00 🤖 🟢 Subah ki jaanch: sab theek (website, privacy policy, logins, Gemini, disk).
+- 2026-11-28 05:44 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcpa1128053112 | Pahadi Hisaab / 📝 कोई भी डिजिटल काम — हो जाएगा | Domain expiry reminder ₹399 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 20:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-28 05:31 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcde1128051730 | Labh Lo Deals / 📝 कोई भी डिजिटल काम — हो जाएगा | Experience letter ₹129 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 18:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-28 05:17 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcmo1128050415 | Sab Hisaab Money / 📝 कोई भी डिजिटल काम — हो जाएगा | Shayari / quote ₹29 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 07:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-28 03:00 🤖 🟢 ♻️ Pinterest login naya kiya
+- 2026-11-28 02:42 🤖 📥 LEADS — 28-11-2026 02:42 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 2 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 1 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 1 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 💬 Comment/DM - kaam poocha, number abhi nahi (2): / • comment Suno YT · @***: "Mujhe bot banvana hai" · bot ne jawab diya · 9 ghante / • comment Labh IG · ritupandey8262: "Mujhe bot banvana" · bot ne jawab diya · 9 ghante / (⏰ = 24 ghante se form nahi bhara; number mile to 'manual naam 98xxxxxxxx kaam') /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-28 02:42 👤 📥 Leads
+- 2026-11-28 01:44 🤖 ✅ Doctor: services video ki awaaz phir theek (peak 0.92). Bachi video ab ban rahi hai.
+- 2026-11-28 01:44 🤖 🔴 ZAROORI 🩺 Services video ki AWAAZ nahi ban rahi (Suno Natak). / Wajah: ❌ 4 awaaz: video 60.6s - 60s se lambi (Instagram story nahi jaayegi); ❌ 4 awaaz (jaanch ke liye): wav peak 0.926 | hook:0.92, tag:0.92, k0:0.93, k1:0.92, k2:0.92, k3:0.93, k4:0.92, k5:0.92, hindi:0.92 | hisse: {'hook': (0.92, 'seedha'), 'tag': (0.92, 'seedha'), 'k0': (0.93, 'seedha'), 'k1': (0.92, ' / Bot ne 3 tareeke aazmaaye (seedha, model dobara, alag process). Doctor har 5 min jaanch raha hai - theek hote hi bachi video apne aap banegi. Aapko kuch nahi karna. ('services doctor' = abhi ka haal)
+- 2026-11-28 00:11 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 394 URL | Bing ki ginti 394 | ✅ barabar canary ✅
+- 2026-11-28 00:05 🤖 🟢 🩺 AUTO-DOCTOR (28 Nov 00:05) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Website badlaav live nahi tha → deploy: ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing /  / ✅ Theek: Website + sitemap (394 URL), /jawab, Bing sitemap: live 394 URL | Bing ki ginti 377, Google index jaanch (2026-11-27), Threads login, Owner-mode, Disk 10%, Video line, Comment jawab, Kaam line
+- 2026-11-28 00:05 🤖 🧪 Deploy ke baad form jaanch: / ✅ Form ka raasta theek / ✅ website /api: 200 / ✅ seedha worker: 200 / ✅ worker → Telegram / Pichhle 7 din form ki koshish: ok 4, find_fail 1, find_ok 1, selftest 24, client 6, missing 2, junk 2 / Aakhri rukawat: 11-24T09:14 client hard: Mobile number adhura hai - 10 ank likhiye; 11-24T09:15 missing phone ; 11-24T09:15 client hard: Mobile number adhura hai - 10 ank likhiye; 11-24T09:15 client hard: Thoda saaf likhiye - naam aur kya kaam hai (jaise: "re; 11-24T09:15 client hard: Thoda saaf likhiye - naam aur kya kaam hai (jaise: "re; 11-24T09:16 client js: Uncaught TypeError: SVCKIT.enhance is not a function @26
+- 2026-11-28 00:00 🤖 🔧 Website ke form ka raasta (svc-cfg/api/gupt page) dobara likha. Deploy: line mein (3 min mein apne aap)
+- 2026-11-27 23:58 🤖 📊 Aaj ka services hisaab — 27-11-2026 / 👥 Naye customer: 0 / 📞 Baat: 0 · 🧾 Rate bheje: 0 · 👍 Haan: 0 · ❌ Mana: 0 / 💰 Sale (aaj mila): ₹0 (0 payment) / 📦 Kaam diya (deliver): 0 / 🗓 Is mahine: ₹0 · 0 kaam / 📒 Shuru se ab tak: ₹0 / 📂 Khule kaam: 0 / 🎬 Services video: 4 audit pass, 0 ruki / 💬 Comment: 2 (bot ne jawab 2, aapko 0) / ⏰ Comment/DM wale (number nahi): 2 - '📥 Leads' mein
+- 2026-11-27 23:51 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sun0e3b7 | Suno Natak / 📝 ऐसी कौन सी चीज़ है जो पैदा होने पर हमेशा 4 पैरों पर, जवा #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 19:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 23:46 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-27 23:46 🤖 🟡 DHYAN Manzoori chahiye / 🆔 deaad70b | Labh Lo Deals / 📝 'दूरदर्शी' का सही अर्थ? #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 21:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 23:41 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-27 23:41 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon4d254 | Sab Hisaab Money / 📝 यदि किसी वर्ग (Square) की हर भुजा को दोगुना कर दें, तो उ #Shorts / ✅ Audit pass (34 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 23:35 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-27 23:35 🤖 🟡 DHYAN Manzoori chahiye / 🆔 pah407cf | Pahadi Hisaab / 📝 शादी में ढोल के साथ बजने वाला पहाड़ी नगाड़ा? #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 09:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 23:30 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-27 21:55 🤖 🛡 MASTER AUDIT (27 Nov 21:55): 1 baat (9 niyam jaanche) / • [Indexing suchi mein sirf wahi page jo SACH MEIN index nahi; poore link; kul/ho gaye/baaki] /    Aaj ki indexing suchi mein 8 page index ho chuke the: https://sabhisaab.com/rudraprayag-gk-exam-career, https://sabhisaab.com/chamoli-gk-exam-career, https://sabhisaab.com/uttarkashi-gk-exam-career /    → bot agli suchi mein khud hata dega
+- 2026-11-27 21:50 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-27, abhi tak - adhoora): 7 log / • Kal (poora): 49 log / • Pichhle 7 din: 347 | usse pehle 7 din: 209 (+66%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: LinkedIn 4, Facebook 2, Threads 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-27 21:46 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 394 URL | Bing ki ginti 377 canary ✅
+- 2026-11-27 21:38 🤖 🟢 📤 Labh Lo Deals: ₹100 की चीज़ 20% महंगी होकर फिर 20% सस्ती हुई, अब दाम कि #Shorts / ✅ youtube: https://youtu.be/areBDdmSwBk / ✅ facebook: https://www.facebook.com/reel/1498564912477287 / ✅ instagram: https://www.instagram.com/reel/DgQD2DRB97C/ / ✅ threads: https://www.threads.com/@***/post/DgQD5v6iAH_ / ✅ telegram: https://t.me/sabhisaab/340 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #5640) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/jawab#c5640
+- 2026-11-27 21:30 🤖 🟢 📊 Aaj ka haal (v3.9.7) / ⬆️ Upload: 9/10 / • Pahadi Hisaab: waiting Pehle demo, phir paisa | Rate card / pri / • Pahadi Hisaab: waiting पहले डेमो, फिर पैसा | Chhota CRM (lead,  / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | मोबाइल /  / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | अपना कैलक / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | ऑनलाइन फ़ / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | WhatsApp  / • Sab Hisaab Money: waiting कोई भी डिजिटल काम — हो जाएगा | मोबाइल /  / • Labh Lo Deals: waiting कोई भी डिजिटल काम — हो जाएगा | फोटो-साइन / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | बुकिंग पे / • Sab Hisaab Money: waiting कोई भी डिजिटल काम — हो जाएगा | डोमेन + ह / • Sab Hisaab Money: waiting कोई भी डिजिटल काम — हो जाएगा | LinkedIn  / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | Question  / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | Digital s / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | Student m / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | Mutual fu / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | पोस्टर /  / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | Instagram / • Labh Lo Deals: approved ₹100 की चीज़ 20% महंगी होकर फिर 20% सस्त / • Pahadi Hisaab: posted कोई भी डिजिटल काम — हो जाएगा | Hosting s https://youtu.be/h6nJ04pL2-Q / • Suno Natak: posted कोई भी डिजिटल काम — हो जाएगा | Chhota po https://youtu.be/RQ1BHIcKuIw / • Sab Hisaab Money: posted कोई भी डिजिटल काम — हो जाएगा | Universit https://youtu.be/2APJNAKSD
+- 2026-11-27 21:10 🤖 🟢 ⏰ dea2a8ce: YouTube par 21:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 21:10 🤖 🟢 🤖 dea2a8ce: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 21:30 par jayegi.
+- 2026-11-27 21:05 🤖 📊 WEBSITE TRAFFIC (sab raaste: Google, Bing, Pinterest, video link, seedha) / • Pichhle 15 din ka roz ausat: 36.2 log, 41 page / • Kal: 49 log, 50 page → ausat se 📈 +35% / • Aaj (abhi tak): 7 log, 9 page
+- 2026-11-27 21:00 🤖 📌 Story link-sticker yaad (Instagram API nahi deta - aap khud lagayein; reel ke baad Story → Link sticker): / #4689 (Pahadi Hisaab): https://sabhisaab.com/jawab#c4689 / #4330 (Suno Natak): https://sabhisaab.com/jawab#c4330 / #3683 (Sab Hisaab Money): https://sabhisaab.com/jawab#c3683
+- 2026-11-27 20:50 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 394 URL | Bing ki ginti 377 canary ✅
+- 2026-11-27 20:42 🤖 🟢 📤 Sab Hisaab Money: अगर A=1, B=2, C=3... तो '8-9' कौन सा शब्द बनाता है? #Shorts / ✅ youtube: https://youtu.be/P5GSS_JlcEM / ✅ facebook: https://www.facebook.com/reel/1179076561299649 / ✅ instagram: https://www.instagram.com/reel/DgP9dHkzvmK/ / ✅ threads: https://www.threads.com/@***/post/DgP9hJFCLjY / ✅ telegram: https://t.me/sabhisaab/339 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post https://www.facebook.com/1322950490911948_122116324263533088, IG story / ✅ answer: jawab Telegram + website (kod #3683) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/jawab#c3683
+- 2026-11-27 20:21 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-27 20:12 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-27, abhi tak - adhoora): 7 log / • Kal (poora): 49 log / • Pichhle 7 din: 347 | usse pehle 7 din: 209 (+66%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: LinkedIn 4, Facebook 2, Threads 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-27 20:12 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      2   35   259 / LinkedIn      4    3    34 / Seedha        0    4    19 / Threads       1    5    16 / Baaki         0    2     7 / Instagram     0    0     3 / Bing          0    0     2 / FB Group      0    0     2 / Google        0    0     2 / Anjaan        0    0     1 / WhatsApp       *** / -------------------------- / KUL (asli)    7   49   345</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     59   41   64   35   60 / LinkedIn      1    5    6    0   22 / Seedha        0    0    0    0   19 / Threads       1    1    6    0    8 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Google        0    0    0    0    2 / Anjaan        0    0    0    0    1 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-27 20:12 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-27 20:12 🤖 📥 LEADS — 27-11-2026 20:12 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 2 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 1 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 1 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 💬 Comment/DM - kaam poocha, number abhi nahi (2): / • comment Suno YT · @***: "Mujhe bot banvana hai" · bot ne jawab diya · 2 ghante / • comment Labh IG · ritupandey8262: "Mujhe bot banvana" · bot ne jawab diya · 2 ghante / (⏰ = 24 ghante se form nahi bhara; number mile to 'manual naam 98xxxxxxxx kaam') /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-27 20:12 👤 Link se traffic
+- 2026-11-27 20:12 👤 💬 Comment haal
+- 2026-11-27 20:12 👤 📥 Leads
+- 2026-11-27 20:10 🤖 🟢 ⏰ mon74514: YouTube par 20:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 20:10 🤖 🟢 🤖 mon74514: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 20:30 par jayegi.
+- 2026-11-27 20:03 🤖 🟢 📤 Labh Lo Deals: कोई भी डिजिटल काम — हो जाएगा | Website zip upload + deploy ₹399 se / ✅ youtube: https://youtu.be/esk-eesdnEQ / ✅ facebook: https://www.facebook.com/reel/1841278800285270 / ✅ instagram: https://www.instagram.com/reel/DgP5jsbTy2L/ / ✅ threads: https://www.threads.com/@***/post/DgP5r0iCA8m / ✅ telegram: https://t.me/sabhisaab/337 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-27 19:47 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 394 URL | Bing ki ginti 377 canary ✅
+- 2026-11-27 19:40 🤖 🟢 ⏰ svcde1127020616: YouTube par 20:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 19:40 🤖 🟢 🤖 svcde1127020616: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 20:00 par jayegi.
+- 2026-11-27 19:39 🤖 🟢 📤 Suno Natak: राम उत्तर की ओर 5 किमी, फिर दाएँ मुड़कर 4 किमी, फिर  #4330 #Shorts / ✅ youtube: https://youtu.be/O-dJgL0pvI0 / ✅ facebook: https://www.facebook.com/reel/2430552877475930 / ✅ instagram: https://www.instagram.com/reel/DgP2GwzB_v1/ / ✅ threads: https://www.threads.com/@***/post/DgP2RBMCvwK / ✅ telegram: https://t.me/sabhisaab/336 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #4330) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ Dailymotion: aaj ki bachi 1 jagah services video ke liye rakhi (services pehle) / 🔗 Website: https://sabhisaab.com/jawab#c4330
+- 2026-11-27 19:15 🤖 🔎 Quora par ye sawal khojein (ya naya poochhein): Almora ki sthapna kisne ki? /  / — JAWAB (copy) — / Chand raja Balo Kalyan Chand ne (1563 ya 1568, source ke hisaab se). /  / पूरा हिसाब / कैलकुलेटर (Almora GK, UKPSC Taiyari aur Career Guide): https://sabhisaab.com/almora-gk-exam-career?utm_source=quora&utm_medium=share&utm_campaign=answer /  / 💡 Upar apne shabdon mein 1 line jod dein (jaise apna anubhav) - Quora aise jawab zyada dikhata hai.
+- 2026-11-27 19:15 🤖 ❓ QUORA - is link par sawal dhoondho (na mile to yahi sawal khud poochho, phir jawab do): / https://www.quora.com/search?q=Almora%20ki%20sthapna%20kisne%20ki%3F
+- 2026-11-27 19:15 🤖 🧠 ₹1,500 की शॉपिंग पर ₹200 कूपन या 20% छूट, कौन सा विकल्प बेहतर है? / A) 20% छूट (₹100 सस्ता)  B) 20% छूट (₹50 सस्ता) / C) ₹200 कूपन  D) दोनों बराबर / 👇 सही जवाब: https://sabhisaab.com/jawab?utm_source=facebook_group&utm_campaign=deals&utm_content=c8387#c8387 / 🤔 पहले खुद सोचिए, फिर जवाब देखिए
+- 2026-11-27 19:15 🤖 👥 DUSRE KE FACEBOOK GROUP (GK / exam / pahadi groups - aap member ho, admin nahi). Facebook niyam: din mein 2-3 group se zyada nahi, ek hi text ek saath sab group mein nahi, group ke 'Rules' padhein; jahan link mana ho wahan link hata kar 'jawab comment mein' likhein. Admin manzoori maange to intezaar karein - baar-baar post = spam.
+- 2026-11-27 19:15 🤖 🏔️ Almora GK, UKPSC Taiyari aur Career Guide /  / Almora GK aur career: Dwarahat, Jageshwar aur Ranikhet — UKPSC-UKSSSC taiyari, school-college, ITI, fauj bharti aur abhyas prashn. /  / ✔️ Almora: UKPSC, PCS aur UKSSSC ke liye 100 Ek-Line GK Tathya / ✔️ Almora: Is Zile se Pichhle Saalon ke Sawal (PYQ) / ✔️ First in Almora (Pratham Vyaktitva aur Sthan) /  / 🔗 Link bio mein - Sab Hisaab / #Uttarakhand #Hindi
+- 2026-11-27 19:15 🤖 📸 INSTAGRAM / MOJ / SHARECHAT - wahi banner + ye chhota text (yahan caption ka link click nahi hota)
+- 2026-11-27 19:15 🤖 🏔️ Almora GK, UKPSC Taiyari aur Career Guide /  / Almora GK aur career: Dwarahat, Jageshwar aur Ranikhet — UKPSC-UKSSSC taiyari, school-college, ITI, fauj bharti aur abhyas prashn. /  / Is page par: / ✔️ Almora: UKPSC, PCS aur UKSSSC ke liye 100 Ek-Line GK Tathya / ✔️ Almora: Is Zile se Pichhle Saalon ke Sawal (PYQ) / ✔️ First in Almora (Pratham Vyaktitva aur Sthan) / ✔️ Almora: Is Zile par Likhi Pramukh Kitabein aur Shodh / ✔️ Almora: Coaching, Sarkari Pustakalay aur Reading Room /  / Poori jaankari (free, bina login): https://sabhisaab.com/almora-gk-exam-career?utm_source=fbgroup&utm_medium=social&utm_campaign=group_uk /  / Kaam ka laga to save rakhiye - zaroorat par kaam aayega 🙏 / #Uttarakhand #PahadiJankari #Hindi
+- 2026-11-27 19:15 🤖 👥 FACEBOOK GROUP / WHATSAPP / THREADS - upar wali BANNER photo lagao, phir ye text (link click hota hai)
+- 2026-11-27 19:15 🤖 🧠 आज का सवाल /  / मंडुआ किस अनाज का पहाड़ी नाम है? /  / A) ज्वार / B) रागी / C) जौ / D) बाजरा /  / 👇 सही जवाब + तरीका: / https://sabhisaab.com/jawab?utm_source=whatsapp_status&utm_medium=answer&utm_campaign=pahadi&utm_content=c4689#c4689
+- 2026-11-27 19:15 🤖 📱 WHATSAPP STATUS (lamba dabao → Copy → Status par paste; saath mein aaj ki video ka screenshot lagayein)
+- 2026-11-27 19:15 🤖 🧰 AAJ KI SHARE KIT - 5 minute. Har sandesh alag hai: lamba dabao → Copy → wahan paste.
+- 2026-11-27 19:10 🤖 🟢 ⏰ sunb7001: YouTube par 19:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 19:10 🤖 🟢 🤖 sunb7001: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 19:30 par jayegi.
+- 2026-11-27 18:45 🤖 📣 Aaj ka Uttarakhand page share: https://sabhisaab.com/almora-pahadi-khana → FB, Threads, Telegram
+- 2026-11-27 18:30 🤖 💼 LinkedIn shaam ki post (free tool) gayi ✅ / https://www.linkedin.com/feed/update/urn:li:share:7532065736928894976/
+- 2026-11-27 18:03 🤖 🟢 📤 Sab Hisaab Money: कोई भी डिजिटल काम — हो जाएगा | University exam form madad ₹49 se / ✅ youtube: https://youtu.be/2APJNAKSD0A / ✅ facebook: https://www.facebook.com/reel/2243794799866688 / ✅ instagram: https://www.instagram.com/reel/DgPr2WsM3HF/ / ✅ threads: https://www.threads.com/@***/post/DgPr-YkCBI_ / ✅ telegram: https://t.me/sabhisaab/334 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-27 17:40 🤖 🟢 ⏰ svcmo1127015429: YouTube par 18:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 17:40 🤖 🟢 🤖 svcmo1127015429: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 18:00 par jayegi.
+- 2026-11-27 17:20 🤖 📥 LEADS — 27-11-2026 17:20 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-27 17:20 👤 📥 Leads
+- 2026-11-27 17:07 🤖 📥 LEADS — 27-11-2026 17:07 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-27 17:07 👤 📥 Leads
+- 2026-11-27 16:24 🤖 📥 LEADS — 27-11-2026 16:24 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-27 16:24 👤 📥 Leads
+- 2026-11-27 14:19 🤖 🔎 <b>GOOGLE INDEXING</b> (live sitemap = 394 page) / ✅ Index: <b>384</b> | ❌ Google ne index nahi kiya: <b>10</b> | 🆕 Naye (Google ki jaanch baaki): <b>0</b> / Google ki aakhri roz ki jaanch: 2026-11-27 /  / ❌ <b>Index NAHI (wajah ke saath):</b> / 1. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ko pata hi nahi</i> / 2. <code>https://sabhisaab.com/services-list</code> /     <i>Google ko pata hi nahi</i> / 3. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ko pata hi nahi</i> / 4. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ne dekha, index nahi kiya</i> / 8. <code>https://sabhisaab.com/services-demo</code> /     <i>Google ne dekha, index nahi kiya</i> / 9. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> / 10. <code>https://sabhisaab.com/pauri-garhwal-sanskriti-tyohar</code> /     <i>Google aaya, index nahi kiya</i> /  / Google 'Request indexing' ke link roz 11:40 ki suchi mein (din mein max 10). Abhi chahiye: <b>indexing link</b>
+- 2026-11-27 14:19 🤖 🔤 Samjha: '📑 Indexing'
+- 2026-11-27 14:19 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-27, abhi tak - adhoora): 7 log / • Kal (poora): 49 log / • Pichhle 7 din: 347 | usse pehle 7 din: 209 (+66%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: LinkedIn 4, Facebook 2, Threads 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-27 14:19 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      2   35   259 / LinkedIn      4    3    34 / Seedha        0    4    19 / Threads       1    5    16 / Baaki         0    2     7 / Instagram     0    0     3 / Anjaan        0    1     2 / Bing          0    0     2 / FB Group      0    0     2 / Google        0    0     2 / WhatsApp       *** / -------------------------- / KUL (asli)    7   49   345</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     59   41   64   35   60 / LinkedIn      1    5    6    0   22 / Seedha        0    0    0    0   19 / Threads       1    1    6    0    8 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Anjaan        0    0    0    0    2 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Google        0    0    0    0    2 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-27 14:19 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-27 14:19 👤 Indexing
+- 2026-11-27 14:19 👤 Link se traffic
+- 2026-11-27 11:40 🤖 🔎 <b>GOOGLE INDEXING - aaj Request karne wale (8 page) - jo SACH MEIN index nahi</b> / 📊 Kul page (sitemap): <b>394</b> | Google index ✅ <b>384</b> | baaki ⏳ <b>10</b> / Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi. / Google roz ~10 Request leta hai: upar se 10 aaj, baaki kal (yahi suchi kal chhoti hoke aayegi). /  / 1. <code>https://sabhisaab.com/rudraprayag-gk-exam-career</code> /     <i>naya page</i> / 2. <code>https://sabhisaab.com/chamoli-gk-exam-career</code> /     <i>naya page</i> / 3. <code>https://sabhisaab.com/uttarkashi-gk-exam-career</code> /     <i>naya page</i> / 4. <code>https://sabhisaab.com/almora-gk-exam-career</code> /     <i>naya page</i> / 5. <code>https://sabhisaab.com/tehri-garhwal-gk-exam-career</code> /     <i>naya page</i> / 6. <code>https://sabhisaab.com/pauri-garhwal-gk-exam-career</code> /     <i>naya page</i> / 7. <code>https://sabhisaab.com/pithoragarh-gk-exam-career</code> /     <i>naya page</i> / 8. <code>https://sabhisaab.com/udham-singh-nagar-gk-exam-career</code> /     <i>naya page</i> /  / ⏳ Baaki 2 page aaj suchi mein nahi: inpar aap pichhle 7 din mein Request kar chuke, ya Google ne abhi taaza jaanch mein index bataya (roz ki ginti kal badlegi). Inka aaj aapka koi kaam nahi. Sab ka haal: 'kitne page index nahi' /  / <b>Kaise (har page 1 minute):</b> / 1) Upar ka link <b>dabao</b> → copy ho jayega / 2) Search Console kholo: https://search.google.com/search-console → upar <b>'Inspect any URL'</b> dabbe mein paste →
+- 2026-11-27 11:37 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-27, abhi tak - adhoora): 2 log / • Kal (poora): 49 log / • Pichhle 7 din: 342 | usse pehle 7 din: 209 (+63%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: Facebook 1, Threads 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-27 11:36 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      1   35   258 / LinkedIn      0    3    30 / Seedha        0    4    19 / Threads       1    5    16 / Baaki         0    2     7 / Instagram     0    0     3 / Anjaan        0    1     2 / Bing          0    0     2 / FB Group      0    0     2 / Google        0    0     2 / WhatsApp       *** / -------------------------- / KUL (asli)    2   49   340</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     58   41   64   35   60 / LinkedIn      1    5    4    0   20 / Seedha        0    0    0    0   19 / Threads       1    1    6    0    8 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Anjaan        0    0    0    0    2 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Google        0    0    0    0    2 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-27 11:36 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-27 11:36 🤖 🔎 <b>GOOGLE INDEXING</b> (live sitemap = 394 page) / ✅ Index: <b>384</b> | ❌ Google ne index nahi kiya: <b>10</b> | 🆕 Naye (Google ki jaanch baaki): <b>0</b> / Google ki aakhri roz ki jaanch: 2026-11-27 /  / ❌ <b>Index NAHI (wajah ke saath):</b> / 1. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ko pata hi nahi</i> / 2. <code>https://sabhisaab.com/services-list</code> /     <i>Google ko pata hi nahi</i> / 3. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ko pata hi nahi</i> / 4. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ne dekha, index nahi kiya</i> / 8. <code>https://sabhisaab.com/services-demo</code> /     <i>Google ne dekha, index nahi kiya</i> / 9. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> / 10. <code>https://sabhisaab.com/pauri-garhwal-sanskriti-tyohar</code> /     <i>Google aaya, index nahi kiya</i> /  / Google 'Request indexing' ke link roz 11:40 ki suchi mein (din mein max 10). Abhi chahiye: <b>indexing link</b>
+- 2026-11-27 11:36 🤖 📥 LEADS — 27-11-2026 11:36 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-27 11:36 👤 Link se traffic
+- 2026-11-27 11:36 👤 Indexing taaza
+- 2026-11-27 11:36 👤 📥 Leads
+- 2026-11-27 10:12 🤖 🔎 <b>GOOGLE INDEXING</b> (live sitemap = 394 page) / ✅ Index: <b>376</b> | ❌ Google ne index nahi kiya: <b>10</b> | 🆕 Naye (Google ki jaanch baaki): <b>8</b> / Google ki aakhri roz ki jaanch: 2026-11-27 /  / ❌ <b>Index NAHI (wajah ke saath):</b> / 1. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 2. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 3. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 4. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/services-demo</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/services-list</code> /     <i>Google ne dekha, index nahi kiya</i> / 8. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ne dekha, index nahi kiya</i> / 9. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> / 10. <code>https://sabhisaab.com/pauri-garhwal-sanskriti-tyohar</code> /     <i>Google aaya, index nahi kiya</i> /  / 🆕 <b>Naye page (8)</b> - abhi 1-5 din purane; Google aam taur par 3-14 din leta hai, bot roz jaanchta hai: / 1. <code>https://sabhisaab.com/almora-gk-exam-career</code> (2026-11-27) / 2. <code>https://sabhisaab.com/chamoli-gk-exam
+- 2026-11-27 10:11 👤 pending indexing
+- 2026-11-27 10:09 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 394 URL | Bing ki ginti 394 | ✅ barabar canary ✅
+- 2026-11-27 10:02 🤖 🟢 🩺 AUTO-DOCTOR (27 Nov 10:02) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • /jawab par naya jawab atka tha → jawab website: ✅ 5 file VM par chadh gayi (audit paas) (audit WARNING 1 - '🛠 Website audit' mein dekhein). GitHub copy ✅. 1 minute mein bot khud deploy karega ( / • Website badlaav live nahi tha → deploy: ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing /  / ✅ Theek: Website + sitemap (394 URL), Bing sitemap: live 394 URL | Bing ki ginti 394 | ✅ barabar, Google index jaanch (2026-11-27), Threads login, Owner-mode, Disk 10%, Video line, Comment jawab, Kaam line
+- 2026-11-27 09:44 🤖 🟢 📤 Pahadi Hisaab: मंडुआ किस अनाज का पहाड़ी नाम है? #Shorts / ✅ youtube: https://youtu.be/WPHHbbHN6aQ / ✅ facebook: https://www.facebook.com/reel/2527542184323806 / ✅ instagram: https://www.instagram.com/reel/DgOxc1mJ1UP/ / ✅ threads: https://www.threads.com/@***/post/DgOxgOCCiY1 / ✅ pinterest: https://www.pinterest.com/pin/237916792811972223/ / ✅ telegram: https://t.me/sabhisaab/333 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post https://www.facebook.com/1290710064135740_122115582315518557, IG story / ✅ answer: jawab Telegram + website (kod #4689) / dailymotion: ⏸ Dailymotion: aaj ki bachi 1 jagah services video ke liye rakhi (services pehle) / 🔗 Website: https://sabhisaab.com/jawab#c4689
+- 2026-11-27 09:44 🤖 🟡 DHYAN ✅ Jawab Telegram par gaye; website ka /jawab page audit/ZIP mein ruka (koi toota page live nahi): / ❌ Audit fail - kuch nahi chadhaya: / ================================================================== /   SAB HISAAB AUDIT — 386 page check kiye / ================================================================== /   Content: paragraph dobara likha                 1 /         - ('jawab.html', '🎯 code #9913 jaise 2 aur sawal - khud try karo: ₹1,500 की शॉपिंग पर ₹2') /   --- WARNING (deploy nahi rukega, par sudhaarne layak) --- /   SEO: sitemap lastmod aur dateModified alag      1 /         - ('terms.html', '2026-11-25', '2026-11-24') / ================================================================== /   ERROR: 1   |   WARNING: 1 /  / (pichhle 3 ghante mein ye 7 baar hua)
+- 2026-11-27 09:38 🤖 🔎 <b>GOOGLE INDEXING - aaj Request karne wale (8 page) - jo SACH MEIN index nahi</b> / 📊 Kul page (sitemap): <b>394</b> | Google index ✅ <b>376</b> | baaki ⏳ <b>18</b> / Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi. / Google roz ~10 Request leta hai: upar se 10 aaj, baaki kal (yahi suchi kal chhoti hoke aayegi). /  / 1. <code>https://sabhisaab.com/rudraprayag-gk-exam-career</code> /     <i>naya page</i> / 2. <code>https://sabhisaab.com/chamoli-gk-exam-career</code> /     <i>naya page</i> / 3. <code>https://sabhisaab.com/uttarkashi-gk-exam-career</code> /     <i>naya page</i> / 4. <code>https://sabhisaab.com/almora-gk-exam-career</code> /     <i>naya page</i> / 5. <code>https://sabhisaab.com/tehri-garhwal-gk-exam-career</code> /     <i>naya page</i> / 6. <code>https://sabhisaab.com/pauri-garhwal-gk-exam-career</code> /     <i>naya page</i> / 7. <code>https://sabhisaab.com/pithoragarh-gk-exam-career</code> /     <i>naya page</i> / 8. <code>https://sabhisaab.com/udham-singh-nagar-gk-exam-career</code> /     <i>naya page</i> /  / ⏳ Baaki 10 page aaj suchi mein nahi: inpar aap pichhle 7 din mein Request kar chuke, ya Google ne abhi taaza jaanch mein index bataya (roz ki ginti kal badlegi). Inka aaj aapka koi kaam nahi. Sab ka haal: 'kitne page index nahi' /  / <b>Kaise (har page 1 minute):</b> / 1) Upar ka link <b>dabao</b> → copy ho jayega / 2) Search Console kholo: https://search.google.com/search-console → upar <b>'Inspect any URL'</b> dabbe mein paste 
+- 2026-11-27 09:34 🤖 🔎 Pehle Google ko live sitemap bhej raha hoon, phir har page Google se taaza jaanch kar suchi deta hoon (1-3 min)...
+- 2026-11-27 09:34 👤 indexing link
+- 2026-11-27 09:16 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-27, abhi tak - adhoora): 2 log / • Kal (poora): 49 log / • Pichhle 7 din: 342 | usse pehle 7 din: 209 (+63%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: Facebook 1, Threads 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-27 09:16 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      1   35   258 / LinkedIn      0    3    30 / Seedha        0    4    19 / Threads       1    5    16 / Baaki         0    2     7 / Instagram     0    0     3 / Anjaan        0    1     2 / Bing          0    0     2 / FB Group      0    0     2 / Google        0    0     2 / WhatsApp       *** / -------------------------- / KUL (asli)    2   49   340</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     58   41   64   35   60 / LinkedIn      1    5    4    0   20 / Seedha        0    0    0    0   19 / Threads       1    1    6    0    8 / Baaki         0    0    0    0    7 / Instagram     0    0    0    0    3 / Anjaan        0    0    0    0    2 / Bing          0    0    0    0    2 / FB Group      2    0    0    0    0 / Google        0    0    0    0    2 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-27 09:16 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-27 09:16 👤 Link se traffic
+- 2026-11-27 09:15 🤖 🟢 💼 ✅ LinkedIn (Sab Hisaab Page) par post bani - sawal #8387 (Labh Lo Deals) / https://www.linkedin.com/feed/update/urn:li:share:7531926099090477056/
+- 2026-11-27 09:10 🤖 🟢 ⏰ paha154f: YouTube par 09:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 09:10 🤖 🟢 🤖 paha154f: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 09:30 par jayegi.
+- 2026-11-27 08:30 🤖 🟢 📰 Aaj ki kaam ki khabar (source ke saath, aapki manzoori se): / • Sab Hisaab Money: इनकम टैक्स अपडेट: 30 नवंबर से पहले नया फॉर्म-141 भरना जरूरी है, देरी होने पर ब्याज और पेनल्टी लग सकती है। source: Jagran /   https://news.google.com/rss/articles/CBMi2AFBVV95cUxNeUVqYWNCaWdvZktaOEJiTTFZNGIycW1Obm5TbVdhYm1WeWhvRnVtNlplRFd0N05RaXotQjIzZHluNHlSUDdueFdBLUhBbHJqV0tDejU3RVI1OGRTR1lKLUZsNlJ4RnZXSzA2UnRnS2dJME5ZeEVYYUZFeEY0NHcxcHhja0E3MUk5dzUxTVQ5ejNTaHpkU0NScHdETldGT09JWUt6MG9Da19Mb3FaUjdXVVZSZ184QUZCX2I3bVpkN0tNTjY2Y3pfWlI1d0FMbm1RWVdab3pjUGI?oc=5 / • Sab Hisaab Money: एसबीआई क्रेडिट कार्ड धारकों के लिए अहम जानकारी: 1 दिसंबर से क्रेडिट कार्ड से जुड़े नियमों में बदलाव होने जा रहा है। source: AajTak /   https://news.google.com/rss/articles/CBMi5AFBVV95cUxOODRjODZUT1pMUkF0YzlpdGJ0dEUxa3BYbVVoeC1vMVlTSG9xSlJrbVdnSEthUi1aZWZCMmNpT1ZGSk05UVpES3Zm***?oc=5 / • Sab Hisaab Money: गोल्ड लोन अपडेट: सोने की कीमतों में गिरावट के बीच RBI ने गोल्ड लोन नियमों को लेकर NBFC को सख्त निर्देश दिए हैं। source: BWHindi /   https://news.google.com/rss/articles/CBMi8wFBVV95cUxNd21fQVZoR3NTQ2dQYW56UkVXaU1VSkVsLXFLcWJabktZYTdBZjN5VFg2ejJsUUc2Z2tiajExQ1p5dURnOWp0aUNodUZiM194QXl6Q2tXZEVHRmU2Tk1ZQnk2MFAyZTFicTdoMl96djVzeWpsYUtTZGs2Yk5nOVk2R2c0TnBOb0Y0dlM4UmRNcGtYWWFEaDJHaEJua1l4TVB1WXJNV3d0TlBfREpNazN3MjMwQTBJRmYwNUR3cW9HenRtVXJNazJFOTU0Zk80QnREOV80RG1FNUFYOHRib3FmY3JiSDhGZHRpOGxmRDdMcmVqOVU?oc=5
+- 2026-11-27 08:00 🤖 🅱️ BING - roz ki report (Google report ke saath) / • Bing index mein (Bing ki ginti): 81 (+9 pichhli baar se) / • Kal Bing ne crawl kiye: 21 | crawl error: 0 / • 🗺 Bing sitemap: live 394 URL | Bing ki ginti 394 | ✅ barabar / • Site ke page: 383 | Bing search mein dikh chuke (pakka index): 16 / • Bing ne crawl kiye: 68 | kabhi crawl nahi: 307 | jaanch baaki: 8 / • Bing search (14 din, Bing hafte-wari deta hai): 25 baar dikha, 3 click / • Aaj 06:40 Bing ko bheje: 39 (quota 100, hamari seema 50) - naya Uttarakhand page (queue): 8, Bing ne kabhi crawl nahi kiya: 31 / • Kul Bing API se bheje: 373 alag page (ek page 14/30 din mein ek baar) / • Bing ne kya bola (2026-11-27): ✅ manzoor (HTTP 200) - 39 URL / • 🏔️ Uttarakhand: kul 264 | live 112 | Bing ko bheje 104 | Bing search mein dikhe 0 | live par index ka saboot nahi 112 | queue mein baaki 152 / 🔎 Google index (Uttarakhand): 103/112 live page index mein | Google ne jaanche 104 /    Abhi index nahi (1): pauri-garhwal-sanskriti-tyohar / 🔎 Poori website: 376/386 URL index mein /    Har page ki wajah: '🩺 Website doctor' / 📈 Google search (28 din): 41 Uttarakhand page dikhe, 80 baar dikhe, 3 click /    Sabse zyada: /    • https://sabhisaab.com/haridwar-uttarakhand - 10 baar dikha /    • https://sabhisaab.com/uttarakhand - 6 baar dikha /    • https://sabhisaab.com/champawat-ghumne-ki-jagah - 3 baar dikha / • Abhi Bing index ka saboot nahi: 367 page - bot roz quota ka aadha (max 50) baari se bhejta hai (pehle naye Uttarakhand page, phir Google-index-nahi, Bing-crawl-nahi, nay
+- 2026-11-27 07:30 🤖 🟢 🗓 2026-11-27 | शुक्रवार | मार्गशीर्ष कृष्ण पक्ष तृतीया | Vikram Samvat 2083 / 📅 2026-11-27: koi pakka (verify kiya) khaas din nahi mila.
+- 2026-11-27 07:11 🤖 🏔️ Aaj 8 naya page LIVE (Uttarakhand) - live sitemap mein pakka ✅: / 1. https://sabhisaab.com/rudraprayag-gk-exam-career / 2. https://sabhisaab.com/chamoli-gk-exam-career / 3. https://sabhisaab.com/uttarkashi-gk-exam-career / 4. https://sabhisaab.com/almora-gk-exam-career / 5. https://sabhisaab.com/tehri-garhwal-gk-exam-career / 6. https://sabhisaab.com/pauri-garhwal-gk-exam-career / 7. https://sabhisaab.com/pithoragarh-gk-exam-career / 8. https://sabhisaab.com/udham-singh-nagar-gk-exam-career /  / 👉 Google 'Request indexing' ke link aaj 11:40 ki ek hi suchi '🔎 GOOGLE INDEXING' mein (sabse upar). Abhi kuch nahi karna. / Bing + IndexNow + Google sitemap: bot ne khud bhej diya. /  / Baaki 152 page, roz 8 = ~19 din. 'queue haal' se poora haal.
+- 2026-11-27 07:07 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: 8 badle URL bheje ✅ 🗺 Bing sitemap: live 394 URL | Bing ki ginti 386 | ✅ Bing ko sitemap dobara bheja (deploy ke baad) canary ✅
+- 2026-11-27 07:06 🤖 🟡 DHYAN 🌐 Website mein badlaav pakda: / 🆕 Naye page (video topic mein apne aap): /almora-gk-exam-career, /chamoli-gk-exam-career, /pauri-garhwal-gk-exam-career, /pithoragarh-gk-exam-career, /rudraprayag-gk-exam-career, /tehri-garhwal-gk-exam-career, /udham-singh-nagar-gk-exam-career, /uttarkashi-gk-exam-career
+- 2026-11-27 07:03 🤖 🟢 📤 Suno Natak: कोई भी डिजिटल काम — हो जाएगा | Chhota poster text ₹19 se / ✅ youtube: https://youtu.be/RQ1BHIcKuIw / ✅ facebook: https://www.facebook.com/reel/1651708870331766 / ✅ instagram: https://www.instagram.com/reel/DgOgTYTzAf5/ / ✅ threads: https://www.threads.com/@***/post/DgOgdODCoQ2 / ✅ pinterest: https://www.pinterest.com/pin/237916792811971100/ / ✅ dailymotion: https://www.dailymotion.com/video/xc0ctr2 / ✅ telegram: https://t.me/sabhisaab/332 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-27 06:40 🤖 🟢 ⏰ svcsu1127014235: YouTube par 07:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 06:40 🤖 🟢 🤖 svcsu1127014235: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 07:00 par jayegi.
+- 2026-11-27 06:00 🤖 🟢 Subah ki jaanch: sab theek (website, privacy policy, logins, Gemini, disk).
+- 2026-11-27 05:37 🤖 🎬 Dailymotion: svcpa1127013015 ab chali gayi (dobara koshish 1) ✅ https://www.dailymotion.com/video/xc0biz6
+- 2026-11-27 05:07 🤖 🟢 📤 Pahadi Hisaab: कोई भी डिजिटल काम — हो जाएगा | Hosting se hosting shift ₹399 se / ✅ youtube: https://youtu.be/h6nJ04pL2-Q / ✅ facebook: https://www.facebook.com/reel/4607137902908372 / ✅ instagram: https://www.instagram.com/reel/DgOTCqYMBeN/ / ✅ threads: https://www.threads.com/@***/post/DgOTKlaCMKI / ✅ pinterest: https://www.pinterest.com/pin/237916792811970017/ / ✅ telegram: https://t.me/sabhisaab/331 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / dailymotion: 🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-27 04:40 🤖 🟢 ⏰ svcpa1127013015: YouTube par 05:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-27 04:40 🤖 🟢 🤖 svcpa1127013015: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 05:00 par jayegi.
+- 2026-11-27 04:32 🤖 🎬 Dailymotion: deac9911 ab chali gayi (dobara koshish 3) ✅ https://www.dailymotion.com/video/xc0ajim
+- 2026-11-27 04:12 🤖 📥 LEADS — 27-11-2026 04:12 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-27 04:12 👤 📥 Leads
+- 2026-11-27 03:00 🤖 🟢 📤 Labh Lo Deals: Discount Percentage Tricks | 12 सवाल जवाब सहित | Maths Quiz in Hindi / ✅ youtube: https://youtu.be/8lbdhmhgbs8 / ✅ facebook: lambi video: reel nahi (sirf Shorts reel bante hain) / ✅ instagram: lambi video: reel nahi / ✅ threads: https://www.threads.com/@***/post/DgOEumFEd2T / ✅ pinterest: https://www.pinterest.com/pin/237916792811969139/ / ✅ telegram: https://t.me/sabhisaab/330 / ✅ playlist: ✓ playlist mein juda / dailymotion: 🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega / 🔗 Website: https://sabhisaab.com/attendance-percentage-calculator
+- 2026-11-27 03:00 🤖 📲 WhatsApp channel ke liye (copy karke forward karein): /  / Discount Percentage Tricks | 12 सवाल जवाब सहित | Maths Quiz in Hindi /  / ▶️ https://youtu.be/8lbdhmhgbs8 / 🌐 https://sabhisaab.com/attendance-percentage-calculator?utm_source=whatsapp&utm_campaign=deals
+- 2026-11-27 02:59 🤖 🟢 🤖 deac9911: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 02:48 par jayegi.
+- 2026-11-27 02:59 🤖 🟡 DHYAN Manzoori chahiye / 🆔 deac9911 | Labh Lo Deals / 📝 Discount Percentage Tricks | 12 सवाल जवाब सहित | Maths Quiz in Hindi / ✅ Audit pass (24 jaanch) / ⏰ Jawab na mila to 02:48 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 02:18 🤖 🎬 Labh Lo Deals: nayi LAMBI video (8-12 min, 30-60 min lagenge) ban rahi hai (hafte ki lambi video)
+- 2026-11-27 02:17 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcde1127020616 | Labh Lo Deals / 📝 कोई भी डिजिटल काम — हो जाएगा | Website zip upload + deploy ₹399 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 20:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 02:06 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcmo1127015429 | Sab Hisaab Money / 📝 कोई भी डिजिटल काम — हो जाएगा | University exam form madad ₹49 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 18:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 01:54 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcsu1127014235 | Suno Natak / 📝 कोई भी डिजिटल काम — हो जाएगा | Chhota poster text ₹19 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 07:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 01:42 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcpa1127013015 | Pahadi Hisaab / 📝 कोई भी डिजिटल काम — हो जाएगा | Hosting se hosting shift ₹399 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 05:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-27 00:11 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 386 URL | Bing ki ginti 386 | ✅ barabar canary ✅
+- 2026-11-27 00:05 🤖 🧪 Deploy ke baad form jaanch: / ✅ Form ka raasta theek / ✅ website /api: 200 / ✅ seedha worker: 200 / ✅ worker → Telegram / Pichhle 7 din form ki koshish: selftest 21, ok 7, find_fail 1, find_ok 1, client 6, missing 2, junk 2 / Aakhri rukawat: 11-24T09:14 client hard: Mobile number adhura hai - 10 ank likhiye; 11-24T09:15 missing phone ; 11-24T09:15 client hard: Mobile number adhura hai - 10 ank likhiye; 11-24T09:15 client hard: Thoda saaf likhiye - naam aur kya kaam hai (jaise: "re; 11-24T09:15 client hard: Thoda saaf likhiye - naam aur kya kaam hai (jaise: "re; 11-24T09:16 client js: Uncaught TypeError: SVCKIT.enhance is not a function @26
+- 2026-11-27 00:05 🤖 🟢 🩺 AUTO-DOCTOR (27 Nov 00:05) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Website badlaav live nahi tha → deploy: ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing /  / ✅ Theek: Website + sitemap (386 URL), /jawab, Bing sitemap: live 386 URL | Bing ki ginti 368, Google index jaanch (2026-11-26), Threads login, Owner-mode, Disk 10%, Video line, Comment jawab, Kaam line
+- 2026-11-27 00:00 🤖 🔧 Website ke form ka raasta (svc-cfg/api/gupt page) dobara likha. Deploy: line mein (3 min mein apne aap)
+- 2026-11-26 23:59 🤖 📊 Aaj ka services hisaab — 26-11-2026 / 👥 Naye customer: 0 / 📞 Baat: 0 · 🧾 Rate bheje: 0 · 👍 Haan: 0 · ❌ Mana: 0 / 💰 Sale (aaj mila): ₹0 (0 payment) / 📦 Kaam diya (deliver): 0 / 🗓 Is mahine: ₹0 · 0 kaam / 📒 Shuru se ab tak: ₹0 / 📂 Khule kaam: 0 / 🎬 Services video: 4 audit pass, 0 ruki
+- 2026-11-26 23:53 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sunb7001 | Suno Natak / 📝 राम उत्तर की ओर 5 किमी, फिर दाएँ मुड़कर 4 किमी, फिर  #4330 #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 19:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 23:46 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 23:46 🤖 🟡 DHYAN Manzoori chahiye / 🆔 dea2a8ce | Labh Lo Deals / 📝 ₹100 की चीज़ 20% महंगी होकर फिर 20% सस्ती हुई, अब दाम कि #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 21:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 23:40 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 23:40 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon74514 | Sab Hisaab Money / 📝 अगर A=1, B=2, C=3... तो '8-9' कौन सा शब्द बनाता है? #Shorts / ✅ Audit pass (34 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 23:35 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 23:35 🤖 🟡 DHYAN Manzoori chahiye / 🆔 paha154f | Pahadi Hisaab / 📝 मंडुआ किस अनाज का पहाड़ी नाम है? #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 09:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 23:30 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 22:20 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 386 URL | Bing ki ginti 368 canary ✅
+- 2026-11-26 22:13 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 386 URL | Bing ki ginti 368 canary ✅
+- 2026-11-26 22:07 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 386 URL | Bing ki ginti 368 canary ✅
+- 2026-11-26 22:00 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 22:00) - roz ki khud-jaanch + khud-sudhaar /  / 🤖 BOT KHUD KAR RAHA (aapka kuch nahi): / • /jawab audit mein ruka - bot har 30 min khud dobara chadhata hai; 3 baar fail = ESCALATE (Claude). Wajah: jawab website: ℹ️ Ye ZIP pehle se lagi hui hai - iski koi file website ki abhi ki file se alag nahi. Kuch nahi badla, dobara bhejne ki zaroorat nahi. /  / ✅ Theek: Website + sitemap (386 URL), Bing sitemap: live 386 URL | Bing ki ginti 368, Google index jaanch (2026-11-26), Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab
+- 2026-11-26 21:55 🤖 🟢 📤 Labh Lo Deals: Shopping hacks to save money: कूपन या % छूट में क्या चुनें? / ✅ youtube: https://youtu.be/Alo0ByohlLU / ✅ facebook: https://www.facebook.com/reel/1449720807321520 / ✅ instagram: https://www.instagram.com/reel/DgNf56vhowO/ / ✅ threads: https://www.threads.com/@***/post/DgNf_aHCGyc / ✅ telegram: https://t.me/sabhisaab/329 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #8387) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/jawab#c8387
+- 2026-11-26 21:55 🤖 🛡 MASTER AUDIT (26 Nov 21:55): 1 baat (9 niyam jaanche) / • [Indexing suchi mein sirf wahi page jo SACH MEIN index nahi; poore link; kul/ho gaye/baaki] /    Aaj ki indexing suchi mein 8 page index ho chuke the: https://sabhisaab.com/pithoragarh-zila-prashasan, https://sabhisaab.com/udham-singh-nagar-zila-prashasan, https://sabhisaab.com/bageshwar-zila-prashasan /    → bot agli suchi mein khud hata dega
+- 2026-11-26 21:50 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-26, abhi tak - adhoora): 11 log / • Kal (poora): 44 log / • Pichhle 7 din: 351 | usse pehle 7 din: 160 (+119%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: Facebook 5, Seedha 3, LinkedIn 2, Anjaan 1, Baaki 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-26 21:44 🤖 ❌ Cloudflare deploy fail: /  / [31m✘ *** [1mA request to the Cloudflare API (/accounts/***/pages/projects/sabhisaab) failed.[0m /  /   Unable to authenticate request [code: 10001] /    /   If you think this is a bug, please open an issue at: [4mhttps://github.com/cloudflare/workers-sdk/issues/new/choose[0m /  /  / 🪵  Logs were written to "/home/ubuntu/.config/.wrangler/logs/wrangler-2026-11-26_16-14-34_174.log"
+- 2026-11-26 21:37 🤖 🟢 📤 Labh Lo Deals: हल कीजिए: (13 - 3) × 6 ÷ 4 = ? #9913 #Shorts / ✅ youtube: https://youtu.be/5qaNgPnmlAQ / ✅ facebook: https://www.facebook.com/reel/2298114454312246 / ✅ instagram: https://www.instagram.com/reel/DgNfCunPz1d/ / ✅ threads: https://www.threads.com/@***/post/DgNfGRXiO1B / ✅ telegram: https://t.me/sabhisaab/328 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post https://www.facebook.com/105600018126184_1835722661892123, IG story / ✅ answer: jawab Telegram + website (kod #9913) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/jawab#c9913
+- 2026-11-26 21:30 🤖 🟢 📊 Aaj ka haal (v3.9.7) / ⬆️ Upload: 10/10 / • Pahadi Hisaab: waiting Pehle demo, phir paisa | Rate card / pri / • Pahadi Hisaab: waiting पहले डेमो, फिर पैसा | Chhota CRM (lead,  / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | मोबाइल /  / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | अपना कैलक / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | ऑनलाइन फ़ / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | WhatsApp  / • Sab Hisaab Money: waiting कोई भी डिजिटल काम — हो जाएगा | मोबाइल /  / • Labh Lo Deals: waiting कोई भी डिजिटल काम — हो जाएगा | फोटो-साइन / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | बुकिंग पे / • Sab Hisaab Money: waiting कोई भी डिजिटल काम — हो जाएगा | डोमेन + ह / • Sab Hisaab Money: waiting कोई भी डिजिटल काम — हो जाएगा | LinkedIn  / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | Question  / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | Digital s / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | Student m / • Pahadi Hisaab: waiting कोई भी डिजिटल काम — हो जाएगा | Mutual fu / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | पोस्टर /  / • Suno Natak: waiting कोई भी डिजिटल काम — हो जाएगा | Instagram / • Pahadi Hisaab: posted कुमाऊँनी में 'आमा' का मतलब? #Shorts https://youtu.be/N-rCOw0CfuI / • Sab Hisaab Money: posted क्रेडिट कार्ड का बिल चुकाने की समय सीमा  https://youtu.be/O8n5jW-N84Q / • Labh Lo Deals: approved हल कीजिए: (13 - 3) × 6 ÷ 4 = ? #9913 #Sh / • Suno Natak: posted गोला पहेली: #4756 #Shorts https://youtu.be/OXoqTxjA-ds / • Sab Hisaab Mon
+- 2026-11-26 21:10 🤖 🟢 ⏰ deaae1ed: YouTube par 21:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 21:10 🤖 🟢 ⏰ dea82e32: YouTube par 21:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 21:10 🤖 🟢 🤖 deaae1ed: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 21:30 par jayegi.
+- 2026-11-26 21:10 🤖 🟢 🤖 dea82e32: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 21:30 par jayegi.
+- 2026-11-26 21:05 🤖 📊 WEBSITE TRAFFIC (sab raaste: Google, Bing, Pinterest, video link, seedha) / • Pichhle 15 din ka roz ausat: 33.1 log, 37 page / • Kal: 44 log, 45 page → ausat se 📈 +33% / • Aaj (abhi tak): 10 log, 11 page
+- 2026-11-26 21:00 🤖 📌 Story link-sticker yaad (Instagram API nahi deta - aap khud lagayein; reel ke baad Story → Link sticker): / #3824 (Pahadi Hisaab): https://sabhisaab.com/jawab#c3824 / #4756 (Suno Natak): https://sabhisaab.com/jawab#c4756 / #4711 (Sab Hisaab Money): https://sabhisaab.com/jawab#c4711 / #3301 (Sab Hisaab Money): https://sabhisaab.com/jawab#c3301
+- 2026-11-26 20:57 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 386 URL | Bing ki ginti 368 canary ✅
+- 2026-11-26 20:50 🤖 🟢 📤 Sab Hisaab Money: 5 सेकंड गणित ट्रिक #3301: बिना पेन हल करें! / ✅ youtube: https://youtu.be/CN_W2X-D7rc / ✅ facebook: https://www.facebook.com/reel/1104377869312212 / ✅ instagram: https://www.instagram.com/reel/DgNZnKYhx_l/ / ✅ threads: https://www.threads.com/@***/post/DgNZq29CF0d / ✅ telegram: https://t.me/sabhisaab/327 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #3301) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/jawab#c3301
+- 2026-11-26 20:42 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-26, abhi tak - adhoora): 10 log / • Kal (poora): 44 log / • Pichhle 7 din: 350 | usse pehle 7 din: 160 (+118%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: Facebook 4, Seedha 3, LinkedIn 2, Anjaan 1, Baaki 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-26 20:42 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      4   27   265 / LinkedIn      2   10    33 / Seedha        3    2    20 / Threads       0    2    13 / Baaki         1    1     6 / Instagram     0    0     4 / Anjaan        1    0     2 / Bing          0    1     2 / Google        0    1     2 / FB Group      0    0     2 / WhatsApp       *** / -------------------------- / KUL (asli)   10   44   348</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     65   51   61   33   55 / LinkedIn      1    5    5    0   22 / Seedha        0    0    0    0   20 / Threads       1    1    4    0    7 / Baaki         0    0    0    0    6 / Instagram     0    0    0    0    4 / Anjaan        0    0    0    0    2 / Bing          0    0    0    0    2 / Google        0    0    0    0    2 / FB Group      2    0    0    0    0 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-26 20:42 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-26 20:42 👤 Link se traffic
+- 2026-11-26 20:38 🤖 🟢 📤 Sab Hisaab Money: क्रेडिट कार्ड का बिल चुकाने की समय सीमा क्या कहलाती है #Shorts / ✅ youtube: https://youtu.be/O8n5jW-N84Q / ✅ facebook: https://www.facebook.com/reel/3565691736937402 / ✅ instagram: https://www.instagram.com/reel/DgNYNN3hgz0/ / ✅ threads: https://www.threads.com/@***/post/DgNYRJYiBXL / ✅ telegram: https://t.me/sabhisaab/326 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #4711) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/jawab#c4711
+- 2026-11-26 20:10 🤖 🟢 ⏰ mon633c9: YouTube par 20:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 20:10 🤖 🟢 ⏰ mon4eec0: YouTube par 20:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 20:10 🤖 🟢 🤖 mon633c9: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 20:30 par jayegi.
+- 2026-11-26 20:10 🤖 🟢 🤖 mon4eec0: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 20:30 par jayegi.
+- 2026-11-26 20:03 🤖 🟢 📤 Pahadi Hisaab: कोई भी डिजिटल काम — हो जाएगा | Mock interview feedback ₹29 se / ✅ youtube: https://youtu.be/9gEYnr97yPg / ✅ facebook: https://www.facebook.com/reel/2372800236873403 / ✅ instagram: https://www.instagram.com/reel/DgNUyHUuYct/ / ✅ threads: https://www.threads.com/@***/post/DgNU58ICCW9 / ✅ telegram: https://t.me/sabhisaab/324 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ aaj ki Dailymotion seema (3) poori - baaki video sirf baaki platform par / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-26 20:00 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 386 URL | Bing ki ginti 368 canary ✅
+- 2026-11-26 19:53 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 19:53) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • /jawab par naya jawab atka tha → jawab website: ✅ 4 file VM par chadh gayi (audit paas) (audit WARNING 1 - '🛠 Website audit' mein dekhein). GitHub copy ✅. 1 minute mein bot khud deploy karega ( / • Website badlaav live nahi tha → deploy: ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing /  / ✅ Theek: Website + sitemap (386 URL), Bing sitemap: live 386 URL | Bing ki ginti 368, Google index jaanch (2026-11-26), Threads login, Owner-mode, Disk 10%, Video line, Comment jawab, Kaam line
+- 2026-11-26 19:40 🤖 🟢 ⏰ svcpa1126035643: YouTube par 20:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 19:40 🤖 🟢 🤖 svcpa1126035643: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 20:00 par jayegi.
+- 2026-11-26 19:39 🤖 📥 LEADS — 26-11-2026 19:39 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-26 19:39 🤖 🟢 📤 Suno Natak: गोला पहेली: #4756 #Shorts / ✅ youtube: https://youtu.be/OXoqTxjA-ds / ✅ facebook: https://www.facebook.com/reel/2177259000331742 / ✅ instagram: https://www.instagram.com/reel/DgNRTeyAwZs/ / ✅ threads: https://www.threads.com/@***/post/DgNRbk9iOZM / ✅ telegram: https://t.me/sabhisaab/323 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, FB photo-post https://www.facebook.com/1309806728893856_122114568891537412, IG story / ✅ answer: jawab Telegram + website (kod #4756) / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / dailymotion: ⏸ Dailymotion: aaj ki bachi 1 jagah services video ke liye rakhi (services pehle) / 🔗 Website: https://sabhisaab.com/jawab#c4756
+- 2026-11-26 19:39 👤 📥 Leads
+- 2026-11-26 19:39 👤 💬 Comment haal
+- 2026-11-26 19:19 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-26 19:15 🤖 🔎 Quora par ye sawal khojein (ya naya poochhein): Kiske liye kaun behtar? /  / — JAWAB (copy) — / Kam bajat, kam bheed aur 1 raat ke safar me pahad chahiye to Almora-Ranikhet. Barf aur adventure sports (skiing, paragliding) chahiye to Himachal ke Manali/Bir behtar vikalp hain, kyunki Almora me sthapit ski slope ya rafting nahi hai. /  / पूरा हिसाब / कैलकुलेटर (Almora Uttarakhand: Zila Guide, Ghumne ki Jagah): https://sabhisaab.com/almora-uttarakhand?utm_source=quora&utm_medium=share&utm_campaign=answer /  / 💡 Upar apne shabdon mein 1 line jod dein (jaise apna anubhav) - Quora aise jawab zyada dikhata hai.
+- 2026-11-26 19:15 🤖 ❓ QUORA - is link par sawal dhoondho (na mile to yahi sawal khud poochho, phir jawab do): / https://www.quora.com/search?q=Kiske%20liye%20kaun%20behtar%3F
+- 2026-11-26 19:15 🤖 🧠 खाली जगह में कौन सा अंक? 6 ? 1 - 295 = 356 / A) 6  B) 4  C) 5  D) 7 / 👇 सही जवाब: https://sabhisaab.com/jawab?utm_source=facebook_group&utm_campaign=deals&utm_content=c6827#c6827 / 🤔 पहले खुद सोचिए, फिर जवाब देखिए
+- 2026-11-26 19:15 🤖 👥 DUSRE KE FACEBOOK GROUP (GK / exam / pahadi groups - aap member ho, admin nahi). Facebook niyam: din mein 2-3 group se zyada nahi, ek hi text ek saath sab group mein nahi, group ke 'Rules' padhein; jahan link mana ho wahan link hata kar 'jawab comment mein' likhein. Admin manzoori maange to intezaar karein - baar-baar post = spam.
+- 2026-11-26 19:15 🤖 🏔️ Bageshwar ka Pahadi Khana: Vyanjan aur Mithai /  / Bageshwar ka pahadi khana: Aloo ke Gutke, Kapa aur Bhang ki Chutney — mandua-jhangora, chutney, jungli saag, mithai aur ghar ke tareeke. /  / ✔️ Bageshwar ke Mashhoor Mukhya Vyanjan / ✔️ Bageshwar: Paramparik Roti aur Chawal ke Pakwan / ✔️ Bageshwar: Chutney, Raita, Achaar aur Pisyun Loon /  / 🔗 Link bio mein - Sab Hisaab / #Uttarakhand #Hindi
+- 2026-11-26 19:15 🤖 📸 INSTAGRAM / MOJ / SHARECHAT - wahi banner + ye chhota text (yahan caption ka link click nahi hota)
+- 2026-11-26 19:15 🤖 🏔️ Bageshwar ka Pahadi Khana: Vyanjan aur Mithai /  / Bageshwar ka pahadi khana: Aloo ke Gutke, Kapa aur Bhang ki Chutney — mandua-jhangora, chutney, jungli saag, mithai aur ghar ke tareeke. /  / Is page par: / ✔️ Bageshwar ke Mashhoor Mukhya Vyanjan / ✔️ Bageshwar: Paramparik Roti aur Chawal ke Pakwan / ✔️ Bageshwar: Chutney, Raita, Achaar aur Pisyun Loon / ✔️ Bageshwar: Jungli Khane Layak Cheezein aur Mausami Saag / ✔️ Bageshwar: Paramparik Mithai, Tyohar ke Pakwan aur Prasad /  / Poori jaankari (free, bina login): https://sabhisaab.com/bageshwar-pahadi-khana?utm_source=fbgroup&utm_medium=social&utm_campaign=group_uk /  / Kaam ka laga to save rakhiye - zaroorat par kaam aayega 🙏 / #Uttarakhand #PahadiJankari #Hindi
+- 2026-11-26 19:15 🤖 👥 FACEBOOK GROUP / WHATSAPP / THREADS - upar wali BANNER photo lagao, phir ye text (link click hota hai)
+- 2026-11-26 19:15 🤖 🧠 आज का सवाल /  / कुमाऊँनी में 'आमा' का मतलब? /  / A) माँ / B) मौसी / C) बहू / D) दादी /  / 👇 सही जवाब + तरीका: / https://sabhisaab.com/jawab?utm_source=whatsapp_status&utm_medium=answer&utm_campaign=pahadi&utm_content=c3824#c3824
+- 2026-11-26 19:15 🤖 📱 WHATSAPP STATUS (lamba dabao → Copy → Status par paste; saath mein aaj ki video ka screenshot lagayein)
+- 2026-11-26 19:15 🤖 🧰 AAJ KI SHARE KIT - 5 minute. Har sandesh alag hai: lamba dabao → Copy → wahan paste.
+- 2026-11-26 19:10 🤖 🟢 ⏰ sun515f0: YouTube par 19:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 19:10 🤖 🟢 🤖 sun515f0: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 19:30 par jayegi.
+- 2026-11-26 18:45 🤖 📣 Aaj ka Uttarakhand page share: https://sabhisaab.com/bageshwar-kaise-pahunche → FB, Threads, Telegram
+- 2026-11-26 18:31 🤖 🆔 svcpa1126035643 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Mock interview feedback ₹29 se
+- 2026-11-26 18:31 🤖 🆔 deaae1ed | Labh Lo Deals | waiting / Shopping hacks to save money: कूपन या % छूट में क्या चुनें?
+- 2026-11-26 18:31 🤖 🆔 mon633c9 | Sab Hisaab Money | waiting / 5 सेकंड गणित ट्रिक #3301: बिना पेन हल करें!
+- 2026-11-26 18:31 🤖 🆔 sun515f0 | Suno Natak | waiting / गोला पहेली: #4756 #Shorts
+- 2026-11-26 18:31 🤖 🆔 dea82e32 | Labh Lo Deals | waiting / हल कीजिए: (13 - 3) × 6 ÷ 4 = ? #9913 #Shorts
+- 2026-11-26 18:31 🤖 🆔 mon4eec0 | Sab Hisaab Money | waiting / क्रेडिट कार्ड का बिल चुकाने की समय सीमा क्या कहलाती है #Shorts
+- 2026-11-26 18:31 🤖 🆔 svcsu1125070528 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | Instagram bio ₹19 se
+- 2026-11-26 18:31 🤖 🆔 svcsu1125065916 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | पोस्टर / बैनर ₹99 se
+- 2026-11-26 18:31 🤖 🆔 svcpa1125064812 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Mutual fund tracker ₹399 se
+- 2026-11-26 18:31 🤖 🆔 svcpa1125063150 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Student marksheet ₹399 se
+- 2026-11-26 18:31 🤖 🆔 svcpa1125063149 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Digital sign ₹299 se
+- 2026-11-26 18:31 🤖 🆔 svcsu1125044843 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | Question paper ₹299 se
+- 2026-11-26 18:31 🤖 🆔 svcmo1125040349 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | LinkedIn headline ₹19 se
+- 2026-11-26 18:31 🤖 🆔 svcmo1124172419 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | डोमेन + होस्टिंग ₹299 se
+- 2026-11-26 18:31 🤖 🆔 svcsu1124162327 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | बुकिंग पेज ₹3,999 se
+- 2026-11-26 18:31 🤖 🆔 svcde1124162317 | Labh Lo Deals | waiting / कोई भी डिजिटल काम — हो जाएगा | फोटो-साइन साइज ₹29 se
+- 2026-11-26 18:30 🤖 🆔 svcmo1124112652 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | मोबाइल / कंप्यूटर मदद ₹49 se
+- 2026-11-26 18:30 🤖 🆔 svcsu1124103708 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | WhatsApp ऑटो-जवाब ₹999 se
+- 2026-11-26 18:30 🤖 🆔 svcsu1124103709 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | ऑनलाइन फ़ॉर्म मदद ₹49 se
+- 2026-11-26 18:30 🤖 🆔 svcpa1124100810 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | अपना कैलकुलेटर ₹1,499 se
+- 2026-11-26 18:30 🤖 🆔 svcpa1124084734 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | मोबाइल / कंप्यूटर मदद ₹49 se
+- 2026-11-26 18:30 🤖 🆔 svcpa11240456 | Pahadi Hisaab | waiting / पहले डेमो, फिर पैसा | Chhota CRM (lead, follow-up, Sheet) ₹4,999 se
+- 2026-11-26 18:30 🤖 🆔 svcpa11240353 | Pahadi Hisaab | waiting / Pehle demo, phir paisa | Rate card / price list image ₹99 se
+- 2026-11-26 18:30 🤖 💼 LinkedIn shaam ki post (free tool) gayi ✅ / https://www.linkedin.com/feed/update/urn:li:share:7531703368444989443/
+- 2026-11-26 18:30 🤖 📥 LEADS — 26-11-2026 18:30 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-26 18:30 👤 ⏳ Pending
+- 2026-11-26 18:30 👤 📥 Leads
+- 2026-11-26 18:17 🤖 Manoj bhai, 'Excess' ka kya matlab hai? Kripya spasht karein.
+- 2026-11-26 18:15 👤 Excess
+- 2026-11-26 18:12 🤖 🤔 Maine samjha: 🎬 Charon brand ki video banana / Pakka karoon?
+- 2026-11-26 18:09 👤 Bot bhai 1-2 post kar do
+- 2026-11-26 18:03 🤖 🟢 📤 Sab Hisaab Money: कोई भी डिजिटल काम — हो जाएगा | Domain name ideas ₹19 se / ✅ youtube: https://youtu.be/29BZwThX80w / ✅ facebook: https://www.facebook.com/reel/1694819462244782 / ✅ instagram: https://www.instagram.com/reel/DgNHCOihQG3/ / ✅ threads: https://www.threads.com/@***/post/DgNHKIbCGsP / ✅ dailymotion: https://www.dailymotion.com/video/xc03ncq / ✅ telegram: https://t.me/sabhisaab/321 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / pinterest: ⏸ Pinterest ki aaj ki surakshit seema (12 pin) poori - kal phir (Pinterest spam niyam ke andar) / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-26 17:40 🤖 🟢 ⏰ svcmo1126034626: YouTube par 18:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 17:40 🤖 🟢 🤖 svcmo1126034626: aapka jawab nahi aaya, 3 audit paas hain - Thumb 1 se 18:00 par jayegi.
+- 2026-11-26 17:02 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-26, abhi tak - adhoora): 10 log / • Kal (poora): 44 log / • Pichhle 7 din: 350 | usse pehle 7 din: 160 (+118%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: Facebook 4, Seedha 3, LinkedIn 2, Anjaan 1, Baaki 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-26 17:02 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      4   27   265 / LinkedIn      2   10    33 / Seedha        3    2    20 / Threads       0    2    13 / Baaki         1    1     6 / Instagram     0    0     4 / Anjaan        1    0     2 / Bing          0    1     2 / Google        0    1     2 / FB Group      0    0     2 / WhatsApp       *** / -------------------------- / KUL (asli)   10   44   348</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     65   51   61   33   55 / LinkedIn      1    5    5    0   22 / Seedha        0    0    0    0   20 / Threads       1    1    4    0    7 / Baaki         0    0    0    0    6 / Instagram     0    0    0    0    4 / Anjaan        0    0    0    0    2 / Bing          0    0    0    0    2 / Google        0    0    0    0    2 / FB Group      2    0    0    0    0 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-26 17:02 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-26 17:02 👤 Traffic
+- 2026-11-26 16:14 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-26, abhi tak - adhoora): 9 log / • Kal (poora): 44 log / • Pichhle 7 din: 349 | usse pehle 7 din: 160 (+118%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / • Aaj kahan se: Facebook 4, Seedha 2, LinkedIn 2, Anjaan 1, Baaki 1 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-26 16:14 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      4   27   265 / LinkedIn      2   10    33 / Seedha        2    2    19 / Threads       0    2    13 / Baaki         1    1     6 / Instagram     0    0     4 / Anjaan        1    0     2 / Bing          0    1     2 / Google        0    1     2 / FB Group      0    0     2 / WhatsApp       *** / -------------------------- / KUL (asli)    9   44   347</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     65   51   61   33   55 / LinkedIn      1    5    5    0   22 / Seedha        0    0    0    0   19 / Threads       1    1    4    0    7 / Baaki         0    0    0    0    6 / Instagram     0    0    0    0    4 / Anjaan        0    0    0    0    2 / Bing          0    0    0    0    2 / Google        0    0    0    0    2 / FB Group      2    0    0    0    0 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-26 16:13 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-26 16:13 👤 link traffic
+- 2026-11-26 13:29 🤖 🔎 <b>GOOGLE INDEXING</b> (live sitemap = 386 page) / ✅ Index: <b>374</b> | ❌ Google ne index nahi kiya: <b>11</b> | 🆕 Naye (Google ki jaanch baaki): <b>1</b> / Google ki aakhri roz ki jaanch: 2026-11-26 /  / ❌ <b>Index NAHI (wajah ke saath):</b> / 1. <code>https://sabhisaab.com/fire-number-calculator</code> /     <i>Google ko pata hi nahi</i> / 2. <code>https://sabhisaab.com/random-number-generator</code> /     <i>Google ko pata hi nahi</i> / 3. <code>https://sabhisaab.com/delivery-date-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 4. <code>https://sabhisaab.com/notice-period-buyout-calculator</code> /     <i>Google ne dekha, index nahi kiya</i> / 5. <code>https://sabhisaab.com/number-system-converter</code> /     <i>Google ne dekha, index nahi kiya</i> / 6. <code>https://sabhisaab.com/services-demo</code> /     <i>Google ne dekha, index nahi kiya</i> / 7. <code>https://sabhisaab.com/services-list</code> /     <i>Google ne dekha, index nahi kiya</i> / 8. <code>https://sabhisaab.com/stopwatch-online</code> /     <i>Google ne dekha, index nahi kiya</i> / 9. <code>https://sabhisaab.com/buy-vs-rent-guide</code> /     <i>Google aaya, index nahi kiya</i> / 10. <code>https://sabhisaab.com/pauri-garhwal-sanskriti-tyohar</code> /     <i>Google aaya, index nahi kiya</i> / 11. <code>https://sabhisaab.com/stories/uk-bageshwar-zila-kahani</code> /     <i>Google aaya, index nahi kiya</i> /  / 🆕 <b>Naye page (1)</b> - abhi 1-5 din purane; Google aam taur par 3-14 din leta hai, bot roz jaanchta hai: / 1. <code>https://sabhisaab.
+- 2026-11-26 13:28 👤 Pending indexing
+- 2026-11-26 12:42 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: 1 badle URL bheje ✅ 🗺 Bing sitemap: live 386 URL | Bing ki ginti 385 canary ✅
+- 2026-11-26 12:42 🤖 📖 Web Story LIVE + sitemap mein: https://sabhisaab.com/stories/money-quiz-2026-w48 / (Bing ko bot ne bhej diya. Google ka link 11:40 ki '🔎 GOOGLE INDEXING' suchi mein aayega - abhi kuch nahi karna)
+- 2026-11-26 11:40 🤖 🔎 <b>GOOGLE INDEXING - aaj Request karne wale (9 page) - jo SACH MEIN index nahi</b> / 📊 Kul page (sitemap): <b>385</b> | Google index ✅ <b>374</b> | baaki ⏳ <b>11</b> / Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi. / Google roz ~10 Request leta hai: upar se 10 aaj, baaki kal (yahi suchi kal chhoti hoke aayegi). /  / 1. <code>https://sabhisaab.com/pithoragarh-zila-prashasan</code> /     <i>naya page</i> / 2. <code>https://sabhisaab.com/udham-singh-nagar-zila-prashasan</code> /     <i>naya page</i> / 3. <code>https://sabhisaab.com/bageshwar-zila-prashasan</code> /     <i>naya page</i> / 4. <code>https://sabhisaab.com/champawat-zila-prashasan</code> /     <i>naya page</i> / 5. <code>https://sabhisaab.com/uttarakhand-pahadi-virasat-tyohar</code> /     <i>naya page</i> / 6. <code>https://sabhisaab.com/dehradun-gk-exam-career</code> /     <i>naya page</i> / 7. <code>https://sabhisaab.com/nainital-gk-exam-career</code> /     <i>naya page</i> / 8. <code>https://sabhisaab.com/haridwar-gk-exam-career</code> /     <i>naya page</i> / 9. <code>https://sabhisaab.com/stories/uk-bageshwar-zila-kahani</code> /     <i>naya page</i> /  / ⏳ Baaki 2 page aaj suchi mein nahi: inpar aap pichhle 7 din mein Request kar chuke, ya Google ne abhi taaza jaanch mein index bataya (roz ki ginti kal badlegi). Inka aaj aapka koi kaam nahi. Sab ka haal: 'kitne page index nahi' /  / <b>Kaise (har page 1 minute):</b> / 1) Upar ka link <b>dabao</b> → copy ho jayega / 2) Search Console kholo:
+- 2026-11-26 11:10 🤖 🟢 ✅ Ye kaam ho gaya (bot ne khud API se pakka kiya), list se hata diya: / • (Marzi, 1 min) Search Console → AMP → 'Web Story is invalid' → VALIDATE FIX. Zaroori NAHI: bot ne 11 story theek kar di,…
+- 2026-11-26 11:10 🤖 ✅ Layout 'bar' default list mein (24 ghante jawab nahi aaya, apne aap) - roz baari-baari.
+- 2026-11-26 10:14 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar canary ✅
+- 2026-11-26 10:08 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar canary ✅
+- 2026-11-26 10:02 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar canary ✅
+- 2026-11-26 09:56 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 09:56) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • /jawab par naya jawab atka tha → jawab website: ✅ 5 file VM par chadh gayi (audit paas) (audit WARNING 1 - '🛠 Website audit' mein dekhein). GitHub copy ✅. 1 minute mein bot khud deploy karega ( / • /jawab: jaanch gir rahi thi (d changes in working directory) / 	modified:   state/alerts.js) → website repo ki adhuri state alag rakhi (git stash) → ab theek /  / ✅ Theek: Website + sitemap (385 URL), Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar, Google index jaanch abhi chal rahi (aakhri 2026-11-21), Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab, Kaam line
+- 2026-11-26 09:46 🤖 🔧 Website roz-report ka crash JAD se theek (v3.9.7): 24 Nov ko alert par 'band karo' dabane se alert file mein galat value gayi thi - isse 24 Nov se Google index jaanch save nahi ho rahi thi aur index suchi purani dikh rahi thi. Ab index ka nateeja jaanch ke turant baad save hota hai. Aaj ki Google index jaanch abhi shuru - 30-60 min mein taaza 'kitne index' report.
+- 2026-11-26 09:41 🤖 🟢 📤 Pahadi Hisaab: कुमाऊँनी में 'आमा' का मतलब? #Shorts / ✅ youtube: https://youtu.be/N-rCOw0CfuI / ✅ facebook: ✓ pehle hi ja chuka (post-taala) / ✅ instagram: ✓ pehle hi ja chuka (post-taala) / ✅ threads: ✓ pehle hi ja chuka (post-taala) / ✅ pinterest: ✓ pehle hi ja chuka (post-taala) / ✅ telegram: https://t.me/sabhisaab/320 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / ✅ answer: jawab Telegram + website (kod #3824) / dailymotion: ⏸ Dailymotion: aaj ki bachi 2 jagah services video ke liye rakhi (services pehle) / 🔗 Website: https://sabhisaab.com/jawab#c3824
+- 2026-11-26 09:37 🤖 📥 LEADS — 26-11-2026 09:37 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-26 09:37 👤 📥 Leads
+- 2026-11-26 09:35 🤖 GitHub copy: v3.9.7 ✅
+- 2026-11-26 09:35 🤖 ✅ Update safal: v3.9.7 chalu.
+- 2026-11-26 09:34 🤖 ✅ v3.9.7 install. Bot 10 second mein naye code se chalu hoga...
+- 2026-11-26 09:33 🤖 ⏳ Install ho raha hai...
+- 2026-11-26 09:33 🤖 📦 Update mila: v3.9.6 ➜ v3.9.7 / Install karein? (purana backup rahega, gadbad hui to apne aap wapas)
+- 2026-11-26 09:23 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 09:23) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Google index jaanch purani thi (2026-11-24) → dobara shuru (report 30-60 min mein) /  / ✅ Theek: Website + sitemap (385 URL), /jawab, Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar, Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab, Kaam line
+- 2026-11-26 09:20 🤖 🟡 DHYAN 🔎 Google index jaanch (URL Inspection) ka nateeja aaj ka nahi - aakhri 2026-11-24. Report purane data par hai; bot kal phir chalayega. (rc {rc}) / (pichhle 3 ghante mein ye 4 baar hua)
+- 2026-11-26 09:20 🤖 🟡 DHYAN Website ki roz ki report mein dikkat: / k (most recent call last): /   File "/home/ubuntu/sabhisaab-network/data/site_repo/scripts/daily.py", line 651, in <module> /     main() /     ~~~~^^ /   File "/home/ubuntu/sabhisaab-network/data/site_repo/scripts/daily.py", line 618, in main /     old_open = [v for k, v in op.items() if v["text"] not in hi] /                                             ~^^^^^^^^ / TypeError: 'bool' object is not subscriptable
+- 2026-11-26 09:15 🤖 🟢 💼 ✅ LinkedIn (Sab Hisaab Page) par post bani - sawal #3492 (Sab Hisaab Money) / https://www.linkedin.com/feed/update/urn:li:share:7531563687812419584/
+- 2026-11-26 09:10 🤖 🟢 ⏰ pah14b14: YouTube par 09:30 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 09:10 🤖 🟢 🤖 pah14b14: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 09:30 par jayegi.
+- 2026-11-26 09:01 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 09:01) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Google index jaanch purani thi (2026-11-24) → dobara shuru (report 30-60 min mein) /  / ✅ Theek: Website + sitemap (385 URL), /jawab, Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar, Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab, Kaam line
+- 2026-11-26 08:58 🤖 🟡 DHYAN Website ki roz ki report mein dikkat: /  <module> /     if __name__ == "__main__": /         ^^^^^^ /   File "/home/ubuntu/sabhisaab-network/data/site_repo/scripts/daily.py", line 602, in main /     # ---------- khabar ---------- /   File "/home/ubuntu/sabhisaab-network/data/site_repo/scripts/daily.py", line 341, in news /     cut = dstr(today() - *** /      / TypeError: '>=' not supported between instances of 'bool' and 'str'
+- 2026-11-26 08:55 🤖 (2/2) / 13. 📌 (Marzi, 2 min) LinkedIn Page par shuru ke follower: linkedin.com/company/sabhisaab/admin → '+ Invite' / 'Invite to follow' → apne connections chunein (LinkedIn mahine mein kuch muft invite deta hai). Premium/trial kabhi nahi (2026-11-16) /    👉 ho jaye to likhein: 'ho gaya linkedin invite' / 14. 📌 [Owner, roz 15 min] Quora: roz 2-3 jawab (1 Hindi + 1-2 English), sirf kam-jawab wale sawal, upar apni 1 line anubhav ki. Sawal ka screenshot Claude ko - Claude poora jawab deta hai (2026-11-17) /    👉 Ye roz ka kaam hai - list mein rehta hai. Band: 'ho gaya quora roz' / 15. 📌 [Owner, 10 min] Quora purane 4 jawab mein aakhri line link (Edit answer → neeche paste): loan app → https://sabhisaab.com/emi-se-byaj-dar-calculator?utm_source=quora | SBI SIP 15 saal → https://sabhisaab.com/sip-calculator?utm_source=quora | call vs put → https://sabhisaab.com/options-breakeven-calculator?utm_source=quora | heavy call wale mein link NAHI (2026-11-17) /    👉 ho jaye to: 'ho gaya quora link' / 16. 📌 [Owner, 1 min] Quora Space 'Sab Hisaab - Paisa, Pahad aur Paheli' ka poora link (quora.com/... ) Claude ko bhejein - website ki /links aur homepage par jodna hai (2026-11-17) /    👉 ho jaye to: 'ho gaya quora space link' / 17. 📌 [Owner, roz 5 min] Bot ki roz 11:40 'GOOGLE INDEXING' suchi: link tap (copy) → search.google.com/search-console → 'Inspect any URL' → paste → REQUEST INDEXING. Upar se shuru; Quota exceeded = baaki kal. Phir bot mein 'indexing ho gaya' (2026-11-17) /    👉 Roz ka kaam. Suchi khaali 
+- 2026-11-26 08:55 🤖 (1/2) / 🧾 Aapke haath ke kaam: 29/62 ho gaye /  / ⬜ Baaki (🤖 = bot khud jaanch kar hatayega; baaki ho jaye to 'ho gaya <number>'): / 1. 📌 (Marzi) WhatsApp channel: Meta ne iska API nahi diya - bot roz 1 taiyaar post (photo + sawal + link) bhejta hai, bas forward karein (2026-11-04) /    👉 Jab WhatsApp channel ka API aayega, bot khud post shuru karega. Ho jaye to: 'ho gaya whatsapp' / 2. 📌 [Intezaar] AdSense approval mail (2-4 hafte, review chal raha). pub-ID bot mein pehle se juda. Mail aate hi Claude ko batayein - privacy ki 'abhi koi vigyapan nahi' line badlegi aur ad jagah tay hogi (quiz vikalp ke paas kabhi nahi) (2026-11-05) /    👉 ho jaye to: 'ho gaya adsense approve' / 3. 📌 [Owner] Bot mein 'jawab digest chalu' (dohri pushti) - roz 20:30 par ek digest; 'site scan' (Ravivaar apne aap); 'ypp haal' (2026-11-05) /    👉 ho jaye to likhein: 'ho gaya digest' / 4. 📌 [P0 Owner - faisla] YouTube kamai (YPP): July 2026 ki niti mein 'ek hi saanche ki AI awaaz wali video' par monetization nahi milta. Har channel par hafte mein 1-2 video APNI awaaz mein (phone se 30-60 sec bol kar bot ko bhejein - sawal samjhana / pahadi shabd bolna); baaki sab bot karega. Bina iske views aa sakte hain par YPP approval ka khatra (2026-11-12) /    👉 Poori wajah: GitHub docs/AUDIT_11NOV2026.md hissa A. Shuru kar dein to: 'ho gaya apni awaaz' / 5. 📌 [P1 Owner - faisla] Gemini ka free quota roz khatam ho raha (VM audit: saare model 'cool', tathya-jaanch/tyohaar-jaanch fail). Google AI Studio → Billing chalu + mahine ki seema (
+- 2026-11-26 08:55 🤖 🔤 Samjha: '🧾 Mere kaam'
+- 2026-11-26 08:55 👤 Mere kaam
+- 2026-11-26 08:54 🤖 ✅ List se hataya: / • [Owner, marzi] Phone par Private DNS (VPN ki zaroorat nahi, banking/UPI par asar nahi): Settings → C… / (Itihaas mein rakha - docs/PENDING.md mein 'ho chuke' mein dikhega.)
+- 2026-11-26 08:54 👤 ho gaya private dns
+- 2026-11-26 08:52 🤖 ✅ List se hataya: / • [Owner] YouTube pinned comment: (agar chahein) apne video ka pehla comment khud ek click se pin kare… / (Itihaas mein rakha - docs/PENDING.md mein 'ho chuke' mein dikhega.)
+- 2026-11-26 08:52 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: 1 badle URL bheje ✅ 🗺 Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar canary ✅
+- 2026-11-26 08:52 🤖 ✅ List se hataya: / • [Owner] Bot ne Telegram quiz poll ka prastav bheja ho (roz max 2) to ✅✅; 'jawab poll chalu/band' bhi… / (Itihaas mein rakha - docs/PENDING.md mein 'ho chuke' mein dikhega.)
+- 2026-11-26 08:52 🤖 ✅ List se hataya: / • [Owner T7/B21] Roz 21:00 par bot Story link-sticker yaad dilata hai - Instagram Story mein sticker a… / (Itihaas mein rakha - docs/PENDING.md mein 'ho chuke' mein dikhega.)
+- 2026-11-26 08:52 👤 ho gaya pin
+- 2026-11-26 08:52 👤 ho gaya poll
+- 2026-11-26 08:52 👤 ho gaya t7 story
+- 2026-11-26 08:51 🤖 ✅ List se hataya: / • Bing jaanch (19 Nov): bing.com par 'site:sabhisaab.com' search karein. 10 se kam page dikhein to Bin… / (Itihaas mein rakha - docs/PENDING.md mein 'ho chuke' mein dikhega.)
+- 2026-11-26 08:51 👤 ho gaya bing jaanch
+- 2026-11-26 08:50 🤖 ✅ List se hataya: / • [Owner, 3 min, suraksha] Pinterest app secret *** 30 Oct ki chat mein 'Account ID' ke baad ek lam… / (Itihaas mein rakha - docs/PENDING.md mein 'ho chuke' mein dikhega.)
+- 2026-11-26 08:50 👤 ho gaya pinterest secret
+- 2026-11-26 08:49 🤖 (3/3) / 26. 📌 [Owner, 3 min, suraksha] Pinterest app secret *** 30 Oct ki chat mein 'Account ID' ke baad ek lambi likhawat (aee95...) GitHub ki public CHAT.md mein khuli thi (ab bot chhupata hai). developers.pinterest.com → My apps → app → 'Reset secret' → naya secret *** bot ko 'pinterest secret *** (chat/GitHub par kabhi nahi) (2026-11-25) /    👉 Agar wo sirf Account ID tha to bhi badalna surakshit hai. Ho jaye to: 'ho gaya pinterest secret' / 27. 📌 [Owner, 3 min] Search Console → Inspect any URL → REQUEST INDEXING (ek-ek): https://sabhisaab.com/services-list , https://sabhisaab.com/services-demo , https://sabhisaab.com/pauri-garhwal-sanskriti-tyohar (teeno 1-3 din purane - Google 2-14 din leta hai; dobara-dobara mat dabao) (2026-11-25) /    👉 Ho jaye to: 'ho gaya 3 naye index' / 28. 📌 (Marzi, 1 min) Search Console → AMP → 'Web Story is invalid' → VALIDATE FIX. Zaroori NAHI: bot ne 11 story theek kar di, Google apne aap dobara jaanchta hai; bot roz API se dekhta hai aur theek dikhte hi ye line khud hata dega (2026-11-26) 🤖 bot khud jaanchta hai /    👉 Bot khud hatayega. Chahein to: 'ho gaya amp fix' /  / 🛠 Claude/developer ke kaam: 11 (aapko kuch nahi karna - Claude chat mein 'continue' bolein): Google Fonts self-host (Baloo2 file bot ; Top 5 tools ka reviewed English + Devana; /services page: 3-4 asli namoone, WhatsA; W12 ka nateeja naapo (docs/TRAFFIC_PLAN.; /bigha-kitna-hota-hai (har rajya) ka har; YouTube Data API revision history: YouTu ...
+- 2026-11-26 08:49 🤖 (2/3) /    👉 ho jaye to: 'ho gaya related video' / 14. 📌 [Owner, 1 min] VM par purana 'sandbox' mount fail dikh raha hai (reboot ke baad; bot aur trading par koi asar nahi). SSH mein ye do command chala kar photo Claude ko bhejein: grep -n sandbox /etc/fstab   aur   systemctl cat home-ubuntu-sandbox.mount (2026-11-12) /    👉 Photo ke baad Claude hatane ki sahi command dega. 'ho gaya sandbox mount' / 15. 📌 [Owner, 5 min] Apni visit kabhi na gine: bot mein 'owner link' likhein → har app mein ek baar (Chrome, Telegram, Instagram, Facebook) - kaali patti 'Owner mode' dikhe (2026-11-16) /    👉 ho jaye to: 'ho gaya owner link' / 16. 📌 (Marzi, 5 min) Telegram directory: tgstat.com → 'Log in' (Telegram se) → 'Add channel' → @*** → bhasha Hindi, vishay Education. Koi paisa/premium nahi (2026-11-16) /    👉 ho jaye to: 'ho gaya telegram directory' / 17. 📌 (Marzi, 3 min) Facebook par apna group: Pahadi Hisaab page → Groups → 'Create group' → naam 'Pahadi Hisaab Parivar' → Public. Roz 19:15 ki 'share kit' ka FB wala text wahan daalein (koi admin ki manzoori nahi) (2026-11-16) /    👉 ho jaye to: 'ho gaya fb group' / 18. 📌 (Marzi, 2 min) LinkedIn Page par shuru ke follower: linkedin.com/company/sabhisaab/admin → '+ Invite' / 'Invite to follow' → apne connections chunein (LinkedIn mahine mein kuch muft invite deta hai). Premium/trial kabhi nahi (2026-11-16) /    👉 ho jaye to likhein: 'ho gaya linkedin invite' / 19. 📌 [Owner, roz 15 min] Quora: roz 2-3 jawab (1 Hindi + 1-2 English), sirf kam-jawab wale sawal, upar a
+- 2026-11-26 08:49 🤖 (1/3) / 🧾 Aapke haath ke kaam: 29/68 ho gaye /  / ⬜ Baaki (🤖 = bot khud jaanch kar hatayega; baaki ho jaye to 'ho gaya <number>'): / 1. 📌 Bing jaanch (19 Nov): bing.com par 'site:sabhisaab.com' search karein. 10 se kam page dikhein to Bing Webmaster → Support → purane ticket par reply (Claude se English text lein) (2026-11-02) /    👉 'ho gaya bing jaanch' / 2. 📌 (Marzi) WhatsApp channel: Meta ne iska API nahi diya - bot roz 1 taiyaar post (photo + sawal + link) bhejta hai, bas forward karein (2026-11-04) /    👉 Jab WhatsApp channel ka API aayega, bot khud post shuru karega. Ho jaye to: 'ho gaya whatsapp' / 3. 📌 [Intezaar] AdSense approval mail (2-4 hafte, review chal raha). pub-ID bot mein pehle se juda. Mail aate hi Claude ko batayein - privacy ki 'abhi koi vigyapan nahi' line badlegi aur ad jagah tay hogi (quiz vikalp ke paas kabhi nahi) (2026-11-05) /    👉 ho jaye to: 'ho gaya adsense approve' / 4. 📌 [Owner T7/B21] Roz 21:00 par bot Story link-sticker yaad dilata hai - Instagram Story mein sticker aap lagayein (API nahi deta) (2026-11-05) /    👉 ho jaye to likhein: 'ho gaya t7 story' / 5. 📌 [Owner] Bot mein 'jawab digest chalu' (dohri pushti) - roz 20:30 par ek digest; 'site scan' (Ravivaar apne aap); 'ypp haal' (2026-11-05) /    👉 ho jaye to likhein: 'ho gaya digest' / 6. 📌 [Owner] Bot ne Telegram quiz poll ka prastav bheja ho (roz max 2) to ✅✅; 'jawab poll chalu/band' bhi chalta hai (2026-11-06) /    👉 ho jaye to likhein: 'ho gaya poll' / 7. 📌 [Owner] YouTube pinned comment: (agar chahein) apne video k
+- 2026-11-26 08:49 🤖 🔤 Samjha: '🧾 Mere kaam'
+- 2026-11-26 08:49 👤 Mera kaam
+- 2026-11-26 08:45 🤖 🗂 Website sudhaar (v3.9.6) live: 11 Web Story ka AMP error hataya, /uttarakhand hub par 13 zile x 7 page ke link, services form ki JS galti, roz ki report ka crash. Aapko kuch nahi karna - Google 2-14 din mein dobara jaanchega.
+- 2026-11-26 08:38 🤖 GitHub copy: v3.9.6 ✅
+- 2026-11-26 08:38 🤖 ✅ Update safal: v3.9.6 chalu.
+- 2026-11-26 08:38 🤖 ✅ v3.9.6 install. Bot 10 second mein naye code se chalu hoga...
+- 2026-11-26 08:37 🤖 ⏳ Install ho raha hai...
+- 2026-11-26 08:37 🤖 📦 Update mila: v3.9.5 ➜ v3.9.6 / Install karein? (purana backup rahega, gadbad hui to apne aap wapas)
+- 2026-11-26 08:35 🤖 🟢 📰 Aaj ki kaam ki khabar (source ke saath, aapki manzoori se): / • Sab Hisaab Money: EPFO में 4 नए अपडेट, जानें क्या हैं बदलाव। source: Prabhat Khabar /   https://news.google.com/rss/articles/CBMiywFBVV95cUxNU3hmN3dSN1ZHSVQ1dE9jWm0wZWFTbnlTMTFtYW1qZHNPVWxSS19x***?oc=5 / • Pahadi Hisaab: उत्तराखंड की बैणी-भुली योजना में 5.23 लाख महिलाओं को मिलेगी ₹20,000 की मदद। source: Utkarsh Classes /   https://news.google.com/rss/articles/CBMi_AFBVV95cUxPZmpWUjhiSVFiTTdRQ215S0VhcGVVak1OMTB2RXpTSXJMbnpkc2tPQTdQbV9zOVh3ODJCV3ZjMWVseGl1cmhWUE0xVTh4Z0Z6YzRYMVpXekhSd2NoSEtlT0wtM3JRY3gydUtaZjBobDJ1NWMyU0M2eVNYRVIyTGdldDZlcGJ3NUQtNU5JRkhPcllSa1V2cHNCcmY0NUJsN0FRb0lMZ2REd1RZbHBZTGxJYl9vb2p1QzRxQ3c0WGpRbFVhMzJPRllNcUdER2lGcTZweUdPazFsMENSM2ZiZFRSd0RYTHVQT2lWZThXNWxEMG80VjRNRGRuQjJuV1Q?oc=5 / • Sab Hisaab Money: दिसंबर में 7 नियमों में बदलाव, आधार, LPG, EMI पर होगा सीधा असर। source: Prabhat Khabar /   https://news.google.com/rss/articles/CBMiogFBVV95cUxQN3kxN3FGYjhDNUlMMEc0N0FnLVZrcG1lUDdLbVhMWm5tZHlyMUJ3UHZoWno4ckpFQ0VXV1NBVDRyOUREWFZLLTRGNy1TYTBnTTloVFktTnFTZmYyVnN3eUNlMHl2MXVQU2ZIYUtYbWFaX2swQ0pUVm03bWl2RHc4NE5sbnpMZnBlUGJ3OWFqSXRJZnhxRjZiUUhReXRhaEFYX2fSAaIBQVVfeXFMUDd5MTdxRmI4QzVJTDBHNDdBZy1Wa3BtZVA3S21YTFpubWR5cjFCd1B2aFp6OHJKRUNFV1dTQVQ0cjlERFhWSy00RjctU2EwZ005aFRZLU5xU2ZmMlZzd3lDZTB5djF1UFNmSGFLWG1hWl9rMENKVFZtN21pdkR3ODRObG56TGZwZVBidzlhakl0SWZ4cUY2YlFIUXl0YWhBWF9n?oc=5
+- 2026-11-26 08:06 🤖 🎬 Dailymotion: svcde1126032511 ab chali gayi (dobara koshish 6) ✅ https://www.dailymotion.com/video/xbzyweu
+- 2026-11-26 08:06 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-26, abhi tak - adhoora): 0 log / • Kal (poora): 44 log / • Pichhle 7 din: 340 | usse pehle 7 din: 160 (+112%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-26 08:06 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      0   27   261 / LinkedIn      0   10    31 / Seedha        0    2    17 / Threads       0    2    13 / Baaki         0    1     5 / Instagram     0    0     4 / Bing          0    1     2 / Google        0    1     2 / FB Group      0    0     2 / Anjaan        0    0     1 / WhatsApp       *** / -------------------------- / KUL (asli)    0   44   338</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     61   51   61   33   55 / LinkedIn      1    3    5    0   22 / Seedha        0    0    0    0   17 / Threads       1    1    4    0    7 / Baaki         0    0    0    0    5 / Instagram     0    0    0    0    4 / Bing          0    0    0    0    2 / Google        0    0    0    0    2 / FB Group      2    0    0    0    0 / Anjaan        0    0    0    0    1 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-26 08:06 🤖 🔎 <b>GOOGLE INDEXING - aaj Request karne wale (9 page) - jo SACH MEIN index nahi</b> / ⚠️ Google ki roz ki jaanch aakhri 2026-11-24 ki hai. / 📊 Kul page (sitemap): <b>385</b> | Google index ✅ <b>350</b> | baaki ⏳ <b>35</b> / Har page: sitemap mein ✅ | live ✅ | Google se abhi-abhi taaza jaancha - index NAHI. Jo index ho chuke wo yahan kabhi nahi. / Google roz ~10 Request leta hai: upar se 10 aaj, baaki kal (yahi suchi kal chhoti hoke aayegi). /  / 1. <code>https://sabhisaab.com/pithoragarh-zila-prashasan</code> /     <i>naya page</i> / 2. <code>https://sabhisaab.com/udham-singh-nagar-zila-prashasan</code> /     <i>naya page</i> / 3. <code>https://sabhisaab.com/bageshwar-zila-prashasan</code> /     <i>naya page</i> / 4. <code>https://sabhisaab.com/champawat-zila-prashasan</code> /     <i>naya page</i> / 5. <code>https://sabhisaab.com/uttarakhand-pahadi-virasat-tyohar</code> /     <i>naya page</i> / 6. <code>https://sabhisaab.com/dehradun-gk-exam-career</code> /     <i>naya page</i> / 7. <code>https://sabhisaab.com/nainital-gk-exam-career</code> /     <i>naya page</i> / 8. <code>https://sabhisaab.com/haridwar-gk-exam-career</code> /     <i>naya page</i> / 9. <code>https://sabhisaab.com/stories/uk-bageshwar-zila-kahani</code> /     <i>naya page</i> /  / ⏳ Baaki 26 page aaj suchi mein nahi: inpar aap pichhle 7 din mein Request kar chuke, ya Google ne abhi taaza jaanch mein index bataya (roz ki ginti kal badlegi). Inka aaj aapka koi kaam nahi. Sab ka haal: 'kitne page index nahi' /  / <b>Kaise (har page 1 minute):</b> / 1) Upar ka link 
+- 2026-11-26 08:03 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-26 08:03 👤 Traffic
+- 2026-11-26 08:02 🤖 🔎 Pehle Google ko live sitemap bhej raha hoon, phir har page Google se taaza jaanch kar suchi deta hoon (1-3 min)...
+- 2026-11-26 08:02 👤 Indexing link
+- 2026-11-26 08:00 🤖 🅱️ BING - roz ki report (Google report ke saath) / • Bing index mein (Bing ki ginti): 72 (+6 pichhli baar se) / • Kal Bing ne crawl kiye: 21 | crawl error: 0 / • 🗺 Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar / • Site ke page: 375 | Bing search mein dikh chuke (pakka index): 16 / • Bing ne crawl kiye: 72 | kabhi crawl nahi: 295 | jaanch baaki: 8 / • Bing search (14 din, Bing hafte-wari deta hai): 24 baar dikha, 2 click / • Aaj 06:40 Bing ko bheje: 33 (quota 100, hamari seema 50) - naya Uttarakhand page (queue): 8, Bing ne kabhi crawl nahi kiya: 25 / • Kul Bing API se bheje: 365 alag page (ek page 14/30 din mein ek baar) / • Bing ne kya bola (2026-11-26): ✅ manzoor (HTTP 200) - 33 URL / • 🏔️ Uttarakhand: kul 264 | live 104 | Bing ko bheje 96 | Bing search mein dikhe 0 | live par index ka saboot nahi 104 | queue mein baaki 160 / 🔎 Google index (Uttarakhand): 79/104 live page index mein | Google ne jaanche 88 /    Abhi index nahi (9): almora-kaise-pahunche, bageshwar-sanskriti-tyohar, champawat-sanskriti-tyohar, dehradun-zila-prashasan, pauri-garhwal-sanskriti-tyohar, pithoragarh-sanskriti-tyohar / 🔎 Poori website: 350/368 URL index mein /    Har page ki wajah: '🩺 Website doctor' / 📈 Google search (28 din): 34 Uttarakhand page dikhe, 66 baar dikhe, 3 click /    Sabse zyada: /    • https://sabhisaab.com/haridwar-uttarakhand - 10 baar dikha /    • https://sabhisaab.com/uttarakhand - 6 baar dikha /    • https://sabhisaab.com/champawat-ghumne-ki-jagah - 3 baar dikha / • Abhi Bing index ka saboot nahi: 359 pa
+- 2026-11-26 07:40 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 07:40) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Google index jaanch purani thi (2026-11-24) → dobara shuru (report 30-60 min mein) /  / ✅ Theek: Website + sitemap (385 URL), /jawab, Bing sitemap: live 385 URL | Bing ki ginti 385 | ✅ barabar, Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab, Kaam line
+- 2026-11-26 07:38 🤖 🎬 Dailymotion: svcsu1126033556 ab chali gayi (dobara koshish 1) ✅ https://www.dailymotion.com/video/xbzyr3m
+- 2026-11-26 07:30 🤖 🟢 🗓 2026-11-26 | गुरुवार | मार्गशीर्ष कृष्ण पक्ष द्वितीया | Vikram Samvat 2083 / 📅 2026-11-26 ke pakke khaas din: / • संविधान दिवस (rashtriya)
+- 2026-11-26 07:11 🤖 🏔️ Aaj 8 naya page LIVE (Uttarakhand) - live sitemap mein pakka ✅: / 1. https://sabhisaab.com/pithoragarh-zila-prashasan / 2. https://sabhisaab.com/udham-singh-nagar-zila-prashasan / 3. https://sabhisaab.com/bageshwar-zila-prashasan / 4. https://sabhisaab.com/champawat-zila-prashasan / 5. https://sabhisaab.com/uttarakhand-pahadi-virasat-tyohar / 6. https://sabhisaab.com/dehradun-gk-exam-career / 7. https://sabhisaab.com/nainital-gk-exam-career / 8. https://sabhisaab.com/haridwar-gk-exam-career /  / 👉 Google 'Request indexing' ke link aaj 11:40 ki ek hi suchi '🔎 GOOGLE INDEXING' mein (sabse upar). Abhi kuch nahi karna. / Bing + IndexNow + Google sitemap: bot ne khud bhej diya. /  / Baaki 160 page, roz 8 = ~20 din. 'queue haal' se poora haal.
+- 2026-11-26 07:08 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: 8 badle URL bheje ✅ 🗺 Bing sitemap: live 385 URL | Bing ki ginti 377 | ✅ Bing ko sitemap dobara bheja (deploy ke baad) canary ✅
+- 2026-11-26 07:07 🤖 🟢 📤 Suno Natak: कोई भी डिजिटल काम — हो जाएगा | बिल / कोटेशन फ़ॉर्मेट ₹99 se / ✅ youtube: https://youtu.be/lf_IvdK5IEg / ✅ facebook: https://www.facebook.com/reel/1824921022079126 / ✅ instagram: https://www.instagram.com/reel/DgL8ACMBrq6/ / ✅ threads: https://www.threads.com/@***/post/DgL8IOCCsj6 / ✅ pinterest: https://www.pinterest.com/pin/237916792811956207/ / ✅ telegram: https://t.me/sabhisaab/318 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / dailymotion: 🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-26 07:07 🤖 🟡 DHYAN 🌐 Website mein badlaav pakda: / 🆕 Naye page (video topic mein apne aap): /bageshwar-zila-prashasan, /champawat-zila-prashasan, /dehradun-gk-exam-career, /haridwar-gk-exam-career, /nainital-gk-exam-career, /pithoragarh-zila-prashasan, /udham-singh-nagar-zila-prashasan, /uttarakhand-pahadi-virasat-tyohar
+- 2026-11-26 07:03 🤖 🟢 🙏 Auto story/post: संविधान दिवस -> Suno Natak FB FB story, IG IG story, Sab Hisaab Money FB FB story, IG IG story, Labh Lo Deals FB FB story, IG IG story, Pahadi Hisaab FB FB story, IG IG story, Telegram
+- 2026-11-26 06:54 🤖 📡 Telegram ka raasta badla: ab 'Cloudflare relay' se baat ho rahi hai (seedha raasta band mila).
+- 2026-11-26 06:40 🤖 🟢 ⏰ svcsu1126033556: YouTube par 07:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 06:40 🤖 🟢 🤖 svcsu1126033556: aapka jawab nahi aaya, 3 audit paas hain - Thumb 3 se 07:00 par jayegi.
+- 2026-11-26 06:00 🤖 🟢 Subah ki jaanch: sab theek (website, privacy policy, logins, Gemini, disk).
+- 2026-11-26 05:59 🤖 🟡 DHYAN 🔎 Google index jaanch (URL Inspection) ka nateeja aaj ka nahi - aakhri 2026-11-24. Report purane data par hai; bot kal phir chalayega. (rc {rc}) / (pichhle 3 ghante mein ye 2 baar hua)
+- 2026-11-26 05:59 🤖 🟡 DHYAN Website ki roz ki report mein dikkat: / ne 602, in main /     hot, seen = news(alerts.get("seen_news", {})) /                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ /   File "/home/ubuntu/sabhisaab-network/data/site_repo/scripts/daily.py", line 341, in news /     new_seen = {k: v for k, v in new_seen.items() if v >= cut} /                                                      ^^^^^^^^ / TypeError: '>=' not supported between instances of 'bool' and 'str' /  / (pichhle 3 ghante mein ye 2 baar hua)
+- 2026-11-26 05:40 🤖 🩺 AUTO-DOCTOR (26 Nov 05:40) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Google index jaanch purani thi (2026-11-24) → dobara shuru (report 30-60 min mein) /  / ✅ Theek: Website + sitemap (377 URL), /jawab, Bing sitemap: live 377 URL | Bing ki ginti 377 | ✅ barabar, Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab
+- 2026-11-26 05:06 🤖 🗓 MASTER SCHEDULE (IST) · 🔒 pakka (2026-11-25 se) - badlav sirf aapki dohri pushti se; update/restart se kabhi nahi / Har brand roz 2 reel: 1 sawal + 1 services. Post/story neeche. /  / ▪️ Suno Natak /    🎬 Reel (sawal): 19:30  ·  🧾 Services reel: aaj 07:00, kal 07:00 /    🖼 Services page-post (FB, link ke saath): 20:45  ·  sawal photo-post aaj ✅ /    📲 Har reel ke saath: FB + IG story, Telegram channel, Threads; Pinterest/Dailymotion roz ki seema tak (services pehle) / ▪️ Sab Hisaab Money /    🎬 Reel (sawal): 20:30  ·  🧾 Services reel: aaj 18:00, kal 18:00 /    🖼 Services page-post (FB, link ke saath): 19:15  ·  sawal photo-post kal /    📲 Har reel ke saath: FB + IG story, Telegram channel, Threads; Pinterest/Dailymotion roz ki seema tak (services pehle) / ▪️ Labh Lo Deals /    🎬 Reel (sawal): 21:30  ·  🧾 Services reel: aaj 05:00, kal 20:00 /    🖼 Services page-post (FB, link ke saath): 18:45  ·  sawal photo-post aaj ✅ /    📲 Har reel ke saath: FB + IG story, Telegram channel, Threads; Pinterest/Dailymotion roz ki seema tak (services pehle) / ▪️ Pahadi Hisaab /    🎬 Reel (sawal): 09:30  ·  🧾 Services reel: aaj 20:00, kal 05:00 /    🖼 Services page-post (FB, link ke saath): 21:15  ·  sawal photo-post kal /    📲 Har reel ke saath: FB + IG story, Telegram channel, Threads; Pinterest/Dailymotion roz ki seema tak (services pehle) /  / ⏱ Roz ke aur kaam (apne aap): /    00:20-04:30 raat mein aaj ki saari reel ban kar line mein (slot khaali na rahe) · 01:30 services video · /    09:15 + 18:30 LinkedIn post · 19:15 share-kit 
+- 2026-11-26 05:06 🤖 📥 LEADS — 26-11-2026 05:06 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-26 05:06 👤 🗓 Master schedule
+- 2026-11-26 05:06 👤 📥 Leads
+- 2026-11-26 05:04 🤖 🌐 WEBSITE TRAFFIC (GA4, asli log) / • Aaj (2026-11-26, abhi tak - adhoora): 0 log / • Kal (poora): 44 log / • Pichhle 7 din: 340 | usse pehle 7 din: 160 (+112%) / • 👥 FB GROUP link se: aaj 0 | 7 din 4 / (GA4 1-2 ghante der se ginta hai; 'kal' wala number pakka.)
+- 2026-11-26 05:04 🤖 <b>🌐 WEBSITE PAR LOG - KAHAN SE (GA4 asli, log = activeUsers)</b> / <pre>Kahan se    Aaj  Kal  7din / -------------------------- / Facebook      0   27   261 / LinkedIn      0   10    31 / Seedha        0    2    17 / Threads       0    2    13 / Baaki         0    1     5 / Instagram     0    0     4 / Bing          0    1     2 / Google        0    1     2 / FB Group      0    0     2 / Anjaan        0    0     1 / WhatsApp       *** / -------------------------- / KUL (asli)    0   44   338</pre> / <b>Brand-wise (7 din)</b> / <pre>7 din       Pah  Mon Deal Suno Baaki / ------------------------------------ / Facebook     61   51   61   33   55 / LinkedIn      1    3    5    0   22 / Seedha        0    0    0    0   17 / Threads       1    1    4    0    7 / Baaki         0    0    0    0    5 / Instagram     0    0    0    0    4 / Bing          0    0    0    0    2 / Google        0    0    0    0    2 / FB Group      2    0    0    0    0 / Anjaan        0    0    0    0    1 / WhatsApp       ***    0</pre> / Brand = hamare link ka utm (Pah=Pahadi, Mon=Money, Deal=Labh Lo Deals, Suno=Suno Natak; Baaki = bina brand wala link - Uttarakhand/tool page ka link, Google search, seedha). Ek aadmi do raaste se aaye to dono mein ginta hai, isliye KUL (asli) alag hai. GA4 1-2 ghante der se ginta hai - 'Kal' pakka.
+- 2026-11-26 05:04 🤖 🔎 Google Analytics se asli ginti (aaj, kal, 7 din) la raha hoon...
+- 2026-11-26 05:04 👤 Kal traffic
+- 2026-11-26 05:03 🤖 🟢 📤 Labh Lo Deals: कोई भी डिजिटल काम — हो जाएगा | App crash theek ₹499 se / ✅ youtube: https://youtu.be/OCeah0hN6pw / ✅ facebook: https://www.facebook.com/reel/1711442107325880 / ✅ instagram: https://www.instagram.com/reel/DgLtwYoRElT/ / ✅ threads: https://www.threads.com/@***/post/DgLt47NCC00 / ✅ pinterest: https://www.pinterest.com/pin/237916792811955280/ / ✅ telegram: https://t.me/sabhisaab/316 / ✅ playlist: ✓ playlist mein juda / ✅ story: FB story, IG story / dailymotion: 🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega / 🔗 Website: https://sabhisaab.com/services-list
+- 2026-11-26 05:03 🤖 🆔 svcpa1126035643 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Mock interview feedback ₹29 se
+- 2026-11-26 05:03 🤖 🆔 svcmo1126034626 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | Domain name ideas ₹19 se
+- 2026-11-26 05:03 🤖 🆔 svcsu1126033556 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | बिल / कोटेशन फ़ॉर्मेट ₹99 se
+- 2026-11-26 05:03 🤖 🆔 deaae1ed | Labh Lo Deals | waiting / Shopping hacks to save money: कूपन या % छूट में क्या चुनें?
+- 2026-11-26 05:03 🤖 🆔 mon633c9 | Sab Hisaab Money | waiting / 5 सेकंड गणित ट्रिक #3301: बिना पेन हल करें!
+- 2026-11-26 05:03 🤖 🆔 sun515f0 | Suno Natak | waiting / गोला पहेली: #4756 #Shorts
+- 2026-11-26 05:03 🤖 🆔 dea82e32 | Labh Lo Deals | waiting / हल कीजिए: (13 - 3) × 6 ÷ 4 = ? #9913 #Shorts
+- 2026-11-26 05:03 🤖 🆔 mon4eec0 | Sab Hisaab Money | waiting / क्रेडिट कार्ड का बिल चुकाने की समय सीमा क्या कहलाती है #Shorts
+- 2026-11-26 05:03 🤖 🆔 pah14b14 | Pahadi Hisaab | waiting / कुमाऊँनी में 'आमा' का मतलब? #Shorts
+- 2026-11-26 05:03 🤖 🆔 svcsu1125070528 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | Instagram bio ₹19 se
+- 2026-11-26 05:03 🤖 🆔 svcsu1125065916 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | पोस्टर / बैनर ₹99 se
+- 2026-11-26 05:03 🤖 🆔 svcpa1125064812 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Mutual fund tracker ₹399 se
+- 2026-11-26 05:03 🤖 🆔 svcpa1125063150 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Student marksheet ₹399 se
+- 2026-11-26 05:03 🤖 🆔 svcpa1125063149 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | Digital sign ₹299 se
+- 2026-11-26 05:03 🤖 🆔 svcsu1125044843 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | Question paper ₹299 se
+- 2026-11-26 05:03 🤖 🆔 svcmo1125040349 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | LinkedIn headline ₹19 se
+- 2026-11-26 05:03 🤖 🆔 svcmo1124172419 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | डोमेन + होस्टिंग ₹299 se
+- 2026-11-26 05:03 🤖 🆔 svcsu1124162327 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | बुकिंग पेज ₹3,999 se
+- 2026-11-26 05:03 🤖 🆔 svcde1124162317 | Labh Lo Deals | waiting / कोई भी डिजिटल काम — हो जाएगा | फोटो-साइन साइज ₹29 se
+- 2026-11-26 05:03 🤖 🆔 svcmo1124112652 | Sab Hisaab Money | waiting / कोई भी डिजिटल काम — हो जाएगा | मोबाइल / कंप्यूटर मदद ₹49 se
+- 2026-11-26 05:03 🤖 🆔 svcsu1124103708 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | WhatsApp ऑटो-जवाब ₹999 se
+- 2026-11-26 05:03 🤖 🆔 svcsu1124103709 | Suno Natak | waiting / कोई भी डिजिटल काम — हो जाएगा | ऑनलाइन फ़ॉर्म मदद ₹49 se
+- 2026-11-26 05:03 🤖 🆔 svcpa1124100810 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | अपना कैलकुलेटर ₹1,499 se
+- 2026-11-26 05:03 🤖 🆔 svcpa1124084734 | Pahadi Hisaab | waiting / कोई भी डिजिटल काम — हो जाएगा | मोबाइल / कंप्यूटर मदद ₹49 se
+- 2026-11-26 05:03 🤖 🆔 svcpa11240456 | Pahadi Hisaab | waiting / पहले डेमो, फिर पैसा | Chhota CRM (lead, follow-up, Sheet) ₹4,999 se
+- 2026-11-26 05:03 🤖 🆔 svcpa11240353 | Pahadi Hisaab | waiting / Pehle demo, phir paisa | Rate card / price list image ₹99 se
+- 2026-11-26 05:03 👤 ⏳ Pending
+- 2026-11-26 05:02 🤖 📖 Main menu
+- 2026-11-26 05:02 🤖 📥 LEADS — 26-11-2026 05:02 / Aaj: 0 naye · 7 din: 7 · Kul: 7   💰 Aaj ₹0 · Mahina ₹0 / Kahan se (7 din): website 7 · comment (bina number) 0 · DM (bina number) 0 / Brand (7 din): Suno: form 0 · comment 0 · DM 0 | Sab: form 0 · comment 0 · DM 0 | Labh: form 0 · comment 0 · DM 0 | Pahadi: form 0 · comment 0 · DM 0 | bina brand (website/Google) 7 / Haal:  /  / 👉 Koi khula kaam nahi 🎉 /  / 📨 DM padhne ki Meta ijaazat abhi nahi: Labh FB, Pahadi FB, Sab FB, Suno FB - 'dm ijaazat' likhiye (1 baar ka tareeka)
+- 2026-11-26 05:02 🤖 🗓 AAJ (2026-11-26) KA PAKKA SCHEDULE - har channel 1 SAWAL reel + 1 SERVICES reel (raat mein ban kar line mein): / • Pahadi Hisaab: 09:30 naya Gemini sawal (din-format) (✅ ban chuki/line mein) / • Sab Hisaab Money: 20:30 naya Gemini sawal (din-format) (✅ ban chuki/line mein) / • Labh Lo Deals: 21:30 jaancha puzzle/GK/24-look (✅ ban chuki/line mein) / • Suno Natak: 19:30 jaancha puzzle/GK/24-look (✅ ban chuki/line mein) / Aaj upload ho chuke: 1 | Aaj ka format: Suno=Pyaar ka Hisaab, Sab=Dil vs Dimag, Labh=Pyaar ka Hisaab, Pahadi=Pyaar ka Hisaab / Samay badalna: 'schedule money 20:30' (dohri pushti) - bina pushti update/restart se kabhi nahi badlega 🔒.
+- 2026-11-26 05:02 👤 ⬅️ Main menu
+- 2026-11-26 05:02 👤 📥 Leads
+- 2026-11-26 05:02 👤 Schedule video
+- 2026-11-26 04:40 🤖 🟢 ⏰ svcde1126032511: YouTube par 05:00 ke liye schedule ho gayi (theek samay par public). Baaki platform bhi isi samay.
+- 2026-11-26 04:40 🤖 🟢 🤖 svcde1126032511: aapka jawab nahi aaya, 3 audit paas hain - Thumb 2 se 05:00 par jayegi.
+- 2026-11-26 04:07 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcpa1126035643 | Pahadi Hisaab / 📝 कोई भी डिजिटल काम — हो जाएगा | Mock interview feedback ₹29 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 20:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 03:56 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcmo1126034626 | Sab Hisaab Money / 📝 कोई भी डिजिटल काम — हो जाएगा | Domain name ideas ₹19 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 18:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 03:46 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcsu1126033556 | Suno Natak / 📝 कोई भी डिजिटल काम — हो जाएगा | बिल / कोटेशन फ़ॉर्मेट ₹99 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 07:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 03:42 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 03:42) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Google index jaanch purani thi (2026-11-24) → dobara shuru (report 30-60 min mein) /  / ✅ Theek: Website + sitemap (377 URL), /jawab, Bing sitemap: live 377 URL | Bing ki ginti 377 | ✅ barabar, Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab
+- 2026-11-26 03:35 🤖 🟡 DHYAN Manzoori chahiye / 🆔 svcde1126032511 | Labh Lo Deals / 📝 कोई भी डिजिटल काम — हो जाएगा | App crash theek ₹499 se / ✅ Audit pass (5 jaanch) / ⏰ Jawab na mila to 05:00 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 02:01 🤖 🅱️ BING - roz ki report (Google report ke saath) / • Bing index mein (Bing ki ginti): 72 (+6 pichhli baar se) / • Kal Bing ne crawl kiye: 21 | crawl error: 0 / • 🗺 Bing sitemap: live 377 URL | Bing ki ginti 377 | ✅ barabar / • Site ke page: 367 | Bing search mein dikh chuke (pakka index): 16 / • Bing ne crawl kiye: 82 | kabhi crawl nahi: 277 | jaanch baaki: 8 / • Bing search (14 din, Bing hafte-wari deta hai): 24 baar dikha, 2 click / • Aaj ka Bing bhejna 06:40 par hoga (abhi samay nahi hua) / • Kul Bing API se bheje: 357 alag page (ek page 14/30 din mein ek baar) / • Bing ne kya bola (2026-11-25): ✅ manzoor (HTTP 200) - 29 URL / • 🏔️ Uttarakhand: kul 264 | live 96 | Bing ko bheje 88 | Bing search mein dikhe 0 | live par index ka saboot nahi 96 | queue mein baaki 168 / 🔎 Google index (Uttarakhand): 79/96 live page index mein | Google ne jaanche 88 /    Abhi index nahi (9): almora-kaise-pahunche, bageshwar-sanskriti-tyohar, champawat-sanskriti-tyohar, dehradun-zila-prashasan, pauri-garhwal-sanskriti-tyohar, pithoragarh-sanskriti-tyohar / 🔎 Poori website: 350/368 URL index mein /    Har page ki wajah: '🩺 Website doctor' / 📈 Google search (28 din): 34 Uttarakhand page dikhe, 66 baar dikhe, 3 click /    Sabse zyada: /    • https://sabhisaab.com/haridwar-uttarakhand - 10 baar dikha /    • https://sabhisaab.com/uttarakhand - 6 baar dikha /    • https://sabhisaab.com/champawat-ghumne-ki-jagah - 3 baar dikha / • Abhi Bing index ka saboot nahi: 351 page - bot roz quota ka aadha (max 50) baari se bhejta hai (pehle naye Uttar
+- 2026-11-26 02:01 🤖 🟡 DHYAN 🔎 Google index jaanch (URL Inspection) ka nateeja aaj ka nahi - aakhri 2026-11-24. Report purane data par hai; bot kal phir chalayega. (rc {rc}) / (pichhle 3 ghante mein ye 3 baar hua)
+- 2026-11-26 02:01 🤖 🟡 DHYAN Website ki roz ki report mein dikkat: / ne 602, in main /     hot, seen = news(alerts.get("seen_news", {})) /                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ /   File "/home/ubuntu/sabhisaab-network/data/site_repo/scripts/daily.py", line 341, in news /     new_seen = {k: v for k, v in new_seen.items() if v >= cut} /                                                      ^^^^^^^^ / TypeError: '>=' not supported between instances of 'bool' and 'str' /  / (pichhle 3 ghante mein ye 3 baar hua)
+- 2026-11-26 01:41 🤖 🟢 🩺 AUTO-DOCTOR (26 Nov 01:41) - roz ki khud-jaanch + khud-sudhaar /  / 🔧 KHUD THEEK KIYA: / • Google index jaanch purani thi (2026-11-24) → dobara shuru (report 30-60 min mein) /  / ✅ Theek: Website + sitemap (377 URL), /jawab, Bing sitemap: live 377 URL | Bing ki ginti 377 | ✅ barabar, Threads login, Owner-mode, Disk 10%, Video line, Deploy, Comment jawab, Kaam line
+- 2026-11-26 00:54 🤖 🔴 ZAROORI Kaam mein galti (prepare): raqm_layout() failed. / Bot chalu hai, agla kaam jaari.
+- 2026-11-26 00:52 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-26 00:52 🤖 🟡 DHYAN Manzoori chahiye / 🆔 deaae1ed | Labh Lo Deals / 📝 Shopping hacks to save money: कूपन या % छूट में क्या चुनें? / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 21:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 00:45 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-26 00:45 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon633c9 | Sab Hisaab Money / 📝 5 सेकंड गणित ट्रिक #3301: बिना पेन हल करें! / ✅ Audit pass (35 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 00:37 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, QUIZ FORMAT (zaroori): scene 1 = ek seedha, rochak sawal (3 )
+- 2026-11-26 00:37 🤖 🟡 DHYAN Manzoori chahiye / 🆔 sun515f0 | Suno Natak / 📝 गोला पहेली: #4756 #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 19:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 00:33 🤖 🎬 Suno Natak: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 00:33 🤖 🟡 DHYAN Manzoori chahiye / 🆔 dea82e32 | Labh Lo Deals / 📝 हल कीजिए: (13 - 3) × 6 ÷ 4 = ? #9913 #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 21:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 00:29 🤖 🎬 Labh Lo Deals: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 00:29 🤖 🟡 DHYAN Manzoori chahiye / 🆔 mon4eec0 | Sab Hisaab Money / 📝 क्रेडिट कार्ड का बिल चुकाने की समय सीमा क्या कहलाती है #Shorts / ✅ Audit pass (34 jaanch) / ⏰ Jawab na mila to 20:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 00:25 🤖 🟢 🩺 SLOT DOCTOR (khud theek kiya, aapka kuch nahi): / • Labh Lo Deals 21:30 ki video bani nahi thi → dobara bana raha / • Suno Natak 19:30 ki video bani nahi thi → dobara bana raha
+- 2026-11-26 00:24 🤖 🎬 Sab Hisaab Money: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 00:24 🤖 🟡 DHYAN Manzoori chahiye / 🆔 pah14b14 | Pahadi Hisaab / 📝 कुमाऊँनी में 'आमा' का मतलब? #Shorts / ✅ Audit pass (33 jaanch) / ⏰ Jawab na mila to 09:30 par Thumb 1 se apne aap upload. /  / Kaun sa thumbnail daalein?
+- 2026-11-26 00:20 🤖 🟢 🩺 SLOT DOCTOR (khud theek kiya, aapka kuch nahi): / • Sab Hisaab Money 20:30 ki video bani nahi thi → dobara bana raha / • Labh Lo Deals 21:30 ki video bani nahi thi → dobara bana raha / • Suno Natak 19:30 ki video bani nahi thi → dobara bana raha
+- 2026-11-26 00:20 🤖 🎬 Pahadi Hisaab: nayi video ban rahi hai (roz ka schedule, sawal-slot: jaancha hua puzzle/GK)
+- 2026-11-26 00:13 🤖 ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 377 URL | Bing ki ginti 377 | ✅ barabar canary ✅
+- 2026-11-26 00:11 🤖 🧪 Deploy ke baad form jaanch: / ✅ Form ka raasta theek / ✅ website /api: 200 / ✅ seedha worker: 200 / ✅ worker → Telegram / Pichhle 7 din form ki koshish: selftest 18, ok 7, find_fail 1, find_ok 1, client 6, missing 2, junk 2 / Aakhri rukawat: 11-24T09:14 client hard: Mobile number adhura hai - 10 ank likhiye; 11-24T09:15 missing phone ; 11-24T09:15 client hard: Mobile number adhura hai - 10 ank likhiye; 11-24T09:15 client hard: Thoda saaf likhiye - naam aur kya kaam hai (jaise: "re; 11-24T09:15 client hard: Thoda saaf likhiye - naam aur kya kaam hai (jaise: "re; 11-24T09:16 client js: Uncaught TypeError: SVCKIT.enhance is not a function @26
+- 2026-11-26 00:06 🤖 🔧 Website ke form ka raasta (svc-cfg/api/gupt page) dobara likha. Deploy: ✅ Website LIVE (VM se seedha Cloudflare). Google sitemap ✅ IndexNow: kuch nahi bheja (seema/pehle bheja ja chuka) 🗺 Bing sitemap: live 377 URL | Bing ki ginti 360 | ✅ Bing ko sitemap dobara bheja (deploy ke baad) canary ✅
+- 2026-11-25 20:38 👤 Traffic
+- 2026-11-25 20:38 👤 📥 Leads
+- 2026-11-25 19:48 👤 📊 Aaj ka services hisaab
+- 2026-11-25 19:48 👤 📥 Leads
+- 2026-11-25 19:14 👤 Traffic
+- 2026-11-25 18:56 👤 📥 Leads
+- 2026-11-25 18:46 👤 💬 Services comment
+- 2026-11-25 18:45 👤 📥 Leads
+- 2026-11-25 18:14 👤 💬 Services comment
+- 2026-11-25 18:13 👤 📥 Leads
+- 2026-11-25 17:45 👤 Traffic link se
+- 2026-11-25 16:49 👤 Kon kon se page per aaya
+- 2026-11-25 16:49 👤 Link se traffic
+- 2026-11-25 16:38 👤 Indexing link
+- 2026-11-25 16:38 👤 Service like
+- 2026-11-25 16:38 👤 💬 Services comment
+- 2026-11-25 16:25 👤 📥 Leads
+- 2026-11-25 13:53 👤 📥 Leads
+- 2026-11-25 13:53 👤 📊 Aaj ka services hisaab
+- 2026-11-25 12:25 👤 📥 Leads
+- 2026-11-25 12:25 👤 📂 Khule kaam
+- 2026-11-25 12:25 👤 📊 Aaj ka services hisaab
+- 2026-11-25 11:52 👤 📊 Aaj ka services hisaab
+- 2026-11-25 11:27 👤 ✍ Manual kaam likho
+- 2026-11-25 11:27 👤 📊 Aaj ka services hisaab
+- 2026-11-25 11:27 👤 📂 Khule kaam
+- 2026-11-25 11:05 👤 📒 Bahi-khata
+- 2026-11-25 11:05 👤 📂 Khule kaam
+- 2026-11-25 11:05 👤 📊 Aaj ka services hisaab
+- 2026-11-25 11:05 👤 🎬 Services namoona
+- 2026-11-25 10:13 👤 🖼 Services post namoona
+- 2026-11-25 10:13 👤 🎟 Bonus
+- 2026-11-25 10:12 👤 🧾 Services 7 din
+- 2026-11-25 10:12 👤 ✍ Manual kaam likho
+- 2026-11-25 10:12 👤 📒 Bahi-khata
+- 2026-11-25 10:12 👤 📊 Aaj ka services hisaab
+- 2026-11-25 10:12 👤 📂 Khule kaam
+- 2026-11-25 10:09 👤 indexing link
+- 2026-11-25 10:08 👤 indexing link
+- 2026-11-25 10:01 👤 💬 Services comment
+- 2026-11-25 10:01 👤 📒 Bahi-khata
+- 2026-11-25 10:01 👤 📊 Aaj ka services hisaab
+- 2026-11-25 08:20 👤 Bot bhai kal traffic bada hai ya ghata hai link se
+- 2026-11-25 08:19 👤 Indexing link
+- 2026-11-25 08:19 👤 Kal link se kitne log aaye
+- 2026-11-25 07:50 👤 Video kitne upload huyi aaj
+- 2026-11-25 07:13 👤 Canary
+- 2026-11-25 07:06 👤 Index link
+- 2026-11-25 07:05 👤 🎬 Services namoona
+- 2026-11-25 06:59 👤 🎬 Services namoona
+- 2026-11-25 06:52 👤 💬 Services comment
+- 2026-11-25 06:51 👤 📒 Bahi-khata
+- 2026-11-25 06:51 👤 📊 Aaj ka services hisaab
+- 2026-11-25 06:51 👤 📂 Khule kaam
+- 2026-11-25 06:50 👤 SH261124APJ1 lost
+- 2026-11-25 06:49 👤 SH261124APJ1 lost
+- 2026-11-25 06:48 👤 📒 Bahi-khata
+- 2026-11-25 06:48 👤 🎬 Services namoona
+- 2026-11-25 06:32 👤 📥 Leads
+- 2026-11-25 06:32 👤 📂 Khule kaam
+- 2026-11-25 06:32 👤 🧾 Services 7 din
+- 2026-11-25 06:31 👤 🎬 Services namoona
+- 2026-11-25 06:31 👤 🧾 Services
+- 2026-11-25 06:30 👤 bonus haal
+- 2026-11-25 06:28 👤 bonus set ref_pct 15
+- 2026-11-25 05:08 👤 📥 Leads
+- 2026-11-25 05:08 👤 📂 Khule kaam
+- 2026-11-25 05:03 👤 Views total
+- 2026-11-25 05:03 👤 Graff daily gowth
+- 2026-11-25 05:00 👤 Kal link se traffic
+- 2026-11-25 04:48 👤 🎬 Services namoona
+- 2026-11-25 04:48 👤 🧾 Services
+- 2026-11-25 04:47 👤 🗓 Master schedule
+- 2026-11-25 04:45 👤 📥 Leads
+- 2026-11-25 04:44 👤 📥 Leads
+- 2026-11-25 04:43 👤 dm ijaazat
+- 2026-11-25 04:32 👤 SH261124VCND lost
+- 2026-11-25 04:23 👤 Indexing link
+- 2026-11-25 03:42 👤 📊 Aaj ka services hisaab
+- 2026-11-25 03:33 👤 🎬 Services namoona
+- 2026-11-25 03:33 👤 🧾 Services
+- 2026-11-25 03:32 👤 🗓 Master schedule
+- 2026-11-24 19:54 👤 Indexing link
+- 2026-11-24 19:35 👤 Link se traffic
+- 2026-11-24 19:32 👤 🎬 Services namoona
+- 2026-11-24 19:32 👤 💬 Services comment
+- 2026-11-24 19:32 👤 Bot bhai video kya kya kya schedule hai
+- 2026-11-24 19:06 👤 🎬 Services namoona
+- 2026-11-24 19:06 👤 🧾 Services
+- 2026-11-24 18:08 👤 🩺 Sab theek?
+- 2026-11-24 18:08 👤 ⬅️ Main menu
+- 2026-11-24 17:54 👤 ✍ Manual kaam likho
+- 2026-11-24 17:24 👤 🎬 Services namoona
+- 2026-11-24 17:24 👤 🧾 Services
+- 2026-11-24 17:03 👤 📅 Season list
+- 2026-11-24 17:03 👤 📒 Bahi-khata
+- 2026-11-24 17:03 👤 📂 Khule kaam
+- 2026-11-24 17:03 👤 📊 Aaj ka services hisaab
+- 2026-11-24 17:02 👤 Aaj website per kitne log aaye link se
+- 2026-11-24 16:04 👤 🎬 Services namoona
+- 2026-11-24 16:04 👤 🧾 Services
+- 2026-11-24 16:03 👤 services instagram sunonatak chalu
+- 2026-11-24 14:55 👤 services video namoona
+- 2026-11-24 13:27 👤 services video namoona
+- 2026-11-24 13:17 👤 Namoona services video
+- 2026-11-24 11:26 👤 services video namoona
+- 2026-11-24 11:26 👤 रिज्यूमे
+- 2026-11-24 10:32 👤 services video namoona
+- 2026-11-24 10:08 👤 services video namoona
+- 2026-11-24 09:53 👤 services awaaz jaanch
+- 2026-11-24 08:47 👤 services video namoona
+- 2026-11-24 08:00 👤 services upi ***-6@ybl
+- 2026-11-24 04:55 👤 services video namoona
+- 2026-11-24 03:58 👤 Link se traffic
+- 2026-11-24 03:53 👤 services video namoona
+- 2026-11-24 03:49 👤 🩺 Sab theek?
+- 2026-11-24 03:48 👤 services video namoona
+- 2026-11-24 03:45 👤 🧪 Namoona
+- 2026-11-23 21:17 👤 ⏳ Pending
+- 2026-11-23 21:17 👤 🩺 Sab theek?
+- 2026-11-23 20:56 👤 services chalu
+- 2026-11-23 20:54 👤 Service chalu
+- 2026-11-23 20:39 👤 Link se traffic table format
+- 2026-11-23 20:03 👤 🩺 Sab theek?
+- 2026-11-23 20:03 👤 Jabab haal
+- 2026-11-23 19:01 👤 facebook pahadi swal
+- 2026-11-23 19:00 👤 whatapp pahadi swal
+- 2026-11-23 18:42 👤 🩺 Sab theek?
+- 2026-11-23 18:13 👤 Total views lao sab plateform ki
+- 2026-11-23 18:12 👤 Facebook views
+- 2026-11-23 18:12 👤 Instgram views
+- 2026-11-23 18:12 👤 Total views
+- 2026-11-23 18:12 👤 Views
+- 2026-11-23 17:49 👤 Pending indexing link
+- 2026-11-23 17:48 👤 link se traffic
+- 2026-11-23 17:24 👤 🩺 Sab theek?
+- 2026-11-23 17:12 👤 🩺 Sab theek?
+- 2026-11-23 16:40 👤 🩺 Sab theek?
+- 2026-11-23 16:27 👤 Indexing
+- 2026-11-23 11:59 👤 Indexing bakance
+- 2026-11-23 09:48 👤 🩺 Sab theek?
+- 2026-11-23 09:10 👤 Video schedule
+- 2026-11-23 09:10 👤 🩺 Sab theek?
+- 2026-11-23 09:01 👤 Aaj kitni video chale gye ab tak
+- 2026-11-23 08:28 👤 Link traffic table format
+- 2026-11-23 06:52 👤 Indexing link
+- 2026-11-23 06:44 👤 Bot bhai Gemini ka kon sa model chl rha hai usko bataon
+- 2026-11-23 06:43 👤 🩺 Sab theek?
+- 2026-11-23 06:42 👤 Pending indexing
+- 2026-11-23 06:40 👤 Indexing link
+- 2026-11-23 06:39 👤 Link se traffic table format
+- 2026-11-23 02:20 👤 Indexing link
+- 2026-11-23 02:20 👤 ⏳ Pending
+- 2026-11-23 02:16 👤 Link se traffic table format
+- 2026-11-23 02:09 👤 🩺 Sab theek?
+- 2026-11-22 21:00 👤 🩺 Sab theek?
+- 2026-11-22 20:41 👤 Traffic table format
+- 2026-11-22 20:39 👤 🩺 Sab theek?
+- 2026-11-22 20:11 👤 🩺 Sab theek?
+- 2026-11-22 20:03 👤 🩺 Sab theek?
+- 2026-11-22 19:57 👤 Auto doctor
+- 2026-11-22 19:57 👤 🩺 Sab theek?
+- 2026-11-22 19:45 👤 🩺 Sab theek?
+- 2026-11-22 19:39 👤 Website full audit
+- 2026-11-22 19:35 👤 Pura haal
+- 2026-11-22 19:31 👤 Website doctor
+- 2026-11-22 19:31 👤 Facebook views
+- 2026-11-22 19:31 👤 Instagram views
+- 2026-11-22 19:31 👤 Instagram per aaj k views
+- 2026-11-22 19:30 👤 Views
+- 2026-11-22 19:19 👤 WhatsApp post pahadi
+- 2026-11-22 19:16 👤 Facebook pahadi post
+- 2026-11-22 19:15 👤 Auto doctor
+- 2026-11-22 19:14 👤 Audit
+- 2026-11-22 19:09 👤 🩺 Sab theek?
+- 2026-11-22 19:08 👤 Auto doctor
+- 2026-11-22 18:46 👤 🩺 Sab theek?
+- 2026-11-22 18:20 👤 🩺 Sab theek?
+- 2026-11-22 18:16 👤 🩺 Sab theek?
+- 2026-11-22 18:14 👤 🩺 Sab theek?
+- 2026-11-22 18:10 👤 🩺 Sab theek?
+- 2026-11-22 18:02 👤 Auto doctor
+- 2026-11-22 17:59 👤 🩺 Sab theek?
+- 2026-11-22 17:41 👤 Total views
+- 2026-11-22 17:41 👤 Views
+- 2026-11-22 17:40 👤 📊 Aaj ka haal
+- 2026-11-22 17:19 👤 📖 Poora menu
+- 2026-11-22 17:19 👤 Auto doctor
+- 2026-11-22 17:18 👤 Website audit
+- 2026-11-22 17:12 👤 📖 Poora menu
+- 2026-11-22 17:07 👤 🩺 Sab theek?
+- 2026-11-22 17:03 👤 🩺 Sab theek?
+- 2026-11-22 17:02 👤 📊 Aaj ka haal
+- 2026-11-22 17:02 👤 ⏳ Pending
+- 2026-11-22 16:58 👤 Abhi tak kitni video gyi bot bhai
+- 2026-11-22 16:32 👤 auto doctor
+- 2026-11-22 16:11 👤 Auto doctor
+- 2026-11-22 15:45 👤 indexing linkk
+- 2026-11-22 15:45 👤 doctor
+- 2026-11-22 15:15 👤 Video link se kitna traffic aaya table format per do
+- 2026-11-22 15:09 👤 💬 Comment haal
+- 2026-11-22 15:08 👤 Link se traffic table format
+- 2026-11-22 15:08 👤 Ink se traffic
+- 2026-11-22 14:56 👤 Indexing audit
+- 2026-11-22 14:53 👤 Link traffic
+- 2026-11-22 14:43 👤 libk se traffic
+- 2026-11-22 14:30 👤 📖 Poora menu
+- 2026-11-22 14:28 👤 Jo pending hai indexing nhi huye hai unki list de do
+- 2026-11-22 14:25 👤 Indexing link
+- 2026-11-22 14:07 👤 Auto doctor
+- 2026-11-22 13:11 👤 Aaj k new page batao
+- 2026-11-22 13:10 👤 Kitne page index nhi huye hai
+- 2026-11-22 13:06 👤 https://sabhisaab.com/jawab
+
+Thik karke do doctor jabab post kyu nhibho rha hai
+- 2026-11-22 13:05 👤 Website doctor jabab page thik karo kyu atka hai wo
+- 2026-11-22 13:00 👤 Link se traffic
+- 2026-11-22 12:59 👤 /menu
+- 2026-11-22 12:59 👤 📖 Poora menu
+- 2026-11-22 12:59 👤 📖 Poora menu
+- 2026-11-22 12:58 👤 Doctor
+- 2026-11-22 12:15 👤 Indexing link
+- 2026-11-22 12:06 👤 Indexing balance latest
+- 2026-11-22 11:11 👤 Instagram se kitna traffic aaya
+- 2026-11-22 11:09 👤 Link se traffic table format
+- 2026-11-22 10:44 👤 🎬 Abhi video
+- 2026-11-22 09:48 👤 Link se traffic table format
+- 2026-11-22 09:47 👤 Indexing link
+- 2026-11-22 08:18 👤 📊 Aaj ka haal
+- 2026-11-22 08:18 👤 💬 Comment haal
+- 2026-11-22 08:17 👤 🎨 24 Look
+- 2026-11-22 08:17 👤 👑 Pro 50 Deck
+- 2026-11-22 08:17 👤 🩺 Sab theek?
+- 2026-11-22 08:13 👤 Bing haal
+- 2026-11-22 08:08 👤 website doctor
+- 2026-11-22 08:06 👤 indexing link
+- 2026-11-22 08:06 👤 indexing pending
+- 2026-11-22 08:06 👤 pending  indexing
+- 2026-11-22 06:27 👤 Aaj kitni video gyi hai
+- 2026-11-22 06:26 👤 📊 Aaj ka haal
+- 2026-11-22 06:07 👤 🎬 Abhi video
+- 2026-11-22 03:24 👤 Link se traffic table format
+- 2026-11-21 19:49 👤 Link se kitne log aaye table format
+- 2026-11-21 18:46 👤 ⏰ Best time
+- 2026-11-21 18:39 👤 whatsapp pahadi post
+- 2026-11-21 17:03 👤 Indexing kitni huyi aaj
+- 2026-11-21 17:03 👤 Latest link table format audiance
+- 2026-11-21 14:56 👤 Table format per do website per kitne log aaye link se
+- 2026-11-21 14:54 👤 Table format per do link
+- 2026-11-21 13:37 👤 📖 Poora menu
+- 2026-11-21 12:56 👤 📖 Poora menu
+- 2026-11-21 12:56 👤 Gemini mar gye kya
+- 2026-11-21 12:55 👤 Bot bhai mst gye ho ya jinda ho
+- 2026-11-21 12:53 👤 🩺 Sab theek?
+- 2026-11-21 12:53 👤 📊 Aaj ka haal
+- 2026-11-21 12:51 👤 indexing pending
+- 2026-11-21 12:50 👤 pending url latest
+- 2026-11-21 07:00 👤 Bot bhai jo log aa rhe hai wo website per kitni der ruk rhe hai
+- 2026-11-21 06:56 👤 Bot bhai kuch growth ho rhi hai ya nhi website ki
+- 2026-11-21 06:55 👤 Indexing kitne nhi huye hai
+- 2026-11-21 06:53 👤 Aaj kitni video upload huyi hai  aur kab kab schedule hai upload ka
+- 2026-11-21 06:48 👤 Wo wala swal se do
+- 2026-11-21 06:45 👤 instagram post
+- 2026-11-21 06:43 👤 WhatsApp post
+- 2026-11-21 06:43 👤 WhatsApp post
+- 2026-11-21 06:43 👤 WhatsApp post
+- 2026-11-21 06:43 👤 WhatsApp post
+- 2026-11-21 06:43 👤 WhatsApp post
+- 2026-11-21 06:42 👤 WhatsApp post
+- 2026-11-21 06:42 👤 WhatsApp post
+- 2026-11-21 06:42 👤 WhatsApp post
+- 2026-11-21 06:42 👤 WhatsApp post
+- 2026-11-21 06:42 👤 WhatsApp post
+- 2026-11-21 06:42 👤 WhatsApp post
+- 2026-11-21 06:41 👤 WhatsApp post
+- 2026-11-21 06:41 👤 WhatsApp post
+- 2026-11-21 06:41 👤 What's post
+- 2026-11-21 06:41 👤 Pahadi post
+- 2026-11-21 05:12 👤 New swal jo bne hai unke de do
+- 2026-11-21 05:12 👤 Facebook post
+- 2026-11-21 05:12 👤 Facebook post
+- 2026-11-21 05:11 👤 Facebook post
+- 2026-11-21 05:11 👤 Facebook post
+- 2026-11-21 05:09 👤 Facebook post
+- 2026-11-21 05:09 👤 Pahadi post swal
+- 2026-11-21 05:08 👤 Pahadi post swal
+- 2026-11-21 05:08 👤 Pahadi post swal
+- 2026-11-21 04:50 👤 Table format per do traffic
+- 2026-11-21 04:41 👤 Kitne indexing nhi huye hai batao
+- 2026-11-21 04:36 👤 Link traffic
+- 2026-11-20 19:39 👤 Website link traffic
+- 2026-11-20 19:26 👤 Facebook post post pahadi
+- 2026-11-20 18:39 👤 Indexing link
+- 2026-11-20 18:17 👤 Indexing link
+- 2026-11-20 18:14 👤 Kitne page index nhi huye hai
+- 2026-11-20 18:07 👤 Facebook post suno natak
+- 2026-11-20 18:06 👤 Facebook post pahadi
+- 2026-11-20 16:17 👤 indexing
+- 2026-11-20 14:43 👤 Link se traffic
+- 2026-11-20 11:47 👤 Video link se traffic
+- 2026-11-20 11:46 👤 Hamare link se kitne log aaye
+- 2026-11-20 11:28 👤 Facebook post swal
+- 2026-11-20 10:05 👤 📖 Poora menu
+- 2026-11-20 07:40 👤 Facebook post pahadi
+- 2026-11-20 07:09 👤 Pahadi swal facebook post
+- 2026-11-20 06:09 👤 Indexing
+- 2026-11-20 06:09 👤 Indexing audit
+- 2026-11-20 06:09 👤 Indexing kitne bache hai
+- 2026-11-20 06:07 👤 Traffic
+- 2026-11-20 06:07 👤 💬 Comment haal
+- 2026-11-20 05:44 👤 Facebook post pahadi
+- 2026-11-20 05:35 👤 🧪 Namoona
+- 2026-11-20 05:32 👤 Master audit
+- 2026-11-20 04:40 👤 Facebook post bina brand
+- 2026-11-20 04:40 👤 Facebook post bina brand
+- 2026-11-20 04:40 👤 Facebook post bina brand
+- 2026-11-20 04:40 👤 Facebook post bina brand
+- 2026-11-20 04:39 👤 Facebook post bina brand
+- 2026-11-20 04:39 👤 Pahadi facebook post
+- 2026-11-20 04:26 👤 Link se kitne log aaye website per table format
+- 2026-11-20 04:25 👤 ⏳ Pending
+- 2026-11-20 04:25 👤 📊 Aaj ka haal
+- 2026-11-20 04:04 👤 Auto doctor
+- 2026-11-19 21:08 👤 Auto doctor
+- 2026-11-19 20:55 👤 ⏳ Pending
+- 2026-11-19 20:49 👤 Website jabab publish huwa ya nhi bataye
+- 2026-11-19 20:23 👤 Autodoctor
+- 2026-11-19 20:17 👤 Indexing
+- 2026-11-19 20:14 👤 Bot bhai answer sheet website per lag rhi hai ya nhi
+- 2026-11-19 20:13 👤 ▶️ Resume
+- 2026-11-19 20:13 👤 ⏸ Pause
+- 2026-11-19 20:13 👤 ▶️ Resume
+- 2026-11-19 20:07 👤 ⏳ Pending
+- 2026-11-19 19:53 👤 ⏳ Pending
+- 2026-11-19 19:52 👤 master audit
+- 2026-11-19 19:42 👤 Link se traffic
+- 2026-11-19 19:36 👤 Facebook post suno natak
+- 2026-11-19 19:35 👤 Facebook post sabhisab money
+- 2026-11-19 19:35 👤 Facebook post sabhisab money
+- 2026-11-19 19:35 👤 Koi bhi de do badiya sa facebook post
+- 2026-11-19 19:34 👤 Pahadi swal facebook post
+- 2026-11-19 19:34 👤 Pahadi swal facebook post
+- 2026-11-19 18:46 👤 📖 Poora menu
+- 2026-11-19 18:38 👤 Link se traffic table format
+- 2026-11-19 18:02 👤 Facebook post do pahadi hisab ki
+- 2026-11-19 18:02 👤 Facebook post do swal
+- 2026-11-19 18:02 👤 Facebook post do swal
+- 2026-11-19 17:08 👤 📊 Aaj ka haal
+- 2026-11-19 17:05 👤 Link se traffic kitne aaye table format per do
+- 2026-11-19 11:10 👤 📖 Poora menu
+- 2026-11-19 11:08 👤 📖 Poora menu
+- 2026-11-19 11:08 👤 Audit
+- 2026-11-19 11:08 👤 Audit chalao
+- 2026-11-19 11:07 👤 📖 Poora menu
+- 2026-11-19 11:06 👤 Kitne page index huye google per
+- 2026-11-19 11:02 👤 Table format per do kitne log aata hai
+- 2026-11-19 11:00 👤 📖 Poora menu
+- 2026-11-19 10:57 👤 GSC Indexing latest abhi pta karke do kitne pending hai
+- 2026-11-19 10:56 👤 Indexing latest abhi pta karke do kitne pending hai
+- 2026-11-19 10:52 👤 ⏳ Pending
+- 2026-11-19 10:52 👤 📊 Aaj ka haal
+- 2026-11-19 10:42 👤 ⏳ Pending
+- 2026-11-19 10:19 👤 📊 Aaj ka haal
+- 2026-11-19 10:19 👤 ⏳ Pending
+- 2026-11-19 10:19 👤 ⏳ Pending
+- 2026-11-19 09:55 👤 Indexing
+- 2026-11-19 09:36 👤 Pahadi facebook post
+- 2026-11-19 06:44 👤 features
+- 2026-11-19 06:40 👤 vote chalu
+- 2026-11-19 06:39 👤 jawab digest chalu
+- 2026-11-19 06:31 👤 Latest update do link se kitne log aaye
+- 2026-11-19 05:57 👤 Link se traffic
+- 2026-11-19 05:53 👤 WhatsApp post
+- 2026-11-19 05:53 👤 WhatsApp k liye post do pahadi
+- 2026-11-19 05:40 👤 ⏳ Pending
+- 2026-11-19 04:29 👤 Facebook post pahadi swal
+- 2026-11-19 04:28 👤 Facebook post swal
+- 2026-11-19 04:27 👤 ⏳ Pending
+- 2026-11-19 03:57 👤 Link se traffic table format per do latest
+- 2026-11-18 20:42 👤 Link se traffic batao table format per latest
+- 2026-11-18 20:07 👤 Traffic link table format per do
+- 2026-11-18 20:06 👤 Link table format per
+- 2026-11-18 19:05 👤 pahadi insta post
+- 2026-11-18 18:55 👤 Swal wali facebook post
+- 2026-11-18 18:55 👤 Swal wali facebook post
+- 2026-11-18 18:55 👤 Swal wali facebook post
+- 2026-11-18 18:54 👤 pahadi post facebook group k liye do
+- 2026-11-18 18:54 👤 Pahadi post
+- 2026-11-18 18:53 👤 Traffic table format per do
+- 2026-11-18 18:48 👤 📖 Poora menu
+- 2026-11-18 18:48 👤 Indexing batao
+- 2026-11-18 18:47 👤 🩺 Sab theek?
+- 2026-11-18 17:40 👤 Link se website per kitne log aaye detail do table format per
+- 2026-11-18 17:26 👤 Pahadi swal post
+- 2026-11-18 17:26 👤 Pahadi swal
+- 2026-11-18 16:53 👤 To aaj gyi nhi kya koi bhi post make.com aur linkdin per
+- 2026-11-18 16:53 👤 Aaj linkdin per kitni post gyi hai
+- 2026-11-18 16:47 👤 Growth graff
+- 2026-11-18 16:47 👤 Graff
+- 2026-11-18 16:31 👤 Link se website per kitne log aaye detail do table format per
+- 2026-11-18 08:30 👤 Link se kitne log aaye table banao
+- 2026-11-18 06:48 👤 Bot bhai hamare link se kitne log aaye
+- 2026-11-18 06:28 👤 pahadi sawal post
+- 2026-11-18 06:27 👤 Pahadi post
+- 2026-11-18 06:27 👤 naye kaam haal
+- 2026-11-18 06:26 👤 Restart
+- 2026-11-18 06:16 👤 Ek post do
+- 2026-11-18 05:55 👤 naye kaam haal.
+- 2026-11-18 05:55 👤 restart
+- 2026-11-18 05:49 👤 naye kaam haal
+- 2026-11-18 04:32 👤 Indexing kitne rah gye hai jo google ne nhi kiye
+- 2026-11-18 04:27 👤 💬 Comment haal
+- 2026-11-18 04:14 👤 Traffic table format se do
+- 2026-11-17 21:26 👤 Traffic table format se do
+- 2026-11-17 20:09 👤 Traffic table format se do
+- 2026-11-17 20:09 👤 📊 Aaj ka haal
+- 2026-11-17 20:08 👤 🩺 Sab theek?
+- 2026-11-17 20:06 👤 📖 Poora menu
+- 2026-11-17 20:06 👤 Hamare link se kitne log aaye
+- 2026-11-17 19:49 👤 /quizgroup
+- 2026-11-17 19:46 👤 Aaj kitne log aaye link se
+- 2026-11-17 19:43 👤 /quizgroup
+- 2026-11-17 19:37 👤 quora: <koi sawal
+- 2026-11-17 19:36 👤 /quizgroup
+- 2026-11-17 17:56 👤 LinkedIn par 2 post
+- 2026-11-17 17:55 👤 dailymotion roz 3
+- 2026-11-17 17:54 👤 ⏳ Pending
+- 2026-11-17 17:51 👤 Dailymotion per kitni gyi
+- 2026-11-17 17:44 👤 Ek video aur bhejo dailymotion per
+- 2026-11-17 17:44 👤 Dailymotion haal
+- 2026-11-17 17:43 👤 Aaj ka pin batao kitne banaye
+- 2026-11-17 17:43 👤 Aaj pin kitne bane
+- 2026-11-17 17:43 👤 Pinterest per aaj kitne pin huye
+- 2026-11-17 17:28 👤 kitne page index nahi
+- 2026-11-17 17:27 👤 video link se kitne log
+- 2026-11-17 16:49 👤 Kitne page index nhi huye hai fresh report pta karke batao
+- 2026-11-17 16:48 👤 dailymotion haal
+- 2026-11-17 16:40 👤 📖 Poora menu
+- 2026-11-17 16:39 👤 Hamare video link se kitne log aaye latest update
+- 2026-11-17 16:39 👤 dailymotion haal
+- 2026-11-17 16:17 👤 🎬 Abhi video
+- 2026-11-17 15:36 👤 Aap ek video banakar dalu usme
+- 2026-11-17 15:36 👤 Daily motion per banao video
+- 2026-11-17 15:36 👤 🎬 Abhi video
+- 2026-11-17 15:35 👤 🩺 Sab theek?
+- 2026-11-17 12:32 👤 🩺 Sab theek?
+- 2026-11-17 11:52 👤 Indexing
+- 2026-11-17 10:02 👤 Vm audit
+- 2026-11-17 09:56 👤 Vm audit
+- 2026-11-17 09:53 👤 📖 Poora menu
+- 2026-11-17 09:52 👤 📖 Poora menu
+- 2026-11-17 09:51 👤 🩺 Sab theek?
+- 2026-11-17 09:51 👤 dailymotion channel sabhisaab
+- 2026-11-17 09:33 👤 ***
+- 2026-11-17 08:49 👤 Dailymotion secret ***
+- 2026-11-17 08:48 👤 Api secret
+- 2026-11-17 08:48 👤 ***
+- 2026-11-17 08:48 👤 ***
+- 2026-11-17 08:47 👤 🩺 Sab theek?
+- 2026-11-17 06:47 👤 indexing link
+- 2026-11-17 06:46 👤 🩺 Sab theek?
+- 2026-11-17 03:56 👤 🎬 Abhi video
+- 2026-11-16 22:56 👤 report table 7 din
+- 2026-11-16 22:56 👤 auto doctor
+- 2026-11-16 22:55 👤 tracking fix
+- 2026-11-16 22:54 👤 🩺 Sab theek?
+- 2026-11-16 22:42 👤 🩺 Sab theek?
+- 2026-11-16 21:51 👤 owner link
+- 2026-11-16 21:48 👤 linkedin haal
+- 2026-11-16 21:38 👤 linkedin abhi
+- 2026-11-16 21:37 👤 linkedin chalu
+- 2026-11-16 21:20 👤 linkedin band
+- 2026-11-16 20:58 👤 linkedin namoona
+- 2026-11-16 20:58 👤 📖 Poora menu
+- 2026-11-16 20:57 👤 🧪 Namoona
+- 2026-11-16 20:13 👤 Bot bhai aaj video link se kitne log aaye
+- 2026-11-16 17:05 👤 📖 Poora menu
+- 2026-11-16 17:04 👤 Bot bhai hamare video link se website per aaj kitne lag aaye
+- 2026-11-16 16:51 👤 ho gaya adsense apply
+- 2026-11-16 16:50 👤 ho gaya adsense jodna
+- 2026-11-16 16:18 👤 adsense id ***
+- 2026-11-16 15:29 👤 🧪 Namoona
+- 2026-11-16 15:26 👤 Not set wala kya hai ye kon se platform se aaya
+- 2026-11-16 15:25 👤 Link se batao
+- 2026-11-16 15:24 👤 Bot bhai hamare video link se kitne log aaye brand wise batao
+- 2026-11-16 09:41 👤 Ye jab index ho rakhe hai to kyu de rhe ho kya karan hai batao
+- 2026-11-16 06:37 👤 ⏳ Pending
+- 2026-11-16 06:03 👤 📖 Poora menu
+- 2026-11-16 06:02 👤 💬 Comment haal
+- 2026-11-16 06:02 👤 📊 Aaj ka haal
+- 2026-11-16 06:01 👤 Not set per 2 log ye kaha se aaye hai bot bhai
+- 2026-11-16 05:58 👤 Kaha aa rha hai bot bhai mere ko alag alag data chahiye
+- 2026-11-16 05:58 👤 📖 Poora menu
+- 2026-11-16 05:57 👤 Bing se kitne log aaye
+- 2026-11-16 05:57 👤 Pinterest se kitne log aaye
+- 2026-11-16 05:55 👤 Bot bhai hamare link se kitne log aaye hai aaj
+- 2026-11-16 02:59 👤 📖 Poora menu
+- 2026-11-16 02:59 👤 Bot bhai hamare video ke link se kitne log aaye website per
+- 2026-11-15 09:57 👤 Ye batao hamare video link se kitne log aaye website per bataye
+- 2026-11-15 09:44 👤 Health
+- 2026-11-15 06:23 👤 Total kitne video upload huyi hai aaj
+- 2026-11-15 06:22 👤 9.30 wali video ban gyi hai ya nhi abhi batao
+- 2026-11-15 06:22 👤 Schedule time kya kya hai aaj kal video ka
+- 2026-11-15 06:07 👤 🧪 Namoona
+- 2026-11-15 05:55 👤 🧪 Namoona
+- 2026-11-15 05:07 👤 🧪 Namoona
+- 2026-11-15 04:48 👤 🧪 Namoona
+- 2026-11-14 19:42 👤 📖 Poora menu
+- 2026-11-14 19:42 👤 Indexing
+- 2026-11-14 19:27 👤 📖 Poora menu
+- 2026-11-14 10:36 👤 📖 Poora menu
+- 2026-11-14 10:34 👤 indixing report do latest
+- 2026-11-14 07:51 👤 queue haal
+- 2026-11-14 07:46 👤 📖 Poora menu
+- 2026-11-14 02:21 👤 📖 Poora menu
+- 2026-11-13 19:55 👤 🧪 Namoona
+- 2026-11-13 17:18 👤 💬 Comment haal
+- 2026-11-13 11:31 👤 Aaj bing ko kitne link bheje indexing k liyev
+- 2026-11-13 11:29 👤 📖 Poora menu
+- 2026-11-13 03:05 👤 Bot bhai video k link se traffic aa rha hai ya nhi
+- 2026-11-13 02:20 👤 Nifty bot ki file dena
+- 2026-11-13 02:18 👤 🩺 Sab theek?
+- 2026-11-13 01:47 👤 📖 Poora menu
+- 2026-11-12 03:46 👤 📖 Poora menu
+- 2026-11-12 03:45 👤 Bot bhai pintrest se kitne log aaye website per
+- 2026-11-12 03:02 👤 🧪 Namoona
+- 2026-11-12 02:32 👤 🧪 Namoona
+- 2026-11-11 19:53 👤 /jawab
+- 2026-11-11 19:43 👤 💬 Comment haal
+- 2026-11-11 18:26 👤 💬 Comment haal
+- 2026-11-11 18:09 👤 Latest google ke kitne page indexing nhi huyi hai
+- 2026-11-11 18:07 👤 Abhi tak bing per kitne page index huye hai
+- 2026-11-11 18:07 👤 Bing se
+- 2026-11-11 18:07 👤 Pinterest se kitne aaye
+- 2026-11-11 18:06 👤 Bot bhai aaj video link se kitne log aaye hamare website per
+- 2026-11-11 11:14 👤 💬 Comment haal
+- 2026-11-11 11:14 👤 Bing se dekho traffic kitna aaya
+- 2026-11-11 11:13 👤 Ye batao pintrest se kitna traffic website per aa rha hai
+- 2026-11-11 10:12 👤 Bing ne kitne index kiye aaj tak
+- 2026-11-11 10:10 👤 📖 Poora menu
+- 2026-11-11 10:09 👤 Video link se kitne log aaye website per aaj
+- 2026-11-11 10:09 👤 💬 Comment haal
+- 2026-11-11 07:56 👤 💬 Comment haal
+- 2026-11-11 07:47 👤 vm audit
+- 2026-11-11 07:47 👤 vm full audit
+- 2026-11-11 07:38 👤 backup password reset
+- 2026-11-11 07:36 👤 backup password reset
+- 2026-11-11 07:25 👤 story jaanch
+- 2026-11-11 06:06 👤 💬 Comment haal
+- 2026-11-11 05:58 👤 💬 Comment haal
+- 2026-11-11 05:45 👤 💬 Comment haal
+- 2026-11-11 05:06 👤 Comment login per saare page jud gye kya
+- 2026-11-11 05:03 👤 yt comment login pahadi
+- 2026-11-11 05:03 👤 💬 Comment haal
+- 2026-11-11 04:57 👤 💬 Comment haal
+- 2026-11-11 04:56 👤 yt comment login pahadi
+- 2026-11-11 04:47 👤 📖 Poora menu
+- 2026-11-11 04:22 👤 quiz bot haal
+- 2026-11-11 04:21 👤 💬 Comment haal
+- 2026-11-11 04:20 👤 yt comment login pahadi
+- 2026-11-11 04:20 👤 💬 Comment haal
+- 2026-11-11 02:23 👤 Bot bhai install kyu nhi ho rha hai
+- 2026-11-11 01:30 👤 Vm audit
+- 2026-11-11 01:20 👤 ho gaya chowkidar
+- 2026-11-11 01:19 👤 jawab poll chalu
+- 2026-11-11 01:18 👤 🧪 Namoona
+- 2026-11-11 01:16 👤 yt comment login
+- 2026-11-11 01:10 👤 Naya exam card
+- 2026-11-11 01:09 👤 💬 Comment haal
+- 2026-11-10 19:26 👤 Like kon kon kar rha hai reels per
+- 2026-11-10 19:26 👤 💬 Comment haal
+- 2026-11-10 19:10 👤 🩺 Sab theek?
+- 2026-11-10 19:05 👤 💬 Comment haal
+- 2026-11-10 18:07 👤 ⏳ Pending
+- 2026-11-10 17:24 👤 🧪 Namoona
+- 2026-11-10 16:16 👤 📖 Poora menu
+- 2026-11-10 16:13 👤 ✅ Maine save kar liya' (2026-11-10)
+- 2026-11-10 16:13 👤 Maine save kar liya
+- 2026-11-10 16:12 👤 ho gaya gsc 10nov
+- 2026-11-10 16:08 👤 📖 Poora menu
+- 2026-11-10 16:08 👤 Ho gaya welcome pin
+- 2026-11-10 16:08 👤 Maine save kar liya
+- 2026-11-10 16:00 👤 Ho gaya fb group
+- 2026-11-10 15:59 👤 Ho gaya ga4
+- 2026-11-10 15:58 👤 ho gaya dm rok
+- 2026-11-10 15:56 👤 📖 Poora menu
+- 2026-11-10 15:54 👤 Bot bhai aaye koi video dekhkar website per hamare
+- 2026-11-10 14:19 👤 🧪 Namoona
+- 2026-11-10 14:11 👤 /jawab
+- 2026-11-10 13:58 👤 welcome pin
+- 2026-11-10 13:20 👤 Apne video ka pahla comment khud ek
+- 2026-11-10 13:19 👤 ho gaya analytics login
+- 2026-11-10 13:18 👤 ho gaya sunonatak warning
+- 2026-11-10 13:17 👤 ho gaya GSC wajah
+- 2026-11-10 13:16 👤 Ho gaya fb starts
+- 2026-11-10 13:02 👤 📖 Poora menu
+- 2026-11-10 12:39 👤 Mera kaam
+- 2026-11-10 12:38 👤 Bot bhai aaj link se kitne log aaye hai website per
+- 2026-11-10 09:47 👤 /analytics
+- 2026-11-10 09:09 👤 💬 Comment haal
+- 2026-11-10 07:45 👤 Backup password
+- 2026-11-10 07:19 👤 To bot bhai sabka lagakar kitna aa rha hai traffic
+- 2026-11-10 07:17 👤 Bot bhai video se koi aa rhe ya nhi batao
+- 2026-11-10 04:18 👤 ⚙️ Channel setup
+- 2026-11-10 04:08 👤 Hook bahas
+- 2026-11-10 04:07 👤 Hook bahes
+- 2026-11-10 04:07 👤 Hook rotate
+- 2026-11-10 04:06 👤 Sab theek hai
+- 2026-11-10 04:02 👤 Bot bhai kuch aaye link se log
+- 2026-11-10 02:36 👤 📖 Poora menu
+- 2026-11-09 19:33 👤 ho gaya GSC wakah
+- 2026-11-09 19:32 👤 ho gaya fb stars
+- 2026-11-09 19:32 👤 ho gaya fb starts
+- 2026-11-09 19:31 👤 ho gaya fb starts
+- 2026-11-09 19:31 👤 ho gaya labhlodeals review
+- 2026-11-09 19:30 👤 Mera kaam.
+- 2026-11-09 19:29 👤 ho gaya labhlodeals riview
+- 2026-11-09 19:28 👤 Mera kaam
+- 2026-11-09 19:20 👤 ho gaya bing support
+- 2026-11-09 19:19 👤 ho gaya fb status
+- 2026-11-09 19:18 👤 ho gaya w6
+- 2026-11-09 19:17 👤 Mera kaam
+- 2026-11-09 19:05 👤 Bot bhai aaj aaj video link se website per kitne log aaye
+- 2026-11-09 17:00 👤 yt comment login
+- 2026-11-09 16:48 👤 ho gaya data deletion
+- 2026-11-09 03:37 👤 📖 Poora menu
+- 2026-11-09 01:57 👤 Hamare video link se kitne log aaye website per
+- 2026-11-08 13:06 👤 Bot bhai hamare video k link se kitne log aaye aaj website per
+- 2026-11-08 06:00 👤 📖 Poora menu
+- 2026-11-08 04:59 👤 Gemini
+- 2026-11-07 22:58 👤 Long video banao
+- 2026-11-07 22:57 👤 💬 Comment haal
+- 2026-11-07 22:57 👤 📊 Aaj ka haal
+- 2026-11-07 22:57 👤 🩺 Sab theek?
+- 2026-11-07 22:56 👤 Bot bhai aajkal link se kam.log aa rhe kya website per
+- 2026-11-07 19:54 👤 Isme se website per kitne click huye video link se
+- 2026-11-07 19:49 👤 Kitne video gyi aaj total, aur total views kitne hai jod kar batao
+- 2026-11-07 19:47 👤 Bot bhai kaise ho
+- 2026-11-07 17:20 👤 📖 Poora menu
+- 2026-11-07 17:20 👤 Bot bhai hamare link se kitne log aaye aaj website eor
+- 2026-11-07 14:16 👤 🩺 Sab theek?
+- 2026-11-07 13:58 👤 Isme website telegram ka link bhi daal kar Do
+- 2026-11-07 13:57 👤 Total sabka link ek sath de do
+- 2026-11-07 13:00 👤 📖 Poora menu
+- 2026-11-07 12:59 👤 Link se kitne log aaye
+- 2026-11-07 12:58 👤 🩺 Sab theek?
+- 2026-11-07 10:18 👤 Aaj hamari website per link click karke kitni log aaye hai check karke batao kewal link wale
+- 2026-11-07 08:03 👤 🩺 Sab theek?
+- 2026-11-07 06:13 👤 🩺 Sab theek?
+- 2026-11-07 06:13 👤 📊 Aaj ka haal
+- 2026-11-07 05:24 👤 📖 Poora menu
+- 2026-11-07 05:23 👤 📖 Poora menu
+- 2026-11-07 05:23 👤 💬 Comment haal
+- 2026-11-07 04:31 👤 📖 Poora menu
+- 2026-11-06 20:11 👤 ho gaya fb stars
+- 2026-11-06 20:10 👤 Mera kaam
+- 2026-11-06 20:09 👤 Bot bhai kya haal chal hai
+- 2026-11-06 20:08 👤 Video k link se kitne log aaye hai bing se
+- 2026-11-06 20:07 👤 Video k link se kitne log aaye hai pinterest se
+- 2026-11-06 20:07 👤 Aaj hamari video se kitne log aaye hai
+- 2026-11-06 19:20 👤 📖 Poora menu
+- 2026-11-06 19:19 👤 🩺 Sab theek?
+- 2026-11-06 19:19 👤 📊 Aaj ka haal
+- 2026-11-06 17:27 👤 📊 Aaj ka haal
+- 2026-11-06 17:21 👤 📖 Poora menu
+- 2026-11-06 13:41 👤 📖 Poora menu
+- 2026-11-06 13:40 👤 Bot bhai kya chal rha hai aaj hamare video ke link se kitne log aaye website per
+- 2026-11-06 10:49 👤 Bot bhai traffic kuch aaya ya nhi
+- 2026-11-06 09:29 👤 bot bhai aaj hamare link se kitne log aaye website per
+- 2026-11-06 05:55 👤 Video link se kitne traffic aaye
+- 2026-11-06 05:54 👤 Bot bhai pintrest se kitna traffic aa rha hai
+- 2026-11-06 05:18 👤 Video link se website per kitne log aaye
+- 2026-11-06 05:18 👤 Hamare website per log kyu nhi aa rhe hai bataye
+- 2026-11-06 05:17 👤 SEO sheekh
+- 2026-11-06 05:17 👤 Awo sheekh
+- 2026-11-06 05:16 👤 /privacy
+- 2026-11-06 05:15 👤 📖 Poora menu
+- 2026-11-06 05:15 👤 💬 Comment haal
+- 2026-11-06 05:15 👤 📊 Aaj ka haal
+- 2026-11-06 05:14 👤 🩺 Sab theek?
+- 2026-11-06 05:09 👤 yt comment login
+- 2026-11-06 05:07 👤 /jawab
+- 2026-11-06 05:07 👤 canary
+- 2026-11-06 05:07 👤 features
+- 2026-11-06 05:02 👤 site scan
+- 2026-11-06 05:00 👤 jawab poll band
+- 2026-11-06 04:55 👤 🧪 Namoona
+- 2026-11-06 04:54 👤 jawab digest chalu
+- 2026-11-06 04:53 👤 privacy ig theek
+- 2026-11-06 04:49 👤 yt comment login
+- 2026-11-06 04:49 👤 canary
+- 2026-11-06 04:48 👤 features
+- 2026-11-06 04:29 👤 📖 Poora menu
+- 2026-11-05 20:10 👤 Comment ka jabab diya ha kya bot ne
+- 2026-11-05 20:09 👤 💬 Comment haal
+- 2026-11-05 20:09 👤 📖 Poora menu
+- 2026-11-05 20:08 👤 📖 Poora menu
+- 2026-11-05 18:01 👤 Link se kitne log aaye kewal wahi batao
+- 2026-11-05 17:57 👤 👑 Pro 50 Deck
+- 2026-11-05 17:55 👤 🎨 24 Look
+- 2026-11-05 17:54 👤 Namoona ke sawal change karne hai kaise honge bot bhai
+- 2026-11-05 17:46 👤 🧪 Namoona
+- 2026-11-05 17:22 👤 Backup password batao
+- 2026-11-05 17:22 👤 Backup
+- 2026-11-05 17:17 👤 Pinterest se aaj kitna traffic aaya
+- 2026-11-05 17:15 👤 /card
+- 2026-11-05 17:14 👤 /privacy
+- 2026-11-05 16:55 👤 📖 Poora menu
+- 2026-11-05 16:55 👤 canary
+- 2026-11-05 16:54 👤 features
+- 2026-11-05 15:43 👤 📖 Poora menu
+- 2026-11-05 14:16 👤 🩺 Sab theek?
+- 2026-11-05 14:16 👤 ⏳ Pending
+- 2026-11-05 13:32 👤 Comment koi nhi hai kya
+- 2026-11-05 13:32 👤 Facebook se nhi aaye kya koi
+- 2026-11-05 13:31 👤 Hamare video link se batao kitne log aaye
+- 2026-11-05 13:30 👤 📖 Poora menu
+- 2026-11-05 13:26 👤 🩺 Sab theek?
+- 2026-11-05 13:00 👤 Love you bot bhai happy Diwali 🪔
+- 2026-11-05 13:00 👤 Miss you bot bhai ❤️
+- 2026-11-05 12:59 👤 Bot bhai kaise ho aap
+- 2026-11-05 12:44 👤 Bot bhai
+- 2026-11-05 12:32 👤 Gemini
+- 2026-11-05 12:30 👤 Bot bhai kya haal hai
+- 2026-11-05 12:25 👤 Bot bhai math k swal kab aayenge ye
+- 2026-11-05 12:23 👤 Hamare link se bot bhai koi aa rhe hai traffic ya nhi
+- 2026-11-05 12:21 👤 Aaj kitni video dali abhi tak bot bhai
+- 2026-11-05 12:12 👤 📖 Poora menu
+- 2026-11-05 11:59 👤 🧪 Namoona
+- 2026-11-05 11:54 👤 📖 Poora menu
+- 2026-11-05 11:48 👤 📖 Poora menu
+- 2026-11-05 11:47 👤 jawab website chalu
+- 2026-11-05 10:50 👤 Purge
+- 2026-11-05 10:17 👤 jawab website chalu
+- 2026-11-05 10:14 👤 📊 Aaj ka haal
+- 2026-11-05 10:07 👤 Update safal: v2.5.1 chalu. Ko website per bhi apply karwao
+- 2026-11-05 10:07 👤 Website per bhi
+- 2026-11-05 09:58 👤 📖 Poora menu
+- 2026-11-05 09:58 👤 🩺 Sab theek?
+- 2026-11-05 07:38 👤 📖 Poora menu
+- 2026-11-05 07:37 👤 Ye batao aaj hamare website per kitne log aaye video link per click karke
+- 2026-11-05 05:49 👤 🩺 Sab theek?
+- 2026-11-05 04:29 👤 Daily k kitne video jaa rhi hai mtlb
+- 2026-11-05 04:28 👤 Bot bhai mere ko total schedule aaj ka chahiye kab kab reels video jayegi
+- 2026-11-05 03:34 👤 🧪 Namoona
+- 2026-11-05 03:17 👤 📖 Poora menu
+- 2026-11-05 03:14 👤 🧪 Namoona
+- 2026-11-04 20:05 👤 🧪 Namoona
+- 2026-11-04 20:00 👤 Aa website per hamare video k link se kitne log aaye batao
+- 2026-11-04 19:54 👤 Riview complete ho gya hai list se hata do mere pending kaam se
+- 2026-11-04 19:53 👤 Threads per kya error aa rha hai ye
+- 2026-11-04 14:46 👤 Kul hisaab
+- 2026-11-04 14:43 👤 Schedule
+- 2026-11-04 12:52 👤 📊 Aaj ka haal
+- 2026-11-04 11:28 👤 Aaj hamare video link se kitne log aaye bot bhai website per
+- 2026-11-04 11:26 👤 Total impression aur click kitne huye jod kar batao
+- 2026-11-04 11:22 👤 📖 Poora menu
+- 2026-11-04 11:11 👤 Vm audit
+- 2026-11-04 11:11 👤 Vm full audit karo
+- 2026-11-04 10:56 👤 💬 Comment haal
+- 2026-11-04 10:56 👤 Kachra saaf
+- 2026-11-04 10:55 👤 Cetch kitna hai vm per kachra
+- 2026-11-04 10:53 👤 📖 Poora menu
+- 2026-11-04 10:52 👤 Bot bhai link se koi aaye aaj website per
+- 2026-11-04 10:33 👤 Vm audit
+- 2026-11-04 09:53 👤 Math aur gk wale kab jayenge video
+- 2026-11-04 09:53 👤 Bot bhai question wale reels kab banenge kab se posting hogi unki kab ka shedule hai
+- 2026-11-04 09:52 👤 Bot bhai kya haal hai
+- 2026-11-04 09:43 👤 Sample video
+- 2026-11-04 09:42 👤 ⏰ Best time
+- 2026-11-04 09:23 👤 💬 Comment haal
+- 2026-11-04 09:23 👤 🧪 Namoona
+- 2026-11-04 05:49 👤 Pinterest ka batao kitne logo ne dekha
+- 2026-11-04 05:48 👤 Video mer view batao
+- 2026-11-04 05:48 👤 Aaj website per kitne log aaye hamare link se
+- 2026-11-04 05:32 👤 Vm audit
+- 2026-11-04 05:27 👤 📖 Poora menu
+- 2026-11-04 05:27 👤 Website ki file download sabhisab ki
+- 2026-11-04 05:27 👤 File download sab hisab ko
+- 2026-11-04 05:18 👤 sawal bank bharo
+- 2026-11-04 05:18 👤 3d jaanch
+- 2026-11-04 05:00 👤 /sample
+- 2026-11-04 04:54 👤 3d repair karo
+- 2026-11-04 04:54 👤 3d jaanch
+- 2026-11-04 04:41 👤 /card
+- 2026-11-04 04:41 👤 /safai
+- 2026-11-04 04:40 👤 /revenue
+- 2026-11-04 04:37 👤 ⏰ Best time
+- 2026-11-04 04:37 👤 👑 Pro 50 Deck
+- 2026-11-04 04:36 👤 3d per ek video banao sunonatak k liye
+- 2026-11-04 04:27 👤 Apna 3D
+- 2026-11-04 04:17 👤 🎨 24 Look
+- 2026-11-04 04:10 👤 🎨 24 Look
+- 2026-11-04 04:10 👤 🩺 Sab theek?
+- 2026-11-04 04:02 👤 🧪 Namoona
+- 2026-11-04 04:02 👤 🩺 Sab theek?
+- 2026-11-04 04:01 👤 📖 Poora menu
+- 2026-11-03 21:33 👤 📖 Poora menu
+- 2026-11-03 21:33 👤 📖 Poora menu
+- 2026-11-03 21:08 👤 Vm audit
+- 2026-11-03 21:07 👤 Kachra saaf karo
+- 2026-11-03 21:06 👤 Kachra saaf
+- 2026-11-03 21:06 👤 Kachra saag
+- 2026-11-03 21:05 👤 📖 Poora menu
+- 2026-11-03 21:01 👤 Vm audit
+- 2026-11-03 19:46 👤 🩺 Sab theek?
+- 2026-11-03 19:01 👤 ⏳ Pending
+- 2026-11-03 17:46 👤 Sample reels
+- 2026-11-03 16:49 👤 Telegram roote kyu change huwa
+- 2026-11-03 16:49 👤 Telegram ko kya ho gya hai
+- 2026-11-03 16:49 👤 Bot bhai kya ho gya
+- 2026-11-03 16:38 👤 Sample video
+- 2026-11-03 16:37 👤 🎬 Abhi video
+- 2026-11-03 16:36 👤 📖 Poora menu
+- 2026-11-03 16:05 👤 Reels dekhkar batao jo hum video banate hai viewer
+- 2026-11-03 16:04 👤 Aaj kitne log aaye website per reels link se
+- 2026-11-03 08:25 👤 Aaj video bheji koi aur kuch aaye log video dekhkar website per
+- 2026-11-03 06:45 👤 📖 Poora menu
+- 2026-11-03 06:16 👤 Vm audit
+- 2026-11-03 05:59 👤 Views batao total kitne aaye hai video per
+- 2026-11-03 05:58 👤 Pinterest per abhi aaj kitni video gyi
+- 2026-11-03 05:57 👤 📖 Poora menu
+- 2026-11-03 05:57 👤 Daiyari bhejna apni
+- 2026-11-03 05:56 👤 📖 Poora menu
+- 2026-11-03 05:55 👤 ▶️ Resume
+- 2026-11-03 05:55 👤 ⏸ Pause
+- 2026-11-03 05:55 👤 ⏸ Pause
+- 2026-11-03 05:55 👤 Bing per 10 url bhej do new wale
+- 2026-11-03 05:55 👤 Aaj bhi bhej do 10 url
+- 2026-11-03 05:54 👤 Aapne bheje ya nhi url aaj bing per indexing k liye
+- 2026-11-03 05:54 👤 Aaj bhej diye the url
+- 2026-11-03 05:53 👤 Bing ka record rakhna dayari per jitne url bhejoge thik hai
+- 2026-11-03 05:53 👤 Record rakhna daiyari peri proper koi bhi galati na ho mein puchunga roj thik hai
+- 2026-11-03 05:52 👤 Kal kitne bheje kon kon se page bheje the
+- 2026-11-03 05:51 👤 Bing per kuch indexing huyi thi ya nhi abhi
+- 2026-11-03 05:50 👤 📊 Aaj ka haal
+- 2026-11-03 05:49 👤 Video k link se kitne log aaye website per bataye
+- 2026-11-03 05:48 👤 Bot bhai kuch log aaye link se website per jo video hum dalte hai
+- 2026-11-03 04:05 👤 Vm
+- 2026-11-03 04:05 👤 🩺 Sab theek?
+- 2026-11-03 03:44 👤 Kuch viewer aaye hamare link se website per check karke batao
+- 2026-11-03 03:43 👤 🩺 Sab theek?
+- 2026-11-03 02:53 👤 ho gaya kachra
+- 2026-11-03 02:39 👤 audit deep
+- 2026-11-03 01:33 👤 Vm audit
+- 2026-11-02 21:34 👤 Sabse jyada kon se channel se aaye
+- 2026-11-02 21:34 👤 Aaj total kitne log aaye website per hamare video reels post comment se
+- 2026-11-02 21:25 👤 Ho gaya chowkidar
+- 2026-11-02 21:25 👤 Ho gaya
+- 2026-11-02 21:17 👤 📖 Poora menu
+- 2026-11-02 21:17 👤 ho gaya bing sitemap
+- 2026-11-02 21:16 👤 ho gya bing sitemap
+- 2026-11-02 21:16 👤 ho gaya GSC wajah
+- 2026-11-02 21:15 👤 ho gaya sunonatak review
+- 2026-11-02 21:14 👤 📖 Poora menu
+- 2026-11-02 21:14 👤 ho gaya chowkidar
+- 2026-11-02 21:14 👤 Ho gaya GSC request indexing
+- 2026-11-02 21:13 👤 Aho gya GSC request indexing
+- 2026-11-02 21:12 👤 📖 Poora menu
+- 2026-11-02 21:12 👤 ho gaya pin secret
+- 2026-11-02 21:11 👤 ho gya pin secret
+- 2026-11-02 21:10 👤 ho gaya labhlodeals features
+- 2026-11-02 21:08 👤 📖 Poora menu
+- 2026-11-02 20:59 👤 ***
+- 2026-11-02 20:52 👤 ho gaya pin secret
+- 2026-11-02 20:52 👤 Mera kaam
+- 2026-11-02 20:50 👤 Vm audit
+- 2026-11-02 20:33 👤 Bot bhai aaj hamare video dekhkar uske link click karke kitne log aaye website per
+- 2026-11-02 19:46 👤 Vm audit
+- 2026-11-02 19:42 👤 Bing per aaj kon se index huye hai ya indexing k liye bheje hai
+- 2026-11-02 19:41 👤 📖 Poora menu
+- 2026-11-02 19:40 👤 /version
+- 2026-11-02 19:38 👤 📖 Poora menu
+- 2026-11-02 19:01 👤 📖 Poora menu
+- 2026-11-02 18:57 👤 📖 Poora menu
+- 2026-11-02 18:57 👤 ho gaya pin secret
+- 2026-11-02 18:56 👤 📖 Poora menu
+- 2026-11-02 18:56 👤 ho gaya bing sitemap
+- 2026-11-02 18:55 👤 ho gaya validate
+- 2026-11-02 18:55 👤 ho gaya labhlodeals review
+- 2026-11-02 18:53 👤 ho gaya pin secret
+- 2026-11-02 18:53 👤 o gaya pin secret
+- 2026-11-02 18:52 👤 website traffic
+- 2026-11-02 18:52 👤 purana bot band
+- 2026-11-02 18:51 👤 📖 Poora menu
+- 2026-11-02 18:51 👤 threads link laga diya
+- 2026-11-02 18:47 👤 📖 Poora menu
+- 2026-11-02 18:47 👤 ⏳ Pending
+- 2026-11-02 18:47 👤 🩺 Sab theek?
+- 2026-11-02 18:23 👤 vm audit
+- 2026-11-02 18:22 👤 Bot bhai dekho check karke google traffic ka add kar diya viewer per batao confirm karke
+- 2026-11-02 18:15 👤 Reels ke link se log aa rhe hai ya nhi batao kitne log aaye
+- 2026-11-02 18:15 👤 Followers kitne bade hai page per
+- 2026-11-02 18:14 👤 Bot bhai aajkal reels per views aa rhe hai ya nhi
+- 2026-11-02 18:05 👤 Jitne bhi api hai sabse pta karo kya kya kaam ho gya karke baki ki update list de do check karke
+- 2026-11-02 18:04 👤 Ye kar diya check karke batao
+- 2026-11-02 18:04 👤 Dekho aaj kitne views aaye website per
+- 2026-11-02 17:59 👤 Kar diya hai check karo update karo huwa ya nhi
+- 2026-11-02 17:58 👤 Aaj dekho hamare video ke link se kitne log aaye hai website per batao
+- 2026-11-02 17:57 👤 Aaj index k liye kon kon se page bheje the
+- 2026-11-02 17:55 👤 Bing ka haal
+- 2026-11-02 17:45 👤 🩺 Sab theek?
+- 2026-11-02 17:27 👤 Views batao
+- 2026-11-02 17:27 👤 Comment haal
+- 2026-11-02 17:19 👤 Bot bhai aaj hamare website se kitne log aaye hai
+- 2026-11-02 17:18 👤 🩺 Sab theek?
+- 2026-11-02 17:07 👤 vm audit
+- 2026-11-02 16:50 👤 backup setup
+- 2026-11-02 16:48 👤 chowkidar fix
+- 2026-11-02 16:42 👤 vm audit
+- 2026-11-02 16:40 👤 Sab theek?
+- 2026-11-02 16:10 👤 pinterest kya hua
+- 2026-11-02 16:10 👤 pinterest live
+- 2026-11-02 16:05 👤 /pinterest
+- 2026-11-02 16:01 👤 /pinterest
+- 2026-11-02 15:56 👤 vm audit
+- 2026-11-02 14:56 👤 pintrest ka ab to kuch kaamm pending nhi hai batao
+- 2026-11-02 14:55 👤 pinterest secret ***
+- 2026-11-02 14:54 👤 pinterest secret naya ***
+- 2026-11-02 14:53 👤 pintrest ho gya fir ab kuch nhi karu complete ho gya kya
+- 2026-11-02 14:52 👤 https://www.pinterest.com/oauth/?client_id=1630538&redirect_uri=https://sabhisaab.com/&response_type=code&scope=boards:read,boards:write,pins:read,pins:write,user_accounts:read&state=sabhinet
+- 2026-11-02 14:50 👤 https://www.pinterest.com/oauth/?client_id=1630538&redirect_uri=https%3A%2F%2Fsabhisaab.com%2F&response_type=code&scope=boards%3Aread%2Cboards%3Awrite%2Cpins%3Aread%2Cpins%3Awrite%2Cuser_accounts%3Aread&state=sabhinet
+- 2026-11-02 14:49 👤 /pinterest
+- 2026-11-02 14:49 👤 📖 Poora menu
+- 2026-11-02 14:48 👤 Bot bhai pintrest ka approve ho gya hai check karke confirm karo
+- 2026-11-02 10:56 👤 Lekin bot bhai abhi to 12.30 baje nhi hai check karo apne ghadi per kitne baje hai
+- 2026-11-02 10:56 👤 Kab kab gyi video aaj time batao
+- 2026-11-02 10:55 👤 Bot bhai koi dikkat pressani hai kya
+- 2026-11-01 19:47 👤 Comment kar rhe hai log to jabab de rhe ho ya nhi bataobl
+- 2026-11-01 19:47 👤 Sabme video gyi hai ya kahi error aa rha hai
+- 2026-11-01 19:46 👤 Bot bhai kya haal hai
+- 2026-11-01 19:30 👤 aaj total kitni vedio dali hai
+- 2026-11-01 07:00 👤 Aaj kitni video gyi hai abhi ab kitni schedule hai time batao
+- 2026-11-01 06:30 👤 🩺 Sab theek?
+- 2026-11-01 06:13 👤 🎬 Abhi video
+- 2026-10-31 23:13 👤 🩺 Sab theek?
+- 2026-10-31 23:13 👤 Bot bhai
+- 2026-10-31 17:40 👤 📊 Aaj ka haal
+- 2026-10-31 17:16 👤 📖 Poora menu
+- 2026-10-31 16:32 👤 New reels banao ye already chale gyi hai pahle
+- 2026-10-31 15:15 👤 📖 Poora menu
+- 2026-10-31 15:15 👤 ⏳ Pending
+- 2026-10-31 14:56 👤 Gemini
+- 2026-10-31 14:53 👤 Bot bhai thik ho kya chl rha hai
+- 2026-10-31 14:53 👤 🩺 Sab theek?
+- 2026-10-31 14:42 👤 🩺 Sab theek?
+- 2026-10-31 14:03 👤 🩺 Sab theek?
+- 2026-10-31 14:03 👤 Bot bhai aaj video subah se kitni baje gyi uska time batao
+- 2026-10-31 12:53 👤 Bot bhai sab thik hai
+- 2026-10-31 12:42 👤 📖 Poora menu
+- 2026-10-31 12:41 👤 📖 Poora menu
+- 2026-10-31 12:33 👤 Bot bhai koi khabar hai
+- 2026-10-31 11:51 👤 Oracle per bill kitna aaya
+- 2026-10-31 11:47 👤 "nifty chart chal raha hai kya
+- 2026-10-31 11:47 👤 disk kitna bhara hai
+- 2026-10-31 11:47 👤 "VM ka status batao
+- 2026-10-31 10:59 👤 Dayari bhena apni kya kya dikha hai
+- 2026-10-31 10:55 👤 Aaj kitni video gyi hai
+- 2026-10-31 10:53 👤 Mera kaam
+- 2026-10-31 10:07 👤 Ye batao hamare video link se koi website per aaya ya nhi aaj
+- 2026-10-31 09:51 👤 🩺 Sab theek?
+- 2026-10-31 09:50 👤 /traffic
+- 2026-10-31 09:47 👤 Batao bot bhai
+- 2026-10-31 09:44 👤 Reels video dekhkar link per kitne logo ne click Kara ye batao
+- 2026-10-31 09:43 👤 Bot bhai hamare video link se aaj website per kitne log aaye check karke batao
+- 2026-10-31 09:28 👤 🩺 Sab theek?
+- 2026-10-31 09:27 👤 Kya task kar rhe ho esa batao
+- 2026-10-31 09:26 👤 Waiting per kya chal rha hai batao
+- 2026-10-31 09:26 👤 Sare channel status active hai ya kuch dikkat hai, aur ye batao dairy per note per kar rhe ho ya nhi
+- 2026-10-31 09:25 👤 Koi dikkat pressani to nhi hai sab thik chal rha hai pakka
+- 2026-10-31 09:25 👤 Bot bhai aaj kitni video gyi hai abhi tak batao
+- 2026-10-31 08:35 👤 🩺 Sab theek?
+- 2026-10-31 07:06 👤 📖 Poora menu
+- 2026-10-31 07:04 👤 Pahadi hisab se k liye dusra topic lo usper banao
+- 2026-10-31 07:03 👤 🩺 Sab theek?
+- 2026-10-31 05:54 👤 🎬 Abhi video
+- 2026-10-31 05:53 👤 Kisi ne video link per click nhi kiya kya koi nhi aaya website per
+- 2026-10-31 05:52 👤 Aap check karke batao hamara view kitne aaye the
+- 2026-10-31 05:52 👤 Aaj hamare video k link se kitne log website per aaye
+- 2026-10-31 05:44 👤 Aaj kon kon se video jayegi
+- 2026-10-31 05:44 👤 Aaj ka shedule kya hai bot bhai
+- 2026-10-31 05:41 👤 🩺 Sab theek?
+- 2026-10-31 05:24 👤 🩺 Sab theek?
+- 2026-10-31 05:15 👤 🩺 Sab theek?
+- 2026-10-31 04:58 👤 🩺 Sab theek?
+- 2026-10-31 04:55 👤 📖 Poora menu
+- 2026-10-31 04:37 👤 🩺 Sab theek?
+- 2026-10-31 04:34 👤 /health
+- 2026-10-31 04:34 👤 /gemini
+- 2026-10-30 22:06 👤 🩺 Sab theek?
+- 2026-10-30 22:02 👤 🩺 Sab theek?
+- 2026-10-30 21:50 👤 🩺 Sab theek?
+- 2026-10-30 21:49 👤 Claudflare se baat ho rhi hai telegram per
+- 2026-10-30 21:49 👤 Cron band huwa kya
+- 2026-10-30 21:48 👤 🩺 Sab theek?
+- 2026-10-30 21:42 👤 Link do kaise karo
+- 2026-10-30 21:33 👤 🩺 Sab theek?
+- 2026-10-30 21:30 👤 🩺 Sab theek?
+- 2026-10-30 21:27 👤 /analytics
+- 2026-10-30 21:17 👤 🩺 Sab theek?
+- 2026-10-30 20:49 👤 🩺 Sab theek?
+- 2026-10-30 20:48 👤 sabhisaab-bot
+ID:
+61595973208265
+- 2026-10-30 20:45 👤 🩺 Sab theek?
+- 2026-10-30 20:44 👤 meta  ki
+- 2026-10-30 20:44 👤 1818304339486733
+- 2026-10-30 20:27 👤 threads token
+- 2026-10-30 20:22 👤 🩺 Sab theek?
+- 2026-10-30 20:20 👤 pinterest secret ***
+- 2026-10-30 20:20 👤 pinterest secret naya ***
+- 2026-10-30 20:16 👤 Account ID
+- 2026-10-30 20:16 👤 ***
+- 2026-10-30 20:08 👤 ab kya login nhi huwa detail batao
+- 2026-10-30 20:04 👤 gsc bot key
+- 2026-10-30 20:00 👤 /meta
+- 2026-10-30 19:58 👤 🩺 Sab theek?
+- 2026-10-30 19:58 👤 Ab kya rah gya hai bot bhai sab thik ho gya hai ab kya
+- 2026-10-30 19:55 👤 🩺 Sab theek?
+- 2026-10-30 19:38 👤 /meta
+- 2026-10-30 19:38 👤 🩺 Sab theek?
+- 2026-10-30 19:30 👤 /login
+- 2026-10-30 19:27 👤 /login
+- 2026-10-30 19:27 👤 /login
+- 2026-10-30 19:26 👤 🩺 Sab theek?
+- 2026-10-30 19:23 👤 /analytics
+- 2026-10-30 19:22 👤 /analytics
+- 2026-10-30 19:13 👤 /login
+- 2026-10-30 19:11 👤 /login
+- 2026-10-30 19:11 👤 📖 Poora menu
+- 2026-10-30 19:10 👤 ⏳ Pending
+- 2026-10-30 19:10 👤 🩺 Sab theek?

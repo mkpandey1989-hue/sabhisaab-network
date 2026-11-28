@@ -1,0 +1,1952 @@
+"""Video ka safar: topic -> script -> video -> audit -> Telegram manzoori -> YouTube upload -> seekh."""
+import datetime
+import json
+import os
+import pathlib
+import random
+import shutil
+import time
+import uuid
+from . import tg, audit, topics, writer, learn, state, youtube
+from .config import IST, SCHEDULE, PREPARE_HOURS, AUTO_APPROVE, MAX_UPLOADS_DAY, BRANDS, POSTED, SITE, STOCK, DATA
+from .log import log
+
+
+class _Wait(Exception):
+    """Platform jaanboojh kar ruka (galti nahi)."""
+from .render import render
+
+BRAND_BTNS = [[("🎭 Suno Natak", "mk:sunonatak"), ("💰 Money", "mk:money")],
+              [("🛍 Labh Lo Deals", "mk:deals"), ("🏔 Pahadi", "mk:pahadi")]]
+
+
+def one_sawal():
+    """v3.9.4 (owner 25 Nov): har brand roz 2 hi reel - 1 sawal + 1 services. Sawal-slot ka doosra (puzzle) samay apne aap NAHI judta."""
+    return bool(state.get("one_sawal"))
+
+
+def puzzle_slot(brand, hhmm, day=None):
+    """Ye sawal-slot jaancha puzzle/GK hai? (ek sawal-reel ho to din badal kar: ek din Gemini sawal, ek din jaancha puzzle)."""
+    sl = [x.strip() for x in str(schedule().get(brand, "")).split(",") if x.strip()]
+    if one_sawal() and len(sl) <= 1:
+        d = day or now().date()
+        return (d.toordinal() + (list(BRANDS).index(brand) if brand in BRANDS else 0)) % 2 == 0
+    from .config import QUIZ_SLOT
+    return state.get("quiz_slot_on", True) and (QUIZ_SLOT.get(brand) == hhmm or (len(sl) > 1 and hhmm == sl[-1]))
+
+
+def sched_snapshot():
+    return {"schedule": dict(state.get("schedule") or {}), "one_sawal": one_sawal()}
+
+
+def set_schedule(patch, why=""):
+    """v3.9.4: schedule badalne ka EK hi raasta (sab pakke button isi se) -> taala (sched_lock) bhi naya + jo slot hata uski aaj ki
+    abhi-na-gayi video radd. Update/restart/kisi aur code se schedule kabhi nahi badlega (sched_guard wapas laata hai)."""
+    state.update("schedule", lambda d: {**(d or {}), **patch}, {})
+    state.put("sched_lock", {**sched_snapshot(), "t": now().isoformat(timespec="minutes"), "why": why[:80]})
+    try:
+        from . import diary
+        diary.add("setting", f"schedule: {patch} ({why})")
+    except Exception:
+        pass
+    return sync_jobs()
+
+
+def sync_jobs():
+    """Jo samay ab schedule mein nahi, uski aaj ki line mein lagi (abhi na gayi) roz wali sawal video radd (YouTube se bhi)."""
+    sch, t, gone = schedule(), now(), []
+    for jid, j in list(jobs().items()):
+        if str(jid).startswith("svc") or j.get("reason") != "roz ka schedule" or j.get("status") not in ("waiting", "approved"):
+            continue
+        try:
+            sl = datetime.datetime.fromisoformat(j["slot"])
+        except Exception:
+            continue
+        if sl <= t or sl.strftime("%H:%M") in [x.strip() for x in str(sch.get(j.get("brand"), "")).split(",")]:
+            continue
+        j["status"] = "rejected"
+        j["why"] = "schedule se samay hata"
+        save_job(jid, j)
+        try:
+            _undo_youtube(jid, j)
+        except Exception as e:
+            log(f"sync_jobs yt: {e}")
+        gone.append(f"{BRANDS.get(j.get('brand'), {}).get('name', j.get('brand'))} {sl.strftime('%H:%M')}")
+    return gone
+
+
+def sched_guard():
+    """Har start + har ghante: schedule taale (sched_lock) jaisa hi hai? Nahi to taale wala wapas + owner ko batao."""
+    lk = state.get("sched_lock")
+    if not lk:
+        state.put("sched_lock", {**sched_snapshot(), "t": now().isoformat(timespec="minutes"), "why": "pehla taala"})
+        return ""
+    if dict(state.get("schedule") or {}) != dict(lk.get("schedule") or {}) or one_sawal() != bool(lk.get("one_sawal")):
+        state.put("schedule", dict(lk.get("schedule") or {}))
+        state.put("one_sawal", bool(lk.get("one_sawal")))
+        return "🔒 Schedule badla hua mila (bina aapki pushti) - pakka wala wapas laga diya: " + ", ".join(
+            f"{BRANDS[b]['name'].split()[0]} {v}" for b, v in (lk.get("schedule") or {}).items() if b in BRANDS)
+    return ""
+
+
+def migrate_one_sawal():
+    """v3.9.4 EK BAAR (owner 25 Nov 04:21: 'ek old sawal wali reel band - har brand 2 hi reel, 1 services + 1 simple'):
+    dono sawal-samay mein se wo rakho jiske asli views behtar (warna shaam wala), doosra hatao. Phir kabhi apne aap nahi chalta."""
+    if state.get("sched_v394"):
+        return ""
+    sch = schedule()
+    keep = {}
+    try:
+        from .studio import best_hours
+    except Exception:
+        best_hours = None
+    for b in BRANDS:
+        sl = [x.strip() for x in str(sch.get(b, "")).split(",") if x.strip()]
+        if len(sl) <= 1:
+            keep[b] = sl[0] if sl else "19:00"
+            continue
+        sc = {}
+        try:
+            sc = best_hours(b)[1] if best_hours else {}
+        except Exception:
+            sc = {}
+        keep[b] = max(sl, key=lambda x: (sc.get(int(x[:2]), 0), x))
+    state.put("one_sawal", True)
+    gone = set_schedule(keep, "owner: 1 sawal + 1 services reel")
+    state.put("sched_v394", now().isoformat(timespec="minutes"))
+    return ("🗓 Naya pakka schedule (aapke kehne par): har brand roz 2 reel = 1 sawal + 1 services.\n"
+            + "\n".join(f"• {BRANDS[b]['name']}: sawal reel {keep[b]}" for b in BRANDS)
+            + "\nServices reel ka samay '🗓 Master schedule' mein (har din ghoomta). Post/story pehle jaise."
+            + (f"\nAaj ki hati hui reel radd: {', '.join(gone)}" if gone else "")
+            + "\n🔒 Ab ye update/restart se nahi badlega - badlav sirf 'schedule <brand> HH:MM' + dohri pushti se.")
+
+
+def schedule():
+    sch = {**SCHEDULE, **(state.get("schedule") or {})}
+    if state.get("quiz_slot_on", True) and not one_sawal():   # v2.3.1: owner ne pehle ek hi samay rakha ho to bhi doosra sawal-slot
+        from .config import QUIZ_SLOT
+        for b, q in QUIZ_SLOT.items():
+            if b in sch and len([x for x in str(sch[b]).split(",") if x.strip()]) < 2 and q not in str(sch[b]):
+                sch[b] = f"{sch[b]},{q}"
+    return sch
+
+
+SVC_PLATFORM_OFF = {"sunonatak": ["instagram", "story_ig"]}      # v3.9.0: 'services instagram sunonatak chalu' se khulega
+
+
+def max_uploads():
+    return int(state.get("max_uploads") or MAX_UPLOADS_DAY)
+
+
+def auto_on():
+    v = state.get("auto_approve")
+    return AUTO_APPROVE if v is None else v
+
+
+def _similar(a, b):
+    import difflib
+    return difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
+
+def _sig(meta_or_script):
+    import hashlib
+    txt = "|".join(s.get("show", "") for s in meta_or_script.get("scenes", []))
+    return hashlib.md5(txt.encode()).hexdigest()[:16]
+
+
+def duplicate(brand, title, days=365, sig=None):          # v2.4.1: 365 din (owner)
+    """Pichhle 90 din mein isi brand par milta-julta title YA bilkul wahi content (scenes) gaya hai?"""
+    since = str((now() - datetime.timedelta(days=days)).date())
+    for h in state.get("history", []):
+        if h["date"] < since:
+            continue
+        if sig and h.get("sig") == sig:
+            return h
+        if h["brand"] == brand and _similar(h["title"], title) > 0.8:
+            return h
+    return None
+
+
+def _qnorm(q):
+    import re as _r
+    return _r.sub(r"[\s\W_]+", "", str(q or "").lower())[:120]
+
+
+LIFE = DATA / "q_lifetime.json"             # v2.7.4: zindagi bhar ka register (har sawal ka chhota hash; kabhi nahi mitta)
+
+
+def _life():
+    try:
+        return set(json.loads(LIFE.read_text()))
+    except Exception:
+        pass
+    seed = set()                                   # pehli baar: ab tak ke saare sawal (register + /jawab) bhar do
+    for n in state.get("q_registry") or []:
+        if n:
+            seed.add(_qhash(n))
+    for e in state.get("answer_key") or []:
+        n = _qnorm(e.get("q"))
+        if n:
+            seed.add(_qhash(n))
+    try:
+        LIFE.parent.mkdir(parents=True, exist_ok=True)
+        LIFE.write_text(json.dumps(sorted(seed)))
+    except Exception:
+        pass
+    return seed
+
+
+def _qhash(n):
+    import hashlib as _h
+    return _h.sha1(n.encode("utf-8")).hexdigest()[:14]
+
+
+def q_life_add(q):
+    n = _qnorm(q)
+    if not n:
+        return
+    s_ = _life()
+    s_.add(_qhash(n))
+    LIFE.parent.mkdir(parents=True, exist_ok=True)
+    tmp = LIFE.with_suffix(".tmp")
+    tmp.write_text(json.dumps(sorted(s_)))
+    tmp.replace(LIFE)
+
+
+def q_seen(q, thr=0.86):
+    """v2.3.4: ye sawal (ya lagbhag yahi) kisi bhi channel par pehle bana? v2.7.4: hubahu sawal ZINDAGI BHAR kabhi dobara nahi
+    (q_lifetime.json), milta-julta pichhle 2000 se."""
+    n = _qnorm(q)
+    if not n:
+        return False
+    if _qhash(n) in _life():
+        return True
+    import difflib
+    for old in (state.get("q_registry") or [])[-2000:]:
+        if old == n or (abs(len(old) - len(n)) < 25 and difflib.SequenceMatcher(None, old, n).ratio() >= thr):
+            return True
+    return False
+
+
+def _topic_off(brand):
+    """v3.4.34: 'aam sawal (AI vishay)' wali reel (jaise credit card) views kam -> band; tab har slot jaancha puzzle/GK."""
+    try:
+        from .perf import blocked_kinds
+        return "" in blocked_kinds(brand)
+    except Exception:
+        return False
+
+
+def blocked_topic(brand, text):
+    try:
+        from . import qplan as _QPb
+        return _QPb.blocked(brand, text)
+    except Exception:
+        return False
+
+
+def comment_opener(meta):
+    """v2.7.7: pehla comment us video ke sawal se juda (har baar alag) - baat-cheet shuru ho; jawab kabhi nahi, nakli aankda nahi."""
+    if meta.get("format") == "long":
+        n = len(meta.get("hub_items") or []) or ""
+        return f"🧠 Aapke {n} mein se kitne sahi hue? Har jawab ki wajah website par.".replace("  ", " ")   # v3.4.42: comment ki maang nahi
+    opts = meta.get("puzzle_options") or []
+    if len(opts) == 4:
+        style = meta.get("hook_style") or ""
+        if style in ("bahas", "team"):
+            return "🤔 Aap kiske saath ho - aur kyun? Sahi jawab ki wajah website par."
+        return "❓ Aapka jawab kya hai? Pehle ek baar aur sochiye 🙂"
+    return "💬 Aapka kya kehna hai?"
+
+
+def q_add(q):
+    n = _qnorm(q)
+    if n:
+        state.update("q_registry", lambda L: ((L or []) + [n])[-6000:], [])
+        state.update("q_recent", lambda L: ((L or []) + [str(q)[:90]])[-40:], [])
+        try:
+            q_life_add(q)                          # v2.7.4: zindagi bhar
+        except Exception as e:
+            log(f"q_life: {e}")
+
+
+def _dup_of(brand, m):
+    """v2.3.0: puzzle -> sawal-hash/sig se; baaki -> title + sig se."""
+    if m.get("puzzle_hash"):
+        return duplicate(brand, "\x00" + m["puzzle_hash"], sig=_sig(m))
+    return duplicate(brand, m.get("title", ""), sig=_sig(m))
+
+
+def now():
+    return datetime.datetime.now(IST)
+
+
+def jobs():
+    return state.get("jobs", {})
+
+
+def save_job(jid, job):
+    state.update("jobs", lambda d: {**(d or {}), jid: job}, {})
+
+
+def job_buttons(jid):
+    return tg.inline([[("✅ Thumb 1", f"ok:{jid}:1"), ("✅ Thumb 2", f"ok:{jid}:2"), ("✅ Thumb 3", f"ok:{jid}:3")],
+                      [("🎨 Naye thumbnail", f"nt:{jid}"), ("❌ Mat daalo", f"no:{jid}")],
+                      [("🚀 Abhi daalo (Thumb 1)", f"go:{jid}:1")]])
+
+
+def prepare(brand, slot_iso=None, reason="schedule", topic_text=None, fmt="short", style="", sample=None, script_in=None):
+    """Video banao aur manzoori ke liye bhejo. Fail ho to bank script se ek aur koshish.
+    v2.2.0: sample={..} = NAMOONA (Sample Studio) - kabhi post nahi; owner ka pakka look roz ki video par apne aap."""
+    from .guardtext import clean_script          # v2.3.0: shuru mein (pehle loop ke andar tha -> bank-fallback UnboundLocalError)
+    visual = ""
+    if sample:
+        visual = sample.get("visual", "")
+    if not style and not sample and fmt == "short" and not topic_text:
+        try:                                     # v2.2.0: din ka andaaz (weekplan) + owner ka pakka look (studio)
+            from . import studio, weekplan
+            lk = studio.approved(brand) or {}
+            style = "; ".join(x for x in (weekplan.style_for(brand), lk.get("style", "")) if x)
+            visual = lk.get("visual", "")
+            if state.get("quiz_all", True):          # v2.3.1 (owner): har reel sawal wali - neon vikalp ke saath
+                from .writer import QUIZ_STYLE
+                style = QUIZ_STYLE + ("; " + style if style else "")
+        except Exception as e:
+            log(f"brand look: {e}")
+    jid = f"{brand[:3]}{uuid.uuid4().hex[:5]}"
+    slot = slot_iso or (now() + datetime.timedelta(minutes=30)).isoformat()
+    save_job(jid, {"brand": brand, "status": "making", "slot": slot, "created": now().isoformat(), "reason": reason})
+    tg.say(f"🎬 {BRANDS[brand]['name']}: nayi {'LAMBI video (8-12 min, 30-60 min lagenge)' if fmt == 'long' else 'video'}"
+           f" ban rahi hai ({reason}{', ' + ('sawal-slot: jaancha hua puzzle/GK' if style == '__puzzle__' else style[:60]) if style else ''})")
+    if style == "__puzzle__":                     # v2.3.1: sawal-slot - jaancha hua puzzle / pahadi GK / purane shabd
+        style = ""
+        try:
+            from . import puzzles
+            script_in = None
+            try:                                 # v2.7.3: hafte-war sawal schedule (owner ka default) - din + slot ka type
+                from . import qplan
+                if qplan.is_on():
+                    want = qplan.kind_for(brand, slot_iso)
+                    for k_try in (want, want, "auto", "auto", "auto"):      # schedule kabhi na toote
+                        cand = puzzles.generate_puzzle(k_try, brand)
+                        good, why = qplan.ok_script(brand, cand)
+                        if good and cand.get("puzzle_q") and q_seen(cand["puzzle_q"]):
+                            good, why = False, "ye sawal pehle kabhi aa chuka (zindagi bhar ka niyam)"
+                        if good:
+                            script_in = cand
+                            break
+                        log(f"qplan {brand} {k_try}: chhoda ({why})")
+            except Exception as e:
+                log(f"qplan: {e}")
+            if script_in is None:
+                script_in = puzzles.generate_puzzle("auto", brand)
+            if brand == "pahadi" and script_in.get("puzzle_kind") not in ("pahadi_gk", "pahadi_shabd", "pahadi_purana"):
+                script_in = None                 # pahadi bank khatam -> Gemini se naya pahadi GK sawal (Google se tathya-jaanch)
+                from .writer import QUIZ_STYLE
+                style = QUIZ_STYLE + "; vishay: Uttarakhand GK ya purane Garhwali/Kumaoni shabd (pakka tathya)"
+        except Exception as e:
+            log(f"quiz slot puzzle: {e}")
+    if script_in is None and not sample and not topic_text and fmt == "short" and state.get("puzzles_on", True) \
+            and not state.get("quiz_slot_on", True):
+        try:                                      # v2.3.0 Step 4: (sirf jab sawal-slot band ho) challenge din -> puzzle
+            from . import weekplan, puzzles
+            if "challenge" in (weekplan.style_for(brand) or "").lower():
+                script_in = puzzles.generate_puzzle("auto", brand)
+        except Exception as e:
+            log(f"challenge puzzle: {e}")
+    if script_in is None and fmt == "long" and reason == "hafte ki lambi video" and state.get("hub_week_on", True):
+        try:                                      # v2.7.0: hafte ki hub = 'is hafte ke 10 sawal' (jaanche hue jawab + asli chapters)
+            from . import hubvideo
+            script_in = hubvideo.script(brand)
+            if script_in:
+                log(f"prepare {brand}: hub video - {len(script_in.get('hub_items', []))} sawal")
+        except Exception as e:
+            log(f"hub video: {e}")
+    for attempt in (1, 2, 3):
+        topic = ({"key": f"custom:{topic_text}", "topic": topic_text, "page": "/", "kind": "custom"}
+                 if topic_text and attempt == 1 else topics.next_topic(brand))
+        if script_in is not None and attempt == 1:        # v2.3.0: pehle se bani script (puzzle) - writer nahi
+            script = dict(script_in, brand=brand)
+            topic = {"key": (f"hub:{datetime.date.today()}" if script.get("source") == "hub_week" else f"puzzle:{script.get('puzzle_hash', '')}"),
+                     "topic": script.get("title", ""), "page": script.get("page", "/"), "kind": "idea"}
+        else:
+            script = writer.write(brand, topic, fmt, style) if (attempt < 3 or fmt == "long") else _bank(brand)
+        from .guardtext import clean_script      # v2.0.2: ginti/link/naam scene ke text mein bhi sahi
+        script = clean_script(script)
+        if topic_text:                            # v3.1.0: owner ka apna maanga vishay - vishay-rok us par nahi (wo khud tay karta hai)
+            script["owner_topic"] = True
+        elif fmt == "short":                      # v3.1.0: tyohaar/Gemini slot mein bhi mana vishay (SIP/FD/loan-salah) - render se PEHLE
+            try:                                  # pakdo aur jaancha hua puzzle le lo (10 Nov: Money par 'Bhai Dooj SIP' nikal gaya tha)
+                from . import finalgate as _FGp
+                if _FGp.blocked_script(brand, script):
+                    log(f"prepare {brand}: mana vishay (SIP/FD/loan-salah) script mein - jaancha hua puzzle le rahe")
+                    from . import puzzles as _PZb
+                    script = clean_script(dict(_PZb.generate_puzzle("auto", brand), brand=brand))
+                    topic = {"key": f"puzzle:{script.get('puzzle_hash', '')}", "topic": script.get("title", ""),
+                             "page": script.get("page", "/"), "kind": "idea"}
+            except Exception as e:
+                log(f"vishay-rok: {e}")
+        if script.get("puzzle_q") and not script.get("puzzle_hash") and q_seen(script["puzzle_q"]):
+            log(f"prepare {brand}: ye sawal kisi channel par pehle aa chuka - naya chahiye")       # v2.3.4: sab channel mila kar
+            script.pop("puzzle_options", None)
+        if (fmt == "short" and not topic_text and state.get("quiz_all", True) and not script.get("puzzle_options")
+                and "QUIZ FORMAT" in (style or "")):      # v2.3.3 (owner): purani kahani-wali reel kabhi nahi - sirf sawal wali
+            log(f"prepare {brand}: script mein 4 vikalp nahi (koshish {attempt}) - sawal wali chahiye")
+            if attempt < 3:
+                continue
+            from . import puzzles as _PZ             # aakhri raasta: jaancha hua puzzle/GK (slot nahi tootega)
+            script = clean_script(_PZ.generate_puzzle("auto", brand))
+        if visual and visual != "neon":           # v2.3.0 Step 2: pakka/namoona visual style
+            script["visual_style"] = visual
+        if script.get("diagram"):                 # v2.9.4: diagram wali paheli sirf 'exam' card par sahi dikhti hai
+            script["layout"] = "exam"
+        if sample and sample.get("layout"):       # v2.4.0: naye layout ka namoona
+            script["layout"] = sample["layout"]
+        elif not script.get("layout"):
+            ok_l = ["list"] + [x for x in (state.get("layouts_ok") or []) if x != "list"]
+            if len(ok_l) < 3:                     # v2.9.2: pakke layout kam hon to saare card-design apne aap baari-baari
+                try:
+                    from . import design as _DSl
+                    ok_l = list(dict.fromkeys(ok_l + [k for k in _DSl.LAYOUTS if k != "big3d" or script.get("img3d")]))
+                except Exception:
+                    pass
+            try:                                  # v2.7.5: views ke hisaab se (naya pehle 3 baar aazmaya jaata hai)
+                script["layout"] = learn.choose("vlay", ok_l, f"{now().date()}:{brand}:{slot_iso}:{(sample or {}).get('n', '')}:{time.time() if sample else ''}",
+                                                avoid=(state.get("last_vlay") or {}).get(brand))
+            except Exception:
+                script["layout"] = ok_l[(now().toordinal() * 3 + list(BRANDS).index(brand)) % len(ok_l)]
+            state.update("last_vlay", lambda d, v=script["layout"]: {**(d or {}), brand: v}, {})
+        if sample and sample.get("palette"):      # v2.3.6: naye rang ka namoona
+            script["palette"] = sample["palette"]
+        elif not script.get("palette"):           # pakke rangon mein roz baari-baari (channel + din se)
+            ok_p = [p for p in (state.get("palettes_ok") or []) if p]
+            if len(ok_p) < 3:                     # v2.9.2 (owner: 'har reel ek hi rang'): pakke rang kam hon to saare rang apne aap
+                try:
+                    from . import design as _DSp
+                    ok_p = list(dict.fromkeys(ok_p + list(_DSp.PALETTES)))
+                except Exception:
+                    pass
+            if ok_p:
+                opts = [None] + ok_p
+                try:                              # v2.7.5: views ke hisaab se rang (naya pehle 3 baar)
+                    script["palette"] = learn.choose("vpal", opts, f"{now().date()}:{brand}:{slot_iso}:p:{time.time() if sample else ''}",
+                                                     avoid=(state.get("last_vpal") or {}).get(brand))
+                except Exception:
+                    script["palette"] = opts[(now().toordinal() + list(BRANDS).index(brand)) % len(opts)]
+                state.update("last_vpal", lambda d, v=script["palette"]: {**(d or {}), brand: v}, {})
+        if fmt == "short" and not script.get("design") and state.get("neon_default", True) and visual in ("", "neon"):
+            script["design"] = "neon_quiz"            # v2.3.0: owner ke reference jaisa premium neon (naya default)
+        if fmt == "short" and script.get("puzzle_q") and not sample:
+            try:                                  # v2.7.3: saancha yaad (4 din tak kisi channel par dobara nahi)
+                from . import qplan as _QP2
+                _QP2.remember(script["puzzle_q"])
+            except Exception as e:
+                log(f"qplan remember: {e}")
+        if fmt == "short" and script.get("puzzle_options") and state.get("hooks_on", True):   # v2.7.6: namoona mein bhi (asli jaisa dikhe)
+            try:                                      # v2.7.1: sawal puchhne ka andaaz (owner ka Level 1-5 blueprint, bina nakli aankde)
+                from . import hooks as _HK
+                script = _HK.apply(script, brand)
+            except Exception as e:
+                log(f"hook: {e}")
+        if fmt == "short" and script.get("puzzle_options"):   # v2.5.0: jawab video mein nahi - website/Telegram par
+            from . import answers as _ANS
+            script = _ANS.strip_reveal(script)
+        if script.get("design") == "neon_quiz" and not script.get("img3d"):
+            try:                                      # v2.3.3: APNA 3D (Blender) - Gemini ke bina, har reel ka 3D chitra
+                from . import blender3d, design as _DS
+                script["fmt_style"] = style
+                acc = "%02x%02x%02x" % _DS._acc(brand)[0]
+                p3 = blender3d.ai_art(script, accent=acc)         # v2.4.0: pehle AI-art (sample jaisa), phir Blender
+                if p3:
+                    script["img_src"] = "Cloudflare Workers AI (Flux) - AI chitra"
+                elif blender3d.available():
+                    p3 = blender3d.render(script, accent=acc)
+                    if p3:
+                        script["img_src"] = "Blender 3D (apna)"
+                if p3:
+                    script["img3d"] = str(p3)
+            except Exception as e:
+                log(f"3d: {e}")
+        if "challenge" in (style or "").lower() or script.get("puzzle_kind"):     # v11 HUD: timer + chhupa code (sirf challenge)
+            script["hud"] = {"timer": True, "rewatch": random.randint(11, 99)}
+        if script.get("puzzle_kind"):              # v2.4.1: paheli -> hamesha home (galat page jaise googleXXXX nahi)
+            script["page"] = "/"
+        elif topic.get("page", "/") == "/" and topic.get("kind") != "page" and script.get("page", "/") in ("/", "", None):
+            try:                                     # v2.0.2: website se bahar ka topic -> sabse milta tool/guide page
+                from . import siteknow
+                hit = siteknow.find(f"{topic.get('topic', '')} {script.get('title', '')}", 1)
+                if hit:
+                    script["page"] = "/" + hit[0][0]
+            except Exception:
+                pass
+        dup = (duplicate(brand, "\x00" + script.get("puzzle_hash", ""), sig=_sig(script)) if script.get("puzzle_hash")
+               else duplicate(brand, script.get("title", ""), sig=_sig(script)))   # v2.3.0: puzzle ka asli sawal-hash
+        if dup:                                   # jaanch 1: pehle ja chuka?
+            tg.alert("green", f"Milta-julta title {dup['date']} ko ja chuka, naya topic le raha hoon.")
+            topics.mark_used(topic["key"])
+            continue
+        from . import audit_ai                    # jaanch 2+3: kanoon/samaj + tathya (Google search)
+        ok_ai, notes = audit_ai.check(brand, script)
+        if not ok_ai:
+            tg.alert("green", f"🛡 {BRANDS[brand]['name']}: script roki ({'; '.join(notes)[:250]}). Naya topic le raha hoon.")
+            topics.mark_used(topic["key"])
+            continue
+        from .config import DATA
+        cl = sorted((DATA / "clips" / brand).glob("*.mp4")) if (DATA / "clips" / brand).exists() else []
+        if cl and (state.get("use_clips_next") == brand or (fmt != "long" and len(cl) >= 2 and random.random() < 0.5)):
+            state.put("use_clips_next", "")
+            script["clips"] = [str(c) for c in random.sample(cl, min(len(cl), len(script["scenes"])))]
+        gal = sorted((DATA / "photos" / brand).glob("*.jpg")) if (DATA / "photos" / brand).exists() else []
+        if gal and not script.get("clips") and not state.get("no_gallery_reels") and (     # v2.3.0: owner 'in photos se reels mat banana'
+                state.get("use_photos_next") == brand or (brand == "pahadi" and len(gal) >= 3)):
+            state.put("use_photos_next", "")
+            used = state.get("photo_used") or {}
+            gal = sorted(gal, key=lambda g: used.get(g.name, 0))[:len(script["scenes"])]
+            script["photos"] = [str(g) for g in gal]        # aapki asli photo = original content (policy mein madad)
+            for g in gal:
+                used[g.name] = used.get(g.name, 0) + 1
+            state.put("photo_used", used)
+        if not script.get("photos") and not script.get("clips") and state.get("ai_images", True):
+            try:                 # premium 3D AI background (Gemini image) - free na mile to purana design
+                from . import imagegen
+                from .config import TMP
+                imgs = []
+                for k in range(min(3, len(script["scenes"]))):
+                    o = imagegen.make(f"{script['title']} - {script['scenes'][k]['show'][:120]}",
+                                      TMP / f"ai_{jid}_{k}.png", brand_key=brand,
+                                      style_name=(visual if visual not in ("", "classic", "neon") else "auto"), scene_idx=k,
+                                      procedural_fallback=bool(visual and visual not in ("classic", "neon")))
+                    if not o:
+                        break
+                    imgs.append(str(o))
+                if imgs:
+                    script["photos"] = imgs
+                    script["ai_images"] = True
+            except Exception as e:
+                log(f"ai images: {e}")
+        from . import guard as _G               # v2.0.2: slot ke paas VM busy ho to bhi 1 core par bana do (post na chhoote)
+        try:
+            _G.set_deadline(datetime.datetime.fromisoformat(slot).timestamp() - 40 * 60)
+        except Exception:
+            _G.set_deadline(None)
+        try:
+            meta = render(script, notify=tg.say)
+        except Exception as e_r:
+            if fmt != "long":
+                raise
+            log(f"lambi render fail ({str(e_r)[:200]}) - saada tareeke se dobara")   # v2.7.4: lambi video kabhi na atke
+            simple = {k: v for k, v in script.items() if k not in ("photos", "clips", "img3d", "visual_style", "ai_images")}
+            meta = render(simple, notify=tg.say)
+        _G.set_deadline(None)
+        meta["ai_audit"] = notes
+        checks = audit.run(meta)
+        if meta.get("page_broken"):          # v1.8: toota page link -> homepage, meta mein bhi pakka
+            try:
+                (pathlib.Path(meta["video"]).parent / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2))
+            except Exception as e:
+                log(f"meta save: {e}")
+        if audit.passed(checks):
+            break
+        tg.say("❌ Audit fail, doosri script se koshish:\n" + "\n".join(f"{c} {m}" for c, m in checks if c == "❌"))
+    else:
+        save_job(jid, {**jobs()[jid], "status": "failed"})
+        if reason == "roz ka schedule" and not str(reason).endswith("(dobara)"):
+            tg.alert("yellow", f"{BRANDS[brand]['name']}: 3 koshish fail - taiyaar script bank se aakhri koshish (slot na chhoote).")
+            try:                                 # v2.0.2: koi bhi karan ho, schedule ki video jaaye
+                sc = clean_script(_bank(brand))
+                meta = render(sc, notify=tg.say)
+                checks = audit.run(meta)
+                if audit.passed(checks):
+                    topic = {"key": f"bank:{now().date()}:{brand}", "kind": "idea"}
+                    save_job(jid, {**jobs()[jid], "status": "making"})
+                    script = sc
+                else:
+                    raise RuntimeError("bank script bhi audit fail")
+            except Exception as e:
+                sp = _take_spare(brand)                 # v2.3.0: pehle se bani spare reel (slot kabhi na chhoote)
+                if sp:
+                    meta, checks = sp
+                    script = meta
+                    topic = {"key": f"spare:{now().date()}:{brand}", "kind": "idea"}
+                    save_job(jid, {**jobs()[jid], "status": "making"})
+                    tg.alert("green", f"🎞 {BRANDS[brand]['name']}: pehle se bani spare reel le li (slot nahi chhoota).")
+                else:
+                    save_job(jid, {**jobs()[jid], "status": "failed"})
+                    tg.alert("red", f"{BRANDS[brand]['name']}: aaj ki video nahi ban payi ({str(e)[:120]}). Galti ESCALATE.md mein.")
+                    return None
+        else:
+            tg.alert("red", f"{BRANDS[brand]['name']}: 3 koshish ke baad bhi video audit paas nahi hui.")
+            return None
+    if sample:                                   # v2.2.0: namoona - manzoori/upload line mein kabhi nahi
+        job = {**jobs()[jid], "status": "sample", "sample": sample, "meta": meta["video"].rsplit("/", 1)[0],
+               "title": meta["title"], "style": style}
+        save_job(jid, job)
+        from . import studio
+        studio.send(jid, meta, checks, sample)
+        return jid
+    if meta.get("puzzle_q"):
+        q_add(meta["puzzle_q"])                   # v2.3.4/2.3.5: har sawal (Gemini + bank + puzzle) register mein
+    try:                                          # v2.4.0: provenance ledger (copyright saboot)
+        from . import ops as _OPS
+        _OPS.provenance({**meta, "audit_notes": " | ".join(str(x) for x in (locals().get("notes") or []))[:200]},
+                        script.get("img_src", ""))
+    except Exception as e:
+        log(f"provenance: {e}")
+    job = {**jobs()[jid], "status": "waiting", "meta": meta["video"].rsplit("/", 1)[0], "topic_key": topic["key"],
+           "ai_audit": meta.get("ai_audit", []),
+           "topic_kind": topic.get("kind", "idea"), "style": style,
+           "title": meta["title"], "source": script.get("source")}
+    save_job(jid, job)
+    _send_for_approval(jid, meta, checks)
+    return jid
+
+
+def _bank(brand):
+    import glob
+    files = sorted(glob.glob(str(writer.BANK / f"{brand}_*.json")))
+    used = [h.get("sig") for h in state.get("history", [])]
+    fresh = [f for f in files if _sig(json.loads(pathlib.Path(f).read_text(encoding="utf-8"))) not in used]
+    if not fresh:
+        raise RuntimeError("Bank ki saari script pehle ja chuki hain (dobara nahi daalenge); Gemini se nayi chahiye")
+    s = json.loads(pathlib.Path(random.choice(fresh)).read_text(encoding="utf-8"))
+    s["source"] = "bank"
+    writer.quiz_fields(s)                        # v2.3.3: bank ki sawal-wali script ke vikalp bhi
+    return s
+
+
+def sweep_broken():
+    """v3.4.27: waiting/approved video jiski file VM se mit chuki - 'kharab' (Pending aur 'Aaj ka haal' mein faltu na dikhe)."""
+    n = []
+    for jid, j in list(jobs().items()):
+        if j.get("status") in ("waiting", "approved") and j.get("meta") and not (pathlib.Path(j["meta"]) / "meta.json").exists():
+            j["status"] = "kharab"
+            j["err"] = "video/meta file mit chuki"
+            save_job(jid, j)
+            n.append(jid)
+    return n
+
+
+def _meta(job):
+    return json.loads((pathlib.Path(job["meta"]) / "meta.json").read_text())
+
+
+def _send_for_approval(jid, meta, checks):
+    slot = datetime.datetime.fromisoformat(jobs()[jid]["slot"])
+    # v2.9.6 (11 Nov 03:06): lambi video badi hoti hai - preview banne tak wo khud post ho kar 'posted' mein chali gayi thi, phir
+    # yahan purani jagah ki file na milne par '🔴 ZAROORI galti' aaya (video to sahi post ho chuki thi). Ab: pehle dekho.
+    if jobs().get(jid, {}).get("status") in ("posted", "uploaded") or not os.path.exists(meta.get("video", "")):
+        log(f"preview chhoda {jid}: video pehle hi post/hat chuki")
+        return
+    try:
+        tg.video(meta["video"], f"{meta['title']}\n⏱ {meta['duration']:.0f}s | {BRANDS[meta['brand']]['name']}",
+                 meta["thumbs"][0])
+    except Exception as e:
+        if os.path.exists(meta.get("video", "")):
+            tg.say(f"⚠️ Video preview nahi gaya (network): {str(e)[:150]}")
+    thumbs_ok = [t for t in meta.get("thumbs") or [] if os.path.exists(t)]
+    if not thumbs_ok:
+        return
+    tg.photos(thumbs_ok, "🖼 Thumb 1 / 2 / 3")
+    auto = (f"\n⏰ Jawab na mila to {slot:%H:%M} par Thumb 1 se apne aap upload."
+            if auto_on() and jobs()[jid].get("reason") in ("roz ka schedule", "hafte ki lambi video", "schedule")
+            else "\n🔒 Ye aapki/test video hai: aapke button dabaye bina kahin nahi jayegi.")
+    tg.alert("yellow", f"Manzoori chahiye\n🆔 {jid} | {BRANDS[meta['brand']]['name']}\n📝 {meta['title']}\n"
+             f"✅ Audit pass ({len(checks)} jaanch){auto}\n\nKaun sa thumbnail daalein?", job_buttons(jid))
+
+
+def new_thumbs(jid):
+    from .thumbs import make
+    job = jobs()[jid]
+    meta = _meta(job)
+    t = meta.get("thumb") or {"lines": [meta["title"]]}
+    t = dict(t, emoji="")   # naye emoji bhi
+    if meta.get("design") == "neon_quiz":           # v2.3.2: 'Naye thumbnail' bhi wahi pakka neon design (pehle purana aa jaata tha)
+        from . import design as _DS
+        _DS.use_palette(meta.get("palette"))
+        k0 = int(time.time()) % 97
+        meta["thumbs"] = [str(_DS.thumbnail(meta, pathlib.Path(job["meta"]) / f"thumb_n{k0}_{k}.jpg", k0 + k)) for k in range(3)]
+    else:
+        meta["thumbs"] = [str(p) for p in make(meta["brand"], t, job["meta"], meta["title"] + str(time.time()))]
+    (pathlib.Path(job["meta"]) / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2))
+    tg.photos(meta["thumbs"], f"🎨 Naye thumbnail ({jid})")
+    tg.say("Kaun sa daalein?", job_buttons(jid))
+
+
+def auto_thumb(jid, job):
+    """v3.9.0 (owner: "thumbnail kabhi 1 kabhi 2 kabhi 3 system wise, sare combination, brand par alag"): har brand ki apni ginti
+    (har video par agla), aur brand ke hisaab se shuru alag - ek hi din 4 brand par ek jaisa number nahi. Jitne thumbnail bane utne mein ghoomta."""
+    try:
+        n = len([t for t in (_meta(job).get("thumbs") or []) if os.path.exists(t)]) or 1
+    except Exception:
+        n = 1
+    if n < 2:
+        return 1
+    brand = job.get("brand", "")
+    kind = "svc" if str(jid).startswith("svc") else "main"
+    rot = state.get("thumb_rot") or {}
+    key = f"{brand}:{kind}"
+    off = {"sunonatak": 0, "money": 1, "deals": 2, "pahadi": 0}.get(brand, 0) + (1 if kind == "svc" else 0)
+    c = int(rot.get(key, 0))
+    rot[key] = c + 1
+    state.put("thumb_rot", rot)
+    return (c + off) % n + 1
+
+
+def approve(jid, thumb, now_flag=False):
+    job = jobs().get(jid)
+    if not job or job["status"] not in ("waiting", "approved"):
+        return "Ye video ab manzoori mein nahi hai."
+    extra = ""
+    if is_manual(job) and not job.get("count_ans"):
+        # v3.9.4 (owner 25 Nov): bina schedule ki reel (namoona/abhi video/aapki video) -> pehle poochho "aaj ke schedule mein gine?"
+        # Jawab na mila = ye video kahin NAHI jaati, schedule waise hi chalta.
+        job["pending_thumb"] = int(thumb)
+        save_job(jid, job)
+        kind = "services" if str(jid).startswith("svc") else "sawal"
+        tg.say(f"🗓 {jid} ({BRANDS.get(job.get('brand'), {}).get('name', '')}) - Thumb {thumb} chuna. Pehle bataiye:\n"
+               f"Ye video aaj ke schedule ki {kind} reel ki JAGAH gine (aaj ki {kind} reel nahi jaayegi) ya EXTRA?\n"
+               "Jawab ke baad hi turant post hogi. Jawab na diya = kahin nahi jaayegi, schedule waise hi chalega.",
+               tg.inline([[(f"✅ Haan, aaj ki {kind} reel gino", f"cnt:y:{jid}")], [("➕ Nahi, extra bhejo", f"cnt:n:{jid}")],
+                          [("❌ Mat bhejo", f"cnt:x:{jid}")]]))
+        return f"⏳ {jid}: jawab ka intezaar (abhi post nahi)."
+    if job.get("count_ans"):
+        now_flag = True
+    job.update(status="approved", thumb=int(thumb), now=now_flag)
+    save_job(jid, job)
+    when = "abhi" if now_flag else datetime.datetime.fromisoformat(job["slot"]).strftime("%H:%M par")
+    return f"👍 Thumb {thumb} chuna. Upload {when}." + extra
+
+
+AUTO_REASONS = ("roz ka schedule", "hafte ki lambi video", "schedule")
+
+
+def is_manual(job):
+    """Bina schedule wali chhoti reel (owner ne banwayi/bheji) - lambi/wide/namoona-studio nahi."""
+    r = str(job.get("reason") or "")
+    return bool(r) and r not in AUTO_REASONS and not any(w in r for w in ("lambi", "wide", "sample video"))
+
+
+def count_answer(jid, ans):
+    """'cnt:y|n|x:<jid>' - y = aaj ki usi kism ki reel radd (slot usi ka), n = extra, x = mat bhejo."""
+    job = jobs().get(jid)
+    if not job or job.get("status") not in ("waiting",):
+        return f"❓ {jid} ab line mein nahi (pehle hi gayi/radd)."
+    if ans == "x":
+        return reject(jid)
+    extra = ""
+    if ans == "y":
+        try:
+            if str(jid).startswith("svc"):
+                from . import svcvideo as _SVn
+                extra = _SVn.sample_takes_slot(jid, job)
+            else:
+                extra = _sawal_takes_slot(jid, job)
+        except Exception as e:
+            log(f"count slot: {e}")
+    job = jobs()[jid]
+    job["count_ans"] = ans
+    save_job(jid, job)
+    return approve(jid, int(job.get("pending_thumb") or 1), True) + (extra if ans == "y" else "\n➕ Extra - aaj ka schedule waise hi.")
+
+
+def _sawal_takes_slot(jid, job):
+    """Aaj ki agli (abhi na gayi) sawal reel radd; abhi bani na ho to banegi hi nahi."""
+    b, t = job.get("brand"), now()
+    d = str(t.date())
+    for j2, x in sorted(jobs().items(), key=lambda kv: str(kv[1].get("slot", ""))):
+        if j2 == jid or str(j2).startswith("svc") or x.get("brand") != b or x.get("reason") != "roz ka schedule":
+            continue
+        if x.get("status") not in ("waiting", "approved", "making") or str(x.get("slot", ""))[:10] != d:
+            continue
+        if datetime.datetime.fromisoformat(x["slot"]) <= t:
+            continue
+        x["status"] = "rejected"
+        x["why"] = f"{jid} ne slot liya"
+        save_job(j2, x)
+        try:
+            _undo_youtube(j2, x)
+        except Exception as e:
+            log(f"sawal slot undo: {e}")
+        return f"\n🗓 Aaj ki {x['slot'][11:16]} wali sawal reel radd - ye usi ki jagah gini gayi."
+    for hh in [x.strip() for x in str(schedule().get(b, "")).split(",") if x.strip()]:
+        if f"{d}T{hh}" > t.isoformat()[:16]:
+            key = f"{d}:{b}:{hh}"
+            state.update("made_today", lambda m, k=key: {**(m or {}), k: 1}, {})
+            return f"\n🗓 Aaj ki {hh} wali sawal reel ab nahi banegi - ye usi ki jagah."
+    return "\n🗓 Aaj ki sawal reel pehle hi ja chuki thi - ye extra gini gayi."
+
+
+def reject(jid):
+    """v3.3.10: 'Mat daalo' = pakka band. YouTube par pehle se schedule ho chuki ho to wahan se bhi hatao
+    (15 Nov: namoona mone6440 'Mat daalo' ke baad bhi 06:51 par chali gayi - upload chal raha tha, status wapas likh diya)."""
+    job = jobs().get(jid)
+    extra = ""
+    if job:
+        if job.get("status") == "rejected":
+            return "🗑 Ye video pehle hi hata di gayi hai."
+        job["status"] = "rejected"
+        job["rejected_at"] = now().isoformat(timespec="seconds")
+        save_job(jid, job)
+        _yv = (job.get("ids") or {}).get("youtube") or ""
+        extra = _undo_youtube(jid, job)
+        if _yv:                                   # v3.4.34: hatayi video ka sawal 'sawal wali post'/share mein kabhi nahi
+            _yid = str(_yv).rsplit("/", 1)[-1]
+            state.update("answer_key", lambda l: [x for x in (l or []) if _yid not in str(x.get("yt") or "")], [])
+            state.put("answer_dirty", True)
+        dmx = (job.get("ids") or {}).get("dailymotion")
+        if dmx:                                   # v3.4.8: Dailymotion copy bhi hatao
+            try:
+                from . import dailymotion as _DMr
+                extra += "\n✅ Dailymotion copy bhi mita di." if _DMr.delete(dmx) else "\n⚠️ Dailymotion copy khud nahi miti - Studio mein hatayein."
+            except Exception as e:
+                extra += f"\n⚠️ Dailymotion copy nahi miti ({str(e)[:60]})"
+        if job.get("status") != "queued":
+            shutil.rmtree(job.get("meta", ""), ignore_errors=True)
+    if job and ask_replace(jid, job):
+        return "🗑 Video hata di." + extra
+    return "🗑 Video hata di. Is slot ke liye nayi video chahiye to 🎬 Abhi video dabayein." + extra
+
+
+def _undo_youtube(jid, job):
+    """Rejected job ki YouTube copy (schedule/private) mitao + aaj ki ginti se ghatao."""
+    vid = (job.get("ids") or {}).get("youtube") or ""
+    if not vid:
+        return ""
+    try:
+        youtube.delete_video(job["brand"], vid)
+        job.setdefault("ids", {}).pop("youtube", None)
+        job.setdefault("done", {}).pop("youtube", None)
+        job["status"] = "rejected"
+        save_job(jid, job)
+        d = str(now().date())
+        state.update("uploads", lambda x: {**(x or {}), d: max(0, (x or {}).get(d, 0) - 1)}, {})
+        state.update("history", lambda h: [r for r in (h or []) if r.get("vid") != vid], [])
+        return "\n✅ YouTube par schedule copy bhi mita di (public nahi hogi)."
+    except Exception as e:
+        log(f"reject yt delete: {e}")
+        return f"\n⚠️ YouTube copy ({vid}) khud nahi mit payi - YouTube Studio mein haath se hata dein."
+
+
+def _was_rejected(jid):
+    return (jobs().get(jid) or {}).get("status") == "rejected"
+
+
+def uploads_today():
+    d = str(now().date())
+    return state.get("uploads", {}).get(d, 0)
+
+
+BRAND_PAGE_WORDS = {      # v2.1.6: brand ki video ka link usi mizaaj ka page ho (Pahadi shabd → bike loan EMI nahi)
+    "pahadi": ("bigha", "nali", "zameen", "land", "uttarakhand", "-uttarakhand", "pahadi", "acre", "area", "khasra", "farmer", "kheti",
+               "yojana", "muthi", "jamin", "hectare", "biswa", "plot"),
+    "money": ("sip", "fd", "emi", "loan", "tax", "salary", "pf", "ppf", "mutual", "interest", "rd", "gold", "gratuity",
+              "retire", "invest", "nps", "hra", "income", "inflation", "fund", "bachat", "savings", "compound", "da-"),
+    "deals": ("discount", "gst", "price", "emi", "offer", "cashback", "road", "mileage", "percent", "sale", "loan", "fuel",
+              "electricity", "bill", "tip", "split", "unit"),
+}
+
+
+UK_DIST_NAMES = {"almora": ("almora", "अल्मोड़ा"), "bageshwar": ("bageshwar", "बागेश्वर"), "chamoli": ("chamoli", "चमोली"),
+                 "champawat": ("champawat", "चंपावत", "चम्पावत"), "dehradun": ("dehradun", "देहरादून"),
+                 "haridwar": ("haridwar", "हरिद्वार"), "nainital": ("nainital", "नैनीताल"),
+                 "pauri-garhwal": ("pauri", "पौड़ी"), "pithoragarh": ("pithoragarh", "पिथौरागढ़"),
+                 "rudraprayag": ("rudraprayag", "रुद्रप्रयाग"), "tehri-garhwal": ("tehri", "टिहरी"),
+                 "udham-singh-nagar": ("udham singh nagar", "ऊधम सिंह नगर", "उधम सिंह नगर"), "uttarkashi": ("uttarkashi", "उत्तरकाशी")}
+
+
+def uk_district_page(text):
+    """Text mein jis ek zile ka naam ho uska live page ('/chamoli-uttarakhand'), warna None (do zile = None, galat link nahi)."""
+    t = (text or "").lower()
+    hit = [d for d, ns in UK_DIST_NAMES.items() if any(n in t for n in ns)]
+    if len(hit) != 1:
+        return None
+    try:
+        from . import website
+        if not (website.DIR / "site" / f"{hit[0]}-uttarakhand.html").exists():
+            return None
+    except Exception:
+        return None
+    return f"/{hit[0]}-uttarakhand"
+
+
+def check_link(meta):
+    """Website ka page khulta hai? Na khule to homepage. Brand se mel na khaye to bhi homepage."""
+    import requests
+    pg_ = meta.get("page", "/") or "/"
+    if meta.get("brand") == "pahadi" and pg_ in ("/", ""):      # v3.3.4: video kisi zile ki baat kare to us zile ka page
+        z = uk_district_page(" ".join(str(meta.get(k) or "") for k in ("title", "topic", "desc")))
+        if z:
+            meta["page"] = pg_ = z
+    words = BRAND_PAGE_WORDS.get(meta.get("brand", ""))
+    if words and pg_ != "/" and not pg_.startswith("/services") and not any(w in pg_.lower() for w in words):   # v3.6.0 services ad
+        log(f"page mel nahi khata ({meta.get('brand')}: {pg_}) - homepage")
+        meta["page"] = "/"
+    url = f"{SITE}{meta.get('page', '/')}"
+    try:
+        ok = requests.get(url, timeout=20, allow_redirects=True).status_code == 200
+    except Exception:
+        ok = False
+    if not ok and meta.get("page", "/") != "/":
+        tg.say(f"⚠️ Website page nahi khula ({url}), homepage link lagaya.")
+        meta["page"] = "/"
+    return meta
+
+
+def _channel_post(meta, links):
+    import json as _j
+    from .config import TG_CHANNEL
+    b = BRANDS[meta["brand"]]
+    rows = [[{"text": "🌐 Free calculator", "url": f"{SITE}{meta.get('page', '/')}?utm_source=telegram&utm_medium=channel&utm_campaign={meta['brand']}"}]]
+    try:                                          # v3.3.8: sawal wali reel = pehla button usi sawal ke dabbe par (jawab + agla sawal)
+        from . import answers as _A8
+        if meta.get("answer_offsite") and _A8.live():
+            _c8 = meta.get("reel_code") or _A8.code_for(meta)
+            rows.insert(0, [{"text": f"✅ Sahi jawab dekhein (कोड #{_c8})", "url": _A8.answer_url(_c8, "telegram", meta["brand"])}])
+    except Exception as e:
+        log(f"tg answer btn: {e}")
+    if links.get("youtube"):
+        rows.append([{"text": "▶️ YouTube par dekhein", "url": links["youtube"]}])
+    from .config import WHATSAPP
+    rows.append([{"text": "💬 WhatsApp channel", "url": WHATSAPP}])
+    cap = f"{meta['title']}\n\n{b['name']} | {b['footer']}\n🌐 {SITE}{meta.get('page', '/')}"
+    with open(links.get("_thumb") or meta["thumbs"][0], "rb") as f:     # wahi chuna hua thumbnail
+        r = tg.call("sendPhoto", {"chat_id": TG_CHANNEL, "caption": cap[:1000], "reply_markup": _j.dumps({"inline_keyboard": rows})},
+                    {"photo": f})
+    links["_tgid"] = (r or {}).get("message_id")
+    return f"https://t.me/{TG_CHANNEL.lstrip('@')}/{links['_tgid']}" if links.get("_tgid") else f"https://t.me/{TG_CHANNEL.lstrip('@')}"
+
+
+def _story_card(brand, meta):
+    """v2.3.6: story bhi naye neon design mein - sawal + vikalp (jawab nahi; reel dekhne ka kaaran)."""
+    from PIL import Image
+    d = pathlib.Path(meta["video"]).parent
+    card = d / "story.png"
+    if meta.get("design") == "neon_quiz":
+        from . import design as _DS
+        _DS.use_palette(meta.get("palette"))
+        _DS.use_layout(meta.get("layout"))
+        bg, fr = d / "story_bg.jpg", d / "story_fr.png"
+        _DS.background(brand, meta.get("title", "") + "s", bg)
+        if meta.get("img3d"):
+            _DS.blend_3d_bg(bg, meta["img3d"])
+        n = len(meta.get("scenes") or [1])
+        _DS.body_frame(meta, 1 if meta.get("puzzle_options") else 0, max(n, 2), fr)
+        im = Image.open(bg).convert("RGBA")
+        im.alpha_composite(Image.open(fr))
+        im.convert("RGB").save(card)
+    else:
+        from .render import scene_frame
+        scene_frame(brand, meta["title"], "Nayi video aa gayi! Profile par dekhein aur free calculator: https://sabhisaab.com/", 0, 1, card)
+    return card
+
+
+def _fb_photo_daily(brand, meta):
+    """v2.3.6: har page par roz 1 photo-post (sawal wala thumbnail + jawab reel mein + link) - FB 'photo posts' kaam."""
+    from . import meta as M
+    day = str(now().date())
+    if not state.get("fb_photo_daily", True) or (state.get("fb_photo_day") or {}).get(brand) == day:
+        return ""
+    try:                                          # v3.9.3: services page-post chalu = sawal photo-post ek din chhod kar (feed bhari nahi)
+        from . import svcpost as _SVPf
+        if not _SVPf.fb_photo_today(brand):
+            return ""
+    except Exception:
+        pass
+    th = (meta.get("thumbs") or [None])[0]
+    if not th:
+        return ""
+    q = meta.get("puzzle_q") or meta.get("title", "")
+    cap = (f"🧠 {q}\n\nAapka jawab kya hai? 🤔\nSahi jawab hamari nayi reel mein (page par).\n\n"
+           f"Aise hi free calculator aur paheliyan: https://sabhisaab.com/")
+    try:                                          # v3.3.8: jawab reel mein nahi hota - seedha usi sawal ka dabba (website)
+        from . import answers as _A8f
+        if meta.get("answer_offsite") and _A8f.live():
+            _c = meta.get("reel_code") or _A8f.code_for(meta)
+            cap = (f"🧠 {q}\n\nAapka jawab kya hai? 🤔\n"
+                   f"Sahi jawab (कोड #{_c}) aur agla sawal: {_A8f.answer_url(_c, 'facebook', brand)}")
+    except Exception:
+        pass
+    try:
+        pid = M.post_fb_photo(brand, th, cap)
+        state.update("fb_photo_day", lambda d_: {**(d_ or {}), brand: day}, {})
+        return f"FB photo-post https://www.facebook.com/{pid}"
+    except Exception as e:
+        return f"FB photo-post nahi ({str(e)[:60]})"
+
+
+def _stories(brand, meta, vpath):
+    """Nayi video ki khabar: FB story (card) + IG story (video, 60s tak) + roz 1 FB photo-post. Fail ho to bas note."""
+    from . import meta as M
+    res = []
+    if meta.get("design") == "services_ad":      # v3.8.0: services video ki story - kaam wali frame, 'jawab socho' wala text NAHI
+        try:
+            th = [x for x in (meta.get("thumbs") or []) if str(x).endswith("t2.jpg")] or list(meta.get("thumbs") or [])
+            if th:
+                res.append(M.fb_photo_story(brand, th[0]))
+        except Exception as e:
+            res.append(f"FB story nahi ({str(e)[:60]})")
+        try:
+            if "story_ig" in (state.get("svc_platform_off") or SVC_PLATFORM_OFF).get(brand, []):
+                res.append("IG story: is brand par services nahi (jokhim)")
+            elif meta.get("duration", 99) <= 60:
+                res.append(M.ig_video_story(brand, vpath))
+        except Exception as e:
+            res.append(f"IG story nahi ({str(e)[:60]})")
+        return ", ".join(res)
+    try:
+        card = _story_card(brand, meta)
+        res.append(M.fb_photo_story(brand, card))
+    except Exception as e:
+        res.append(f"FB story nahi ({str(e)[:60]})")
+    try:
+        r_ = _fb_photo_daily(brand, meta)
+        if r_:
+            res.append(r_)
+    except Exception as e:
+        res.append(f"FB photo-post nahi ({str(e)[:60]})")
+    try:                                          # v2.3.6: WhatsApp channel ka API nahi - roz 1 taiyaar post aapko (bas forward)
+        day = str(now().date())
+        if state.get("wa_ready", True) and state.get("wa_ready_day") != day and meta.get("thumbs"):
+            state.put("wa_ready_day", day)
+            q = meta.get("puzzle_q") or meta.get("title", "")
+            tg.photos([str(meta["thumbs"][0])], f"📲 WhatsApp channel ke liye taiyaar (bas forward/copy karein):\n\n🧠 {q}\n"
+                                                 "Jawab socho aur reply karo! Sahi jawab yahan 👉 "
+                                                 + (f"{SITE}/jawab#c{meta.get('reel_code')}" if meta.get("answer_offsite") and meta.get("reel_code")
+                                                    else "https://sabhisaab.com/"))
+    except Exception as e:
+        log(f"wa ready: {e}")
+    try:
+        if meta.get("duration", 99) <= 60:
+            res.append(M.ig_video_story(brand, vpath))
+    except Exception as e:
+        res.append(f"IG story nahi ({str(e)[:60]})")
+    return ", ".join(res)
+
+
+# ---------------- v2.3.0 Step 1 (v11 se, aur pakka): har platform ka post-taala (do baar kabhi nahi) ----------------
+def _lock_key(brand, platform, sig):
+    return f"{now().date()}:{brand}:{platform}:{sig}"
+
+
+def acquire_post_lock(brand, platform, sig):
+    """v11 jaisa naam/kaam: True = daal sakte ho. Do-charan: 'trying' -> 'done' (safal) / hata (fail).
+    Bot beech post mein ruk gaya tha (purana 'trying') -> dobara NAHI (shayad pehle gaya) - owner ko khabar."""
+    st = post_lock_state(brand, platform, sig)
+    if st in ("done", "unsure", "busy"):
+        return False
+    k = _lock_key(brand, platform, sig)
+    keep = str((now() - datetime.timedelta(days=7)).date())
+    state.update("post_locks", lambda d: {**{a: b for a, b in (d or {}).items() if a[:10] >= keep},
+                                          k: {"st": "trying", "pid": os.getpid(), "t": now().isoformat(timespec="seconds")}}, {})
+    return True
+
+
+def post_lock_state(brand, platform, sig):
+    v = (state.get("post_locks") or {}).get(_lock_key(brand, platform, sig))
+    if not v:
+        return "free"
+    if isinstance(v, str) or v.get("st") == "done":
+        return "done"
+    return "busy" if v.get("pid") == os.getpid() else "unsure"
+
+
+def post_lock_done(brand, platform, sig, ok=True):
+    k = _lock_key(brand, platform, sig)
+    if ok:
+        state.update("post_locks", lambda d: {**(d or {}), k: {"st": "done", "t": now().isoformat(timespec="seconds")}}, {})
+    else:
+        state.update("post_locks", lambda d: {a: b for a, b in (d or {}).items() if a != k}, {})
+
+
+def _locked_post(brand, platform, sig, done, errs, fn):
+    """fn() -> done text. Taala ke saath: pehle gaya / shayad gaya -> dobara nahi."""
+    st = post_lock_state(brand, platform, sig)
+    if st == "done":
+        done[platform] = "✓ pehle hi ja chuka (post-taala)"
+        return
+    if st == "unsure":
+        done[platform] = "⚠ pichhli baar beech mein ruka - dobara NAHI daala (shayad pehle gaya; aap ek baar dekh lein)"
+        tg.alert("yellow", f"{BRANDS[brand]['name']} {platform}: bot post ke beech ruka tha. Do baar na jaye isliye dobara nahi daala - "
+                           "ek baar app mein dekh lein.")
+        post_lock_done(brand, platform, sig, ok=True)
+        return
+    if not acquire_post_lock(brand, platform, sig):
+        errs[platform] = "abhi isi post par kaam chal raha (taala)"
+        return
+    try:
+        done[platform] = fn()
+        post_lock_done(brand, platform, sig, ok=True)
+    except Exception:
+        post_lock_done(brand, platform, sig, ok=False)
+        raise
+
+
+def svc_twin_today(jid, job):
+    """v3.9.5 (audit 25 Nov): 24 Nov ko Pahadi par ek hi services kaam ('मोबाइल / कंप्यूटर मदद ₹49') 20:02 + 20:12 do alag video ban kar
+    dono jagah gayi. Banate samay ke taale (svc_taken, doctor) ke baad ye UPLOAD se theek pehle aakhri jaanch: isi brand ki aaj ki koi
+    doosri services video (namoona ya roz wali) kisi bhi platform par ja chuki ho -> uska jid, warna None."""
+    brand = job.get("brand")
+    d = str(job.get("slot") or now().isoformat())[:10]
+    tk = ((state.get("svc_taken") or {}).get(d) or {}).get(brand)
+    if tk and tk != jid:
+        return tk
+    for j2, x in list(jobs().items()):
+        if j2 == jid or not str(j2).startswith("svc") or x.get("brand") != brand or not x.get("done"):
+            continue
+        if x.get("reason") != "roz ka schedule" or str(x.get("slot") or "")[:10] != d:
+            continue
+        return j2
+    return None
+
+
+def upload(jid, pre=False):
+    """Har platform alag: jo ho chuka wo dobara nahi. Ek fail ho to baaki chalte rahein.
+    pre=True: sirf YouTube par slot ke samay ke liye schedule (baaki platform theek slot par)."""
+    from . import meta as M
+    job = jobs()[jid]
+    brand = job["brand"]
+    if uploads_today() >= max_uploads() and "youtube" not in job.get("done", {}):
+        tg.say(f"⏳ Aaj ki upload seema ({max_uploads()}) poori. {jid} kal subah jayegi.")
+        job["slot"] = (now() + datetime.timedelta(hours=12)).replace(hour=9, minute=0).isoformat()
+        job["status"] = "approved"
+        save_job(jid, job)
+        return
+    try:
+        _m0 = _meta(job)
+    except FileNotFoundError:                     # v3.4.27: purani video ki file mit chuki (data/stock saaf) - har baar laal galti nahi
+        job["status"] = "kharab"
+        job["err"] = "video/meta file mit chuki"
+        save_job(jid, job)
+        tg.say(f"🗑️ {jid} ({brand}) ki video file ab VM par nahi hai (purani, safai mein mit gayi). Ise suchi se hata diya - "
+               "dobara 'waiting' / Pending mein nahi aayegi.")
+        return
+    meta = check_link(_m0)
+    _svc = meta.get("design") == "services_ad"     # v3.9.0: services video ka title roz milta-julta hota hai ("Koi bhi digital kaam -
+    # ho jayega | ...") - uski nakal-jaanch svcvideo ka zindagi-bhar register (kaam-set+rang+hook+layout) karta hai, yahan title se nahi
+    if _svc and not job.get("done") and job.get("reason") == "roz ka schedule":
+        twin = svc_twin_today(jid, job)              # v3.9.5 aakhri taala: ek brand par ek din mein ek hi roz wali services reel
+        if twin:
+            job["status"] = "rejected"
+            job["why"] = f"aaj is brand ki services reel pehle ja chuki ({twin})"
+            save_job(jid, job)
+            return tg.alert("yellow", f"{jid}: {brand} ki aaj ki services reel pehle hi ja chuki ({twin}) - ye dohri thi, nahi daali "
+                                      "(24 Nov ko Pahadi par 20:02 aur 20:12 do baar gayi thi).")
+    if "youtube" not in job.get("done", {}) and not _svc:
+        dup = (duplicate(brand, "\x00" + meta.get("puzzle_hash", ""), sig=_sig(meta)) if meta.get("puzzle_hash")
+               else duplicate(brand, meta["title"], sig=_sig(meta)))
+        if not dup and youtube.has_login(brand) and not meta.get("puzzle_hash"):   # jaanch 3 (puzzle: sawal-hash hi kaafi)
+            try:
+                for t_, v_ in youtube.recent_titles(brand):
+                    if _similar(t_, meta["title"]) > 0.8:
+                        dup = {"date": "channel par", "title": t_}
+                        break
+            except Exception as e:
+                log(f"recent titles: {e}")
+        if dup:
+            job["status"] = "rejected"
+            save_job(jid, job)
+            return tg.alert("yellow", f"{jid}: milti-julti video pehle ja chuki hai ({dup.get('date')}: {dup.get('title', '')[:50]}). "
+                                      "Dobara nahi daali.")
+    thumb = meta["thumbs"][int(job.get("thumb", 1)) - 1]
+    vpath = pathlib.Path(meta["video"])
+    if meta.get("format") != "long":           # Shorts: chuna hua thumbnail cover frame ban kar sab platform par
+        final = pathlib.Path(job["meta"]) / "final.mp4"
+        if not final.exists():
+            try:
+                from .thumbs import vertical_cover
+                from .render import add_cover
+                variants = json.loads((pathlib.Path(job["meta"]) / "thumbs.json").read_text())
+                cv = vertical_cover(brand, meta.get("thumb") or {"lines": [meta["title"]]},
+                                    variants[int(job.get("thumb", 1)) - 1], pathlib.Path(job["meta"]) / "cover.png")
+                add_cover(vpath, None, final, cover_png=cv)
+            except Exception as e:
+                log(f"cover: {e}")
+        if final.exists():
+            vpath = final
+    done = dict(job.get("done", {}))
+    prev_keys = set(done)                         # v2.1.4: dobara koshish mein sirf naya batao (pehle poora report baar-baar)
+    prev_errs = dict(job.get("last_errs") or {})
+    ids = dict(job.get("ids", {}))
+    for pf in (state.get("platform_off") or {}).get(brand, []):     # aapne is brand ke liye ye platform band kiya
+        done.setdefault(pf, "band (aapki setting)")
+    if _svc:                                      # v3.9.0: services (apne kaam ka prachaar) - jis brand ka Instagram pehle band ho chuka,
+        for b_, pfs in (state.get("svc_platform_off") or SVC_PLATFORM_OFF).items():     # wahan Instagram reel/story nahi (jokhim)
+            if b_ == brand:
+                for pf in pfs:
+                    done.setdefault(pf, "services: is brand par jokhim (Instagram 2 baar band) - nahi daala")
+    errs = {}
+    waits = {}                                    # v2.1.1: jaanboojh kar ruka (❌ nahi), jaise Pinterest manzoori
+    job["status"] = "uploading"
+    save_job(jid, job)
+
+    if "youtube" not in done:
+        try:
+            if not youtube.has_login(brand):
+                raise RuntimeError("login nahi (/login)")
+            ok, ch = youtube.channel_ok(brand)
+            if not ok:
+                raise RuntimeError(f"galat channel juda hai ({ch})")
+            tags = meta.get("tags") or [BRANDS[brand]["name"], "sabhisaab", "hindi"]
+            pub = None
+            if pre:
+                sl = datetime.datetime.fromisoformat(job["slot"])
+                pub = sl.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            yst = post_lock_state(brand, "youtube", _sig(meta))     # v2.3.0: do baar kabhi nahi
+            if yst in ("done", "unsure"):
+                tg.alert("yellow", f"{jid}: YouTube par ye video shayad pehle ja chuki (bot beech mein ruka tha). Dobara NAHI daali - "
+                                   "channel par ek baar dekh lein.")
+                post_lock_done(brand, "youtube", _sig(meta), ok=True)
+                raise RuntimeError("post-taala: shayad pehle gaya (dobara nahi)")
+            if not acquire_post_lock(brand, "youtube", _sig(meta)):
+                raise RuntimeError("isi video par abhi kaam chal raha (taala)")
+            try:
+                vid = youtube.upload(brand, vpath, meta["title"], audit.description(meta), tags, pathlib.Path(thumb),
+                                     publish_at=pub)
+                post_lock_done(brand, "youtube", _sig(meta), ok=True)
+            except Exception:
+                post_lock_done(brand, "youtube", _sig(meta), ok=False)
+                raise
+            done["youtube"] = f"https://youtu.be/{vid}"
+            ids["youtube"] = vid
+            if meta.get("format") == "long":
+                try:                               # v2.9.1: A/B ke liye baaki thumbnail sambhaalo
+                    from . import abtest as _AB
+                    _ths = meta.get("thumbs") or []
+                    _AB.remember(brand, vid, _ths, used=_ths.index(str(thumb)) if str(thumb) in _ths else 0)
+                except Exception as e:
+                    log(f"ab remember: {e}")
+            if meta.get("format") == "long":       # lambi video = us brand ki 'hub' (Shorts ka Related video)
+                state.update("hub_videos", lambda d, v=vid: {**(d or {}), brand: v}, {})
+            try:                                   # v3.4.17: thumbs.json na ho to bhi YouTube ❌ nahi (video to chali gayi)
+                variants = json.loads((pathlib.Path(job["meta"]) / "thumbs.json").read_text())
+                _v1 = variants[int(job.get("thumb", 1)) - 1]
+            except Exception as _e_tj:
+                log(f"thumbs.json: {_e_tj}")
+                _v1 = {}
+            learn.record_upload(vid, {**_v1, "brand": brand,
+                                      "kind": job.get("topic_kind", "idea"), "hour": now().strftime("%H"),
+                                      "fmt": meta.get("format", "short"), "title": meta["title"][:80],
+                                      "mood": job.get("style") or "normal", "hook": meta.get("hook_used", ""),
+                                      "visual": meta.get("visual_style", "") or "classic",
+                                      "pkind": meta.get("puzzle_kind") or ("gemini_quiz" if meta.get("puzzle_options") else "card"),
+                                      "theme3d": pathlib.Path(meta.get("img3d") or "x_").name.split("_")[0],
+                                      "vpal": meta.get("palette") or "default", "vlay": meta.get("layout") or "list",
+                                      "hstyle": meta.get("hook_style") or "", "look24": meta.get("look24") or "",
+                                      "vmech": meta.get("vmech") or ""})
+            try:      # channel ka apna pehla comment: website link (log yahin se site par aate hain)
+                if not youtube.comment_blocked(brand, "yt_comment_noscope"):   # v2.0.7: TV-login mein comment ki ijaazat nahi -> baar-baar 403 nahi
+                    _cm = (f"👉 Poora hisaab / free tool: {SITE}{meta.get('page', '/')}"
+                           f"?utm_source=youtube&utm_medium=comment&utm_campaign={brand}"
+                           + (f"&utm_content=c{meta.get('reel_code')}" if meta.get("reel_code") else ""))
+                    try:                              # v2.5.2: jawab ka link bhi (sirf website live hone par; warna Telegram)
+                        from . import answers as _ANC
+                        _al = _ANC.desc_line(meta, "youtube")
+                        if _al:
+                            _cm = _al + "\n" + _cm
+                    except Exception:
+                        pass
+                    _cm = comment_opener(meta) + "\n" + _cm          # v2.7.7: har video ka apna sawal-wala comment (copy-paste nahi)
+                    youtube.top_comment(brand, vid, _cm)
+            except Exception as e:
+                from . import ytcomment as _YCP
+                if ("insufficient" in str(e).lower() or "403" in str(e)) and not _YCP.has(brand):
+                    state.put("yt_comment_noscope", True)
+                log(f"top comment: {e}")
+            state.update("uploads", lambda d: {**(d or {}), str(now().date()): (d or {}).get(str(now().date()), 0) + 1}, {})
+        except Exception as e:
+            errs["youtube"] = str(e)[:200]
+        if errs.get("youtube", "").startswith("post-taala: shayad"):      # v2.3.0: dobara nahi, aage badho
+            done["youtube"] = "⚠ shayad pehle ja chuki (post-taala) - dobara nahi daali"
+            errs.pop("youtube", None)
+    if _was_rejected(jid):        # v3.3.10: upload ke beech 'Mat daalo' daba -> YouTube copy hatao, aage kuch nahi
+        job = jobs()[jid]
+        job["ids"], job["done"] = {**job.get("ids", {}), **ids}, {**job.get("done", {}), **done}
+        tg.alert("yellow", f"🗑 {jid}: aapne 'Mat daalo' dabaya tha - upload rok diya." + _undo_youtube(jid, job))
+        return
+    if pre:          # baaki platform slot par; abhi bas YouTube schedule sambhal ke rakho
+        job = jobs()[jid]
+        job["done"], job["ids"] = {**job.get("done", {}), **done}, {**job.get("ids", {}), **ids}
+        job["status"] = "approved"
+        if errs.get("youtube"):
+            job["yt_err"] = errs["youtube"]
+        save_job(jid, job)
+        if "youtube" in done:
+            topics.mark_used(job.get("topic_key", ""))
+            state.update("history", lambda h: ((h or []) + [{"date": str(now().date()), "brand": brand,
+                         "vid": done["youtube"].rsplit("/", 1)[-1], "title": meta["title"], "sig": _sig(meta), "page": meta.get("page", "/")}])[-500:], [])
+            tg.alert("green", f"⏰ {jid}: YouTube par {job['slot'][11:16]} ke liye schedule ho gayi (theek samay par public). "
+                              "Baaki platform bhi isi samay.")
+        return
+    if meta.get("format") == "long":
+        done.setdefault("facebook", "lambi video: reel nahi (sirf Shorts reel bante hain)")
+        done.setdefault("instagram", "lambi video: reel nahi")
+    if "facebook" not in done:
+        try:
+            if not M.brand_info(brand):
+                raise RuntimeError("Meta token nahi (/meta)")
+            def _fb():
+                ids["facebook"] = M.post_facebook(brand, vpath, audit.description(meta, "facebook", "reels"))
+                return f"https://www.facebook.com/reel/{ids['facebook']}"
+            _locked_post(brand, "facebook", _sig(meta), done, errs, _fb)
+        except Exception as e:
+            errs["facebook"] = str(e)[:200]
+    if "instagram" not in done:
+        try:
+            if not (M.brand_info(brand) or {}).get("ig_id"):
+                raise RuntimeError("IG juda nahi (/meta)")
+            cap = audit.description(meta, "instagram", "reels").replace("👉 Poora hisaab", "🔗 Link bio mein 👆\n👉 Poora hisaab")
+            def _ig():
+                ids["instagram"], lk_ = M.post_instagram(brand, vpath, cap)
+                return lk_ or "IG reel live"
+            _locked_post(brand, "instagram", _sig(meta), done, errs, _ig)
+            if "instagram" in done and "instagram" not in errs:   # v3.7.0: chal gaya = galti-ginti saaf
+                from . import igguard as _IGG
+                _IGG.note_ok(brand)
+        except Exception as e:
+            errs["instagram"] = str(e)[:200]
+            try:
+                from . import igguard as _IGG
+                _IGG.note_fail(brand, e)
+            except Exception:
+                pass
+    if "threads" not in done:
+        try:
+            from . import threads as TH
+            if not TH.info(brand):
+                raise RuntimeError("Threads token nahi (bot ko token bhejein)")
+            link = f"{SITE}{meta.get('page', '/')}?utm_source=threads&utm_medium=social&utm_campaign={brand}"
+            if meta.get("answer_offsite"):           # v3.3.8: paheli post ka link usi sawal ke jawab-dabbe par
+                from . import answers as _A8t
+                if _A8t.live():
+                    link = _A8t.answer_url(meta.get("reel_code") or _A8t.code_for(meta), "threads", brand)
+            yt = done.get("youtube", "")
+            txt = f"{meta['title']}\n\n{meta.get('description', '').strip()}\n\n👉 {link}" + (f"\n▶️ {yt}" if yt else "")
+            def _th():
+                if meta.get("puzzle_options"):          # v2.3.0 (v11 se): puzzle -> Threads par options wali paheli
+                    tl = TH.post_riddle_thread(brand, meta["title"], meta["puzzle_options"], link)
+                else:
+                    tl = TH.post_text(brand, txt, link)
+                ids["threads"] = tl.split("#")[-1]
+                return tl.split("#")[0]
+            _locked_post(brand, "threads", _sig(meta), done, errs, _th)
+        except Exception as e:
+            errs["threads"] = str(e)[:200]
+    if "pinterest" not in done:
+        try:
+            from . import pinterest as PI
+            if not PI.connected():
+                raise RuntimeError("Pinterest token nahi")
+            if PI.waiting():
+                raise _Wait("⏸ Standard login/manzoori ke baad (bot roz 11 baje khud jaanchta hai)")
+            _svc_pin = meta.get("design") == "services_ad"
+            if not _svc_pin:                      # v3.9.3 (owner): seema mein services video pehle - normal video ki jagah kam
+                try:
+                    from . import svcvideo as _SVr
+                    _pp = state.get("pin_pace") or {}
+                    _used = int(_pp.get("total", 0)) if _pp.get("date") == str(datetime.date.today()) else 0
+                    _rs = _SVr.reserve("pinterest")
+                    if _rs and _used >= PI.day_cap() - _rs:
+                        raise _Wait(f"⏸ Pinterest: aaj ki bachi {_rs} jagah services video ke liye rakhi (services pehle, spam-seema ke andar)")
+                except _Wait:
+                    raise
+                except Exception as e:
+                    log(f"pin reserve: {e}")
+            link = f"{SITE}{meta.get('page', '/')}?utm_source=pinterest&utm_medium=pin&utm_campaign={brand}"
+            from . import answers as _ANSL
+            if meta.get("answer_offsite") and _ANSL.live():   # v2.5.0: pin dabate hi seedha us sawal ka jawab (website)
+                link = f"{SITE}/jawab?utm_source=pinterest&utm_medium=pin&utm_campaign={brand}&utm_content=c{meta.get('reel_code', '')}#c{meta.get('reel_code', '')}"
+            _lk, _whyp = PI.pick_link(brand, meta, link)      # v3.4.19: jawab ka link 2 baar ho gaya to us vishay ka calculator
+            if not _lk:
+                raise _Wait("⏸ " + _whyp + " - kal phir (Pinterest spam niyam ke andar)")
+            link = _lk
+            pin_img = pathlib.Path(job["meta"]) / "pinterest_infographic.jpg"     # v2.3.0 (v11 se): 1000x1500 checklist pin
+            try:
+                from . import imagegen as _IG
+                if not pin_img.exists():
+                    _IG.make_infographic_pin(brand, meta["title"], [x.get("show", "") for x in meta.get("scenes", []) if x.get("show")], pin_img)
+            except Exception as e:
+                log(f"infographic pin: {e}")
+
+            def _pi():
+                u_ = PI.post_pin(brand, pin_img if pin_img.exists() else thumb, meta["title"], meta.get("description", ""), link,
+                                 section=PI.section_for(brand, meta.get("puzzle_kind", "")))   # v3.0.0: sawal-type ka khana
+                ids["pinterest"] = u_.split("/pin/")[-1].split("/")[0]
+                if meta.get("design") == "services_ad":
+                    try:
+                        from . import svcvideo as _SVm
+                        _SVm.plat_mark("pinterest")
+                    except Exception:
+                        pass
+                return u_
+            _locked_post(brand, "pinterest", _sig(meta), done, errs, _pi)
+        except _Wait as w:
+            waits["pinterest"] = str(w)
+        except Exception as e:
+            errs["pinterest"] = str(e)[:200]
+    if "dailymotion" not in done and "youtube" in done and not pre:
+        try:                                      # v3.4.8: Dailymotion (Partner, private key) - roz max N, galti main kaam nahi rokti
+            from . import dailymotion as _DM
+            if _DM.on():
+                _dm_rs = 0
+                if meta.get("design") != "services_ad":      # v3.9.3: services pehle (normal ke liye jagah kam)
+                    try:
+                        from . import svcvideo as _SVd
+                        _dm_rs = _SVd.reserve("dailymotion")
+                    except Exception:
+                        _dm_rs = 0
+                _dm_used = int((state.get("dm_log") or {}).get(str(datetime.date.today()), 0))
+                if _dm_rs and _dm_used >= _DM.per_day() - _dm_rs:
+                    waits["dailymotion"] = f"⏸ Dailymotion: aaj ki bachi {_dm_rs} jagah services video ke liye rakhi (services pehle)"
+                elif not _DM.can_post_today():
+                    waits["dailymotion"] = f"⏸ aaj ki Dailymotion seema ({_DM.per_day()}) poori - baaki video sirf baaki platform par"
+                else:
+                    def _dm():
+                        u_, x_ = _DM.upload(vpath, meta)
+                        ids["dailymotion"] = x_
+                        if meta.get("design") == "services_ad":
+                            try:
+                                from . import svcvideo as _SVm2
+                                _SVm2.plat_mark("dailymotion")
+                            except Exception:
+                                pass
+                        return u_
+                    _e_dm = {}
+                    _locked_post(brand, "dailymotion", _sig(meta), done, _e_dm, _dm)
+                    if _e_dm:
+                        waits["dailymotion"] = "⏸ " + _e_dm["dailymotion"]
+        except Exception as e:
+            log(f"dailymotion: {e}")
+            waits["dailymotion"] = f"⚠️ {str(e)[:150]}"
+            state.put("dm_last_err", {"t": now().strftime("%d %b %H:%M"), "jid": jid, "err": str(e)[:200]})
+            try:                                  # v3.4.16: network galti -> 30-30 min par khud dobara (owner ko baar-baar nahi)
+                if _DM.is_net_err(e) and _DM.queue_retry(vpath, meta, jid):
+                    waits["dailymotion"] = "🔁 Dailymotion se network toota - bot 30 min baad khud dobara bhejega"
+                else:
+                    _DM.warn_once(e)
+            except Exception:
+                pass
+    if "telegram" not in done:
+        try:
+            lk = dict(done, _thumb=thumb)
+            done["telegram"] = _channel_post(meta, lk)
+            ids["telegram"] = lk.get("_tgid")
+        except Exception as e:
+            errs["telegram"] = str(e)[:200]
+
+    if "youtube" in done and "playlist" not in done:
+        try:
+            youtube.add_to_playlist(brand, done["youtube"].rsplit("/", 1)[-1],
+                                    "Long" if meta.get("format") == "long" else "Shorts")
+            done["playlist"] = "✓ playlist mein juda"
+        except Exception as e:
+            log(f"playlist: {e}")
+            done["playlist"] = "playlist nahi juda (baad mein)"
+    if "story" not in done and meta.get("format") != "long":
+        done["story"] = _stories(brand, meta, vpath)
+    if "answer" not in done and meta.get("answer_offsite") and any(k in done for k in ("youtube", "facebook", "instagram")):
+        try:                                      # v2.5.0: video bahar aate hi jawab Telegram + website (register)
+            from . import answers as _ANS
+            _ANS.record(meta, {"youtube": done.get("youtube", "")})
+            done["answer"] = f"jawab Telegram + website (kod #{meta.get('reel_code')})"
+            try:                                  # v2.9.2 (owner: 'video publish hote hi website par jawab'): turant, 30 min ka intezaar nahi
+                state.put("jawab_pub_at", time.time())
+                state.put("jawab_verify", {"at": time.time() + 20 * 60, "aid": str(meta.get("reel_aid") or meta.get("reel_code"))})   # v3.4.40: 15->20 (audit+deploy ~8-12 min)
+                log(_ANS.publish_site())
+            except Exception as e:
+                log(f"jawab turant: {e}")
+        except Exception as e:
+            log(f"answer record: {e}")
+    if _was_rejected(jid):        # v3.3.10: beech mein 'Mat daalo' -> status wapas 'posted/approved' mat likho
+        tg.alert("yellow", f"🗑 {jid}: 'Mat daalo' upload ke beech mila. Jo platform ho chuke: {', '.join(done) or 'koi nahi'} - "
+                           "zarurat ho to wahan se haath se hatayein.")
+        return
+    newly_yt = "youtube" in done and "youtube" not in job.get("done", {}) and not job.get("yt_pre")
+    job["done"], job["ids"] = done, ids
+    state.update("posted_log", lambda l: ([x for x in (l or []) if x["jid"] != jid] +
+                 [{"jid": jid, "brand": brand, "title": meta["title"][:80], "date": str(now().date()), "ids": ids, "page": meta.get("page", "/")}])[-60:], [])
+    if newly_yt:      # history turant (taaki dobara na jaye), baaki platform chahe baad mein
+        topics.mark_used(job.get("topic_key", ""))
+        state.update("history", lambda h: ((h or []) + [{"date": str(now().date()), "brand": brand,
+                     "vid": done.get("youtube", "").rsplit("/", 1)[-1], "title": meta["title"], "sig": _sig(meta), "page": meta.get("page", "/")}])[-500:], [])
+    if not errs:
+        dest = POSTED / pathlib.Path(job["meta"]).name
+        shutil.move(job["meta"], dest)
+        job.update(status="posted", meta=str(dest), vid=done.get("youtube", "").rsplit("/", 1)[-1])
+    else:
+        job["status"] = "need_login" if any("login" in e or "token" in e or "juda" in e for e in errs.values()) else "approved"
+        if job["status"] == "approved":
+            job["tries"] = job.get("tries", 0) + 1
+            _igt = ig_transient_only(errs)              # v3.9.5: sirf Instagram + Meta ki kuch der ki galti = jaldi aur zyada koshish
+            if job["tries"] >= (IG_RETRY_MAX if _igt else 3):
+                job["status"] = "partial"      # 3 koshish ke baad ruko, report mein dikhega
+            else:
+                job["slot"] = (now() + datetime.timedelta(minutes=IG_RETRY_MIN if _igt else 30)).isoformat()   # 30 min baad phir koshish
+                job["now"] = False
+    save_job(jid, job)
+    # v3.4.40 (owner ko har upload '♻️ dobara koshish' dikhta tha, YouTube line gayab): YouTube 3 ghante pehle 'schedule' hoti hai
+    # (yt_pre) - wo pehli koshish hi hai, dobara nahi. Sirf tab 'dobara' jab koi aur platform pichhli baar ho chuka/fail tha.
+    _pre_keys = {"youtube"} if job.get("yt_pre") else set()
+    _band = {k for k in prev_keys if str((job.get("done") or {}).get(k, "")).startswith("band (")}
+    retry = bool(prev_keys - _pre_keys - _band) or bool(prev_errs)
+    job["last_errs"] = {k: v[:80] for k, v in errs.items()}
+    save_job(jid, job)
+    if retry:
+        new_ok = {k: v for k, v in done.items() if k not in prev_keys}
+        same = {k: v[:80] for k, v in errs.items()} == {k: v[:80] for k, v in prev_errs.items()}
+        if not new_ok and same:
+            log(f"retry {jid}: kuch naya nahi, report nahi bheji")
+            lines = None
+        else:
+            lines = [f"♻️ {BRANDS[brand]['name']} (dobara koshish): {meta['title'][:70]}"]
+            lines += [f"✅ {k}: {v}" for k, v in new_ok.items()]
+            lines += [_err_line(k, v, job) for k, v in errs.items()]
+    else:
+        lines = [f"📤 {BRANDS[brand]['name']}: {meta['title']}"]
+        lines += [f"✅ {k}: {v}" for k, v in done.items()]
+        lines += [_err_line(k, v, job) for k, v in errs.items()]
+        lines += [f"{'' if str(v)[:1] in '⏸🔁⚠' else '⏸ '}{k}: {v}" for k, v in waits.items()]   # v3.4.17: ruke platform bhi dikhein
+        _pg = meta.get("page") or "/"              # v3.4.17: '/' (adhura) ki jagah us video ke jawab ka poora link
+        if _pg == "/" and meta.get("reel_code"):
+            _pg = f"/jawab#c{meta.get('reel_code')}"
+        lines.append(f"🔗 Website: {SITE}{_pg}")
+    if not errs and not retry and not job.get("yt_pre"):      # v3.4.40: pehle jaisa hi (schedule wali video par ye alag sandesh nahi tha)
+        yt = done.get("youtube", "")
+        tg.say("📲 WhatsApp channel ke liye (copy karke forward karein):\n\n"
+               f"{meta['title']}\n\n▶️ {yt}\n🌐 {SITE}{meta.get('page', '/')}?utm_source=whatsapp&utm_campaign={brand}")
+    from . import diary
+    diary.add("upload", f"{BRANDS[brand]['name']}: {meta['title'][:60]} | ok={list(done)} fail={list(errs)}")
+    try:                                          # v2.0.5: har brand x platform ka aakhri haal (HEALTH.md + alert)
+        now_s = now().strftime("%Y-%m-%d %H:%M")
+        def _h(d):
+            d = dict(d or {})
+            for pf in done:
+                d[f"{brand}:{pf}"] = {"ok": True, "t": now_s, "err": ""}
+            for pf, wmsg in waits.items():
+                d[f"{brand}:{pf}"] = {"ok": True, "t": now_s, "err": "", "wait": wmsg}
+            for pf, e in errs.items():
+                prev = d.get(f"{brand}:{pf}", {})
+                d[f"{brand}:{pf}"] = {"ok": False, "t": now_s, "err": e[:160], "fails": (prev.get("fails", 0) + 1) if not prev.get("ok", True) else 1,
+                                      "last_ok": prev.get("t") if prev.get("ok") else prev.get("last_ok", "")}
+            return d
+        state.update("platform_health", _h, {})
+        from . import updater
+        if errs:
+            updater.mark_dirty()
+    except Exception as e:
+        log(f"health: {e}")
+    if lines:
+        tg.alert("yellow" if errs and not (ig_transient_only(errs) and job.get("status") == "approved") else "green", "\n".join(lines))
+
+
+IG_RETRY_MIN = 10          # v3.9.5: Instagram 'ProcessingFailedError' (Meta ki taraf) - 10 min baad, max 6 koshish (pehle 30 min, 3)
+IG_RETRY_MAX = 6
+
+
+def ig_transient_only(errs):
+    """errs mein sirf Instagram hai aur wo Meta ki kuch der wali galti hai (file processing / network / seema)."""
+    if not errs or set(errs) - {"instagram"}:
+        return False
+    try:
+        from . import igguard
+        return igguard.transient(errs.get("instagram", ""))
+    except Exception:
+        return False
+
+
+def _err_line(k, v, job):
+    if k == "instagram" and job.get("status") == "approved" and ig_transient_only({k: v}):
+        return (f"⏳ instagram: Meta ne abhi file process nahi ki (unki taraf ki kuch der ki dikkat) - bot {IG_RETRY_MIN} min mein khud "
+                f"dobara bhejega (koshish {job.get('tries', 1)}/{IG_RETRY_MAX}). Aapka kuch nahi karna.")
+    return f"❌ {k}: {v}"
+
+
+SLOT_DOC_EVERY = 300        # v3.9.5 (owner 25 Nov: 'koi bhi error aaye auto doctor instant theek kare, koi schedule pending na rahe')
+
+
+def slot_doctor(run, run_up=None, t=None):
+    """Har 5 min, bina deri (sirf jaancha hua raasta, naya content nahi):
+    1) aaj ka sawal-slot jiski video bani hi nahi / sab 'failed' -> dobara banao (slot se 25+ min pehle, ek slot par max 2 baar)
+    2) 'making' 150 min se atki -> failed maan kar (1) se dobara
+    3) 'queued' slot ke 45 min baad bhi YouTube nahi -> upload dobara (max 2)
+    4) 'partial' jisme sirf Instagram (Meta ki kuch der ki galti) bacha -> 1 ghante baad phir (aaj ke andar, max 2)
+    -> [sudhaar ki line]"""
+    t = t or now()
+    run_up = run_up or run
+    today = str(t.date())
+    fixes = []
+    docs = {k: v for k, v in (state.get("slot_doc") or {}).items() if k[:10] >= today}
+    js = jobs()
+    for brand, slots in schedule().items():
+        for hhmm in [x.strip() for x in str(slots).split(",") if x.strip()]:
+            try:
+                h, m = map(int, hhmm.split(":"))
+            except Exception:
+                continue
+            slot = t.replace(hour=h, minute=m, second=0, microsecond=0)
+            key = f"{today}:{brand}:{hhmm}"
+            if not (state.get("made_today") or {}).get(key) or slot - t < datetime.timedelta(minutes=25):
+                continue                                     # abhi bana hi nahi (tick banayega) / slot bahut paas
+            mine = [(j, x) for j, x in js.items() if not str(j).startswith("svc") and x.get("brand") == brand
+                    and str(x.get("slot", ""))[:16] == slot.isoformat()[:16] and str(x.get("reason", "")).startswith("roz ka schedule")]
+            for j, x in mine:
+                if x.get("status") == "making":
+                    try:
+                        age = t - datetime.datetime.fromisoformat(x.get("created"))
+                    except Exception:
+                        age = datetime.timedelta(0)
+                    if age > datetime.timedelta(minutes=150):
+                        save_job(j, {**x, "status": "failed", "why": "150 min se atki (slot doctor)"})
+                        x["status"] = "failed"
+            alive = [j for j, x in mine if x.get("status") not in ("failed", "kharab")]
+            if alive or docs.get(key, 0) >= 2:
+                continue
+            docs[key] = docs.get(key, 0) + 1
+            run(prepare, brand, slot.isoformat(), "roz ka schedule")
+            fixes.append(f"{BRANDS[brand]['name']} {hhmm} ki video " + ("bani nahi thi" if not mine else "fail thi") + " → dobara bana raha")
+    for j, x in list(js.items()):
+        try:
+            sl = datetime.datetime.fromisoformat(x.get("slot"))
+        except Exception:
+            continue
+        if str(sl.date()) != today or x.get("reason") not in ("roz ka schedule", "hafte ki lambi video", "schedule"):
+            continue
+        dk = f"{today}:job:{j}"
+        if (x.get("status") == "queued" and t - sl > datetime.timedelta(minutes=45) and "youtube" not in (x.get("done") or {})
+                and docs.get(dk, 0) < 2 and j not in str(state.get("working_on") or "")):
+            docs[dk] = docs.get(dk, 0) + 1
+            save_job(j, {**x, "status": "approved", "now": True})
+            fixes.append(f"{j} ({BRANDS.get(x.get('brand'), {}).get('name', x.get('brand'))}) upload line mein atki thi → dobara upload")
+        elif (x.get("status") == "partial" and ig_transient_only(x.get("last_errs") or {}) and docs.get(dk, 0) < 2
+              and t - sl > datetime.timedelta(minutes=60 * (docs.get(dk, 0) + 1))):
+            docs[dk] = docs.get(dk, 0) + 1
+            save_job(j, {**x, "status": "approved", "tries": IG_RETRY_MAX - 1, "slot": t.isoformat(), "now": False})
+            fixes.append(f"{j}: Instagram baaki tha (Meta ki galti) → ek aur koshish")
+    state.put("slot_doc", docs)
+    if fixes:
+        tg.alert("green", "🩺 SLOT DOCTOR (khud theek kiya, aapka kuch nahi):\n" + "\n".join("• " + f for f in fixes))
+    return fixes
+
+
+NIGHT_START = "23:30"      # v3.9.6 owner: raat 23:30 - 04:30 render
+NIGHT_END = "04:30"
+
+
+def tick(run, run_up=None):
+    """Har minute: schedule ke hisaab se video banao / upload karo. run(fn,*a) = worker queue."""
+    if state.get("paused"):
+        return
+    if time.time() - float(state.get("slot_doc_at") or 0) > SLOT_DOC_EVERY:
+        state.put("slot_doc_at", time.time())
+        try:
+            slot_doctor(run, run_up)
+        except Exception as e:
+            log(f"slot doctor: {e}")
+    try:
+        replace_tick(run)
+    except Exception as e:
+        log(f"replace tick: {e}")
+    t = now()
+    today = str(t.date())
+    made = state.get("made_today", {})
+    # v3.9.6 (owner 26 Nov: "raat 11:30 se subah 4:30 tak poori video bana le, din mein VM khaali rakhe"):
+    # 23:30-23:59 = KAL ke slot ki video (kal ki tareekh ki key), 00:00-04:30 = aaj ki. Din mein sirf aapaat (slot doctor).
+    _hm = t.strftime("%H:%M")
+    _days = [t.date()]
+    if state.get("night_make", True) and _hm >= NIGHT_START:
+        _days = [t.date() + datetime.timedelta(days=1)]
+    for _dd in _days:
+      for brand, slots in schedule().items():
+        for hhmm in [s.strip() for s in str(slots).split(",") if s.strip()]:
+            h, m = map(int, hhmm.split(":"))
+            slot = datetime.datetime.combine(_dd, datetime.time(h, m), tzinfo=t.tzinfo)
+            key = f"{_dd}:{brand}:{hhmm}"
+            if made.get(key):
+                continue
+            _night = (state.get("night_make", True) and (_hm >= NIGHT_START or _hm <= NIGHT_END) and t < slot)
+            # v3.9.3 (owner): raat mein hi aaj ki saari video bana kar rakho (ek line mein, ek-ek karke) - din mein slot kabhi khaali na rahe
+            if (slot - datetime.timedelta(hours=PREPARE_HOURS) <= t or _night) and t < slot + datetime.timedelta(hours=2):
+                state.update("made_today", lambda d, k=key: {**{a: b for a, b in (d or {}).items() if a[:10] >= today}, k: 1}, {})
+                made[key] = 1
+                from .config import QUIZ_SLOT
+                _sl = [x.strip() for x in str(slots).split(",") if x.strip()]
+                _qp_on = False
+                try:
+                    from . import qplan as _QP
+                    _qp_on = _QP.is_on()
+                except Exception:
+                    pass
+                _ev_plan = (state.get("plan") or {}).get(str(_dd), {}).get(brand)
+                if _qp_on and _ev_plan and hhmm == _sl[0] and not blocked_topic(brand, _ev_plan):
+                    # v2.9.0: tyohaar/khaas din ka plan (calendar ne 2+ website se pakka kiya) - us din pehla slot usi vishay ka sawal
+                    run(prepare, brand, slot.isoformat(), "roz ka schedule")
+                elif _qp_on or _topic_off(brand) or puzzle_slot(brand, hhmm, _dd):
+                    # v2.3.1/2.3.3: doosra (aakhri) slot = jaancha hua puzzle/GK / 24-look elite paheli
+                    run(prepare, brand, slot.isoformat(), "roz ka schedule", None, "short", "__puzzle__")
+                else:
+                    run(prepare, brand, slot.isoformat(), "roz ka schedule")
+    for jid, job in jobs().items():
+        slot = datetime.datetime.fromisoformat(job["slot"])
+        auto_ok = job.get("reason") in ("roz ka schedule", "hafte ki lambi video", "schedule")   # aapki/test video kabhi khud nahi
+        if job["status"] == "waiting" and auto_on() and auto_ok and t >= slot - datetime.timedelta(minutes=20):
+            th_ = auto_thumb(jid, job)
+            approve(jid, th_)     # autopilot: 3 audit paas -> slot se 20 min pehle khud manzoor (theek samay par post)
+            tg.alert("green", f"🤖 {jid}: aapka jawab nahi aaya, 3 audit paas hain - Thumb {th_} se {job['slot'][11:16]} par jayegi.")
+            job = jobs()[jid]
+        run_up = run_up or run
+        if (job["status"] == "approved" and not job.get("now") and "youtube" not in job.get("done", {})
+                and datetime.timedelta(minutes=12) < slot - t <= datetime.timedelta(hours=3) and not job.get("yt_pre")):
+            job["yt_pre"] = 1                      # YouTube par pehle se 'schedule' (theek samay par khud public)
+            save_job(jid, job)
+            run_up(upload, jid, True)
+        if job["status"] == "approved" and (job.get("now") or t >= slot):
+            job["status"] = "queued"
+            save_job(jid, job)
+            run_up(upload, jid)
+    try:                                          # v2.2.0: bhoole hue namoone 1 din baad saaf
+        from . import studio
+        studio.cleanup()
+    except Exception as e:
+        log(f"studio cleanup: {e}")
+    # purane job saaf (7 din)
+    cutoff = (t - datetime.timedelta(days=7)).isoformat()
+    old = [j for j, v in jobs().items() if v.get("created", "") < cutoff and v["status"] in
+           ("posted", "rejected", "failed")]
+    if old:
+        state.update("jobs", lambda d: {k: v for k, v in (d or {}).items() if k not in old}, {})
+
+
+# ---------------- v2.3.0 Step 1 (v11 se): SPARE REEL BANK + offline lambi video ----------------
+SPARE_PER_BRAND = 2
+SPARE_MAX_DAYS = 30
+
+
+def spare_reel_status():
+    """Har brand ki kitni pehle-se-bani reel taiyaar hai (data/spare_reels/<brand>/)."""
+    from .config import SPARE_REELS_DIR
+    out = {}
+    for b in BRANDS:
+        bdir = SPARE_REELS_DIR / b
+        out[b] = len(list(bdir.glob("*/video.mp4"))) if bdir.exists() else 0
+    return out
+
+
+def spare_reel_refill(brand=None):
+    """VM khaali ho tab (raat): har brand ki 2 tak spare reel - bank script se, audit-paas, kabhi post nahi jab tak zaroorat na ho."""
+    from .config import SPARE_REELS_DIR
+    from .guardtext import clean_script
+    targets = [brand] if brand in BRANDS else list(BRANDS)
+    made = []
+    cut = time.time() - SPARE_MAX_DAYS * 86400
+    for b in targets:
+        bdir = SPARE_REELS_DIR / b
+        bdir.mkdir(parents=True, exist_ok=True)
+        for v in bdir.glob("*/video.mp4"):          # purani (30 din) spare hatao - taaza rahe
+            if v.stat().st_mtime < cut:
+                shutil.rmtree(v.parent, ignore_errors=True)
+        if len(list(bdir.glob("*/video.mp4"))) >= SPARE_PER_BRAND:
+            continue
+        try:
+            sc = None
+            try:
+                from . import puzzles                # Step 4 ke baad: puzzle reel bhi
+                sc = puzzles.generate_puzzle("auto", b)
+            except Exception:
+                sc = _bank(b)
+            sc = clean_script(sc)
+            meta = render(sc)
+            checks = audit.run(meta)
+            if audit.passed(checks) and not _dup_of(b, meta):
+                src_d = pathlib.Path(meta["video"]).parent
+                dest_d = bdir / src_d.name
+                shutil.move(str(src_d), str(dest_d))
+                m2 = json.loads((dest_d / "meta.json").read_text(encoding="utf-8"))
+                m2["video"] = str(dest_d / "video.mp4")
+                m2["thumbs"] = [str(dest_d / pathlib.Path(p).name) for p in m2.get("thumbs", [])]
+                (dest_d / "meta.json").write_text(json.dumps(m2, ensure_ascii=False, indent=2))
+                made.append(f"{BRANDS[b]['name']}: {m2.get('title', '')[:40]}")
+            else:
+                shutil.rmtree(pathlib.Path(meta["video"]).parent, ignore_errors=True)
+        except Exception as e:
+            log(f"spare_reel_refill {b}: {e}")
+    st = spare_reel_status()
+    return ("🎞 Spare reel bank: " + ", ".join(f"{BRANDS[k]['name']}: {v}" for k, v in st.items()) +
+            (("\nNayi: " + "; ".join(made)) if made else ""))
+
+
+def _take_spare(brand):
+    """Slot bachaane ke liye ek spare reel STOCK mein laao -> (meta, checks) ya None. Jo pehle ja chuki ho (sig) wo nahi."""
+    from .config import SPARE_REELS_DIR
+    bdir = SPARE_REELS_DIR / brand
+    for v in sorted(bdir.glob("*/video.mp4")) if bdir.exists() else []:
+        try:
+            m = json.loads((v.parent / "meta.json").read_text(encoding="utf-8"))
+            if _dup_of(brand, m):
+                shutil.rmtree(v.parent, ignore_errors=True)
+                continue
+            dest = STOCK / v.parent.name
+            shutil.move(str(v.parent), str(dest))
+            m["video"] = str(dest / "video.mp4")
+            m["thumbs"] = [str(dest / pathlib.Path(p).name) for p in m.get("thumbs", [])]
+            (dest / "meta.json").write_text(json.dumps(m, ensure_ascii=False, indent=2))
+            checks = audit.run(m)
+            if audit.passed(checks):
+                return m, checks
+        except Exception as e:
+            log(f"take spare: {e}")
+    return None
+
+
+def build_offline_long_script(brand):
+    """Ravivaar ki lambi video Gemini band ho tab bhi: bank ki (abhi tak na gayi) script + puzzle se 25+ scene ki
+    'Master Guide' (chapters ke saath). Kabhi pehle gayi script nahi."""
+    import glob
+    files = sorted(glob.glob(str(writer.BANK / f"{brand}_*.json")))
+    used = {h.get("sig") for h in (state.get("history") or [])}
+    scenes = [{"show": f"{BRANDS[brand]['name']} — hafte ki Master Guide: zaroori hisaab",
+               "say": f"Swagat hai {BRANDS[brand]['name']} ki is hafte ki master guide mein. Aaj zaroori vishayon ka poora hisaab samjhenge."}]
+    chapters = ["00:00 Parichay"]
+    sec_est, parts = 6, 0
+    for fp in files:
+        if parts >= 6:
+            break
+        try:
+            b_sc = json.loads(pathlib.Path(fp).read_text(encoding="utf-8"))
+            if _sig(b_sc) in used:
+                continue
+            parts += 1
+            mm, ss = divmod(sec_est, 60)
+            chapters.append(f"{mm:02d}:{ss:02d} Bhaag {parts}: {b_sc.get('title', '')[:45]}")
+            for sc in b_sc.get("scenes", [])[:-1]:
+                scenes.append(sc)
+                sec_est += 6
+        except Exception:
+            pass
+    try:
+        from . import puzzles
+        for _ in range(2):
+            for sc in puzzles.generate_puzzle("auto", brand).get("scenes", [])[:-1]:
+                scenes.append(sc)
+    except Exception:
+        pass
+    scenes.append({"show": f"Poora hisaab aur saare free calculator: {SITE}/",
+                   "say": "In sab ke free calculator ke liye sab hisaab dot com dekhein aur channel subscribe karein."})
+    if len(scenes) < 25:
+        raise RuntimeError("Offline lambi video ke liye bank mein kaafi nayi script nahi")
+    return {"brand": brand, "format": "long", "page": "/", "source": "bank",
+            "title": f"{BRANDS[brand]['name']}: hafte ke zaroori hisaab - poori Master Guide",
+            "description": "Is hafte ki master guide. Chapters:\n" + "\n".join(chapters),
+            "thumb": {"lines": [BRANDS[brand]["name"], "*Master Guide*"], "emoji": "📺"}, "scenes": scenes[:60]}
+
+
+# ---------------- v2.0.3: script BANK kabhi khaali nahi (schedule kabhi na chhoote) ----------------
+BANK_MIN = 6                 # v2.3.2: roz 2 slot -> 3 din ka bank (pehle 4)
+
+
+def bank_fresh(brand):
+    import glob
+    used = {h.get("sig") for h in state.get("history", [])}
+    n = 0
+    for f in glob.glob(str(writer.BANK / f"{brand}_*.json")):
+        try:
+            if _sig(json.loads(pathlib.Path(f).read_text(encoding="utf-8"))) not in used:
+                n += 1
+        except Exception:
+            pass
+    return n
+
+
+def bank_refill(max_new=3):
+    """Raat ko (01:00, VM khaali): har brand ke liye kam se kam 4 taaza, 3-jaanch-paas script bank mein.
+    Gemini band ho ya video fail ho to slot par yahi chalti hai. Topic: trend/evergreen (aaj ke plan se alag)."""
+    from . import audit_ai, seo
+    from .guardtext import clean_script
+    writer.BANK.mkdir(parents=True, exist_ok=True)
+    made = []
+    for b in BRANDS:
+        need = max(0, BANK_MIN - bank_fresh(b))
+        for _ in range(min(need, max_new)):
+            try:
+                if b == "pahadi":                   # v2.3.2: pahadi bank = Uttarakhand GK / purane shabd (trend nahi)
+                    from .weekplan import PAHADI_DAY_TOPICS
+                    t = random.choice([x for v in PAHADI_DAY_TOPICS.values() for x in v])
+                else:
+                    tr = seo.trends(b) or [BRANDS[b]["name"]]
+                    t = random.choice(tr[:10])
+                s = clean_script(writer.write(b, {"key": f"bank:{t}", "topic": t, "page": "/", "kind": "idea"},
+                                              "short", writer.QUIZ_STYLE))      # v2.3.2: bank ki script bhi SAWAL wali (4 vikalp)
+                if s.get("source") != "gemini" or duplicate(b, s.get("title", ""), sig=_sig(s)):
+                    continue
+                ok, notes = audit_ai.check(b, s)
+                if not ok:
+                    continue
+                s["bank_made"] = str(now().date())
+                (writer.BANK / f"{b}_auto_{now():%Y%m%d%H%M%S}.json").write_text(json.dumps(s, ensure_ascii=False), encoding="utf-8")
+                made.append(f"{BRANDS[b]['name']}: {s.get('title', '')[:40]}")
+            except Exception as e:
+                log(f"bank_refill {b}: {e}")
+    return made
+
+
+# ---------------- v3.4.33 (owner 19 Nov: "'Mat daalo' bolu to pooche doosri banau - turant pooche ya khud kare") ----------------
+REPLACE_WAIT_MIN = 10      # itne minute jawab na aaye to khud nayi
+REPLACE_MIN_LEAD = 25      # slot mein isse kam minute bache to nayi nahi (banne mein ~10-15 min)
+
+
+def _was_puzzle_slot(brand, slot_dt):
+    """Roz ke schedule mein aakhri slot = sawal/puzzle wali reel (tick jaisa hi niyam)."""
+    try:
+        return puzzle_slot(brand, slot_dt.strftime("%H:%M"), slot_dt.date())
+    except Exception:
+        return False
+
+
+def ask_replace(jid, job):
+    """Reject ke baad: slot abhi door hai to poochho 'doosri banau?' (button). Jawab na aaye to REPLACE_WAIT_MIN baad khud."""
+    try:
+        slot = datetime.datetime.fromisoformat(job["slot"])
+    except Exception:
+        return ""
+    lead = (slot - now()).total_seconds() / 60
+    if job.get("reason") not in ("roz ka schedule", "schedule") or lead < REPLACE_MIN_LEAD:
+        return ""
+    state.update("replace_ask", lambda d: {**(d or {}), jid: {"at": time.time(), "brand": job["brand"], "slot": job["slot"]}}, {})
+    tg.say(f"🔁 {BRANDS[job['brand']]['name']} ka {slot.strftime('%H:%M')} wala slot khaali ho gaya. Doosri video banau?\n"
+           f"({REPLACE_WAIT_MIN} min mein jawab na aaya to main khud nayi bana dunga - wo bhi manzoori ke liye aayegi.)",
+           tg.inline([[("🔁 Haan, abhi banao", f"rp:{jid}"), ("⏭ Nahi, slot khaali", f"rx:{jid}")]]))
+    return "asked"
+
+
+def replace_answer(jid, yes, run):
+    d = state.get("replace_ask") or {}
+    it = d.pop(jid, None)
+    state.put("replace_ask", d)
+    if not it:
+        return tg.say("Ye sawaal purana ho gaya (ya nayi video pehle hi ban rahi hai).")
+    if not yes:
+        return tg.say("👍 Theek hai, ye slot khaali rahega.")
+    return _make_replacement(it, run)
+
+
+def _make_replacement(it, run):
+    slot = datetime.datetime.fromisoformat(it["slot"])
+    if (slot - now()).total_seconds() / 60 < REPLACE_MIN_LEAD - 10:
+        return tg.say(f"⏰ {slot.strftime('%H:%M')} ka slot ab bahut paas hai - nayi video samay par nahi banegi. Slot khaali.")
+    b = it["brand"]
+    if _was_puzzle_slot(b, slot):
+        run(prepare, b, it["slot"], "roz ka schedule", None, "short", "__puzzle__")
+    else:
+        run(prepare, b, it["slot"], "roz ka schedule")
+    return tg.say(f"🎬 {BRANDS[b]['name']}: {slot.strftime('%H:%M')} ke liye nayi video ban rahi hai (pehle wali ki jagah).")
+
+
+def replace_tick(run):
+    """Har minute: jinka jawab REPLACE_WAIT_MIN tak nahi aaya, unki jagah khud nayi."""
+    d = state.get("replace_ask") or {}
+    due = [j for j, it in d.items() if time.time() - float(it.get("at", 0)) >= REPLACE_WAIT_MIN * 60]
+    if not due:
+        return
+    for j in due:
+        it = d.pop(j)
+        state.put("replace_ask", d)
+        tg.say(f"⏱ {REPLACE_WAIT_MIN} min mein jawab nahi aaya - {BRANDS[it['brand']]['name']} ke liye khud nayi video bana raha hoon.")
+        _make_replacement(it, run)
